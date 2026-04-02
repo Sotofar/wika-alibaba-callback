@@ -14,6 +14,8 @@ const CLEANUP_INTERVAL_MS = 60 * 1000;
 const MIN_REFRESH_DELAY_MS = 5 * 1000;
 const REFRESH_RETRY_DELAY_MS = 5 * 60 * 1000;
 const DEFAULT_REFRESH_BUFFER_SECONDS = 10 * 60;
+const MAX_TIMER_DELAY_MS = 2_147_000_000;
+const RESCHEDULE_CHUNK_MS = 24 * 60 * 60 * 1000;
 const DEFAULT_WIKA_TOKEN_STORAGE_PATH = path.join(
   __dirname,
   "data",
@@ -823,10 +825,18 @@ function scheduleWikaAutoRefresh(reason = "scheduled") {
     );
   }
 
-  wikaTokenRuntime.nextRefreshAt = new Date(Date.now() + delayMs).toISOString();
+  const finalTargetAt = Date.now() + delayMs;
+  wikaTokenRuntime.nextRefreshAt = new Date(finalTargetAt).toISOString();
+
+  const timerDelayMs = Math.min(delayMs, MAX_TIMER_DELAY_MS, RESCHEDULE_CHUNK_MS);
   wikaTokenRuntime.refreshTimer = setTimeout(() => {
+    if (Date.now() + MIN_REFRESH_DELAY_MS < finalTargetAt) {
+      scheduleWikaAutoRefresh(reason);
+      return;
+    }
+
     refreshWikaToken(reason).catch(() => {});
-  }, delayMs);
+  }, timerDelayMs);
   wikaTokenRuntime.refreshTimer.unref?.();
 }
 
