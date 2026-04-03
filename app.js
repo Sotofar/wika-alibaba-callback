@@ -36,6 +36,7 @@ const DEFAULT_XD_TOKEN_STORAGE_PATH = path.join(
   "runtime",
   "xd-token.json"
 );
+const DEFAULT_ALIBABA_SYNC_API_URL = "https://open-api.alibaba.com/sync";
 
 const stateStore = new Map();
 function createTokenRuntimeState() {
@@ -1344,6 +1345,397 @@ function buildReadOnlyErrorResponse(error) {
   };
 }
 
+const XD_ORDER_LIST_VERIFIED_FIELDS = Object.freeze([
+  "response_meta.total_count",
+  "response_meta.returned_item_count",
+  "response_meta.start_page",
+  "response_meta.page_size",
+  "items.trade_id",
+  "items.create_date.timestamp",
+  "items.create_date.format_date",
+  "items.modify_date.timestamp",
+  "items.modify_date.format_date"
+]);
+
+const XD_ORDER_DETAIL_VERIFIED_FIELDS = Object.freeze([
+  "item.trade_id",
+  "item.create_date.timestamp",
+  "item.create_date.format_date",
+  "item.modify_date.timestamp",
+  "item.modify_date.format_date",
+  "item.trade_status",
+  "item.fulfillment_channel",
+  "item.shipment_method",
+  "item.shipment_date",
+  "item.buyer.full_name",
+  "item.buyer.immutable_eid",
+  "item.buyer.e_account_id",
+  "item.export_service_type",
+  "item.amount.amount",
+  "item.amount.currency",
+  "item.shipment_fee.amount",
+  "item.product_total_amount.amount",
+  "item.order_products"
+]);
+
+function toPositiveInteger(value, fallbackValue, maxValue = Number.POSITIVE_INFINITY) {
+  const parsed = Number.parseInt(String(value ?? ""), 10);
+  if (!Number.isFinite(parsed) || parsed <= 0) {
+    return fallbackValue;
+  }
+
+  return Math.min(parsed, maxValue);
+}
+
+function toNonNegativeInteger(value, fallbackValue) {
+  const parsed = Number.parseInt(String(value ?? ""), 10);
+  if (!Number.isFinite(parsed) || parsed < 0) {
+    return fallbackValue;
+  }
+
+  return parsed;
+}
+
+function normalizeSyncDateValue(value) {
+  if (!value || typeof value !== "object") {
+    return {
+      timestamp: null,
+      format_date: null
+    };
+  }
+
+  const timestamp = Number(value.timestamp);
+
+  return {
+    timestamp: Number.isFinite(timestamp) ? timestamp : null,
+    format_date: value.format_date ?? null
+  };
+}
+
+function normalizeSyncMoneyValue(value) {
+  if (!value || typeof value !== "object") {
+    return {
+      amount: null,
+      currency: null
+    };
+  }
+
+  return {
+    amount: value.amount ?? null,
+    currency: value.currency ?? null
+  };
+}
+
+function serializeSyncRequestValue(value) {
+  if (value === undefined || value === null || value === "") {
+    return "";
+  }
+
+  if (typeof value === "object") {
+    return JSON.stringify(value);
+  }
+
+  return String(value);
+}
+
+async function parseAlibabaSyncResponse(response) {
+  const rawText = await response.text();
+
+  try {
+    return {
+      rawText,
+      json: JSON.parse(rawText)
+    };
+  } catch {
+    return {
+      rawText,
+      json: null
+    };
+  }
+}
+
+function resolveOfficialSyncEndpoint(endpointUrl) {
+  if (!endpointUrl || endpointUrl === DEFAULT_ALIBABA_TOP_API_URL) {
+    return DEFAULT_ALIBABA_SYNC_API_URL;
+  }
+
+  return endpointUrl;
+}
+
+async function callAlibabaSyncReadOnlyApi({
+  apiName,
+  appKey,
+  appSecret,
+  accessToken,
+  endpointUrl = DEFAULT_ALIBABA_SYNC_API_URL,
+  businessParams = {},
+  timeoutMs = 15_000
+}) {
+  const requestParams = {
+    method: apiName,
+    app_key: appKey,
+    access_token: accessToken,
+    sign_method: "sha256",
+    timestamp: String(Date.now())
+  };
+
+  for (const [key, value] of Object.entries(businessParams)) {
+    const serializedValue = serializeSyncRequestValue(value);
+    if (serializedValue !== "") {
+      requestParams[key] = serializedValue;
+    }
+  }
+
+  requestParams.sign = signAlibabaRequest({
+    apiName: "",
+    params: requestParams,
+    clientSecret: appSecret
+  });
+
+  const requestOptions = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+      Accept: "application/json"
+    },
+    body: JSON.stringify(requestParams)
+  };
+
+  if (globalThis.AbortSignal?.timeout) {
+    requestOptions.signal = AbortSignal.timeout(timeoutMs);
+  }
+
+  const response = await fetch(endpointUrl, requestOptions);
+  const parsed = await parseAlibabaSyncResponse(response);
+
+  if (!response.ok) {
+    throw new AlibabaApiError("Alibaba sync API request failed", {
+      apiName,
+      endpointUrl,
+      status: response.status,
+      rawText: parsed.rawText
+    });
+  }
+
+  if (!parsed.json || typeof parsed.json !== "object") {
+    throw new AlibabaApiError("Alibaba sync API returned non-JSON data", {
+      apiName,
+      endpointUrl,
+      rawText: parsed.rawText
+    });
+  }
+
+  if (parsed.json.error_response) {
+    throw new AlibabaApiError("TOP API returned error_response", {
+      apiName,
+      endpointUrl,
+      errorResponse: parsed.json.error_response
+    });
+  }
+
+  const rootKey = `${apiName.replace(/\./g, "_")}_response`;
+
+  return {
+    rootKey,
+    payload: parsed.json[rootKey] ?? parsed.json,
+    raw: parsed.json
+  };
+}
+
+function buildXdOfficialOrderListQuery(query = {}) {
+  return {
+    param_trade_ecology_order_list_query: {
+      role: String(query.role || "seller"),
+      start_page: toNonNegativeInteger(query.start_page, 0),
+      page_size: toPositiveInteger(query.page_size, 20, 50),
+      status: query.status ? String(query.status).trim() : undefined,
+      sales_man_login_id: query.sales_man_login_id
+        ? String(query.sales_man_login_id).trim()
+        : undefined
+    }
+  };
+}
+
+function normalizeXdOfficialOrderListItem(item = {}) {
+  return {
+    trade_id: item.trade_id ?? null,
+    create_date: normalizeSyncDateValue(item.create_date),
+    modify_date: normalizeSyncDateValue(item.modify_date)
+  };
+}
+
+function normalizeXdOfficialOrderDetail(item = {}, requestedTradeId = null) {
+  const rawProducts = item.order_products?.trade_ecology_order_product;
+  const orderProducts = Array.isArray(rawProducts)
+    ? rawProducts
+    : rawProducts
+      ? [rawProducts]
+      : [];
+
+  return {
+    trade_id: item.trade_id ?? requestedTradeId ?? null,
+    create_date: normalizeSyncDateValue(item.create_date),
+    modify_date: normalizeSyncDateValue(item.modify_date),
+    trade_status: item.trade_status ?? null,
+    fulfillment_channel: item.fulfillment_channel ?? null,
+    shipment_method: item.shipment_method ?? null,
+    shipment_date: normalizeSyncDateValue(item.shipment_date),
+    export_service_type: item.export_service_type ?? null,
+    buyer: {
+      full_name: item.buyer?.full_name ?? null,
+      immutable_eid: item.buyer?.immutable_eid ?? null,
+      e_account_id: item.buyer?.e_account_id ?? null
+    },
+    amount: normalizeSyncMoneyValue(
+      item.total_amount ??
+        item.order_amount ??
+        item.pay_amount ??
+        item.inspection_service_amount
+    ),
+    product_total_amount: normalizeSyncMoneyValue(item.product_total_amount),
+    shipment_fee: normalizeSyncMoneyValue(item.shipment_fee),
+    advance_amount: normalizeSyncMoneyValue(item.advance_amount),
+    discount_amount: normalizeSyncMoneyValue(item.discount_amount),
+    product_count: orderProducts.length,
+    order_products: orderProducts.slice(0, 20).map((product) => ({
+      product_id: product.product_id ?? null,
+      name: product.name ?? null,
+      quantity: product.quantity ?? null,
+      unit: product.unit ?? null,
+      unit_price: normalizeSyncMoneyValue(product.unit_price),
+      product_image: product.product_image ?? null
+    })),
+    available_field_keys:
+      item && typeof item === "object" ? Object.keys(item).sort() : []
+  };
+}
+
+async function fetchXdOfficialOrderList(
+  {
+    appKey,
+    appSecret,
+    accessToken,
+    endpointUrl = DEFAULT_ALIBABA_TOP_API_URL
+  },
+  query = {}
+) {
+  const businessParams = buildXdOfficialOrderListQuery(query);
+  const effectiveEndpointUrl = resolveOfficialSyncEndpoint(endpointUrl);
+  const response = await callAlibabaSyncReadOnlyApi({
+    apiName: "alibaba.seller.order.list",
+    appKey,
+    appSecret,
+    accessToken,
+    endpointUrl: effectiveEndpointUrl,
+    businessParams
+  });
+
+  const payload = response.payload ?? {};
+  const result = payload.result ?? {};
+  if (result.success === false) {
+    throw new AlibabaApiError("Alibaba order list returned business failure", {
+      apiName: "alibaba.seller.order.list",
+      endpointUrl: effectiveEndpointUrl,
+      errorResponse: {
+        code: result.error_code ?? null,
+        sub_code: null,
+        msg: result.error_message ?? "Alibaba order list business failure",
+        sub_msg: null
+      },
+      payload
+    });
+  }
+
+  const value = result.value ?? {};
+  const rawItems = value.order_list?.trade_ecology_order;
+  const normalizedItems = (Array.isArray(rawItems)
+    ? rawItems
+    : rawItems
+      ? [rawItems]
+      : []
+  ).map(normalizeXdOfficialOrderListItem);
+
+  return {
+    module: "orders",
+    account: "xd",
+    read_only: true,
+    source: {
+      type: "official_api",
+      api_name: "alibaba.seller.order.list",
+      endpoint_url: effectiveEndpointUrl,
+      auth_parameter: "access_token",
+      sign_method: "sha256"
+    },
+    verification_status: "待线上验收",
+    evidence_level: "L1",
+    verified_fields: XD_ORDER_LIST_VERIFIED_FIELDS,
+    response_meta: {
+      total_count: value.total_count ?? null,
+      returned_item_count: normalizedItems.length,
+      start_page: businessParams.param_trade_ecology_order_list_query.start_page,
+      page_size: businessParams.param_trade_ecology_order_list_query.page_size,
+      request_id: payload.request_id ?? null,
+      trace_id: payload._trace_id_ ?? null,
+      success: result.success ?? null
+    },
+    items: normalizedItems
+  };
+}
+
+async function fetchXdOfficialOrderDetail(
+  {
+    appKey,
+    appSecret,
+    accessToken,
+    endpointUrl = DEFAULT_ALIBABA_TOP_API_URL
+  },
+  query = {}
+) {
+  const tradeId = String(query.e_trade_id ?? "").trim();
+  if (!tradeId) {
+    throw new ConfigurationError("XD orders detail requires e_trade_id", [
+      "e_trade_id"
+    ]);
+  }
+
+  const effectiveEndpointUrl = resolveOfficialSyncEndpoint(endpointUrl);
+  const response = await callAlibabaSyncReadOnlyApi({
+    apiName: "alibaba.seller.order.get",
+    appKey,
+    appSecret,
+    accessToken,
+    endpointUrl: effectiveEndpointUrl,
+    businessParams: {
+      e_trade_id: tradeId
+    }
+  });
+
+  const payload = response.payload ?? {};
+  const detailValue = payload.value ?? {};
+
+  return {
+    module: "orders",
+    account: "xd",
+    read_only: true,
+    source: {
+      type: "official_api",
+      api_name: "alibaba.seller.order.get",
+      endpoint_url: effectiveEndpointUrl,
+      auth_parameter: "access_token",
+      sign_method: "sha256"
+    },
+    verification_status: "待线上验收",
+    evidence_level: "L1",
+    verified_fields: XD_ORDER_DETAIL_VERIFIED_FIELDS,
+    response_meta: {
+      request_id: payload.request_id ?? null,
+      trace_id: payload._trace_id_ ?? null,
+      e_trade_id: tradeId
+    },
+    item: normalizeXdOfficialOrderDetail(detailValue, tradeId)
+  };
+}
+
 function createAlibabaAuthStartHandler(accountKey) {
   return (req, res) => {
     const config = getAccountConfig(accountKey);
@@ -1641,6 +2033,74 @@ app.get("/integrations/alibaba/xd/data/products/list", async (req, res) => {
 
     res
       .status(error instanceof ConfigurationError ? 500 : 502)
+      .json(buildReadOnlyErrorResponse(error));
+  }
+});
+
+app.get("/integrations/alibaba/xd/data/orders/list", async (req, res) => {
+  try {
+    const result = await fetchXdOfficialOrderList(
+      await getAlibabaReadOnlyClientConfig("xd"),
+      req.query
+    );
+
+    logInfo("XD order list read completed", {
+      totalCount: result.response_meta.total_count,
+      returnedItemCount: result.items.length,
+      startPage: result.response_meta.start_page,
+      pageSize: result.response_meta.page_size
+    });
+
+    res.status(200).json({
+      ok: true,
+      ...result
+    });
+  } catch (error) {
+    logError("XD order list read failed", {
+      error: error instanceof Error ? error.message : String(error),
+      details:
+        error instanceof AlibabaApiError || error?.details
+          ? error.details
+          : undefined,
+      top_error: extractTopErrorResponse(error),
+      query: req.query
+    });
+
+    res
+      .status(error instanceof ConfigurationError ? 400 : 502)
+      .json(buildReadOnlyErrorResponse(error));
+  }
+});
+
+app.get("/integrations/alibaba/xd/data/orders/detail", async (req, res) => {
+  try {
+    const result = await fetchXdOfficialOrderDetail(
+      await getAlibabaReadOnlyClientConfig("xd"),
+      req.query
+    );
+
+    logInfo("XD order detail read completed", {
+      tradeId: result.response_meta.e_trade_id,
+      productCount: result.item.product_count
+    });
+
+    res.status(200).json({
+      ok: true,
+      ...result
+    });
+  } catch (error) {
+    logError("XD order detail read failed", {
+      error: error instanceof Error ? error.message : String(error),
+      details:
+        error instanceof AlibabaApiError || error?.details
+          ? error.details
+          : undefined,
+      top_error: extractTopErrorResponse(error),
+      query: req.query
+    });
+
+    res
+      .status(error instanceof ConfigurationError ? 400 : 502)
       .json(buildReadOnlyErrorResponse(error));
   }
 });
