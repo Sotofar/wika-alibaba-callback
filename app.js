@@ -1121,7 +1121,7 @@ async function refreshWikaToken(reason = "scheduled") {
   return refreshAccountToken("wika", reason);
 }
 
-function initializeAccountTokenRuntime(accountKey) {
+async function initializeAccountTokenRuntime(accountKey) {
   const config = getAccountConfig(accountKey);
   const runtime = getAccountRuntime(accountKey);
 
@@ -1151,16 +1151,67 @@ function initializeAccountTokenRuntime(accountKey) {
 
     const bootstrapRecord = loadBootstrapTokenRecord(accountKey);
     if (bootstrapRecord) {
-      writePersistedTokenRecord(accountKey, bootstrapRecord);
       runtime.tokenRecord = bootstrapRecord;
       runtime.loadedFrom = "bootstrap_env";
       runtime.startupInitStatus = "bootstrap_env";
 
-      logInfo(`Initialized ${config.label} token record from bootstrap refresh token`, {
-        storagePath: getAccountTokenStoragePath(accountKey)
-      });
+      logInfo(
+        `Initialized ${config.label} token runtime from bootstrap refresh token`,
+        {
+          storagePath: getAccountTokenStoragePath(accountKey)
+        }
+      );
 
-      scheduleAccountAutoRefresh(accountKey, "startup_bootstrap");
+      try {
+        await refreshAccountToken(accountKey, "startup_bootstrap");
+        runtime.startupInitStatus = runtime.loadedFrom ?? "refresh:startup_bootstrap";
+      } catch (error) {
+        clearAccountRefreshTimer(accountKey);
+        runtime.tokenRecord = null;
+        runtime.loadedFrom = null;
+        runtime.nextRefreshAt = null;
+        runtime.startupInitStatus = "failed";
+        runtime.startupInitError =
+          error instanceof Error ? error.message : String(error);
+
+        logError(`${config.label} bootstrap refresh initialization failed`, {
+          error:
+            error instanceof Error ? error.message : String(error),
+          storagePath: getAccountTokenStoragePath(accountKey)
+        });
+      }
+
+      if (runtime.startupInitStatus !== "failed") {
+        logInfo(`${config.label} bootstrap refresh initialization completed`, {
+          storagePath: getAccountTokenStoragePath(accountKey),
+          loadedFrom: runtime.loadedFrom,
+          nextRefreshAt: runtime.nextRefreshAt
+        });
+      }
+
+      if (runtime.startupInitStatus === "failed") {
+        return;
+      }
+
+      if (!runtime.tokenRecord) {
+        runtime.startupInitStatus = "no_runtime";
+        return;
+      }
+
+      if (!fileExists(getAccountTokenStoragePath(accountKey))) {
+        clearAccountRefreshTimer(accountKey);
+        logError(`${config.label} bootstrap refresh did not persist a token file`, {
+          storagePath: getAccountTokenStoragePath(accountKey)
+        });
+        runtime.startupInitStatus = "failed";
+        runtime.startupInitError = "Bootstrap refresh succeeded but token file was not persisted.";
+        runtime.tokenRecord = null;
+        runtime.loadedFrom = null;
+        runtime.nextRefreshAt = null;
+        runtime.lastRefreshError = runtime.startupInitError;
+        return;
+      }
+
       return;
     }
 
@@ -1172,8 +1223,7 @@ function initializeAccountTokenRuntime(accountKey) {
   } catch (error) {
     const errorMessage =
       error instanceof Error ? error.message : String(error);
-    runtime.lastRefreshError =
-      errorMessage;
+    runtime.lastRefreshError = errorMessage;
     runtime.startupInitStatus = "failed";
     runtime.startupInitError = errorMessage;
 
@@ -1184,12 +1234,12 @@ function initializeAccountTokenRuntime(accountKey) {
   }
 }
 
-function initializeWikaTokenRuntime() {
-  initializeAccountTokenRuntime("wika");
+async function initializeWikaTokenRuntime() {
+  await initializeAccountTokenRuntime("wika");
 }
 
-function initializeXdTokenRuntime() {
-  initializeAccountTokenRuntime("xd");
+async function initializeXdTokenRuntime() {
+  await initializeAccountTokenRuntime("xd");
 }
 
 function buildStartupWarnings() {
@@ -1704,8 +1754,8 @@ setInterval(cleanupExpiredStates, CLEANUP_INTERVAL_MS).unref?.();
 const port = getPort();
 const startupWarnings = buildStartupWarnings();
 
-initializeWikaTokenRuntime();
-initializeXdTokenRuntime();
+await initializeWikaTokenRuntime();
+await initializeXdTokenRuntime();
 
 app.listen(port, () => {
   console.log(`Alibaba callback service listening on port ${port}`);
