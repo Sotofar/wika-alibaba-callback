@@ -237,15 +237,37 @@ def build_metrics_rows(wika: dict, xd: dict) -> list[dict]:
             "后续动作": "先补 XD orders 最小汇总",
         },
         {
-            "指标名称": "询盘/消息/客户画像",
+            "指标名称": "询盘/RFQ 列表与来源",
             "粒度": "询盘",
             "WIKA 是否可得": "否",
             "XD 是否可得": "否",
-            "数据源类型": "未知/权限阻塞",
-            "是否生产无状态": "未知",
-            "当前状态": "权限阻塞",
-            "接口/页面/导出来源说明": "当前无已验证生产数据源",
-            "后续动作": "先做官方接口权限确认，不进入路由开发",
+            "数据源类型": "官方候选存在",
+            "是否生产无状态": "未验证",
+            "当前状态": "当前未识别到可用入口",
+            "接口/页面/导出来源说明": "RFQ / inquiry 公开能力存在，但尚未证明可用于当前生产认证体系",
+            "后续动作": "继续只做官方接口可行性识别，不进入路由开发",
+        },
+        {
+            "指标名称": "消息列表/回复记录",
+            "粒度": "询盘",
+            "WIKA 是否可得": "否",
+            "XD 是否可得": "否",
+            "数据源类型": "官方候选弱",
+            "是否生产无状态": "未验证",
+            "当前状态": "当前未识别到可用入口",
+            "接口/页面/导出来源说明": "仅发现翻译设置/发送类线索，未发现已验证消息读取接口",
+            "后续动作": "保持停在识别阶段",
+        },
+        {
+            "指标名称": "客户通客户画像",
+            "粒度": "客户",
+            "WIKA 是否可得": "否",
+            "XD 是否可得": "否",
+            "数据源类型": "官方 API",
+            "是否生产无状态": "未验证",
+            "当前状态": "官方存在但权限阻塞",
+            "接口/页面/导出来源说明": "customer.batch.get / customer.get / customer.note.* 文档存在，但标注聚石塔内调用",
+            "后续动作": "先确认权限/上下文，再决定是否进入路由开发",
         },
     ]
 
@@ -551,6 +573,15 @@ def create_industry_pdf() -> Path:
     return output
 
 
+def safe_generate(factory, expected_path: Path) -> Path:
+    try:
+        return factory()
+    except PermissionError:
+        if expected_path.exists():
+            return expected_path
+        raise
+
+
 def update_readme(files: dict[str, Path]) -> Path:
     path = DESKTOP_DIR / "README_交付说明.md"
     content = f"""# 交付说明
@@ -591,8 +622,8 @@ def main() -> None:
     main_xlsx = create_main_workbook(wika, xd, metrics_rows)
     module_xlsx = create_module_status_workbook(wika, xd, metrics_rows)
     industry_xlsx = create_industry_workbook()
-    main_pdf = create_main_pdf(wika, xd, metrics_rows)
-    industry_pdf = create_industry_pdf()
+    main_pdf = safe_generate(lambda: create_main_pdf(wika, xd, metrics_rows), DESKTOP_DIR / f"WIKA_XD_运营总报告_{TODAY}.pdf")
+    industry_pdf = safe_generate(create_industry_pdf, DESKTOP_DIR / f"行业领头企业分析报告_{TODAY}.pdf")
     readme = update_readme(
         {
             "matrix_csv": matrix_csv,
