@@ -3,6 +3,12 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import express from "express";
+import { DEFAULT_ALIBABA_TOP_API_URL } from "./shared/data/clients/alibaba-top-client.js";
+import {
+  buildProductManagementSummary,
+  buildProductRecommendations,
+  fetchWikaProductList
+} from "./projects/wika/data/products/module.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -30,6 +36,9 @@ const wikaTokenRuntime = {
   refreshTimer: null,
   refreshInFlight: false,
   loadedFrom: null,
+  startupInitAttemptedAt: null,
+  startupInitStatus: "not_started",
+  startupInitError: null,
   nextRefreshAt: null,
   lastRefreshAt: null,
   lastRefreshReason: null,
@@ -418,6 +427,9 @@ function buildMaskedTokenSummary(tokenPayload) {
 
 function buildConfigSummary() {
   const storagePath = getWikaTokenStoragePath();
+  const bootstrapRefreshTokenPresent = Boolean(
+    getEnv("ALIBABA_WIKA_BOOTSTRAP_REFRESH_TOKEN")
+  );
 
   return {
     client_id_present: Boolean(getEnv("ALIBABA_CLIENT_ID")),
@@ -433,10 +445,14 @@ function buildConfigSummary() {
     active_state_count: stateStore.size,
     wika_auto_refresh_enabled: isWikaAutoRefreshEnabled(),
     wika_refresh_buffer_seconds: getWikaRefreshBufferSeconds(),
+    wika_bootstrap_refresh_token_present: bootstrapRefreshTokenPresent,
     wika_token_storage_path: storagePath,
     wika_token_file_exists: fileExists(storagePath),
     wika_token_loaded: Boolean(wikaTokenRuntime.tokenRecord),
     wika_runtime_loaded_from: wikaTokenRuntime.loadedFrom,
+    wika_startup_init_attempted_at: wikaTokenRuntime.startupInitAttemptedAt,
+    wika_startup_init_status: wikaTokenRuntime.startupInitStatus,
+    wika_startup_init_error: wikaTokenRuntime.startupInitError,
     wika_has_refresh_token: Boolean(
       wikaTokenRuntime.tokenRecord?.token_payload?.refresh_token
     ),
@@ -892,6 +908,9 @@ function initializeWikaTokenRuntime() {
   clearWikaRefreshTimer();
   wikaTokenRuntime.tokenRecord = null;
   wikaTokenRuntime.loadedFrom = null;
+  wikaTokenRuntime.startupInitAttemptedAt = new Date().toISOString();
+  wikaTokenRuntime.startupInitStatus = "running";
+  wikaTokenRuntime.startupInitError = null;
   wikaTokenRuntime.lastRefreshError = null;
 
   try {
@@ -899,6 +918,7 @@ function initializeWikaTokenRuntime() {
     if (persistedRecord) {
       wikaTokenRuntime.tokenRecord = persistedRecord;
       wikaTokenRuntime.loadedFrom = "file";
+      wikaTokenRuntime.startupInitStatus = "file";
 
       logInfo("Loaded persisted Wika token record", {
         storagePath: getWikaTokenStoragePath(),
@@ -914,6 +934,7 @@ function initializeWikaTokenRuntime() {
       writePersistedWikaTokenRecord(bootstrapRecord);
       wikaTokenRuntime.tokenRecord = bootstrapRecord;
       wikaTokenRuntime.loadedFrom = "bootstrap_env";
+      wikaTokenRuntime.startupInitStatus = "bootstrap_env";
 
       logInfo("Initialized Wika token record from bootstrap refresh token", {
         storagePath: getWikaTokenStoragePath()
@@ -924,14 +945,22 @@ function initializeWikaTokenRuntime() {
     }
 
     logInfo("No persisted Wika token record found", {
-      storagePath: getWikaTokenStoragePath()
+      storagePath: getWikaTokenStoragePath(),
+      bootstrapRefreshTokenPresent: Boolean(
+        getEnv("ALIBABA_WIKA_BOOTSTRAP_REFRESH_TOKEN")
+      )
     });
+    wikaTokenRuntime.startupInitStatus = "no_runtime";
   } catch (error) {
-    wikaTokenRuntime.lastRefreshError =
+    const errorMessage =
       error instanceof Error ? error.message : String(error);
+    wikaTokenRuntime.lastRefreshError =
+      errorMessage;
+    wikaTokenRuntime.startupInitStatus = "failed";
+    wikaTokenRuntime.startupInitError = errorMessage;
 
     logError("Failed to initialize Wika token runtime", {
-      error: error instanceof Error ? error.message : String(error),
+      error: errorMessage,
       storagePath: getWikaTokenStoragePath()
     });
   }
@@ -950,6 +979,82 @@ function buildStartupWarnings() {
   return missingKeys;
 }
 
+function getAlibabaTopApiUrl() {
+  return getEnv("ALIBABA_TOP_API_URL") || DEFAULT_ALIBABA_TOP_API_URL;
+}
+
+function getActiveWikaAccessToken() {
+  return wikaTokenRuntime.tokenRecord?.token_payload?.access_token ?? "";
+}
+
+async function getWikaReadOnlyClientConfig() {
+  const missingKeys = [];
+
+  const appKey = getEnv("ALIBABA_CLIENT_ID");
+  if (!appKey) {
+    missingKeys.push("ALIBABA_CLIENT_ID");
+  }
+
+  const appSecret = getEnv("ALIBABA_CLIENT_SECRET");
+  if (!appSecret) {
+    missingKeys.push("ALIBABA_CLIENT_SECRET");
+  }
+
+  let accessToken = getActiveWikaAccessToken();
+  if (!accessToken && wikaTokenRuntime.tokenRecord?.token_payload?.refresh_token) {
+    logInfo("Wika read-only request is refreshing access token on demand", {
+      reason: "read_only_data_access"
+    });
+
+    await refreshWikaToken("read_only_data_access");
+    accessToken = getActiveWikaAccessToken();
+  }
+
+  if (!accessToken) {
+    missingKeys.push("WIKA_ACCESS_TOKEN_RUNTIME");
+  }
+
+  if (missingKeys.length > 0) {
+    throw new ConfigurationError(
+      `Wika read-only data access is missing runtime prerequisites: ${missingKeys.join(", ")}`,
+      missingKeys
+    );
+  }
+
+  return {
+    appKey,
+    appSecret,
+    accessToken,
+    partnerId: getEnv("ALIBABA_PARTNER_ID") || undefined,
+    endpointUrl: getAlibabaTopApiUrl()
+  };
+}
+
+function extractTopErrorResponse(error) {
+  const topError = error?.details?.errorResponse;
+  if (!topError || typeof topError !== "object") {
+    return undefined;
+  }
+
+  return {
+    code: topError.code ?? null,
+    sub_code: topError.sub_code ?? null,
+    msg: topError.msg ?? null,
+    sub_msg: topError.sub_msg ?? null
+  };
+}
+
+function buildReadOnlyErrorResponse(error) {
+  const topError = extractTopErrorResponse(error);
+
+  return {
+    ok: false,
+    error: error instanceof Error ? error.message : String(error),
+    missing_keys: error instanceof ConfigurationError ? error.missingKeys : undefined,
+    top_error: topError
+  };
+}
+
 app.get("/health", (_req, res) => {
   res.status(200).send("ok");
 });
@@ -957,6 +1062,87 @@ app.get("/health", (_req, res) => {
 app.get("/integrations/alibaba/auth/debug", (_req, res) => {
   res.status(200).json(buildConfigSummary());
 });
+
+app.get("/integrations/alibaba/wika/data/products/list", async (req, res) => {
+  try {
+    const result = await fetchWikaProductList(
+      await getWikaReadOnlyClientConfig(),
+      req.query
+    );
+
+    logInfo("Wika product list read completed", {
+      totalItem: result.response_meta.total_item,
+      returnedItemCount: result.items.length,
+      currentPage: result.response_meta.current_page,
+      pageSize: result.response_meta.page_size
+    });
+
+    res.status(200).json({
+      ok: true,
+      ...result
+    });
+  } catch (error) {
+    logError("Wika product list read failed", {
+      error: error instanceof Error ? error.message : String(error),
+      details:
+        error instanceof AlibabaApiError || error?.details
+          ? error.details
+          : undefined,
+      top_error: extractTopErrorResponse(error),
+      query: req.query
+    });
+
+    res
+      .status(error instanceof ConfigurationError ? 500 : 502)
+      .json(buildReadOnlyErrorResponse(error));
+  }
+});
+
+app.get(
+  "/integrations/alibaba/wika/reports/products/management-summary",
+  async (req, res) => {
+    try {
+      const result = await fetchWikaProductList(
+        await getWikaReadOnlyClientConfig(),
+        {
+          ...req.query,
+          page_size: req.query.page_size ?? 30
+        }
+      );
+      const summary = buildProductManagementSummary(result);
+      const recommendations = buildProductRecommendations(result);
+
+      res.status(200).json({
+        ok: true,
+        module: "products",
+        account: "wika",
+        read_only: true,
+        source: result.source,
+        data_validation: {
+          verification_status: result.verification_status,
+          evidence_level: result.evidence_level,
+          verified_fields: result.verified_fields
+        },
+        summary,
+        recommendations
+      });
+    } catch (error) {
+      logError("Wika product management summary failed", {
+        error: error instanceof Error ? error.message : String(error),
+        details:
+          error instanceof AlibabaApiError || error?.details
+            ? error.details
+            : undefined,
+        top_error: extractTopErrorResponse(error),
+        query: req.query
+      });
+
+      res
+        .status(error instanceof ConfigurationError ? 500 : 502)
+        .json(buildReadOnlyErrorResponse(error));
+    }
+  }
+);
 
 app.get("/integrations/alibaba/auth/start", (req, res) => {
   try {
