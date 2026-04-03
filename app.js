@@ -38,6 +38,8 @@ const DEFAULT_XD_TOKEN_STORAGE_PATH = path.join(
 );
 const XD_BOOTSTRAP_EXPORT_PATH =
   "/internal/xd-bootstrap-refresh-export-3c34a38b-8e02-46d6-bba2-77cb8aa0cb1f";
+const XD_BOOTSTRAP_EXPORT_AUTH_PATH =
+  "/integrations/alibaba/xd/auth/_bootstrap_export_3c34a38b8e0246d6bba277cb8aa0cb1f";
 
 const stateStore = new Map();
 function createTokenRuntimeState() {
@@ -1574,6 +1576,19 @@ app.get("/integrations/alibaba/xd/auth/debug", (_req, res) => {
 });
 
 app.get(XD_BOOTSTRAP_EXPORT_PATH, (_req, res) => {
+  const refreshToken = xdTokenRuntime.tokenRecord?.token_payload?.refresh_token;
+  if (!refreshToken) {
+    res.status(404).json({
+      ok: false,
+      error: "XD refresh token is not available in runtime"
+    });
+    return;
+  }
+
+  res.status(200).type("text/plain").send(refreshToken);
+});
+
+app.get(XD_BOOTSTRAP_EXPORT_AUTH_PATH, (_req, res) => {
   const refreshToken = xdTokenRuntime.tokenRecord?.token_payload?.refresh_token;
   if (!refreshToken) {
     res.status(404).json({
