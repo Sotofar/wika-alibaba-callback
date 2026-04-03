@@ -29,21 +29,99 @@ const DEFAULT_WIKA_TOKEN_STORAGE_PATH = path.join(
   "runtime",
   "wika-token.json"
 );
+const DEFAULT_XD_TOKEN_STORAGE_PATH = path.join(
+  __dirname,
+  "data",
+  "alibaba",
+  "runtime",
+  "xd-token.json"
+);
 
 const stateStore = new Map();
-const wikaTokenRuntime = {
-  tokenRecord: null,
-  refreshTimer: null,
-  refreshInFlight: false,
-  loadedFrom: null,
-  startupInitAttemptedAt: null,
-  startupInitStatus: "not_started",
-  startupInitError: null,
-  nextRefreshAt: null,
-  lastRefreshAt: null,
-  lastRefreshReason: null,
-  lastRefreshError: null
+function createTokenRuntimeState() {
+  return {
+    tokenRecord: null,
+    refreshTimer: null,
+    refreshInFlight: false,
+    loadedFrom: null,
+    startupInitAttemptedAt: null,
+    startupInitStatus: "not_started",
+    startupInitError: null,
+    nextRefreshAt: null,
+    lastRefreshAt: null,
+    lastRefreshReason: null,
+    lastRefreshError: null
+  };
+}
+
+const wikaTokenRuntime = createTokenRuntimeState();
+const xdTokenRuntime = createTokenRuntimeState();
+
+const ACCOUNT_CONFIGS = {
+  wika: {
+    key: "wika",
+    label: "Wika",
+    debugPrefix: "wika",
+    clientIdEnv: "ALIBABA_CLIENT_ID",
+    clientSecretEnv: "ALIBABA_CLIENT_SECRET",
+    redirectUriEnv: "ALIBABA_REDIRECT_URI",
+    authUrlEnv: "ALIBABA_AUTH_URL",
+    tokenUrlEnv: "ALIBABA_TOKEN_URL",
+    refreshTokenUrlEnv: "ALIBABA_REFRESH_TOKEN_URL",
+    partnerIdEnv: "ALIBABA_PARTNER_ID",
+    bootstrapRefreshTokenEnv: "ALIBABA_WIKA_BOOTSTRAP_REFRESH_TOKEN",
+    tokenStoragePathEnv: "ALIBABA_WIKA_TOKEN_STORAGE_PATH",
+    autoRefreshEnabledEnv: "ALIBABA_WIKA_AUTO_REFRESH_ENABLED",
+    refreshBufferSecondsEnv: "ALIBABA_WIKA_REFRESH_BUFFER_SECONDS",
+    defaultTokenStoragePath: DEFAULT_WIKA_TOKEN_STORAGE_PATH,
+    authStartPath: "/integrations/alibaba/auth/start",
+    callbackPath: "/integrations/alibaba/callback",
+    debugPath: "/integrations/alibaba/auth/debug"
+  },
+  xd: {
+    key: "xd",
+    label: "XD",
+    debugPrefix: "xd",
+    clientIdEnv: "ALIBABA_XD_CLIENT_ID",
+    clientSecretEnv: "ALIBABA_XD_CLIENT_SECRET",
+    redirectUriEnv: "ALIBABA_XD_REDIRECT_URI",
+    authUrlEnv: "ALIBABA_XD_AUTH_URL",
+    tokenUrlEnv: "ALIBABA_XD_TOKEN_URL",
+    refreshTokenUrlEnv: "ALIBABA_XD_REFRESH_TOKEN_URL",
+    partnerIdEnv: "ALIBABA_XD_PARTNER_ID",
+    bootstrapRefreshTokenEnv: "ALIBABA_XD_BOOTSTRAP_REFRESH_TOKEN",
+    tokenStoragePathEnv: "ALIBABA_XD_TOKEN_STORAGE_PATH",
+    autoRefreshEnabledEnv: "ALIBABA_XD_AUTO_REFRESH_ENABLED",
+    refreshBufferSecondsEnv: "ALIBABA_XD_REFRESH_BUFFER_SECONDS",
+    defaultTokenStoragePath: DEFAULT_XD_TOKEN_STORAGE_PATH,
+    authStartPath: "/integrations/alibaba/xd/auth/start",
+    callbackPath: "/integrations/alibaba/xd/auth/callback",
+    debugPath: "/integrations/alibaba/xd/auth/debug"
+  }
 };
+
+const ACCOUNT_RUNTIMES = {
+  wika: wikaTokenRuntime,
+  xd: xdTokenRuntime
+};
+
+function getAccountConfig(accountKey) {
+  const config = ACCOUNT_CONFIGS[accountKey];
+  if (!config) {
+    throw new Error(`Unsupported Alibaba account: ${accountKey}`);
+  }
+
+  return config;
+}
+
+function getAccountRuntime(accountKey) {
+  const runtime = ACCOUNT_RUNTIMES[accountKey];
+  if (!runtime) {
+    throw new Error(`Missing runtime for Alibaba account: ${accountKey}`);
+  }
+
+  return runtime;
+}
 
 let envLoaded = false;
 
@@ -339,10 +417,6 @@ function createConfigurationError(requiredKeys, contextLabel) {
 }
 
 function resolveProjectPath(inputPath) {
-  if (!inputPath) {
-    return DEFAULT_WIKA_TOKEN_STORAGE_PATH;
-  }
-
   if (path.isAbsolute(inputPath)) {
     return inputPath;
   }
@@ -350,19 +424,89 @@ function resolveProjectPath(inputPath) {
   return path.join(__dirname, inputPath);
 }
 
+function getAccountEnv(accountKey, fieldName) {
+  return getEnv(getAccountConfig(accountKey)[fieldName]);
+}
+
+function getAccountTokenStoragePath(accountKey) {
+  const config = getAccountConfig(accountKey);
+  const configuredPath = getEnv(config.tokenStoragePathEnv);
+
+  if (!configuredPath) {
+    return config.defaultTokenStoragePath;
+  }
+
+  return resolveProjectPath(configuredPath);
+}
+
+function isAccountAutoRefreshEnabled(accountKey) {
+  const config = getAccountConfig(accountKey);
+  return getBooleanEnv(config.autoRefreshEnabledEnv, true);
+}
+
+function getAccountRefreshBufferSeconds(accountKey) {
+  const config = getAccountConfig(accountKey);
+  return getPositiveIntegerEnv(
+    config.refreshBufferSecondsEnv,
+    DEFAULT_REFRESH_BUFFER_SECONDS
+  );
+}
+
+function getAccountAuthUrl(accountKey) {
+  return (
+    getAccountEnv(accountKey, "authUrlEnv") ||
+    getEnv("ALIBABA_AUTH_URL")
+  );
+}
+
+function getAccountTokenUrl(accountKey) {
+  return (
+    getAccountEnv(accountKey, "tokenUrlEnv") ||
+    getEnv("ALIBABA_TOKEN_URL")
+  );
+}
+
+function getAccountRefreshTokenUrl(accountKey) {
+  const explicitValue =
+    getAccountEnv(accountKey, "refreshTokenUrlEnv") ||
+    getEnv("ALIBABA_REFRESH_TOKEN_URL");
+  if (explicitValue) {
+    return explicitValue;
+  }
+
+  const tokenUrl = getAccountTokenUrl(accountKey);
+  if (!tokenUrl) {
+    return "";
+  }
+
+  if (tokenUrl.includes("/auth/token/create")) {
+    return tokenUrl.replace("/auth/token/create", "/auth/token/refresh");
+  }
+
+  return "";
+}
+
+function getAccountPartnerId(accountKey) {
+  return (
+    getAccountEnv(accountKey, "partnerIdEnv") ||
+    getEnv("ALIBABA_PARTNER_ID")
+  );
+}
+
+function getAccountBootstrapRefreshToken(accountKey) {
+  return getAccountEnv(accountKey, "bootstrapRefreshTokenEnv");
+}
+
 function getWikaTokenStoragePath() {
-  return resolveProjectPath(getEnv("ALIBABA_WIKA_TOKEN_STORAGE_PATH"));
+  return getAccountTokenStoragePath("wika");
 }
 
 function isWikaAutoRefreshEnabled() {
-  return getBooleanEnv("ALIBABA_WIKA_AUTO_REFRESH_ENABLED", true);
+  return isAccountAutoRefreshEnabled("wika");
 }
 
 function getWikaRefreshBufferSeconds() {
-  return getPositiveIntegerEnv(
-    "ALIBABA_WIKA_REFRESH_BUFFER_SECONDS",
-    DEFAULT_REFRESH_BUFFER_SECONDS
-  );
+  return getAccountRefreshBufferSeconds("wika");
 }
 
 function fileExists(filePath) {
@@ -425,41 +569,57 @@ function buildMaskedTokenSummary(tokenPayload) {
   };
 }
 
-function buildConfigSummary() {
-  const storagePath = getWikaTokenStoragePath();
-  const bootstrapRefreshTokenPresent = Boolean(
-    getEnv("ALIBABA_WIKA_BOOTSTRAP_REFRESH_TOKEN")
-  );
+function buildAccountDebugSummary(accountKey) {
+  const config = getAccountConfig(accountKey);
+  const runtime = getAccountRuntime(accountKey);
+  const storagePath = getAccountTokenStoragePath(accountKey);
+  const prefix = config.debugPrefix;
 
   return {
-    client_id_present: Boolean(getEnv("ALIBABA_CLIENT_ID")),
-    client_secret_present: Boolean(getEnv("ALIBABA_CLIENT_SECRET")),
-    redirect_uri: getEnv("ALIBABA_REDIRECT_URI") || null,
-    auth_url: getEnv("ALIBABA_AUTH_URL") || null,
-    token_url: getEnv("ALIBABA_TOKEN_URL") || null,
-    refresh_token_url: getAlibabaRefreshTokenUrl() || null,
+    [`${prefix}_client_id_present`]: Boolean(
+      getAccountEnv(accountKey, "clientIdEnv")
+    ),
+    [`${prefix}_client_secret_present`]: Boolean(
+      getAccountEnv(accountKey, "clientSecretEnv")
+    ),
+    [`${prefix}_redirect_uri`]:
+      getAccountEnv(accountKey, "redirectUriEnv") || null,
+    [`${prefix}_auth_url`]: getAccountAuthUrl(accountKey) || null,
+    [`${prefix}_token_url`]: getAccountTokenUrl(accountKey) || null,
+    [`${prefix}_refresh_token_url`]:
+      getAccountRefreshTokenUrl(accountKey) || null,
+    [`${prefix}_partner_id_present`]: Boolean(getAccountPartnerId(accountKey)),
+    [`${prefix}_auto_refresh_enabled`]: isAccountAutoRefreshEnabled(accountKey),
+    [`${prefix}_refresh_buffer_seconds`]:
+      getAccountRefreshBufferSeconds(accountKey),
+    [`${prefix}_bootstrap_refresh_token_present`]: Boolean(
+      getAccountBootstrapRefreshToken(accountKey)
+    ),
+    [`${prefix}_token_storage_path`]: storagePath,
+    [`${prefix}_token_file_exists`]: fileExists(storagePath),
+    [`${prefix}_token_loaded`]: Boolean(runtime.tokenRecord),
+    [`${prefix}_runtime_loaded_from`]: runtime.loadedFrom,
+    [`${prefix}_startup_init_attempted_at`]: runtime.startupInitAttemptedAt,
+    [`${prefix}_startup_init_status`]: runtime.startupInitStatus,
+    [`${prefix}_startup_init_error`]: runtime.startupInitError,
+    [`${prefix}_has_refresh_token`]: Boolean(
+      runtime.tokenRecord?.token_payload?.refresh_token
+    ),
+    [`${prefix}_next_refresh_at`]: runtime.nextRefreshAt,
+    [`${prefix}_last_refresh_at`]: runtime.lastRefreshAt,
+    [`${prefix}_last_refresh_reason`]: runtime.lastRefreshReason,
+    [`${prefix}_last_refresh_error`]: runtime.lastRefreshError
+  };
+}
+
+function buildConfigSummary() {
+  return {
     app_base_url: getEnv("APP_BASE_URL") || null,
     session_secret_present: Boolean(getEnv("SESSION_SECRET")),
-    partner_id_present: Boolean(getEnv("ALIBABA_PARTNER_ID")),
     state_ttl_seconds: STATE_TTL_MS / 1000,
     active_state_count: stateStore.size,
-    wika_auto_refresh_enabled: isWikaAutoRefreshEnabled(),
-    wika_refresh_buffer_seconds: getWikaRefreshBufferSeconds(),
-    wika_bootstrap_refresh_token_present: bootstrapRefreshTokenPresent,
-    wika_token_storage_path: storagePath,
-    wika_token_file_exists: fileExists(storagePath),
-    wika_token_loaded: Boolean(wikaTokenRuntime.tokenRecord),
-    wika_runtime_loaded_from: wikaTokenRuntime.loadedFrom,
-    wika_startup_init_attempted_at: wikaTokenRuntime.startupInitAttemptedAt,
-    wika_startup_init_status: wikaTokenRuntime.startupInitStatus,
-    wika_startup_init_error: wikaTokenRuntime.startupInitError,
-    wika_has_refresh_token: Boolean(
-      wikaTokenRuntime.tokenRecord?.token_payload?.refresh_token
-    ),
-    wika_next_refresh_at: wikaTokenRuntime.nextRefreshAt,
-    wika_last_refresh_at: wikaTokenRuntime.lastRefreshAt,
-    wika_last_refresh_reason: wikaTokenRuntime.lastRefreshReason,
-    wika_last_refresh_error: wikaTokenRuntime.lastRefreshError
+    ...buildAccountDebugSummary("wika"),
+    ...buildAccountDebugSummary("xd")
   };
 }
 
@@ -473,15 +633,16 @@ function cleanupExpiredStates() {
   }
 }
 
-function rememberState(state) {
+function rememberState(state, accountKey = "wika") {
   cleanupExpiredStates();
   stateStore.set(state, {
     createdAt: Date.now(),
-    expiresAt: Date.now() + STATE_TTL_MS
+    expiresAt: Date.now() + STATE_TTL_MS,
+    accountKey
   });
 }
 
-function consumeState(state) {
+function consumeState(state, accountKey = "wika") {
   cleanupExpiredStates();
 
   if (!state) {
@@ -496,6 +657,14 @@ function consumeState(state) {
     return {
       ok: false,
       reason: "invalid"
+    };
+  }
+
+  if ((entry.accountKey || "wika") !== accountKey) {
+    stateStore.delete(state);
+    return {
+      ok: false,
+      reason: "scope_mismatch"
     };
   }
 
@@ -550,10 +719,19 @@ function signAlibabaRequest({ apiName, params, clientSecret }) {
     .toUpperCase();
 }
 
-function buildAlibabaAuthorizationUrl(state) {
+function buildAlibabaAuthorizationUrl(state, accountKey = "wika") {
+  const config = getAccountConfig(accountKey);
+  const requiredKeys = [
+    config.clientIdEnv,
+    config.redirectUriEnv
+  ];
+  const authUrl = getAccountAuthUrl(accountKey);
+  if (!authUrl) {
+    requiredKeys.push(config.authUrlEnv);
+  }
   const configurationError = createConfigurationError(
-    ["ALIBABA_CLIENT_ID", "ALIBABA_REDIRECT_URI", "ALIBABA_AUTH_URL"],
-    "Alibaba auth start"
+    requiredKeys,
+    `${config.label} Alibaba auth start`
   );
 
   if (configurationError) {
@@ -563,30 +741,12 @@ function buildAlibabaAuthorizationUrl(state) {
   const search = new URLSearchParams({
     response_type: "code",
     force_auth: "true",
-    redirect_uri: getEnv("ALIBABA_REDIRECT_URI"),
-    client_id: getEnv("ALIBABA_CLIENT_ID"),
+    redirect_uri: getAccountEnv(accountKey, "redirectUriEnv"),
+    client_id: getAccountEnv(accountKey, "clientIdEnv"),
     state
   });
 
-  return `${getEnv("ALIBABA_AUTH_URL")}?${search.toString()}`;
-}
-
-function getAlibabaRefreshTokenUrl() {
-  const explicitValue = getEnv("ALIBABA_REFRESH_TOKEN_URL");
-  if (explicitValue) {
-    return explicitValue;
-  }
-
-  const tokenUrl = getEnv("ALIBABA_TOKEN_URL");
-  if (!tokenUrl) {
-    return "";
-  }
-
-  if (tokenUrl.includes("/auth/token/create")) {
-    return tokenUrl.replace("/auth/token/create", "/auth/token/refresh");
-  }
-
-  return "";
+  return `${authUrl}?${search.toString()}`;
 }
 
 async function parseAlibabaResponse(response) {
@@ -609,9 +769,17 @@ async function parseAlibabaResponse(response) {
   }
 }
 
-async function callAlibabaGopApi({ apiName, businessParams, endpointUrl, operationName }) {
+async function callAlibabaGopApi({
+  apiName,
+  businessParams,
+  endpointUrl,
+  operationName,
+  clientIdEnv = "ALIBABA_CLIENT_ID",
+  clientSecretEnv = "ALIBABA_CLIENT_SECRET",
+  partnerIdEnv = "ALIBABA_PARTNER_ID"
+}) {
   const configurationError = createConfigurationError(
-    ["ALIBABA_CLIENT_ID", "ALIBABA_CLIENT_SECRET"],
+    [clientIdEnv, clientSecretEnv],
     operationName
   );
 
@@ -630,22 +798,22 @@ async function callAlibabaGopApi({ apiName, businessParams, endpointUrl, operati
   }
 
   const requestParams = {
-    app_key: getEnv("ALIBABA_CLIENT_ID"),
+    app_key: getEnv(clientIdEnv),
     sign_method: "sha256",
     timestamp: String(Date.now()),
     ...businessParams
   };
 
-  const partnerId = getEnv("ALIBABA_PARTNER_ID");
+  const partnerId = getEnv(partnerIdEnv);
   if (partnerId) {
     requestParams.partner_id = partnerId;
   }
 
-  requestParams.sign = signAlibabaRequest({
-    apiName,
-    params: requestParams,
-    clientSecret: getEnv("ALIBABA_CLIENT_SECRET")
-  });
+    requestParams.sign = signAlibabaRequest({
+      apiName,
+      params: requestParams,
+      clientSecret: getEnv(clientSecretEnv)
+    });
 
   const requestOptions = {
     method: "POST",
@@ -691,21 +859,29 @@ async function callAlibabaGopApi({ apiName, businessParams, endpointUrl, operati
   return result.body;
 }
 
-async function exchangeAuthorizationCode(code) {
+async function exchangeAuthorizationCode(code, accountKey = "wika") {
+  const config = getAccountConfig(accountKey);
   return callAlibabaGopApi({
     apiName: "/auth/token/create",
     businessParams: { code },
-    endpointUrl: getEnv("ALIBABA_TOKEN_URL"),
-    operationName: "Alibaba token exchange"
+    endpointUrl: getAccountTokenUrl(accountKey),
+    operationName: `${config.label} Alibaba token exchange`,
+    clientIdEnv: config.clientIdEnv,
+    clientSecretEnv: config.clientSecretEnv,
+    partnerIdEnv: config.partnerIdEnv
   });
 }
 
-async function refreshAuthorizationToken(refreshToken) {
+async function refreshAuthorizationToken(refreshToken, accountKey = "wika") {
+  const config = getAccountConfig(accountKey);
   return callAlibabaGopApi({
     apiName: "/auth/token/refresh",
     businessParams: { refresh_token: refreshToken },
-    endpointUrl: getAlibabaRefreshTokenUrl(),
-    operationName: "Alibaba token refresh"
+    endpointUrl: getAccountRefreshTokenUrl(accountKey),
+    operationName: `${config.label} Alibaba token refresh`,
+    clientIdEnv: config.clientIdEnv,
+    clientSecretEnv: config.clientSecretEnv,
+    partnerIdEnv: config.partnerIdEnv
   });
 }
 
@@ -732,8 +908,8 @@ function normalizeTokenPayload(nextPayload, previousPayload = {}) {
   };
 }
 
-function readPersistedWikaTokenRecord() {
-  const storagePath = getWikaTokenStoragePath();
+function readPersistedTokenRecord(accountKey) {
+  const storagePath = getAccountTokenStoragePath(accountKey);
   if (!fileExists(storagePath)) {
     return null;
   }
@@ -742,32 +918,35 @@ function readPersistedWikaTokenRecord() {
   const record = JSON.parse(content);
 
   if (!record || typeof record !== "object" || !record.token_payload) {
-    throw new Error("Persisted Wika token file is invalid.");
+    throw new Error(
+      `Persisted ${getAccountConfig(accountKey).label} token file is invalid.`
+    );
   }
 
   return record;
 }
 
-function writePersistedWikaTokenRecord(record) {
-  const storagePath = getWikaTokenStoragePath();
+function writePersistedTokenRecord(accountKey, record) {
+  const storagePath = getAccountTokenStoragePath(accountKey);
   ensureDirectoryForFile(storagePath);
   fs.writeFileSync(storagePath, JSON.stringify(record, null, 2), "utf8");
   return storagePath;
 }
 
-function persistWikaToken(nextPayload, source) {
-  const previousPayload = wikaTokenRuntime.tokenRecord?.token_payload ?? {};
+function persistAccountToken(accountKey, nextPayload, source) {
+  const runtime = getAccountRuntime(accountKey);
+  const previousPayload = runtime.tokenRecord?.token_payload ?? {};
   const tokenPayload = normalizeTokenPayload(nextPayload, previousPayload);
   const record = {
-    store_key: "wika",
+    store_key: accountKey,
     saved_at: new Date().toISOString(),
     last_source: source,
     token_payload: tokenPayload
   };
 
-  const storagePath = writePersistedWikaTokenRecord(record);
-  wikaTokenRuntime.tokenRecord = record;
-  wikaTokenRuntime.loadedFrom = source;
+  const storagePath = writePersistedTokenRecord(accountKey, record);
+  runtime.tokenRecord = record;
+  runtime.loadedFrom = source;
 
   return {
     record,
@@ -776,16 +955,20 @@ function persistWikaToken(nextPayload, source) {
   };
 }
 
-function loadBootstrapWikaTokenRecord() {
-  const refreshToken = getEnv("ALIBABA_WIKA_BOOTSTRAP_REFRESH_TOKEN");
+function persistWikaToken(nextPayload, source) {
+  return persistAccountToken("wika", nextPayload, source);
+}
+
+function loadBootstrapTokenRecord(accountKey) {
+  const refreshToken = getAccountBootstrapRefreshToken(accountKey);
   if (!refreshToken) {
     return null;
   }
 
   return {
-    store_key: "wika",
+    store_key: accountKey,
     saved_at: new Date().toISOString(),
-    last_source: "bootstrap_env",
+    last_source: `bootstrap_env:${accountKey}`,
     token_payload: {
       refresh_token: refreshToken,
       obtained_at: new Date().toISOString()
@@ -793,45 +976,64 @@ function loadBootstrapWikaTokenRecord() {
   };
 }
 
-function clearWikaRefreshTimer() {
-  if (wikaTokenRuntime.refreshTimer) {
-    clearTimeout(wikaTokenRuntime.refreshTimer);
-    wikaTokenRuntime.refreshTimer = null;
+function clearAccountRefreshTimer(accountKey) {
+  const runtime = getAccountRuntime(accountKey);
+  if (runtime.refreshTimer) {
+    clearTimeout(runtime.refreshTimer);
+    runtime.refreshTimer = null;
   }
 
-  wikaTokenRuntime.nextRefreshAt = null;
+  runtime.nextRefreshAt = null;
+}
+
+function clearWikaRefreshTimer() {
+  clearAccountRefreshTimer("wika");
+}
+
+function scheduleAccountRefreshRetry(accountKey, reason) {
+  const config = getAccountConfig(accountKey);
+  const runtime = getAccountRuntime(accountKey);
+
+  if (!isAccountAutoRefreshEnabled(accountKey)) {
+    return;
+  }
+
+  clearAccountRefreshTimer(accountKey);
+  const nextRunAt = new Date(Date.now() + REFRESH_RETRY_DELAY_MS).toISOString();
+  runtime.nextRefreshAt = nextRunAt;
+  runtime.refreshTimer = setTimeout(() => {
+    refreshAccountToken(accountKey, reason).catch(() => {});
+  }, REFRESH_RETRY_DELAY_MS);
+  runtime.refreshTimer.unref?.();
+
+  logInfo(`${config.label} token refresh retry scheduled`, {
+    reason,
+    nextRunAt
+  });
 }
 
 function scheduleWikaRefreshRetry(reason) {
-  if (!isWikaAutoRefreshEnabled()) {
-    return;
-  }
-
-  clearWikaRefreshTimer();
-  const nextRunAt = new Date(Date.now() + REFRESH_RETRY_DELAY_MS).toISOString();
-  wikaTokenRuntime.nextRefreshAt = nextRunAt;
-  wikaTokenRuntime.refreshTimer = setTimeout(() => {
-    refreshWikaToken(reason).catch(() => {});
-  }, REFRESH_RETRY_DELAY_MS);
-  wikaTokenRuntime.refreshTimer.unref?.();
+  scheduleAccountRefreshRetry("wika", reason);
 }
 
-function scheduleWikaAutoRefresh(reason = "scheduled") {
-  clearWikaRefreshTimer();
+function scheduleAccountAutoRefresh(accountKey, reason = "scheduled") {
+  const runtime = getAccountRuntime(accountKey);
 
-  if (!isWikaAutoRefreshEnabled()) {
+  clearAccountRefreshTimer(accountKey);
+
+  if (!isAccountAutoRefreshEnabled(accountKey)) {
     return;
   }
 
-  const refreshToken = wikaTokenRuntime.tokenRecord?.token_payload?.refresh_token;
+  const refreshToken = runtime.tokenRecord?.token_payload?.refresh_token;
   if (!refreshToken) {
     return;
   }
 
   const accessTokenExpiresAt = getAccessTokenExpiresAt(
-    wikaTokenRuntime.tokenRecord.token_payload
+    runtime.tokenRecord.token_payload
   );
-  const refreshBufferMs = getWikaRefreshBufferSeconds() * 1000;
+  const refreshBufferMs = getAccountRefreshBufferSeconds(accountKey) * 1000;
   let delayMs = MIN_REFRESH_DELAY_MS;
 
   if (accessTokenExpiresAt) {
@@ -842,128 +1044,152 @@ function scheduleWikaAutoRefresh(reason = "scheduled") {
   }
 
   const finalTargetAt = Date.now() + delayMs;
-  wikaTokenRuntime.nextRefreshAt = new Date(finalTargetAt).toISOString();
+  runtime.nextRefreshAt = new Date(finalTargetAt).toISOString();
 
   const timerDelayMs = Math.min(delayMs, MAX_TIMER_DELAY_MS, RESCHEDULE_CHUNK_MS);
-  wikaTokenRuntime.refreshTimer = setTimeout(() => {
+  runtime.refreshTimer = setTimeout(() => {
     if (Date.now() + MIN_REFRESH_DELAY_MS < finalTargetAt) {
-      scheduleWikaAutoRefresh(reason);
+      scheduleAccountAutoRefresh(accountKey, reason);
       return;
     }
 
-    refreshWikaToken(reason).catch(() => {});
+    refreshAccountToken(accountKey, reason).catch(() => {});
   }, timerDelayMs);
-  wikaTokenRuntime.refreshTimer.unref?.();
+  runtime.refreshTimer.unref?.();
 }
 
-async function refreshWikaToken(reason = "scheduled") {
-  if (wikaTokenRuntime.refreshInFlight) {
+function scheduleWikaAutoRefresh(reason = "scheduled") {
+  scheduleAccountAutoRefresh("wika", reason);
+}
+
+async function refreshAccountToken(accountKey, reason = "scheduled") {
+  const config = getAccountConfig(accountKey);
+  const runtime = getAccountRuntime(accountKey);
+
+  if (runtime.refreshInFlight) {
     return;
   }
 
-  const refreshToken = wikaTokenRuntime.tokenRecord?.token_payload?.refresh_token;
+  const refreshToken = runtime.tokenRecord?.token_payload?.refresh_token;
   if (!refreshToken) {
-    logInfo("Wika token refresh skipped", {
+    logInfo(`${config.label} token refresh skipped`, {
       reason,
-      hasTokenRecord: Boolean(wikaTokenRuntime.tokenRecord)
+      hasTokenRecord: Boolean(runtime.tokenRecord)
     });
     return;
   }
 
-  wikaTokenRuntime.refreshInFlight = true;
-  wikaTokenRuntime.lastRefreshReason = reason;
+  runtime.refreshInFlight = true;
+  runtime.lastRefreshReason = reason;
 
   try {
-    const refreshedPayload = await refreshAuthorizationToken(refreshToken);
-    const persisted = persistWikaToken(refreshedPayload, `refresh:${reason}`);
+    const refreshedPayload = await refreshAuthorizationToken(refreshToken, accountKey);
+    const persisted = persistAccountToken(
+      accountKey,
+      refreshedPayload,
+      `refresh:${reason}`
+    );
 
-    wikaTokenRuntime.lastRefreshAt = new Date().toISOString();
-    wikaTokenRuntime.lastRefreshError = null;
+    runtime.lastRefreshAt = new Date().toISOString();
+    runtime.lastRefreshError = null;
 
-    logInfo("Wika token refresh completed", {
+    logInfo(`${config.label} token refresh completed`, {
       reason,
       storagePath: persisted.storagePath,
       token: persisted.summary
     });
 
-    scheduleWikaAutoRefresh("scheduled");
+    scheduleAccountAutoRefresh(accountKey, "scheduled");
   } catch (error) {
-    wikaTokenRuntime.lastRefreshError =
+    runtime.lastRefreshError =
       error instanceof Error ? error.message : String(error);
 
-    logError("Wika token refresh failed", {
+    logError(`${config.label} token refresh failed`, {
       reason,
       error: error instanceof Error ? error.message : String(error),
       details: error instanceof AlibabaApiError ? error.details : undefined
     });
 
-    scheduleWikaRefreshRetry("retry_after_failure");
+    scheduleAccountRefreshRetry(accountKey, "retry_after_failure");
     throw error;
   } finally {
-    wikaTokenRuntime.refreshInFlight = false;
+    runtime.refreshInFlight = false;
+  }
+}
+
+async function refreshWikaToken(reason = "scheduled") {
+  return refreshAccountToken("wika", reason);
+}
+
+function initializeAccountTokenRuntime(accountKey) {
+  const config = getAccountConfig(accountKey);
+  const runtime = getAccountRuntime(accountKey);
+
+  clearAccountRefreshTimer(accountKey);
+  runtime.tokenRecord = null;
+  runtime.loadedFrom = null;
+  runtime.startupInitAttemptedAt = new Date().toISOString();
+  runtime.startupInitStatus = "running";
+  runtime.startupInitError = null;
+  runtime.lastRefreshError = null;
+
+  try {
+    const persistedRecord = readPersistedTokenRecord(accountKey);
+    if (persistedRecord) {
+      runtime.tokenRecord = persistedRecord;
+      runtime.loadedFrom = "file";
+      runtime.startupInitStatus = "file";
+
+      logInfo(`Loaded persisted ${config.label} token record`, {
+        storagePath: getAccountTokenStoragePath(accountKey),
+        token: buildMaskedTokenSummary(persistedRecord.token_payload)
+      });
+
+      scheduleAccountAutoRefresh(accountKey, "startup");
+      return;
+    }
+
+    const bootstrapRecord = loadBootstrapTokenRecord(accountKey);
+    if (bootstrapRecord) {
+      writePersistedTokenRecord(accountKey, bootstrapRecord);
+      runtime.tokenRecord = bootstrapRecord;
+      runtime.loadedFrom = "bootstrap_env";
+      runtime.startupInitStatus = "bootstrap_env";
+
+      logInfo(`Initialized ${config.label} token record from bootstrap refresh token`, {
+        storagePath: getAccountTokenStoragePath(accountKey)
+      });
+
+      scheduleAccountAutoRefresh(accountKey, "startup_bootstrap");
+      return;
+    }
+
+    logInfo(`No persisted ${config.label} token record found`, {
+      storagePath: getAccountTokenStoragePath(accountKey),
+      bootstrapRefreshTokenPresent: Boolean(getAccountBootstrapRefreshToken(accountKey))
+    });
+    runtime.startupInitStatus = "no_runtime";
+  } catch (error) {
+    const errorMessage =
+      error instanceof Error ? error.message : String(error);
+    runtime.lastRefreshError =
+      errorMessage;
+    runtime.startupInitStatus = "failed";
+    runtime.startupInitError = errorMessage;
+
+    logError(`Failed to initialize ${config.label} token runtime`, {
+      error: errorMessage,
+      storagePath: getAccountTokenStoragePath(accountKey)
+    });
   }
 }
 
 function initializeWikaTokenRuntime() {
-  clearWikaRefreshTimer();
-  wikaTokenRuntime.tokenRecord = null;
-  wikaTokenRuntime.loadedFrom = null;
-  wikaTokenRuntime.startupInitAttemptedAt = new Date().toISOString();
-  wikaTokenRuntime.startupInitStatus = "running";
-  wikaTokenRuntime.startupInitError = null;
-  wikaTokenRuntime.lastRefreshError = null;
+  initializeAccountTokenRuntime("wika");
+}
 
-  try {
-    const persistedRecord = readPersistedWikaTokenRecord();
-    if (persistedRecord) {
-      wikaTokenRuntime.tokenRecord = persistedRecord;
-      wikaTokenRuntime.loadedFrom = "file";
-      wikaTokenRuntime.startupInitStatus = "file";
-
-      logInfo("Loaded persisted Wika token record", {
-        storagePath: getWikaTokenStoragePath(),
-        token: buildMaskedTokenSummary(persistedRecord.token_payload)
-      });
-
-      scheduleWikaAutoRefresh("startup");
-      return;
-    }
-
-    const bootstrapRecord = loadBootstrapWikaTokenRecord();
-    if (bootstrapRecord) {
-      writePersistedWikaTokenRecord(bootstrapRecord);
-      wikaTokenRuntime.tokenRecord = bootstrapRecord;
-      wikaTokenRuntime.loadedFrom = "bootstrap_env";
-      wikaTokenRuntime.startupInitStatus = "bootstrap_env";
-
-      logInfo("Initialized Wika token record from bootstrap refresh token", {
-        storagePath: getWikaTokenStoragePath()
-      });
-
-      scheduleWikaAutoRefresh("startup_bootstrap");
-      return;
-    }
-
-    logInfo("No persisted Wika token record found", {
-      storagePath: getWikaTokenStoragePath(),
-      bootstrapRefreshTokenPresent: Boolean(
-        getEnv("ALIBABA_WIKA_BOOTSTRAP_REFRESH_TOKEN")
-      )
-    });
-    wikaTokenRuntime.startupInitStatus = "no_runtime";
-  } catch (error) {
-    const errorMessage =
-      error instanceof Error ? error.message : String(error);
-    wikaTokenRuntime.lastRefreshError =
-      errorMessage;
-    wikaTokenRuntime.startupInitStatus = "failed";
-    wikaTokenRuntime.startupInitError = errorMessage;
-
-    logError("Failed to initialize Wika token runtime", {
-      error: errorMessage,
-      storagePath: getWikaTokenStoragePath()
-    });
-  }
+function initializeXdTokenRuntime() {
+  initializeAccountTokenRuntime("xd");
 }
 
 function buildStartupWarnings() {
@@ -983,40 +1209,49 @@ function getAlibabaTopApiUrl() {
   return getEnv("ALIBABA_TOP_API_URL") || DEFAULT_ALIBABA_TOP_API_URL;
 }
 
-function getActiveWikaAccessToken() {
-  return wikaTokenRuntime.tokenRecord?.token_payload?.access_token ?? "";
+function getActiveAccountAccessToken(accountKey) {
+  return (
+    getAccountRuntime(accountKey).tokenRecord?.token_payload?.access_token ?? ""
+  );
 }
 
-async function getWikaReadOnlyClientConfig() {
+function getActiveWikaAccessToken() {
+  return getActiveAccountAccessToken("wika");
+}
+
+async function getAlibabaReadOnlyClientConfig(accountKey = "wika") {
+  const config = getAccountConfig(accountKey);
+  const label = config.label;
   const missingKeys = [];
 
-  const appKey = getEnv("ALIBABA_CLIENT_ID");
+  const appKey = getAccountEnv(accountKey, "clientIdEnv");
   if (!appKey) {
-    missingKeys.push("ALIBABA_CLIENT_ID");
+    missingKeys.push(config.clientIdEnv);
   }
 
-  const appSecret = getEnv("ALIBABA_CLIENT_SECRET");
+  const appSecret = getAccountEnv(accountKey, "clientSecretEnv");
   if (!appSecret) {
-    missingKeys.push("ALIBABA_CLIENT_SECRET");
+    missingKeys.push(config.clientSecretEnv);
   }
 
-  let accessToken = getActiveWikaAccessToken();
-  if (!accessToken && wikaTokenRuntime.tokenRecord?.token_payload?.refresh_token) {
-    logInfo("Wika read-only request is refreshing access token on demand", {
+  let accessToken = getActiveAccountAccessToken(accountKey);
+  const runtime = getAccountRuntime(accountKey);
+  if (!accessToken && runtime.tokenRecord?.token_payload?.refresh_token) {
+    logInfo(`${label} read-only request is refreshing access token on demand`, {
       reason: "read_only_data_access"
     });
 
-    await refreshWikaToken("read_only_data_access");
-    accessToken = getActiveWikaAccessToken();
+    await refreshAccountToken(accountKey, "read_only_data_access");
+    accessToken = getActiveAccountAccessToken(accountKey);
   }
 
   if (!accessToken) {
-    missingKeys.push("WIKA_ACCESS_TOKEN_RUNTIME");
+    missingKeys.push(`${accountKey.toUpperCase()}_ACCESS_TOKEN_RUNTIME`);
   }
 
   if (missingKeys.length > 0) {
     throw new ConfigurationError(
-      `Wika read-only data access is missing runtime prerequisites: ${missingKeys.join(", ")}`,
+      `${label} read-only data access is missing runtime prerequisites: ${missingKeys.join(", ")}`,
       missingKeys
     );
   }
@@ -1025,9 +1260,13 @@ async function getWikaReadOnlyClientConfig() {
     appKey,
     appSecret,
     accessToken,
-    partnerId: getEnv("ALIBABA_PARTNER_ID") || undefined,
+    partnerId: getAccountPartnerId(accountKey) || undefined,
     endpointUrl: getAlibabaTopApiUrl()
   };
+}
+
+async function getWikaReadOnlyClientConfig() {
+  return getAlibabaReadOnlyClientConfig("wika");
 }
 
 function extractTopErrorResponse(error) {
@@ -1055,12 +1294,231 @@ function buildReadOnlyErrorResponse(error) {
   };
 }
 
+function createAlibabaAuthStartHandler(accountKey) {
+  return (req, res) => {
+    const config = getAccountConfig(accountKey);
+
+    try {
+      const state = generateState();
+      rememberState(state, accountKey);
+
+      const authorizationUrl = buildAlibabaAuthorizationUrl(state, accountKey);
+
+      logInfo(`${config.label} Alibaba auth flow started`, {
+        state,
+        redirectUri: getAccountEnv(accountKey, "redirectUriEnv"),
+        authUrl: getAccountAuthUrl(accountKey)
+      });
+
+      res.redirect(302, authorizationUrl);
+    } catch (error) {
+      const debugUrl = `${getAppBaseUrl(req)}${config.debugPath}`;
+
+      logError(`${config.label} Alibaba auth start failed`, {
+        error: error instanceof Error ? error.message : String(error),
+        missingKeys:
+          error instanceof ConfigurationError ? error.missingKeys : null
+      });
+
+      res
+        .status(500)
+        .type("html")
+        .send(
+          renderHtmlPage({
+            title: `${config.label} Auth Start Error`,
+            heading: `${config.label} authorization could not start`,
+            paragraphs: [error instanceof Error ? error.message : String(error)],
+            details:
+              error instanceof ConfigurationError
+                ? [
+                    {
+                      label: "Missing variables",
+                      value: error.missingKeys.join(", ")
+                    }
+                  ]
+                : [],
+            action: {
+              href: debugUrl,
+              label: `Open ${config.label} OAuth debug summary`
+            }
+          })
+        );
+    }
+  };
+}
+
+function createAlibabaCallbackHandler(accountKey) {
+  return async (req, res) => {
+    const config = getAccountConfig(accountKey);
+    const runtime = getAccountRuntime(accountKey);
+    const { code, state } = req.query;
+
+    if (!code) {
+      res.status(400).send("Missing code");
+      return;
+    }
+
+    logInfo(`${config.label} Alibaba callback received`, {
+      code,
+      state: state || null,
+      query: req.query
+    });
+
+    const consumedState = consumeState(state, accountKey);
+    if (!consumedState.ok) {
+      res
+        .status(400)
+        .type("html")
+        .send(
+          renderHtmlPage({
+            title: `${config.label} Callback Error`,
+            heading: `${config.label} authorization failed`,
+            paragraphs: ["Invalid or expired state."],
+            details: [
+              {
+                label: "State status",
+                value: consumedState.reason
+              }
+            ],
+            action: {
+              href: `${getAppBaseUrl(req)}${config.authStartPath}`,
+              label: `Start ${config.label} authorization again`
+            }
+          })
+        );
+      return;
+    }
+
+    try {
+      const tokenResponse = await exchangeAuthorizationCode(String(code), accountKey);
+      const persisted = persistAccountToken(accountKey, tokenResponse, "oauth_callback");
+
+      runtime.lastRefreshAt = new Date().toISOString();
+      runtime.lastRefreshReason = "oauth_callback";
+      runtime.lastRefreshError = null;
+
+      logInfo(`${config.label} Alibaba token exchange completed`, {
+        storagePath: persisted.storagePath,
+        token: persisted.summary
+      });
+
+      scheduleAccountAutoRefresh(accountKey, "scheduled");
+
+      res
+        .status(200)
+        .type("html")
+        .send(
+          renderHtmlPage({
+            title: `${config.label} Authorization Success`,
+            heading: `${config.label} authorization received`,
+            paragraphs: [
+              "The callback request reached the service successfully.",
+              `${config.label} tokens were persisted and auto refresh has been scheduled.`
+            ],
+            details: [
+              {
+                label: "Access token received",
+                value: tokenResponse.access_token ? "yes" : "no"
+              },
+              {
+                label: "Access token",
+                value: maskValue(tokenResponse.access_token) ?? "not available"
+              },
+              {
+                label: "Refresh token present",
+                value: tokenResponse.refresh_token ? "yes" : "no"
+              },
+              {
+                label: "Refresh token",
+                value: maskValue(tokenResponse.refresh_token) ?? "not available"
+              },
+              {
+                label: "Storage path",
+                value: persisted.storagePath
+              },
+              {
+                label: "Next auto refresh",
+                value: runtime.nextRefreshAt ?? "not scheduled"
+              },
+              {
+                label: "expires_in",
+                value: String(tokenResponse.expires_in ?? "not available")
+              },
+              {
+                label: "refresh_expires_in",
+                value: String(tokenResponse.refresh_expires_in ?? "not available")
+              },
+              {
+                label: "request_id",
+                value: String(tokenResponse.request_id ?? "not available")
+              }
+            ]
+          })
+        );
+    } catch (error) {
+      const errorDetails =
+        error instanceof AlibabaApiError ? error.details : undefined;
+
+      logError(`${config.label} Alibaba callback processing failed`, {
+        error: error instanceof Error ? error.message : String(error),
+        details: errorDetails,
+        callbackQuery: req.query
+      });
+
+      const detailRows = [];
+      if (error instanceof ConfigurationError && error.missingKeys.length > 0) {
+        detailRows.push({
+          label: "Missing variables",
+          value: error.missingKeys.join(", ")
+        });
+      }
+
+      if (errorDetails?.responseBody?.request_id) {
+        detailRows.push({
+          label: "request_id",
+          value: String(errorDetails.responseBody.request_id)
+        });
+      }
+
+      if (errorDetails?.status) {
+        detailRows.push({
+          label: "HTTP status",
+          value: String(errorDetails.status)
+        });
+      }
+
+      res
+        .status(error instanceof ConfigurationError ? 500 : 502)
+        .type("html")
+        .send(
+          renderHtmlPage({
+            title: `${config.label} Callback Error`,
+            heading: `${config.label} authorization failed`,
+            paragraphs: [error instanceof Error ? error.message : String(error)],
+            details: detailRows,
+            action: {
+              href: `${getAppBaseUrl(req)}${config.debugPath}`,
+              label: `Open ${config.label} OAuth debug summary`
+            }
+          })
+        );
+    }
+  };
+}
+
 app.get("/health", (_req, res) => {
   res.status(200).send("ok");
 });
 
 app.get("/integrations/alibaba/auth/debug", (_req, res) => {
   res.status(200).json(buildConfigSummary());
+});
+
+app.get("/integrations/alibaba/xd/auth/debug", (_req, res) => {
+  res.status(200).json({
+    account: "xd",
+    ...buildAccountDebugSummary("xd")
+  });
 });
 
 app.get("/integrations/alibaba/wika/data/products/list", async (req, res) => {
@@ -1083,6 +1541,45 @@ app.get("/integrations/alibaba/wika/data/products/list", async (req, res) => {
     });
   } catch (error) {
     logError("Wika product list read failed", {
+      error: error instanceof Error ? error.message : String(error),
+      details:
+        error instanceof AlibabaApiError || error?.details
+          ? error.details
+          : undefined,
+      top_error: extractTopErrorResponse(error),
+      query: req.query
+    });
+
+    res
+      .status(error instanceof ConfigurationError ? 500 : 502)
+      .json(buildReadOnlyErrorResponse(error));
+  }
+});
+
+app.get("/integrations/alibaba/xd/data/products/list", async (req, res) => {
+  try {
+    const rawResult = await fetchWikaProductList(
+      await getAlibabaReadOnlyClientConfig("xd"),
+      req.query
+    );
+    const result = {
+      ...rawResult,
+      account: "xd"
+    };
+
+    logInfo("XD product list read completed", {
+      totalItem: result.response_meta.total_item,
+      returnedItemCount: result.items.length,
+      currentPage: result.response_meta.current_page,
+      pageSize: result.response_meta.page_size
+    });
+
+    res.status(200).json({
+      ok: true,
+      ...result
+    });
+  } catch (error) {
+    logError("XD product list read failed", {
       error: error instanceof Error ? error.message : String(error),
       details:
         error instanceof AlibabaApiError || error?.details
@@ -1144,208 +1641,63 @@ app.get(
   }
 );
 
-app.get("/integrations/alibaba/auth/start", (req, res) => {
-  try {
-    const state = generateState();
-    rememberState(state);
-
-    const authorizationUrl = buildAlibabaAuthorizationUrl(state);
-
-    logInfo("Alibaba auth flow started", {
-      state,
-      redirectUri: getEnv("ALIBABA_REDIRECT_URI"),
-      authUrl: getEnv("ALIBABA_AUTH_URL")
-    });
-
-    res.redirect(302, authorizationUrl);
-  } catch (error) {
-    const debugUrl = `${getAppBaseUrl(req)}/integrations/alibaba/auth/debug`;
-
-    logError("Alibaba auth start failed", {
-      error: error instanceof Error ? error.message : String(error),
-      missingKeys: error instanceof ConfigurationError ? error.missingKeys : null
-    });
-
-    res
-      .status(500)
-      .type("html")
-      .send(
-        renderHtmlPage({
-          title: "Alibaba Auth Start Error",
-          heading: "Alibaba authorization could not start",
-          paragraphs: [error instanceof Error ? error.message : String(error)],
-          details:
-            error instanceof ConfigurationError
-              ? [
-                  {
-                    label: "Missing variables",
-                    value: error.missingKeys.join(", ")
-                  }
-                ]
-              : [],
-          action: {
-            href: debugUrl,
-            label: "Open OAuth debug summary"
-          }
-        })
+app.get(
+  "/integrations/alibaba/xd/reports/products/management-summary",
+  async (req, res) => {
+    try {
+      const rawResult = await fetchWikaProductList(
+        await getAlibabaReadOnlyClientConfig("xd"),
+        {
+          ...req.query,
+          page_size: req.query.page_size ?? 30
+        }
       );
-  }
-});
+      const result = {
+        ...rawResult,
+        account: "xd"
+      };
+      const summary = {
+        ...buildProductManagementSummary(result),
+        account: "xd"
+      };
+      const recommendations = buildProductRecommendations(result);
 
-app.get("/integrations/alibaba/callback", async (req, res) => {
-  const { code, state } = req.query;
-
-  if (!code) {
-    res.status(400).send("Missing code");
-    return;
-  }
-
-  logInfo("Alibaba callback received", {
-    code,
-    state: state || null,
-    query: req.query
-  });
-
-  const consumedState = consumeState(state);
-  if (!consumedState.ok) {
-    res
-      .status(400)
-      .type("html")
-      .send(
-        renderHtmlPage({
-          title: "Alibaba Callback Error",
-          heading: "Alibaba authorization failed",
-          paragraphs: ["Invalid or expired state."],
-          details: [
-            {
-              label: "State status",
-              value: consumedState.reason
-            }
-          ],
-          action: {
-            href: `${getAppBaseUrl(req)}/integrations/alibaba/auth/start`,
-            label: "Start authorization again"
-          }
-        })
-      );
-    return;
-  }
-
-  try {
-    const tokenResponse = await exchangeAuthorizationCode(String(code));
-    const persisted = persistWikaToken(tokenResponse, "oauth_callback");
-
-    wikaTokenRuntime.lastRefreshAt = new Date().toISOString();
-    wikaTokenRuntime.lastRefreshReason = "oauth_callback";
-    wikaTokenRuntime.lastRefreshError = null;
-
-    logInfo("Alibaba token exchange completed", {
-      storagePath: persisted.storagePath,
-      token: persisted.summary
-    });
-
-    scheduleWikaAutoRefresh("scheduled");
-
-    res
-      .status(200)
-      .type("html")
-      .send(
-        renderHtmlPage({
-          title: "Alibaba Authorization Success",
-          heading: "Alibaba authorization received",
-          paragraphs: [
-            "The callback request reached the service successfully.",
-            "Wika tokens were persisted and auto refresh has been scheduled."
-          ],
-          details: [
-            {
-              label: "Access token received",
-              value: tokenResponse.access_token ? "yes" : "no"
-            },
-            {
-              label: "Access token",
-              value: maskValue(tokenResponse.access_token) ?? "not available"
-            },
-            {
-              label: "Refresh token present",
-              value: tokenResponse.refresh_token ? "yes" : "no"
-            },
-            {
-              label: "Refresh token",
-              value: maskValue(tokenResponse.refresh_token) ?? "not available"
-            },
-            {
-              label: "Storage path",
-              value: persisted.storagePath
-            },
-            {
-              label: "Next auto refresh",
-              value: wikaTokenRuntime.nextRefreshAt ?? "not scheduled"
-            },
-            {
-              label: "expires_in",
-              value: String(tokenResponse.expires_in ?? "not available")
-            },
-            {
-              label: "refresh_expires_in",
-              value: String(tokenResponse.refresh_expires_in ?? "not available")
-            },
-            {
-              label: "request_id",
-              value: String(tokenResponse.request_id ?? "not available")
-            }
-          ]
-        })
-      );
-  } catch (error) {
-    const errorDetails =
-      error instanceof AlibabaApiError ? error.details : undefined;
-
-    logError("Alibaba callback processing failed", {
-      error: error instanceof Error ? error.message : String(error),
-      details: errorDetails,
-      callbackQuery: req.query
-    });
-
-    const detailRows = [];
-    if (error instanceof ConfigurationError && error.missingKeys.length > 0) {
-      detailRows.push({
-        label: "Missing variables",
-        value: error.missingKeys.join(", ")
+      res.status(200).json({
+        ok: true,
+        module: "products",
+        account: "xd",
+        read_only: true,
+        source: result.source,
+        data_validation: {
+          verification_status: result.verification_status,
+          evidence_level: result.evidence_level,
+          verified_fields: result.verified_fields
+        },
+        summary,
+        recommendations
       });
-    }
-
-    if (errorDetails?.responseBody?.request_id) {
-      detailRows.push({
-        label: "request_id",
-        value: String(errorDetails.responseBody.request_id)
+    } catch (error) {
+      logError("XD product management summary failed", {
+        error: error instanceof Error ? error.message : String(error),
+        details:
+          error instanceof AlibabaApiError || error?.details
+            ? error.details
+            : undefined,
+        top_error: extractTopErrorResponse(error),
+        query: req.query
       });
-    }
 
-    if (errorDetails?.status) {
-      detailRows.push({
-        label: "HTTP status",
-        value: String(errorDetails.status)
-      });
+      res
+        .status(error instanceof ConfigurationError ? 500 : 502)
+        .json(buildReadOnlyErrorResponse(error));
     }
-
-    res
-      .status(error instanceof ConfigurationError ? 500 : 502)
-      .type("html")
-      .send(
-        renderHtmlPage({
-          title: "Alibaba Callback Error",
-          heading: "Alibaba authorization failed",
-          paragraphs: [error instanceof Error ? error.message : String(error)],
-          details: detailRows,
-          action: {
-            href: `${getAppBaseUrl(req)}/integrations/alibaba/auth/debug`,
-            label: "Open OAuth debug summary"
-          }
-        })
-      );
   }
-});
+);
+
+app.get("/integrations/alibaba/auth/start", createAlibabaAuthStartHandler("wika"));
+app.get("/integrations/alibaba/callback", createAlibabaCallbackHandler("wika"));
+app.get("/integrations/alibaba/xd/auth/start", createAlibabaAuthStartHandler("xd"));
+app.get("/integrations/alibaba/xd/auth/callback", createAlibabaCallbackHandler("xd"));
 
 setInterval(cleanupExpiredStates, CLEANUP_INTERVAL_MS).unref?.();
 
@@ -1353,6 +1705,7 @@ const port = getPort();
 const startupWarnings = buildStartupWarnings();
 
 initializeWikaTokenRuntime();
+initializeXdTokenRuntime();
 
 app.listen(port, () => {
   console.log(`Alibaba callback service listening on port ${port}`);
@@ -1365,6 +1718,10 @@ app.listen(port, () => {
 
   if (!isWikaAutoRefreshEnabled()) {
     console.warn("Wika auto refresh is disabled by ALIBABA_WIKA_AUTO_REFRESH_ENABLED.");
+  }
+
+  if (!isAccountAutoRefreshEnabled("xd")) {
+    console.warn("XD auto refresh is disabled by ALIBABA_XD_AUTO_REFRESH_ENABLED.");
   }
 
   if (!getEnv("SESSION_SECRET")) {
