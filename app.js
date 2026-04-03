@@ -5,6 +5,10 @@ import { fileURLToPath } from "node:url";
 import express from "express";
 import { DEFAULT_ALIBABA_TOP_API_URL } from "./shared/data/clients/alibaba-top-client.js";
 import {
+  fetchAlibabaOfficialOrderDetail,
+  fetchAlibabaOfficialOrderList
+} from "./shared/data/modules/alibaba-official-orders.js";
+import {
   buildProductManagementSummary,
   buildProductRecommendations,
   fetchWikaProductList
@@ -1336,12 +1340,153 @@ function extractTopErrorResponse(error) {
 
 function buildReadOnlyErrorResponse(error) {
   const topError = extractTopErrorResponse(error);
+  const missingKeys =
+    error instanceof ConfigurationError
+      ? error.missingKeys
+      : Array.isArray(error?.missingKeys)
+        ? error.missingKeys
+        : undefined;
 
   return {
     ok: false,
     error: error instanceof Error ? error.message : String(error),
-    missing_keys: error instanceof ConfigurationError ? error.missingKeys : undefined,
+    missing_keys: missingKeys,
+    error_category: classifyReadOnlyError(error, topError, missingKeys),
     top_error: topError
+  };
+}
+
+function classifyReadOnlyError(error, topError, missingKeys = undefined) {
+  if (Array.isArray(missingKeys) && missingKeys.length > 0) {
+    if (missingKeys.includes("e_trade_id")) {
+      return "parameter_error";
+    }
+
+    return "authentication_error";
+  }
+
+  const subCode = String(topError?.sub_code ?? "").toLowerCase();
+  const msg = String(topError?.msg ?? "").toLowerCase();
+  const errorMessage = String(error instanceof Error ? error.message : error ?? "").toLowerCase();
+
+  if (
+    subCode.includes("permission") ||
+    msg.includes("insufficientpermission") ||
+    msg.includes("permission")
+  ) {
+    return "permission_error";
+  }
+
+  if (
+    subCode.includes("missing") ||
+    msg.includes("missingparameter") ||
+    errorMessage.includes("requires e_trade_id")
+  ) {
+    return "parameter_error";
+  }
+
+  if (
+    subCode.includes("appkey") ||
+    msg.includes("invalid app key") ||
+    msg.includes("gateway")
+  ) {
+    return "gateway_error";
+  }
+
+  if (topError) {
+    return "platform_api_error";
+  }
+
+  return "unknown_error";
+}
+
+function createAccountOrderListHandler(accountKey) {
+  return async (req, res) => {
+    const config = getAccountConfig(accountKey);
+
+    try {
+      const result = await fetchAlibabaOfficialOrderList(
+        {
+          account: accountKey,
+          ...(await getAlibabaReadOnlyClientConfig(accountKey))
+        },
+        req.query
+      );
+
+      logInfo(`${config.label} order list read completed`, {
+        totalCount: result.response_meta.total_count,
+        returnedItemCount: result.items.length,
+        startPage: result.response_meta.start_page,
+        pageSize: result.response_meta.page_size
+      });
+
+      res.status(200).json({
+        ok: true,
+        ...result
+      });
+    } catch (error) {
+      logError(`${config.label} order list read failed`, {
+        error: error instanceof Error ? error.message : String(error),
+        details:
+          error instanceof AlibabaApiError || error?.details
+            ? error.details
+            : undefined,
+        top_error: extractTopErrorResponse(error),
+        query: req.query
+      });
+
+      const hasMissingKeys =
+        error instanceof ConfigurationError ||
+        Array.isArray(error?.missingKeys);
+
+      res
+        .status(hasMissingKeys ? 400 : 502)
+        .json(buildReadOnlyErrorResponse(error));
+    }
+  };
+}
+
+function createAccountOrderDetailHandler(accountKey) {
+  return async (req, res) => {
+    const config = getAccountConfig(accountKey);
+
+    try {
+      const result = await fetchAlibabaOfficialOrderDetail(
+        {
+          account: accountKey,
+          ...(await getAlibabaReadOnlyClientConfig(accountKey))
+        },
+        req.query
+      );
+
+      logInfo(`${config.label} order detail read completed`, {
+        tradeId: result.response_meta.e_trade_id,
+        productCount: result.item.product_count
+      });
+
+      res.status(200).json({
+        ok: true,
+        ...result
+      });
+    } catch (error) {
+      logError(`${config.label} order detail read failed`, {
+        error: error instanceof Error ? error.message : String(error),
+        details:
+          error instanceof AlibabaApiError || error?.details
+            ? error.details
+            : undefined,
+        top_error: extractTopErrorResponse(error),
+        query: req.query
+      });
+
+      const hasMissingKeys =
+        error instanceof ConfigurationError ||
+        Array.isArray(error?.missingKeys);
+
+      res
+        .status(hasMissingKeys ? 400 : 502)
+        .json(buildReadOnlyErrorResponse(error));
+    }
   };
 }
 
@@ -2037,73 +2182,22 @@ app.get("/integrations/alibaba/xd/data/products/list", async (req, res) => {
   }
 });
 
-app.get("/integrations/alibaba/xd/data/orders/list", async (req, res) => {
-  try {
-    const result = await fetchXdOfficialOrderList(
-      await getAlibabaReadOnlyClientConfig("xd"),
-      req.query
-    );
-
-    logInfo("XD order list read completed", {
-      totalCount: result.response_meta.total_count,
-      returnedItemCount: result.items.length,
-      startPage: result.response_meta.start_page,
-      pageSize: result.response_meta.page_size
-    });
-
-    res.status(200).json({
-      ok: true,
-      ...result
-    });
-  } catch (error) {
-    logError("XD order list read failed", {
-      error: error instanceof Error ? error.message : String(error),
-      details:
-        error instanceof AlibabaApiError || error?.details
-          ? error.details
-          : undefined,
-      top_error: extractTopErrorResponse(error),
-      query: req.query
-    });
-
-    res
-      .status(error instanceof ConfigurationError ? 400 : 502)
-      .json(buildReadOnlyErrorResponse(error));
-  }
-});
-
-app.get("/integrations/alibaba/xd/data/orders/detail", async (req, res) => {
-  try {
-    const result = await fetchXdOfficialOrderDetail(
-      await getAlibabaReadOnlyClientConfig("xd"),
-      req.query
-    );
-
-    logInfo("XD order detail read completed", {
-      tradeId: result.response_meta.e_trade_id,
-      productCount: result.item.product_count
-    });
-
-    res.status(200).json({
-      ok: true,
-      ...result
-    });
-  } catch (error) {
-    logError("XD order detail read failed", {
-      error: error instanceof Error ? error.message : String(error),
-      details:
-        error instanceof AlibabaApiError || error?.details
-          ? error.details
-          : undefined,
-      top_error: extractTopErrorResponse(error),
-      query: req.query
-    });
-
-    res
-      .status(error instanceof ConfigurationError ? 400 : 502)
-      .json(buildReadOnlyErrorResponse(error));
-  }
-});
+app.get(
+  "/integrations/alibaba/wika/data/orders/list",
+  createAccountOrderListHandler("wika")
+);
+app.get(
+  "/integrations/alibaba/wika/data/orders/detail",
+  createAccountOrderDetailHandler("wika")
+);
+app.get(
+  "/integrations/alibaba/xd/data/orders/list",
+  createAccountOrderListHandler("xd")
+);
+app.get(
+  "/integrations/alibaba/xd/data/orders/detail",
+  createAccountOrderDetailHandler("xd")
+);
 
 app.get(
   "/integrations/alibaba/wika/reports/products/management-summary",

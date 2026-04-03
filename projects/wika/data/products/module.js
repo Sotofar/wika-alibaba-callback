@@ -3,15 +3,17 @@ import {
   DEFAULT_ALIBABA_TOP_API_URL
 } from "../../../../shared/data/clients/alibaba-top-client.js";
 import {
+  callAlibabaSyncApi,
+  resolveAlibabaSyncEndpoint
+} from "../../../../shared/data/clients/alibaba-sync-client.js";
+import {
   createSourceDescriptor,
   DATA_QUALITY_STATUS
 } from "../../../../shared/data/clients/source-status.js";
 import { fetchAlibabaSellerPageJson } from "../../../../shared/data/clients/alibaba-seller-page-client.js";
-import { signAlibabaRequest } from "../../../../src/alibaba/sign.js";
 
 const PRODUCT_PERFORMANCE_URL =
   "https://mydata.alibaba.com/self/.json?action=OneAction&iName=customerAdviser/prodList";
-const DEFAULT_ALIBABA_SYNC_API_URL = "https://open-api.alibaba.com/sync";
 
 const OFFICIAL_PRODUCT_FIELDS = Object.freeze([
   "current_page",
@@ -436,42 +438,6 @@ function sortUnifiedProducts(items = []) {
   });
 }
 
-function resolveOfficialProductEndpoint(endpointUrl) {
-  if (!endpointUrl || endpointUrl === DEFAULT_ALIBABA_TOP_API_URL) {
-    return DEFAULT_ALIBABA_SYNC_API_URL;
-  }
-
-  return endpointUrl;
-}
-
-function serializeSyncValue(value) {
-  if (value === undefined || value === null || value === "") {
-    return "";
-  }
-
-  if (typeof value === "object") {
-    return JSON.stringify(value);
-  }
-
-  return String(value);
-}
-
-async function parseSyncResponse(response) {
-  const rawText = await response.text();
-
-  try {
-    return {
-      rawText,
-      json: JSON.parse(rawText)
-    };
-  } catch {
-    return {
-      rawText,
-      json: null
-    };
-  }
-}
-
 async function callAlibabaProductSyncApi({
   appKey,
   appSecret,
@@ -480,73 +446,15 @@ async function callAlibabaProductSyncApi({
   businessParams = {},
   timeoutMs = 15_000
 }) {
-  const requestParams = {
-    method: "alibaba.icbu.product.list",
-    app_key: appKey,
-    access_token: accessToken,
-    sign_method: "sha256",
-    timestamp: String(Date.now())
-  };
-
-  for (const [key, value] of Object.entries(businessParams)) {
-    const serializedValue = serializeSyncValue(value);
-    if (serializedValue !== "") {
-      requestParams[key] = serializedValue;
-    }
-  }
-
-  requestParams.sign = signAlibabaRequest({
-    apiName: "",
-    params: requestParams,
-    appSecret
+  return callAlibabaSyncApi({
+    apiName: "alibaba.icbu.product.list",
+    appKey,
+    appSecret,
+    accessToken,
+    endpointUrl,
+    businessParams,
+    timeoutMs
   });
-
-  const requestOptions = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json;charset=utf-8",
-      Accept: "application/json"
-    },
-    body: JSON.stringify(requestParams)
-  };
-
-  if (globalThis.AbortSignal?.timeout) {
-    requestOptions.signal = AbortSignal.timeout(timeoutMs);
-  }
-
-  const response = await fetch(endpointUrl, requestOptions);
-  const parsed = await parseSyncResponse(response);
-
-  if (!response.ok) {
-    throw new AlibabaTopApiError("Alibaba sync API request failed", {
-      apiName: "alibaba.icbu.product.list",
-      endpointUrl,
-      status: response.status,
-      rawText: parsed.rawText
-    });
-  }
-
-  if (!parsed.json || typeof parsed.json !== "object") {
-    throw new AlibabaTopApiError("Alibaba sync API returned non-JSON data", {
-      apiName: "alibaba.icbu.product.list",
-      endpointUrl,
-      rawText: parsed.rawText
-    });
-  }
-
-  if (parsed.json.error_response) {
-    throw new AlibabaTopApiError("TOP API returned error_response", {
-      apiName: "alibaba.icbu.product.list",
-      endpointUrl,
-      errorResponse: parsed.json.error_response
-    });
-  }
-
-  return {
-    rootKey: "alibaba_icbu_product_list_response",
-    payload: parsed.json.alibaba_icbu_product_list_response ?? parsed.json,
-    raw: parsed.json
-  };
 }
 
 export async function fetchWikaProductList(
@@ -560,7 +468,7 @@ export async function fetchWikaProductList(
   query = {}
 ) {
   const businessParams = pickBusinessParams(query);
-  const effectiveEndpointUrl = resolveOfficialProductEndpoint(endpointUrl);
+  const effectiveEndpointUrl = resolveAlibabaSyncEndpoint(endpointUrl);
   const response = await callAlibabaProductSyncApi({
     appKey,
     appSecret,
