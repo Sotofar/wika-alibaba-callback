@@ -2,65 +2,64 @@
 
 更新时间：2026-04-04
 
-本文只列出围绕最终 6 项任务、下一批最值得验证的 API 候选池。它不是“全量 API 扫描”，只保留对任务闭环真正有价值的候选项。
+本文只保留围绕最终 6 项任务、且在当前主线里最值得继续推进的下一批候选。  
+不再把已经明确权限阻塞的 `mydata / overview / self.product` 接口放回当前主线循环。
 
 ## 排序原则
 
-1. 先补 `任务 1 + 任务 2`：读数据 + 最小经营诊断入口
-2. 再补 `任务 3`：产品上新与详情编写
-3. 再补 `任务 5`：订单草稿 / 交易创建
-4. 最后评估 `任务 4`：询盘 / 消息 / 客户读写
+1. 先补任务 3：产品写入前置能力与低风险草稿边界
+2. 再补任务 5：订单草稿 / 交易创建入口
+3. 最后再判断任务 4：询盘 / 消息 / 客户是否有可生产入口
 
-## 第一梯队：已完成验证，但当前被权限阻塞
+## 第一梯队：任务 3（产品上新与详情编写）
 
-| 优先级 | 候选 API | 主要补齐的能力 | 当前状态 | 当前判断 | 进入下一轮前提 |
-| --- | --- | --- | --- | --- | --- |
-| T1-P0 | `alibaba.mydata.overview.indicator.basic.get` | 店铺曝光、点击、CTR、访客、询盘、回复率 | 官方存在，但权限/能力阻塞 | 已在当前生产闭环下实测，返回 `InsufficientPermission` | 只有权限开通后才值得重试 |
-| T1-P0 | `alibaba.mydata.self.product.get` | 产品曝光、点击、询盘、访客、关键词来源、近周期表现 | 官方存在，但权限/能力阻塞 | 已在当前生产闭环下实测，返回 `InsufficientPermission` | 只有权限开通后才值得重试 |
-| T1-P1 | `alibaba.mydata.self.product.date.get` | 产品表现可用周期 / 日期范围 | 官方存在，但权限/能力阻塞 | 已在当前生产闭环下实测，返回 `InsufficientPermission` | 只有权限开通后才值得重试 |
-| T1-P1 | `alibaba.mydata.overview.industry.get` | 行业归属与行业口径 | 官方存在，但权限/能力阻塞 | 已在当前生产闭环下实测，返回 `InsufficientPermission` | 只有权限开通后才值得重试 |
-| T1-P2 | `alibaba.mydata.overview.date.get` | 店铺概览可用统计周期 | 官方存在，但权限/能力阻塞 | 已在当前生产闭环下实测，返回 `InsufficientPermission` | 只有权限开通后才值得重试 |
+| 优先级 | API / 能力 | 当前状态 | 当前结论 | 下一步 |
+| --- | --- | --- | --- | --- |
+| T3-P0 | `alibaba.icbu.photobank.upload` | 已验证但尚未形成正式路由 | 当前生产实测返回业务参数错误，说明已过授权层；但它属于真实写操作，尚未证明存在低风险测试/草稿边界 | 先定义安全调用边界，再决定是否进入最小原始路由 |
+| T3-P0 | `alibaba.icbu.product.schema.get` | 官方存在，待生产验证 | 这是补齐 schema / 必填字段 / payload 结构的关键入口 | 进入下一轮真实生产验证 |
+| T3-P0 | `alibaba.icbu.product.schema.render` | 官方存在，待生产验证 | 可用于读取 schema 字段与已有商品渲染结果，有助于草稿链路 | 进入下一轮真实生产验证 |
+| T3-P0 | `alibaba.icbu.product.add.draft` | 官方存在，待生产验证 | 当前最像“安全草稿模式”的候选，不应跳过 | 进入下一轮真实生产验证 |
+| T3-P1 | `alibaba.icbu.product.schema.add` | 已验证但尚未形成正式路由 | 当前生产实测返回业务参数错误，说明已过授权层；但还没有安全草稿边界 | 等 schema/get-render-draft 结论出来后，再决定是否进入低风险验证 |
+| T3-P1 | `alibaba.icbu.product.add` | 已验证但尚未形成正式路由 | 当前生产实测返回业务参数错误，说明已过授权层；但属于高风险真实发布入口 | 不直接进入正式路由开发 |
+| T3-P1 | `alibaba.icbu.product.schema.update` | 已验证但尚未形成正式路由 | 当前生产实测返回业务参数错误，说明已过授权层；但更新真实商品风险高 | 等 schema/render 与草稿边界明确后再推进 |
+| T3-P1 | `alibaba.icbu.product.update` | 已验证但尚未形成正式路由 | 当前生产实测返回业务参数错误，说明已过授权层；但当前不允许真实线上修改 | 仅保留在候选池 |
+| T3-P1 | `alibaba.icbu.product.update.field` | 已验证但尚未形成正式路由 | 当前生产实测返回业务参数错误，说明已过授权层；但真实字段更新风险高 | 仅保留在候选池 |
 
-## 第二梯队：当前真正的下一批必须验证对象（任务 3）
+## 第二梯队：任务 5（订单草稿 / 交易创建）
 
-| 优先级 | 候选 API | 主要补齐的能力 | 当前状态 | 当前判断 | 进入下一轮前提 |
-| --- | --- | --- | --- | --- | --- |
-| T3-P0 | `alibaba.icbu.photobank.upload` | 图片 / 媒体上传 | 官方存在，待生产验证 | 产品上新闭环的必经入口之一 | 证明可复用当前 `/sync + access_token + sha256` 或拿到明确生产调用形态 |
-| T3-P0 | `alibaba.icbu.category.get.new` | 发布类目树读取 | 官方存在，待生产验证 | 产品创建前必须先拿到类目 | 同上 |
-| T3-P0 | `alibaba.icbu.category.attr.get` / `alibaba.icbu.category.attribute.get` | 类目属性读取 | 官方存在，待生产验证 | 详情 payload 结构化必需 | 同上 |
-| T3-P1 | `alibaba.icbu.product.add` / `alibaba.icbu.product.schema.add` | 产品创建 | 官方存在，待生产验证 | 直接决定“能否真正上新” | 先确定哪条是当前主线创建接口，再做生产验证 |
-| T3-P1 | `alibaba.icbu.product.update` / `alibaba.icbu.product.schema.update` / `alibaba.icbu.product.update.field` | 产品更新 / 增量更新 | 官方存在，待生产验证 | 直接决定“能否真正改详情” | 先确定哪条是当前主线更新接口，再做生产验证 |
-| T3-P2 | 发布 / 上下架相关接口 | 发布状态切换 | 当前未识别到可用入口 | 重要，但当前证据不足 | 先继续识别明确官方接口名 |
+| 优先级 | API / 能力 | 当前状态 | 当前结论 | 下一步 |
+| --- | --- | --- | --- | --- |
+| T5-P0 | `alibaba.trade.order.create` | 官方存在，待生产验证 | 当前最接近平台内订单草稿 / 交易创建主入口的正式候选 | 等任务 3 第一梯队收口后再验证 |
+| T5-P1 | 外部结构化报价单 / 订单草稿文档 | 非 Alibaba API，但任务闭环需要 | 即使平台内创建不通，也可以形成替代方案；但不得误报为平台内订单已起草成功 | 作为替代方案保留 |
 
-## 第三梯队：任务 5（订单草稿 / 交易创建）
+## 第三梯队：任务 4（询盘 / 消息 / 客户）
 
-| 优先级 | 候选 API | 主要补齐的能力 | 当前状态 | 当前判断 | 进入下一轮前提 |
-| --- | --- | --- | --- | --- | --- |
-| T5-P0 | `alibaba.trade.order.create` | 平台内交易创建 / 订单草稿主入口候选 | 官方存在，待生产验证 | 这是最接近“平台内订单草稿”的正式候选 | 必须先证明能进入当前生产闭环 |
-| T5-P1 | 订单创建相关图片 / 附件支撑接口 | 草稿商品图片 / 附件补齐 | 官方存在但依赖关系未收口 | 可能是订单创建的配套能力 | 先以 `trade.order.create` 为主线，再补配套 |
+| 优先级 | API / 能力 | 当前状态 | 当前结论 | 下一步 |
+| --- | --- | --- | --- | --- |
+| T4-P0 | `alibaba.seller.customer.batch.get` / `customer.get` | 官方存在，但权限/能力阻塞 | 当前证据仍偏 `router/rest + session + 聚石塔内调用` | 不进入当前主线开发 |
+| T4-P1 | `alibaba.seller.customer.note.query` / `note.get` | 官方存在，但权限/能力阻塞 | 同上 | 不进入当前主线开发 |
+| T4-P2 | `alibaba.inquiry.cards.send` | 当前未识别到可用入口 | 只有零散发送线索，不能证明存在稳定“读 + 回”闭环 | 不进入当前主线开发 |
 
-## 第四梯队：任务 4（询盘 / 消息 / 客户读写）
+## 当前明确不再继续循环的对象
 
-| 优先级 | 候选 API | 主要补齐的能力 | 当前状态 | 当前判断 | 进入下一轮前提 |
-| --- | --- | --- | --- | --- | --- |
-| T4-P0 | `alibaba.seller.customer.batch.get` | 客户列表 | 官方存在，但权限/能力阻塞 | 当前证据仍偏 `router/rest + session + 聚石塔内调用` | 只有证明可进入当前生产闭环后，才允许开发 |
-| T4-P0 | `alibaba.seller.customer.get` | 客户详情 | 官方存在，但权限/能力阻塞 | 同上 | 同上 |
-| T4-P1 | `alibaba.seller.customer.note.query` / `alibaba.seller.customer.note.get` | 客户跟进记录 | 官方存在，但权限/能力阻塞 | 同上 | 同上 |
-| T4-P2 | `alibaba.inquiry.cards.send` | 平台内回复动作线索 | 当前未识别到可用入口 | 只有零散发送线索，无法证明完整回复闭环 | 先找到可读 + 可写的稳定主线 |
+以下接口虽然与经营指标直接相关，但当前已经有明确收口结论，不再继续消耗本阶段主线资源：
 
-## 当前明确不进入下一批验证池的方向
+- `alibaba.mydata.overview.indicator.basic.get`
+- `alibaba.mydata.self.product.get`
+- `alibaba.mydata.self.product.date.get`
+- `alibaba.mydata.overview.date.get`
+- `alibaba.mydata.overview.industry.get`
 
-| 方向 | 当前判断 | 原因 |
-| --- | --- | --- |
-| `overview / 数据管家` 之外的泛扫描 | 暂不进入 | 当前主线不是全量 API 覆盖 |
-| RFQ 大范围接入 | 暂不进入 | 当前任务优先级更低，且主入口仍旧体系/高风险 |
-| `inquiries / messages / customers` 路由开发 | 暂不进入 | 还没有满足进入开发的前提 |
-| XD 新路由开发 | 暂不进入 | 当前阶段只做 WIKA |
+当前统一结论：
 
-## 当前收口结论
+- `官方存在，但权限/能力阻塞`
 
-- 数据管家方向当前最关键的 5 个候选已全部完成实测，且都被收口为：`官方存在，但权限/能力阻塞`。
-- 因此，当前真正的“下一批必须验证对象”已经顺延为：
-  1. 产品创建/更新/媒体上传/类目属性入口
-  2. 订单创建/草稿入口
-- `customers / inquiries / messages` 当前仍停在阻塞或未识别阶段，不应抢在前面。
+## 当前主线一句话结论
+
+下一阶段最值得继续推进的，不是再扫更多 API，而是沿着：
+
+1. `schema.get / schema.render / add.draft`
+2. `photobank.upload`
+3. `trade.order.create`
+
+这三组，先补齐“安全草稿边界 + 写前结构化能力”，再决定是否继续进入真实写路由开发。

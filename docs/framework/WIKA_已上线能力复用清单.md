@@ -2,67 +2,49 @@
 
 更新时间：2026-04-04
 
-本文只登记当前已经上线并已线上验证、可以直接复用的 `WIKA` 能力。它们是当前阶段的稳定资产，不需要重复做适配性验证。
+本文只登记当前已经上线、已经过线上验收、可以直接复用的 `WIKA` 能力。它们是当前主线的稳定资产，不需要重复做适配性验证。
 
-## 1. 统一底层能力
+## 1. 底层稳定资产
 
-| 能力 | 当前状态 | 说明 | 直接服务的任务 |
+| 能力 | 当前状态 | 说明 |
+| --- | --- | --- |
+| Railway production 认证闭环 | 已上线并可直接复用 | 已验证 OAuth callback、runtime token 落盘、bootstrap refresh token 写回、冷启动 `refresh:startup_bootstrap` |
+| 官方 `/sync + access_token + sha256` 调用层 | 已上线并可直接复用 | 当前所有已验证官方原始路由都复用这条链路 |
+| 最小错误分型 | 已上线并可直接复用 | 当前统一可区分 `parameter_error / permission_error / gateway_error / platform_api_error` |
+| 写侧安全护栏 | 已落盘并可直接复用 | 已有阻塞分类、人工接管触发规则、结构化告警样例，不等于已具备真实写回权限 |
+
+## 2. 已上线的正式原始只读路由
+
+| 路由 | 官方接口 | 当前作用 | 线上状态 |
 | --- | --- | --- | --- |
-| 生产认证闭环 | 已上线并可直接复用 | 已验证 Railway production、OAuth callback、runtime token 落盘、bootstrap refresh token 写回、冷启动 `refresh:startup_bootstrap` | 所有需要平台 API 的任务 |
-| 统一官方 `/sync` 调用层 | 已上线并可直接复用 | 已验证 `https://open-api.alibaba.com/sync + access_token + sha256` | 任务 1、任务 3、任务 5 的官方 API 主线 |
-| 最小错误分型 | 已上线并可直接复用 | 已区分 `parameter_error / permission_error / gateway_error / platform_api_error` 等最小类别 | 所有读写任务 |
+| `/integrations/alibaba/wika/data/products/list` | `alibaba.icbu.product.list` | 产品主数据列表 | 已上线并已线上验证 |
+| `/integrations/alibaba/wika/data/products/detail` | `alibaba.icbu.product.get` | 产品详情主数据 | 已上线并已线上验证 |
+| `/integrations/alibaba/wika/data/products/score` | `alibaba.icbu.product.score.get` | 产品质量分 / PIS / 问题映射 | 已上线并已线上验证 |
+| `/integrations/alibaba/wika/data/products/groups` | `alibaba.icbu.product.group.get` | 产品分组 / 系列结构 | 已上线并已线上验证 |
+| `/integrations/alibaba/wika/data/categories/tree` | `alibaba.icbu.category.get.new` | 商品发布类目树读取 | 已上线并已线上验证 |
+| `/integrations/alibaba/wika/data/categories/attributes` | `alibaba.icbu.category.attr.get` + `alibaba.icbu.category.attribute.get` | 类目属性定义与属性值读取 | 已上线并已线上验证 |
+| `/integrations/alibaba/wika/data/orders/list` | `alibaba.seller.order.list` | 最小订单列表 | 已上线并已线上验证 |
+| `/integrations/alibaba/wika/data/orders/detail` | `alibaba.seller.order.get` | 最小订单详情 | 已上线并已线上验证 |
+| `/integrations/alibaba/wika/data/orders/fund` | `alibaba.seller.order.fund.get` | 支付 / 到账 / 退款 / 服务费原始数据 | 已上线并已线上验证 |
+| `/integrations/alibaba/wika/data/orders/logistics` | `alibaba.seller.order.logistics.get` | 物流状态 / 发货单原始数据 | 已上线并已线上验证 |
 
-## 2. 已上线原始读数据路由
+## 3. 已上线的派生只读路由
 
-| 路由 | 对应官方接口 | 当前可读核心字段 | 主要用途 | 对应最终任务 |
-| --- | --- | --- | --- | --- |
-| `/integrations/alibaba/wika/data/products/list` | `alibaba.icbu.product.list` | `product_id`、`subject`、`status`、`group_name`、`gmt_modified` | 产品主数据总览 | 任务 1、任务 2 |
-| `/integrations/alibaba/wika/data/products/detail` | `alibaba.icbu.product.get` | `product_id`、`subject`、`category_id`、`description`、`keywords`、`pc_detail_url`、`gmt_create`、`gmt_modified` | 产品详情读取、详情质量观察 | 任务 1、任务 2、任务 4 |
-| `/integrations/alibaba/wika/data/products/score` | `alibaba.icbu.product.score.get` | `boutique_tag`、`final_score`、`problem_map` | 产品质量分 / PIS 观察 | 任务 1、任务 2 |
-| `/integrations/alibaba/wika/data/products/groups` | `alibaba.icbu.product.group.get` | `group_id`、`group_name`、`parent_id`、`children_group`、`children_id_list` | 系列 / 分组结构读取 | 任务 1、任务 2 |
-| `/integrations/alibaba/wika/data/orders/list` | `alibaba.seller.order.list` | `trade_id`、`create_date`、`modify_date` | 最小订单列表读取 | 任务 1、任务 2 |
-| `/integrations/alibaba/wika/data/orders/detail` | `alibaba.seller.order.get` | `trade_status`、`buyer`、`amount`、`shipment_fee`、`order_products` | 最小订单详情读取 | 任务 1、任务 2、任务 5 |
-| `/integrations/alibaba/wika/data/orders/fund` | `alibaba.seller.order.fund.get` | `fund_pay_list`、`service_fee` | 支付 / 到账 / 退款 / 服务费口径 | 任务 1、任务 2、任务 5 |
-| `/integrations/alibaba/wika/data/orders/logistics` | `alibaba.seller.order.logistics.get` | `logistic_status`、`shipping_order_list` | 物流状态 / 发货单读取 | 任务 1、任务 2 |
+| 路由 | 当前作用 | 说明 |
+| --- | --- | --- |
+| `/integrations/alibaba/wika/reports/products/management-summary` | 产品管理摘要 | 只属于最小派生摘要，不等于完整经营层 summary |
 
-## 3. 已上线派生路由
+## 4. 已可复用但不等于平台写回能力的辅助能力
 
-| 路由 | 当前状态 | 说明 | 使用边界 |
-| --- | --- | --- | --- |
-| `/integrations/alibaba/wika/reports/products/management-summary` | 已上线并可直接复用 | 基于产品主数据形成的最小产品管理摘要 | 只能视为派生摘要，不等于完整经营聚合 |
+| 能力 | 当前状态 | 说明 |
+| --- | --- | --- |
+| 产品草稿生成 helper | 已实现可复用 | 可输出标题、卖点、描述、关键词和结构化 payload 草稿，但不发布真实商品 |
+| 人工接管告警样例 | 已实现可复用 | 结构化待处理/告警产物已落盘，可作为后续通知能力的基础 |
 
-## 4. 当前最值得直接复用的组合
+## 5. 当前明确不能误报的边界
 
-### 任务 1：读取平台数据
-- 产品数据：`products/list + detail + score + groups`
-- 订单数据：`orders/list + detail + fund`
-- 物流数据：`orders/logistics`
-
-### 任务 2：最小经营诊断入口
-- 产品结构 / 系列 / PIS：`products/list + detail + score + groups`
-- 订单经营观察：`orders/list + detail + fund + logistics`
-
-### 任务 4：询盘与客户沟通的辅助上下文
-- 产品细节与卖点调用：`products/detail + score + groups`
-- 价格与交期建议的输入底座：`products/detail + orders/fund + orders/logistics`
-
-## 5. 明确不应误报的边界
-
-- 已有原始路由上线，不等于经营层模块已经完成。
-- 已有产品详情读取，不等于产品上新闭环已经打通。
-- 已有订单明细读取，不等于订单草稿/交易创建已经打通。
-- 已有产品/订单原始数据，不等于店铺级曝光、点击、来源、国家结构已经打通。
-- 已有产品与订单原始数据，也不等于平台内询盘回复能力已经打通。
-
-## 6. 本轮新增的“不可直接复用”结论
-
-以下接口虽然与经营数据高度相关，但在当前 `WIKA` 生产认证闭环下已实测返回 `InsufficientPermission`，因此不能加入“已上线可复用能力”：
-
-- `alibaba.mydata.overview.indicator.basic.get`
-- `alibaba.mydata.self.product.get`
-- `alibaba.mydata.self.product.date.get`
-- `alibaba.mydata.overview.date.get`
-- `alibaba.mydata.overview.industry.get`
-
-它们当前只能归类为：
-- `官方存在，但权限/能力阻塞`
+1. 已有原始只读路由，不等于经营层模块已完成。
+2. 已有产品详情、分组、质量分，不等于产品上新闭环已打通。
+3. 已有订单明细、资金、物流原始数据，不等于订单经营驾驶舱已完成。
+4. 已有产品草稿生成 helper，不等于平台商品已创建或已发布。
+5. 已有写侧安全护栏，不等于真实写操作已经允许自动执行。
