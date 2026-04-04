@@ -116,3 +116,38 @@
   - `docs/framework/WIKA_产品草稿链路样例.json` 阶段 5 增强样例
 - 结束 checkpoint：`90f6a74`
 
+### 阶段 6：任务 3 的管理 / 清理 / 回滚证据补齐
+
+- 起始 checkpoint：`2c2b1f8`
+- 本阶段目标：
+  - 继续只验证官方明确存在的 media 管理 / 清理接口
+  - 继续只验证官方明确存在的 draft 查询 / 删除 / 管理接口
+  - 不进入真实上传、真实 draft 创建或真实发布
+- media 侧真实生产分类结果：
+  - `alibaba.icbu.photobank.group.operate`
+    - 已真实走到 `/sync + access_token + sha256`
+    - 当前真实分类：`业务参数错误（说明已过授权层）`
+    - 当前收口：`当前仍无法证明可隔离 / 可清理 / 可回滚边界，因此不继续实写验证`
+- draft 侧真实收口结果：
+  - 当前公开官方文档中，除已验证的 `alibaba.icbu.product.schema.render.draft` 外，没有再识别到明确的 draft 查询 / 删除 / 管理接口
+  - `alibaba.icbu.product.schema.add.draft` 虽在官方变动说明中被提及，但它属于“草稿发布成正式”的写侧，不纳入本阶段的 query/delete/manage 主线
+- 本阶段新增 / 更新沉淀：
+  - `AGENTS.md`
+  - `docs/framework/WIKA_项目基线.md`
+  - `docs/framework/WIKA_执行计划.md`
+  - `docs/framework/WIKA_可观测可回滚证据验证.md`
+  - `docs/framework/WIKA_低风险写侧边界验证.md`
+  - `docs/framework/WIKA_产品安全草稿链路说明.md`
+  - `docs/framework/WIKA_产品草稿链路样例.json`
+  - `docs/framework/WIKA_面向6项任务_API缺口矩阵.md`
+  - `docs/framework/WIKA_已上线能力复用清单.md`
+  - `docs/framework/WIKA_下一批必须验证的API候选池.md`
+  - `scripts/validate-wika-write-phase6.js`
+  - `shared/data/modules/alibaba-write-guardrails.js`
+- 阶段收口：
+  - media 侧新增了“分组管理接口可到授权层之后”的证据
+  - draft 侧没有新增的 query/delete/manage 官方入口
+  - 当前仍不具备进入“最小真实写入验证”的前置条件
+  - 本阶段不新增正式原始路由
+- 结束 checkpoint：`53ea9ca`
+
