@@ -13,6 +13,10 @@
 - `mydata / overview / self.product` 当前不再作为主线推进
 - 任务 3 当前已拿到足够的 schema/media/draft 读侧证据，但写侧边界仍不足
 - 当前最优下一步切换为任务 4 的只读候选验证
+- 当前阶段已完成的实证结果：
+  - `customers` 家族都已真实走到 `/sync + access_token + sha256`
+  - `customers/list` 已形成最小正式只读路由，但当前仍只属于权限探针型读路由
+  - inquiry / message 读侧方法名当前未在官方文档中识别到明确 list/detail 入口
 
 ## 候选顺序
 ### 第一梯队：customers 家族
@@ -55,7 +59,6 @@
 - `customers` 家族完成真实生产分类
 - 若官方文档明确存在 `inquiry / message` 读侧方法，则这些方法也完成真实生产分类；若不存在，则明确收口
 - 若其中任一证据充分，则至少有 1 条进入最小正式原始路由并完成线上验收
-- 已新增或更新一份“是否具备最小真实写入前置条件”的结论文档
 - 已更新基线、计划、缺口矩阵、复用清单、候选池、自治推进日志
 - 阶段结束后停止，不自动进入下一阶段
 
@@ -63,6 +66,22 @@
 - 本阶段候选全部完成真实分类
 - 或 inquiry/message 当前没有明确官方读侧入口
 - 或继续推进会落入写动作、高风险旧体系或非官方方法名猜测
+
+## 当前阶段收口
+- `alibaba.seller.customer.batch.get`
+  - 缺参时：业务参数错误（说明已过授权层）
+  - 使用真实窗口参数时：权限错误
+- `alibaba.seller.customer.get`
+  - 当前为业务参数错误，缺少 `buyer_member_seq`
+- `alibaba.seller.customer.note.query`
+  - 当前为业务参数错误，缺少 `note_id`
+- `alibaba.seller.customer.note.get`
+  - 当前为业务参数错误，缺少 `page_num / page_size / customer_id`
+- inquiry / message
+  - 当前官方文档里没有明确 list/detail 读侧方法名，收口为：`当前未识别到可用入口`
+- 已新增最小只读路由：
+  - `/integrations/alibaba/wika/data/customers/list`
+  - 注意：该路由当前只证明 customers list 可进入 production 认证闭环与权限分型，不等于客户数据已可稳定读取
 
 ## 交付物
 - docs/framework/WIKA_可观测可回滚证据验证.md

@@ -72,9 +72,12 @@
 
 | 能力项 | 当前状态 | 当前依据 | 对应入口 | 是否已形成任务闭环能力 |
 | --- | --- | --- | --- | --- |
-| 询盘列表 / 详情 | 6 | 当前未识别到稳定生产入口 | 待识别 | 否 |
-| 消息列表 / 详情 | 6 | 当前未识别到稳定生产入口 | 待识别 | 否 |
-| 客户列表 / 客户详情 / 客户画像 | 4 | 官方存在，但当前证据仍偏 `router/rest + session + 聚石塔内调用` | `alibaba.seller.customer.*` | 否 |
+| 询盘列表 / 详情 | 6 | 当前官方文档里未识别到明确 list/detail 读侧方法名；已明确排除 `alibaba.inquiry.cards.send` 这类写侧接口 | 待识别 | 否 |
+| 消息列表 / 详情 | 6 | 当前官方文档里未识别到明确 list/detail 读侧方法名；现有 `translate.*` 更偏配置/翻译设置，不等于消息读侧 | 待识别 | 否 |
+| 客户列表（权限探针型原始路由） | 4 | `alibaba.seller.customer.batch.get` 已真实走到 `/sync + access_token + sha256`；缺参时为业务参数错误，但使用真实窗口参数后为 `InsufficientPermission`；已新增最小只读路由用于参数/权限分型 | `/integrations/alibaba/wika/data/customers/list` | 否 |
+| 客户详情 / 客户画像 | 4 | `alibaba.seller.customer.get` 已真实走到 `/sync + access_token + sha256`，当前缺少 `buyer_member_seq`，还没有真实 JSON 样本 | `alibaba.seller.customer.get` | 否 |
+| 客户小记列表 | 4 | `alibaba.seller.customer.note.get` 已真实走到 `/sync + access_token + sha256`，当前缺少 `page_num / page_size / customer_id` | `alibaba.seller.customer.note.get` | 否 |
+| 客户小记明细 | 4 | `alibaba.seller.customer.note.query` 已真实走到 `/sync + access_token + sha256`，当前缺少 `note_id` | `alibaba.seller.customer.note.query` | 否 |
 | 平台内回复动作 | 6 | 当前没有稳定可用入口 | 待识别 | 否 |
 | 价格生成 | 7 | 可设计为应用内辅助能力 | 待后续设计 | 否 |
 | 产品细节调用 | 1 | 已有 detail/groups/score 等原始路由可复用 | 既有原始路由 | 否 |
@@ -102,4 +105,4 @@
 1. 当前最稳的已上线能力，集中在产品主数据、产品结构、订单原始数据、类目/属性/schema 读取。
 2. mydata / overview / self.product 这条经营指标路线当前统一停在“权限/能力阻塞”，不再作为当前主线循环。
 3. 写侧方向已经推进到 schema-aware 草稿准备层，并新增了 media 可观测与 draft 可区分证据；但 photobank.upload 与 product.add.draft 的低风险边界都还未被证明。
-4. 当前最缺的仍然是：经营指标入口、最小经营聚合、询盘/客户、订单草稿与异常通知闭环。
+4. 当前最缺的仍然是：经营指标入口、最小经营聚合、询盘/消息读侧、可真正读出的 customers 数据、订单草稿与异常通知闭环。

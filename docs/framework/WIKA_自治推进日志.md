@@ -147,7 +147,43 @@
 - 阶段收口：
   - media 侧新增了“分组管理接口可到授权层之后”的证据
   - draft 侧没有新增的 query/delete/manage 官方入口
-  - 当前仍不具备进入“最小真实写入验证”的前置条件
-  - 本阶段不新增正式原始路由
+- 当前仍不具备进入“最小真实写入验证”的前置条件
+- 本阶段不新增正式原始路由
 - 结束 checkpoint：`53ea9ca`
+
+## 2026-04-05
+
+### 阶段 7：任务 4 的读侧入口筛查与最小原始路由候选验证
+
+- 起始 checkpoint：`a742cca`
+- 本阶段只做两件事：
+  - 先验证 `customers` 家族在当前 production 闭环下是否能形成最小正式原始路由候选
+  - 只有在官方文档明确出现时，才判断 inquiry / message 的读侧方法是否值得进入验证
+- customers 家族真实生产分类结果：
+  - `alibaba.seller.customer.batch.get`
+    - 已真实走到 `/sync + access_token + sha256`
+    - 缺参时：`业务参数错误（说明已过授权层）`
+    - 使用真实窗口参数时：`权限错误`
+  - `alibaba.seller.customer.get`
+    - 已真实走到 `/sync + access_token + sha256`
+    - 当前：`业务参数错误（说明已过授权层）`
+    - 缺少参数：`buyer_member_seq`
+  - `alibaba.seller.customer.note.query`
+    - 已真实走到 `/sync + access_token + sha256`
+    - 当前：`业务参数错误（说明已过授权层）`
+    - 缺少参数：`note_id`
+  - `alibaba.seller.customer.note.get`
+    - 已真实走到 `/sync + access_token + sha256`
+    - 当前：`业务参数错误（说明已过授权层）`
+    - 缺少参数：`page_num / page_size / customer_id`
+- inquiry / message 读侧收口：
+  - 当前官方文档里没有识别到明确的 list/detail 读侧方法名
+  - 已明确排除 `alibaba.inquiry.cards.send` 及一切 send/reply/write/create 方法
+- 新增正式只读路由：
+  - `/integrations/alibaba/wika/data/customers/list`
+- 阶段收口：
+  - customers 家族已经证明可进入 current production 认证闭环
+  - `customers/list` 已作为权限探针型最小只读路由上线
+  - 当前不能误写成 customers 已稳定可读，更不能误写成 inquiry/message 已打通
+  - 若继续任务 4，只应在“拿到真实 id”或“官方文档出现明确 inquiry/message 读侧方法”这两种条件下继续前进
 

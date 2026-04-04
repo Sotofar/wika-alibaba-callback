@@ -39,7 +39,13 @@
 | --- | --- | --- |
 | `/integrations/alibaba/wika/reports/products/management-summary` | 产品管理摘要 | 仅属于最小派生摘要，不等于完整经营层 summary |
 
-## 4. 已沉淀、可复用，但不等于平台写回闭环的辅助能力
+## 4. 已上线的权限探针型只读路由
+
+| 路由 | 当前作用 | 说明 |
+| --- | --- | --- |
+| `/integrations/alibaba/wika/data/customers/list` | customers list 读侧参数/权限探针 | 已真实接到 `alibaba.seller.customer.batch.get`；当前用于验证 `/sync + access_token + sha256` 闭环、缺参分型与权限分型，不等于客户列表已稳定可读 |
+
+## 5. 已沉淀、可复用，但不等于平台写回闭环的辅助能力
 
 | 能力 | 当前状态 | 说明 |
 | --- | --- | --- |
@@ -52,7 +58,7 @@
 | draft 管理侧证据 | 已沉淀可复用 | 当前公开官方文档中，除 `schema.render.draft` 外未识别到新增 draft 查询 / 删除 / 管理接口 |
 | 人工接管告警样例 | 已落盘可复用 | 可作为后续通知能力的结构化输入 |
 
-## 5. 当前明确不能误报的边界
+## 6. 当前明确不能误报的边界
 
 1. 已有原始只读路由，不等于经营层模块已完成。
 2. 已有产品详情、分组、质量分、schema、schema render，不等于产品上新闭环已完成。
@@ -65,6 +71,8 @@
 9. 已有写侧安全护栏，不等于允许自动执行真实写操作。
 10. `photobank.group.operate` 已过授权层，不等于已证明素材可清理、可回滚。
 11. 当前没有新增 draft 管理接口，不等于 draft 已经可删除、可审计、可回滚。
+12. `customers/list` 已上线，不等于客户列表已经在当前权限下可稳定读取。
+13. `customers` 家族过了授权层，不等于 inquiry / message / customer 读写闭环已打通。
 
 ## 当前一句话结论
 

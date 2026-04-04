@@ -21,6 +21,7 @@ import {
   fetchAlibabaOfficialMediaGroups,
   fetchAlibabaOfficialMediaList
 } from "./shared/data/modules/alibaba-official-media.js";
+import { fetchAlibabaOfficialCustomerList } from "./shared/data/modules/alibaba-official-customers.js";
 import {
   fetchAlibabaOfficialProductDetail,
   fetchAlibabaOfficialProductGroups,
@@ -1384,7 +1385,16 @@ function classifyReadOnlyError(error, topError, missingKeys = undefined) {
       "group_id",
       "cat_id",
       "category_id",
-      "data_select"
+      "data_select",
+      "customer_id_begin",
+      "buyer_member_seq",
+      "customer_id",
+      "note_id",
+      "page_num",
+      "page_size",
+      "start_time",
+      "end_time",
+      "last_sync_end_time"
     ]);
 
     if (missingKeys.some((key) => requestParameterKeys.has(String(key)))) {
@@ -1956,6 +1966,53 @@ function createAccountMediaGroupsHandler(accountKey) {
         top_error: extractTopErrorResponse(error),
         query: req.query
       });
+
+      res
+        .status(
+          error instanceof ConfigurationError ? 500 : hasMissingKeys ? 400 : 502
+        )
+        .json(buildReadOnlyErrorResponse(error));
+    }
+  };
+}
+
+function createAccountCustomerListHandler(accountKey) {
+  return async (req, res) => {
+    const config = getAccountConfig(accountKey);
+
+    try {
+      const result = await fetchAlibabaOfficialCustomerList(
+        {
+          account: accountKey,
+          ...(await getAlibabaReadOnlyClientConfig(accountKey))
+        },
+        req.query
+      );
+
+      logInfo(`${config.label} customer list read completed`, {
+        apiName: result.source.api_name,
+        returnedItemCount: result.response_meta.returned_item_count,
+        total: result.response_meta.total
+      });
+
+      res.status(200).json({
+        ok: true,
+        ...result
+      });
+    } catch (error) {
+      logError(`${config.label} customer list read failed`, {
+        error: error instanceof Error ? error.message : String(error),
+        details:
+          error instanceof AlibabaApiError || error?.details
+            ? error.details
+            : undefined,
+        top_error: extractTopErrorResponse(error),
+        query: req.query
+      });
+
+      const hasMissingKeys =
+        error instanceof ConfigurationError ||
+        Array.isArray(error?.missingKeys);
 
       res
         .status(
@@ -2746,6 +2803,10 @@ app.get(
 app.get(
   "/integrations/alibaba/wika/data/media/groups",
   createAccountMediaGroupsHandler("wika")
+);
+app.get(
+  "/integrations/alibaba/wika/data/customers/list",
+  createAccountCustomerListHandler("wika")
 );
 
 app.get("/integrations/alibaba/xd/data/products/list", async (req, res) => {
