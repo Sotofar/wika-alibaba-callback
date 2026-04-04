@@ -84,7 +84,15 @@ async function main() {
     throw new Error("Product detail did not return category_id");
   }
 
-  const [categoryTree, categoryAttributes, schemaResult, schemaRenderResult] =
+  const [
+    categoryTree,
+    categoryAttributes,
+    schemaResult,
+    schemaRenderResult,
+    schemaRenderDraftResult,
+    mediaListResult,
+    mediaGroupsResult
+  ] =
     await Promise.all([
       fetchJson(`/integrations/alibaba/wika/data/categories/tree?cat_id=${categoryId}`),
       fetchJson(
@@ -93,7 +101,14 @@ async function main() {
       fetchJson(`/integrations/alibaba/wika/data/products/schema?cat_id=${categoryId}`),
       fetchJson(
         `/integrations/alibaba/wika/data/products/schema/render?cat_id=${categoryId}&product_id=${firstProduct.id}`
-      )
+      ),
+      fetchJson(
+        `/integrations/alibaba/wika/data/products/schema/render/draft?cat_id=${categoryId}&product_id=${firstProduct.id}`
+      ),
+      fetchJson(
+        "/integrations/alibaba/wika/data/media/list?current_page=1&page_size=2&location_type=ALL_GROUP"
+      ),
+      fetchJson("/integrations/alibaba/wika/data/media/groups")
     ]);
 
   const attributeInputs = buildAttributeInputs(categoryAttributes);
@@ -127,7 +142,7 @@ async function main() {
 
   const sample = {
     account: "wika",
-    stage: "phase4_low_risk_write_boundary",
+    stage: "phase5_observable_rollback_evidence",
     generated_at: new Date().toISOString(),
     input: {
       product_id_reference: Number(firstProduct.id),
@@ -165,6 +180,51 @@ async function main() {
           schemaRenderResult?.response_meta?.required_field_count ?? null,
         required_field_ids_preview:
           schemaRenderResult?.response_meta?.required_field_ids_preview ?? []
+      }
+    },
+    media_observability_excerpt: {
+      media_list: {
+        request_meta: mediaListResult?.request_meta ?? null,
+        response_meta: {
+          returned_item_count:
+            mediaListResult?.response_meta?.returned_item_count ?? null,
+          item_field_keys:
+            mediaListResult?.response_meta?.item_field_keys ?? []
+        },
+        sample_items: Array.isArray(mediaListResult?.items)
+          ? mediaListResult.items.slice(0, 2).map((item) => ({
+              id: item?.id ?? null,
+              file_name: item?.file_name ?? null,
+              reference_count: item?.reference_count ?? null,
+              gmt_modified: item?.gmt_modified ?? null,
+              url: item?.url ?? null
+            }))
+          : []
+      },
+      media_groups: {
+        request_meta: mediaGroupsResult?.request_meta ?? null,
+        response_meta: {
+          returned_group_count:
+            mediaGroupsResult?.response_meta?.returned_group_count ?? null,
+          group_field_keys:
+            mediaGroupsResult?.response_meta?.group_field_keys ?? []
+        },
+        sample_groups: Array.isArray(mediaGroupsResult?.groups)
+          ? mediaGroupsResult.groups.slice(0, 3)
+          : []
+      }
+    },
+    draft_observability_excerpt: {
+      request_meta: schemaRenderDraftResult?.request_meta ?? null,
+      response_meta: {
+        biz_success:
+          schemaRenderDraftResult?.response_meta?.biz_success ?? null,
+        msg_code: schemaRenderDraftResult?.response_meta?.msg_code ?? null,
+        message: schemaRenderDraftResult?.response_meta?.message ?? null,
+        schema_field_count:
+          schemaRenderDraftResult?.response_meta?.schema_field_count ?? null,
+        required_field_count:
+          schemaRenderDraftResult?.response_meta?.required_field_count ?? null
       }
     },
     draft_output: {

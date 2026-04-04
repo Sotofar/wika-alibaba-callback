@@ -1,6 +1,6 @@
 ﻿# WIKA 已上线能力复用清单
 
-更新时间：2026-04-04
+更新时间：2026-04-05
 
 本文只登记当前已经上线、已经过线上验收、可直接复用的 `WIKA` 能力，以及已沉淀但不能误报为平台写回闭环的辅助能力。
 
@@ -23,8 +23,11 @@
 | `/integrations/alibaba/wika/data/products/groups` | `alibaba.icbu.product.group.get` | 产品分组 / 系列结构 | 已上线并已线上验证 |
 | `/integrations/alibaba/wika/data/products/schema` | `alibaba.icbu.product.schema.get` | 产品 schema 原始读取 | 已上线并已线上验证 |
 | `/integrations/alibaba/wika/data/products/schema/render` | `alibaba.icbu.product.schema.render` | 产品 schema render 原始读取 | 已上线并已线上验证 |
+| `/integrations/alibaba/wika/data/products/schema/render/draft` | `alibaba.icbu.product.schema.render.draft` | draft 渲染可观测能力 | 已上线并已线上验证 |
 | `/integrations/alibaba/wika/data/categories/tree` | `alibaba.icbu.category.get.new` | 商品发布类目树读取 | 已上线并已线上验证 |
 | `/integrations/alibaba/wika/data/categories/attributes` | `alibaba.icbu.category.attr.get` + `alibaba.icbu.category.attribute.get` | 类目属性定义与属性值读取 | 已上线并已线上验证 |
+| `/integrations/alibaba/wika/data/media/list` | `alibaba.icbu.photobank.list` | 图片银行素材列表 / 可观测能力 | 已上线并已线上验证 |
+| `/integrations/alibaba/wika/data/media/groups` | `alibaba.icbu.photobank.group.list` | 图片银行分组可观测能力 | 已上线并已线上验证 |
 | `/integrations/alibaba/wika/data/orders/list` | `alibaba.seller.order.list` | 最小订单列表 | 已上线并已线上验证 |
 | `/integrations/alibaba/wika/data/orders/detail` | `alibaba.seller.order.get` | 最小订单详情 | 已上线并已线上验证 |
 | `/integrations/alibaba/wika/data/orders/fund` | `alibaba.seller.order.fund.get` | 支付 / 到账 / 退款 / 服务费原始数据 | 已上线并已线上验证 |
@@ -44,6 +47,7 @@
 | 产品安全草稿链路说明 | 已落盘可复用 | 已明确 schema / render / 类目 / 属性如何进入草稿链路，以及人工补齐字段清单 |
 | 产品草稿链路样例 | 已落盘可复用 | 已基于真实 WIKA 读侧数据生成更完整的 schema-aware 样例产物 |
 | 低风险写侧边界规则 | 已落盘可复用 | 已明确 `photobank.upload` 与 `product.add.draft` 当前都不能继续实写验证 |
+| 可观测 / 可回滚证据规则 | 已落盘可复用 | 已明确 media 可观测能力、draft 可区分能力以及“尚未具备最小真实写入前置条件” |
 | 人工接管告警样例 | 已落盘可复用 | 可作为后续通知能力的结构化输入 |
 
 ## 5. 当前明确不能误报的边界
@@ -54,7 +58,9 @@
 4. 已有 schema-aware 草稿 helper，不等于平台商品已创建或已发布。
 5. `product.add.draft` 过了授权层，不等于已证明存在安全草稿模式。
 6. `photobank.upload` 过了授权层，不等于已证明存在低风险可用上传模式。
-7. 已有写侧安全护栏，不等于允许自动执行真实写操作。
+7. `media/list` 与 `media/groups` 已上线，不等于已证明素材可清理、可回滚。
+8. `schema/render/draft` 已上线，不等于已证明 `add.draft` 可安全执行。
+9. 已有写侧安全护栏，不等于允许自动执行真实写操作。
 
 ## 当前一句话结论
 

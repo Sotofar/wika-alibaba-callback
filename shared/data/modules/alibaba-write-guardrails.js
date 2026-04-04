@@ -85,6 +85,20 @@ const WIKA_LOW_RISK_WRITE_BOUNDARY = Object.freeze({
       "当前已识别到图片银行查询与分组接口，但没有拿到可证明可清理、可回滚的安全删除边界。",
       "当前无法证明上传后的图片天然非公开、不会被后续商品引用或长期残留。"
     ],
+    observable_evidence: {
+      media_list_verified: true,
+      media_groups_verified: true,
+      observable_fields: [
+        "image.id",
+        "image.url",
+        "image.file_name",
+        "image.reference_count",
+        "image.file_size",
+        "image.gmt_modified"
+      ],
+      group_observation: "当前已证明图片银行存在独立查询与分组查询通道，但当前店铺返回的 groups 结构不充分，尚不足以证明可稳定隔离测试素材。",
+      cleanup_evidence_proven: false
+    },
     blocked_automation_fields: [
       "main_image.images",
       "product_sku.attributes[].sku_custom_image_url",
@@ -103,6 +117,14 @@ const WIKA_LOW_RISK_WRITE_BOUNDARY = Object.freeze({
       "官方同时存在 schema.render.draft，说明草稿对象会被平台持久化并进入后续编辑链路。",
       "当前没有拿到可证明草稿天然非公开、可回滚、可清理的稳定边界，因此不应做真实 draft 创建验证。"
     ],
+    observable_evidence: {
+      draft_render_verified: true,
+      draft_render_transport: "/sync + access_token + sha256",
+      live_product_render_attempt_result:
+        "使用正式商品 product_id 调用 schema.render.draft 时返回 biz_success=false 与 Record does not exist。",
+      draft_strictly_distinct_from_live_product: true,
+      cleanup_evidence_proven: false
+    },
     blocked_automation_fields: [
       "final product create",
       "draft create against live seller account"

@@ -39,7 +39,11 @@ async function main() {
   const productDetail = await fetchJson(
     `/integrations/alibaba/wika/data/products/detail?product_id=${firstProduct.id}`
   );
-  const categoryId = Number(productDetail.body?.product?.category_id);
+  const categoryId = Number(
+    productDetail.body?.product?.category_id ??
+      firstProduct.category_id ??
+      firstProduct.cat_id
+  );
   if (!Number.isFinite(categoryId)) {
     throw new Error("Product detail did not return category_id");
   }

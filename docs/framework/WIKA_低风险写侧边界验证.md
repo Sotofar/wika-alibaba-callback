@@ -1,6 +1,6 @@
 ﻿# WIKA 低风险写侧边界验证
 
-更新时间：2026-04-04
+更新时间：2026-04-05
 
 ## 阶段范围
 
@@ -58,6 +58,9 @@
 
 - 保留参数门槛与 payload 依赖分析
 - 保留素材字段映射设计
+- 保留已上线的 media 可观测读路由：
+  - `/integrations/alibaba/wika/data/media/list`
+  - `/integrations/alibaba/wika/data/media/groups`
 - 保留后续候选池地位，但不继续实写
 
 ## 二、product.add.draft 的边界收口
@@ -99,6 +102,8 @@
 
 - 继续增强 schema-aware payload 草稿
 - 继续确认哪些字段自动生成、哪些字段必须人工补充
+- 保留已上线的 draft 可观测读路由：
+  - `/integrations/alibaba/wika/data/products/schema/render/draft`
 - 继续把人工接管规则前置到写侧链路中
 
 ## 三、阶段结论汇总
@@ -124,7 +129,22 @@
   - 安全可逆的真实 draft 创建闭环
   - 安全可逆的真实商品发布闭环
 
-## 五、下一步建议
+## 五、Phase 5 新增证据
+
+### media 侧
+
+- `photobank.list` 已证明素材可被列出和识别
+- `photobank.group.list` 已证明存在分组查询通道
+- 但当前仍无法证明测试素材可稳定隔离、可删除、可回滚
+
+### draft 侧
+
+- `schema.render.draft` 已证明存在专门的 draft 渲染通道
+- 使用正式商品 `product_id` 调用时，平台返回 `Record does not exist`
+- 这说明 live product 与 draft object 可以区分
+- 但当前仍无法证明真实 draft 创建后可清理、可审计、可回滚
+
+## 六、下一步建议
 
 如果继续推进任务 3，下一步不应直接做真实写入，而应优先选择：
 

@@ -1,6 +1,6 @@
 ﻿# WIKA 面向 6 项任务 API 缺口矩阵
 
-更新时间：2026-04-04
+更新时间：2026-04-05
 
 本文只面向 `WIKA` 主线，按最终 6 项任务记录当前能力状态。状态口径固定为：
 1. 已上线并可直接复用
@@ -23,6 +23,9 @@
 | 类目属性定义与属性值 | 1 | 已上线正式原始路由 | `/integrations/alibaba/wika/data/categories/attributes` | 否 |
 | 产品 schema | 1 | 已上线正式原始路由 | `/integrations/alibaba/wika/data/products/schema` | 否 |
 | 产品 schema render | 1 | 已上线正式原始路由 | `/integrations/alibaba/wika/data/products/schema/render` | 否 |
+| 图片银行素材可观测能力 | 1 | 已上线正式原始路由，已验证可列出真实素材 | `/integrations/alibaba/wika/data/media/list` | 否 |
+| 图片银行分组可观测能力 | 1 | 已上线正式原始路由，已验证存在分组查询通道 | `/integrations/alibaba/wika/data/media/groups` | 否 |
+| draft 渲染可观测能力 | 1 | 已上线正式原始路由，已验证存在专门 draft 渲染通道 | `/integrations/alibaba/wika/data/products/schema/render/draft` | 否 |
 | 订单列表 | 1 | 已上线正式原始路由 | `/integrations/alibaba/wika/data/orders/list` | 否 |
 | 订单详情 | 1 | 已上线正式原始路由 | `/integrations/alibaba/wika/data/orders/detail` | 否 |
 | 订单资金数据 | 1 | 已上线正式原始路由 | `/integrations/alibaba/wika/data/orders/fund` | 否 |
@@ -51,14 +54,16 @@
 | schema render 读取 | 1 | 已上线正式原始路由 | `/integrations/alibaba/wika/data/products/schema/render` | 否 |
 | schema-aware payload 草稿生成 | 7 | 已实现 helper 与样例产物 | `shared/data/modules/alibaba-product-drafts.js` | 否 |
 | 标题 / 卖点 / 描述 / 关键词生成 | 7 | 已集成到草稿 helper | `buildWikaProductDraft()` | 否 |
-| 图片 / 媒体上传 | 2 | 已过授权层，但低风险边界未被证明 | `alibaba.icbu.photobank.upload` | 否 |
-| 安全 draft 创建 | 2 | 已过授权层，但低风险边界未被证明 | `alibaba.icbu.product.add.draft` | 否 |
-| 产品创建（正式 add） | 2 | 已过授权层，但不允许真实发布 | `alibaba.icbu.product.add` | 否 |
-| 产品创建（schema add） | 2 | 已过授权层，但不允许真实发布 | `alibaba.icbu.product.schema.add` | 否 |
-| 产品更新（正式 update） | 2 | 已过授权层，但不允许真实线上修改 | `alibaba.icbu.product.update` | 否 |
-| 产品更新（schema update） | 2 | 已过授权层，但不允许真实线上修改 | `alibaba.icbu.product.schema.update` | 否 |
-| 产品字段级更新 | 2 | 已过授权层，但不允许真实线上修改 | `alibaba.icbu.product.update.field` | 否 |
+| 图片 / 媒体上传 | 5 | 已过授权层，但当前缺少可隔离、可清理、可回滚证据 | `alibaba.icbu.photobank.upload` | 否 |
+| draft 渲染可观测能力 | 1 | 已上线正式原始路由；已证明存在 draft 独立渲染通道 | `/integrations/alibaba/wika/data/products/schema/render/draft` | 否 |
+| 安全 draft 创建 | 5 | 已过授权层，但当前缺少非发布、可清理、可回滚证据 | `alibaba.icbu.product.add.draft` | 否 |
+| 产品创建（正式 add） | 5 | 已过授权层，但属于真实发布高风险入口 | `alibaba.icbu.product.add` | 否 |
+| 产品创建（schema add） | 5 | 已过授权层，但属于真实发布高风险入口 | `alibaba.icbu.product.schema.add` | 否 |
+| 产品更新（正式 update） | 5 | 已过授权层，但属于真实线上修改高风险入口 | `alibaba.icbu.product.update` | 否 |
+| 产品更新（schema update） | 5 | 已过授权层，但属于真实线上修改高风险入口 | `alibaba.icbu.product.schema.update` | 否 |
+| 产品字段级更新 | 5 | 已过授权层，但属于真实线上修改高风险入口 | `alibaba.icbu.product.update.field` | 否 |
 | 低风险写侧边界判断 | 7 | 已沉淀边界文档与阻塞规则 | `docs/framework/WIKA_低风险写侧边界验证.md` | 否 |
+| 可观测 / 可回滚证据判断 | 7 | 已沉淀可观测与回滚前置证据文档 | `docs/framework/WIKA_可观测可回滚证据验证.md` | 否 |
 
 ## D. 询盘与客户沟通
 
@@ -93,5 +98,5 @@
 
 1. 当前最稳的已上线能力，集中在产品主数据、产品结构、订单原始数据、类目/属性/schema 读取。
 2. mydata / overview / self.product 这条经营指标路线当前统一停在“权限/能力阻塞”，不再作为当前主线循环。
-3. 写侧方向已经推进到 schema-aware 草稿准备层，但 photobank.upload 与 product.add.draft 的低风险边界都还未被证明。
+3. 写侧方向已经推进到 schema-aware 草稿准备层，并新增了 media 可观测与 draft 可区分证据；但 photobank.upload 与 product.add.draft 的低风险边界都还未被证明。
 4. 当前最缺的仍然是：经营指标入口、最小经营聚合、询盘/客户、订单草稿与异常通知闭环。

@@ -1,6 +1,6 @@
 ﻿# WIKA 产品安全草稿链路说明
 
-更新时间：2026-04-04
+更新时间：2026-04-05
 
 ## 目标
 
@@ -19,6 +19,9 @@
 - `/integrations/alibaba/wika/data/categories/attributes`
 - `/integrations/alibaba/wika/data/products/schema`
 - `/integrations/alibaba/wika/data/products/schema/render`
+- `/integrations/alibaba/wika/data/products/schema/render/draft`
+- `/integrations/alibaba/wika/data/media/list`
+- `/integrations/alibaba/wika/data/media/groups`
 
 这些路由都已经在线上验证：
 - 真实走到 `https://open-api.alibaba.com/sync`
@@ -44,6 +47,9 @@
 - 类目属性：`/integrations/alibaba/wika/data/categories/attributes`
 - schema：`/integrations/alibaba/wika/data/products/schema`
 - schema render：`/integrations/alibaba/wika/data/products/schema/render`
+- schema render draft：`/integrations/alibaba/wika/data/products/schema/render/draft`
+- media list：`/integrations/alibaba/wika/data/media/list`
+- media groups：`/integrations/alibaba/wika/data/media/groups`
 
 ### 生成层
 当前 helper 会输出：
@@ -57,15 +63,16 @@
 - 被低风险边界阻塞的字段列表
 - 人工接管 artifact
 
-## Phase 4 新增结论：低风险边界已并入草稿链路
+## Phase 4 / Phase 5 新增结论：低风险边界与可观测证据已并入草稿链路
 
 ### photobank.upload
 当前结论：`当前无法证明低风险边界，因此不继续实写验证`
 
 原因：
 1. 官方成功响应会生成真实 `file_id` 与 `photobank_url`，说明会创建真实素材库资产。
-2. 当前没有拿到可稳定证明“可清理、可回滚、不可外部误用”的边界证据。
-3. 因此现阶段不做真实上传，不把它路由化为正式写接口。
+2. `media/list` 已证明素材可观测，`media/groups` 已证明存在分组查询通道。
+3. 但当前没有拿到可稳定证明“可清理、可回滚、不可外部误用”的边界证据。
+4. 因此现阶段不做真实上传，不把它路由化为正式写接口。
 
 被阻塞的自动化字段：
 - `main_image.images`
@@ -78,8 +85,10 @@
 
 原因：
 1. 文档与成功响应特征都说明它会创建真实 draft 对象，而不是纯本地草稿。
-2. 当前没有证据证明 draft 天然非公开、可清理、且不会带来真实业务副作用。
-3. 因此现阶段不做真实 draft 创建，不把它当成已证明安全的草稿写入能力。
+2. `schema/render/draft` 已证明存在专门的 draft 渲染通道。
+3. 使用正式商品 `product_id` 调用 `schema.render.draft` 时，平台返回 `Record does not exist`，说明 live product 与 draft object 可区分。
+4. 但当前仍没有证据证明 draft 天然非公开、可清理、且不会带来真实业务副作用。
+5. 因此现阶段不做真实 draft 创建，不把它当成已证明安全的草稿写入能力。
 
 被阻塞的自动化动作：
 - 针对真实店铺账号执行 draft create
@@ -90,9 +99,11 @@
 ### 当前可做
 - 读取类目与属性
 - 读取 schema 与 render
+- 读取 schema render draft
+- 读取 media 列表与 media 分组
 - 生成 schema-aware payload 草稿
 - 输出自动生成字段与人工补齐字段
-- 输出写侧边界阻塞说明和人工接管 artifact
+- 输出写侧边界阻塞说明、可观测/可回滚证据说明和人工接管 artifact
 
 ### 当前不可做
 - 真实商品发布
@@ -114,7 +125,8 @@
 对应规则文档：
 - `docs/framework/WIKA_人工接管规则.md`
 - `docs/framework/WIKA_低风险写侧边界验证.md`
+- `docs/framework/WIKA_可观测可回滚证据验证.md`
 
 ## 当前一句话结论
 
-WIKA 当前已经具备“schema-aware 的低风险产品草稿准备链路”，但还没有证明 photobank.upload 和 product.add.draft 的低风险边界成立，因此仍不能把这条链路写成“产品上新闭环已完成”。
+WIKA 当前已经具备“schema-aware 的低风险产品草稿准备链路”，并且已经证明 media 可观测、draft 可区分；但还没有证明 photobank.upload 和 product.add.draft 具备可隔离、可清理、可回滚的低风险边界，因此仍不能把这条链路写成“产品上新闭环已完成”。

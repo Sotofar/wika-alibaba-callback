@@ -1,7 +1,7 @@
 {
   "account": "wika",
-  "stage": "phase4_low_risk_write_boundary",
-  "generated_at": "2026-04-04T15:47:30.696Z",
+  "stage": "phase5_observable_rollback_evidence",
+  "generated_at": "2026-04-04T16:23:08.017Z",
   "input": {
     "product_id_reference": 1601700588198,
     "category_id": 36127040,
@@ -96,6 +96,71 @@
         "productGroup",
         "second_group_id"
       ]
+    }
+  },
+  "media_observability_excerpt": {
+    "media_list": {
+      "request_meta": {
+        "current_page": 1,
+        "page_size": 2,
+        "location_type": "ALL_GROUP",
+        "group_id": null
+      },
+      "response_meta": {
+        "returned_item_count": 2,
+        "item_field_keys": [
+          "file_name",
+          "file_size",
+          "gmt_modified",
+          "id",
+          "owner_member_display_name",
+          "reference_count",
+          "url"
+        ]
+      },
+      "sample_items": [
+        {
+          "id": "31007053070",
+          "file_name": "微信图片_202206011914082.jpg",
+          "reference_count": 0,
+          "gmt_modified": "2026-02-12 10:34:22",
+          "url": "https://sc04.alicdn.com/kf/H4568e9dc6dbe44b7b243f1caf1c27651S.jpg"
+        },
+        {
+          "id": "31007029043",
+          "file_name": "微信图片_2022032116271519.jpg",
+          "reference_count": 2,
+          "gmt_modified": "2026-02-12 10:34:22",
+          "url": "https://sc04.alicdn.com/kf/H2e32cba441484c6cb119840b49164611Y.jpg"
+        }
+      ]
+    },
+    "media_groups": {
+      "request_meta": {
+        "id": null,
+        "extra_context": null
+      },
+      "response_meta": {
+        "returned_group_count": 1,
+        "group_field_keys": []
+      },
+      "sample_groups": [
+        {}
+      ]
+    }
+  },
+  "draft_observability_excerpt": {
+    "request_meta": {
+      "cat_id": 36127040,
+      "product_id": 1601700588198,
+      "language": "en_US"
+    },
+    "response_meta": {
+      "biz_success": false,
+      "msg_code": "isp.system-service-error:API_SYSTEM_ERROR;",
+      "message": "systemError:isp.system-service-error:API_SYSTEM_ERROR:系统异常Record does not exist.:;",
+      "schema_field_count": 0,
+      "required_field_count": 0
     }
   },
   "draft_output": {
@@ -387,6 +452,20 @@
           "当前已识别到图片银行查询与分组接口，但没有拿到可证明可清理、可回滚的安全删除边界。",
           "当前无法证明上传后的图片天然非公开、不会被后续商品引用或长期残留。"
         ],
+        "observable_evidence": {
+          "media_list_verified": true,
+          "media_groups_verified": true,
+          "observable_fields": [
+            "image.id",
+            "image.url",
+            "image.file_name",
+            "image.reference_count",
+            "image.file_size",
+            "image.gmt_modified"
+          ],
+          "group_observation": "当前已证明图片银行存在独立查询与分组查询通道，但当前店铺返回的 groups 结构不充分，尚不足以证明可稳定隔离测试素材。",
+          "cleanup_evidence_proven": false
+        },
         "blocked_automation_fields": [
           "main_image.images",
           "product_sku.attributes[].sku_custom_image_url",
@@ -405,6 +484,13 @@
           "官方同时存在 schema.render.draft，说明草稿对象会被平台持久化并进入后续编辑链路。",
           "当前没有拿到可证明草稿天然非公开、可回滚、可清理的稳定边界，因此不应做真实 draft 创建验证。"
         ],
+        "observable_evidence": {
+          "draft_render_verified": true,
+          "draft_render_transport": "/sync + access_token + sha256",
+          "live_product_render_attempt_result": "使用正式商品 product_id 调用 schema.render.draft 时返回 biz_success=false 与 Record does not exist。",
+          "draft_strictly_distinct_from_live_product": true,
+          "cleanup_evidence_proven": false
+        },
         "blocked_automation_fields": [
           "final product create",
           "draft create against live seller account"
@@ -650,7 +736,7 @@
         ]
       },
       "next_action": "先补齐类目必填属性、schema 必填字段与素材，再进入人工确认是否继续写侧验证。",
-      "created_at": "2026-04-04T15:47:30.695Z"
+      "created_at": "2026-04-04T16:23:08.016Z"
     },
     "fields_auto_generated": [
       "title",

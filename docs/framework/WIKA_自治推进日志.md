@@ -87,5 +87,32 @@
   - photobank 与 add.draft 都不进入真实写验证
   - 当前草稿链路进一步增强，但仍停留在“schema-aware 低风险准备层”
   - 不允许把本阶段结果误写为“产品上新闭环已完成”
+- 结束 checkpoint：`c133060`
+
+### 阶段 5：任务 3 的可观测 / 可回滚证据验证
+
+- 起始 checkpoint：`79ac95f`
+- 本阶段只做两件事：
+  - 判断 media 侧是否已经具备可观测、可隔离、可管理证据
+  - 判断 draft 侧是否已经具备可观测、可区分、可审计证据
+- 新增正式原始路由：
+  - `/integrations/alibaba/wika/data/media/list`
+  - `/integrations/alibaba/wika/data/media/groups`
+  - `/integrations/alibaba/wika/data/products/schema/render/draft`
+- 真实生产分类结果：
+  - `alibaba.icbu.photobank.list` -> 真实 JSON
+  - `alibaba.icbu.photobank.group.list` -> 真实 JSON
+  - `alibaba.icbu.product.schema.render.draft` -> 真实 JSON（`biz_success=false`，`Record does not exist`）
+- 阶段收口：
+  - media 侧已经证明素材可观测，且存在分组查询通道
+  - draft 侧已经证明存在专门的 draft 渲染通道，且 live product 与 draft object 可区分
+  - 但当前仍不能证明 media/upload 与 add.draft 具备可隔离、可清理、可回滚的低风险边界
+  - 因此当前仍不具备进入“最小真实写入验证”的前置条件
+- 新增沉淀：
+  - `shared/data/modules/alibaba-official-media.js`
+  - `scripts/validate-wika-write-phase5.js`
+  - `docs/framework/WIKA_可观测可回滚证据验证.md`
+  - `docs/framework/WIKA_产品安全草稿链路说明.md` 阶段 5 更新
+  - `docs/framework/WIKA_产品草稿链路样例.json` 阶段 5 增强样例
 - 结束 checkpoint：`本阶段收口 checkpoint commit`
 
