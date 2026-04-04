@@ -1363,7 +1363,14 @@ function buildReadOnlyErrorResponse(error) {
 
 function classifyReadOnlyError(error, topError, missingKeys = undefined) {
   if (Array.isArray(missingKeys) && missingKeys.length > 0) {
-    if (missingKeys.includes("e_trade_id")) {
+    const requestParameterKeys = new Set([
+      "e_trade_id",
+      "product_id",
+      "group_id",
+      "data_select"
+    ]);
+
+    if (missingKeys.some((key) => requestParameterKeys.has(String(key)))) {
       return "parameter_error";
     }
 
