@@ -1,176 +1,120 @@
-# WIKA 产品安全草稿链路说明
+﻿# WIKA 产品安全草稿链路说明
 
 更新时间：2026-04-04
 
 ## 目标
 
-这条链路的目标不是直接发布真实商品，而是在当前已经拿到的能力基础上，把产品写侧推进到更安全、更可复核的“草稿模式”：
+当前链路的目标不是发布真实商品，而是在 WIKA 已验证的 production 闭环下，形成一条更接近真实写入要求、但仍停留在低风险草稿层的产品准备链路。
 
+这条链路当前只做 4 件事：
 1. 读取类目树与类目属性
-2. 读取商品 schema 规则与 render 结果
-3. 生成更贴近真实写入要求的 payload 草稿
-4. 明确哪些字段仍需人工补充
-5. 在高风险写操作前触发人工接管
+2. 读取 product schema 与 schema render
+3. 生成 schema-aware 的标题、卖点、描述、关键词和 payload 草稿
+4. 明确哪些字段仍需人工补，哪些字段因低风险边界未被证明而不能自动化
 
-## 当前已验证基础
+## 当前已验证的底座
 
-当前 `WIKA` 已经真实走通并可复用：
-
+已上线且可直接复用的正式原始路由：
 - `/integrations/alibaba/wika/data/categories/tree`
 - `/integrations/alibaba/wika/data/categories/attributes`
 - `/integrations/alibaba/wika/data/products/schema`
 - `/integrations/alibaba/wika/data/products/schema/render`
 
-同时，以下写侧接口已经证明能走到当前 production 认证闭环，但还不能误写为“可安全执行”：
-
-- `alibaba.icbu.photobank.upload`
-- `alibaba.icbu.product.add.draft`
-- `alibaba.icbu.product.add`
-- `alibaba.icbu.product.schema.add`
-- `alibaba.icbu.product.update`
-- `alibaba.icbu.product.schema.update`
-- `alibaba.icbu.product.update.field`
-
-这些接口当前只证明了：
-
-- 能走到 `/sync + access_token + sha256`
-- 已过授权层
-- 已拿到真实业务参数错误或真实 JSON
-
-但这不等于：
-
-- 已经具备安全可逆的真实发布能力
-- 已经允许自动修改线上商品
+这些路由都已经在线上验证：
+- 真实走到 `https://open-api.alibaba.com/sync`
+- 真实使用 `access_token`
+- 真实使用 `sha256`
+- 真实返回 JSON
 
 ## 当前草稿链路结构
 
-### 1. 输入层
+### 输入层
+当前 schema-aware 草稿链路支持这些输入：
+- 基础产品信息：`base_name`、`material`、`positioning`
+- 卖点与文案：`selling_points`、`keyword_hints`、`application`、`customization`、`packaging_notes`
+- 交易口径：`moq`、`lead_time`
+- 类目结构：`category_id`、`category_name`
+- 属性结构：`attributes`、`attribute_definitions`
+- schema 结构：`schema_xml`、`render_xml`
+- 素材占位：`asset_paths`
 
-当前草稿 helper 接受这些核心输入：
-
-- `category_id`
-- `category_name`
-- `attributes`
-- `attribute_definitions`
-- `schema_xml`
-- `render_xml`
-- `asset_paths`
-- 基础文案输入：
-  - `base_name`
-  - `material`
-  - `positioning`
-  - `selling_points`
-  - `keyword_hints`
-  - `application`
-  - `customization`
-  - `packaging_notes`
-  - `moq`
-  - `lead_time`
-
-### 2. 读取层
-
-草稿链路优先复用这些已上线原始路由：
-
+### 读取层
+草稿链路优先复用已上线的原始路由：
 - 类目树：`/integrations/alibaba/wika/data/categories/tree`
 - 类目属性：`/integrations/alibaba/wika/data/categories/attributes`
 - schema：`/integrations/alibaba/wika/data/products/schema`
-- render：`/integrations/alibaba/wika/data/products/schema/render`
+- schema render：`/integrations/alibaba/wika/data/products/schema/render`
 
-### 3. 生成层
-
+### 生成层
 当前 helper 会输出：
+- 自动生成标题
+- 自动生成卖点
+- 自动生成 HTML 描述
+- 自动生成关键词
+- schema-aware 字段映射结果
+- 结构化 payload 草稿
+- 人工仍需补齐字段列表
+- 被低风险边界阻塞的字段列表
+- 人工接管 artifact
 
-- 标题
-- 卖点
-- 描述 HTML
-- 关键词
-- schema-aware 字段映射
-- payload 草稿
-- 人工仍需补充的 schema 必填字段
-- 阻塞分类与人工接管 artifact
+## Phase 4 新增结论：低风险边界已并入草稿链路
 
-## schema-aware 的当前边界
+### photobank.upload
+当前结论：`当前无法证明低风险边界，因此不继续实写验证`
 
-当前不是完整的 XML 直写器，也不是最终发布器。
+原因：
+1. 官方成功响应会生成真实 `file_id` 与 `photobank_url`，说明会创建真实素材库资产。
+2. 当前没有拿到可稳定证明“可清理、可回滚、不可外部误用”的边界证据。
+3. 因此现阶段不做真实上传，不把它路由化为正式写接口。
 
-当前只做到了：
+被阻塞的自动化字段：
+- `main_image.images`
+- `product_sku.attributes[].sku_custom_image_url`
+- `product_sku.special_skus[].attributes[].sku_custom_image_url`
+- `description_html` 中的真实图片 URL
 
-1. 从 `schema.get` / `schema.render` 的 XML 中提取字段 id 与必填字段线索
-2. 把现有草稿字段映射到常见 schema 字段，例如：
-   - `productTitle`
-   - `productKeywords`
-   - `productDescType`
-   - `superText`
-   - `icbuCatProp`
-   - `scImages`
-   - `minOrderQuantity`
-   - `productGroup`
-3. 输出 `human_required_fields`，把仍需人工确认或补齐的字段显式列出
+### product.add.draft
+当前结论：`当前无法证明低风险边界，因此不继续实写验证`
 
-当前还没有做到：
+原因：
+1. 文档与成功响应特征都说明它会创建真实 draft 对象，而不是纯本地草稿。
+2. 当前没有证据证明 draft 天然非公开、可清理、且不会带来真实业务副作用。
+3. 因此现阶段不做真实 draft 创建，不把它当成已证明安全的草稿写入能力。
 
-- 自动拼装可直接提交的最终 XML
-- 自动判断所有行业/类目特有字段
-- 自动处理真实图片上传
-- 自动触发真实发布
+被阻塞的自动化动作：
+- 针对真实店铺账号执行 draft create
+- 任何依赖真实 draft id 的后续写入链路
 
-## add.draft 的当前收口
+## 当前可做与不可做的边界
 
-`alibaba.icbu.product.add.draft` 当前已经在 production 闭环下跑到：
+### 当前可做
+- 读取类目与属性
+- 读取 schema 与 render
+- 生成 schema-aware payload 草稿
+- 输出自动生成字段与人工补齐字段
+- 输出写侧边界阻塞说明和人工接管 artifact
 
-- `/sync`
-- `access_token`
-- `sha256`
-
-并且返回了真实业务参数错误，说明已过授权层。
-
-但当前仍然不能把它推进成正式写路由，原因是：
-
-1. 还没有证明它在当前店铺上具备足够低风险的“只生成草稿、不触发真实发布副作用”的边界
-2. 还没有拿到足够完整、可安全复用的 payload 要求集合
-3. 当前图片与 schema 必填字段仍有大量人工补充项
-
-所以当前对 `add.draft` 的结论必须保持为：
-
-- 已验证可调用到授权层
-- 可用于确认 payload 要求与草稿方向
-- 但**不能**误写为“产品上新闭环已完成”
+### 当前不可做
+- 真实商品发布
+- 真实线上商品修改
+- 真实 photobank 上传
+- 真实 add.draft 创建
+- 把 payload 草稿误写成平台商品已创建
 
 ## 人工接管触发条件
 
-当前草稿链路中，只要出现以下任一情况，就必须触发人工接管：
-
-- 缺少素材
-- 缺少类目或属性
+出现下列任一情况时，必须进入人工接管：
+- 缺少类目或关键属性
 - 缺少 schema 必填字段
-- 准备进入真实写操作
-- 操作不可逆或影响线上商品
+- 缺少媒体素材
+- 价格、MOQ、交期等商业承诺字段不确定
+- 即将进入真实写操作
+- 无法证明低风险边界
 
-这部分规则已经统一沉淀在：
-
-- [WIKA_人工接管规则.md](/D:/Code/阿里国际站/docs/framework/WIKA_人工接管规则.md)
-
-## 推荐使用顺序
-
-后续若继续推进任务 3，推荐顺序固定为：
-
-1. 先读类目树
-2. 再读类目属性
-3. 再读 schema
-4. 再读 render
-5. 再生成 schema-aware 草稿
-6. 再判断是否满足低风险写侧验证前提
-
-不要跳过 schema / render 直接冒进验证真实写入。
+对应规则文档：
+- `docs/framework/WIKA_人工接管规则.md`
+- `docs/framework/WIKA_低风险写侧边界验证.md`
 
 ## 当前一句话结论
 
-当前 `WIKA` 已经从“普通产品草稿”推进到了“schema-aware 的安全草稿模式”，但仍然停留在：
-
-- 可生成更接近真实写入要求的 payload 草稿
-- 可明确人工补充字段
-- 可在写前触发人工接管
-
-还**没有**进入：
-
-- 安全可逆的真实平台发布闭环
+WIKA 当前已经具备“schema-aware 的低风险产品草稿准备链路”，但还没有证明 photobank.upload 和 product.add.draft 的低风险边界成立，因此仍不能把这条链路写成“产品上新闭环已完成”。

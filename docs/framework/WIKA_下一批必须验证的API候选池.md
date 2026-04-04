@@ -1,43 +1,39 @@
-# WIKA 下一批必须验证的 API 候选池
+﻿# WIKA 下一批必须验证的 API 候选池
 
 更新时间：2026-04-04
 
-本文只保留围绕最终 6 项任务、且在当前主线里最值得继续推进的下一批候选。  
-不再把已经明确权限阻塞的 `mydata / overview / self.product` 接口放回当前主线循环。
+本文只保留围绕最终 6 项任务、且在当前主线里最值得继续推进的下一批候选。已经明确权限阻塞或边界未证明的接口，不再回到当前主线里循环验证。
 
 ## 排序原则
 
-1. 先补任务 3：产品写入前置能力与低风险草稿边界
+1. 先补任务 3：在低风险边界内继续推进写侧草稿模式
 2. 再补任务 5：订单草稿 / 交易创建入口
-3. 最后再判断任务 4：询盘 / 消息 / 客户是否有可生产入口
+3. 最后再看任务 4：询盘 / 消息 / 客户是否存在稳定生产入口
 
 ## 第一梯队：任务 3（产品上新与详情编写）
 
 | 优先级 | API / 能力 | 当前状态 | 当前结论 | 下一步 |
 | --- | --- | --- | --- | --- |
-| T3-P0 | `alibaba.icbu.photobank.upload` | 已验证但尚未形成正式路由 | 当前生产实测返回业务参数错误，说明已过授权层；但它属于真实写操作，尚未证明存在低风险测试/草稿边界 | 先定义安全调用边界，再决定是否进入最小原始路由 |
-| T3-P0 | `alibaba.icbu.product.add.draft` | 已验证但尚未形成正式路由 | 当前生产实测返回业务参数错误，说明已过授权层；但还没有证据证明它是零副作用的安全草稿模式 | 只在低风险边界明确后才继续推进 |
-| T3-P1 | `alibaba.icbu.product.schema.add` | 已验证但尚未形成正式路由 | 当前生产实测返回业务参数错误，说明已过授权层；但还没有安全草稿边界 | 等 schema/get-render-draft 结论出来后，再决定是否进入低风险验证 |
-| T3-P1 | `alibaba.icbu.product.add` | 已验证但尚未形成正式路由 | 当前生产实测返回业务参数错误，说明已过授权层；但属于高风险真实发布入口 | 不直接进入正式路由开发 |
-| T3-P1 | `alibaba.icbu.product.schema.update` | 已验证但尚未形成正式路由 | 当前生产实测返回业务参数错误，说明已过授权层；但更新真实商品风险高 | 等 schema/render 与草稿边界明确后再推进 |
-| T3-P1 | `alibaba.icbu.product.update` | 已验证但尚未形成正式路由 | 当前生产实测返回业务参数错误，说明已过授权层；但当前不允许真实线上修改 | 仅保留在候选池 |
-| T3-P1 | `alibaba.icbu.product.update.field` | 已验证但尚未形成正式路由 | 当前生产实测返回业务参数错误，说明已过授权层；但真实字段更新风险高 | 仅保留在候选池 |
+| T3-P0 | `alibaba.icbu.photobank.upload` | 已验证但不进入路由化 | 已过授权层，但当前无法证明低风险边界，因此不继续实写验证 | 暂不继续真实上传；仅在未来拿到明确清理/隔离证据时再重开 |
+| T3-P0 | `alibaba.icbu.product.add.draft` | 已验证但不进入路由化 | 已过授权层，但当前无法证明安全草稿边界，因此不继续实写验证 | 暂不继续真实 draft create；仅在未来拿到明确非发布/可清理证据时再重开 |
+| T3-P1 | `alibaba.icbu.product.schema.add` | 已验证但尚未形成正式路由 | 已过授权层，但当前不允许真实发布 | 仅保留候选，不进入实现 |
+| T3-P1 | `alibaba.icbu.product.add` | 已验证但尚未形成正式路由 | 已过授权层，但属于真实发布高风险入口 | 不进入实现 |
+| T3-P1 | `alibaba.icbu.product.schema.update` | 已验证但尚未形成正式路由 | 已过授权层，但当前不允许真实线上修改 | 不进入实现 |
+| T3-P1 | `alibaba.icbu.product.update` | 已验证但尚未形成正式路由 | 已过授权层，但当前不允许真实线上修改 | 不进入实现 |
+| T3-P1 | `alibaba.icbu.product.update.field` | 已验证但尚未形成正式路由 | 已过授权层，但当前不允许真实线上修改 | 不进入实现 |
 
-### 任务 3 当前已从候选池转为已上线可复用的支撑路由
-
+### 任务 3 当前已从候选池转为正式可复用的支持路由
+- `/integrations/alibaba/wika/data/categories/tree`
+- `/integrations/alibaba/wika/data/categories/attributes`
 - `/integrations/alibaba/wika/data/products/schema`
-  - 对接 `alibaba.icbu.product.schema.get`
-  - 已上线并已线上验证
 - `/integrations/alibaba/wika/data/products/schema/render`
-  - 对接 `alibaba.icbu.product.schema.render`
-  - 已上线并已线上验证
 
 ## 第二梯队：任务 5（订单草稿 / 交易创建）
 
 | 优先级 | API / 能力 | 当前状态 | 当前结论 | 下一步 |
 | --- | --- | --- | --- | --- |
-| T5-P0 | `alibaba.trade.order.create` | 官方存在，待生产验证 | 当前最接近平台内订单草稿 / 交易创建主入口的正式候选 | 等任务 3 第一梯队收口后再验证 |
-| T5-P1 | 外部结构化报价单 / 订单草稿文档 | 非 Alibaba API，但任务闭环需要 | 即使平台内创建不通，也可以形成替代方案；但不得误报为平台内订单已起草成功 | 作为替代方案保留 |
+| T5-P0 | `alibaba.trade.order.create` | 官方存在，待生产验证 | 当前最接近平台内订单草稿 / 交易创建的正式候选 | 等任务 3 收口后再生产验证 |
+| T5-P1 | 外部结构化报价单 / 订单草稿文档 | 非 Alibaba API，但任务闭环需要 | 可做替代方案，但不得误报为平台内订单已创建 | 仅作为后备替代方案保留 |
 
 ## 第三梯队：任务 4（询盘 / 消息 / 客户）
 
@@ -45,28 +41,19 @@
 | --- | --- | --- | --- | --- |
 | T4-P0 | `alibaba.seller.customer.batch.get` / `customer.get` | 官方存在，但权限/能力阻塞 | 当前证据仍偏 `router/rest + session + 聚石塔内调用` | 不进入当前主线开发 |
 | T4-P1 | `alibaba.seller.customer.note.query` / `note.get` | 官方存在，但权限/能力阻塞 | 同上 | 不进入当前主线开发 |
-| T4-P2 | `alibaba.inquiry.cards.send` | 当前未识别到可用入口 | 只有零散发送线索，不能证明存在稳定“读 + 回”闭环 | 不进入当前主线开发 |
+| T4-P2 | `alibaba.inquiry.cards.send` | 当前未识别到稳定入口 | 只有零散发送线索，不能证明存在稳定“读 + 回”闭环 | 不进入当前主线开发 |
 
 ## 当前明确不再继续循环的对象
 
-以下接口虽然与经营指标直接相关，但当前已经有明确收口结论，不再继续消耗本阶段主线资源：
-
+以下接口虽然与经营指标直接相关，但当前已经有明确收口结论，不再继续消耗主线资源：
 - `alibaba.mydata.overview.indicator.basic.get`
 - `alibaba.mydata.self.product.get`
 - `alibaba.mydata.self.product.date.get`
 - `alibaba.mydata.overview.date.get`
 - `alibaba.mydata.overview.industry.get`
 
-当前统一结论：
+统一结论：`官方存在，但权限/能力阻塞`
 
-- `官方存在，但权限/能力阻塞`
+## 当前一句话结论
 
-## 当前主线一句话结论
-
-下一阶段最值得继续推进的，不是再扫更多 API，而是沿着：
-
-1. `add.draft`
-2. `photobank.upload`
-3. `trade.order.create`
-
-这三组，先补齐“安全草稿边界 + 写前结构化能力”，再决定是否继续进入真实写路由开发。
+下一阶段最值得继续推进的，不是继续扫更多 API，而是只在已经确认的安全边界内继续推进任务 3 的草稿准备链路，同时把真正的平台内闭环验证留给 `trade.order.create` 这一类更接近目标任务的候选。

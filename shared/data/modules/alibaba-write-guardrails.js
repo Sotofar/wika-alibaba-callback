@@ -74,6 +74,43 @@ export const WIKA_HUMAN_HANDOFF_TRIGGERS = Object.freeze([
   }
 ]);
 
+const WIKA_LOW_RISK_WRITE_BOUNDARY = Object.freeze({
+  photobank_upload: {
+    api_name: "alibaba.icbu.photobank.upload",
+    actual_api_classification: "业务参数错误（说明已过授权层）",
+    low_risk_boundary_proven: false,
+    decision: "当前无法证明低风险边界，因此不继续实写验证",
+    reasons: [
+      "官方文档显示成功响应会生成 file_id 与 photobank_url，属于真实图片银行资产，而不是内存态临时对象。",
+      "当前已识别到图片银行查询与分组接口，但没有拿到可证明可清理、可回滚的安全删除边界。",
+      "当前无法证明上传后的图片天然非公开、不会被后续商品引用或长期残留。"
+    ],
+    blocked_automation_fields: [
+      "main_image.images",
+      "product_sku.attributes[].sku_custom_image_url",
+      "product_sku.special_skus[].attributes[].sku_custom_image_url",
+      "description_html image urls"
+    ],
+    allowed_next_step: "仅保留参数/边界分析，不进入真实上传。"
+  },
+  product_add_draft: {
+    api_name: "alibaba.icbu.product.add.draft",
+    actual_api_classification: "业务参数错误（说明已过授权层）",
+    low_risk_boundary_proven: false,
+    decision: "当前无法证明低风险边界，因此不继续实写验证",
+    reasons: [
+      "官方文档显示成功响应会返回混淆后的 product_id，说明会创建真实草稿对象，而不是纯本地草稿。",
+      "官方同时存在 schema.render.draft，说明草稿对象会被平台持久化并进入后续编辑链路。",
+      "当前没有拿到可证明草稿天然非公开、可回滚、可清理的稳定边界，因此不应做真实 draft 创建验证。"
+    ],
+    blocked_automation_fields: [
+      "final product create",
+      "draft create against live seller account"
+    ],
+    allowed_next_step: "仅继续增强 schema-aware payload 草稿，不进入真实 draft 创建。"
+  }
+});
+
 const CATEGORY_MAP = new Map(
   WIKA_WRITE_BLOCKER_CATEGORIES.map((item) => [item.code, item])
 );
@@ -145,4 +182,8 @@ export function buildWikaHumanHandoffArtifact({
     next_action: nextAction,
     created_at: createdAt
   };
+}
+
+export function getWikaLowRiskWriteBoundary() {
+  return JSON.parse(JSON.stringify(WIKA_LOW_RISK_WRITE_BOUNDARY));
 }

@@ -1,4 +1,7 @@
-import { buildWikaHumanHandoffArtifact } from "./alibaba-write-guardrails.js";
+import {
+  buildWikaHumanHandoffArtifact,
+  getWikaLowRiskWriteBoundary
+} from "./alibaba-write-guardrails.js";
 import { summarizeAlibabaSchemaXml } from "./alibaba-official-product-schema.js";
 
 const NON_FILLABLE_SCHEMA_FIELD_IDS = new Set(["infos", "sys_infos"]);
@@ -262,6 +265,7 @@ export function buildWikaProductDraft(input = {}) {
   const humanRequiredFields = effectiveRequiredFieldIds.filter(
     (fieldId) => !satisfiedSchemaFieldIds.includes(fieldId)
   );
+  const lowRiskWriteBoundary = getWikaLowRiskWriteBoundary();
 
   const missingRequirements = [];
   if (!Number.isFinite(categoryId)) {
@@ -344,7 +348,18 @@ export function buildWikaProductDraft(input = {}) {
       schema_field_ids_preview: effectiveSchemaFieldIds.slice(0, 30)
     },
     schema_aware_field_mapping: schemaMappings,
+    auto_generated_fields: {
+      title,
+      highlights,
+      description_html: descriptionHtml,
+      keywords
+    },
     human_required_fields: humanRequiredFields,
+    blocked_automation_fields: {
+      media_related: lowRiskWriteBoundary.photobank_upload.blocked_automation_fields,
+      draft_write_related: lowRiskWriteBoundary.product_add_draft.blocked_automation_fields
+    },
+    low_risk_write_boundary: lowRiskWriteBoundary,
     payload_draft: {
       target_api_family: [
         "alibaba.icbu.product.add.draft",
