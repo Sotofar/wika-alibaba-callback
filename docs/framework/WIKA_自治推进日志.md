@@ -186,4 +186,9 @@
   - `customers/list` 已作为权限探针型最小只读路由上线
   - 当前不能误写成 customers 已稳定可读，更不能误写成 inquiry/message 已打通
   - 若继续任务 4，只应在“拿到真实 id”或“官方文档出现明确 inquiry/message 读侧方法”这两种条件下继续前进
+- 线上验收：
+  - `/integrations/alibaba/wika/data/customers/list` 缺参 -> `400 + parameter_error`
+  - `/integrations/alibaba/wika/data/customers/list?customer_id_begin=0&page_size=1&start_time=...&end_time=...&last_sync_end_time=...` -> `502 + permission_error`
+- 结束 checkpoint：`6429e86`
+- push：`origin/main` 成功
 
