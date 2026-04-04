@@ -1,75 +1,603 @@
 {
-  "ok": true,
   "account": "wika",
-  "stage": "product_draft_only",
-  "write_mode": "draft_only",
-  "ready_for_publish": false,
-  "title": "Custom PU Leather Sunglasses Case Portable Travel Packaging",
-  "highlights": [
-    "Portable protective case for sunglasses and eyeglasses",
-    "Custom logo and surface finish supported",
-    "MOQ reference: 500 pcs",
-    "Lead time reference: 15-20 days",
-    "Eyeglasses Cases & Bags category aligned"
-  ],
-  "description_html": "<p><strong>Custom PU Leather Sunglasses Case Portable Travel Packaging</strong></p><ul><li>Portable protective case for sunglasses and eyeglasses</li><li>Custom logo and surface finish supported</li><li>MOQ reference: 500 pcs</li><li>Lead time reference: 15-20 days</li><li>Eyeglasses Cases & Bags category aligned</li></ul><p>Application: eyewear packaging, retail gift set, custom brand promotion</p><p>Customization: embossing, hot foil, debossing, print logo</p><p>Packaging notes: paper box, pouch and cloth can be bundled together</p>",
-  "keywords": [
-    "sunglasses case",
-    "eyeglasses case",
-    "pu leather case",
-    "custom packaging",
-    "logo case",
-    "travel case"
-  ],
-  "payload_draft": {
-    "target_api_family": [
-      "alibaba.icbu.product.add",
-      "alibaba.icbu.product.schema.add"
-    ],
-    "category_context": {
-      "category_id": 36127040,
-      "category_name": "Eyeglasses Cases & Bags"
-    },
-    "text_fields": {
-      "title": "Custom PU Leather Sunglasses Case Portable Travel Packaging",
-      "keywords": [
-        "sunglasses case",
-        "eyeglasses case",
-        "pu leather case",
-        "custom packaging",
-        "logo case",
-        "travel case"
-      ],
-      "description_html": "<p><strong>Custom PU Leather Sunglasses Case Portable Travel Packaging</strong></p><ul><li>Portable protective case for sunglasses and eyeglasses</li><li>Custom logo and surface finish supported</li><li>MOQ reference: 500 pcs</li><li>Lead time reference: 15-20 days</li><li>Eyeglasses Cases & Bags category aligned</li></ul><p>Application: eyewear packaging, retail gift set, custom brand promotion</p><p>Customization: embossing, hot foil, debossing, print logo</p><p>Packaging notes: paper box, pouch and cloth can be bundled together</p>"
-    },
-    "attribute_plan": [
-      {
-        "attr_id": 1,
-        "value_name": "Zhejiang, China"
-      },
-      {
-        "attr_id": 191284014,
-        "value_name": "PU Leather"
-      },
-      {
-        "attr_id": 200471263,
-        "value_name": "Magnetic"
-      },
-      {
-        "attr_id": 400035208,
-        "value_name": "Semi-Hard"
-      }
-    ],
-    "media_plan": [
+  "stage": "schema_aware_product_draft",
+  "input": {
+    "product_id_reference": 1601700588198,
+    "category_id": 36127040,
+    "category_name": null,
+    "base_name": "Custom PU Leather Sunglasses Case",
+    "material": "PU Leather",
+    "positioning": "Travel Packaging",
+    "asset_paths": [
       "assets/main-image-1.jpg",
       "assets/detail-image-1.jpg"
-    ],
-    "missing_required_attribute_ids": []
+    ]
   },
-  "missing_requirements": [],
-  "warnings": [
-    "该产物仅为产品草稿，不会触发真实发布。",
-    "payload_draft 是结构化候选草稿，不代表官方最终可提交 payload。"
-  ],
-  "handoff": null
+  "category_attributes_excerpt": {
+    "cat_id": 36127040,
+    "required_attribute_ids": [
+      1,
+      191284014,
+      200471263,
+      400035208
+    ],
+    "required_attribute_names": [
+      "Place of Origin",
+      "Material",
+      "closure type",
+      "Item Hardness"
+    ]
+  },
+  "schema_result_excerpt": {
+    "request_meta": {
+      "cat_id": 36127040,
+      "language": "en_US"
+    },
+    "biz_success": true,
+    "msg_code": null,
+    "message": null,
+    "data_preview": "<itemSchema><field id=\"infos\" name=\"信息\" type=\"label\"><label-group name=\"\"><label-group name=\"dev_infos\"><label name=\"开发者说明\" value=\"1.此为开发者消息，在第三方开发者有UI对客户展示时应主动屏蔽此消息；3.接入Schema接口初期，有任何疑问或者bug反馈请到钉钉群（群号：21722793）交流;4.橱窗推荐即将下线，请查看官方公告【https://ump.bbs.taobao.com/detail.html?postId=8679832】\" desc=\"\"/><label name=\"欢迎\" value=\"欢迎使用Schema新商品发布体系\" desc=\"\"/></label-group><label-group name=\"sys_infos\"/></label-group></field><field id=\"catId\" type=\"input\"><rules><rule name=\"valueTypeRule\" value=\"long\"/><rul"
+  },
+  "schema_render_excerpt": {
+    "request_meta": {
+      "cat_id": 36127040,
+      "product_id": 1601700588198,
+      "language": "en_US"
+    },
+    "biz_success": true,
+    "msg_code": null,
+    "message": null,
+    "data_preview": "<itemSchema><field id=\"infos\" name=\"信息\" type=\"label\"><label-group name=\"\"><label-group name=\"dev_infos\"><label name=\"开发者说明\" value=\"1.此为开发者消息，在第三方开发者有UI对客户展示时应主动屏蔽此消息；3.接入Schema接口初期，有任何疑问或者bug反馈请到钉钉群（群号：21722793）交流;4.橱窗推荐即将下线，请查看官方公告【https://ump.bbs.taobao.com/detail.html?postId=8679832】\" desc=\"\"/><label name=\"欢迎\" value=\"欢迎使用Schema新商品发布体系\" desc=\"\"/></label-group><label-group name=\"sys_infos\"/></label-group></field><field id=\"catId\" type=\"input\"><rules><rule name=\"valueTypeRule\" value=\"long\"/><rul"
+  },
+  "draft_output": {
+    "ok": false,
+    "account": "wika",
+    "stage": "product_draft_only",
+    "write_mode": "draft_only",
+    "ready_for_publish": false,
+    "schema_mode": "schema_aware",
+    "title": "Custom PU Leather Sunglasses Case PU Leather Travel Packaging sunglasses case eyeglasses case custom packaging",
+    "highlights": [
+      "Portable protective case for sunglasses and eyeglasses",
+      "Custom logo and surface finish supported",
+      "Eyeglasses Cases & Bags category aligned",
+      "MOQ reference: 500 pcs",
+      "Lead time reference: 15-20 days"
+    ],
+    "description_html": "<p><strong>Custom PU Leather Sunglasses Case PU Leather Travel Packaging sunglasses case eyeglasses case custom packaging</strong></p><ul><li>Portable protective case for sunglasses and eyeglasses</li><li>Custom logo and surface finish supported</li><li>Eyeglasses Cases & Bags category aligned</li><li>MOQ reference: 500 pcs</li><li>Lead time reference: 15-20 days</li></ul><p>Application: eyewear packaging, retail gift set, custom brand promotion</p><p>Customization: embossing, hot foil, debossing, print logo</p><p>Packaging notes: paper box, pouch and cloth can be bundled together</p>",
+    "keywords": [
+      "sunglasses case",
+      "eyeglasses case",
+      "custom packaging",
+      "logo case",
+      "travel case",
+      "Custom PU Leather Sunglasses Case",
+      "PU Leather",
+      "Eyeglasses Cases & Bags"
+    ],
+    "schema_context": {
+      "category_id": 36127040,
+      "schema_field_count": 130,
+      "render_field_count": 129,
+      "required_field_ids": [
+        "p-271270841",
+        "saleProp",
+        "p-191288010",
+        "p-200471263",
+        "skuStock",
+        "skuId",
+        "inventory",
+        "productKeywords_0",
+        "width",
+        "height",
+        "boxPackaging",
+        "day",
+        "ladderPeriod_1",
+        "ladderPeriod_2",
+        "priceUnit",
+        "platformLogisticsServices",
+        "shippingTemplateId",
+        "productGroup",
+        "second_group_id",
+        "third_group_id",
+        "ladderPrice",
+        "price",
+        "ladderPrice_1",
+        "ladderPrice_2",
+        "ladderPrice_3",
+        "customMoreProperty",
+        "valueName",
+        "customMoreProperty_1",
+        "customMoreProperty_2",
+        "customMoreProperty_3",
+        "customMoreProperty_4",
+        "customMoreProperty_5",
+        "customMoreProperty_6",
+        "customMoreProperty_7",
+        "customMoreProperty_8",
+        "customMoreProperty_9",
+        "fob",
+        "range_min",
+        "unit_type",
+        "saleType",
+        "batchNum",
+        "minOrderQuantity",
+        "gallery",
+        "images",
+        "imageURL",
+        "generalText",
+        "answers",
+        "pkgMeasureHeightSku",
+        "hsCode",
+        "p-230093740",
+        "ladderPeriod",
+        "detailImage"
+      ],
+      "schema_field_ids_preview": [
+        "infos",
+        "catId",
+        "icbuCatProp",
+        "p-1",
+        "p-2",
+        "p-3",
+        "p-100007796",
+        "p-191290347",
+        "p-230093740",
+        "p-236836420",
+        "p-271270841",
+        "p-373265001",
+        "p-390864271",
+        "p-400035208",
+        "saleProp",
+        "p-191284014",
+        "p-191288010",
+        "p-200471263",
+        "sku",
+        "skuOuterId",
+        "props",
+        "skuStock",
+        "price",
+        "skuId",
+        "outerSupplyId",
+        "sampleSku",
+        "productTitle",
+        "inventory",
+        "scImages",
+        "scImages_0"
+      ]
+    },
+    "schema_aware_field_mapping": [
+      {
+        "schema_field_id": "productTitle",
+        "source_key": "title",
+        "ready": true,
+        "available_in_schema": true,
+        "value_preview": "Custom PU Leather Sunglasses Case PU Leather Travel Packaging sunglasses case eyeglasses case custom packaging"
+      },
+      {
+        "schema_field_id": "productKeywords",
+        "source_key": "keywords",
+        "ready": true,
+        "available_in_schema": true,
+        "value_preview": [
+          "sunglasses case",
+          "eyeglasses case",
+          "custom packaging"
+        ]
+      },
+      {
+        "schema_field_id": "productDescType",
+        "source_key": "description_mode",
+        "ready": true,
+        "available_in_schema": true,
+        "value_preview": 2
+      },
+      {
+        "schema_field_id": "icbuCatProp",
+        "source_key": "attribute_plan",
+        "ready": true,
+        "available_in_schema": true,
+        "value_preview": [
+          {
+            "attr_id": 1,
+            "attr_name": "Place of Origin",
+            "value_name": "sample_value_1"
+          },
+          {
+            "attr_id": 191284014,
+            "attr_name": "Material",
+            "value_name": "sample_value_2"
+          },
+          {
+            "attr_id": 200471263,
+            "attr_name": "closure type",
+            "value_name": "sample_value_3"
+          },
+          {
+            "attr_id": 400035208,
+            "attr_name": "Item Hardness",
+            "value_name": "sample_value_4"
+          }
+        ]
+      },
+      {
+        "schema_field_id": "scImages",
+        "source_key": "media_plan",
+        "ready": true,
+        "available_in_schema": true,
+        "value_preview": [
+          "assets/main-image-1.jpg",
+          "assets/detail-image-1.jpg"
+        ]
+      },
+      {
+        "schema_field_id": "minOrderQuantity",
+        "source_key": "moq",
+        "ready": true,
+        "available_in_schema": true,
+        "value_preview": "500 pcs"
+      },
+      {
+        "schema_field_id": "productGroup",
+        "source_key": "group_plan",
+        "ready": false,
+        "available_in_schema": true,
+        "value_preview": null
+      }
+    ],
+    "human_required_fields": [
+      "p-271270841",
+      "saleProp",
+      "p-191288010",
+      "p-200471263",
+      "skuStock",
+      "skuId",
+      "inventory",
+      "productKeywords_0",
+      "width",
+      "height",
+      "boxPackaging",
+      "day",
+      "ladderPeriod_1",
+      "ladderPeriod_2",
+      "priceUnit",
+      "platformLogisticsServices",
+      "shippingTemplateId",
+      "productGroup",
+      "second_group_id",
+      "third_group_id",
+      "ladderPrice",
+      "price",
+      "ladderPrice_1",
+      "ladderPrice_2",
+      "ladderPrice_3",
+      "customMoreProperty",
+      "valueName",
+      "customMoreProperty_1",
+      "customMoreProperty_2",
+      "customMoreProperty_3",
+      "customMoreProperty_4",
+      "customMoreProperty_5",
+      "customMoreProperty_6",
+      "customMoreProperty_7",
+      "customMoreProperty_8",
+      "customMoreProperty_9",
+      "fob",
+      "range_min",
+      "unit_type",
+      "saleType",
+      "batchNum",
+      "gallery",
+      "images",
+      "imageURL",
+      "generalText",
+      "answers",
+      "pkgMeasureHeightSku",
+      "hsCode",
+      "p-230093740",
+      "ladderPeriod",
+      "detailImage"
+    ],
+    "payload_draft": {
+      "target_api_family": [
+        "alibaba.icbu.product.add.draft",
+        "alibaba.icbu.product.add",
+        "alibaba.icbu.product.schema.add"
+      ],
+      "category_context": {
+        "category_id": 36127040,
+        "category_name": "Eyeglasses Cases & Bags"
+      },
+      "schema_context": {
+        "schema_field_count": 130,
+        "render_field_count": 129
+      },
+      "text_fields": {
+        "title": "Custom PU Leather Sunglasses Case PU Leather Travel Packaging sunglasses case eyeglasses case custom packaging",
+        "keywords": [
+          "sunglasses case",
+          "eyeglasses case",
+          "custom packaging",
+          "logo case",
+          "travel case",
+          "Custom PU Leather Sunglasses Case",
+          "PU Leather",
+          "Eyeglasses Cases & Bags"
+        ],
+        "description_html": "<p><strong>Custom PU Leather Sunglasses Case PU Leather Travel Packaging sunglasses case eyeglasses case custom packaging</strong></p><ul><li>Portable protective case for sunglasses and eyeglasses</li><li>Custom logo and surface finish supported</li><li>Eyeglasses Cases & Bags category aligned</li><li>MOQ reference: 500 pcs</li><li>Lead time reference: 15-20 days</li></ul><p>Application: eyewear packaging, retail gift set, custom brand promotion</p><p>Customization: embossing, hot foil, debossing, print logo</p><p>Packaging notes: paper box, pouch and cloth can be bundled together</p>"
+      },
+      "schema_field_mapping": [
+        {
+          "schema_field_id": "productTitle",
+          "source_key": "title",
+          "ready": true,
+          "available_in_schema": true,
+          "value_preview": "Custom PU Leather Sunglasses Case PU Leather Travel Packaging sunglasses case eyeglasses case custom packaging"
+        },
+        {
+          "schema_field_id": "productKeywords",
+          "source_key": "keywords",
+          "ready": true,
+          "available_in_schema": true,
+          "value_preview": [
+            "sunglasses case",
+            "eyeglasses case",
+            "custom packaging"
+          ]
+        },
+        {
+          "schema_field_id": "productDescType",
+          "source_key": "description_mode",
+          "ready": true,
+          "available_in_schema": true,
+          "value_preview": 2
+        },
+        {
+          "schema_field_id": "icbuCatProp",
+          "source_key": "attribute_plan",
+          "ready": true,
+          "available_in_schema": true,
+          "value_preview": [
+            {
+              "attr_id": 1,
+              "attr_name": "Place of Origin",
+              "value_name": "sample_value_1"
+            },
+            {
+              "attr_id": 191284014,
+              "attr_name": "Material",
+              "value_name": "sample_value_2"
+            },
+            {
+              "attr_id": 200471263,
+              "attr_name": "closure type",
+              "value_name": "sample_value_3"
+            },
+            {
+              "attr_id": 400035208,
+              "attr_name": "Item Hardness",
+              "value_name": "sample_value_4"
+            }
+          ]
+        },
+        {
+          "schema_field_id": "scImages",
+          "source_key": "media_plan",
+          "ready": true,
+          "available_in_schema": true,
+          "value_preview": [
+            "assets/main-image-1.jpg",
+            "assets/detail-image-1.jpg"
+          ]
+        },
+        {
+          "schema_field_id": "minOrderQuantity",
+          "source_key": "moq",
+          "ready": true,
+          "available_in_schema": true,
+          "value_preview": "500 pcs"
+        },
+        {
+          "schema_field_id": "productGroup",
+          "source_key": "group_plan",
+          "ready": false,
+          "available_in_schema": true,
+          "value_preview": null
+        }
+      ],
+      "attribute_plan": [
+        {
+          "attr_id": 1,
+          "attr_name": "Place of Origin",
+          "value_name": "sample_value_1"
+        },
+        {
+          "attr_id": 191284014,
+          "attr_name": "Material",
+          "value_name": "sample_value_2"
+        },
+        {
+          "attr_id": 200471263,
+          "attr_name": "closure type",
+          "value_name": "sample_value_3"
+        },
+        {
+          "attr_id": 400035208,
+          "attr_name": "Item Hardness",
+          "value_name": "sample_value_4"
+        }
+      ],
+      "media_plan": [
+        "assets/main-image-1.jpg",
+        "assets/detail-image-1.jpg"
+      ],
+      "group_plan": null,
+      "missing_required_attribute_ids": []
+    },
+    "missing_requirements": [
+      "schema_required_fields"
+    ],
+    "warnings": [
+      "该产物仅为产品草稿，不会触发真实发布。",
+      "payload_draft 是结构化候选草稿，不代表官方最终可提交 payload。"
+    ],
+    "handoff": {
+      "account": "wika",
+      "stage": "write_validation",
+      "status": "pending_human_handoff",
+      "severity": "high",
+      "action": "build_product_draft",
+      "api_name": null,
+      "blocker_category": {
+        "code": "manual_confirmation_required",
+        "label": "写操作需要人工确认",
+        "description": "虽然技术上可继续，但执行会影响真实线上对象，必须先人工确认。"
+      },
+      "triggers": [
+        {
+          "code": "live_product_publish",
+          "label": "真实商品发布",
+          "description": "任何会创建、发布或上架真实商品的操作，都必须人工接管。"
+        }
+      ],
+      "requires_human_handoff": true,
+      "input_summary": {
+        "category_id": 36127040,
+        "asset_paths_count": 2,
+        "missing_required_attribute_ids": [],
+        "missing_schema_field_count": 51
+      },
+      "evidence": {
+        "missing_requirements": [
+          "schema_required_fields"
+        ],
+        "required_attribute_ids": [
+          1,
+          191284014,
+          200471263,
+          400035208
+        ],
+        "populated_attribute_ids": [
+          1,
+          191284014,
+          200471263,
+          400035208
+        ],
+        "human_required_fields": [
+          "p-271270841",
+          "saleProp",
+          "p-191288010",
+          "p-200471263",
+          "skuStock",
+          "skuId",
+          "inventory",
+          "productKeywords_0",
+          "width",
+          "height",
+          "boxPackaging",
+          "day",
+          "ladderPeriod_1",
+          "ladderPeriod_2",
+          "priceUnit",
+          "platformLogisticsServices",
+          "shippingTemplateId",
+          "productGroup",
+          "second_group_id",
+          "third_group_id",
+          "ladderPrice",
+          "price",
+          "ladderPrice_1",
+          "ladderPrice_2",
+          "ladderPrice_3",
+          "customMoreProperty",
+          "valueName",
+          "customMoreProperty_1",
+          "customMoreProperty_2",
+          "customMoreProperty_3",
+          "customMoreProperty_4",
+          "customMoreProperty_5",
+          "customMoreProperty_6",
+          "customMoreProperty_7",
+          "customMoreProperty_8",
+          "customMoreProperty_9",
+          "fob",
+          "range_min",
+          "unit_type",
+          "saleType",
+          "batchNum",
+          "gallery",
+          "images",
+          "imageURL",
+          "generalText",
+          "answers",
+          "pkgMeasureHeightSku",
+          "hsCode",
+          "p-230093740",
+          "ladderPeriod",
+          "detailImage"
+        ]
+      },
+      "next_action": "先补齐类目必填属性、schema 必填字段与素材，再进入人工确认是否继续写侧验证。",
+      "created_at": "2026-04-04T15:12:15.174Z"
+    }
+  },
+  "human_fill_summary": {
+    "missing_requirements": [
+      "schema_required_fields"
+    ],
+    "human_required_fields": [
+      "p-271270841",
+      "saleProp",
+      "p-191288010",
+      "p-200471263",
+      "skuStock",
+      "skuId",
+      "inventory",
+      "productKeywords_0",
+      "width",
+      "height",
+      "boxPackaging",
+      "day",
+      "ladderPeriod_1",
+      "ladderPeriod_2",
+      "priceUnit",
+      "platformLogisticsServices",
+      "shippingTemplateId",
+      "productGroup",
+      "second_group_id",
+      "third_group_id",
+      "ladderPrice",
+      "price",
+      "ladderPrice_1",
+      "ladderPrice_2",
+      "ladderPrice_3",
+      "customMoreProperty",
+      "valueName",
+      "customMoreProperty_1",
+      "customMoreProperty_2",
+      "customMoreProperty_3",
+      "customMoreProperty_4",
+      "customMoreProperty_5",
+      "customMoreProperty_6",
+      "customMoreProperty_7",
+      "customMoreProperty_8",
+      "customMoreProperty_9",
+      "fob",
+      "range_min",
+      "unit_type",
+      "saleType",
+      "batchNum",
+      "gallery",
+      "images",
+      "imageURL",
+      "generalText",
+      "answers",
+      "pkgMeasureHeightSku",
+      "hsCode",
+      "p-230093740",
+      "ladderPeriod",
+      "detailImage"
+    ],
+    "next_action": "先补齐类目必填属性、schema 必填字段与素材，再进入人工确认是否继续写侧验证。"
+  }
 }
