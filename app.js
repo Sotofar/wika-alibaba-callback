@@ -14,8 +14,13 @@ import {
 } from "./shared/data/modules/alibaba-official-category-support.js";
 import {
   fetchAlibabaOfficialProductSchema,
-  fetchAlibabaOfficialProductSchemaRender
+  fetchAlibabaOfficialProductSchemaRender,
+  fetchAlibabaOfficialProductSchemaRenderDraft
 } from "./shared/data/modules/alibaba-official-product-schema.js";
+import {
+  fetchAlibabaOfficialMediaGroups,
+  fetchAlibabaOfficialMediaList
+} from "./shared/data/modules/alibaba-official-media.js";
 import {
   fetchAlibabaOfficialProductDetail,
   fetchAlibabaOfficialProductGroups,
@@ -1823,6 +1828,144 @@ function createAccountProductSchemaRenderHandler(accountKey) {
   };
 }
 
+function createAccountProductSchemaRenderDraftHandler(accountKey) {
+  return async (req, res) => {
+    const config = getAccountConfig(accountKey);
+
+    try {
+      const result = await fetchAlibabaOfficialProductSchemaRenderDraft(
+        {
+          account: accountKey,
+          ...(await getAlibabaReadOnlyClientConfig(accountKey))
+        },
+        req.query
+      );
+
+      logInfo(`${config.label} product schema render draft read completed`, {
+        catId: result.request_meta.cat_id,
+        productId: result.request_meta.product_id,
+        schemaFieldCount: result.response_meta.schema_field_count,
+        bizSuccess: result.response_meta.biz_success
+      });
+
+      res.status(200).json({
+        ok: true,
+        ...result
+      });
+    } catch (error) {
+      const hasMissingKeys =
+        Array.isArray(error?.missingKeys) && error.missingKeys.length > 0;
+
+      logError(`${config.label} product schema render draft read failed`, {
+        error: error instanceof Error ? error.message : String(error),
+        details:
+          error instanceof AlibabaApiError || error?.details
+            ? error.details
+            : undefined,
+        top_error: extractTopErrorResponse(error),
+        query: req.query
+      });
+
+      res
+        .status(
+          error instanceof ConfigurationError ? 500 : hasMissingKeys ? 400 : 502
+        )
+        .json(buildReadOnlyErrorResponse(error));
+    }
+  };
+}
+
+function createAccountMediaListHandler(accountKey) {
+  return async (req, res) => {
+    const config = getAccountConfig(accountKey);
+
+    try {
+      const result = await fetchAlibabaOfficialMediaList(
+        {
+          account: accountKey,
+          ...(await getAlibabaReadOnlyClientConfig(accountKey))
+        },
+        req.query
+      );
+
+      logInfo(`${config.label} media list read completed`, {
+        currentPage: result.request_meta.current_page,
+        pageSize: result.request_meta.page_size,
+        returnedItemCount: result.response_meta.returned_item_count
+      });
+
+      res.status(200).json({
+        ok: true,
+        ...result
+      });
+    } catch (error) {
+      const hasMissingKeys =
+        Array.isArray(error?.missingKeys) && error.missingKeys.length > 0;
+
+      logError(`${config.label} media list read failed`, {
+        error: error instanceof Error ? error.message : String(error),
+        details:
+          error instanceof AlibabaApiError || error?.details
+            ? error.details
+            : undefined,
+        top_error: extractTopErrorResponse(error),
+        query: req.query
+      });
+
+      res
+        .status(
+          error instanceof ConfigurationError ? 500 : hasMissingKeys ? 400 : 502
+        )
+        .json(buildReadOnlyErrorResponse(error));
+    }
+  };
+}
+
+function createAccountMediaGroupsHandler(accountKey) {
+  return async (req, res) => {
+    const config = getAccountConfig(accountKey);
+
+    try {
+      const result = await fetchAlibabaOfficialMediaGroups(
+        {
+          account: accountKey,
+          ...(await getAlibabaReadOnlyClientConfig(accountKey))
+        },
+        req.query
+      );
+
+      logInfo(`${config.label} media groups read completed`, {
+        groupId: result.request_meta.id,
+        returnedGroupCount: result.response_meta.returned_group_count
+      });
+
+      res.status(200).json({
+        ok: true,
+        ...result
+      });
+    } catch (error) {
+      const hasMissingKeys =
+        Array.isArray(error?.missingKeys) && error.missingKeys.length > 0;
+
+      logError(`${config.label} media groups read failed`, {
+        error: error instanceof Error ? error.message : String(error),
+        details:
+          error instanceof AlibabaApiError || error?.details
+            ? error.details
+            : undefined,
+        top_error: extractTopErrorResponse(error),
+        query: req.query
+      });
+
+      res
+        .status(
+          error instanceof ConfigurationError ? 500 : hasMissingKeys ? 400 : 502
+        )
+        .json(buildReadOnlyErrorResponse(error));
+    }
+  };
+}
+
 function createAccountOrderFundHandler(accountKey) {
   return async (req, res) => {
     const config = getAccountConfig(accountKey);
@@ -2591,6 +2734,18 @@ app.get(
 app.get(
   "/integrations/alibaba/wika/data/products/schema/render",
   createAccountProductSchemaRenderHandler("wika")
+);
+app.get(
+  "/integrations/alibaba/wika/data/products/schema/render/draft",
+  createAccountProductSchemaRenderDraftHandler("wika")
+);
+app.get(
+  "/integrations/alibaba/wika/data/media/list",
+  createAccountMediaListHandler("wika")
+);
+app.get(
+  "/integrations/alibaba/wika/data/media/groups",
+  createAccountMediaGroupsHandler("wika")
 );
 
 app.get("/integrations/alibaba/xd/data/products/list", async (req, res) => {

@@ -20,6 +20,14 @@ export const OFFICIAL_PRODUCT_SCHEMA_RENDER_VERIFIED_FIELDS = Object.freeze([
   "trace_id"
 ]);
 
+export const OFFICIAL_PRODUCT_SCHEMA_RENDER_DRAFT_VERIFIED_FIELDS = Object.freeze([
+  "data",
+  "message",
+  "msg_code",
+  "biz_success",
+  "trace_id"
+]);
+
 function buildMissingParameterError(message, missingKeys) {
   const error = new Error(message);
   error.missingKeys = missingKeys;
@@ -231,3 +239,79 @@ export async function fetchAlibabaOfficialProductSchemaRender(
   };
 }
 
+export async function fetchAlibabaOfficialProductSchemaRenderDraft(
+  {
+    account,
+    appKey,
+    appSecret,
+    accessToken,
+    endpointUrl
+  },
+  query = {}
+) {
+  const catId = Number.parseInt(String(query.cat_id ?? ""), 10);
+  const productId = Number.parseInt(String(query.product_id ?? ""), 10);
+  const missingKeys = [];
+
+  if (!Number.isFinite(catId)) {
+    missingKeys.push("cat_id");
+  }
+
+  if (!Number.isFinite(productId)) {
+    missingKeys.push("product_id");
+  }
+
+  if (missingKeys.length > 0) {
+    throw buildMissingParameterError(
+      "Product schema render draft requires cat_id and product_id",
+      missingKeys
+    );
+  }
+
+  const language = String(query.language || "en_US").trim() || "en_US";
+  const effectiveEndpointUrl = resolveAlibabaSyncEndpoint(endpointUrl);
+  const response = await callAlibabaSyncApi({
+    apiName: "alibaba.icbu.product.schema.render.draft",
+    appKey,
+    appSecret,
+    accessToken,
+    endpointUrl: effectiveEndpointUrl,
+    businessParams: {
+      param_product_top_publish_request: {
+        cat_id: catId,
+        language,
+        product_id: productId
+      }
+    }
+  });
+
+  const payload = response.payload ?? {};
+  const schemaXml = String(payload.data ?? "");
+  const schemaSummary = summarizeAlibabaSchemaXml(schemaXml);
+
+  return {
+    account,
+    module: "products",
+    read_only: true,
+    verification_status: "已验证可读",
+    evidence_level: "L1",
+    data_scope: "raw_product_schema_render_draft",
+    source: buildOfficialSource(
+      "alibaba.icbu.product.schema.render.draft",
+      effectiveEndpointUrl
+    ),
+    request_meta: {
+      cat_id: catId,
+      product_id: productId,
+      language
+    },
+    response_meta: buildResponseMeta(payload, schemaSummary),
+    verified_fields: OFFICIAL_PRODUCT_SCHEMA_RENDER_DRAFT_VERIFIED_FIELDS,
+    warnings: [
+      ...buildWarnings(),
+      "当前路由只验证 draft 可观测能力；不等于已证明 add.draft 的低风险写入边界成立。"
+    ],
+    raw_root_key: response.rootKey,
+    data: schemaXml
+  };
+}
