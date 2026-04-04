@@ -21,6 +21,8 @@
 | `/integrations/alibaba/wika/data/products/detail` | `alibaba.icbu.product.get` | 产品详情主数据 | 已上线并已线上验证 |
 | `/integrations/alibaba/wika/data/products/score` | `alibaba.icbu.product.score.get` | 产品质量分 / PIS / 问题映射 | 已上线并已线上验证 |
 | `/integrations/alibaba/wika/data/products/groups` | `alibaba.icbu.product.group.get` | 产品分组 / 系列结构 | 已上线并已线上验证 |
+| `/integrations/alibaba/wika/data/products/schema` | `alibaba.icbu.product.schema.get` | 产品 schema 原始读取 | 已上线并已线上验证 |
+| `/integrations/alibaba/wika/data/products/schema/render` | `alibaba.icbu.product.schema.render` | 产品 schema render 原始读取 | 已上线并已线上验证 |
 | `/integrations/alibaba/wika/data/categories/tree` | `alibaba.icbu.category.get.new` | 商品发布类目树读取 | 已上线并已线上验证 |
 | `/integrations/alibaba/wika/data/categories/attributes` | `alibaba.icbu.category.attr.get` + `alibaba.icbu.category.attribute.get` | 类目属性定义与属性值读取 | 已上线并已线上验证 |
 | `/integrations/alibaba/wika/data/orders/list` | `alibaba.seller.order.list` | 最小订单列表 | 已上线并已线上验证 |
@@ -38,7 +40,8 @@
 
 | 能力 | 当前状态 | 说明 |
 | --- | --- | --- |
-| 产品草稿生成 helper | 已实现可复用 | 可输出标题、卖点、描述、关键词和结构化 payload 草稿，但不发布真实商品 |
+| schema-aware 产品草稿 helper | 已实现可复用 | 可输出标题、卖点、描述、关键词、schema 字段映射和结构化 payload 草稿，但不发布真实商品 |
+| 产品安全草稿链路说明与样例 | 已实现可复用 | 已沉淀 schema / render / 类目 / 属性到草稿链路中的接法与人工补字段清单 |
 | 人工接管告警样例 | 已实现可复用 | 结构化待处理/告警产物已落盘，可作为后续通知能力的基础 |
 
 ## 5. 当前明确不能误报的边界
@@ -46,5 +49,7 @@
 1. 已有原始只读路由，不等于经营层模块已完成。
 2. 已有产品详情、分组、质量分，不等于产品上新闭环已打通。
 3. 已有订单明细、资金、物流原始数据，不等于订单经营驾驶舱已完成。
-4. 已有产品草稿生成 helper，不等于平台商品已创建或已发布。
-5. 已有写侧安全护栏，不等于真实写操作已经允许自动执行。
+4. 已有 schema / render 原始读取，不等于产品写入闭环已完成。
+5. 已有产品草稿生成 helper，不等于平台商品已创建或已发布。
+6. `alibaba.icbu.product.add.draft` 过了授权层，也不等于已证明存在安全草稿模式。
+7. 已有写侧安全护栏，不等于真实写操作已经允许自动执行。

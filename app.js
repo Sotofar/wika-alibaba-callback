@@ -1755,6 +1755,9 @@ function createAccountProductSchemaHandler(accountKey) {
         ...result
       });
     } catch (error) {
+      const hasMissingKeys =
+        Array.isArray(error?.missingKeys) && error.missingKeys.length > 0;
+
       logError(`${config.label} product schema read failed`, {
         error: error instanceof Error ? error.message : String(error),
         details:
@@ -1766,7 +1769,9 @@ function createAccountProductSchemaHandler(accountKey) {
       });
 
       res
-        .status(error instanceof ConfigurationError ? 500 : 502)
+        .status(
+          error instanceof ConfigurationError ? 500 : hasMissingKeys ? 400 : 502
+        )
         .json(buildReadOnlyErrorResponse(error));
     }
   };
@@ -1796,6 +1801,9 @@ function createAccountProductSchemaRenderHandler(accountKey) {
         ...result
       });
     } catch (error) {
+      const hasMissingKeys =
+        Array.isArray(error?.missingKeys) && error.missingKeys.length > 0;
+
       logError(`${config.label} product schema render read failed`, {
         error: error instanceof Error ? error.message : String(error),
         details:
@@ -1807,7 +1815,9 @@ function createAccountProductSchemaRenderHandler(accountKey) {
       });
 
       res
-        .status(error instanceof ConfigurationError ? 500 : 502)
+        .status(
+          error instanceof ConfigurationError ? 500 : hasMissingKeys ? 400 : 502
+        )
         .json(buildReadOnlyErrorResponse(error));
     }
   };

@@ -46,13 +46,16 @@
 | --- | --- | --- | --- | --- |
 | 类目树读取 | 1 | 已上线原始路由 | `/integrations/alibaba/wika/data/categories/tree` | 否，仅前置支持 |
 | 类目属性读取 | 1 | 已上线原始路由 | `/integrations/alibaba/wika/data/categories/attributes` | 否，仅前置支持 |
+| 产品 schema 读取 | 1 | 已上线原始路由 | `/integrations/alibaba/wika/data/products/schema` | 否，仅草稿链路前置支持 |
+| 产品 schema render 读取 | 1 | 已上线原始路由 | `/integrations/alibaba/wika/data/products/schema/render` | 否，仅草稿链路前置支持 |
 | 图片 / 媒体上传 | 2 | 当前生产实测为业务参数错误，已过授权层 | `alibaba.icbu.photobank.upload` | 否 |
+| 安全草稿模式入口 | 2 | 当前生产实测为业务参数错误，已过授权层；但尚未证明存在零副作用草稿边界 | `alibaba.icbu.product.add.draft` | 否 |
 | 产品创建（旧 add 体系） | 2 | 当前生产实测为业务参数错误，已过授权层 | `alibaba.icbu.product.add` | 否 |
 | 产品创建（schema add 体系） | 2 | 当前生产实测为业务参数错误，已过授权层 | `alibaba.icbu.product.schema.add` | 否 |
 | 产品更新（旧 update 体系） | 2 | 当前生产实测为业务参数错误，已过授权层 | `alibaba.icbu.product.update` | 否 |
 | 产品更新（schema update 体系） | 2 | 当前生产实测为业务参数错误，已过授权层 | `alibaba.icbu.product.schema.update` | 否 |
 | 产品按字段更新 | 2 | 当前生产实测为业务参数错误，已过授权层 | `alibaba.icbu.product.update.field` | 否 |
-| 结构化产品草稿生成 | 7（已实现） | 已有 helper 与样例产物 | `shared/data/modules/alibaba-product-drafts.js` | 否，仅草稿 |
+| 结构化产品草稿生成 | 7（已实现） | 已有 schema-aware helper、说明文档与样例产物 | `shared/data/modules/alibaba-product-drafts.js` | 否，仅草稿 |
 | 标题 / 卖点 / 描述 / 关键词生成 | 7（已实现） | 已集成到产品草稿生成链路 | `buildWikaProductDraft()` | 否，仅草稿 |
 
 ## D. 询盘与客户沟通
@@ -91,9 +94,13 @@
 3. 产品写入方向已经拿到：
    - 类目树真实 JSON
    - 类目属性真实 JSON
+   - schema 真实 JSON
+   - schema render 真实 JSON
    - 图片上传的业务参数错误
+   - `add.draft` 的业务参数错误
    - 产品 add/update 家族的业务参数错误
    说明当前生产闭环已经能到达写侧授权层，但不等于允许真实发布。
 4. 当前最缺的不是更多单点原始路由，而是：
    - 最小经营聚合
    - 安全写入边界下的草稿 / schema / 图片链路
+   - `add.draft` 与媒体上传的低风险边界证明
