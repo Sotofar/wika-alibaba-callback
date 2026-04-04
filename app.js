@@ -9,6 +9,8 @@ import {
   fetchAlibabaOfficialOrderList
 } from "./shared/data/modules/alibaba-official-orders.js";
 import {
+  fetchAlibabaOfficialProductDetail,
+  fetchAlibabaOfficialProductGroups,
   fetchAlibabaOfficialOrderFund,
   fetchAlibabaOfficialOrderLogistics,
   fetchAlibabaOfficialProductScore
@@ -1546,6 +1548,94 @@ function createAccountProductScoreHandler(accountKey) {
   };
 }
 
+function createAccountProductDetailHandler(accountKey) {
+  return async (req, res) => {
+    const config = getAccountConfig(accountKey);
+
+    try {
+      const result = await fetchAlibabaOfficialProductDetail(
+        {
+          account: accountKey,
+          ...(await getAlibabaReadOnlyClientConfig(accountKey))
+        },
+        req.query
+      );
+
+      logInfo(`${config.label} product detail read completed`, {
+        productId: result.request_meta.product_id,
+        productFieldCount: result.response_meta.product_field_keys.length
+      });
+
+      res.status(200).json({
+        ok: true,
+        ...result
+      });
+    } catch (error) {
+      logError(`${config.label} product detail read failed`, {
+        error: error instanceof Error ? error.message : String(error),
+        details:
+          error instanceof AlibabaApiError || error?.details
+            ? error.details
+            : undefined,
+        top_error: extractTopErrorResponse(error),
+        query: req.query
+      });
+
+      const hasMissingKeys =
+        error instanceof ConfigurationError ||
+        Array.isArray(error?.missingKeys);
+
+      res
+        .status(hasMissingKeys ? 400 : 502)
+        .json(buildReadOnlyErrorResponse(error));
+    }
+  };
+}
+
+function createAccountProductGroupsHandler(accountKey) {
+  return async (req, res) => {
+    const config = getAccountConfig(accountKey);
+
+    try {
+      const result = await fetchAlibabaOfficialProductGroups(
+        {
+          account: accountKey,
+          ...(await getAlibabaReadOnlyClientConfig(accountKey))
+        },
+        req.query
+      );
+
+      logInfo(`${config.label} product groups read completed`, {
+        groupId: result.request_meta.group_id,
+        groupFieldCount: result.response_meta.product_group_field_keys.length
+      });
+
+      res.status(200).json({
+        ok: true,
+        ...result
+      });
+    } catch (error) {
+      logError(`${config.label} product groups read failed`, {
+        error: error instanceof Error ? error.message : String(error),
+        details:
+          error instanceof AlibabaApiError || error?.details
+            ? error.details
+            : undefined,
+        top_error: extractTopErrorResponse(error),
+        query: req.query
+      });
+
+      const hasMissingKeys =
+        error instanceof ConfigurationError ||
+        Array.isArray(error?.missingKeys);
+
+      res
+        .status(hasMissingKeys ? 400 : 502)
+        .json(buildReadOnlyErrorResponse(error));
+    }
+  };
+}
+
 function createAccountOrderFundHandler(accountKey) {
   return async (req, res) => {
     const config = getAccountConfig(accountKey);
@@ -2290,6 +2380,14 @@ app.get("/integrations/alibaba/wika/data/products/list", async (req, res) => {
 app.get(
   "/integrations/alibaba/wika/data/products/score",
   createAccountProductScoreHandler("wika")
+);
+app.get(
+  "/integrations/alibaba/wika/data/products/detail",
+  createAccountProductDetailHandler("wika")
+);
+app.get(
+  "/integrations/alibaba/wika/data/products/groups",
+  createAccountProductGroupsHandler("wika")
 );
 
 app.get("/integrations/alibaba/xd/data/products/list", async (req, res) => {

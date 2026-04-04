@@ -10,6 +10,25 @@ export const OFFICIAL_PRODUCT_SCORE_VERIFIED_FIELDS = Object.freeze([
   "result.problem_map"
 ]);
 
+export const OFFICIAL_PRODUCT_DETAIL_VERIFIED_FIELDS = Object.freeze([
+  "product.product_id",
+  "product.subject",
+  "product.category_id",
+  "product.description",
+  "product.keywords",
+  "product.pc_detail_url",
+  "product.gmt_create",
+  "product.gmt_modified"
+]);
+
+export const OFFICIAL_PRODUCT_GROUP_VERIFIED_FIELDS = Object.freeze([
+  "product_group.group_id",
+  "product_group.group_name",
+  "product_group.parent_id",
+  "product_group.children_group",
+  "product_group.children_id_list"
+]);
+
 export const OFFICIAL_ORDER_FUND_VERIFIED_FIELDS = Object.freeze([
   "value.fund_pay_list",
   "value.service_fee"
@@ -116,6 +135,153 @@ export async function fetchAlibabaOfficialProductScore(
     warnings: buildWarnings(),
     raw_root_key: response.rootKey,
     result
+  };
+}
+
+export async function fetchAlibabaOfficialProductDetail(
+  {
+    account,
+    appKey,
+    appSecret,
+    accessToken,
+    endpointUrl
+  },
+  query = {}
+) {
+  const productId = String(query.product_id ?? "").trim();
+  if (!productId) {
+    throw buildMissingParameterError("Product detail requires product_id", [
+      "product_id"
+    ]);
+  }
+
+  const language = String(query.language || "ENGLISH").trim().toUpperCase();
+  const effectiveEndpointUrl = resolveAlibabaSyncEndpoint(endpointUrl);
+  const response = await callAlibabaSyncApi({
+    apiName: "alibaba.icbu.product.get",
+    appKey,
+    appSecret,
+    accessToken,
+    endpointUrl: effectiveEndpointUrl,
+    businessParams: {
+      product_id: productId,
+      language
+    }
+  });
+
+  const payload = response.payload ?? {};
+  if (payload.success === false) {
+    throw new AlibabaTopApiError("Alibaba product detail returned business failure", {
+      apiName: "alibaba.icbu.product.get",
+      endpointUrl: effectiveEndpointUrl,
+      errorResponse: {
+        code: payload.error_code ?? null,
+        sub_code: null,
+        msg: payload.error_message ?? "Alibaba product detail business failure",
+        sub_msg: null
+      },
+      payload
+    });
+  }
+
+  const product = payload.product ?? null;
+
+  return {
+    account,
+    module: "products",
+    read_only: true,
+    verification_status: "已验证可读",
+    evidence_level: "L1",
+    data_scope: "raw_detail",
+    source: buildOfficialSource(
+      "alibaba.icbu.product.get",
+      effectiveEndpointUrl
+    ),
+    request_meta: {
+      product_id: productId,
+      language
+    },
+    response_meta: buildResponseMeta(payload, {
+      product_field_keys:
+        product && typeof product === "object" ? Object.keys(product).sort() : []
+    }),
+    verified_fields: OFFICIAL_PRODUCT_DETAIL_VERIFIED_FIELDS,
+    warnings: buildWarnings(),
+    raw_root_key: response.rootKey,
+    product
+  };
+}
+
+export async function fetchAlibabaOfficialProductGroups(
+  {
+    account,
+    appKey,
+    appSecret,
+    accessToken,
+    endpointUrl
+  },
+  query = {}
+) {
+  const groupId = String(query.group_id ?? "").trim();
+  if (!groupId) {
+    throw buildMissingParameterError("Product groups requires group_id", [
+      "group_id"
+    ]);
+  }
+
+  const effectiveEndpointUrl = resolveAlibabaSyncEndpoint(endpointUrl);
+  const response = await callAlibabaSyncApi({
+    apiName: "alibaba.icbu.product.group.get",
+    appKey,
+    appSecret,
+    accessToken,
+    endpointUrl: effectiveEndpointUrl,
+    businessParams: {
+      group_id: groupId
+    }
+  });
+
+  const payload = response.payload ?? {};
+  if (payload.success === false) {
+    throw new AlibabaTopApiError("Alibaba product groups returned business failure", {
+      apiName: "alibaba.icbu.product.group.get",
+      endpointUrl: effectiveEndpointUrl,
+      errorResponse: {
+        code: payload.error_code ?? null,
+        sub_code: null,
+        msg: payload.error_message ?? "Alibaba product groups business failure",
+        sub_msg: null
+      },
+      payload
+    });
+  }
+
+  const productGroup = payload.product_group ?? null;
+
+  return {
+    account,
+    module: "products",
+    read_only: true,
+    verification_status: "已验证可读",
+    evidence_level: "L1",
+    data_scope: "raw_groups",
+    source: buildOfficialSource(
+      "alibaba.icbu.product.group.get",
+      effectiveEndpointUrl
+    ),
+    request_meta: {
+      group_id: groupId
+    },
+    response_meta: buildResponseMeta(payload, {
+      product_group_field_keys:
+        productGroup && typeof productGroup === "object"
+          ? Object.keys(productGroup).sort()
+          : []
+    }),
+    verified_fields: OFFICIAL_PRODUCT_GROUP_VERIFIED_FIELDS,
+    warnings: buildWarnings(),
+    raw_root_key: response.rootKey,
+    product_group: productGroup
   };
 }
 
