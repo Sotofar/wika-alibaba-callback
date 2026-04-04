@@ -9,6 +9,10 @@ import {
   fetchAlibabaOfficialOrderList
 } from "./shared/data/modules/alibaba-official-orders.js";
 import {
+  fetchAlibabaOfficialCategoryAttributes,
+  fetchAlibabaOfficialCategoryTree
+} from "./shared/data/modules/alibaba-official-category-support.js";
+import {
   fetchAlibabaOfficialProductDetail,
   fetchAlibabaOfficialProductGroups,
   fetchAlibabaOfficialOrderFund,
@@ -1369,6 +1373,8 @@ function classifyReadOnlyError(error, topError, missingKeys = undefined) {
       "e_trade_id",
       "product_id",
       "group_id",
+      "cat_id",
+      "category_id",
       "data_select"
     ]);
 
@@ -1631,6 +1637,84 @@ function createAccountProductGroupsHandler(accountKey) {
 
       res
         .status(hasMissingKeys ? 400 : 502)
+        .json(buildReadOnlyErrorResponse(error));
+    }
+  };
+}
+
+function createAccountCategoryTreeHandler(accountKey) {
+  return async (req, res) => {
+    const config = getAccountConfig(accountKey);
+
+    try {
+      const result = await fetchAlibabaOfficialCategoryTree(
+        {
+          account: accountKey,
+          ...(await getAlibabaReadOnlyClientConfig(accountKey))
+        },
+        req.query
+      );
+
+      logInfo(`${config.label} category tree read completed`, {
+        catId: result.request_meta.cat_id
+      });
+
+      res.status(200).json({
+        ok: true,
+        ...result
+      });
+    } catch (error) {
+      logError(`${config.label} category tree read failed`, {
+        error: error instanceof Error ? error.message : String(error),
+        details:
+          error instanceof AlibabaApiError || error?.details
+            ? error.details
+            : undefined,
+        top_error: extractTopErrorResponse(error),
+        query: req.query
+      });
+
+      res
+        .status(error instanceof ConfigurationError ? 500 : 502)
+        .json(buildReadOnlyErrorResponse(error));
+    }
+  };
+}
+
+function createAccountCategoryAttributesHandler(accountKey) {
+  return async (req, res) => {
+    const config = getAccountConfig(accountKey);
+
+    try {
+      const result = await fetchAlibabaOfficialCategoryAttributes(
+        {
+          account: accountKey,
+          ...(await getAlibabaReadOnlyClientConfig(accountKey))
+        },
+        req.query
+      );
+
+      logInfo(`${config.label} category attributes read completed`, {
+        catId: result.request_meta.cat_id
+      });
+
+      res.status(200).json({
+        ok: true,
+        ...result
+      });
+    } catch (error) {
+      logError(`${config.label} category attributes read failed`, {
+        error: error instanceof Error ? error.message : String(error),
+        details:
+          error instanceof AlibabaApiError || error?.details
+            ? error.details
+            : undefined,
+        top_error: extractTopErrorResponse(error),
+        query: req.query
+      });
+
+      res
+        .status(error instanceof ConfigurationError ? 500 : 502)
         .json(buildReadOnlyErrorResponse(error));
     }
   };
@@ -2388,6 +2472,14 @@ app.get(
 app.get(
   "/integrations/alibaba/wika/data/products/groups",
   createAccountProductGroupsHandler("wika")
+);
+app.get(
+  "/integrations/alibaba/wika/data/categories/tree",
+  createAccountCategoryTreeHandler("wika")
+);
+app.get(
+  "/integrations/alibaba/wika/data/categories/attributes",
+  createAccountCategoryAttributesHandler("wika")
 );
 
 app.get("/integrations/alibaba/xd/data/products/list", async (req, res) => {

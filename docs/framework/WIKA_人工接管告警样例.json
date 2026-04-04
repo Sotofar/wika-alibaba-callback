@@ -1,0 +1,38 @@
+{
+  "account": "wika",
+  "stage": "product_write_validation",
+  "status": "pending_human_handoff",
+  "severity": "high",
+  "action": "validate_product_add",
+  "api_name": "alibaba.icbu.product.add",
+  "blocker_category": {
+    "code": "manual_confirmation_required",
+    "label": "写操作需要人工确认",
+    "description": "虽然技术上可继续，但执行会影响真实线上对象，必须先人工确认。"
+  },
+  "triggers": [
+    {
+      "code": "live_product_publish",
+      "label": "真实商品发布",
+      "description": "任何会创建、发布或上架真实商品的操作，都必须人工接管。"
+    },
+    {
+      "code": "irreversible_write_risk",
+      "label": "不可逆写入风险",
+      "description": "无法证明存在草稿/测试模式时，必须人工决定是否继续。"
+    }
+  ],
+  "requires_human_handoff": true,
+  "input_summary": {
+    "category_id": 36127040,
+    "product_title": "Draft title only",
+    "media_ready": false
+  },
+  "evidence": {
+    "production_auth_context": "/sync + access_token + sha256",
+    "validation_scope": "draft_only",
+    "note": "当前只允许生成 payload 草稿，不允许真实发布。"
+  },
+  "next_action": "补齐类目/属性与素材后，再决定是否进入人工确认发布流程。",
+  "created_at": "2026-04-04T00:00:00.000Z"
+}

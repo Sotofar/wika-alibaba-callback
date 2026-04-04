@@ -1,0 +1,75 @@
+{
+  "ok": true,
+  "account": "wika",
+  "stage": "product_draft_only",
+  "write_mode": "draft_only",
+  "ready_for_publish": false,
+  "title": "Custom PU Leather Sunglasses Case Portable Travel Packaging",
+  "highlights": [
+    "Portable protective case for sunglasses and eyeglasses",
+    "Custom logo and surface finish supported",
+    "MOQ reference: 500 pcs",
+    "Lead time reference: 15-20 days",
+    "Eyeglasses Cases & Bags category aligned"
+  ],
+  "description_html": "<p><strong>Custom PU Leather Sunglasses Case Portable Travel Packaging</strong></p><ul><li>Portable protective case for sunglasses and eyeglasses</li><li>Custom logo and surface finish supported</li><li>MOQ reference: 500 pcs</li><li>Lead time reference: 15-20 days</li><li>Eyeglasses Cases & Bags category aligned</li></ul><p>Application: eyewear packaging, retail gift set, custom brand promotion</p><p>Customization: embossing, hot foil, debossing, print logo</p><p>Packaging notes: paper box, pouch and cloth can be bundled together</p>",
+  "keywords": [
+    "sunglasses case",
+    "eyeglasses case",
+    "pu leather case",
+    "custom packaging",
+    "logo case",
+    "travel case"
+  ],
+  "payload_draft": {
+    "target_api_family": [
+      "alibaba.icbu.product.add",
+      "alibaba.icbu.product.schema.add"
+    ],
+    "category_context": {
+      "category_id": 36127040,
+      "category_name": "Eyeglasses Cases & Bags"
+    },
+    "text_fields": {
+      "title": "Custom PU Leather Sunglasses Case Portable Travel Packaging",
+      "keywords": [
+        "sunglasses case",
+        "eyeglasses case",
+        "pu leather case",
+        "custom packaging",
+        "logo case",
+        "travel case"
+      ],
+      "description_html": "<p><strong>Custom PU Leather Sunglasses Case Portable Travel Packaging</strong></p><ul><li>Portable protective case for sunglasses and eyeglasses</li><li>Custom logo and surface finish supported</li><li>MOQ reference: 500 pcs</li><li>Lead time reference: 15-20 days</li><li>Eyeglasses Cases & Bags category aligned</li></ul><p>Application: eyewear packaging, retail gift set, custom brand promotion</p><p>Customization: embossing, hot foil, debossing, print logo</p><p>Packaging notes: paper box, pouch and cloth can be bundled together</p>"
+    },
+    "attribute_plan": [
+      {
+        "attr_id": 1,
+        "value_name": "Zhejiang, China"
+      },
+      {
+        "attr_id": 191284014,
+        "value_name": "PU Leather"
+      },
+      {
+        "attr_id": 200471263,
+        "value_name": "Magnetic"
+      },
+      {
+        "attr_id": 400035208,
+        "value_name": "Semi-Hard"
+      }
+    ],
+    "media_plan": [
+      "assets/main-image-1.jpg",
+      "assets/detail-image-1.jpg"
+    ],
+    "missing_required_attribute_ids": []
+  },
+  "missing_requirements": [],
+  "warnings": [
+    "该产物仅为产品草稿，不会触发真实发布。",
+    "payload_draft 是结构化候选草稿，不代表官方最终可提交 payload。"
+  ],
+  "handoff": null
+}
