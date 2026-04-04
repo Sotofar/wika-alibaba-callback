@@ -1674,8 +1674,12 @@ function createAccountCategoryTreeHandler(accountKey) {
         query: req.query
       });
 
+      const hasMissingKeys =
+        error instanceof ConfigurationError ||
+        Array.isArray(error?.missingKeys);
+
       res
-        .status(error instanceof ConfigurationError ? 500 : 502)
+        .status(hasMissingKeys ? 400 : 502)
         .json(buildReadOnlyErrorResponse(error));
     }
   };
@@ -1713,8 +1717,12 @@ function createAccountCategoryAttributesHandler(accountKey) {
         query: req.query
       });
 
+      const hasMissingKeys =
+        error instanceof ConfigurationError ||
+        Array.isArray(error?.missingKeys);
+
       res
-        .status(error instanceof ConfigurationError ? 500 : 502)
+        .status(hasMissingKeys ? 400 : 502)
         .json(buildReadOnlyErrorResponse(error));
     }
   };
