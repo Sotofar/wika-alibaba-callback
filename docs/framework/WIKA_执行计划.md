@@ -24,6 +24,7 @@
   - 写侧护栏 helper
   - 人工接管规则文档
   - 结构化告警样例
+  - 当前没有现成通知 provider 配置约定
 
 ## 候选顺序
 
@@ -78,6 +79,25 @@
 - 已形成最小正式通知闭环
 - 或已证明当前只能稳定落到 fallback，不再继续引入外部 provider
 - 或继续推进需要新的外部账号 / 权限 / 人工登录配合
+
+## 当前阶段收口
+
+- 通知能力盘点结论：
+  - 当前无正式通知依赖，需先落地 provider-agnostic 通知模块 + fallback
+- 本阶段真实结果：
+  - 已新增 `shared/data/modules/wika-alerts.js`
+  - 已新增 `shared/data/modules/wika-notifier.js`
+  - 已新增阶段验证脚本 `scripts/validate-wika-notification-phase8.js`
+  - 已形成最小正式通知闭环：
+    - 阻塞触发
+    - 结构化告警生成
+    - provider 或 outbox fallback 分发
+- 当前 production 变量名里没有通知 provider 痕迹
+- 当前默认通知模式：
+  - `outbox fallback`
+- 当前准确状态：
+  - 最小正式通知闭环已成立
+  - 真实外发通知仍待 provider 配置
 
 ## 交付物
 

@@ -12,6 +12,7 @@
 | 官方 `/sync + access_token + sha256` 调用层 | 已上线并可直接复用 | 当前所有已验证官方原始路由都走这条链路 |
 | 最小错误分型 | 已上线并可直接复用 | 当前统一可区分 `parameter_error / permission_error / gateway_error / platform_api_error` |
 | 写侧安全护栏 | 已沉淀并可直接复用 | 已有阻塞分类、人工接管规则、结构化告警样例、低风险边界判断对象 |
+| 正式通知闭环（fallback 型） | 已上线并可直接复用 | 已有 provider-agnostic notifier；在无 provider 时会把告警落盘到 `data/alerts/outbox`，不会静默丢失 |
 
 ## 2. 已上线的正式原始只读路由
 
@@ -57,6 +58,7 @@
 | media 管理侧证据 | 已沉淀可复用 | `photobank.group.operate` 已在 production 闭环下过授权层，但当前仍不能证明低风险管理/清理边界 |
 | draft 管理侧证据 | 已沉淀可复用 | 当前公开官方文档中，除 `schema.render.draft` 外未识别到新增 draft 查询 / 删除 / 管理接口 |
 | 人工接管告警样例 | 已落盘可复用 | 可作为后续通知能力的结构化输入 |
+| 正式通知样例与能力说明 | 已落盘可复用 | 已有通知能力盘点、正式通知闭环说明、正式通知样例，可直接指导后续接通 webhook / Resend |
 
 ## 6. 当前明确不能误报的边界
 
@@ -73,6 +75,7 @@
 11. 当前没有新增 draft 管理接口，不等于 draft 已经可删除、可审计、可回滚。
 12. `customers/list` 已上线，不等于客户列表已经在当前权限下可稳定读取。
 13. `customers` 家族过了授权层，不等于 inquiry / message / customer 读写闭环已打通。
+14. 当前默认走 outbox fallback，不等于真实邮件或 webhook 已经送达用户。
 
 ## 当前一句话结论
 

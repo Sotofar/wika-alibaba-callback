@@ -832,6 +832,18 @@
       "product.add.draft real create",
       "product.add real publish",
       "product.update real modify"
-    ]
+    ],
+    "notification_closure": {
+      "enabled": true,
+      "provider_mode": "outbox",
+      "supported_blocker_categories": [
+        "permission_blocked",
+        "platform_no_entry",
+        "parameter_missing",
+        "manual_confirmation_required",
+        "high_risk_irreversible"
+      ],
+      "current_limitation": "当前只证明告警可结构化生成并可审计落盘，不等于真实邮件或 webhook 已发出。"
+    }
   }
 }

@@ -6,11 +6,19 @@
 
 ## 排序原则
 
-1. 先补任务 4：只继续验证官方明确存在的 customers / inquiries / messages 读侧入口
-2. 再补任务 3：只继续验证“可隔离、可清理、可回滚”的剩余写侧证据
-3. 最后再看任务 5：订单草稿 / 交易创建入口
+1. 先补任务 6：把当前 outbox fallback 升级成真实外发 provider
+2. 再补任务 4：只继续验证官方明确存在的 customers / inquiries / messages 读侧入口
+3. 再补任务 3：只继续验证“可隔离、可清理、可回滚”的剩余写侧证据
+4. 最后再看任务 5：订单草稿 / 交易创建入口
 
-## 第一梯队：任务 4（询盘 / 消息 / 客户）
+## 第一梯队：任务 6（正式通知闭环）
+
+| 优先级 | API / 能力 | 当前状态 | 当前结论 | 下一步 |
+| --- | --- | --- | --- | --- |
+| T6-P0 | `WIKA_NOTIFY_WEBHOOK_URL` | 非 Alibaba API，但当前最值得优先接通 | 当前最小正式通知闭环已经成立，但 production 变量名里没有现成通知 provider 痕迹；优先推荐用低风险 webhook 把 outbox fallback 升级成真实外发 | 仅在拿到正式 webhook 地址与鉴权信息后，做一次最小真实通知测试 |
+| T6-P1 | `WIKA_NOTIFY_RESEND_API_KEY` + `WIKA_NOTIFY_EMAIL_FROM/TO` | 非 Alibaba API，但可复用轻量 HTTP 依赖 | 当前代码已支持 Resend HTTP API，无需引入新依赖；但 production 变量名里没有现成配置 | 仅在拿到正式邮箱配置后，做一次最小真实通知测试 |
+
+## 第二梯队：任务 4（询盘 / 消息 / 客户）
 
 | 优先级 | API / 能力 | 当前状态 | 当前结论 | 下一步 |
 | --- | --- | --- | --- | --- |
@@ -20,7 +28,7 @@
 | T4-P1 | `alibaba.seller.customer.note.query` | 已验证但不进入路由化 | 已真实走到 `/sync + access_token + sha256`；当前缺少 `note_id` | 仅在拿到真实 `note_id` 时继续验证 |
 | T4-P2 | inquiry / message 读侧方法 | 当前未识别到可用入口 | 当前官方文档里只明确看到了 `alibaba.inquiry.cards.send` 与 `translate.*` 一类接口，没有明确的 list/detail 读侧方法名 | 只有在官方文档出现明确方法名时，才重新进入验证 |
 
-## 第二梯队：任务 3（产品上新与详情编写）
+## 第三梯队：任务 3（产品上新与详情编写）
 
 | 优先级 | API / 能力 | 当前状态 | 当前结论 | 下一步 |
 | --- | --- | --- | --- | --- |
@@ -43,7 +51,7 @@
 - `/integrations/alibaba/wika/data/media/list`
 - `/integrations/alibaba/wika/data/media/groups`
 
-## 第三梯队：任务 5（订单草稿 / 交易创建）
+## 第四梯队：任务 5（订单草稿 / 交易创建）
 
 | 优先级 | API / 能力 | 当前状态 | 当前结论 | 下一步 |
 | --- | --- | --- | --- | --- |
@@ -63,4 +71,4 @@
 
 ## 当前一句话结论
 
-当前最优先的下一批验证对象已经切到任务 4：customers 家族都已证明能进入 production 认证闭环，但真正的可读数据仍卡在权限或真实 id 缺失；与此同时，inquiry/message 读侧当前还没有官方明确的方法名可继续推进。
+当前最优先的下一批验证对象已经切到任务 6：当前最小正式通知闭环已经成立，但仍停留在 outbox fallback；如果后续要继续补闭环能力，优先接通一个低风险正式 provider，而不是回到已收口的旧路线里循环。

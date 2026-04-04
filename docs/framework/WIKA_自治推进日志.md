@@ -192,3 +192,41 @@
 - 结束 checkpoint：`6429e86`
 - push：`origin/main` 成功
 
+### 阶段 8：任务 6 的正式通知闭环
+
+- 起始 checkpoint：`5886557`
+- 本阶段目标：
+  - 先盘点仓库与 production 变量名里是否已有可复用通知链路
+  - 若无，则落地 provider-agnostic notifier + outbox fallback
+  - 用至少 2 个真实阻塞场景验证“触发 -> 生成 -> 分发或落盘”的完整链路
+- 通知能力盘点结论：
+  - 当前仓库没有现成邮件 / webhook 依赖
+  - `.env.example` 原先没有通知配置约定
+  - 通过 Railway GraphQL token 读取 production 变量名后，没有发现现成通知 provider 痕迹
+  - 最终收口：`当前无正式通知依赖，需先落地 provider-agnostic 通知模块 + fallback`
+- 新增能力：
+  - `shared/data/modules/wika-alerts.js`
+  - `shared/data/modules/wika-notifier.js`
+  - `scripts/validate-wika-notification-phase8.js`
+  - `docs/framework/WIKA_通知能力盘点.md`
+  - `docs/framework/WIKA_正式通知闭环说明.md`
+  - `docs/framework/WIKA_正式通知样例.json`
+- 最小闭环测试结果：
+  - 权限阻塞场景：
+    - `alibaba.mydata.overview.indicator.basic.get`
+    - 成功生成结构化告警，并落盘到 `data/alerts/outbox`
+  - 无官方明确入口场景：
+    - `inquiries / messages`
+    - 成功生成结构化告警，并落盘到 `data/alerts/outbox`
+  - 当前 notifier 模式：
+    - `outbox`
+  - 当前闭环状态：
+    - 最小正式通知闭环已成立
+    - 真实邮件 / webhook 外发仍未接通
+- 阶段收口：
+  - 当前不再停留在“只有 json 样例”的状态
+  - 当前已经具备 provider-agnostic 正式通知模块，以及在无 provider 时的可审计 fallback
+  - 当前不能误写成“邮件已发出”或“外部通知已送达”
+- 结束 checkpoint：`1abe8f8`
+- push：`origin/main` 成功
+

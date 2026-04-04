@@ -98,11 +98,12 @@
 | 阻塞分类 | 7 | 已实现 helper | `shared/data/modules/alibaba-write-guardrails.js` | 否 |
 | 人工接管规则 | 7 | 已有规则文档 | `docs/framework/WIKA_人工接管规则.md` | 否 |
 | 结构化待处理 / 告警产物 | 7 | 已有样例产物 | `docs/framework/WIKA_人工接管告警样例.json` | 否 |
-| 邮件发送 | 7 | 非 Alibaba API，但闭环需要 | 待后续选择 Gmail/SMTP 能力 | 否 |
+| 正式通知闭环（provider-agnostic + fallback） | 7 | 已实现 notifier；当前可完成“触发 -> 生成 -> 可审计落盘” | `shared/data/modules/wika-alerts.js` + `shared/data/modules/wika-notifier.js` | 是（最小闭环） |
+| 邮件 / webhook 真实外发 | 7 | 当前没有现成 provider 配置；默认走 outbox fallback | 待后续配置 `WIKA_NOTIFY_*` | 否 |
 
 ## 当前收口结论
 
 1. 当前最稳的已上线能力，集中在产品主数据、产品结构、订单原始数据、类目/属性/schema 读取。
 2. mydata / overview / self.product 这条经营指标路线当前统一停在“权限/能力阻塞”，不再作为当前主线循环。
 3. 写侧方向已经推进到 schema-aware 草稿准备层，并新增了 media 可观测与 draft 可区分证据；但 photobank.upload 与 product.add.draft 的低风险边界都还未被证明。
-4. 当前最缺的仍然是：经营指标入口、最小经营聚合、询盘/消息读侧、可真正读出的 customers 数据、订单草稿与异常通知闭环。
+4. 当前最缺的仍然是：经营指标入口、最小经营聚合、询盘/消息读侧、可真正读出的 customers 数据、订单草稿，以及通知闭环的真实外发 provider。
