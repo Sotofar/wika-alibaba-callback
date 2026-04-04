@@ -26,8 +26,9 @@
 | 订单详情 | 1. 已上线并可直接复用 | 已有线上正式路由 | `/integrations/alibaba/wika/data/orders/detail` -> `alibaba.seller.order.get` | 是 | 部分闭环，仅限原始读取 | 直接复用 |
 | 订单资金明细 | 1. 已上线并可直接复用 | 已有线上正式路由 | `/integrations/alibaba/wika/data/orders/fund` -> `alibaba.seller.order.fund.get` | 是 | 部分闭环，仅限原始读取 | 直接复用 |
 | 物流状态 / 发货单 | 1. 已上线并可直接复用 | 已有线上正式路由 | `/integrations/alibaba/wika/data/orders/logistics` -> `alibaba.seller.order.logistics.get` | 是 | 部分闭环，仅限原始读取 | 直接复用 |
-| 店铺经营指标（UV/PV/点击/曝光/回复率） | 5. 旧体系 / 高风险，不适合当前主线 | 当前只定位到数据管家旧体系候选 | `alibaba.mydata.overview.indicator.basic.get` 等 | 是 | 否 | 仅保留候选，不直接开发 |
-| 店铺国家 / 流量来源 / 热门词 | 5. 旧体系 / 高风险，不适合当前主线 | 当前只定位到数据管家旧体系候选 | `alibaba.mydata.overview.*` / `alibaba.mydata.self.product.*` | 是 | 否 | 仅保留候选，不直接开发 |
+| 店铺经营指标（UV/PV/点击/曝光/回复率） | 4. 官方存在，但权限/能力阻塞 | 已用当前生产闭环实测，返回 `InsufficientPermission` | `alibaba.mydata.overview.indicator.basic.get` | 是 | 否 | 保留阻塞证据，不进入路由开发 |
+| 店铺国家 / 流量来源 / 热门词 | 4. 官方存在，但权限/能力阻塞 | 日期/行业辅助接口已用当前生产闭环实测，均返回 `InsufficientPermission` | `alibaba.mydata.overview.date.get` / `alibaba.mydata.overview.industry.get` | 是 | 否 | 保留阻塞证据，不进入路由开发 |
+| 产品表现原始数据（曝光/点击/访客/关键词来源） | 4. 官方存在，但权限/能力阻塞 | 已用当前生产闭环实测，返回 `InsufficientPermission` | `alibaba.mydata.self.product.get` / `alibaba.mydata.self.product.date.get` | 是 | 否 | 保留阻塞证据，不进入路由开发 |
 
 ## B. 运营诊断
 
@@ -35,11 +36,11 @@
 | --- | --- | --- | --- | --- | --- | --- |
 | 产品结构 / 系列 / 质量诊断 | 2. 已验证但尚未形成正式路由 | 原始数据已上线，但还没有最小经营聚合 | `products/list + detail + groups + score` | 是 | 否 | 进入最小经营聚合候选池 |
 | 订单经营观察（订单状态、资金、物流） | 2. 已验证但尚未形成正式路由 | 原始数据已上线，但还没有最小经营聚合 | `orders/list + detail + fund + logistics` | 是 | 否 | 进入最小经营聚合候选池 |
-| 店铺曝光 / 点击 / CTR / 趋势 | 5. 旧体系 / 高风险，不适合当前主线 | 仅识别到数据管家旧体系接口 | `alibaba.mydata.overview.indicator.basic.get` | 是 | 否 | 暂不进入当前主线 |
-| 产品曝光 / 点击 / CTR / 趋势 | 5. 旧体系 / 高风险，不适合当前主线 | 仅识别到数据管家旧体系接口 | `alibaba.mydata.self.product.get` | 是 | 否 | 暂不进入当前主线 |
-| 来源结构 | 5. 旧体系 / 高风险，不适合当前主线 | 仅识别到数据管家旧体系接口 | `alibaba.mydata.overview.*` / `self.product.*` | 是 | 否 | 暂不进入当前主线 |
+| 店铺曝光 / 点击 / CTR / 趋势 | 4. 官方存在，但权限/能力阻塞 | 已在当前生产闭环下实测，返回 `InsufficientPermission` | `alibaba.mydata.overview.indicator.basic.get` | 是 | 否 | 停留在阻塞态 |
+| 产品曝光 / 点击 / CTR / 趋势 | 4. 官方存在，但权限/能力阻塞 | 已在当前生产闭环下实测，返回 `InsufficientPermission` | `alibaba.mydata.self.product.get` | 是 | 否 | 停留在阻塞态 |
+| 来源结构 | 4. 官方存在，但权限/能力阻塞 | `overview` 与 `self.product` 相关入口均已实测权限阻塞 | `alibaba.mydata.overview.*` / `alibaba.mydata.self.product.*` | 是 | 否 | 停留在阻塞态 |
 | 国家结构 | 5. 旧体系 / 高风险，不适合当前主线 | 历史页面态曾可读，但不属于当前生产主线 | 本地页面态旧实现 / 数据管家候选 | 是 | 否 | 不纳入当前主线开发 |
-| 热门产品 / 关键词 | 5. 旧体系 / 高风险，不适合当前主线 | 仅识别到数据管家旧体系接口 | `alibaba.mydata.self.product.get` | 是 | 否 | 暂不进入当前主线 |
+| 热门产品 / 关键词 | 4. 官方存在，但权限/能力阻塞 | `self.product.get` 已在当前生产闭环下实测权限阻塞 | `alibaba.mydata.self.product.get` | 是 | 否 | 停留在阻塞态 |
 
 ## C. 产品上新与详情编写
 
@@ -84,9 +85,10 @@
 ## 当前收口结论
 
 - `WIKA` 已经具备一组可复用的官方原始读数据底座，但还没有形成完整经营聚合、产品写入闭环、询盘客户闭环和订单草稿闭环。
+- 数据管家当前最相关的 5 个经营指标 API 已全部在当前生产闭环下实测，但结果统一为 `InsufficientPermission`，因此当前只能归入“官方存在，但权限/能力阻塞”。
 - 当前最值得继续推进的不是再扩“所有 API”，而是围绕：
   1. 最小经营聚合
   2. 产品写入入口验证
-  3. 订单草稿/交易创建入口验证
-  4. 询盘/客户入口阻塞判断
+  3. 订单草稿 / 交易创建入口验证
+  4. 询盘 / 客户入口阻塞判断
   逐项推进。

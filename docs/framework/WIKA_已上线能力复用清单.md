@@ -53,3 +53,16 @@
 - 已有订单明细读取，不等于订单草稿/交易创建已经打通。
 - 已有产品/订单原始数据，不等于店铺级曝光、点击、来源、国家结构已经打通。
 - 已有产品与订单原始数据，也不等于平台内询盘回复能力已经打通。
+
+## 6. 本轮新增的“不可直接复用”结论
+
+以下接口虽然与经营数据高度相关，但在当前 `WIKA` 生产认证闭环下已实测返回 `InsufficientPermission`，因此不能加入“已上线可复用能力”：
+
+- `alibaba.mydata.overview.indicator.basic.get`
+- `alibaba.mydata.self.product.get`
+- `alibaba.mydata.self.product.date.get`
+- `alibaba.mydata.overview.date.get`
+- `alibaba.mydata.overview.industry.get`
+
+它们当前只能归类为：
+- `官方存在，但权限/能力阻塞`
