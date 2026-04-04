@@ -135,6 +135,7 @@
 
 - `photobank.list` 已证明素材可被列出和识别
 - `photobank.group.list` 已证明存在分组查询通道
+- `photobank.group.operate` 已证明官方分组管理接口可以到授权层之后
 - 但当前仍无法证明测试素材可稳定隔离、可删除、可回滚
 
 ### draft 侧
@@ -142,6 +143,7 @@
 - `schema.render.draft` 已证明存在专门的 draft 渲染通道
 - 使用正式商品 `product_id` 调用时，平台返回 `Record does not exist`
 - 这说明 live product 与 draft object 可以区分
+- 当前公开官方文档中，除 `schema.render.draft` 外，没有再识别到明确的 draft 查询 / 删除 / 管理接口
 - 但当前仍无法证明真实 draft 创建后可清理、可审计、可回滚
 
 ## 六、下一步建议

@@ -142,7 +142,7 @@ async function main() {
 
   const sample = {
     account: "wika",
-    stage: "phase5_observable_rollback_evidence",
+      stage: "phase6_management_rollback_evidence",
     generated_at: new Date().toISOString(),
     input: {
       product_id_reference: Number(firstProduct.id),

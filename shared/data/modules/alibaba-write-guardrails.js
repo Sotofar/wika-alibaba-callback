@@ -83,11 +83,16 @@ const WIKA_LOW_RISK_WRITE_BOUNDARY = Object.freeze({
     reasons: [
       "官方文档显示成功响应会生成 file_id 与 photobank_url，属于真实图片银行资产，而不是内存态临时对象。",
       "当前已识别到图片银行查询与分组接口，但没有拿到可证明可清理、可回滚的安全删除边界。",
+      "官方明确存在 photobank.group.operate，但成功路径会新增、删除或重命名真实分组；在没有 dry-run、资产删除或清理证据前，不应继续实写验证。",
       "当前无法证明上传后的图片天然非公开、不会被后续商品引用或长期残留。"
     ],
     observable_evidence: {
       media_list_verified: true,
       media_groups_verified: true,
+      media_group_operate_verified: true,
+      media_group_operate_transport: "/sync + access_token + sha256",
+      media_group_operate_result:
+        "使用空请求对象调用 photobank.group.operate 时返回业务参数错误（query params is null）。",
       observable_fields: [
         "image.id",
         "image.url",
@@ -97,6 +102,13 @@ const WIKA_LOW_RISK_WRITE_BOUNDARY = Object.freeze({
         "image.gmt_modified"
       ],
       group_observation: "当前已证明图片银行存在独立查询与分组查询通道，但当前店铺返回的 groups 结构不充分，尚不足以证明可稳定隔离测试素材。",
+      official_media_management_methods_seen: [
+        "alibaba.icbu.photobank.list",
+        "alibaba.icbu.photobank.group.list",
+        "alibaba.icbu.photobank.group.operate",
+        "alibaba.icbu.photobank.upload"
+      ],
+      asset_delete_or_cleanup_api_identified: false,
       cleanup_evidence_proven: false
     },
     blocked_automation_fields: [
@@ -115,6 +127,7 @@ const WIKA_LOW_RISK_WRITE_BOUNDARY = Object.freeze({
     reasons: [
       "官方文档显示成功响应会返回混淆后的 product_id，说明会创建真实草稿对象，而不是纯本地草稿。",
       "官方同时存在 schema.render.draft，说明草稿对象会被平台持久化并进入后续编辑链路。",
+      "当前公开官方文档里，除 schema.render.draft 外，没有再识别到明确的 draft 查询 / 删除 / 管理接口。",
       "当前没有拿到可证明草稿天然非公开、可回滚、可清理的稳定边界，因此不应做真实 draft 创建验证。"
     ],
     observable_evidence: {
@@ -123,6 +136,12 @@ const WIKA_LOW_RISK_WRITE_BOUNDARY = Object.freeze({
       live_product_render_attempt_result:
         "使用正式商品 product_id 调用 schema.render.draft 时返回 biz_success=false 与 Record does not exist。",
       draft_strictly_distinct_from_live_product: true,
+      official_explicit_draft_methods_seen: [
+        "alibaba.icbu.product.add.draft",
+        "alibaba.icbu.product.schema.render.draft",
+        "alibaba.icbu.product.schema.add.draft"
+      ],
+      additional_draft_query_delete_manage_api_identified: false,
       cleanup_evidence_proven: false
     },
     blocked_automation_fields: [

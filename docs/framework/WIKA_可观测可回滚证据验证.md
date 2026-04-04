@@ -23,6 +23,7 @@
 
 - `alibaba.icbu.photobank.list`
 - `alibaba.icbu.photobank.group.list`
+- `alibaba.icbu.photobank.group.operate`（仅完成低副作用参数级验证）
 
 ### 当前真实调用结果
 
@@ -73,23 +74,52 @@
 2. 分组操作足以支撑后续批量清理
 3. 当前已经形成可靠的素材删除/回滚闭环
 
+#### 3. photobank.group.operate
+
+- 官方文档明确说明：
+  - 接口用途是“新增分组、删除分组、分组重命名”
+  - 成功路径会直接修改真实图片银行分组
+- 当前真实调用：
+  - 已真实走到 `https://open-api.alibaba.com/sync`
+  - 已真实使用 `access_token`
+  - 已真实使用 `sha256`
+- 当前分类：`业务参数错误（说明已过授权层）`
+- 当前最小安全验证方式：
+  - 使用空请求对象调用
+  - 平台返回 `query params is null`
+
+这说明：
+
+1. `photobank.group.operate` 在当前 production 闭环下可以走到授权层之后；
+2. media 侧确实存在一个官方的分组管理接口；
+3. 但它是管理写侧，不是只读接口。
+
+这组证据仍然不能证明：
+
+1. 可以零副作用地验证真实“分组新增 / 重命名 / 删除”；
+2. 已存在可安全删除测试素材或测试分组的清理闭环；
+3. 已经具备进入真实上传验证的前置条件。
+
 ### media 侧结论
 
 当前已经证实：
 
 - media 素材可观测能力成立
 - media 分组查询能力存在
+- media 分组管理接口存在，且已证明可走到授权层之后
 
 当前仍未证实：
 
 - 可稳定隔离测试素材
 - 可安全清理测试素材
 - 可形成可回滚的低风险上传闭环
+- 可证明 `photobank.group.operate` 的成功路径不会带来不可接受的真实分组副作用
 
 ### 当前判断
 
 - `photobank.list`：`可进入最小正式原始路由候选池`，且已实际进入正式只读路由
 - `photobank.group.list`：`可进入最小正式原始路由候选池`，且已实际进入正式只读路由
+- `photobank.group.operate`：`当前仍无法证明可隔离 / 可清理 / 可回滚边界，因此不继续实写验证`
 - `photobank.upload`：`当前无法证明低风险边界，因此不继续实写验证`
 
 ## 二、draft 侧可观测证据
@@ -97,6 +127,10 @@
 ### 已验证入口
 
 - `alibaba.icbu.product.schema.render.draft`
+- 官方显式草稿方法清单已完成梳理：
+  - `alibaba.icbu.product.add.draft`
+  - `alibaba.icbu.product.schema.render.draft`
+  - `alibaba.icbu.product.schema.add.draft`
 
 ### 当前真实调用结果
 
@@ -131,6 +165,14 @@
 3. draft 一定可安全删除、可审计、可回滚
 4. `product.add.draft` 已具备低风险真实创建边界
 
+### draft 管理 / 删除接口补充结论
+
+当前公开官方文档里，除已验证的 `schema.render.draft` 外：
+
+- 没有再识别到明确的 draft 查询 / 删除 / 管理接口；
+- `schema.add.draft` 虽然在官方变动说明里被明确提及，但它属于“草稿发布成正式”的写侧，不属于当前阶段要补的查询 / 删除 / 管理证据；
+- 因此 draft 侧当前仍然缺少“可审计 / 可删除 / 可回滚”的新增官方证据。
+
 ### 当前判断
 
 - `schema.render.draft`：`可进入最小正式原始路由候选池`，且已实际进入正式只读路由
@@ -145,12 +187,14 @@
 #### media 侧
 
 - 已证明“能看见”
+- 已证明“存在分组管理写侧接口并可到授权层之后”
 - 未证明“能隔离、能清理、能回滚”
 
 #### draft 侧
 
 - 已证明“存在专门 draft 渲染通道”
 - 已证明“live product 与 draft object 可区分”
+- 已证明“公开文档当前没有新增的 draft 查询 / 删除 / 管理接口可继续补证”
 - 未证明“draft create 后可安全回收、无外部副作用”
 
 ## 四、当前允许与不允许的动作

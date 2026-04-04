@@ -25,6 +25,7 @@
 | 产品 schema render | 1 | 已上线正式原始路由 | `/integrations/alibaba/wika/data/products/schema/render` | 否 |
 | 图片银行素材可观测能力 | 1 | 已上线正式原始路由，已验证可列出真实素材 | `/integrations/alibaba/wika/data/media/list` | 否 |
 | 图片银行分组可观测能力 | 1 | 已上线正式原始路由，已验证存在分组查询通道 | `/integrations/alibaba/wika/data/media/groups` | 否 |
+| 图片银行分组管理能力 | 2 | `alibaba.icbu.photobank.group.operate` 已在 production 闭环下返回业务参数错误，说明已过授权层；但当前仍不能证明低风险管理/清理边界 | `alibaba.icbu.photobank.group.operate` | 否 |
 | draft 渲染可观测能力 | 1 | 已上线正式原始路由，已验证存在专门 draft 渲染通道 | `/integrations/alibaba/wika/data/products/schema/render/draft` | 否 |
 | 订单列表 | 1 | 已上线正式原始路由 | `/integrations/alibaba/wika/data/orders/list` | 否 |
 | 订单详情 | 1 | 已上线正式原始路由 | `/integrations/alibaba/wika/data/orders/detail` | 否 |
@@ -55,7 +56,9 @@
 | schema-aware payload 草稿生成 | 7 | 已实现 helper 与样例产物 | `shared/data/modules/alibaba-product-drafts.js` | 否 |
 | 标题 / 卖点 / 描述 / 关键词生成 | 7 | 已集成到草稿 helper | `buildWikaProductDraft()` | 否 |
 | 图片 / 媒体上传 | 5 | 已过授权层，但当前缺少可隔离、可清理、可回滚证据 | `alibaba.icbu.photobank.upload` | 否 |
+| 图片银行分组管理 / 清理证据 | 2 | `photobank.group.operate` 已过授权层，但成功路径属于真实分组写操作；当前仍不证明可回滚 | `alibaba.icbu.photobank.group.operate` | 否 |
 | draft 渲染可观测能力 | 1 | 已上线正式原始路由；已证明存在 draft 独立渲染通道 | `/integrations/alibaba/wika/data/products/schema/render/draft` | 否 |
+| draft 查询 / 删除 / 管理接口 | 6 | 当前公开官方文档中，除 `schema.render.draft` 外未识别到明确的新入口 | 待识别 | 否 |
 | 安全 draft 创建 | 5 | 已过授权层，但当前缺少非发布、可清理、可回滚证据 | `alibaba.icbu.product.add.draft` | 否 |
 | 产品创建（正式 add） | 5 | 已过授权层，但属于真实发布高风险入口 | `alibaba.icbu.product.add` | 否 |
 | 产品创建（schema add） | 5 | 已过授权层，但属于真实发布高风险入口 | `alibaba.icbu.product.schema.add` | 否 |
