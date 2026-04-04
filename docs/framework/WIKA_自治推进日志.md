@@ -114,5 +114,5 @@
   - `docs/framework/WIKA_可观测可回滚证据验证.md`
   - `docs/framework/WIKA_产品安全草稿链路说明.md` 阶段 5 更新
   - `docs/framework/WIKA_产品草稿链路样例.json` 阶段 5 增强样例
-- 结束 checkpoint：`本阶段收口 checkpoint commit`
+- 结束 checkpoint：`90f6a74`
 
