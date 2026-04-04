@@ -1,68 +1,59 @@
 # WIKA_执行计划
 
 ## 当前阶段
-阶段 6：任务 3 的管理 / 清理 / 回滚证据补齐阶段（已收口）
+阶段 7：任务 4 的读侧入口筛查与最小原始路由候选验证
 
 ## 本阶段唯一目标
-只补齐 media 管理/清理 与 draft 查询/删除这两类证据，不做真实上传、真实 draft 创建、真实发布或真实线上修改。
+只验证官方明确存在的 `customers / inquiries / messages` 读侧接口，判断是否能形成最小正式原始路由。
 
 ## 起始基线
-- media/list 已上线并线上验收
-- media/groups 已上线并线上验收
-- products/schema/render/draft 已上线并线上验收
-- photobank.upload 仍未证明低风险上传边界
-- add.draft 仍未证明安全草稿边界
+- 只推进 `WIKA`
+- 一律复用 Railway production 认证闭环与 `/sync + access_token + sha256`
+- 既有 WIKA 读侧原始路由已经稳定上线并可复用
+- `mydata / overview / self.product` 当前不再作为主线推进
+- 任务 3 当前已拿到足够的 schema/media/draft 读侧证据，但写侧边界仍不足
+- 当前最优下一步切换为任务 4 的只读候选验证
 
 ## 候选顺序
-### 第一梯队：media 管理 / 清理证据
-1. alibaba.icbu.photobank.group.operate
-2. 官方文档中明确存在的 photobank 删除 / 管理 / 分组 / 查询接口
-3. 其他官方明确存在、且直接服务可隔离 / 可清理 / 可回滚证据的 media 同家族接口
+### 第一梯队：customers 家族
+1. `alibaba.seller.customer.batch.get`
+2. `alibaba.seller.customer.get`
+3. `alibaba.seller.customer.note.query`
+4. `alibaba.seller.customer.note.get`
 
-### 第二梯队：draft 查询 / 删除证据
-1. 官方文档中明确存在的 draft 查询 / 删除 / 管理接口
-2. 与 schema.render.draft 同家族、且文档明确存在的 draft 读侧 / 管理侧接口
+### 第二梯队：inquiries / messages 读侧
+1. 只有在官方文档中明确出现的方法名，才允许进入验证
+2. 若没有明确方法名，则收口为：`当前未识别到可用入口`
 
 注意：
 - 不得臆造方法名
 - 只有在官方文档中明确出现的方法名，才允许进入验证
 
-## 阶段 6 收口结果
-
-- `alibaba.icbu.photobank.group.operate`
-  - 已在 production 闭环下真实走到 `/sync + access_token + sha256`
-  - 当前真实分类：`业务参数错误（说明已过授权层）`
-  - 当前收口：`当前仍无法证明可隔离 / 可清理 / 可回滚边界，因此不继续实写验证`
-- 当前公开官方文档中，除已验证的 `schema.render.draft` 外：
-  - 没有再识别到明确的 draft 查询 / 删除 / 管理接口
-  - `schema.add.draft` 属于“草稿发布成正式”的写侧，不纳入本阶段继续推进
-- 因此阶段 6 的总收口结论是：
-  - media 侧新增了“管理接口能到授权层之后”的证据
-  - draft 侧没有新增“查询 / 删除 / 管理”证据
-  - 当前仍不具备进入最小真实写入验证的前置条件
-
 ## 本阶段明确排除
 - XD
 - mydata / overview / 数据管家
-- inquiries / messages / customers
 - order create
 - RFQ
 - 本地旁路
+- 平台内回复
+- `alibaba.inquiry.cards.send`
+- 任何 send / reply / write / create 类接口
 - 真实商品发布
 - 真实线上商品修改
 - 真实客户沟通
 - 自动进入下一阶段
 
 ## 执行规则
-1. 先做 media 管理 / 清理证据验证，再做 draft 查询 / 删除证据验证
+1. 先做 `customers` 家族，再做官方文档中明确存在的 `inquiries / messages` 读侧方法
 2. 每个新 API 最多 3 轮有差异的尝试
 3. 只要达到“真实 JSON”或“业务参数错误”，就允许进入最小正式原始路由候选池
 4. 只有证据充分且属于低风险读侧时，才允许新增正式原始路由
-5. 只要边界证据仍不足，就必须明确收口，不得继续含糊
+5. 不得为了凑结果伪造 `customer_id / note_id / inquiry_id / message_id`
+6. 若官方文档没有明确 inquiry/message 读侧方法名，必须明确收口，不得含糊
 
 ## 完成标准
-- 至少完成一批“官方明确存在”的 media 管理 / 清理候选 API 的真实生产分类
-- 至少完成一批“官方明确存在”的 draft 查询 / 删除候选 API 的真实生产分类
+- `customers` 家族完成真实生产分类
+- 若官方文档明确存在 `inquiry / message` 读侧方法，则这些方法也完成真实生产分类；若不存在，则明确收口
 - 若其中任一证据充分，则至少有 1 条进入最小正式原始路由并完成线上验收
 - 已新增或更新一份“是否具备最小真实写入前置条件”的结论文档
 - 已更新基线、计划、缺口矩阵、复用清单、候选池、自治推进日志
@@ -70,13 +61,8 @@
 
 ## 停止条件
 - 本阶段候选全部完成真实分类
-- 或已证明当前官方没有足够证据补齐可回滚边界
-- 或继续推进会触发不可接受的真实写入风险
-
-当前阶段停止条件已满足：
-- `photobank.group.operate` 已完成真实生产分类
-- 当前公开官方文档中未识别到新增 draft 查询 / 删除 / 管理接口
-- 继续推进将转为猜接口或冒进真实写入，不符合当前阶段边界
+- 或 inquiry/message 当前没有明确官方读侧入口
+- 或继续推进会落入写动作、高风险旧体系或非官方方法名猜测
 
 ## 交付物
 - docs/framework/WIKA_可观测可回滚证据验证.md
