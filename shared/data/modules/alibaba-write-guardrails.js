@@ -71,6 +71,11 @@ export const WIKA_HUMAN_HANDOFF_TRIGGERS = Object.freeze([
     code: "irreversible_write_risk",
     label: "不可逆写入风险",
     description: "无法证明存在草稿/测试模式时，必须人工决定是否继续。"
+  },
+  {
+    code: "live_order_create",
+    label: "真实订单创建",
+    description: "任何会触发真实信保下单或真实订单生成的动作，都必须人工接管。"
   }
 ]);
 
@@ -149,6 +154,37 @@ const WIKA_LOW_RISK_WRITE_BOUNDARY = Object.freeze({
       "draft create against live seller account"
     ],
     allowed_next_step: "仅继续增强 schema-aware payload 草稿，不进入真实 draft 创建。"
+  },
+  trade_order_create: {
+    api_name: "alibaba.trade.order.create",
+    actual_api_classification: "业务参数错误（说明已过授权层）",
+    low_risk_boundary_proven: false,
+    decision: "当前无法证明低风险边界，因此不继续实写验证",
+    reasons: [
+      "官方文档明确这是“国际站信保下单”，成功路径天然对应真实订单创建，而不是只读或无副作用的预检查。",
+      "当前使用空对象/不完整 payload 调用时，平台返回 MissingParameter，说明已过授权层，但这不等于存在安全草稿模式。",
+      "当前公开官方文档里，尚未识别到明确的 create 同家族 precheck / cancel / draft create 读侧边界，可用于证明可回滚或非成交。",
+      "在没有可逆、可清理、无外部成交副作用证据前，不应继续真实创单验证。"
+    ],
+    observable_evidence: {
+      official_explicit_related_methods_seen: [
+        "alibaba.trade.order.create",
+        "alibaba.seller.trade.query.drafttype"
+      ],
+      create_boundary_result:
+        "使用空 param_order_create 调用 alibaba.trade.order.create 时，平台返回 MissingParameter(product_list)。",
+      low_risk_precheck_or_draft_api_identified: false,
+      cleanup_evidence_proven: false
+    },
+    blocked_automation_fields: [
+      "buyer identity binding",
+      "product_list",
+      "price terms",
+      "payment terms",
+      "delivery terms",
+      "final order submit"
+    ],
+    allowed_next_step: "仅继续生成外部订单草稿，不进入真实订单创建。"
   }
 });
 

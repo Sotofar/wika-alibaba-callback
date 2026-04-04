@@ -10,7 +10,7 @@
 2. 先补任务 6：把当前 outbox fallback 升级成真实外发 provider
 3. 再补任务 3：只继续验证“可隔离、可清理、可回滚”的剩余写侧证据
 4. 再补任务 4：只继续验证官方明确存在的 customers / inquiries / messages 读侧入口
-5. 最后再看任务 5：订单草稿 / 交易创建入口
+5. 任务 5 当前已完成正式入口边界摸底；在出现新的官方低风险候选前，不再继续深挖 `order.create`
 
 ## 当前已成立，不再进入候选池主线的能力
 
@@ -44,12 +44,6 @@
 | T4-P1 | `alibaba.seller.customer.note.query` | 已验证但不进入路由化 | 已真实走到 `/sync + access_token + sha256`；当前缺少 `note_id` | 仅在拿到真实 `note_id` 时继续验证 |
 | T4-P2 | inquiry / message 读侧方法 | 当前未识别到可用入口 | 当前官方文档里只明确看到了 `alibaba.inquiry.cards.send` 与 `translate.*` 一类接口，没有明确的 list/detail 读侧方法名 | 只有在官方文档出现明确方法名时，才重新进入验证 |
 
-| T4-P0 | `alibaba.seller.customer.batch.get` | 已验证并已最小路由化 | 已真实走到 `/sync + access_token + sha256`；缺参时为业务参数错误，使用真实窗口参数后为权限错误；已新增 `customers/list` 只读权限探针路由 | 只有在权限放开后，才继续争取真实 JSON 样本 |
-| T4-P1 | `alibaba.seller.customer.get` | 已验证但不进入路由化 | 已真实走到 `/sync + access_token + sha256`；当前缺少 `buyer_member_seq`，只有业务参数错误证据 | 仅在拿到真实 `buyer_member_seq` 时继续验证 |
-| T4-P1 | `alibaba.seller.customer.note.get` | 已验证但不进入路由化 | 已真实走到 `/sync + access_token + sha256`；当前缺少 `page_num / page_size / customer_id` | 仅在拿到真实 `customer_id` 时继续验证 |
-| T4-P1 | `alibaba.seller.customer.note.query` | 已验证但不进入路由化 | 已真实走到 `/sync + access_token + sha256`；当前缺少 `note_id` | 仅在拿到真实 `note_id` 时继续验证 |
-| T4-P2 | inquiry / message 读侧方法 | 当前未识别到可用入口 | 当前官方文档里只明确看到了 `alibaba.inquiry.cards.send` 与 `translate.*` 一类接口，没有明确的 list/detail 读侧方法名 | 只有在官方文档出现明确方法名时，才重新进入验证 |
-
 ### 任务 3 当前已从候选池转为正式可复用的支持路由
 - `/integrations/alibaba/wika/data/categories/tree`
 - `/integrations/alibaba/wika/data/categories/attributes`
@@ -63,8 +57,9 @@
 
 | 优先级 | API / 能力 | 当前状态 | 当前结论 | 下一步 |
 | --- | --- | --- | --- | --- |
-| T5-P0 | `alibaba.trade.order.create` | 官方存在，待生产验证 | 当前最接近平台内订单草稿 / 交易创建的正式候选 | 等任务 3 收口后再生产验证 |
-| T5-P1 | 外部结构化报价单 / 订单草稿文档 | 非 Alibaba API，但任务闭环需要 | 可做替代方案，但不得误报为平台内订单已创建 | 仅作为后备替代方案保留 |
+| T5-P0 | `alibaba.seller.trade.query.drafttype` | 已验证并已最小路由化 | 已真实走到 `/sync + access_token + sha256`，并返回 `types=["TA"]`；当前可作为订单起草权限探针使用 | 若后续出现明确 draft / cancel / status / query 读侧方法，再沿同主线继续验证 |
+| T5-P1 | `alibaba.trade.order.create` | 已验证但不进入路由化 | 当前已真实走到业务参数层；空对象与 `product_list=[]` 两轮都返回 MissingParameter，说明已过授权层；但当前仍无法证明非成交、可回滚、无副作用边界 | 不再继续深挖，除非官方出现明确低风险同家族候选 |
+| T5-P1 | 外部结构化报价单 / 订单草稿文档 | 非 Alibaba API，但任务闭环需要 | 当前已经有外部订单草稿 helper 与样例；这是任务 5 的可靠中间层，但不得误报为平台内订单已创建 | 如继续任务 5，优先增强外部订单草稿的字段完整度与人工补齐说明 |
 
 ## 当前明确不再继续循环的对象
 
@@ -79,4 +74,4 @@
 
 ## 当前一句话结论
 
-当前最优先的下一批验证对象仍然是“真实外发通知 provider”与“写侧可回滚证据”；任务 2 已经先形成最小诊断层，不需要为诊断层继续追新 API。
+当前最优先的下一批验证对象仍然是“真实外发通知 provider”与“写侧可回滚证据”；任务 5 已经明确收口为：`draft-types` 可读、`order.create` 只到参数/授权边界、当前只能先做外部订单草稿。

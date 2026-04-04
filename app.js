@@ -22,6 +22,7 @@ import {
   fetchAlibabaOfficialMediaList
 } from "./shared/data/modules/alibaba-official-media.js";
 import { fetchAlibabaOfficialCustomerList } from "./shared/data/modules/alibaba-official-customers.js";
+import { fetchAlibabaOfficialOrderDraftTypes } from "./shared/data/modules/alibaba-official-order-entry.js";
 import {
   fetchAlibabaOfficialProductDetail,
   fetchAlibabaOfficialProductGroups,
@@ -2112,6 +2113,45 @@ function createAccountOrderLogisticsHandler(accountKey) {
   };
 }
 
+function createAccountOrderDraftTypesHandler(accountKey) {
+  return async (_req, res) => {
+    const config = getAccountConfig(accountKey);
+
+    try {
+      const result = await fetchAlibabaOfficialOrderDraftTypes({
+        account: accountKey,
+        ...(await getAlibabaReadOnlyClientConfig(accountKey))
+      });
+
+      logInfo(`${config.label} order draft types read completed`, {
+        returnedTypeCount: result.response_meta.returned_type_count
+      });
+
+      res.status(200).json({
+        ok: true,
+        ...result
+      });
+    } catch (error) {
+      logError(`${config.label} order draft types read failed`, {
+        error: error instanceof Error ? error.message : String(error),
+        details:
+          error instanceof AlibabaApiError || error?.details
+            ? error.details
+            : undefined,
+        top_error: extractTopErrorResponse(error)
+      });
+
+      const hasMissingKeys =
+        error instanceof ConfigurationError ||
+        Array.isArray(error?.missingKeys);
+
+      res
+        .status(hasMissingKeys ? 400 : 502)
+        .json(buildReadOnlyErrorResponse(error));
+    }
+  };
+}
+
 function createWikaMinimalDiagnosticHandler() {
   return async (req, res) => {
     try {
@@ -2900,6 +2940,10 @@ app.get(
 app.get(
   "/integrations/alibaba/wika/data/orders/logistics",
   createAccountOrderLogisticsHandler("wika")
+);
+app.get(
+  "/integrations/alibaba/wika/data/orders/draft-types",
+  createAccountOrderDraftTypesHandler("wika")
 );
 app.get(
   "/integrations/alibaba/xd/data/orders/list",

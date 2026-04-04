@@ -31,6 +31,7 @@
 | 订单详情 | 1 | 已上线正式原始路由 | `/integrations/alibaba/wika/data/orders/detail` | 否 |
 | 订单资金数据 | 1 | 已上线正式原始路由 | `/integrations/alibaba/wika/data/orders/fund` | 否 |
 | 订单物流数据 | 1 | 已上线正式原始路由 | `/integrations/alibaba/wika/data/orders/logistics` | 否 |
+| 订单起草类型权限 | 1 | 已上线正式原始路由；真实返回 `types=["TA"]` | `/integrations/alibaba/wika/data/orders/draft-types` | 否 |
 | 店铺经营指标（UV/PV/曝光/点击/回复率） | 4 | 当前 production 实测统一 `InsufficientPermission` | `alibaba.mydata.overview.indicator.basic.get` | 否 |
 | 店铺概览日期/行业维度 | 4 | 当前 production 实测统一 `InsufficientPermission` | `overview.date.get` / `overview.industry.get` | 否 |
 | 产品表现原始数据（曝光/点击/访客/关键词） | 4 | 当前 production 实测统一 `InsufficientPermission` | `alibaba.mydata.self.product.get` / `self.product.date.get` | 否 |
@@ -90,8 +91,9 @@
 
 | 能力项 | 当前状态 | 当前依据 | 对应入口 | 是否已形成任务闭环能力 |
 | --- | --- | --- | --- | --- |
-| 平台内订单草稿 / 交易创建 | 3 | 已识别候选，但尚未生产验证 | `alibaba.trade.order.create` | 否 |
-| 外部结构化报价单 / 订单草稿文档 | 7 | 可做替代方案，但不能误报为平台内创建成功 | 待后续设计 | 否 |
+| 订单起草类型权限探针 | 1 | 已上线正式原始路由；真实返回 `types=["TA"]` | `/integrations/alibaba/wika/data/orders/draft-types` | 否 |
+| 平台内订单草稿 / 交易创建 | 5 | `alibaba.trade.order.create` 已完成真实生产分类；两轮不完整 payload 都只到业务参数错误，当前仍无法证明非成交、可回滚、无副作用边界 | `alibaba.trade.order.create` | 否 |
+| 外部结构化报价单 / 订单草稿文档 | 7 | 已实现外部订单草稿 helper 与样例，但明确不等于平台内订单已创建 | `shared/data/modules/alibaba-order-drafts.js` | 否 |
 
 ## F. 异常通知
 

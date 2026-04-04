@@ -81,6 +81,36 @@
 - 或已证明当前只有高风险真实创单入口，不存在足够低风险的同家族边界
 - 或继续推进会触发不可接受的真实创单风险
 
+## 当前阶段收口
+- 官方清点结果：
+  - `alibaba.trade.order.create`
+  - `alibaba.seller.trade.query.drafttype`
+  - `alibaba.trade.order.modify`
+  - `alibaba.intention.order.save`
+- 其中真正进入本阶段验证的只有：
+  - `alibaba.trade.order.create`
+  - `alibaba.seller.trade.query.drafttype`
+- `alibaba.seller.trade.query.drafttype`
+  - 已真实走到 `/sync + access_token + sha256`
+  - 已返回真实 JSON
+  - 当前真实样本：`types=["TA"]`
+  - 已进入最小正式原始路由：
+    - `/integrations/alibaba/wika/data/orders/draft-types`
+- `alibaba.trade.order.create`
+  - 已真实走到 `/sync + access_token + sha256`
+  - 空对象验证：缺 `product_list`
+  - `product_list=[]` 验证：缺 `currency`
+  - 当前收口：`业务参数错误（说明已过授权层）`
+  - 但仍无法证明非成交、可回滚、无副作用边界，因此不进入正式路由
+- 本阶段新增外部订单草稿中间层：
+  - `shared/data/modules/alibaba-order-drafts.js`
+  - `docs/framework/WIKA_订单草稿链路说明.md`
+  - `docs/framework/WIKA_订单草稿样例.json`
+- 当前一句话收口：
+  - `draft-types` 可作为正式只读权限探针复用
+  - `order.create` 当前只证明到参数/授权边界
+  - 当前任务 5 只能先做“外部订单草稿”，不能误写成平台内订单已创建
+
 ## 交付物
 - docs/framework/WIKA_订单入口候选清单.md
 - docs/framework/WIKA_订单草稿链路说明.md

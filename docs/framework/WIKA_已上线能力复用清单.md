@@ -33,6 +33,7 @@
 | `/integrations/alibaba/wika/data/orders/detail` | `alibaba.seller.order.get` | 最小订单详情 | 已上线并已线上验证 |
 | `/integrations/alibaba/wika/data/orders/fund` | `alibaba.seller.order.fund.get` | 支付 / 到账 / 退款 / 服务费原始数据 | 已上线并已线上验证 |
 | `/integrations/alibaba/wika/data/orders/logistics` | `alibaba.seller.order.logistics.get` | 物流状态 / 发货单原始数据 | 已上线并已线上验证 |
+| `/integrations/alibaba/wika/data/orders/draft-types` | `alibaba.seller.trade.query.drafttype` | 订单起草类型权限探针 | 已上线并已线上验证 |
 
 ## 3. 已上线的派生只读路由
 
@@ -56,6 +57,8 @@
 | 产品草稿链路样例 | 已落盘可复用 | 已基于真实 WIKA 读侧数据生成更完整的 schema-aware 样例产物 |
 | 低风险写侧边界规则 | 已落盘可复用 | 已明确 `photobank.upload` 与 `product.add.draft` 当前都不能继续实写验证 |
 | 可观测 / 可回滚证据规则 | 已落盘可复用 | 已明确 media 可观测能力、draft 可区分能力以及“尚未具备最小真实写入前置条件” |
+| 外部订单草稿 helper | 已实现可复用 | 可输出买家、产品、价格、交期、物流、付款等结构化草稿，但不等于平台订单已创建 |
+| 订单入口候选清单 | 已落盘可复用 | 已明确 `order.create` 与 `drafttype` 的边界、参数层级与收口方式 |
 | media 管理侧证据 | 已沉淀可复用 | `photobank.group.operate` 已在 production 闭环下过授权层，但当前仍不能证明低风险管理/清理边界 |
 | draft 管理侧证据 | 已沉淀可复用 | 当前公开官方文档中，除 `schema.render.draft` 外未识别到新增 draft 查询 / 删除 / 管理接口 |
 | 人工接管告警样例 | 已落盘可复用 | 可作为后续通知能力的结构化输入 |
@@ -77,7 +80,10 @@
 12. `customers/list` 已上线，不等于客户列表已经在当前权限下可稳定读取。
 13. `customers` 家族过了授权层，不等于 inquiry / message / customer 读写闭环已打通。
 14. 当前默认走 outbox fallback，不等于真实邮件或 webhook 已经送达用户。
+15. `orders/draft-types` 已上线，不等于平台订单草稿已可安全创建。
+16. `alibaba.trade.order.create` 已过参数层，不等于存在安全创单边界。
+17. 外部订单草稿 helper 已落地，不等于平台内订单已起草成功。
 
 ## 当前一句话结论
 
-WIKA 当前已经有一套稳定可复用的读侧原始路由底座，以及一条更扎实的 schema-aware 产品草稿准备链路；但写侧仍停留在“草稿准备 + 风险边界判断”，还没有进入真实平台写入闭环。
+WIKA 当前已经有一套稳定可复用的读侧原始路由底座，以及更扎实的 schema-aware 产品草稿和外部订单草稿准备链路；但写侧仍停留在“草稿准备 + 风险边界判断”，还没有进入真实平台写入闭环。

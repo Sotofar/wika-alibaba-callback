@@ -266,3 +266,43 @@
   - 但它不是完整经营驾驶舱
   - 后续若继续任务 2，应优先扩既有诊断口径，而不是回头追已收口的 mydata 路线
 
+### 阶段 10：任务 5 的正式订单入口边界验证
+
+- 起始 checkpoint：`208841f`
+- 本阶段目标：
+  - 只验证官方明确存在的订单创建相关入口
+  - 只判断是否存在“安全草稿 / 参数验证 / 授权验证 / 低风险预检查”边界
+  - 不做真实订单创建
+- 官方清点结果：
+  - 直接相关方法：
+    - `alibaba.trade.order.create`
+    - `alibaba.seller.trade.query.drafttype`
+  - 同目录存在但不纳入本阶段低风险主线：
+    - `alibaba.trade.order.modify`
+    - `alibaba.intention.order.save`
+  - 当前没有再识别到明确的 `precheck / cancel / status / draft query` 同家族低风险方法
+- 真实生产分类结果：
+  - `alibaba.seller.trade.query.drafttype`
+    - 已真实走到 `/sync + access_token + sha256`
+    - 返回 `真实 JSON 样本数据`
+    - 当前真实样本：`types=["TA"]`
+  - `alibaba.trade.order.create`
+    - 已真实走到 `/sync + access_token + sha256`
+    - 尝试 1：`param_order_create = {}` -> `MissingParameter(product_list)`
+    - 尝试 2：`param_order_create = { product_list: [] }` -> `MissingParameter(currency)`
+    - 当前分类：`业务参数错误（说明已过授权层）`
+- 新增正式只读路由：
+  - `/integrations/alibaba/wika/data/orders/draft-types`
+- 新增沉淀：
+  - `shared/data/modules/alibaba-official-order-entry.js`
+  - `shared/data/modules/alibaba-order-drafts.js`
+  - `scripts/validate-wika-order-entry-phase10.js`
+  - `docs/framework/WIKA_订单入口候选清单.md`
+  - `docs/framework/WIKA_订单草稿链路说明.md`
+  - `docs/framework/WIKA_订单草稿样例.json`
+- 阶段收口：
+  - `draft-types` 已可作为正式只读权限探针复用
+  - `order.create` 当前只证明到参数/授权边界，仍不能证明存在安全创单边界
+  - 当前任务 5 只能先做“外部订单草稿”，不能误写成“平台内订单已起草成功”
+- 结束 checkpoint：待本阶段收口提交
+
