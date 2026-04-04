@@ -6,10 +6,17 @@
 
 ## 排序原则
 
-1. 先补任务 6：把当前 outbox fallback 升级成真实外发 provider
-2. 再补任务 4：只继续验证官方明确存在的 customers / inquiries / messages 读侧入口
+1. 任务 2 的最小经营诊断层已经成立，不再为诊断层去追新 API
+2. 先补任务 6：把当前 outbox fallback 升级成真实外发 provider
 3. 再补任务 3：只继续验证“可隔离、可清理、可回滚”的剩余写侧证据
-4. 最后再看任务 5：订单草稿 / 交易创建入口
+4. 再补任务 4：只继续验证官方明确存在的 customers / inquiries / messages 读侧入口
+5. 最后再看任务 5：订单草稿 / 交易创建入口
+
+## 当前已成立，不再进入候选池主线的能力
+
+- `/integrations/alibaba/wika/reports/operations/minimal-diagnostic`
+  - 当前已经形成最小经营诊断层
+  - 后续若继续任务 2，应优先扩报告口径，而不是再回头验证新指标 API
 
 ## 第一梯队：任务 6（正式通知闭环）
 
@@ -18,7 +25,16 @@
 | T6-P0 | `WIKA_NOTIFY_WEBHOOK_URL` | 非 Alibaba API，但当前最值得优先接通 | 当前最小正式通知闭环已经成立，但 production 变量名里没有现成通知 provider 痕迹；优先推荐用低风险 webhook 把 outbox fallback 升级成真实外发 | 仅在拿到正式 webhook 地址与鉴权信息后，做一次最小真实通知测试 |
 | T6-P1 | `WIKA_NOTIFY_RESEND_API_KEY` + `WIKA_NOTIFY_EMAIL_FROM/TO` | 非 Alibaba API，但可复用轻量 HTTP 依赖 | 当前代码已支持 Resend HTTP API，无需引入新依赖；但 production 变量名里没有现成配置 | 仅在拿到正式邮箱配置后，做一次最小真实通知测试 |
 
-## 第二梯队：任务 4（询盘 / 消息 / 客户）
+## 第二梯队：任务 3（产品上新与详情编写）
+
+| 优先级 | API / 能力 | 当前状态 | 当前结论 | 下一步 |
+| --- | --- | --- | --- | --- |
+| T3-P0 | `alibaba.icbu.photobank.group.operate` | 已验证但不进入路由化 | 已在 production 闭环下返回业务参数错误，说明已过授权层；但成功路径属于真实分组写操作，当前仍不能证明可隔离 / 可清理 / 可回滚边界 | 暂不继续实写验证；仅保留为 media 管理证据 |
+| T3-P0 | draft 查询 / 读取 / 删除 / 管理同家族接口 | 当前未识别到可用入口 | 当前公开官方文档中，除已验证的 `schema.render.draft` 外，没有再识别到明确的新接口 | 不再围绕 draft 管理接口循环，除非官方出现新的明确方法名 |
+| T3-P1 | `alibaba.icbu.photobank.upload` | 已验证但不进入路由化 | 已过授权层；media 可观测能力已成立，但当前仍无法证明低风险写入边界 | 暂不继续真实上传 |
+| T3-P1 | `alibaba.icbu.product.add.draft` | 已验证但不进入路由化 | 已过授权层；draft 可区分证据已成立，但当前仍无法证明安全草稿边界 | 暂不继续真实 draft create |
+
+## 第三梯队：任务 4（询盘 / 消息 / 客户）
 
 | 优先级 | API / 能力 | 当前状态 | 当前结论 | 下一步 |
 | --- | --- | --- | --- | --- |
@@ -28,19 +44,11 @@
 | T4-P1 | `alibaba.seller.customer.note.query` | 已验证但不进入路由化 | 已真实走到 `/sync + access_token + sha256`；当前缺少 `note_id` | 仅在拿到真实 `note_id` 时继续验证 |
 | T4-P2 | inquiry / message 读侧方法 | 当前未识别到可用入口 | 当前官方文档里只明确看到了 `alibaba.inquiry.cards.send` 与 `translate.*` 一类接口，没有明确的 list/detail 读侧方法名 | 只有在官方文档出现明确方法名时，才重新进入验证 |
 
-## 第三梯队：任务 3（产品上新与详情编写）
-
-| 优先级 | API / 能力 | 当前状态 | 当前结论 | 下一步 |
-| --- | --- | --- | --- | --- |
-| T3-P0 | `alibaba.icbu.photobank.group.operate` | 已验证但不进入路由化 | 已在 production 闭环下返回业务参数错误，说明已过授权层；但成功路径属于真实分组写操作，当前仍不能证明可隔离 / 可清理 / 可回滚边界 | 暂不继续实写验证；仅保留为 media 管理证据 |
-| T3-P0 | draft 查询 / 读取 / 删除 / 管理同家族接口 | 当前未识别到可用入口 | 当前公开官方文档中，除已验证的 `schema.render.draft` 外，没有再识别到明确的新接口 | 不再围绕 draft 管理接口循环，除非官方出现新的明确方法名 |
-| T3-P1 | `alibaba.icbu.photobank.upload` | 已验证但不进入路由化 | 已过授权层；media 可观测能力已成立，但当前仍无法证明低风险写入边界 | 暂不继续真实上传 |
-| T3-P1 | `alibaba.icbu.product.add.draft` | 已验证但不进入路由化 | 已过授权层；draft 可区分证据已成立，但当前仍无法证明安全草稿边界 | 暂不继续真实 draft create |
-| T3-P2 | `alibaba.icbu.product.schema.add` | 已验证但尚未形成正式路由 | 已过授权层，但当前不允许真实发布 | 仅保留候选，不进入实现 |
-| T3-P2 | `alibaba.icbu.product.add` | 已验证但尚未形成正式路由 | 已过授权层，但属于真实发布高风险入口 | 不进入实现 |
-| T3-P2 | `alibaba.icbu.product.schema.update` | 已验证但尚未形成正式路由 | 已过授权层，但当前不允许真实线上修改 | 不进入实现 |
-| T3-P2 | `alibaba.icbu.product.update` | 已验证但尚未形成正式路由 | 已过授权层，但当前不允许真实线上修改 | 不进入实现 |
-| T3-P2 | `alibaba.icbu.product.update.field` | 已验证但尚未形成正式路由 | 已过授权层，但当前不允许真实线上修改 | 不进入实现 |
+| T4-P0 | `alibaba.seller.customer.batch.get` | 已验证并已最小路由化 | 已真实走到 `/sync + access_token + sha256`；缺参时为业务参数错误，使用真实窗口参数后为权限错误；已新增 `customers/list` 只读权限探针路由 | 只有在权限放开后，才继续争取真实 JSON 样本 |
+| T4-P1 | `alibaba.seller.customer.get` | 已验证但不进入路由化 | 已真实走到 `/sync + access_token + sha256`；当前缺少 `buyer_member_seq`，只有业务参数错误证据 | 仅在拿到真实 `buyer_member_seq` 时继续验证 |
+| T4-P1 | `alibaba.seller.customer.note.get` | 已验证但不进入路由化 | 已真实走到 `/sync + access_token + sha256`；当前缺少 `page_num / page_size / customer_id` | 仅在拿到真实 `customer_id` 时继续验证 |
+| T4-P1 | `alibaba.seller.customer.note.query` | 已验证但不进入路由化 | 已真实走到 `/sync + access_token + sha256`；当前缺少 `note_id` | 仅在拿到真实 `note_id` 时继续验证 |
+| T4-P2 | inquiry / message 读侧方法 | 当前未识别到可用入口 | 当前官方文档里只明确看到了 `alibaba.inquiry.cards.send` 与 `translate.*` 一类接口，没有明确的 list/detail 读侧方法名 | 只有在官方文档出现明确方法名时，才重新进入验证 |
 
 ### 任务 3 当前已从候选池转为正式可复用的支持路由
 - `/integrations/alibaba/wika/data/categories/tree`
@@ -71,4 +79,4 @@
 
 ## 当前一句话结论
 
-当前最优先的下一批验证对象已经切到任务 6：当前最小正式通知闭环已经成立，但仍停留在 outbox fallback；如果后续要继续补闭环能力，优先接通一个低风险正式 provider，而不是回到已收口的旧路线里循环。
+当前最优先的下一批验证对象仍然是“真实外发通知 provider”与“写侧可回滚证据”；任务 2 已经先形成最小诊断层，不需要为诊断层继续追新 API。

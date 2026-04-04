@@ -230,3 +230,39 @@
 - 结束 checkpoint：`1abe8f8`
 - push：`origin/main` 成功
 
+### 阶段 9：任务 2 的最小经营诊断层（基于现有真实数据）
+
+- 起始 checkpoint：`cd616c3`
+- 本阶段只做一件事：
+  - 不验证任何新 API，只复用当前已经上线并已线上验证的 WIKA 真实读侧能力，形成最小经营诊断层
+- 新增能力：
+  - `/integrations/alibaba/wika/reports/operations/minimal-diagnostic`
+- 新增沉淀：
+  - `shared/data/modules/wika-minimal-diagnostic.js`
+  - `scripts/validate-wika-diagnostic-phase9.js`
+  - `docs/framework/WIKA_最小经营诊断口径.md`
+  - `docs/framework/WIKA_最小经营诊断说明.md`
+  - `docs/framework/WIKA_最小经营诊断样例.json`
+- 当前真实样例口径：
+  - 产品快照样本：12
+  - 产品质量分样本：8
+  - 产品详情样本：8
+  - 订单快照样本：8
+  - 订单资金样本：5
+  - 订单物流样本：5
+- 当前可形成的最小诊断：
+  - 产品质量分概况
+  - boutique_tag 覆盖
+  - 内容完整度问题
+  - 分组 / 类目结构提示
+  - 订单物流状态摘要
+  - 资金字段可见信号
+- 当前明确缺口：
+  - UV / PV / 曝光 / 点击 / CTR
+  - 流量来源 / 国家来源 / 询盘表现
+  - 完整订单经营趋势 / 国家结构 / 产品贡献
+- 阶段收口：
+  - 当前最小经营诊断层已成立
+  - 但它不是完整经营驾驶舱
+  - 后续若继续任务 2，应优先扩既有诊断口径，而不是回头追已收口的 mydata 路线
+

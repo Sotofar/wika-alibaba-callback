@@ -34,6 +34,7 @@ import {
   buildProductRecommendations,
   fetchWikaProductList
 } from "./projects/wika/data/products/module.js";
+import { fetchWikaMinimalDiagnostic } from "./shared/data/modules/wika-minimal-diagnostic.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -2111,6 +2112,42 @@ function createAccountOrderLogisticsHandler(accountKey) {
   };
 }
 
+function createWikaMinimalDiagnosticHandler() {
+  return async (req, res) => {
+    try {
+      const result = await fetchWikaMinimalDiagnostic(
+        await getWikaReadOnlyClientConfig(),
+        req.query
+      );
+
+      logInfo("Wika minimal operations diagnostic completed", {
+        productSnapshotCount: result.sample_size.product_snapshot_count,
+        orderSnapshotCount: result.sample_size.order_snapshot_count
+      });
+
+      res.status(200).json(result);
+    } catch (error) {
+      logError("Wika minimal operations diagnostic failed", {
+        error: error instanceof Error ? error.message : String(error),
+        details:
+          error instanceof AlibabaApiError || error?.details
+            ? error.details
+            : undefined,
+        top_error: extractTopErrorResponse(error),
+        query: req.query
+      });
+
+      const hasMissingKeys =
+        error instanceof ConfigurationError ||
+        Array.isArray(error?.missingKeys);
+
+      res
+        .status(error instanceof ConfigurationError ? 500 : hasMissingKeys ? 400 : 502)
+        .json(buildReadOnlyErrorResponse(error));
+    }
+  };
+}
+
 const XD_ORDER_LIST_VERIFIED_FIELDS = Object.freeze([
   "response_meta.total_count",
   "response_meta.returned_item_count",
@@ -2917,6 +2954,11 @@ app.get(
         .json(buildReadOnlyErrorResponse(error));
     }
   }
+);
+
+app.get(
+  "/integrations/alibaba/wika/reports/operations/minimal-diagnostic",
+  createWikaMinimalDiagnosticHandler()
 );
 
 app.get(

@@ -91,6 +91,21 @@
 - 最小经营诊断层已基于真实数据跑通
 - 或现有真实数据不足以支撑进一步诊断，需要等待新的真实读侧入口
 
+## 当前阶段收口
+- 已新增：
+  - `/integrations/alibaba/wika/reports/operations/minimal-diagnostic`
+- 已完成真实样例：
+  - `docs/framework/WIKA_最小经营诊断样例.json`
+- 当前已能回答：
+  - 产品质量分布
+  - 产品内容完整度
+  - 分组/类目结构提示
+  - 订单执行层信号
+- 当前仍不能回答：
+  - UV / PV / 曝光 / 点击 / CTR
+  - 流量来源 / 国家来源 / 询盘表现
+  - 完整订单经营趋势
+
 ## 交付物
 - docs/framework/WIKA_最小经营诊断口径.md
 - docs/framework/WIKA_最小经营诊断说明.md

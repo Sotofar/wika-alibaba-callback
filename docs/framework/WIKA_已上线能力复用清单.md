@@ -39,6 +39,7 @@
 | 路由 | 当前作用 | 说明 |
 | --- | --- | --- |
 | `/integrations/alibaba/wika/reports/products/management-summary` | 产品管理摘要 | 仅属于最小派生摘要，不等于完整经营层 summary |
+| `/integrations/alibaba/wika/reports/operations/minimal-diagnostic` | 最小经营诊断层 | 严格基于现有真实产品/订单读侧，只覆盖产品质量/结构与订单执行信号，不等于完整经营驾驶舱 |
 
 ## 4. 已上线的权限探针型只读路由
 
@@ -62,7 +63,7 @@
 
 ## 6. 当前明确不能误报的边界
 
-1. 已有原始只读路由，不等于经营层模块已完成。
+1. 已有原始只读路由或最小诊断层，不等于经营层模块已完成。
 2. 已有产品详情、分组、质量分、schema、schema render，不等于产品上新闭环已完成。
 3. 已有订单明细、资金、物流原始数据，不等于订单经营驾驶舱已完成。
 4. 已有 schema-aware 草稿 helper，不等于平台商品已创建或已发布。

@@ -34,13 +34,15 @@
 | 店铺经营指标（UV/PV/曝光/点击/回复率） | 4 | 当前 production 实测统一 `InsufficientPermission` | `alibaba.mydata.overview.indicator.basic.get` | 否 |
 | 店铺概览日期/行业维度 | 4 | 当前 production 实测统一 `InsufficientPermission` | `overview.date.get` / `overview.industry.get` | 否 |
 | 产品表现原始数据（曝光/点击/访客/关键词） | 4 | 当前 production 实测统一 `InsufficientPermission` | `alibaba.mydata.self.product.get` / `self.product.date.get` | 否 |
+| 最小经营诊断层原始聚合 | 1 | 已上线正式诊断路由；严格基于现有真实产品/订单读侧 | `/integrations/alibaba/wika/reports/operations/minimal-diagnostic` | 否 |
 
 ## B. 运营诊断
 
 | 能力项 | 当前状态 | 当前依据 | 对应入口 | 是否已形成任务闭环能力 |
 | --- | --- | --- | --- | --- |
-| 产品结构诊断底座 | 2 | 原始数据已齐，但未形成最小经营聚合 | `products/list + detail + groups + score` | 否 |
-| 订单经营观察底座 | 2 | 原始数据已齐，但未形成最小经营聚合 | `orders/list + detail + fund + logistics` | 否 |
+| 产品结构诊断底座 | 1 | 已形成最小经营诊断层中的产品诊断部分 | `products/list + detail + groups + score` | 否 |
+| 订单经营观察底座 | 1 | 已形成最小经营诊断层中的订单执行诊断部分 | `orders/list + detail + fund + logistics` | 否 |
+| 最小经营诊断报告 | 1 | 已上线正式诊断路由；输出 available_signals / findings / recommendations / blockers | `/integrations/alibaba/wika/reports/operations/minimal-diagnostic` | 否 |
 | 店铺曝光 / 点击 / CTR / 趋势 | 4 | 数据管家权限阻塞 | `alibaba.mydata.overview.indicator.basic.get` | 否 |
 | 产品曝光 / 点击 / CTR / 趋势 | 4 | 数据管家权限阻塞 | `alibaba.mydata.self.product.get` | 否 |
 | 来源结构 / 国家结构 / 热门关键词 | 4 | 数据管家权限阻塞 | `alibaba.mydata.*` | 否 |
