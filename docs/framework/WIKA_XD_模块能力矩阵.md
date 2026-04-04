@@ -14,7 +14,7 @@
 | Inquiries | 当前未识别到可用入口 | 当前未识别到可用入口 | 官方候选存在，但未证明可进入当前生产闭环 | 否 | 否 | 不进入路由开发 |
 | Messages | 当前未识别到可用入口 | 当前未识别到可用入口 | 只识别到翻译/发送类线索，未识别到可用读取入口 | 否 | 否 | 不进入路由开发 |
 | 官方扩展原始路由（P0） | 已完成并已线上验证 | 可进入下一轮最小路由开发候选池 | 官方 `/sync` | 是 | WIKA 是 / XD 否 | WIKA 已上线：`alibaba.icbu.product.score.get`、`alibaba.seller.order.fund.get`、`alibaba.seller.order.logistics.get` |
-| 官方扩展候选 API（P1） | 可进入下一轮最小路由开发候选池 | 可进入下一轮最小路由开发候选池 | 官方 `/sync` | 是 | 已完成生产适配性验证 | 已验证：`alibaba.icbu.product.get`、`alibaba.icbu.product.group.get` |
+| 官方扩展原始路由（P1） | 已完成并已线上验证 | 可进入下一轮最小路由开发候选池 | 官方 `/sync` | 是 | WIKA 是 / XD 否 | WIKA 已上线：`alibaba.icbu.product.get`、`alibaba.icbu.product.group.get` |
 | Reports 导出 | 已完成 | 已完成 | 项目内导出脚本 | 是 | 是 | 基于真实可读模块生成 |
 
 ## 说明
@@ -22,12 +22,13 @@
 - “已完成并已线上验证”只表示对应闸门已经走到“数据接口真实可读”。
 - “已验证真实数据”表示数据本身可信，但来源仍是本地页面态，不能误写成生产无状态模块。
 - `Customers / Inquiries / Messages` 当前都还没有进入路由开发阶段。
-- 本轮新增状态变化有两项：
+- 本轮新增状态变化有三项：
   - `alibaba.icbu.product.score.get`
   - `alibaba.seller.order.fund.get`
   - `alibaba.seller.order.logistics.get`
   已在 `WIKA` 上形成最小正式原始路由，并已完成线上验收。
   - `alibaba.icbu.product.get`
   - `alibaba.icbu.product.group.get`
-  仍停留在“下一轮最小路由开发候选池”。
+  已在 `WIKA` 上形成最小正式原始路由，并已完成线上验收。
 - `XD` 本轮没有新增路由开发；三条 `P0` 接口在 `XD` 侧仍是“已验证候选（未上线路由）”。
+- `XD` 本轮没有新增路由开发；两条 `P1` 接口在 `XD` 侧仍是“已验证候选（未上线路由）”。
