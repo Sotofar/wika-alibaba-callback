@@ -377,3 +377,26 @@
 - 结束 checkpoint：`7838ef6`
 - push：`origin/main` 成功
 
+### 阶段 13：任务 6 的真实 provider 最小真实外发验证
+
+- 起始 checkpoint：`c813d6c`
+- 本阶段目标：
+  - 不再碰 Alibaba 新 API
+  - 只验证当前已预接线的真实 provider 是否具备最小真实外发条件
+  - 若缺配置或缺可控目标，则及时停止
+- 当前真实检查结果：
+  - 当前 shell 环境中的 `WIKA_NOTIFY_*` 均未配置
+  - Railway production 中的 `WIKA_NOTIFY_*` 变量也不存在
+  - 因此当前没有完整 provider 配置
+  - 同时也无法证明存在明显可控、低风险、用于测试的真实 destination
+- 阶段收口：
+  - 本阶段没有做真实 webhook 外发
+  - 本阶段没有做真实 Resend 邮件发送
+  - 当前只能确认：
+    - provider 代码已接好
+    - dry-run 已成立
+    - fallback 已成立
+  - 但当前不能误写成“真实通知已送达”
+- 结束 checkpoint：待本阶段收口提交
+- push：待本阶段收口后执行
+

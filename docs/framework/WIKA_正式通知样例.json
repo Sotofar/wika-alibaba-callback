@@ -1,71 +1,27 @@
 {
-  "stage_name": "阶段 12：任务 6 的真实 provider 预接线与 dry-run 验证",
-  "provider_prewire_result": {
-    "webhook_adapter_ready": true,
-    "resend_adapter_ready": true,
-    "real_external_delivery_proven": false,
-    "note": "当前样例只证明 provider 预接线、dry-run 与 fallback 成立，不代表真实送达已经成功。"
+  "stage_name": "阶段 13：任务 6 的真实 provider 最小真实外发验证",
+  "precondition_check": {
+    "shell_env_has_provider_config": false,
+    "production_has_provider_config": false,
+    "controllable_destination_proven": false,
+    "result": "缺配置 / 缺可控目标，因此不进入真实外发"
   },
-  "scenarios": [
-    {
-      "name": "provider_none",
-      "provider": "none",
-      "delivery_mode": "fallback_outbox",
-      "provider_error_code": "provider_not_configured",
-      "fallback_used": true,
-      "record_path": "./data/alerts/outbox/provider_none_example.json"
-    },
-    {
-      "name": "provider_webhook_incomplete",
-      "provider": "webhook",
-      "delivery_mode": "fallback_outbox",
-      "provider_error_code": "provider_configuration_error",
-      "provider_error": "WIKA_NOTIFY_WEBHOOK_URL missing",
-      "fallback_used": true,
-      "record_path": "./data/alerts/outbox/provider_webhook_incomplete_example.json"
-    },
-    {
-      "name": "provider_webhook_dry_run",
-      "provider": "webhook",
-      "delivery_mode": "dry_run_preview",
-      "dry_run": true,
-      "provider_state": {
-        "configured": true,
-        "timeout_ms": 3500,
-        "auth_mode": "bearer"
-      },
-      "request_preview": {
-        "target": "[configured]",
-        "header_names": [
-          "Authorization",
-          "Content-Type"
-        ]
-      },
-      "record_path": "./data/alerts/dry-run/provider_webhook_dry_run_example.json"
-    },
-    {
-      "name": "provider_resend_dry_run",
-      "provider": "resend",
-      "delivery_mode": "dry_run_preview",
-      "dry_run": true,
-      "provider_state": {
-        "configured": true,
-        "timeout_ms": 4000
-      },
-      "request_preview": {
-        "target": "https://api.resend.com/emails",
-        "email_from": "[configured]",
-        "email_to": "[configured]"
-      },
-      "record_path": "./data/alerts/dry-run/provider_resend_dry_run_example.json"
-    }
-  ],
-  "trigger_to_delivery_chain": {
-    "triggered": true,
-    "generated": true,
-    "provider_selected": true,
-    "distributed_or_persisted": true,
-    "minimal_formal_notification_loop_established": true,
+  "provider_status": {
+    "provider_code_ready": true,
+    "dry_run_proven": true,
+    "fallback_proven": true,
     "real_external_delivery_proven": false
+  },
+  "non_send_reason": {
+    "category": "provider_configuration_missing",
+    "details": [
+      "当前 shell 环境中没有 WIKA_NOTIFY_* 真实配置",
+      "Railway production 中没有 WIKA_NOTIFY_* 变量",
+      "当前无法证明存在明显可控、低风险、用于测试的 webhook 或邮箱目标"
+    ]
+  },
+  "allowed_next_step": {
+    "action": "configure_real_provider_then_send_test",
+    "note": "仅在 production 配置真实 provider 且目标明确可控后，才允许做一次 TEST / DO-NOT-USE 的最小真实外发。"
   }
 }

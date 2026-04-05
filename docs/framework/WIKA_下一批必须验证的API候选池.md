@@ -28,8 +28,8 @@
 
 | 优先级 | API / 能力 | 当前状态 | 当前结论 | 下一步 |
 | --- | --- | --- | --- | --- |
-| T6-P0 | `WIKA_NOTIFY_WEBHOOK_URL` + `WIKA_NOTIFY_WEBHOOK_BEARER_TOKEN` | 非 Alibaba API，但当前最值得优先接通 | 当前 webhook provider 代码路径与 dry-run 已经成立；production 里仍没有真实配置，因此还缺一次真实送达验证 | 仅在拿到正式 webhook 地址与鉴权信息后，做一次最小真实通知测试 |
-| T6-P1 | `WIKA_NOTIFY_RESEND_API_KEY` + `WIKA_NOTIFY_EMAIL_FROM/TO` | 非 Alibaba API，但可复用轻量 HTTP 依赖 | 当前代码已支持 Resend HTTP API 和 dry-run，无需引入新依赖；但 production 里仍没有真实配置 | 仅在拿到正式邮箱配置后，做一次最小真实通知测试 |
+| T6-P0 | `WIKA_NOTIFY_WEBHOOK_URL` + `WIKA_NOTIFY_WEBHOOK_BEARER_TOKEN` | 非 Alibaba API，但当前最值得优先接通 | phase13 已确认当前 shell 与 production 都无真实 webhook 配置；当前只差一次“配置到位且目标可控”的最小真实外发验证 | 仅在拿到正式 webhook 地址与鉴权信息、且目标明确可控后，做一次最小真实通知测试 |
+| T6-P1 | `WIKA_NOTIFY_RESEND_API_KEY` + `WIKA_NOTIFY_EMAIL_FROM/TO` | 非 Alibaba API，但可复用轻量 HTTP 依赖 | 当前代码已支持 Resend HTTP API 和 dry-run，无需引入新依赖；phase13 已确认当前 shell 与 production 都无真实邮箱配置 | 仅在拿到正式邮箱配置且目标明确可控后，做一次最小真实通知测试 |
 
 ## 第二梯队：任务 3（产品上新与详情编写）
 
@@ -80,4 +80,4 @@
 
 ## 当前一句话结论
 
-当前最优先的下一批验证对象仍然是“真实 provider 外发验证”与“写侧可回滚证据”；任务 2 当前已经收口为：总诊断 + 产品子诊断 + 订单子诊断均已成立，不再回头追新诊断 API。
+当前最优先的下一批验证对象仍然是“真实 provider 外发验证”与“写侧可回滚证据”；但 phase13 已经证明在没有真实配置与可控目标前，不应继续围绕通知模块做无效扩展。

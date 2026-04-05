@@ -1,7 +1,7 @@
 # WIKA_项目基线
 
 ## 一句话总基线
-只推进 WIKA；当前主线已形成“真实读侧原始路由 + 最小经营诊断层 + provider-agnostic 正式通知闭环 + 真实 provider 预接线 dry-run”，但仍不具备完整经营驾驶舱、平台内安全写入边界和真实外发送达证明。
+只推进 WIKA；当前主线已形成“真实读侧原始路由 + 最小经营诊断层 + provider-agnostic 正式通知闭环 + 真实 provider 预接线 dry-run + phase13 的真实外发前置条件收口”，但仍不具备完整经营驾驶舱、平台内安全写入边界和真实外发送达证明。
 
 ## 当前已完成阶段
 - 产品 / 订单 / 物流基础读侧原始路由已上线并线上验证
@@ -12,6 +12,7 @@
 - customers/list 权限探针型只读路由已上线并线上验收
 - provider-agnostic 正式通知模块已落地
 - webhook / resend provider 预接线与 dry-run 验证已完成
+- 真实 provider 最小外发前置条件检查已完成，并确认当前缺配置 / 缺可控目标
 - 最小正式通知闭环已成立（当前可 provider dry-run，可 fallback 落盘）
 - 最小经营诊断层已上线并线上验证
 - 产品子诊断路由已上线并线上验证
@@ -99,7 +100,7 @@
 - 把正式通知闭环接到更多真实阻塞触发点
 
 ## 当前唯一推荐下一步
-继续只做“真实 provider 配置后的最小外发验证”，优先 webhook，其次 Resend；在真实 provider 未配置前，不把 dry-run 或 outbox fallback 误写成真实送达。
+继续只做“真实 provider 配置后的最小外发验证”，优先 webhook，其次 Resend；在真实 provider 和可控目标都未配置前，不把 dry-run 或 outbox fallback 误写成真实送达。
 
 ## 当前真实数据结论
 - media 可观测：已成立
@@ -109,12 +110,13 @@
 - customers 家族可走 production 认证闭环：已成立
 - 当前最小正式通知闭环已成立：已成立
 - 当前真实 provider 预接线 dry-run 已成立：已成立
+- 当前真实 provider 最小外发验证前置条件不足：已成立
 - 当前最小经营诊断层、产品子诊断、订单子诊断都已成立：已成立
 - 当前仍不能诊断 UV / PV / 曝光 / 点击 / CTR / 来源 / 国家 / 询盘表现：已成立
 - 当前只能生成外部订单草稿，不能误写成平台内订单已起草成功：已成立
 
 ## 当前待验证判断
-- webhook 或 Resend 在 production 配置完成后，是否能完成低风险真实外发
+- webhook 或 Resend 在 production 配置完成且目标可控后，是否能完成低风险真实外发
 - customers 详情 / note 是否能在拿到真实 id 后返回真实 JSON
 - inquiry / message 是否会出现官方明确的读侧 list/detail 方法
 - media / draft 证据补齐后，是否才可进入最小真实写入验证

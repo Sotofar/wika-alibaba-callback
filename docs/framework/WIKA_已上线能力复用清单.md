@@ -13,7 +13,7 @@
 | 最小错误分型 | 已上线并可直接复用 | 当前统一可区分 `parameter_error / permission_error / gateway_error / platform_api_error` |
 | 写侧安全护栏 | 已沉淀并可直接复用 | 已有阻塞分类、人工接管规则、结构化告警样例、低风险边界判断对象 |
 | 正式通知闭环（provider-agnostic + fallback） | 已上线并可直接复用 | 已有 provider-agnostic notifier；在无 provider、配置不完整或调用失败时，都会把告警安全退回 `data/alerts/outbox`，不会静默丢失 |
-| 真实 provider 预接线与 dry-run | 已沉淀并可直接复用 | `webhook` / `resend` 适配层已落地，已完成 `none / 配置不完整 / dry-run` 三类验证；但不能误写成真实通知已送达 |
+| 真实 provider 预接线与 dry-run | 已沉淀并可直接复用 | `webhook` / `resend` 适配层已落地，已完成 `none / 配置不完整 / dry-run` 三类验证；phase13 又确认当前 shell 与 production 都无真实 provider 配置，因此不能误写成真实通知已送达 |
 
 ## 2. 已上线的正式原始只读路由
 
@@ -82,7 +82,7 @@
 11. 当前没有新增 draft 管理接口，不等于 draft 已经可删除、可审计、可回滚。
 12. `customers/list` 已上线，不等于客户列表已经在当前权限下可稳定读取。
 13. `customers` 家族过了授权层，不等于 inquiry / message / customer 读写闭环已打通。
-14. 当前默认可走 outbox fallback，且代码已支持 webhook / resend dry-run，但这仍不等于真实邮件或 webhook 已经送达用户。
+14. 当前默认可走 outbox fallback，且代码已支持 webhook / resend dry-run；但 phase13 已明确确认当前没有真实 provider 配置，这仍不等于真实邮件或 webhook 已经送达用户。
 15. `orders/draft-types` 已上线，不等于平台订单草稿已可安全创建。
 16. `alibaba.trade.order.create` 已过参数层，不等于存在安全创单边界。
 17. 外部订单草稿 helper 已落地，不等于平台内订单已起草成功。
