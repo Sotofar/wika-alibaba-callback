@@ -23,6 +23,24 @@ function normalizeList(values = []) {
   return [...new Set(values.map((value) => normalizeString(value)).filter(Boolean))];
 }
 
+function normalizeKeywordValues(value) {
+  if (Array.isArray(value)) {
+    return normalizeList(value);
+  }
+
+  if (!value || typeof value !== "object") {
+    return normalizeList(String(value ?? "").split(/[;,]/));
+  }
+
+  if (Array.isArray(value.string)) {
+    return normalizeList(value.string);
+  }
+
+  return Object.values(value)
+    .flatMap((item) => normalizeKeywordValues(item))
+    .slice(0, 12);
+}
+
 function normalizeProductIds(input = {}) {
   if (Array.isArray(input.product_ids)) {
     return normalizeList(input.product_ids);
@@ -47,6 +65,15 @@ function topProblemEntries(problemMap, limit = 5) {
   }
 
   if (typeof problemMap === "string") {
+    const trimmed = problemMap.trim();
+    if (trimmed.startsWith("{") || trimmed.startsWith("[")) {
+      try {
+        return topProblemEntries(JSON.parse(trimmed), limit);
+      } catch {
+        return normalizeList(trimmed.split(/[;,]/)).slice(0, limit);
+      }
+    }
+
     return problemMap
       .split(/[;,]/)
       .map((value) => normalizeString(value))
@@ -62,10 +89,65 @@ function topProblemEntries(problemMap, limit = 5) {
   }
 
   if (typeof problemMap === "object") {
-    return Object.keys(problemMap).filter(Boolean).slice(0, limit);
+    const explicitProblems = [];
+
+    const pushKeysFromMap = (mapValue) => {
+      if (!mapValue || typeof mapValue !== "object") {
+        return;
+      }
+
+      for (const [key, value] of Object.entries(mapValue)) {
+        if (value === true || (typeof value === "number" && value > 0)) {
+          explicitProblems.push(key);
+        }
+      }
+    };
+
+    pushKeysFromMap(problemMap.extendProblemMap);
+    pushKeysFromMap(problemMap.errorReasonMap);
+
+    for (const [key, value] of Object.entries(problemMap)) {
+      if (/^errorReason.+Map$/.test(key) && value && typeof value === "object") {
+        explicitProblems.push(...Object.keys(value).filter(Boolean));
+      }
+    }
+
+    return [...new Set(explicitProblems)].slice(0, limit);
   }
 
   return [];
+}
+
+function extractPrimaryImageUrl(value) {
+  if (!value) {
+    return null;
+  }
+
+  if (typeof value === "string") {
+    return normalizeString(value) || null;
+  }
+
+  if (Array.isArray(value)) {
+    return extractPrimaryImageUrl(value[0]);
+  }
+
+  if (typeof value === "object") {
+    if (Array.isArray(value.string)) {
+      return extractPrimaryImageUrl(value.string[0]);
+    }
+
+    if (Array.isArray(value.images?.string)) {
+      return extractPrimaryImageUrl(value.images.string[0]);
+    }
+
+    if (Array.isArray(value.images)) {
+      return extractPrimaryImageUrl(value.images[0]);
+    }
+
+    return extractPrimaryImageUrl(Object.values(value)[0]);
+  }
+
+  return null;
 }
 
 function detectNeedsMockup(text) {
@@ -139,6 +221,7 @@ function buildProductSupport(productContexts, language) {
       group_id: item.group_id,
       group_name: item.group_name,
       pc_detail_url: item.pc_detail_url,
+      main_image_url: item.main_image_url ?? null,
       description_available: item.description_available,
       keywords: item.keywords,
       gmt_modified: item.gmt_modified,
@@ -406,10 +489,7 @@ async function resolveProductContext(clientConfig, productId) {
     description_available: Boolean(normalizeString(detailResult?.product?.description)),
     keywords: Array.isArray(detailResult?.product?.keywords)
       ? detailResult.product.keywords
-      : normalizeString(detailResult?.product?.keywords)
-          .split(/[;,]/)
-          .map((value) => normalizeString(value))
-          .filter(Boolean),
+      : normalizeKeywordValues(detailResult?.product?.keywords),
     pc_detail_url: detailResult?.product?.pc_detail_url ?? null,
     gmt_modified: detailResult?.product?.gmt_modified ?? listItem?.gmt_modified ?? null,
     final_score:
@@ -420,6 +500,7 @@ async function resolveProductContext(clientConfig, productId) {
           : null,
     boutique_tag: Boolean(scoreResult?.result?.boutique_tag),
     problem_hints: topProblemEntries(scoreResult?.result?.problem_map),
+    main_image_url: extractPrimaryImageUrl(detailResult?.product?.main_image),
     schema_render_summary: renderResult
       ? {
           cat_id: categoryId,

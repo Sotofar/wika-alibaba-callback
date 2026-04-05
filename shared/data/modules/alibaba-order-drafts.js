@@ -14,6 +14,38 @@ function normalizeString(value) {
   return String(value ?? "").trim();
 }
 
+function extractPrimaryImageUrl(value) {
+  if (!value) {
+    return null;
+  }
+
+  if (typeof value === "string") {
+    return normalizeString(value) || null;
+  }
+
+  if (Array.isArray(value)) {
+    return extractPrimaryImageUrl(value[0]);
+  }
+
+  if (typeof value === "object") {
+    if (Array.isArray(value.string)) {
+      return extractPrimaryImageUrl(value.string[0]);
+    }
+
+    if (Array.isArray(value.images?.string)) {
+      return extractPrimaryImageUrl(value.images.string[0]);
+    }
+
+    if (Array.isArray(value.images)) {
+      return extractPrimaryImageUrl(value.images[0]);
+    }
+
+    return extractPrimaryImageUrl(Object.values(value)[0]);
+  }
+
+  return null;
+}
+
 function normalizeList(values = []) {
   if (!Array.isArray(values)) {
     return [];
@@ -200,7 +232,7 @@ async function hydrateLineItems(clientConfig, lineItems = []) {
           null,
         image_url:
           normalizeString(item?.image_url) ||
-          normalizeString(detailResult?.product?.main_image) ||
+          extractPrimaryImageUrl(detailResult?.product?.main_image) ||
           null
       });
     } catch {
