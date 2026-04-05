@@ -4,45 +4,29 @@
 
 ## 一句话结论
 
-`WIKA` 当前已经形成**最小正式通知闭环**：
+`WIKA` 当前已经形成：
 
-- 触发阻塞
-- 生成结构化告警
-- 尝试分发
-- 若无 provider，则可审计落盘到 outbox
+- provider-agnostic notifier
+- webhook / Resend 预接线
+- outbox fallback
+- dry-run 审计路径
 
-当前 production 尚未配置真实邮件或 webhook provider，因此默认走：
+因此当前准确状态应描述为：
 
-- `data/alerts/outbox`
+- **真实 provider 已接好到代码结构层**
+- **真实通知送达仍未被证明**
 
-这代表：
+## 当前责任边界
 
-- **最小正式通知闭环已成立**
-- 但**真实外发通知还没有接通**
+### 1. alert 标准化
 
-## 闭环结构
-
-### 1. 触发层
-
-本轮对接的阻塞类型包括：
-
-1. 权限阻塞
-2. 无官方明确入口
-3. 写侧边界不足
-4. 写操作需要人工确认
-5. 参数 / 样本 id 缺失
-
-这些阻塞都可以生成统一结构的告警对象。
-
-### 2. 结构化告警层
-
-统一告警对象由：
+由：
 
 - `shared/data/modules/wika-alerts.js`
 
-负责生成。
+负责。
 
-告警对象至少包含：
+统一输出：
 
 - `stage_name`
 - `blocker_category`
@@ -56,116 +40,145 @@
 - `allow_human_handoff`
 - `human_handoff`
 
-### 3. 通知动作层
+### 2. provider 选择与 fallback
 
-通知动作由：
+由：
 
 - `shared/data/modules/wika-notifier.js`
 
-负责执行。
+负责。
 
-当前支持 3 种模式：
+当前支持：
 
-1. `webhook`
-2. `resend`
-3. `outbox`
+- `none`
+- `webhook`
+- `resend`
 
-优先级：
+配置来源：
 
-1. 若 `WIKA_NOTIFY_PROVIDER=webhook`，并配置 `WIKA_NOTIFY_WEBHOOK_URL`，则走 webhook
-2. 若 `WIKA_NOTIFY_PROVIDER=resend`，并配置：
-   - `WIKA_NOTIFY_RESEND_API_KEY`
-   - `WIKA_NOTIFY_EMAIL_FROM`
-   - `WIKA_NOTIFY_EMAIL_TO`
-   则走 resend
-3. 若都没有，则默认走 `outbox`
+- `WIKA_NOTIFY_PROVIDER`
+- 以及对应 provider 的环境变量
 
-### 4. fallback 层
+当前行为：
 
-无论 provider 不可用还是未配置，都不会吞掉告警。
+1. `provider=none`
+   - 直接走 `outbox fallback`
+2. `provider` 已选择但配置不完整
+   - 记录 `provider_configuration_error`
+   - 仍然走 `outbox fallback`
+3. `provider` 已配置且 `dry_run=true`
+   - 不真实外发
+   - 写入 `data/alerts/dry-run`
+4. `provider` 已配置且真实发送失败
+   - 失败记录写入 `data/alerts/failed`
+   - 同时退回 `data/alerts/outbox`
 
-系统会把结构化结果写入：
+### 3. provider 适配层
+
+当前 provider 适配层已经拆开：
+
+- `shared/data/modules/wika-notifier-webhook.js`
+- `shared/data/modules/wika-notifier-resend.js`
+
+职责是：
+
+- provider 配置校验
+- provider 请求预览
+- provider dry-run 输出
+- provider 真实发送
+
+## 当前目录结构
+
+通知相关审计路径：
 
 - `data/alerts/outbox`
-
-如果后续真实 provider 接通并发送成功，则会写入：
-
 - `data/alerts/delivered`
+- `data/alerts/failed`
+- `data/alerts/dry-run`
 
-## 本轮验证结果
+它们的含义分别是：
 
-本轮使用脚本：
+- `outbox`
+  - 没有 provider
+  - provider 配置不完整
+  - provider 发送失败后的 fallback
+- `delivered`
+  - 真实 provider 调用成功
+- `failed`
+  - 真实 provider 调用失败
+- `dry-run`
+  - 只做预接线与 payload 预览，不做真实外发
 
-- `scripts/validate-wika-notification-phase8.js`
+## 本轮 dry-run 验证结果
 
-模拟了至少 2 个真实阻塞场景：
+验证脚本：
 
-1. 权限阻塞
-   - `alibaba.mydata.overview.indicator.basic.get`
-2. 无官方明确入口
-   - `inquiries / messages`
+- `scripts/validate-wika-notification-phase12.js`
 
-并额外生成了一个“写侧边界不足”样例：
+本轮至少覆盖了 3 类场景：
 
-- `alibaba.icbu.product.add.draft`
+1. `provider=none`
+   - 成功走到 `outbox fallback`
+2. `provider=webhook` 但配置不完整
+   - 明确返回 `provider_configuration_error`
+   - 同时仍然落到 `outbox fallback`
+3. `provider=webhook` 且配置完整，但 `dry_run=true`
+   - 成功输出 dry-run 结果
+   - 未真实外发
+   - 记录写入 `dry-run`
 
-本轮真实结果：
+本轮还额外验证了：
 
-- provider 检测结果：`outbox`
-- production 变量名中没有通知 provider 痕迹
-- 两个真实阻塞场景都成功生成结构化告警
-- 两个告警都成功落盘到 outbox
-
-## 当前样例路径
-
-运行脚本后，当前可审计 outbox 产物位于：
-
-- `data/alerts/outbox/*.json`
-
-结构化样例文档位于：
-
-- `docs/framework/WIKA_正式通知样例.json`
+4. `provider=resend` 且配置完整，但 `dry_run=true`
+   - 成功输出 dry-run 结果
+   - 未真实外发
+   - 记录写入 `dry-run`
 
 ## 这轮能证明什么
 
 当前已经能证明：
 
-1. 阻塞可以被标准化分类
-2. 阻塞可以被转成统一告警对象
-3. 告警对象可以被通知模块处理
-4. 在没有 provider 的情况下，告警不会消失，而是会被可审计落盘
+1. notifier 结构已经支持真实 provider
+2. provider 选择可以配置驱动
+3. provider 配置错误可以被明确分类
+4. payload 组装可以在 dry-run 下被审计
+5. provider 不可用时 fallback 不会丢失告警
+6. provider 失败路径具备可审计记录
 
 ## 这轮还不能证明什么
 
 当前还不能证明：
 
-1. 真实邮件已经发出
-2. 真实 webhook 已经送达外部系统
-3. 用户已经在外部渠道收到通知
+1. 真实 webhook 已经送达外部系统
+2. 真实 Resend 邮件已经送达用户邮箱
+3. 真实 provider 在 production 环境中已经完成配置
 
-因此当前准确状态应描述为：
+因此当前不允许写成：
+
+- “真实通知已送达”
+- “邮件已成功发出”
+- “webhook 已成功推送到外部系统”
+
+## 当前最小正式通知闭环定义
+
+当前可成立的最小闭环是：
+
+- 触发
+- 生成结构化 alert
+- provider 选择
+- 分发或可审计落盘
+
+所以当前准确结论是：
 
 - **最小正式通知闭环已成立**
-- **当前默认走 outbox fallback**
-- **真实外发通知仍待 provider 配置**
+- **真实 provider 外发仍待 production 配置与真实送达验证**
 
-## 当前推荐配置方式
+## 当前推荐下一步
 
-如果后续要把 fallback 升级成真实外发，优先顺序建议为：
+如果后续继续任务 6，唯一推荐动作是：
 
-1. 配置一个低风险 webhook
-2. 或配置 Resend 邮件
+- 在 Railway production 配置一个用户可控的真实 provider
+  - 优先 `webhook`
+  - 其次 `Resend`
 
-不建议当前为了通知能力引入：
-
-- 重 SMTP 依赖
-- 复杂消息总线
-- 额外数据库
-
-## 当前一句话收口
-
-当前项目已经不再停留在“只有 json 样例”的状态，而是具备：
-
-**触发 -> 生成 -> 分发或可审计落盘**
-
-的正式通知闭环；只是当前默认分发路径是 `outbox fallback`，不是外部邮件或 webhook。
+然后只做一次最小、显式标注 `TEST / DO-NOT-USE` 的真实送达验证。

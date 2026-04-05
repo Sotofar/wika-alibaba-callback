@@ -7,7 +7,7 @@
 ## 排序原则
 
 1. 任务 2 的总诊断层与 products/orders 子诊断都已经成立，不再为诊断层去追新 API
-2. 先补任务 6：把当前 outbox fallback 升级成真实外发 provider
+2. 先补任务 6：在真实 provider 已预接线的前提下，补一次低风险真实外发验证
 3. 再补任务 3：只继续验证“可隔离、可清理、可回滚”的剩余写侧证据
 4. 再补任务 4：只继续验证官方明确存在的 customers / inquiries / messages 读侧入口
 5. 任务 5 当前已完成正式入口边界摸底；在出现新的官方低风险候选前，不再继续深挖 `order.create`
@@ -28,8 +28,8 @@
 
 | 优先级 | API / 能力 | 当前状态 | 当前结论 | 下一步 |
 | --- | --- | --- | --- | --- |
-| T6-P0 | `WIKA_NOTIFY_WEBHOOK_URL` | 非 Alibaba API，但当前最值得优先接通 | 当前最小正式通知闭环已经成立，但 production 变量名里没有现成通知 provider 痕迹；优先推荐用低风险 webhook 把 outbox fallback 升级成真实外发 | 仅在拿到正式 webhook 地址与鉴权信息后，做一次最小真实通知测试 |
-| T6-P1 | `WIKA_NOTIFY_RESEND_API_KEY` + `WIKA_NOTIFY_EMAIL_FROM/TO` | 非 Alibaba API，但可复用轻量 HTTP 依赖 | 当前代码已支持 Resend HTTP API，无需引入新依赖；但 production 变量名里没有现成配置 | 仅在拿到正式邮箱配置后，做一次最小真实通知测试 |
+| T6-P0 | `WIKA_NOTIFY_WEBHOOK_URL` + `WIKA_NOTIFY_WEBHOOK_BEARER_TOKEN` | 非 Alibaba API，但当前最值得优先接通 | 当前 webhook provider 代码路径与 dry-run 已经成立；production 里仍没有真实配置，因此还缺一次真实送达验证 | 仅在拿到正式 webhook 地址与鉴权信息后，做一次最小真实通知测试 |
+| T6-P1 | `WIKA_NOTIFY_RESEND_API_KEY` + `WIKA_NOTIFY_EMAIL_FROM/TO` | 非 Alibaba API，但可复用轻量 HTTP 依赖 | 当前代码已支持 Resend HTTP API 和 dry-run，无需引入新依赖；但 production 里仍没有真实配置 | 仅在拿到正式邮箱配置后，做一次最小真实通知测试 |
 
 ## 第二梯队：任务 3（产品上新与详情编写）
 
@@ -80,4 +80,4 @@
 
 ## 当前一句话结论
 
-当前最优先的下一批验证对象仍然是“真实外发通知 provider”与“写侧可回滚证据”；任务 2 当前已经收口为：总诊断 + 产品子诊断 + 订单子诊断均已成立，不再回头追新诊断 API。
+当前最优先的下一批验证对象仍然是“真实 provider 外发验证”与“写侧可回滚证据”；任务 2 当前已经收口为：总诊断 + 产品子诊断 + 订单子诊断均已成立，不再回头追新诊断 API。

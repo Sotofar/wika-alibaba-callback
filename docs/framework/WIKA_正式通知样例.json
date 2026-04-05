@@ -1,52 +1,69 @@
 {
-  "stage_name": "阶段 8：任务 6 的正式通知闭环",
-  "provider_audit": {
-    "provider_mode": "outbox",
-    "production_variable_names_detected": [],
-    "conclusion": "当前无正式通知依赖，需先落地 provider-agnostic 通知模块 + fallback。"
+  "stage_name": "阶段 12：任务 6 的真实 provider 预接线与 dry-run 验证",
+  "provider_prewire_result": {
+    "webhook_adapter_ready": true,
+    "resend_adapter_ready": true,
+    "real_external_delivery_proven": false,
+    "note": "当前样例只证明 provider 预接线、dry-run 与 fallback 成立，不代表真实送达已经成功。"
   },
-  "alerts_tested": [
+  "scenarios": [
     {
-      "blocker_category": "permission_blocked",
-      "related_apis": [
-        "alibaba.mydata.overview.indicator.basic.get"
-      ],
-      "current_evidence": [
-        "production 实测返回 InsufficientPermission",
-        "当前 mydata / overview 路线已收口为权限 / 能力阻塞"
-      ],
+      "name": "provider_none",
+      "provider": "none",
       "delivery_mode": "fallback_outbox",
-      "record_path": "./data/alerts/outbox/permission_blocked_example.json"
+      "provider_error_code": "provider_not_configured",
+      "fallback_used": true,
+      "record_path": "./data/alerts/outbox/provider_none_example.json"
     },
     {
-      "blocker_category": "platform_no_entry",
-      "related_apis": [
-        "inquiries",
-        "messages"
-      ],
-      "current_evidence": [
-        "当前官方文档未识别到明确的 inquiry/message list/detail 读侧方法名",
-        "send / reply / write / create 家族已明确排除"
-      ],
+      "name": "provider_webhook_incomplete",
+      "provider": "webhook",
       "delivery_mode": "fallback_outbox",
-      "record_path": "./data/alerts/outbox/platform_no_entry_example.json"
+      "provider_error_code": "provider_configuration_error",
+      "provider_error": "WIKA_NOTIFY_WEBHOOK_URL missing",
+      "fallback_used": true,
+      "record_path": "./data/alerts/outbox/provider_webhook_incomplete_example.json"
+    },
+    {
+      "name": "provider_webhook_dry_run",
+      "provider": "webhook",
+      "delivery_mode": "dry_run_preview",
+      "dry_run": true,
+      "provider_state": {
+        "configured": true,
+        "timeout_ms": 3500,
+        "auth_mode": "bearer"
+      },
+      "request_preview": {
+        "target": "[configured]",
+        "header_names": [
+          "Authorization",
+          "Content-Type"
+        ]
+      },
+      "record_path": "./data/alerts/dry-run/provider_webhook_dry_run_example.json"
+    },
+    {
+      "name": "provider_resend_dry_run",
+      "provider": "resend",
+      "delivery_mode": "dry_run_preview",
+      "dry_run": true,
+      "provider_state": {
+        "configured": true,
+        "timeout_ms": 4000
+      },
+      "request_preview": {
+        "target": "https://api.resend.com/emails",
+        "email_from": "[configured]",
+        "email_to": "[configured]"
+      },
+      "record_path": "./data/alerts/dry-run/provider_resend_dry_run_example.json"
     }
   ],
-  "write_boundary_sample": {
-    "blocker_category": "high_risk_irreversible",
-    "related_apis": [
-      "alibaba.icbu.product.add.draft"
-    ],
-    "current_evidence": [
-      "add.draft 已过授权层",
-      "当前仍无法证明其为非发布、可清理、可回滚的安全草稿模式"
-    ],
-    "delivery_mode": "sample_only",
-    "note": "本轮只保留样例，不触发新的真实写侧验证。"
-  },
-  "closure_result": {
+  "trigger_to_delivery_chain": {
     "triggered": true,
     "generated": true,
+    "provider_selected": true,
     "distributed_or_persisted": true,
     "minimal_formal_notification_loop_established": true,
     "real_external_delivery_proven": false

@@ -105,7 +105,8 @@
 | 人工接管规则 | 7 | 已有规则文档 | `docs/framework/WIKA_人工接管规则.md` | 否 |
 | 结构化待处理 / 告警产物 | 7 | 已有样例产物 | `docs/framework/WIKA_人工接管告警样例.json` | 否 |
 | 正式通知闭环（provider-agnostic + fallback） | 7 | 已实现 notifier；当前可完成“触发 -> 生成 -> 可审计落盘” | `shared/data/modules/wika-alerts.js` + `shared/data/modules/wika-notifier.js` | 是（最小闭环） |
-| 邮件 / webhook 真实外发 | 7 | 当前没有现成 provider 配置；默认走 outbox fallback | 待后续配置 `WIKA_NOTIFY_*` | 否 |
+| 真实 provider 预接线与 dry-run | 7 | 已实现 `webhook` 与 `resend` 适配层，并完成 `none / 配置不完整 / dry-run` 三类验证；当前仍未证明真实外发送达 | `shared/data/modules/wika-notifier-webhook.js` + `shared/data/modules/wika-notifier-resend.js` | 否 |
+| 邮件 / webhook 真实外发 | 7 | 当前没有 production provider 配置；真实送达仍待后续配置 `WIKA_NOTIFY_*` 后验证 | 待后续配置 `WIKA_NOTIFY_*` | 否 |
 
 ## 当前收口结论
 

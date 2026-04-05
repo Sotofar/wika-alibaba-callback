@@ -4,59 +4,62 @@
 
 ## 盘点范围
 
-本轮只盘点 `WIKA` 当前仓库、`.env.example`、本地环境痕迹，以及 Railway production 变量名里是否已经存在可复用的正式通知链路。
+本轮只盘点 `WIKA` 当前仓库、`.env.example`、通知模块代码以及 Railway production 变量名里是否已有可复用的正式通知链路。
 
 ## 盘点结果
 
 ### 1. 仓库依赖与代码
 
-- `package.json` 当前只有：
+- `package.json` 当前仍只有：
   - `express`
-- 仓库里没有现成的：
-  - SMTP 发送模块
+- 仓库里仍然没有现成的重型通知依赖：
   - `nodemailer`
   - `sendgrid`
   - `mailgun`
-  - `resend`
-  - Slack / Telegram / 飞书 / 企业微信 / webhook 通知模块
-- 当前仓库里与通知最接近的已有资产是：
-  - `shared/data/modules/alibaba-write-guardrails.js`
-  - `docs/framework/WIKA_人工接管规则.md`
-  - `docs/framework/WIKA_人工接管告警样例.json`
+  - Slack / Telegram / 飞书 / 企业微信 SDK
+- 当前已经落地的轻量通知资产包括：
+  - `shared/data/modules/wika-alerts.js`
+  - `shared/data/modules/wika-notifier.js`
+  - `shared/data/modules/wika-notifier-webhook.js`
+  - `shared/data/modules/wika-notifier-resend.js`
 
 结论：
 
-- 当前仓库**没有现成可复用的正式通知链路**
-- 但已经有可复用的阻塞分类、人工接管规则和结构化告警对象基础
+- 当前仓库**没有现成可复用的正式通知 provider 配置**
+- 但当前仓库**已经具备可复用的轻量通知适配层**
 
 ### 2. 配置与环境变量约定
 
-#### 现有 `.env.example`
+当前 `.env.example` 已明确通知相关配置约定：
 
-盘点前：
-
-- 没有任何通知 provider 配置约定
-
-本轮新增了最小通知配置约定：
-
-- `WIKA_NOTIFY_PROVIDER`
+- `WIKA_NOTIFY_PROVIDER=none|webhook|resend`
+- `WIKA_NOTIFY_DRY_RUN`
+- `WIKA_NOTIFY_ALERTS_ROOT`
 - `WIKA_NOTIFY_WEBHOOK_URL`
 - `WIKA_NOTIFY_WEBHOOK_BEARER_TOKEN`
+- `WIKA_NOTIFY_WEBHOOK_TIMEOUT_MS`
 - `WIKA_NOTIFY_RESEND_API_KEY`
+- `WIKA_NOTIFY_RESEND_TIMEOUT_MS`
 - `WIKA_NOTIFY_EMAIL_FROM`
 - `WIKA_NOTIFY_EMAIL_TO`
 
-这些变量都是**可选项**。
+这些变量都仍是**可选项**。
 
-如果都未配置，系统默认走：
+若 provider 未配置、配置不完整或调用失败，系统会退回：
 
-- `./data/alerts/outbox`
+- `data/alerts/outbox`
 
-作为可审计 fallback。
+若 provider 进入 dry-run，则会写入：
+
+- `data/alerts/dry-run`
+
+若 provider 真正调用失败，则还会保留：
+
+- `data/alerts/failed`
 
 ### 3. Railway production 变量名盘点
 
-本轮通过已有 Railway GraphQL token 只读取了**变量名**，没有输出任何敏感值。
+本轮继续只读取 **变量名**，不输出任何敏感值。
 
 按以下关键词筛查：
 
@@ -76,37 +79,49 @@
 
 结果：
 
-- 当前 production 变量名匹配结果为空
+- 当前 production 变量名匹配结果仍为空
 
-这说明当前 production 环境里**没有现成的通知 provider 配置痕迹**。
+这说明当前 production 环境里：
+
+- **还没有现成的正式通知 provider 配置痕迹**
 
 ## 盘点结论
 
 当前结论必须收口为：
 
-**当前无正式通知依赖，需先落地 provider-agnostic 通知模块 + fallback。**
+**没有正式通知链路，但可复用现有轻量依赖。**
 
 ## 为什么选这个结论
 
-1. 仓库里没有现成 mail/webhook 依赖
-2. `.env.example` 之前没有通知配置约定
-3. Railway production 变量名里没有通知 provider 痕迹
-4. 当前项目已经有足够的阻塞分类与结构化告警基础，适合先补一个轻量、可扩展、可退化的通知层
+1. production 环境里仍没有现成 provider 配置
+2. 仓库仍没有重型通知依赖
+3. 当前已经有：
+   - provider-agnostic notifier
+   - webhook adapter
+   - resend adapter
+   - outbox / failed / dry-run 审计落盘
+4. 因此当前最合理状态不是“尚无通知基础”，而是：
+   - **真实 provider 还没配**
+   - **但预接线已经做好**
 
-## 本轮落地策略
+## 当前可复用通知链路
 
-本轮因此采用：
+当前 notifier 责任边界已经清晰：
 
-- provider-agnostic notifier
-- 可选 provider：
-  - `webhook`
-  - `resend`
-- 默认 fallback：
-  - `data/alerts/outbox`
+1. `wika-alerts.js`
+   - 负责 alert 标准化
+2. `wika-notifier.js`
+   - 负责 provider 选择
+   - 负责配置检查
+   - 负责 fallback 落盘
+3. `wika-notifier-webhook.js`
+   - 负责 webhook 请求预览与发送
+4. `wika-notifier-resend.js`
+   - 负责 Resend 请求预览与发送
 
-## 当前不做的事
+## 当前仍不做的事
 
-- 不新引入沉重依赖
-- 不强行接 SMTP
-- 不因为没有正式 provider 就让告警消失
-- 不把 outbox fallback 误写成“真实邮件已发出”
+- 不把 provider 代码已接好写成“真实通知已送达”
+- 不因为有 dry-run 就伪造外发成功
+- 不引入 SMTP 或其他沉重依赖
+- 不因为 provider 暂未配置就让告警消失

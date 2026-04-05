@@ -2,8 +2,34 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import crypto from "node:crypto";
 
+import {
+  buildWikaWebhookRequest,
+  dispatchWikaWebhook,
+  getWikaWebhookProviderState
+} from "./wika-notifier-webhook.js";
+import {
+  buildWikaResendRequest,
+  dispatchWikaResend,
+  getWikaResendProviderState
+} from "./wika-notifier-resend.js";
+
 function ensureString(value) {
   return String(value ?? "").trim();
+}
+
+function parseBoolean(value) {
+  const normalized = ensureString(value).toLowerCase();
+  return ["1", "true", "yes", "on"].includes(normalized);
+}
+
+function parseProvider(value) {
+  const normalized = ensureString(value).toLowerCase();
+
+  if (["webhook", "resend", "none", "outbox"].includes(normalized)) {
+    return normalized === "outbox" ? "none" : normalized;
+  }
+
+  return "";
 }
 
 function slugify(value) {
@@ -18,19 +44,11 @@ function getIsoStamp(date = new Date()) {
   return date.toISOString().replace(/[:.]/g, "-");
 }
 
-function getNotifierProvider(env = process.env) {
-  const forced = ensureString(env.WIKA_NOTIFY_PROVIDER).toLowerCase();
+function getProviderFromEnv(env = process.env) {
+  const forced = parseProvider(env.WIKA_NOTIFY_PROVIDER);
 
-  if (forced === "webhook") {
-    return "webhook";
-  }
-
-  if (forced === "resend") {
-    return "resend";
-  }
-
-  if (forced === "outbox") {
-    return "outbox";
+  if (forced) {
+    return forced;
   }
 
   if (ensureString(env.WIKA_NOTIFY_WEBHOOK_URL)) {
@@ -45,27 +63,7 @@ function getNotifierProvider(env = process.env) {
     return "resend";
   }
 
-  return "outbox";
-}
-
-export function getWikaNotifierConfig(env = process.env, cwd = process.cwd()) {
-  const provider = getNotifierProvider(env);
-  const alertsRoot =
-    ensureString(env.WIKA_NOTIFY_ALERTS_ROOT) ||
-    path.resolve(cwd, "data", "alerts");
-
-  return {
-    provider,
-    alerts_root: alertsRoot,
-    outbox_dir: path.join(alertsRoot, "outbox"),
-    delivered_dir: path.join(alertsRoot, "delivered"),
-    failed_dir: path.join(alertsRoot, "failed"),
-    resend_api_key: ensureString(env.WIKA_NOTIFY_RESEND_API_KEY || env.RESEND_API_KEY),
-    email_from: ensureString(env.WIKA_NOTIFY_EMAIL_FROM),
-    email_to: ensureString(env.WIKA_NOTIFY_EMAIL_TO),
-    webhook_url: ensureString(env.WIKA_NOTIFY_WEBHOOK_URL),
-    webhook_bearer_token: ensureString(env.WIKA_NOTIFY_WEBHOOK_BEARER_TOKEN)
-  };
+  return "none";
 }
 
 function buildSubject(alert) {
@@ -106,146 +104,67 @@ async function writeAlertRecord(targetDir, payload) {
   return filePath;
 }
 
-async function sendViaWebhook(alert, config) {
-  const headers = {
-    "Content-Type": "application/json"
-  };
-
-  if (config.webhook_bearer_token) {
-    headers.Authorization = `Bearer ${config.webhook_bearer_token}`;
+function buildProviderState(config) {
+  if (config.provider === "webhook") {
+    return getWikaWebhookProviderState(config);
   }
 
-  const response = await fetch(config.webhook_url, {
-    method: "POST",
-    headers,
-    body: JSON.stringify(alert)
-  });
-
-  const text = await response.text();
-  if (!response.ok) {
-    throw new Error(`Webhook delivery failed (${response.status}): ${text || "empty body"}`);
+  if (config.provider === "resend") {
+    return getWikaResendProviderState(config);
   }
 
   return {
-    provider: "webhook",
-    status: response.status,
-    response_text: text
+    provider: "none",
+    configured: false,
+    config_errors: ["No formal notification provider configured."]
   };
 }
 
-async function sendViaResend(alert, config) {
-  const response = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${config.resend_api_key}`
-    },
-    body: JSON.stringify({
-      from: config.email_from,
-      to: [config.email_to],
-      subject: buildSubject(alert),
-      text: buildTextBody(alert)
-    })
-  });
-
-  const text = await response.text();
-  if (!response.ok) {
-    throw new Error(`Resend delivery failed (${response.status}): ${text || "empty body"}`);
+function buildProviderRequest(alert, config, preview) {
+  if (config.provider === "webhook") {
+    return buildWikaWebhookRequest(alert, config);
   }
 
-  return {
-    provider: "resend",
-    status: response.status,
-    response_text: text
-  };
+  if (config.provider === "resend") {
+    return buildWikaResendRequest(preview, config);
+  }
+
+  return null;
 }
 
-export async function notifyWikaAlert(alert, options = {}) {
-  const env = options.env ?? process.env;
-  const cwd = options.cwd ?? process.cwd();
-  const config = getWikaNotifierConfig(env, cwd);
-  const provider = config.provider;
-  const notificationId = crypto.randomUUID();
-  const basePayload = {
-    notification_id: notificationId,
-    delivered_at: new Date().toISOString(),
+async function dispatchProvider(request, config, options = {}) {
+  if (config.provider === "webhook") {
+    return dispatchWikaWebhook(request, options);
+  }
+
+  if (config.provider === "resend") {
+    return dispatchWikaResend(request, options);
+  }
+
+  throw new Error(`Unsupported provider: ${config.provider}`);
+}
+
+export function getWikaNotifierConfig(env = process.env, cwd = process.cwd()) {
+  const provider = getProviderFromEnv(env);
+  const alertsRoot =
+    ensureString(env.WIKA_NOTIFY_ALERTS_ROOT) ||
+    path.resolve(cwd, "data", "alerts");
+
+  return {
     provider,
-    alert
-  };
-
-  if (provider === "webhook") {
-    try {
-      const delivery = await sendViaWebhook(alert, config);
-      const recordPath = await writeAlertRecord(config.delivered_dir, {
-        ...basePayload,
-        delivery_mode: "provider",
-        delivery
-      });
-
-      return {
-        ok: true,
-        provider,
-        fallback_used: false,
-        record_path: recordPath
-      };
-    } catch (error) {
-      const recordPath = await writeAlertRecord(config.outbox_dir, {
-        ...basePayload,
-        delivery_mode: "fallback_outbox",
-        provider_error: error instanceof Error ? error.message : String(error)
-      });
-
-      return {
-        ok: true,
-        provider,
-        fallback_used: true,
-        record_path: recordPath
-      };
-    }
-  }
-
-  if (provider === "resend") {
-    try {
-      const delivery = await sendViaResend(alert, config);
-      const recordPath = await writeAlertRecord(config.delivered_dir, {
-        ...basePayload,
-        delivery_mode: "provider",
-        delivery
-      });
-
-      return {
-        ok: true,
-        provider,
-        fallback_used: false,
-        record_path: recordPath
-      };
-    } catch (error) {
-      const recordPath = await writeAlertRecord(config.outbox_dir, {
-        ...basePayload,
-        delivery_mode: "fallback_outbox",
-        provider_error: error instanceof Error ? error.message : String(error)
-      });
-
-      return {
-        ok: true,
-        provider,
-        fallback_used: true,
-        record_path: recordPath
-      };
-    }
-  }
-
-  const recordPath = await writeAlertRecord(config.outbox_dir, {
-    ...basePayload,
-    delivery_mode: "fallback_outbox",
-    provider_error: "No formal notification provider configured."
-  });
-
-  return {
-    ok: true,
-    provider: "outbox",
-    fallback_used: true,
-    record_path: recordPath
+    alerts_root: alertsRoot,
+    outbox_dir: path.join(alertsRoot, "outbox"),
+    delivered_dir: path.join(alertsRoot, "delivered"),
+    failed_dir: path.join(alertsRoot, "failed"),
+    dry_run_dir: path.join(alertsRoot, "dry-run"),
+    dry_run: parseBoolean(env.WIKA_NOTIFY_DRY_RUN),
+    resend_api_key: ensureString(env.WIKA_NOTIFY_RESEND_API_KEY || env.RESEND_API_KEY),
+    resend_timeout_ms: ensureString(env.WIKA_NOTIFY_RESEND_TIMEOUT_MS),
+    email_from: ensureString(env.WIKA_NOTIFY_EMAIL_FROM),
+    email_to: ensureString(env.WIKA_NOTIFY_EMAIL_TO),
+    webhook_url: ensureString(env.WIKA_NOTIFY_WEBHOOK_URL),
+    webhook_bearer_token: ensureString(env.WIKA_NOTIFY_WEBHOOK_BEARER_TOKEN),
+    webhook_timeout_ms: ensureString(env.WIKA_NOTIFY_WEBHOOK_TIMEOUT_MS)
   };
 }
 
@@ -254,4 +173,118 @@ export function buildWikaNotificationPreview(alert) {
     subject: buildSubject(alert),
     text: buildTextBody(alert)
   };
+}
+
+export function getWikaNotifierRuntime(env = process.env, cwd = process.cwd()) {
+  const config = getWikaNotifierConfig(env, cwd);
+  const providerState = buildProviderState(config);
+
+  return {
+    config: {
+      provider: config.provider,
+      alerts_root: config.alerts_root,
+      dry_run: config.dry_run
+    },
+    provider_state: providerState
+  };
+}
+
+export async function notifyWikaAlert(alert, options = {}) {
+  const env = options.env ?? process.env;
+  const cwd = options.cwd ?? process.cwd();
+  const config = getWikaNotifierConfig(env, cwd);
+  const providerState = buildProviderState(config);
+  const preview = buildWikaNotificationPreview(alert);
+  const dryRun = typeof options.dryRun === "boolean" ? options.dryRun : config.dry_run;
+  const notificationId = crypto.randomUUID();
+  const basePayload = {
+    notification_id: notificationId,
+    processed_at: new Date().toISOString(),
+    provider: config.provider,
+    dry_run: dryRun,
+    provider_state: providerState,
+    preview,
+    alert
+  };
+
+  if (config.provider === "none") {
+    const recordPath = await writeAlertRecord(config.outbox_dir, {
+      ...basePayload,
+      delivery_mode: "fallback_outbox",
+      provider_error_code: "provider_not_configured",
+      provider_error: "No formal notification provider configured."
+    });
+
+    return {
+      ok: true,
+      provider: "none",
+      dry_run: dryRun,
+      fallback_used: true,
+      record_path: recordPath,
+      provider_error_code: "provider_not_configured"
+    };
+  }
+
+  if (!providerState.configured) {
+    const recordPath = await writeAlertRecord(config.outbox_dir, {
+      ...basePayload,
+      delivery_mode: "fallback_outbox",
+      provider_error_code: "provider_configuration_error",
+      provider_error: providerState.config_errors.join("; ")
+    });
+
+    return {
+      ok: true,
+      provider: config.provider,
+      dry_run: dryRun,
+      fallback_used: true,
+      record_path: recordPath,
+      provider_error_code: "provider_configuration_error"
+    };
+  }
+
+  const request = buildProviderRequest(alert, config, preview);
+
+  try {
+    const delivery = await dispatchProvider(request, config, { dryRun });
+    const targetDir = dryRun ? config.dry_run_dir : config.delivered_dir;
+    const deliveryMode = dryRun ? "dry_run_preview" : "provider";
+    const recordPath = await writeAlertRecord(targetDir, {
+      ...basePayload,
+      delivery_mode: deliveryMode,
+      delivery
+    });
+
+    return {
+      ok: true,
+      provider: config.provider,
+      dry_run: dryRun,
+      fallback_used: false,
+      record_path: recordPath
+    };
+  } catch (error) {
+    const providerError = error instanceof Error ? error.message : String(error);
+    const failedRecordPath = await writeAlertRecord(config.failed_dir, {
+      ...basePayload,
+      delivery_mode: "provider_failed",
+      provider_error_code: "provider_delivery_error",
+      provider_error: providerError
+    });
+    const recordPath = await writeAlertRecord(config.outbox_dir, {
+      ...basePayload,
+      delivery_mode: "fallback_outbox",
+      provider_error_code: "provider_delivery_error",
+      provider_error: providerError
+    });
+
+    return {
+      ok: true,
+      provider: config.provider,
+      dry_run: dryRun,
+      fallback_used: true,
+      record_path: recordPath,
+      failed_record_path: failedRecordPath,
+      provider_error_code: "provider_delivery_error"
+    };
+  }
 }

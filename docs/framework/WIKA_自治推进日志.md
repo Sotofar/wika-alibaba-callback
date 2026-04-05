@@ -190,7 +190,7 @@
   - `/integrations/alibaba/wika/data/customers/list` 缺参 -> `400 + parameter_error`
   - `/integrations/alibaba/wika/data/customers/list?customer_id_begin=0&page_size=1&start_time=...&end_time=...&last_sync_end_time=...` -> `502 + permission_error`
 - 结束 checkpoint：`6429e86`
-- push：`origin/main` 成功
+- push：待本阶段收口后执行
 
 ### 阶段 8：任务 6 的正式通知闭环
 
@@ -336,5 +336,44 @@
   - 当前最小经营诊断已经拆成“总报告 + 产品子诊断 + 订单子诊断”
   - 当前仍不能误写成“完整经营驾驶舱已完成”
 - 结束 checkpoint：本阶段收口提交已完成
+- push：`origin/main` 成功
+
+### 阶段 12：任务 6 的真实 provider 预接线与 dry-run 验证
+
+- 起始 checkpoint：`155423d`
+- 本阶段目标：
+  - 不再碰 Alibaba 新 API
+  - 只把现有 provider-agnostic notifier 升级成可接真实 provider 的结构
+  - 完成 `none / 配置不完整 / dry-run` 三类验证
+- notifier 结构调整：
+  - `shared/data/modules/wika-notifier.js`
+    - 明确负责 provider 选择、配置检查、fallback 落盘
+  - `shared/data/modules/wika-notifier-webhook.js`
+    - 新增 webhook 适配层
+  - `shared/data/modules/wika-notifier-resend.js`
+    - 新增 Resend 适配层
+- dry-run / fallback 验证结果：
+  - `provider=none`
+    - 成功走到 `outbox fallback`
+  - `provider=webhook` 且配置不完整
+    - 明确返回 `provider_configuration_error`
+    - 同时成功走到 `outbox fallback`
+  - `provider=webhook` 且 `dry_run=true`
+    - 成功生成 provider dry-run 记录
+    - 未做真实外发
+  - `provider=resend` 且 `dry_run=true`
+    - 成功生成 provider dry-run 记录
+    - 未做真实外发
+- 新增沉淀：
+  - `scripts/validate-wika-notification-phase12.js`
+  - `docs/framework/WIKA_通知能力盘点.md`
+  - `docs/framework/WIKA_正式通知闭环说明.md`
+  - `docs/framework/WIKA_正式通知样例.json`
+  - `.env.example`
+- 阶段收口：
+  - 当前已证明真实 provider 预接线成立
+  - 当前仍不能误写成真实邮件或 webhook 已送达
+  - 若继续任务 6，下一步只能在 production 配置真实 provider 后做一次最小真实外发验证
+- 结束 checkpoint：见本阶段收口提交
 - push：`origin/main` 成功
 
