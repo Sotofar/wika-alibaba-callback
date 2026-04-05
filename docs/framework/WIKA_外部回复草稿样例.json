@@ -1,34 +1,64 @@
 {
-  "generated_at": "2026-04-05T02:32:25.588Z",
+  "generated_at": "2026-04-05T03:16:24.599Z",
   "route": "https://api.wikapacking.com/integrations/alibaba/wika/tools/reply-draft",
-  "complete_sample": {
+  "summary": {
+    "complete_context": {
+      "label": "complete_context",
+      "workflow_profile": "reply_mockup_customization",
+      "template_version": "2026-04-05.sop-v1",
+      "hard_blockers_count": 2,
+      "soft_blockers_count": 3,
+      "handoff_required": true,
+      "draft_usable_externally": true
+    },
+    "mockup_customization": {
+      "label": "mockup_customization",
+      "workflow_profile": "reply_mockup_customization",
+      "template_version": "2026-04-05.sop-v1",
+      "hard_blockers_count": 2,
+      "soft_blockers_count": 2,
+      "handoff_required": true,
+      "draft_usable_externally": true
+    },
+    "minimal_handoff": {
+      "label": "minimal_handoff",
+      "workflow_profile": "reply_quote_confirmation_needed",
+      "template_version": "2026-04-05.sop-v1",
+      "hard_blockers_count": 2,
+      "soft_blockers_count": 4,
+      "handoff_required": true,
+      "draft_usable_externally": false
+    }
+  },
+  "complete_context_sample": {
     "input": {
-      "inquiry_text": "Hello, we are looking for 1000 pcs custom PU sunglasses cases with logo. Please share quote, lead time and whether you can prepare a mockup for US shipment.",
+      "inquiry_text": "Hello, we need 1000 pcs custom PU sunglasses cases with logo for US shipment. Please share quote, lead time and sample arrangement.",
       "customer_profile": {
         "company_name": "TEST BUYER / DO-NOT-USE",
         "contact_name": "Sample Buyer"
       },
       "product_id": "1601700588198",
       "quantity": "1000 pcs",
-      "destination": "United States",
+      "destination_country": "United States",
       "target_price": "0.65",
-      "currency": "USD",
-      "lead_time_context": "Customer expects ex-factory lead time around 25-30 days after artwork confirmation.",
+      "expected_lead_time": "25-30 days after artwork approval",
       "language": "en",
-      "mockup_required": true,
-      "logo_file_reference": "logo-ai-file-needed",
-      "color_requirement": "black outside / beige inside",
-      "mockup_scene": "front + open case view"
+      "notes": [
+        "TEST / DO-NOT-USE",
+        "reply complete context sample"
+      ]
     },
     "output": {
       "ok": false,
       "account": "wika",
       "workflow_type": "external_reply_draft",
+      "workflow_profile": "reply_mockup_customization",
+      "template_version": "2026-04-05.sop-v1",
       "reply_draft": {
         "subject": "Draft reply for Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case",
         "opening": "Hello, thank you for your inquiry from TEST BUYER / DO-NOT-USE.",
-        "body": "Inquiry summary: Hello, we are looking for 1000 pcs custom PU sunglasses cases with logo. Please share quote, lead time and whether you can prepare a mockup for US shipment.\n\nRequested quantity: 1000 pcs\n\nDestination: United States\n\nProduct references:\n- Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case | description available\n\nPrice note: Customer target price reference: USD 0.65. The current system has no verified live pricing source, so the final quote still requires human confirmation.\n\nLead time note: Current lead-time context is manually supplied: Customer expects ex-factory lead time around 25-30 days after artwork confirmation.. Final lead time still requires human confirmation.",
-        "closing": "Please confirm the following items before sending a formal reply: final_quote, lead_time.",
+        "body": "Inquiry summary: Hello, we need 1000 pcs custom PU sunglasses cases with logo for US shipment. Please share quote, lead time and sample arrangement.\n\nRequested quantity: 1000 pcs\n\nDestination: United States\n\nProduct references:\n- Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case | description available\n\nPrice note: Customer target price reference: USD 0.65. The current system has no verified live pricing source, so the final quote still requires human confirmation.\n\nLead time note: Current lead-time context is manually supplied: 25-30 days after artwork approval. Final lead time still requires human confirmation.",
+        "closing": "Please confirm the following items before sending a formal reply: final_quote, lead_time, mockup_assets, mockup_assets, mockup_assets.",
         "price_information": {
           "status": "needs_human_quote",
           "text": "Customer target price reference: USD 0.65. The current system has no verified live pricing source, so the final quote still requires human confirmation.",
@@ -57,7 +87,7 @@
         ],
         "lead_time_guidance": {
           "status": "contextual_only",
-          "text": "Current lead-time context is manually supplied: Customer expects ex-factory lead time around 25-30 days after artwork confirmation.. Final lead time still requires human confirmation.",
+          "text": "Current lead-time context is manually supplied: 25-30 days after artwork approval. Final lead time still requires human confirmation.",
           "blocker_keys": [
             "final_lead_time_confirmation"
           ]
@@ -69,7 +99,11 @@
             "Show logo placement and print method",
             "Keep real material and closure structure visible"
           ],
-          "asset_requirements": [],
+          "asset_requirements": [
+            "Customer logo / artwork source file is required",
+            "Color / finish requirement needs confirmation",
+            "Mockup scene / usage context needs confirmation"
+          ],
           "product_references": [
             {
               "product_id": "1601700588198",
@@ -79,7 +113,8 @@
           ]
         },
         "risk_flags": [
-          "platform_reply_unavailable"
+          "platform_reply_unavailable",
+          "mockup_assets_missing"
         ],
         "escalation_recommendation": {
           "level": "high",
@@ -94,7 +129,7 @@
         "quantity": "1000 pcs",
         "destination_country": "United States",
         "target_price": "0.65",
-        "expected_lead_time": "Customer expects ex-factory lead time around 25-30 days after artwork confirmation.",
+        "expected_lead_time": "25-30 days after artwork approval",
         "language": "en",
         "customer_profile_present": true
       },
@@ -109,7 +144,10 @@
       },
       "missing_context": [
         "final_quote",
-        "lead_time"
+        "lead_time",
+        "mockup_assets",
+        "mockup_assets",
+        "mockup_assets"
       ],
       "hard_blockers": [
         {
@@ -117,24 +155,146 @@
           "label": "Final quote",
           "reason": "Customer target price reference: USD 0.65. The current system has no verified live pricing source, so the final quote still requires human confirmation.",
           "follow_up_question": "Please confirm the final quote, currency and quote basis.",
-          "required_field": "price.quote_confirmation"
+          "required_field": "price.quote_confirmation",
+          "blocker_code": "missing_final_quote",
+          "blocker_reason": "Customer target price reference: USD 0.65. The current system has no verified live pricing source, so the final quote still requires human confirmation.",
+          "blocker_next_action": "人工确认最终报价、币种和报价口径。",
+          "blocker_level": "hard",
+          "blocker_definition": "缺少最终报价确认，系统不能自动承诺可发送的正式价格。",
+          "draft_can_still_be_produced": true,
+          "handoff_mandatory": true,
+          "field_meta": {
+            "source": "human_input_required",
+            "confidence": "high",
+            "missing_reason": "Customer target price reference: USD 0.65. The current system has no verified live pricing source, so the final quote still requires human confirmation."
+          }
         },
         {
           "key": "lead_time",
           "label": "Lead time confirmation",
-          "reason": "Current lead-time context is manually supplied: Customer expects ex-factory lead time around 25-30 days after artwork confirmation.. Final lead time still requires human confirmation.",
+          "reason": "Current lead-time context is manually supplied: 25-30 days after artwork approval. Final lead time still requires human confirmation.",
           "follow_up_question": "Please confirm sample lead time, production lead time and the start condition.",
-          "required_field": "delivery.lead_time_confirmation"
+          "required_field": "delivery.lead_time_confirmation",
+          "blocker_code": "missing_lead_time",
+          "blocker_reason": "Current lead-time context is manually supplied: 25-30 days after artwork approval. Final lead time still requires human confirmation.",
+          "blocker_next_action": "人工确认样品期、量产期和起算条件。",
+          "blocker_level": "hard",
+          "blocker_definition": "缺少已确认交期，系统不能自动承诺可发送的最终交期。",
+          "draft_can_still_be_produced": true,
+          "handoff_mandatory": true,
+          "field_meta": {
+            "source": "human_input_required",
+            "confidence": "high",
+            "missing_reason": "Current lead-time context is manually supplied: 25-30 days after artwork approval. Final lead time still requires human confirmation."
+          }
         }
       ],
-      "soft_blockers": [],
+      "soft_blockers": [
+        {
+          "key": "mockup_assets",
+          "label": "Mockup assets",
+          "reason": "Customer logo / artwork source file is required",
+          "follow_up_question": "Please provide logo, finish, color or scene assets for the mockup package.",
+          "required_field": "mockup_request.asset_requirements",
+          "blocker_code": "missing_mockup_assets",
+          "blocker_reason": "Customer logo / artwork source file is required",
+          "blocker_next_action": "人工向客户收集 logo、工艺、颜色和 mockup 场景要求。",
+          "blocker_level": "soft",
+          "blocker_definition": "缺少 logo、工艺、颜色或场景素材，效果图需求包无法进入执行。",
+          "draft_can_still_be_produced": true,
+          "handoff_mandatory": false,
+          "field_meta": {
+            "source": "human_input_required",
+            "confidence": "high",
+            "missing_reason": "Customer logo / artwork source file is required"
+          }
+        },
+        {
+          "key": "mockup_assets",
+          "label": "Mockup assets",
+          "reason": "Color / finish requirement needs confirmation",
+          "follow_up_question": "Please provide logo, finish, color or scene assets for the mockup package.",
+          "required_field": "mockup_request.asset_requirements",
+          "blocker_code": "missing_mockup_assets",
+          "blocker_reason": "Color / finish requirement needs confirmation",
+          "blocker_next_action": "人工向客户收集 logo、工艺、颜色和 mockup 场景要求。",
+          "blocker_level": "soft",
+          "blocker_definition": "缺少 logo、工艺、颜色或场景素材，效果图需求包无法进入执行。",
+          "draft_can_still_be_produced": true,
+          "handoff_mandatory": false,
+          "field_meta": {
+            "source": "human_input_required",
+            "confidence": "high",
+            "missing_reason": "Color / finish requirement needs confirmation"
+          }
+        },
+        {
+          "key": "mockup_assets",
+          "label": "Mockup assets",
+          "reason": "Mockup scene / usage context needs confirmation",
+          "follow_up_question": "Please provide logo, finish, color or scene assets for the mockup package.",
+          "required_field": "mockup_request.asset_requirements",
+          "blocker_code": "missing_mockup_assets",
+          "blocker_reason": "Mockup scene / usage context needs confirmation",
+          "blocker_next_action": "人工向客户收集 logo、工艺、颜色和 mockup 场景要求。",
+          "blocker_level": "soft",
+          "blocker_definition": "缺少 logo、工艺、颜色或场景素材，效果图需求包无法进入执行。",
+          "draft_can_still_be_produced": true,
+          "handoff_mandatory": false,
+          "field_meta": {
+            "source": "human_input_required",
+            "confidence": "high",
+            "missing_reason": "Mockup scene / usage context needs confirmation"
+          }
+        }
+      ],
       "assumptions": [
         "This draft is for the external workflow only and will not send any platform reply automatically.",
         "If language preference is not explicit, the system defaults to English."
       ],
       "follow_up_questions": [
         "Please confirm the final quote, currency and quote basis.",
-        "Please confirm sample lead time, production lead time and the start condition."
+        "Please confirm sample lead time, production lead time and the start condition.",
+        "Please provide logo, finish, color or scene assets for the mockup package.",
+        "Please provide logo, finish, color or scene assets for the mockup package.",
+        "Please provide logo, finish, color or scene assets for the mockup package."
+      ],
+      "follow_up_question_details": [
+        {
+          "sequence": 1,
+          "priority": "high",
+          "question": "Please confirm the final quote, currency and quote basis.",
+          "blocker_code": "missing_final_quote",
+          "required_field": "price.quote_confirmation"
+        },
+        {
+          "sequence": 2,
+          "priority": "high",
+          "question": "Please confirm sample lead time, production lead time and the start condition.",
+          "blocker_code": "missing_lead_time",
+          "required_field": "delivery.lead_time_confirmation"
+        },
+        {
+          "sequence": 3,
+          "priority": "medium",
+          "question": "Please provide logo, finish, color or scene assets for the mockup package.",
+          "blocker_code": "missing_mockup_assets",
+          "required_field": "mockup_request.asset_requirements"
+        },
+        {
+          "sequence": 4,
+          "priority": "medium",
+          "question": "Please provide logo, finish, color or scene assets for the mockup package.",
+          "blocker_code": "missing_mockup_assets",
+          "required_field": "mockup_request.asset_requirements"
+        },
+        {
+          "sequence": 5,
+          "priority": "medium",
+          "question": "Please provide logo, finish, color or scene assets for the mockup package.",
+          "blocker_code": "missing_mockup_assets",
+          "required_field": "mockup_request.asset_requirements"
+        }
       ],
       "mockup_request": {
         "needed": true,
@@ -143,7 +303,11 @@
           "Show logo placement and print method",
           "Keep real material and closure structure visible"
         ],
-        "asset_requirements": [],
+        "asset_requirements": [
+          "Customer logo / artwork source file is required",
+          "Color / finish requirement needs confirmation",
+          "Mockup scene / usage context needs confirmation"
+        ],
         "product_references": [
           {
             "product_id": "1601700588198",
@@ -156,31 +320,190 @@
         "level": "high",
         "recommendation": "A human should fill in pricing, lead time, customer identity or destination details before a formal reply is sent."
       },
+      "minimum_reply_package": {
+        "ready_for_human_edit": true,
+        "minimum_context_available": true,
+        "draft_usable_externally": true,
+        "must_handoff_before_any_send": true
+      },
+      "draft_usable_externally": true,
+      "handoff_checklist": [
+        {
+          "code": "customer_identity",
+          "label": "客户身份已确认",
+          "done": true,
+          "reason": "已有公司或联系人信息。"
+        },
+        {
+          "code": "product_context",
+          "label": "产品上下文已确认",
+          "done": true,
+          "reason": "已绑定至少一个真实产品。"
+        },
+        {
+          "code": "commercial_context",
+          "label": "数量与目的地已确认",
+          "done": true,
+          "reason": "数量与目的地已可用于人工回复。"
+        },
+        {
+          "code": "quote_and_lead_time",
+          "label": "报价与交期已人工确认",
+          "done": false,
+          "reason": "最终报价或交期仍需人工确认。"
+        },
+        {
+          "code": "mockup_assets",
+          "label": "效果图素材已齐备",
+          "done": false,
+          "reason": "mockup 所需素材仍未补齐。"
+        },
+        {
+          "code": "external_only",
+          "label": "仍属于外部草稿工作流",
+          "done": true,
+          "reason": "当前草稿只能用于外部人工协同，不能视为平台内已回复。"
+        }
+      ],
       "handoff_fields": [
         {
           "field": "price.quote_confirmation",
           "label": "Final quote",
           "reason": "Customer target price reference: USD 0.65. The current system has no verified live pricing source, so the final quote still requires human confirmation.",
-          "source": "human_input_required"
+          "source": "human_input_required",
+          "confidence": "high",
+          "missing_reason": "Customer target price reference: USD 0.65. The current system has no verified live pricing source, so the final quote still requires human confirmation.",
+          "blocker_code": "missing_final_quote",
+          "blocker_level": "hard",
+          "blocker_next_action": "人工确认最终报价、币种和报价口径。",
+          "template_section": "pricing_confirmation",
+          "required_for_minimum_reply": true
         },
         {
           "field": "delivery.lead_time_confirmation",
           "label": "Lead time confirmation",
-          "reason": "Current lead-time context is manually supplied: Customer expects ex-factory lead time around 25-30 days after artwork confirmation.. Final lead time still requires human confirmation.",
-          "source": "human_input_required"
+          "reason": "Current lead-time context is manually supplied: 25-30 days after artwork approval. Final lead time still requires human confirmation.",
+          "source": "human_input_required",
+          "confidence": "high",
+          "missing_reason": "Current lead-time context is manually supplied: 25-30 days after artwork approval. Final lead time still requires human confirmation.",
+          "blocker_code": "missing_lead_time",
+          "blocker_level": "hard",
+          "blocker_next_action": "人工确认样品期、量产期和起算条件。",
+          "template_section": "lead_time_confirmation",
+          "required_for_minimum_reply": true
+        },
+        {
+          "field": "mockup_request.asset_requirements",
+          "label": "Mockup assets",
+          "reason": "Customer logo / artwork source file is required",
+          "source": "human_input_required",
+          "confidence": "high",
+          "missing_reason": "Customer logo / artwork source file is required",
+          "blocker_code": "missing_mockup_assets",
+          "blocker_level": "soft",
+          "blocker_next_action": "人工向客户收集 logo、工艺、颜色和 mockup 场景要求。",
+          "template_section": "mockup_requirements",
+          "required_for_minimum_reply": false
+        },
+        {
+          "field": "mockup_request.asset_requirements",
+          "label": "Mockup assets",
+          "reason": "Color / finish requirement needs confirmation",
+          "source": "human_input_required",
+          "confidence": "high",
+          "missing_reason": "Color / finish requirement needs confirmation",
+          "blocker_code": "missing_mockup_assets",
+          "blocker_level": "soft",
+          "blocker_next_action": "人工向客户收集 logo、工艺、颜色和 mockup 场景要求。",
+          "template_section": "mockup_requirements",
+          "required_for_minimum_reply": false
+        },
+        {
+          "field": "mockup_request.asset_requirements",
+          "label": "Mockup assets",
+          "reason": "Mockup scene / usage context needs confirmation",
+          "source": "human_input_required",
+          "confidence": "high",
+          "missing_reason": "Mockup scene / usage context needs confirmation",
+          "blocker_code": "missing_mockup_assets",
+          "blocker_level": "soft",
+          "blocker_next_action": "人工向客户收集 logo、工艺、颜色和 mockup 场景要求。",
+          "template_section": "mockup_requirements",
+          "required_for_minimum_reply": false
         }
       ],
+      "manual_completion_sop": {
+        "template_version": "2026-04-05.sop-v1",
+        "workflow_profile": "reply_mockup_customization",
+        "minimum_reply_package": {
+          "ready_for_human_edit": true,
+          "must_handoff_before_any_send": true,
+          "required_before_send": [
+            "price.quote_confirmation",
+            "delivery.lead_time_confirmation"
+          ]
+        },
+        "sections": [
+          {
+            "section_code": "pricing_confirmation",
+            "title": "报价确认",
+            "fields": [
+              "price.quote_confirmation"
+            ],
+            "owner": "sales",
+            "notes": "没有实时价格源，最终报价必须人工确认。"
+          },
+          {
+            "section_code": "lead_time_confirmation",
+            "title": "交期确认",
+            "fields": [
+              "delivery.lead_time_confirmation"
+            ],
+            "owner": "sales / production",
+            "notes": "交期只能作为人工确认后的承诺，不应自动生成。"
+          },
+          {
+            "section_code": "customer_and_destination",
+            "title": "客户与目的地补全",
+            "fields": [
+              "customer_profile",
+              "destination_country",
+              "quantity"
+            ],
+            "owner": "sales",
+            "notes": "决定回复语气、物流建议和报价口径。"
+          },
+          {
+            "section_code": "mockup_requirements",
+            "title": "效果图需求补全",
+            "fields": [
+              "mockup_request.asset_requirements"
+            ],
+            "owner": "sales / design",
+            "notes": "当前询盘涉及 mockup 或定制需求，素材未齐时只能先输出需求包。"
+          }
+        ],
+        "external_boundary": {
+          "draft_can_still_be_produced": true,
+          "platform_reply_available": false,
+          "reason": "当前只生成外部回复草稿，不触发平台内回复发送。"
+        },
+        "blocker_summary": {
+          "hard_count": 2,
+          "soft_count": 3
+        }
+      },
       "alert_payload": {
         "schema_version": 1,
         "kind": "wika_blocker_alert",
         "account": "wika",
-        "stage_name": "phase14_external_reply_draft",
+        "stage_name": "external_reply_draft_workflow",
         "blocker_category": {
           "code": "parameter_missing",
           "label": "参数缺失",
           "description": "关键入参、业务参数或必填字段不足，无法继续验证或生成草稿。"
         },
-        "triggered_at": "2026-04-05T02:32:05.963Z",
+        "triggered_at": "2026-04-05T03:15:55.721Z",
         "related_apis": [
           "alibaba.seller.customer.batch.get",
           "alibaba.seller.customer.get"
@@ -192,12 +515,13 @@
         "current_evidence": [
           "External reply draft generated from existing read-side signals only.",
           "Current platform reply path is still unavailable or unverified.",
-          "Missing context: final_quote, lead_time"
+          "Missing context: final_quote, lead_time, mockup_assets, mockup_assets, mockup_assets"
         ],
         "cannot_continue_reason": "关键参数或样本 id 缺失，当前无法继续完成真实实证。",
         "user_needs": [
           "final_quote",
-          "lead_time"
+          "lead_time",
+          "mockup_assets"
         ],
         "suggested_next_steps": [
           "Manually confirm final quote and lead time before sending.",
@@ -232,7 +556,7 @@
             "destination": "United States"
           },
           "evidence": {
-            "stage_name": "phase14_external_reply_draft",
+            "stage_name": "external_reply_draft_workflow",
             "related_apis": [
               "alibaba.seller.customer.batch.get",
               "alibaba.seller.customer.get"
@@ -244,16 +568,18 @@
             "current_evidence": [
               "External reply draft generated from existing read-side signals only.",
               "Current platform reply path is still unavailable or unverified.",
-              "Missing context: final_quote, lead_time"
+              "Missing context: final_quote, lead_time, mockup_assets, mockup_assets, mockup_assets"
             ],
             "cannot_continue_reason": "关键参数或样本 id 缺失，当前无法继续完成真实实证。"
           },
           "next_action": "Manually confirm final quote and lead time before sending.；Provide destination, customer identity and artwork files if a mockup is required.",
-          "created_at": "2026-04-05T02:32:05.963Z"
+          "created_at": "2026-04-05T03:15:55.721Z"
         }
       },
       "workflow_meta": {
-        "generated_at": "2026-04-05T02:32:05.963Z",
+        "generated_at": "2026-04-05T03:15:55.723Z",
+        "workflow_profile": "reply_mockup_customization",
+        "template_version": "2026-04-05.sop-v1",
         "available_context": {
           "inquiry_text": true,
           "product_context_count": 1,
@@ -264,22 +590,27 @@
         },
         "missing_context": [
           "final_quote",
-          "lead_time"
+          "lead_time",
+          "mockup_assets",
+          "mockup_assets",
+          "mockup_assets"
         ],
-        "confidence": "medium",
+        "confidence": "low",
         "risk_level": "high",
         "human_action_required": true,
+        "handoff_required": true,
+        "draft_usable_externally": true,
         "alert_payload": {
           "schema_version": 1,
           "kind": "wika_blocker_alert",
           "account": "wika",
-          "stage_name": "phase14_external_reply_draft",
+          "stage_name": "external_reply_draft_workflow",
           "blocker_category": {
             "code": "parameter_missing",
             "label": "参数缺失",
             "description": "关键入参、业务参数或必填字段不足，无法继续验证或生成草稿。"
           },
-          "triggered_at": "2026-04-05T02:32:05.963Z",
+          "triggered_at": "2026-04-05T03:15:55.721Z",
           "related_apis": [
             "alibaba.seller.customer.batch.get",
             "alibaba.seller.customer.get"
@@ -291,12 +622,13 @@
           "current_evidence": [
             "External reply draft generated from existing read-side signals only.",
             "Current platform reply path is still unavailable or unverified.",
-            "Missing context: final_quote, lead_time"
+            "Missing context: final_quote, lead_time, mockup_assets, mockup_assets, mockup_assets"
           ],
           "cannot_continue_reason": "关键参数或样本 id 缺失，当前无法继续完成真实实证。",
           "user_needs": [
             "final_quote",
-            "lead_time"
+            "lead_time",
+            "mockup_assets"
           ],
           "suggested_next_steps": [
             "Manually confirm final quote and lead time before sending.",
@@ -331,7 +663,7 @@
               "destination": "United States"
             },
             "evidence": {
-              "stage_name": "phase14_external_reply_draft",
+              "stage_name": "external_reply_draft_workflow",
               "related_apis": [
                 "alibaba.seller.customer.batch.get",
                 "alibaba.seller.customer.get"
@@ -343,17 +675,17 @@
               "current_evidence": [
                 "External reply draft generated from existing read-side signals only.",
                 "Current platform reply path is still unavailable or unverified.",
-                "Missing context: final_quote, lead_time"
+                "Missing context: final_quote, lead_time, mockup_assets, mockup_assets, mockup_assets"
               ],
               "cannot_continue_reason": "关键参数或样本 id 缺失，当前无法继续完成真实实证。"
             },
             "next_action": "Manually confirm final quote and lead time before sending.；Provide destination, customer identity and artwork files if a mockup is required.",
-            "created_at": "2026-04-05T02:32:05.963Z"
+            "created_at": "2026-04-05T03:15:55.721Z"
           }
         }
       },
       "supporting_context": {
-        "inquiry_text": "Hello, we are looking for 1000 pcs custom PU sunglasses cases with logo. Please share quote, lead time and whether you can prepare a mockup for US shipment.",
+        "inquiry_text": "Hello, we need 1000 pcs custom PU sunglasses cases with logo for US shipment. Please share quote, lead time and sample arrangement.",
         "customer_profile": {
           "company_name": "TEST BUYER / DO-NOT-USE",
           "contact_name": "Sample Buyer"
@@ -473,32 +805,41 @@
       ]
     }
   },
-  "incomplete_sample": {
+  "mockup_customization_sample": {
     "input": {
-      "inquiry_text": "Need more details for custom case.",
-      "product_ids": [
-        "1601700588198"
-      ],
-      "language": "en"
+      "inquiry_text": "Need 500 custom sunglass cases with logo embossing and mockup views before sample approval.",
+      "customer_profile": {
+        "company_name": "TEST BUYER / DO-NOT-USE",
+        "contact_name": "Mockup Buyer"
+      },
+      "product_id": "1601700588198",
+      "quantity": "500 pcs",
+      "destination_country": "Germany",
+      "target_price": "0.72",
+      "language": "en",
+      "mockup_required": true,
+      "color_requirement": "black outside / beige inside",
+      "notes": [
+        "TEST / DO-NOT-USE",
+        "reply mockup customization sample"
+      ]
     },
     "output": {
       "ok": false,
       "account": "wika",
       "workflow_type": "external_reply_draft",
+      "workflow_profile": "reply_mockup_customization",
+      "template_version": "2026-04-05.sop-v1",
       "reply_draft": {
         "subject": "Draft reply for Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case",
-        "opening": "Hello, thank you for your inquiry.",
-        "body": "Inquiry summary: Need more details for custom case.\n\nRequested quantity: to be confirmed.\n\nDestination: to be confirmed.\n\nProduct references:\n- Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case | description available\n\nPrice note: There is no verified live pricing field available, so the system cannot generate a firm quote automatically.\n\nLead time note: There is no verified lead-time data source, so the system cannot commit a delivery schedule automatically.",
-        "closing": "Please confirm the following items before sending a formal reply: final_quote, lead_time, destination_country, quantity, customer_profile.",
+        "opening": "Hello, thank you for your inquiry from TEST BUYER / DO-NOT-USE.",
+        "body": "Inquiry summary: Need 500 custom sunglass cases with logo embossing and mockup views before sample approval.\n\nRequested quantity: 500 pcs\n\nDestination: Germany\n\nProduct references:\n- Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case | description available\n\nPrice note: Customer target price reference: USD 0.72. The current system has no verified live pricing source, so the final quote still requires human confirmation.\n\nLead time note: There is no verified lead-time data source, so the system cannot commit a delivery schedule automatically.",
+        "closing": "Please confirm the following items before sending a formal reply: final_quote, lead_time, mockup_assets, mockup_assets.",
         "price_information": {
-          "status": "blocked",
-          "text": "There is no verified live pricing field available, so the system cannot generate a firm quote automatically.",
+          "status": "needs_human_quote",
+          "text": "Customer target price reference: USD 0.72. The current system has no verified live pricing source, so the final quote still requires human confirmation.",
           "blocker_keys": [
-            "price",
-            "currency_confirmation"
-          ],
-          "related_products": [
-            "1601700588198"
+            "final_quote_confirmation"
           ]
         },
         "product_support": [
@@ -528,12 +869,14 @@
           ]
         },
         "mockup_request": {
-          "needed": false,
-          "mockup_request": "The current inquiry does not explicitly request a mockup.",
-          "visual_requirements": [],
+          "needed": true,
+          "mockup_request": "Prepare a mockup requirement pack for manual or design-tool follow-up.",
+          "visual_requirements": [
+            "Show logo placement and print method",
+            "Keep real material and closure structure visible"
+          ],
           "asset_requirements": [
             "Customer logo / artwork source file is required",
-            "Color / finish requirement needs confirmation",
             "Mockup scene / usage context needs confirmation"
           ],
           "product_references": [
@@ -545,7 +888,8 @@
           ]
         },
         "risk_flags": [
-          "platform_reply_unavailable"
+          "platform_reply_unavailable",
+          "mockup_assets_missing"
         ],
         "escalation_recommendation": {
           "level": "high",
@@ -557,88 +901,158 @@
         "product_ids": [
           "1601700588198"
         ],
-        "quantity": null,
-        "destination_country": null,
-        "target_price": null,
+        "quantity": "500 pcs",
+        "destination_country": "Germany",
+        "target_price": "0.72",
         "expected_lead_time": null,
         "language": "en",
-        "customer_profile_present": false
+        "customer_profile_present": true
       },
       "available_context": {
         "product_context_count": 1,
         "has_product_diagnostic": true,
-        "has_price_reference": false,
-        "has_destination": false,
-        "has_quantity": false,
-        "has_customer_profile": false,
-        "has_mockup_signal": false
+        "has_price_reference": true,
+        "has_destination": true,
+        "has_quantity": true,
+        "has_customer_profile": true,
+        "has_mockup_signal": true
       },
       "missing_context": [
         "final_quote",
         "lead_time",
-        "destination_country",
-        "quantity",
-        "customer_profile"
+        "mockup_assets",
+        "mockup_assets"
       ],
       "hard_blockers": [
         {
           "key": "final_quote",
           "label": "Final quote",
-          "reason": "There is no verified live pricing field available, so the system cannot generate a firm quote automatically.",
+          "reason": "Customer target price reference: USD 0.72. The current system has no verified live pricing source, so the final quote still requires human confirmation.",
           "follow_up_question": "Please confirm the final quote, currency and quote basis.",
-          "required_field": "price.quote_confirmation"
+          "required_field": "price.quote_confirmation",
+          "blocker_code": "missing_final_quote",
+          "blocker_reason": "Customer target price reference: USD 0.72. The current system has no verified live pricing source, so the final quote still requires human confirmation.",
+          "blocker_next_action": "人工确认最终报价、币种和报价口径。",
+          "blocker_level": "hard",
+          "blocker_definition": "缺少最终报价确认，系统不能自动承诺可发送的正式价格。",
+          "draft_can_still_be_produced": true,
+          "handoff_mandatory": true,
+          "field_meta": {
+            "source": "human_input_required",
+            "confidence": "high",
+            "missing_reason": "Customer target price reference: USD 0.72. The current system has no verified live pricing source, so the final quote still requires human confirmation."
+          }
         },
         {
           "key": "lead_time",
           "label": "Lead time confirmation",
           "reason": "There is no verified lead-time data source, so the system cannot commit a delivery schedule automatically.",
           "follow_up_question": "Please confirm sample lead time, production lead time and the start condition.",
-          "required_field": "delivery.lead_time_confirmation"
+          "required_field": "delivery.lead_time_confirmation",
+          "blocker_code": "missing_lead_time",
+          "blocker_reason": "There is no verified lead-time data source, so the system cannot commit a delivery schedule automatically.",
+          "blocker_next_action": "人工确认样品期、量产期和起算条件。",
+          "blocker_level": "hard",
+          "blocker_definition": "缺少已确认交期，系统不能自动承诺可发送的最终交期。",
+          "draft_can_still_be_produced": true,
+          "handoff_mandatory": true,
+          "field_meta": {
+            "source": "human_input_required",
+            "confidence": "high",
+            "missing_reason": "There is no verified lead-time data source, so the system cannot commit a delivery schedule automatically."
+          }
         }
       ],
       "soft_blockers": [
         {
-          "key": "destination_country",
-          "label": "Destination country",
-          "reason": "Destination is missing, so logistics and delivery suggestions stay generic.",
-          "follow_up_question": "Please confirm the destination country or destination port.",
-          "required_field": "destination_country"
+          "key": "mockup_assets",
+          "label": "Mockup assets",
+          "reason": "Customer logo / artwork source file is required",
+          "follow_up_question": "Please provide logo, finish, color or scene assets for the mockup package.",
+          "required_field": "mockup_request.asset_requirements",
+          "blocker_code": "missing_mockup_assets",
+          "blocker_reason": "Customer logo / artwork source file is required",
+          "blocker_next_action": "人工向客户收集 logo、工艺、颜色和 mockup 场景要求。",
+          "blocker_level": "soft",
+          "blocker_definition": "缺少 logo、工艺、颜色或场景素材，效果图需求包无法进入执行。",
+          "draft_can_still_be_produced": true,
+          "handoff_mandatory": false,
+          "field_meta": {
+            "source": "human_input_required",
+            "confidence": "high",
+            "missing_reason": "Customer logo / artwork source file is required"
+          }
         },
         {
-          "key": "quantity",
-          "label": "Requested quantity",
-          "reason": "Quantity is missing, so quote and lead-time statements must stay conservative.",
-          "follow_up_question": "Please confirm the target quantity.",
-          "required_field": "quantity"
-        },
-        {
-          "key": "customer_profile",
-          "label": "Customer identity",
-          "reason": "Customer identity is missing, so greeting and business judgement stay conservative.",
-          "follow_up_question": "Please provide buyer company name, contact name or customer profile.",
-          "required_field": "customer_profile"
+          "key": "mockup_assets",
+          "label": "Mockup assets",
+          "reason": "Mockup scene / usage context needs confirmation",
+          "follow_up_question": "Please provide logo, finish, color or scene assets for the mockup package.",
+          "required_field": "mockup_request.asset_requirements",
+          "blocker_code": "missing_mockup_assets",
+          "blocker_reason": "Mockup scene / usage context needs confirmation",
+          "blocker_next_action": "人工向客户收集 logo、工艺、颜色和 mockup 场景要求。",
+          "blocker_level": "soft",
+          "blocker_definition": "缺少 logo、工艺、颜色或场景素材，效果图需求包无法进入执行。",
+          "draft_can_still_be_produced": true,
+          "handoff_mandatory": false,
+          "field_meta": {
+            "source": "human_input_required",
+            "confidence": "high",
+            "missing_reason": "Mockup scene / usage context needs confirmation"
+          }
         }
       ],
       "assumptions": [
         "This draft is for the external workflow only and will not send any platform reply automatically.",
         "If language preference is not explicit, the system defaults to English.",
-        "There is no verified live pricing source, so the system does not produce a firm quote.",
         "There is no verified lead-time source, so lead time remains subject to manual confirmation."
       ],
       "follow_up_questions": [
         "Please confirm the final quote, currency and quote basis.",
         "Please confirm sample lead time, production lead time and the start condition.",
-        "Please confirm the destination country or destination port.",
-        "Please confirm the target quantity.",
-        "Please provide buyer company name, contact name or customer profile."
+        "Please provide logo, finish, color or scene assets for the mockup package.",
+        "Please provide logo, finish, color or scene assets for the mockup package."
+      ],
+      "follow_up_question_details": [
+        {
+          "sequence": 1,
+          "priority": "high",
+          "question": "Please confirm the final quote, currency and quote basis.",
+          "blocker_code": "missing_final_quote",
+          "required_field": "price.quote_confirmation"
+        },
+        {
+          "sequence": 2,
+          "priority": "high",
+          "question": "Please confirm sample lead time, production lead time and the start condition.",
+          "blocker_code": "missing_lead_time",
+          "required_field": "delivery.lead_time_confirmation"
+        },
+        {
+          "sequence": 3,
+          "priority": "medium",
+          "question": "Please provide logo, finish, color or scene assets for the mockup package.",
+          "blocker_code": "missing_mockup_assets",
+          "required_field": "mockup_request.asset_requirements"
+        },
+        {
+          "sequence": 4,
+          "priority": "medium",
+          "question": "Please provide logo, finish, color or scene assets for the mockup package.",
+          "blocker_code": "missing_mockup_assets",
+          "required_field": "mockup_request.asset_requirements"
+        }
       ],
       "mockup_request": {
-        "needed": false,
-        "mockup_request": "The current inquiry does not explicitly request a mockup.",
-        "visual_requirements": [],
+        "needed": true,
+        "mockup_request": "Prepare a mockup requirement pack for manual or design-tool follow-up.",
+        "visual_requirements": [
+          "Show logo placement and print method",
+          "Keep real material and closure structure visible"
+        ],
         "asset_requirements": [
           "Customer logo / artwork source file is required",
-          "Color / finish requirement needs confirmation",
           "Mockup scene / usage context needs confirmation"
         ],
         "product_references": [
@@ -653,49 +1067,177 @@
         "level": "high",
         "recommendation": "A human should fill in pricing, lead time, customer identity or destination details before a formal reply is sent."
       },
+      "minimum_reply_package": {
+        "ready_for_human_edit": true,
+        "minimum_context_available": true,
+        "draft_usable_externally": true,
+        "must_handoff_before_any_send": true
+      },
+      "draft_usable_externally": true,
+      "handoff_checklist": [
+        {
+          "code": "customer_identity",
+          "label": "客户身份已确认",
+          "done": true,
+          "reason": "已有公司或联系人信息。"
+        },
+        {
+          "code": "product_context",
+          "label": "产品上下文已确认",
+          "done": true,
+          "reason": "已绑定至少一个真实产品。"
+        },
+        {
+          "code": "commercial_context",
+          "label": "数量与目的地已确认",
+          "done": true,
+          "reason": "数量与目的地已可用于人工回复。"
+        },
+        {
+          "code": "quote_and_lead_time",
+          "label": "报价与交期已人工确认",
+          "done": false,
+          "reason": "最终报价或交期仍需人工确认。"
+        },
+        {
+          "code": "mockup_assets",
+          "label": "效果图素材已齐备",
+          "done": false,
+          "reason": "mockup 所需素材仍未补齐。"
+        },
+        {
+          "code": "external_only",
+          "label": "仍属于外部草稿工作流",
+          "done": true,
+          "reason": "当前草稿只能用于外部人工协同，不能视为平台内已回复。"
+        }
+      ],
       "handoff_fields": [
         {
           "field": "price.quote_confirmation",
           "label": "Final quote",
-          "reason": "There is no verified live pricing field available, so the system cannot generate a firm quote automatically.",
-          "source": "human_input_required"
+          "reason": "Customer target price reference: USD 0.72. The current system has no verified live pricing source, so the final quote still requires human confirmation.",
+          "source": "human_input_required",
+          "confidence": "high",
+          "missing_reason": "Customer target price reference: USD 0.72. The current system has no verified live pricing source, so the final quote still requires human confirmation.",
+          "blocker_code": "missing_final_quote",
+          "blocker_level": "hard",
+          "blocker_next_action": "人工确认最终报价、币种和报价口径。",
+          "template_section": "pricing_confirmation",
+          "required_for_minimum_reply": true
         },
         {
           "field": "delivery.lead_time_confirmation",
           "label": "Lead time confirmation",
           "reason": "There is no verified lead-time data source, so the system cannot commit a delivery schedule automatically.",
-          "source": "human_input_required"
+          "source": "human_input_required",
+          "confidence": "high",
+          "missing_reason": "There is no verified lead-time data source, so the system cannot commit a delivery schedule automatically.",
+          "blocker_code": "missing_lead_time",
+          "blocker_level": "hard",
+          "blocker_next_action": "人工确认样品期、量产期和起算条件。",
+          "template_section": "lead_time_confirmation",
+          "required_for_minimum_reply": true
         },
         {
-          "field": "destination_country",
-          "label": "Destination country",
-          "reason": "Destination is missing, so logistics and delivery suggestions stay generic.",
-          "source": "human_input_required"
+          "field": "mockup_request.asset_requirements",
+          "label": "Mockup assets",
+          "reason": "Customer logo / artwork source file is required",
+          "source": "human_input_required",
+          "confidence": "high",
+          "missing_reason": "Customer logo / artwork source file is required",
+          "blocker_code": "missing_mockup_assets",
+          "blocker_level": "soft",
+          "blocker_next_action": "人工向客户收集 logo、工艺、颜色和 mockup 场景要求。",
+          "template_section": "mockup_requirements",
+          "required_for_minimum_reply": false
         },
         {
-          "field": "quantity",
-          "label": "Requested quantity",
-          "reason": "Quantity is missing, so quote and lead-time statements must stay conservative.",
-          "source": "human_input_required"
-        },
-        {
-          "field": "customer_profile",
-          "label": "Customer identity",
-          "reason": "Customer identity is missing, so greeting and business judgement stay conservative.",
-          "source": "human_input_required"
+          "field": "mockup_request.asset_requirements",
+          "label": "Mockup assets",
+          "reason": "Mockup scene / usage context needs confirmation",
+          "source": "human_input_required",
+          "confidence": "high",
+          "missing_reason": "Mockup scene / usage context needs confirmation",
+          "blocker_code": "missing_mockup_assets",
+          "blocker_level": "soft",
+          "blocker_next_action": "人工向客户收集 logo、工艺、颜色和 mockup 场景要求。",
+          "template_section": "mockup_requirements",
+          "required_for_minimum_reply": false
         }
       ],
+      "manual_completion_sop": {
+        "template_version": "2026-04-05.sop-v1",
+        "workflow_profile": "reply_mockup_customization",
+        "minimum_reply_package": {
+          "ready_for_human_edit": true,
+          "must_handoff_before_any_send": true,
+          "required_before_send": [
+            "price.quote_confirmation",
+            "delivery.lead_time_confirmation"
+          ]
+        },
+        "sections": [
+          {
+            "section_code": "pricing_confirmation",
+            "title": "报价确认",
+            "fields": [
+              "price.quote_confirmation"
+            ],
+            "owner": "sales",
+            "notes": "没有实时价格源，最终报价必须人工确认。"
+          },
+          {
+            "section_code": "lead_time_confirmation",
+            "title": "交期确认",
+            "fields": [
+              "delivery.lead_time_confirmation"
+            ],
+            "owner": "sales / production",
+            "notes": "交期只能作为人工确认后的承诺，不应自动生成。"
+          },
+          {
+            "section_code": "customer_and_destination",
+            "title": "客户与目的地补全",
+            "fields": [
+              "customer_profile",
+              "destination_country",
+              "quantity"
+            ],
+            "owner": "sales",
+            "notes": "决定回复语气、物流建议和报价口径。"
+          },
+          {
+            "section_code": "mockup_requirements",
+            "title": "效果图需求补全",
+            "fields": [
+              "mockup_request.asset_requirements"
+            ],
+            "owner": "sales / design",
+            "notes": "当前询盘涉及 mockup 或定制需求，素材未齐时只能先输出需求包。"
+          }
+        ],
+        "external_boundary": {
+          "draft_can_still_be_produced": true,
+          "platform_reply_available": false,
+          "reason": "当前只生成外部回复草稿，不触发平台内回复发送。"
+        },
+        "blocker_summary": {
+          "hard_count": 2,
+          "soft_count": 2
+        }
+      },
       "alert_payload": {
         "schema_version": 1,
         "kind": "wika_blocker_alert",
         "account": "wika",
-        "stage_name": "phase14_external_reply_draft",
+        "stage_name": "external_reply_draft_workflow",
         "blocker_category": {
           "code": "parameter_missing",
           "label": "参数缺失",
           "description": "关键入参、业务参数或必填字段不足，无法继续验证或生成草稿。"
         },
-        "triggered_at": "2026-04-05T02:32:12.655Z",
+        "triggered_at": "2026-04-05T03:16:02.766Z",
         "related_apis": [
           "alibaba.seller.customer.batch.get",
           "alibaba.seller.customer.get"
@@ -707,15 +1249,13 @@
         "current_evidence": [
           "External reply draft generated from existing read-side signals only.",
           "Current platform reply path is still unavailable or unverified.",
-          "Missing context: final_quote, lead_time, destination_country, quantity, customer_profile"
+          "Missing context: final_quote, lead_time, mockup_assets, mockup_assets"
         ],
         "cannot_continue_reason": "关键参数或样本 id 缺失，当前无法继续完成真实实证。",
         "user_needs": [
           "final_quote",
           "lead_time",
-          "destination_country",
-          "quantity",
-          "customer_profile"
+          "mockup_assets"
         ],
         "suggested_next_steps": [
           "Manually confirm final quote and lead time before sending.",
@@ -746,11 +1286,11 @@
             "product_ids": [
               "1601700588198"
             ],
-            "quantity": null,
-            "destination": null
+            "quantity": "500 pcs",
+            "destination": "Germany"
           },
           "evidence": {
-            "stage_name": "phase14_external_reply_draft",
+            "stage_name": "external_reply_draft_workflow",
             "related_apis": [
               "alibaba.seller.customer.batch.get",
               "alibaba.seller.customer.get"
@@ -762,45 +1302,48 @@
             "current_evidence": [
               "External reply draft generated from existing read-side signals only.",
               "Current platform reply path is still unavailable or unverified.",
-              "Missing context: final_quote, lead_time, destination_country, quantity, customer_profile"
+              "Missing context: final_quote, lead_time, mockup_assets, mockup_assets"
             ],
             "cannot_continue_reason": "关键参数或样本 id 缺失，当前无法继续完成真实实证。"
           },
           "next_action": "Manually confirm final quote and lead time before sending.；Provide destination, customer identity and artwork files if a mockup is required.",
-          "created_at": "2026-04-05T02:32:12.655Z"
+          "created_at": "2026-04-05T03:16:02.766Z"
         }
       },
       "workflow_meta": {
-        "generated_at": "2026-04-05T02:32:12.655Z",
+        "generated_at": "2026-04-05T03:16:02.766Z",
+        "workflow_profile": "reply_mockup_customization",
+        "template_version": "2026-04-05.sop-v1",
         "available_context": {
           "inquiry_text": true,
           "product_context_count": 1,
-          "quantity": null,
-          "destination": null,
+          "quantity": "500 pcs",
+          "destination": "Germany",
           "language_preference": "en",
           "product_diagnostic_sample_size": 12
         },
         "missing_context": [
           "final_quote",
           "lead_time",
-          "destination_country",
-          "quantity",
-          "customer_profile"
+          "mockup_assets",
+          "mockup_assets"
         ],
         "confidence": "low",
         "risk_level": "high",
         "human_action_required": true,
+        "handoff_required": true,
+        "draft_usable_externally": true,
         "alert_payload": {
           "schema_version": 1,
           "kind": "wika_blocker_alert",
           "account": "wika",
-          "stage_name": "phase14_external_reply_draft",
+          "stage_name": "external_reply_draft_workflow",
           "blocker_category": {
             "code": "parameter_missing",
             "label": "参数缺失",
             "description": "关键入参、业务参数或必填字段不足，无法继续验证或生成草稿。"
           },
-          "triggered_at": "2026-04-05T02:32:12.655Z",
+          "triggered_at": "2026-04-05T03:16:02.766Z",
           "related_apis": [
             "alibaba.seller.customer.batch.get",
             "alibaba.seller.customer.get"
@@ -812,15 +1355,13 @@
           "current_evidence": [
             "External reply draft generated from existing read-side signals only.",
             "Current platform reply path is still unavailable or unverified.",
-            "Missing context: final_quote, lead_time, destination_country, quantity, customer_profile"
+            "Missing context: final_quote, lead_time, mockup_assets, mockup_assets"
           ],
           "cannot_continue_reason": "关键参数或样本 id 缺失，当前无法继续完成真实实证。",
           "user_needs": [
             "final_quote",
             "lead_time",
-            "destination_country",
-            "quantity",
-            "customer_profile"
+            "mockup_assets"
           ],
           "suggested_next_steps": [
             "Manually confirm final quote and lead time before sending.",
@@ -851,11 +1392,11 @@
               "product_ids": [
                 "1601700588198"
               ],
-              "quantity": null,
-              "destination": null
+              "quantity": "500 pcs",
+              "destination": "Germany"
             },
             "evidence": {
-              "stage_name": "phase14_external_reply_draft",
+              "stage_name": "external_reply_draft_workflow",
               "related_apis": [
                 "alibaba.seller.customer.batch.get",
                 "alibaba.seller.customer.get"
@@ -867,17 +1408,794 @@
               "current_evidence": [
                 "External reply draft generated from existing read-side signals only.",
                 "Current platform reply path is still unavailable or unverified.",
-                "Missing context: final_quote, lead_time, destination_country, quantity, customer_profile"
+                "Missing context: final_quote, lead_time, mockup_assets, mockup_assets"
               ],
               "cannot_continue_reason": "关键参数或样本 id 缺失，当前无法继续完成真实实证。"
             },
             "next_action": "Manually confirm final quote and lead time before sending.；Provide destination, customer identity and artwork files if a mockup is required.",
-            "created_at": "2026-04-05T02:32:12.655Z"
+            "created_at": "2026-04-05T03:16:02.766Z"
           }
         }
       },
       "supporting_context": {
-        "inquiry_text": "Need more details for custom case.",
+        "inquiry_text": "Need 500 custom sunglass cases with logo embossing and mockup views before sample approval.",
+        "customer_profile": {
+          "company_name": "TEST BUYER / DO-NOT-USE",
+          "contact_name": "Mockup Buyer"
+        },
+        "product_diagnostic_snapshot": {
+          "available_signals": [
+            {
+              "module": "products",
+              "source_route": "/integrations/alibaba/wika/data/products/list",
+              "fields": [
+                "id",
+                "subject",
+                "group_name",
+                "category_id",
+                "status",
+                "display",
+                "gmt_modified"
+              ],
+              "sample_size": 12,
+              "notes": "当前产品快照按 page_size=12 采样。"
+            },
+            {
+              "module": "products",
+              "source_route": "/integrations/alibaba/wika/data/products/score",
+              "fields": [
+                "result.final_score",
+                "result.boutique_tag",
+                "result.problem_map"
+              ],
+              "sample_size": 8,
+              "notes": "质量分与问题分布按前 8 个产品采样。"
+            },
+            {
+              "module": "products",
+              "source_route": "/integrations/alibaba/wika/data/products/detail",
+              "fields": [
+                "product.subject",
+                "product.description",
+                "product.keywords",
+                "product.gmt_modified"
+              ],
+              "sample_size": 8,
+              "notes": "内容完整度按前 8 个产品采样。"
+            }
+          ],
+          "score_summary": {
+            "quality_score": {
+              "available_count": 8,
+              "average": 4.96,
+              "min": 4.9,
+              "max": 5,
+              "scale": "five_point",
+              "low_score_threshold": 4.8,
+              "low_score_count": 0
+            },
+            "boutique_tag": {
+              "tagged_count": 8,
+              "untagged_count": 0
+            },
+            "problem_map_top": []
+          },
+          "content_completeness_findings": {
+            "missing_subject_count": 0,
+            "missing_description_count": 4,
+            "missing_keywords_count": 8,
+            "modified_time_window": {
+              "start": "2026-02-12T10:36:47.000Z",
+              "end": "2026-03-26T15:51:53.000Z"
+            },
+            "updated_within_30_days_count": 5,
+            "stale_over_90_days": []
+          },
+          "structure_findings": {
+            "ungrouped_count": 1,
+            "group_coverage_top": [
+              {
+                "key": "Soft Case",
+                "count": 4
+              },
+              {
+                "key": "Packaging Set",
+                "count": 3
+              },
+              {
+                "key": "Folding Case",
+                "count": 2
+              },
+              {
+                "key": "Lens Cleaner",
+                "count": 1
+              },
+              {
+                "key": "Pouch",
+                "count": 1
+              },
+              {
+                "key": "UNKNOWN",
+                "count": 1
+              }
+            ],
+            "category_coverage_top": [
+              {
+                "key": "36127040",
+                "count": 11
+              },
+              {
+                "key": "36127030",
+                "count": 1
+              }
+            ]
+          }
+        }
+      },
+      "warnings": [
+        "This package is an external draft only and does not send any platform reply.",
+        "Price, lead time and mockup commitments still require human confirmation."
+      ]
+    }
+  },
+  "minimal_handoff_sample": {
+    "input": {
+      "inquiry_text": "Please quote your case options.",
+      "language": "en",
+      "notes": [
+        "TEST / DO-NOT-USE",
+        "reply minimal handoff sample"
+      ]
+    },
+    "output": {
+      "ok": false,
+      "account": "wika",
+      "workflow_type": "external_reply_draft",
+      "workflow_profile": "reply_quote_confirmation_needed",
+      "template_version": "2026-04-05.sop-v1",
+      "reply_draft": {
+        "subject": "Alibaba inquiry reply draft",
+        "opening": "Hello, thank you for your inquiry.",
+        "body": "Inquiry summary: Please quote your case options.\n\nRequested quantity: to be confirmed.\n\nDestination: to be confirmed.\n\nProduct references: no valid product linked yet.\n\nPrice note: There is no verified live pricing field available, so the system cannot generate a firm quote automatically.\n\nLead time note: There is no verified lead-time data source, so the system cannot commit a delivery schedule automatically.",
+        "closing": "Please confirm the following items before sending a formal reply: final_quote, lead_time, destination_country, product_context, quantity, customer_profile.",
+        "price_information": {
+          "status": "blocked",
+          "text": "There is no verified live pricing field available, so the system cannot generate a firm quote automatically.",
+          "blocker_keys": [
+            "price",
+            "currency_confirmation"
+          ],
+          "related_products": []
+        },
+        "product_support": [],
+        "lead_time_guidance": {
+          "status": "blocked",
+          "text": "There is no verified lead-time data source, so the system cannot commit a delivery schedule automatically.",
+          "blocker_keys": [
+            "lead_time"
+          ]
+        },
+        "mockup_request": {
+          "needed": false,
+          "mockup_request": "The current inquiry does not explicitly request a mockup.",
+          "visual_requirements": [],
+          "asset_requirements": [
+            "Customer logo / artwork source file is required",
+            "Color / finish requirement needs confirmation",
+            "Mockup scene / usage context needs confirmation"
+          ],
+          "product_references": []
+        },
+        "risk_flags": [
+          "platform_reply_unavailable"
+        ],
+        "escalation_recommendation": {
+          "level": "high",
+          "recommendation": "A human should fill in pricing, lead time, customer identity or destination details before a formal reply is sent."
+        }
+      },
+      "input_summary": {
+        "inquiry_text_present": true,
+        "product_ids": [],
+        "quantity": null,
+        "destination_country": null,
+        "target_price": null,
+        "expected_lead_time": null,
+        "language": "en",
+        "customer_profile_present": false
+      },
+      "available_context": {
+        "product_context_count": 0,
+        "has_product_diagnostic": true,
+        "has_price_reference": false,
+        "has_destination": false,
+        "has_quantity": false,
+        "has_customer_profile": false,
+        "has_mockup_signal": false
+      },
+      "missing_context": [
+        "final_quote",
+        "lead_time",
+        "destination_country",
+        "product_context",
+        "quantity",
+        "customer_profile"
+      ],
+      "hard_blockers": [
+        {
+          "key": "final_quote",
+          "label": "Final quote",
+          "reason": "There is no verified live pricing field available, so the system cannot generate a firm quote automatically.",
+          "follow_up_question": "Please confirm the final quote, currency and quote basis.",
+          "required_field": "price.quote_confirmation",
+          "blocker_code": "missing_final_quote",
+          "blocker_reason": "There is no verified live pricing field available, so the system cannot generate a firm quote automatically.",
+          "blocker_next_action": "人工确认最终报价、币种和报价口径。",
+          "blocker_level": "hard",
+          "blocker_definition": "缺少最终报价确认，系统不能自动承诺可发送的正式价格。",
+          "draft_can_still_be_produced": true,
+          "handoff_mandatory": true,
+          "field_meta": {
+            "source": "human_input_required",
+            "confidence": "high",
+            "missing_reason": "There is no verified live pricing field available, so the system cannot generate a firm quote automatically."
+          }
+        },
+        {
+          "key": "lead_time",
+          "label": "Lead time confirmation",
+          "reason": "There is no verified lead-time data source, so the system cannot commit a delivery schedule automatically.",
+          "follow_up_question": "Please confirm sample lead time, production lead time and the start condition.",
+          "required_field": "delivery.lead_time_confirmation",
+          "blocker_code": "missing_lead_time",
+          "blocker_reason": "There is no verified lead-time data source, so the system cannot commit a delivery schedule automatically.",
+          "blocker_next_action": "人工确认样品期、量产期和起算条件。",
+          "blocker_level": "hard",
+          "blocker_definition": "缺少已确认交期，系统不能自动承诺可发送的最终交期。",
+          "draft_can_still_be_produced": true,
+          "handoff_mandatory": true,
+          "field_meta": {
+            "source": "human_input_required",
+            "confidence": "high",
+            "missing_reason": "There is no verified lead-time data source, so the system cannot commit a delivery schedule automatically."
+          }
+        }
+      ],
+      "soft_blockers": [
+        {
+          "key": "destination_country",
+          "label": "Destination country",
+          "reason": "Destination is missing, so logistics and delivery suggestions stay generic.",
+          "follow_up_question": "Please confirm the destination country or destination port.",
+          "required_field": "destination_country",
+          "blocker_code": "missing_destination_country",
+          "blocker_reason": "Destination is missing, so logistics and delivery suggestions stay generic.",
+          "blocker_next_action": "人工确认目的国、目的港或目标市场。",
+          "blocker_level": "soft",
+          "blocker_definition": "缺少目的国或目的港信息，物流、报价和时效建议只能保持保守。",
+          "draft_can_still_be_produced": true,
+          "handoff_mandatory": false,
+          "field_meta": {
+            "source": "human_input_required",
+            "confidence": "high",
+            "missing_reason": "Destination is missing, so logistics and delivery suggestions stay generic."
+          }
+        },
+        {
+          "key": "product_context",
+          "label": "Product context",
+          "reason": "No stable product context is available, so the reply will stay generic.",
+          "follow_up_question": "Please provide product_id or at least the product name / product link.",
+          "required_field": "product_context",
+          "blocker_code": "missing_product_context",
+          "blocker_reason": "No stable product context is available, so the reply will stay generic.",
+          "blocker_next_action": "人工补充 product_id、产品链接或产品名称。",
+          "blocker_level": "soft",
+          "blocker_definition": "缺少稳定产品上下文，系统只能输出泛化回复草稿。",
+          "draft_can_still_be_produced": true,
+          "handoff_mandatory": false,
+          "field_meta": {
+            "source": "human_input_required",
+            "confidence": "high",
+            "missing_reason": "No stable product context is available, so the reply will stay generic."
+          }
+        },
+        {
+          "key": "quantity",
+          "label": "Requested quantity",
+          "reason": "Quantity is missing, so quote and lead-time statements must stay conservative.",
+          "follow_up_question": "Please confirm the target quantity.",
+          "required_field": "quantity",
+          "blocker_code": "missing_quantity",
+          "blocker_reason": "Quantity is missing, so quote and lead-time statements must stay conservative.",
+          "blocker_next_action": "人工确认询盘数量、MOQ 或打样数量。",
+          "blocker_level": "soft",
+          "blocker_definition": "缺少数量，报价和交期只能保守表达。",
+          "draft_can_still_be_produced": true,
+          "handoff_mandatory": false,
+          "field_meta": {
+            "source": "human_input_required",
+            "confidence": "high",
+            "missing_reason": "Quantity is missing, so quote and lead-time statements must stay conservative."
+          }
+        },
+        {
+          "key": "customer_profile",
+          "label": "Customer identity",
+          "reason": "Customer identity is missing, so greeting and business judgement stay conservative.",
+          "follow_up_question": "Please provide buyer company name, contact name or customer profile.",
+          "required_field": "customer_profile",
+          "blocker_code": "missing_customer_profile",
+          "blocker_reason": "Customer identity is missing, so greeting and business judgement stay conservative.",
+          "blocker_next_action": "人工补充客户公司、联系人、地区或客户画像。",
+          "blocker_level": "soft",
+          "blocker_definition": "缺少客户身份信息，问候语和商务判断会偏保守。",
+          "draft_can_still_be_produced": true,
+          "handoff_mandatory": false,
+          "field_meta": {
+            "source": "human_input_required",
+            "confidence": "high",
+            "missing_reason": "Customer identity is missing, so greeting and business judgement stay conservative."
+          }
+        }
+      ],
+      "assumptions": [
+        "This draft is for the external workflow only and will not send any platform reply automatically.",
+        "If language preference is not explicit, the system defaults to English.",
+        "There is no verified live pricing source, so the system does not produce a firm quote.",
+        "There is no verified lead-time source, so lead time remains subject to manual confirmation."
+      ],
+      "follow_up_questions": [
+        "Please confirm the final quote, currency and quote basis.",
+        "Please confirm sample lead time, production lead time and the start condition.",
+        "Please confirm the destination country or destination port.",
+        "Please provide product_id or at least the product name / product link.",
+        "Please confirm the target quantity.",
+        "Please provide buyer company name, contact name or customer profile."
+      ],
+      "follow_up_question_details": [
+        {
+          "sequence": 1,
+          "priority": "high",
+          "question": "Please confirm the final quote, currency and quote basis.",
+          "blocker_code": "missing_final_quote",
+          "required_field": "price.quote_confirmation"
+        },
+        {
+          "sequence": 2,
+          "priority": "high",
+          "question": "Please confirm sample lead time, production lead time and the start condition.",
+          "blocker_code": "missing_lead_time",
+          "required_field": "delivery.lead_time_confirmation"
+        },
+        {
+          "sequence": 3,
+          "priority": "low",
+          "question": "Please confirm the destination country or destination port.",
+          "blocker_code": "missing_destination_country",
+          "required_field": "destination_country"
+        },
+        {
+          "sequence": 4,
+          "priority": "low",
+          "question": "Please provide product_id or at least the product name / product link.",
+          "blocker_code": "missing_product_context",
+          "required_field": "product_context"
+        },
+        {
+          "sequence": 5,
+          "priority": "low",
+          "question": "Please confirm the target quantity.",
+          "blocker_code": "missing_quantity",
+          "required_field": "quantity"
+        },
+        {
+          "sequence": 6,
+          "priority": "low",
+          "question": "Please provide buyer company name, contact name or customer profile.",
+          "blocker_code": "missing_customer_profile",
+          "required_field": "customer_profile"
+        }
+      ],
+      "mockup_request": {
+        "needed": false,
+        "mockup_request": "The current inquiry does not explicitly request a mockup.",
+        "visual_requirements": [],
+        "asset_requirements": [
+          "Customer logo / artwork source file is required",
+          "Color / finish requirement needs confirmation",
+          "Mockup scene / usage context needs confirmation"
+        ],
+        "product_references": []
+      },
+      "escalation_recommendation": {
+        "level": "high",
+        "recommendation": "A human should fill in pricing, lead time, customer identity or destination details before a formal reply is sent."
+      },
+      "minimum_reply_package": {
+        "ready_for_human_edit": false,
+        "minimum_context_available": false,
+        "draft_usable_externally": false,
+        "must_handoff_before_any_send": true
+      },
+      "draft_usable_externally": false,
+      "handoff_checklist": [
+        {
+          "code": "customer_identity",
+          "label": "客户身份已确认",
+          "done": false,
+          "reason": "仍缺客户公司名或联系人。"
+        },
+        {
+          "code": "product_context",
+          "label": "产品上下文已确认",
+          "done": false,
+          "reason": "仍缺 product_id 或稳定产品上下文。"
+        },
+        {
+          "code": "commercial_context",
+          "label": "数量与目的地已确认",
+          "done": false,
+          "reason": "数量或目的地仍不完整。"
+        },
+        {
+          "code": "quote_and_lead_time",
+          "label": "报价与交期已人工确认",
+          "done": false,
+          "reason": "最终报价或交期仍需人工确认。"
+        },
+        {
+          "code": "mockup_assets",
+          "label": "效果图素材已齐备",
+          "done": true,
+          "reason": "当前无需额外 mockup 素材，或素材已齐。"
+        },
+        {
+          "code": "external_only",
+          "label": "仍属于外部草稿工作流",
+          "done": true,
+          "reason": "当前草稿只能用于外部人工协同，不能视为平台内已回复。"
+        }
+      ],
+      "handoff_fields": [
+        {
+          "field": "price.quote_confirmation",
+          "label": "Final quote",
+          "reason": "There is no verified live pricing field available, so the system cannot generate a firm quote automatically.",
+          "source": "human_input_required",
+          "confidence": "high",
+          "missing_reason": "There is no verified live pricing field available, so the system cannot generate a firm quote automatically.",
+          "blocker_code": "missing_final_quote",
+          "blocker_level": "hard",
+          "blocker_next_action": "人工确认最终报价、币种和报价口径。",
+          "template_section": "pricing_confirmation",
+          "required_for_minimum_reply": true
+        },
+        {
+          "field": "delivery.lead_time_confirmation",
+          "label": "Lead time confirmation",
+          "reason": "There is no verified lead-time data source, so the system cannot commit a delivery schedule automatically.",
+          "source": "human_input_required",
+          "confidence": "high",
+          "missing_reason": "There is no verified lead-time data source, so the system cannot commit a delivery schedule automatically.",
+          "blocker_code": "missing_lead_time",
+          "blocker_level": "hard",
+          "blocker_next_action": "人工确认样品期、量产期和起算条件。",
+          "template_section": "lead_time_confirmation",
+          "required_for_minimum_reply": true
+        },
+        {
+          "field": "destination_country",
+          "label": "Destination country",
+          "reason": "Destination is missing, so logistics and delivery suggestions stay generic.",
+          "source": "human_input_required",
+          "confidence": "high",
+          "missing_reason": "Destination is missing, so logistics and delivery suggestions stay generic.",
+          "blocker_code": "missing_destination_country",
+          "blocker_level": "soft",
+          "blocker_next_action": "人工确认目的国、目的港或目标市场。",
+          "template_section": "customer_and_destination",
+          "required_for_minimum_reply": false
+        },
+        {
+          "field": "product_context",
+          "label": "Product context",
+          "reason": "No stable product context is available, so the reply will stay generic.",
+          "source": "human_input_required",
+          "confidence": "high",
+          "missing_reason": "No stable product context is available, so the reply will stay generic.",
+          "blocker_code": "missing_product_context",
+          "blocker_level": "soft",
+          "blocker_next_action": "人工补充 product_id、产品链接或产品名称。",
+          "template_section": "customer_and_destination",
+          "required_for_minimum_reply": false
+        },
+        {
+          "field": "quantity",
+          "label": "Requested quantity",
+          "reason": "Quantity is missing, so quote and lead-time statements must stay conservative.",
+          "source": "human_input_required",
+          "confidence": "high",
+          "missing_reason": "Quantity is missing, so quote and lead-time statements must stay conservative.",
+          "blocker_code": "missing_quantity",
+          "blocker_level": "soft",
+          "blocker_next_action": "人工确认询盘数量、MOQ 或打样数量。",
+          "template_section": "customer_and_destination",
+          "required_for_minimum_reply": false
+        },
+        {
+          "field": "customer_profile",
+          "label": "Customer identity",
+          "reason": "Customer identity is missing, so greeting and business judgement stay conservative.",
+          "source": "human_input_required",
+          "confidence": "high",
+          "missing_reason": "Customer identity is missing, so greeting and business judgement stay conservative.",
+          "blocker_code": "missing_customer_profile",
+          "blocker_level": "soft",
+          "blocker_next_action": "人工补充客户公司、联系人、地区或客户画像。",
+          "template_section": "customer_and_destination",
+          "required_for_minimum_reply": false
+        }
+      ],
+      "manual_completion_sop": {
+        "template_version": "2026-04-05.sop-v1",
+        "workflow_profile": "reply_quote_confirmation_needed",
+        "minimum_reply_package": {
+          "ready_for_human_edit": true,
+          "must_handoff_before_any_send": true,
+          "required_before_send": [
+            "price.quote_confirmation",
+            "delivery.lead_time_confirmation",
+            "destination_country",
+            "quantity"
+          ]
+        },
+        "sections": [
+          {
+            "section_code": "pricing_confirmation",
+            "title": "报价确认",
+            "fields": [
+              "price.quote_confirmation"
+            ],
+            "owner": "sales",
+            "notes": "没有实时价格源，最终报价必须人工确认。"
+          },
+          {
+            "section_code": "lead_time_confirmation",
+            "title": "交期确认",
+            "fields": [
+              "delivery.lead_time_confirmation"
+            ],
+            "owner": "sales / production",
+            "notes": "交期只能作为人工确认后的承诺，不应自动生成。"
+          },
+          {
+            "section_code": "customer_and_destination",
+            "title": "客户与目的地补全",
+            "fields": [
+              "customer_profile",
+              "destination_country",
+              "quantity"
+            ],
+            "owner": "sales",
+            "notes": "决定回复语气、物流建议和报价口径。"
+          },
+          {
+            "section_code": "mockup_requirements",
+            "title": "效果图需求补全",
+            "fields": [
+              "mockup_request.asset_requirements"
+            ],
+            "owner": "sales / design",
+            "notes": "当前不强制 mockup，但如客户追问需补 logo / 工艺 / 场景信息。"
+          }
+        ],
+        "external_boundary": {
+          "draft_can_still_be_produced": true,
+          "platform_reply_available": false,
+          "reason": "当前只生成外部回复草稿，不触发平台内回复发送。"
+        },
+        "blocker_summary": {
+          "hard_count": 2,
+          "soft_count": 4
+        }
+      },
+      "alert_payload": {
+        "schema_version": 1,
+        "kind": "wika_blocker_alert",
+        "account": "wika",
+        "stage_name": "external_reply_draft_workflow",
+        "blocker_category": {
+          "code": "parameter_missing",
+          "label": "参数缺失",
+          "description": "关键入参、业务参数或必填字段不足，无法继续验证或生成草稿。"
+        },
+        "triggered_at": "2026-04-05T03:16:06.245Z",
+        "related_apis": [
+          "alibaba.seller.customer.batch.get",
+          "alibaba.seller.customer.get"
+        ],
+        "related_modules": [
+          "external_reply_draft",
+          "wika_minimal_product_diagnostic"
+        ],
+        "current_evidence": [
+          "External reply draft generated from existing read-side signals only.",
+          "Current platform reply path is still unavailable or unverified.",
+          "Missing context: final_quote, lead_time, destination_country, product_context, quantity, customer_profile"
+        ],
+        "cannot_continue_reason": "关键参数或样本 id 缺失，当前无法继续完成真实实证。",
+        "user_needs": [
+          "final_quote",
+          "lead_time",
+          "destination_country",
+          "product_context",
+          "quantity",
+          "customer_profile"
+        ],
+        "suggested_next_steps": [
+          "Manually confirm final quote and lead time before sending.",
+          "Provide destination, customer identity and artwork files if a mockup is required."
+        ],
+        "allow_human_handoff": true,
+        "human_handoff": {
+          "account": "wika",
+          "stage": "formal_notification_loop",
+          "status": "pending_human_handoff",
+          "severity": "high",
+          "action": "parameter_backfill",
+          "api_name": null,
+          "blocker_category": {
+            "code": "parameter_missing",
+            "label": "参数缺失",
+            "description": "关键入参、业务参数或必填字段不足，无法继续验证或生成草稿。"
+          },
+          "triggers": [
+            {
+              "code": "missing_category_or_attributes",
+              "label": "类目或属性不足",
+              "description": "草稿所需的类目、属性或必填项未补齐时，必须人工确认后续信息来源。"
+            }
+          ],
+          "requires_human_handoff": true,
+          "input_summary": {
+            "product_ids": [],
+            "quantity": null,
+            "destination": null
+          },
+          "evidence": {
+            "stage_name": "external_reply_draft_workflow",
+            "related_apis": [
+              "alibaba.seller.customer.batch.get",
+              "alibaba.seller.customer.get"
+            ],
+            "related_modules": [
+              "external_reply_draft",
+              "wika_minimal_product_diagnostic"
+            ],
+            "current_evidence": [
+              "External reply draft generated from existing read-side signals only.",
+              "Current platform reply path is still unavailable or unverified.",
+              "Missing context: final_quote, lead_time, destination_country, product_context, quantity, customer_profile"
+            ],
+            "cannot_continue_reason": "关键参数或样本 id 缺失，当前无法继续完成真实实证。"
+          },
+          "next_action": "Manually confirm final quote and lead time before sending.；Provide destination, customer identity and artwork files if a mockup is required.",
+          "created_at": "2026-04-05T03:16:06.245Z"
+        }
+      },
+      "workflow_meta": {
+        "generated_at": "2026-04-05T03:16:06.245Z",
+        "workflow_profile": "reply_quote_confirmation_needed",
+        "template_version": "2026-04-05.sop-v1",
+        "available_context": {
+          "inquiry_text": true,
+          "product_context_count": 0,
+          "quantity": null,
+          "destination": null,
+          "language_preference": "en",
+          "product_diagnostic_sample_size": 12
+        },
+        "missing_context": [
+          "final_quote",
+          "lead_time",
+          "destination_country",
+          "product_context",
+          "quantity",
+          "customer_profile"
+        ],
+        "confidence": "low",
+        "risk_level": "high",
+        "human_action_required": true,
+        "handoff_required": true,
+        "draft_usable_externally": false,
+        "alert_payload": {
+          "schema_version": 1,
+          "kind": "wika_blocker_alert",
+          "account": "wika",
+          "stage_name": "external_reply_draft_workflow",
+          "blocker_category": {
+            "code": "parameter_missing",
+            "label": "参数缺失",
+            "description": "关键入参、业务参数或必填字段不足，无法继续验证或生成草稿。"
+          },
+          "triggered_at": "2026-04-05T03:16:06.245Z",
+          "related_apis": [
+            "alibaba.seller.customer.batch.get",
+            "alibaba.seller.customer.get"
+          ],
+          "related_modules": [
+            "external_reply_draft",
+            "wika_minimal_product_diagnostic"
+          ],
+          "current_evidence": [
+            "External reply draft generated from existing read-side signals only.",
+            "Current platform reply path is still unavailable or unverified.",
+            "Missing context: final_quote, lead_time, destination_country, product_context, quantity, customer_profile"
+          ],
+          "cannot_continue_reason": "关键参数或样本 id 缺失，当前无法继续完成真实实证。",
+          "user_needs": [
+            "final_quote",
+            "lead_time",
+            "destination_country",
+            "product_context",
+            "quantity",
+            "customer_profile"
+          ],
+          "suggested_next_steps": [
+            "Manually confirm final quote and lead time before sending.",
+            "Provide destination, customer identity and artwork files if a mockup is required."
+          ],
+          "allow_human_handoff": true,
+          "human_handoff": {
+            "account": "wika",
+            "stage": "formal_notification_loop",
+            "status": "pending_human_handoff",
+            "severity": "high",
+            "action": "parameter_backfill",
+            "api_name": null,
+            "blocker_category": {
+              "code": "parameter_missing",
+              "label": "参数缺失",
+              "description": "关键入参、业务参数或必填字段不足，无法继续验证或生成草稿。"
+            },
+            "triggers": [
+              {
+                "code": "missing_category_or_attributes",
+                "label": "类目或属性不足",
+                "description": "草稿所需的类目、属性或必填项未补齐时，必须人工确认后续信息来源。"
+              }
+            ],
+            "requires_human_handoff": true,
+            "input_summary": {
+              "product_ids": [],
+              "quantity": null,
+              "destination": null
+            },
+            "evidence": {
+              "stage_name": "external_reply_draft_workflow",
+              "related_apis": [
+                "alibaba.seller.customer.batch.get",
+                "alibaba.seller.customer.get"
+              ],
+              "related_modules": [
+                "external_reply_draft",
+                "wika_minimal_product_diagnostic"
+              ],
+              "current_evidence": [
+                "External reply draft generated from existing read-side signals only.",
+                "Current platform reply path is still unavailable or unverified.",
+                "Missing context: final_quote, lead_time, destination_country, product_context, quantity, customer_profile"
+              ],
+              "cannot_continue_reason": "关键参数或样本 id 缺失，当前无法继续完成真实实证。"
+            },
+            "next_action": "Manually confirm final quote and lead time before sending.；Provide destination, customer identity and artwork files if a mockup is required.",
+            "created_at": "2026-04-05T03:16:06.245Z"
+          }
+        }
+      },
+      "supporting_context": {
+        "inquiry_text": "Please quote your case options.",
         "customer_profile": {},
         "product_diagnostic_snapshot": {
           "available_signals": [
