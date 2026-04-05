@@ -116,3 +116,5 @@
 3. 写侧方向已经推进到 schema-aware 草稿准备层，并新增了 media 可观测与 draft 可区分证据；但 photobank.upload 与 product.add.draft 的低风险边界都还未被证明。
 4. 当前已经形成“外部回复草稿 + 外部订单草稿”这一层可直接使用的中间层，并且已经补齐模板化输入、workflow profile、blocker taxonomy、handoff checklist 和人工接手字段；但它们都不等于平台内回复或平台内创单。
 5. 当前最缺的仍然是：经营指标入口、最小经营聚合、询盘/消息读侧、可真正读出的 customers 数据、平台内安全写入边界，以及通知闭环的真实 provider 配置与真实外发送达证据。
+
+6. 本轮没有做任何新的 Alibaba API 验证；本轮增强的是任务 4/5 的“质量评估与回归闸门层”，当前边界依旧只是外部草稿工作流层。

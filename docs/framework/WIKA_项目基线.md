@@ -129,3 +129,17 @@
 - inquiry / message 是否会出现官方明确的读侧 list/detail 方法
 - media / draft 边界证据补齐后，是否才可进入最小真实写入验证
 - 后续是否会出现官方明确的 order `precheck / cancel / status / draft` 低风险接口
+
+## 阶段16补充（2026-04-05）
+- 本轮没有做任何新的 Alibaba API 验证。
+- 本轮没有推进平台内自动回复、平台内订单创建、真实通知外发。
+- 本轮只增强任务 4/5 的外部草稿工作流质量层：
+  - 统一 review / gate 结构
+  - 可失败的回归闸门
+  - reply / order handoff pack 导出
+  - workflow profile / template version / blocker taxonomy 治理
+- 当前边界不变：
+  - 仍然只是外部草稿工作流层
+  - 不是平台内已回复
+  - 不是平台内已创单
+  - 不是真实通知已送达

@@ -163,3 +163,34 @@
 - 真实价格已确认
 - 真实交期已确认
 - 效果图已生成
+
+## 阶段16补充：版本化与质量闸门
+
+### template_version
+- 当前稳定版本：`2026-04-05.sop-v1`
+
+### workflow_profile 治理
+- `reply_minimal_handoff`
+- `reply_quote_confirmation_needed`
+- `reply_mockup_customization`
+
+### 本轮新增的质量字段
+在不破坏既有输出的前提下，reply 当前还会稳定输出或导出：
+- `workflow_profile_meta`
+- `template_changelog_entry`
+- `handoff_checklist`
+- `manual_completion_sop`
+- `minimum_reply_package`
+- `follow_up_question_details`
+
+### 回归样例覆盖
+当前 reply 样例已覆盖至少 4 组：
+- `complete_context`
+- `mockup_customization`
+- `quantity_gap`
+- `minimal_handoff`
+
+### 当前边界再次声明
+本轮没有做新 API 验证。
+本轮没有推进平台内自动回复。
+这里增强的是外部回复草稿模板和人工接手质量，不代表平台内已回复。

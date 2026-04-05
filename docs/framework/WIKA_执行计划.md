@@ -1,7 +1,7 @@
 # WIKA_执行计划
 
 ## 当前阶段
-阶段 15 收口：任务 4/5 的外部草稿工作流 SOP 化与交接标准包
+阶段 16：任务 4/5 的外部草稿工作流质量评估、回归闸门与交接包导出
 
 ## 本阶段唯一目标
 不验证任何新的 Alibaba API，不推进平台内读写，也不推进真实通知外发。
@@ -10,105 +10,92 @@
 - `/integrations/alibaba/wika/tools/reply-draft`
 - `/integrations/alibaba/wika/tools/order-draft`
 
-基础上，把外部草稿工作流继续收口成：
+基础上，补齐一层：
 
-- 可交接
-- 可补单
+- 可评估
+- 可回归
 - 可审计
-- 可复用
+- 可交接
 
-的稳定 SOP 层。
+的外部草稿工作流质量控制层。
 
 ## 起始基线
-- 当前实际起始仓库状态以本轮开始时的 `HEAD` 为准：`183384f`
-- 只推进 `WIKA`
-- 一律复用 Railway production 认证闭环与 `/sync + access_token + sha256`
-- 不新增任何 Alibaba API 验证
-- 不推进任何平台内写动作
-- 当前已存在：
+- 当前实际起始仓库状态以本阶段开始时的 `HEAD` 为准：`14997a3`
+- 当前只推进 `WIKA`
+- 一律复用 Railway production 闭环与 `/sync + access_token + sha256`
+- 当前禁止任何新的 Alibaba API 验证
+- 当前禁止任何平台内写动作
+- 当前已稳定存在：
   - `reply-draft` / `order-draft` 工具路由
   - 产品 / 订单 / operations minimal-diagnostic
   - 产品草稿 helper
   - 订单草稿 helper
   - notifier / alerts / fallback
-  - 写侧护栏与人工接管规则
+  - blocker taxonomy
+  - 输入模板、人工补单模板、样例产物
 
 ## 本阶段分解
+### A. 建立统一质量评估层
+优先新增共享 review helper，而不是强行改主路由语义。
 
-### A. 收口稳定输出结构
-在不破坏现有字段兼容性的前提下，补齐并标准化：
+至少覆盖：
 
-- `workflow_profile`
-- `template_version`
-- `handoff_checklist`
-- `blocker_code / blocker_reason / blocker_next_action`
-- `manual_completion_sop`
-- `field-level source / confidence / missing_reason`
+- `structure_completeness`
+- `blocker_consistency`
+- `minimum_package_readiness`
+- `handoff_clarity`
+- `manual_completion_readiness`
+- `externally_usable_boundary`
+- `source_traceability`
 
-必须继续保留：
+统一 review 输出至少包含：
 
-- `input_summary`
-- `available_context`
-- `missing_context`
-- `hard_blockers`
-- `soft_blockers`
-- `assumptions`
-- `follow_up_questions`
-- `handoff_fields`
-- `alert_payload`
-- `required_manual_fields`（order draft）
+- `review_profile`
+- `review_version`
+- `readiness_level`
+- `passed_checks`
+- `failed_checks`
+- `review_findings`
+- `recommended_next_action`
+- `handoff_mandatory`
+- `draft_usable_externally`
 
-### B. 收口 blocker taxonomy
-统一 reply / order 的 blocker taxonomy，要求代码和文档使用同一套：
+### B. 建立可失败的回归闸门
+- 样例从当前 6 组扩充到至少 8 组
+- 每组样例必须有明确断言
+- 验证失败必须返回非 0 退出码
+- 主入口使用稳定命名：
+  - `scripts/validate-wika-external-draft-regression.js`
+- 旧 `phase14` 脚本若保留，只能作为薄别名
 
-- 稳定 blocker code
-- hard / soft 判断依据
-- definition
-- trigger condition
-- next human action
-- draft can still be produced
-- handoff mandatory
+### C. 建立人工交接包导出
+至少支持：
 
-### C. 收口人工补单与 handoff SOP
-重点增强：
+- reply handoff pack
+- order handoff pack
 
-- reply:
-  - follow_up question priority
-  - minimum reply package 判断
-  - 哪些缺口允许先出草稿，哪些必须先 handoff
-- order:
-  - `required_manual_fields` 到人工补单模板 section 的映射
-  - `why_required / example_value / collection_hint / who_should_fill`
-  - `handoff_fields` 与 `required_manual_fields` 的对应关系
+导出格式至少支持：
 
-### D. 输入模板版本化
-只做有限的可复用 profile，不做大而全模板：
+- JSON
+- Markdown
 
-- reply 至少 3 个 profile
-- order 至少 3 个 profile
+交接包必须明确：
 
-profile 必须写清：
+- 这是外部草稿
+- 不代表平台内已回复
+- 不代表平台内已创单
+- 不代表真实通知已送达
 
-- 输入预期
-- 常见 blocker
-- 适合的交接方式
+### D. 做 profile / taxonomy / version 治理
+收口：
 
-### E. 样例与验证脚本收口
-- 主验证脚本使用稳定命名：
-  - `scripts/validate-wika-external-draft-workflows.js`
-- 旧脚本：
-  - `scripts/validate-wika-workflow-phase14.js`
-  只保留为兼容别名
-- 样例扩展到至少 6 组：
-  - reply 3 组
-  - order 3 组
-- 验证脚本输出必须显示：
-  - `workflow_profile`
-  - `template_version`
-  - `hard_blockers_count`
-  - `soft_blockers_count`
-  - `handoff_required`
-  - `draft_usable_externally`
+- workflow_profile 定义
+- template_version 定义
+- blocker taxonomy usage matrix
+- profile coverage matrix
+- template_version 最小 changelog
+
+代码和文档必须共用同一套命名。
 
 ## 本阶段明确排除
 - XD
@@ -125,53 +112,30 @@ profile 必须写清：
 - 自动进入下一阶段
 
 ## 推进规则
-1. 本阶段不追求平台内自动化
-2. 只追求让外部草稿工作流更适合人机协同
-3. 不得把“模板更完整 / blocker 更规范”误写成“平台内能力已打通”
-4. 若发现潜在新 API，只记录到候选池，不做实测
-5. 本阶段完成后停止，不自动进入下一阶段
+1. 只复用现有已验证读侧与现有中间层
+2. 不新增任何平台内写动作
+3. 不做任何新的 Alibaba API 探测、撞权限、撞参数
+4. 若发现潜在新 API，只记入候选池，不实测
+5. 所有新增结构必须向后兼容
+6. 当前边界必须持续写清：这仍然只是外部草稿工作流层
 
-## 当前执行结果（已完成）
-- `reply-draft` 已新增并稳定输出：
-  - `workflow_profile`
-  - `template_version`
-  - `follow_up_question_details`
-  - `minimum_reply_package`
-  - `draft_usable_externally`
-  - `handoff_checklist`
-  - `manual_completion_sop`
-- `order-draft` 已新增并稳定输出：
-  - `workflow_profile`
-  - `template_version`
-  - `required_manual_field_details`
-  - `follow_up_question_details`
-  - `handoff_checklist`
-  - `manual_completion_sop`
-  - `draft_usable_externally`
-- blocker taxonomy 已统一到：
-  - `shared/data/modules/alibaba-external-workflow-taxonomy.js`
-- 当前模板 profile 已固定：
-  - reply:
-    - `reply_minimal_handoff`
-    - `reply_quote_confirmation_needed`
-    - `reply_mockup_customization`
-  - order:
-    - `order_minimal_handoff`
-    - `order_quote_confirmation_needed`
-    - `order_commercial_review`
-- 当前样例已扩展到 6 组：
-  - reply 3 组
-  - order 3 组
-- 主验证脚本已稳定为：
-  - `scripts/validate-wika-external-draft-workflows.js`
-- 旧脚本 `scripts/validate-wika-workflow-phase14.js` 仅作为兼容别名保留
+## 完成标准
+- 已形成统一质量评估层
+- 已形成可失败的回归闸门
+- 已形成 reply / order handoff pack 导出
+- 已完成 profile / taxonomy / version 治理
+- 已刷新样例并完成回归脚本验证
+- 已更新基线、计划、缺口矩阵、复用清单、候选池、自治推进日志
+- 本阶段完成后停止，不自动进入下一阶段
 
 ## 停止条件
-- 输出结构、模板、taxonomy、handoff SOP、样例、脚本已经统一
-- route smoke test 与样例刷新已经完成
-- 再往前推进就会落到平台内自动执行或新 API 验证，不符合本阶段边界
+- 当前外部草稿工作流已经具备稳定 review / regression / handoff 导出能力
+- 或继续推进只会重复已有工作，不再增加真实证据
 
 ## 交付物
+- `shared/data/modules/alibaba-external-draft-review.js`
+- `shared/data/modules/alibaba-external-workflow-taxonomy.js`
+- `scripts/validate-wika-external-draft-regression.js`
 - `docs/framework/WIKA_项目基线.md`
 - `docs/framework/WIKA_执行计划.md`
 - `docs/framework/WIKA_自治推进日志.md`
@@ -182,8 +146,6 @@ profile 必须写清：
 - `docs/framework/WIKA_已上线能力复用清单.md`
 - `docs/framework/WIKA_面向6项任务_API缺口矩阵.md`
 - `docs/framework/WIKA_下一批必须验证的API候选池.md`
-- `docs/framework/WIKA_外部回复草稿样例.json`
-- `docs/framework/WIKA_外部订单草稿样例.json`
 
 ## 固定汇报结构
 - 当前阶段

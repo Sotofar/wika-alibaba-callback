@@ -5,11 +5,15 @@ import {
 } from "./alibaba-official-extensions.js";
 import { fetchAlibabaOfficialProductSchemaRender } from "./alibaba-official-product-schema.js";
 import {
-  WIKA_EXTERNAL_WORKFLOW_TEMPLATE_VERSION,
   buildWikaWorkflowBlocker,
   buildWikaWorkflowHandoffField,
   dedupeStrings
 } from "./alibaba-external-workflow-taxonomy.js";
+import {
+  WIKA_EXTERNAL_WORKFLOW_TEMPLATE_VERSION,
+  WIKA_REPLY_WORKFLOW_PROFILES,
+  getWikaExternalWorkflowTemplateChangelog
+} from "./alibaba-external-workflow-governance.js";
 import {
   buildWikaNoEntryAlert,
   buildWikaParameterMissingAlert
@@ -28,32 +32,6 @@ function normalizeList(values = []) {
 
   return [...new Set(values.map((value) => normalizeString(value)).filter(Boolean))];
 }
-
-const REPLY_WORKFLOW_PROFILES = {
-  reply_minimal_handoff: {
-    code: "reply_minimal_handoff",
-    label: "最小上下文交接",
-    input_expectation: "只有询盘文本或极少上下文，需要先人工补齐再决定是否可发送。",
-    common_blockers: [
-      "missing_inquiry_text",
-      "missing_product_context",
-      "missing_customer_profile",
-      "missing_destination_country"
-    ]
-  },
-  reply_quote_confirmation_needed: {
-    code: "reply_quote_confirmation_needed",
-    label: "报价确认型回复草稿",
-    input_expectation: "已有基本产品和客户上下文，但价格和交期仍需人工确认。",
-    common_blockers: ["missing_final_quote", "missing_lead_time", "missing_quantity"]
-  },
-  reply_mockup_customization: {
-    code: "reply_mockup_customization",
-    label: "定制 / 效果图回复草稿",
-    input_expectation: "存在定制、logo 或 mockup 需求，需要同步收集素材和工艺信息。",
-    common_blockers: ["missing_mockup_assets", "missing_final_quote", "missing_lead_time"]
-  }
-};
 
 function normalizeKeywordValues(value) {
   if (Array.isArray(value)) {
@@ -127,8 +105,6 @@ function buildReplyQuestionDetails(blockers = []) {
 }
 
 function determineReplyWorkflowProfile({
-  hardBlockers,
-  softBlockers,
   validProductContexts,
   mockupRequest,
   customerProfile,
@@ -142,14 +118,18 @@ function determineReplyWorkflowProfile({
   const hasCommercialContext = hasCustomerIdentity && hasProductContext && Boolean(destination) && Boolean(quantity);
 
   if (mockupRequest?.needed) {
-    return REPLY_WORKFLOW_PROFILES.reply_mockup_customization;
+    return WIKA_REPLY_WORKFLOW_PROFILES.reply_mockup_customization;
   }
 
-  if (hasCommercialContext || hardBlockers.length > 0) {
-    return REPLY_WORKFLOW_PROFILES.reply_quote_confirmation_needed;
+  if (!hasCommercialContext) {
+    return WIKA_REPLY_WORKFLOW_PROFILES.reply_minimal_handoff;
   }
 
-  return REPLY_WORKFLOW_PROFILES.reply_minimal_handoff;
+  if (hasCommercialContext) {
+    return WIKA_REPLY_WORKFLOW_PROFILES.reply_quote_confirmation_needed;
+  }
+
+  return WIKA_REPLY_WORKFLOW_PROFILES.reply_minimal_handoff;
 }
 
 function buildReplyHandoffChecklist({
@@ -1030,8 +1010,6 @@ export async function buildWikaExternalReplyDraftPackage(clientConfig, input = {
     riskFlags
   );
   const workflowProfile = determineReplyWorkflowProfile({
-    hardBlockers: workflowLayers.hard_blockers,
-    softBlockers: workflowLayers.soft_blockers,
     validProductContexts,
     mockupRequest,
     customerProfile,
@@ -1128,7 +1106,11 @@ export async function buildWikaExternalReplyDraftPackage(clientConfig, input = {
     account: "wika",
     workflow_type: "external_reply_draft",
     workflow_profile: workflowProfile.code,
+    workflow_profile_meta: workflowProfile,
     template_version: WIKA_EXTERNAL_WORKFLOW_TEMPLATE_VERSION,
+    template_changelog_entry: getWikaExternalWorkflowTemplateChangelog(
+      WIKA_EXTERNAL_WORKFLOW_TEMPLATE_VERSION
+    ),
     reply_draft: {
       subject: buildReplySubject(language, validProductContexts),
       opening: buildReplyOpening(language, customerProfile),

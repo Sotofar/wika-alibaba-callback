@@ -237,3 +237,54 @@ taxonomy 统一定义了：
 - 平台内已回复
 - 平台内已创单
 - 真实通知已送达
+
+## 阶段16补充：质量评估层与交接包
+
+### 统一质量评估层
+当前新增共享 review 结构，用于对 reply / order 草稿输出做一致性审查。核心维度：
+- `structure_completeness`
+- `blocker_consistency`
+- `minimum_package_readiness`
+- `handoff_clarity`
+- `manual_completion_readiness`
+- `externally_usable_boundary`
+- `source_traceability`
+
+统一 review 输出至少包含：
+- `review_profile`
+- `review_version`
+- `readiness_level`
+- `passed_checks`
+- `failed_checks`
+- `review_findings`
+- `recommended_next_action`
+- `handoff_mandatory`
+- `draft_usable_externally`
+
+### handoff pack 导出
+当前已支持两类交接包导出：
+- reply handoff pack
+- order handoff pack
+
+导出格式：
+- JSON
+- Markdown
+
+### 回归闸门
+当前主回归脚本：
+- `scripts/validate-wika-external-draft-regression.js`
+
+兼容入口：
+- `scripts/validate-wika-external-draft-workflows.js`
+- `scripts/validate-wika-workflow-phase14.js`
+
+当前样例已扩充到 8 组：
+- reply 4 组
+- order 4 组
+
+每组样例都带可失败断言，不再以“只生成 JSON”作为通过标准。
+
+### 当前边界再次声明
+本轮没有做任何新的 Alibaba API 验证。
+本轮没有推进平台内自动回复、平台内订单创建、真实通知外发。
+当前增强的是任务 4/5 的外部草稿工作流质量层，不是平台内闭环。

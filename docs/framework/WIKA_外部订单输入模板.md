@@ -181,3 +181,34 @@
 - 平台内订单已创建
 - 平台内 draft 已创建
 - 真实信保下单已触发
+
+## 阶段16补充：版本化与质量闸门
+
+### template_version
+- 当前稳定版本：`2026-04-05.sop-v1`
+
+### workflow_profile 治理
+- `order_minimal_handoff`
+- `order_quote_confirmation_needed`
+- `order_commercial_review`
+
+### 本轮新增的质量字段
+在不破坏既有输出的前提下，order 当前还会稳定输出或导出：
+- `workflow_profile_meta`
+- `template_changelog_entry`
+- `required_manual_field_details`
+- `handoff_checklist`
+- `manual_completion_sop`
+- `follow_up_question_details`
+
+### 回归样例覆盖
+当前 order 样例已覆盖至少 4 组：
+- `commercial_review`
+- `logistics_gap`
+- `pricing_gap`
+- `minimal_handoff`
+
+### 当前边界再次声明
+本轮没有做新 API 验证。
+本轮没有推进平台内订单创建。
+这里增强的是外部订单草稿模板和人工补单质量，不代表平台内已创单。

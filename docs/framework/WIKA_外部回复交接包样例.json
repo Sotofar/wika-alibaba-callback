@@ -1,0 +1,357 @@
+{
+  "draft_guidance": {
+    "alert_payload": {
+      "account": "wika",
+      "allow_human_handoff": true,
+      "blocker_category": {
+        "code": "parameter_missing",
+        "description": "关键入参、业务参数或必填字段不足，无法继续验证或生成草稿。",
+        "label": "参数缺失"
+      },
+      "cannot_continue_reason": "关键参数或样本 id 缺失，当前无法继续完成真实实证。",
+      "current_evidence": [
+        "External reply draft generated from existing read-side signals only.",
+        "Current platform reply path is still unavailable or unverified.",
+        "Missing context: final_quote, lead_time"
+      ],
+      "human_handoff": {
+        "account": "wika",
+        "action": "parameter_backfill",
+        "api_name": null,
+        "blocker_category": {
+          "code": "parameter_missing",
+          "description": "关键入参、业务参数或必填字段不足，无法继续验证或生成草稿。",
+          "label": "参数缺失"
+        },
+        "created_at": "2026-04-05T04:09:08.053Z",
+        "evidence": {
+          "cannot_continue_reason": "关键参数或样本 id 缺失，当前无法继续完成真实实证。",
+          "current_evidence": [
+            "External reply draft generated from existing read-side signals only.",
+            "Current platform reply path is still unavailable or unverified.",
+            "Missing context: final_quote, lead_time"
+          ],
+          "related_apis": [
+            "alibaba.seller.customer.batch.get",
+            "alibaba.seller.customer.get"
+          ],
+          "related_modules": [
+            "external_reply_draft",
+            "wika_minimal_product_diagnostic"
+          ],
+          "stage_name": "external_reply_draft_workflow"
+        },
+        "input_summary": {
+          "destination": "United States",
+          "product_ids": [
+            "1601700588198"
+          ],
+          "quantity": "1000 pcs"
+        },
+        "next_action": "Manually confirm final quote and lead time before sending.；Provide destination, customer identity and artwork files if a mockup is required.",
+        "requires_human_handoff": true,
+        "severity": "high",
+        "stage": "formal_notification_loop",
+        "status": "pending_human_handoff",
+        "triggers": [
+          {
+            "code": "missing_category_or_attributes",
+            "description": "草稿所需的类目、属性或必填项未补齐时，必须人工确认后续信息来源。",
+            "label": "类目或属性不足"
+          }
+        ]
+      },
+      "kind": "wika_blocker_alert",
+      "related_apis": [
+        "alibaba.seller.customer.batch.get",
+        "alibaba.seller.customer.get"
+      ],
+      "related_modules": [
+        "external_reply_draft",
+        "wika_minimal_product_diagnostic"
+      ],
+      "schema_version": 1,
+      "stage_name": "external_reply_draft_workflow",
+      "suggested_next_steps": [
+        "Manually confirm final quote and lead time before sending.",
+        "Provide destination, customer identity and artwork files if a mockup is required."
+      ],
+      "triggered_at": "2026-04-05T04:09:08.053Z",
+      "user_needs": [
+        "final_quote",
+        "lead_time"
+      ]
+    },
+    "assumptions": [
+      "This draft is for the external workflow only and will not send any platform reply automatically.",
+      "If language preference is not explicit, the system defaults to English.",
+      "There is no verified live pricing source, so the system does not produce a firm quote.",
+      "There is no verified lead-time source, so lead time remains subject to manual confirmation."
+    ],
+    "escalation_recommendation": {
+      "level": "high",
+      "recommendation": "A human should fill in pricing, lead time, customer identity or destination details before a formal reply is sent."
+    }
+  },
+  "draft_text": {
+    "body": "Inquiry summary: Hello, we need 1000 pcs PU sunglasses cases for US shipment. Please confirm quote and lead time.\n\nRequested quantity: 1000 pcs\n\nDestination: United States\n\nProduct references:\n- Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case | description available\n\nPrice note: There is no verified live pricing field available, so the system cannot generate a firm quote automatically.\n\nLead time note: There is no verified lead-time data source, so the system cannot commit a delivery schedule automatically.",
+    "closing": "Please confirm the following items before sending a formal reply: final_quote, lead_time.",
+    "escalation_recommendation": {
+      "level": "high",
+      "recommendation": "A human should fill in pricing, lead time, customer identity or destination details before a formal reply is sent."
+    },
+    "lead_time_guidance": {
+      "blocker_keys": [
+        "lead_time"
+      ],
+      "status": "blocked",
+      "text": "There is no verified lead-time data source, so the system cannot commit a delivery schedule automatically."
+    },
+    "mockup_request": {
+      "asset_requirements": [
+        "Customer logo / artwork source file is required",
+        "Color / finish requirement needs confirmation",
+        "Mockup scene / usage context needs confirmation"
+      ],
+      "mockup_request": "The current inquiry does not explicitly request a mockup.",
+      "needed": false,
+      "product_references": [
+        {
+          "pc_detail_url": "https://www.alibaba.com/product-detail/Customizable-PU-Leather-Portable-Sunglasses-Case_1601700588198.html",
+          "product_id": "1601700588198",
+          "subject": "Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case"
+        }
+      ],
+      "visual_requirements": []
+    },
+    "opening": "Hello, thank you for your inquiry from TEST BUYER / DO-NOT-USE.",
+    "price_information": {
+      "blocker_keys": [
+        "price",
+        "currency_confirmation"
+      ],
+      "related_products": [
+        "1601700588198"
+      ],
+      "status": "blocked",
+      "text": "There is no verified live pricing field available, so the system cannot generate a firm quote automatically."
+    },
+    "product_support": [
+      {
+        "category_id": 36127040,
+        "description_available": true,
+        "gmt_modified": "2026-03-26 15:51:53",
+        "group_id": null,
+        "group_name": null,
+        "keywords": [],
+        "main_image_url": "https://sc04.alicdn.com/kf/H081bc9376637401ab1b9fa4ac3d772e8l.jpg",
+        "pc_detail_url": "https://www.alibaba.com/product-detail/Customizable-PU-Leather-Portable-Sunglasses-Case_1601700588198.html",
+        "problem_hints": [],
+        "product_id": "1601700588198",
+        "quality_signals": [
+          "quality score 5",
+          "boutique tag enabled"
+        ],
+        "subject": "Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case"
+      }
+    ],
+    "risk_flags": [
+      "platform_reply_unavailable"
+    ],
+    "subject": "Draft reply for Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case"
+  },
+  "draft_usable_externally": true,
+  "export_format": "json",
+  "export_type": "reply_handoff_pack",
+  "externally_usable_boundary_statement": "当前只生成外部回复草稿，不触发平台内回复发送。",
+  "handoff_checklist": [
+    {
+      "code": "customer_identity",
+      "done": true,
+      "label": "客户身份已确认",
+      "reason": "已有公司或联系人信息。"
+    },
+    {
+      "code": "product_context",
+      "done": true,
+      "label": "产品上下文已确认",
+      "reason": "已绑定至少一个真实产品。"
+    },
+    {
+      "code": "commercial_context",
+      "done": true,
+      "label": "数量与目的地已确认",
+      "reason": "数量与目的地已可用于人工回复。"
+    },
+    {
+      "code": "quote_and_lead_time",
+      "done": false,
+      "label": "报价与交期已人工确认",
+      "reason": "最终报价或交期仍需人工确认。"
+    },
+    {
+      "code": "mockup_assets",
+      "done": true,
+      "label": "效果图素材已齐备",
+      "reason": "当前无需额外 mockup 素材，或素材已齐。"
+    },
+    {
+      "code": "external_only",
+      "done": true,
+      "label": "仍属于外部草稿工作流",
+      "reason": "当前草稿只能用于外部人工协同，不能视为平台内已回复。"
+    }
+  ],
+  "handoff_fields": [
+    {
+      "blocker_code": "missing_final_quote",
+      "blocker_level": "hard",
+      "blocker_next_action": "人工确认最终报价、币种和报价口径。",
+      "confidence": "high",
+      "draft_can_still_be_produced": true,
+      "field": "price.quote_confirmation",
+      "handoff_mandatory": true,
+      "label": "Final quote",
+      "missing_reason": "There is no verified live pricing field available, so the system cannot generate a firm quote automatically.",
+      "reason": "There is no verified live pricing field available, so the system cannot generate a firm quote automatically.",
+      "required_for_minimum_reply": true,
+      "source": "human_input_required",
+      "template_section": "pricing_confirmation"
+    },
+    {
+      "blocker_code": "missing_lead_time",
+      "blocker_level": "hard",
+      "blocker_next_action": "人工确认打样期、量产期和起算条件。",
+      "confidence": "high",
+      "draft_can_still_be_produced": true,
+      "field": "delivery.lead_time_confirmation",
+      "handoff_mandatory": true,
+      "label": "Lead time confirmation",
+      "missing_reason": "There is no verified lead-time data source, so the system cannot commit a delivery schedule automatically.",
+      "reason": "There is no verified lead-time data source, so the system cannot commit a delivery schedule automatically.",
+      "required_for_minimum_reply": true,
+      "source": "human_input_required",
+      "template_section": "lead_time_confirmation"
+    }
+  ],
+  "handoff_required": true,
+  "hard_blockers": [
+    {
+      "blocker_code": "missing_final_quote",
+      "blocker_level": "hard",
+      "blocker_next_action": "人工确认最终报价、币种和报价口径。",
+      "blocker_reason": "There is no verified live pricing field available, so the system cannot generate a firm quote automatically.",
+      "draft_can_still_be_produced": true,
+      "handoff_mandatory": true
+    },
+    {
+      "blocker_code": "missing_lead_time",
+      "blocker_level": "hard",
+      "blocker_next_action": "人工确认打样期、量产期和起算条件。",
+      "blocker_reason": "There is no verified lead-time data source, so the system cannot commit a delivery schedule automatically.",
+      "draft_can_still_be_produced": true,
+      "handoff_mandatory": true
+    }
+  ],
+  "input_summary": {
+    "customer_profile_present": true,
+    "destination_country": "United States",
+    "expected_lead_time": null,
+    "inquiry_text_present": true,
+    "language": "en",
+    "product_ids": [
+      "1601700588198"
+    ],
+    "quantity": "1000 pcs",
+    "target_price": null
+  },
+  "manual_completion_sop": {
+    "blocker_summary": {
+      "hard_count": 2,
+      "soft_count": 0
+    },
+    "external_boundary": {
+      "draft_can_still_be_produced": true,
+      "platform_reply_available": false,
+      "reason": "当前只生成外部回复草稿，不触发平台内回复发送。"
+    },
+    "minimum_reply_package": {
+      "must_handoff_before_any_send": true,
+      "ready_for_human_edit": true,
+      "required_before_send": [
+        "price.quote_confirmation",
+        "delivery.lead_time_confirmation"
+      ]
+    },
+    "sections": [
+      {
+        "fields": [
+          "price.quote_confirmation"
+        ],
+        "notes": "没有实时价格源，最终报价必须人工确认。",
+        "owner": "sales",
+        "section_code": "pricing_confirmation",
+        "title": "报价确认"
+      },
+      {
+        "fields": [
+          "delivery.lead_time_confirmation"
+        ],
+        "notes": "交期只能作为人工确认后的承诺，不应自动生成。",
+        "owner": "sales / production",
+        "section_code": "lead_time_confirmation",
+        "title": "交期确认"
+      },
+      {
+        "fields": [
+          "customer_profile",
+          "destination_country",
+          "quantity"
+        ],
+        "notes": "决定回复语气、物流建议和报价口径。",
+        "owner": "sales",
+        "section_code": "customer_and_destination",
+        "title": "客户与目的地补全"
+      },
+      {
+        "fields": [
+          "mockup_request.asset_requirements"
+        ],
+        "notes": "当前不强制 mockup，但如客户追问需补 logo / 工艺 / 场景信息。",
+        "owner": "sales / design",
+        "section_code": "mockup_requirements",
+        "title": "效果图需求补全"
+      }
+    ],
+    "template_version": "2026-04-05.sop-v1",
+    "workflow_profile": "reply_quote_confirmation_needed"
+  },
+  "minimum_reply_package": {
+    "draft_usable_externally": true,
+    "minimum_context_available": true,
+    "must_handoff_before_any_send": true,
+    "ready_for_human_edit": true
+  },
+  "prioritized_follow_up_questions": [
+    {
+      "blocker_code": "missing_final_quote",
+      "priority": "high",
+      "question": "Please confirm the final quote, currency and quote basis.",
+      "required_field": "price.quote_confirmation",
+      "sequence": 1
+    },
+    {
+      "blocker_code": "missing_lead_time",
+      "priority": "high",
+      "question": "Please confirm sample lead time, production lead time and the start condition.",
+      "required_field": "delivery.lead_time_confirmation",
+      "sequence": 2
+    }
+  ],
+  "readiness_level": "handoff_required",
+  "review_profile": "reply_external_draft_review",
+  "review_version": "2026-04-05.review-v1",
+  "soft_blockers": [],
+  "template_version": "2026-04-05.sop-v1",
+  "workflow_profile": "reply_quote_confirmation_needed"
+}

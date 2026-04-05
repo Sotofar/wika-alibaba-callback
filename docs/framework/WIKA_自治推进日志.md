@@ -546,3 +546,43 @@
   - 不是平台内订单创建
   - 不是真实通知送达
 
+
+### 阶段 16：任务 4/5 的外部草稿工作流质量评估、回归闸门与交接包导出
+
+- 实际起始 commit：`14997a32a9a4f832eafc0e1dd0e83035042c2456`
+- 起始 checkpoint：`8d11c9b`
+- 本轮没有做任何新的 Alibaba API 验证
+- 本轮没有推进平台内自动回复、平台内订单创建、真实通知外发
+- 本轮只做：
+  - reply / order 统一质量评估层
+  - 可失败的回归闸门
+  - JSON / Markdown handoff pack 导出
+  - workflow profile / template version / blocker taxonomy 治理
+- 新增 / 固化沉淀：
+  - `shared/data/modules/alibaba-external-draft-review.js`
+  - `shared/data/modules/alibaba-external-workflow-governance.js`
+  - `shared/data/modules/alibaba-external-workflow-taxonomy.js`
+  - `scripts/validate-wika-external-draft-regression.js`
+  - `scripts/validate-wika-external-draft-workflows.js`
+  - `docs/framework/WIKA_外部回复交接包样例.json`
+  - `docs/framework/WIKA_外部回复交接包样例.md`
+  - `docs/framework/WIKA_外部订单交接包样例.json`
+  - `docs/framework/WIKA_外部订单交接包样例.md`
+- 回归结果：
+  - reply 4 组样例
+  - order 4 组样例
+  - 当前总样例 8 组
+  - 回归脚本会断言：
+    - `workflow_profile`
+    - `template_version`
+    - `hard_blockers_count`
+    - `soft_blockers_count`
+    - `handoff_required`
+    - `draft_usable_externally`
+    - `readiness_level`
+- smoke test：
+  - `POST /integrations/alibaba/wika/tools/reply-draft` -> 已执行
+  - `POST /integrations/alibaba/wika/tools/order-draft` -> 已执行
+- 阶段收口：
+  - 当前已经形成可评估、可回归、可审计、可交接的外部草稿工作流质量层
+  - 当前仍不能误写成平台内已回复、平台内已创单、真实通知已送达

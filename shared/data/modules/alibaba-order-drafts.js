@@ -5,10 +5,14 @@ import {
 import { fetchAlibabaOfficialProductDetail } from "./alibaba-official-extensions.js";
 import { fetchAlibabaOfficialOrderDraftTypes } from "./alibaba-official-order-entry.js";
 import {
-  WIKA_EXTERNAL_WORKFLOW_TEMPLATE_VERSION,
   buildWikaWorkflowBlocker,
   buildWikaWorkflowHandoffField
 } from "./alibaba-external-workflow-taxonomy.js";
+import {
+  WIKA_EXTERNAL_WORKFLOW_TEMPLATE_VERSION,
+  WIKA_ORDER_WORKFLOW_PROFILES,
+  getWikaExternalWorkflowTemplateChangelog
+} from "./alibaba-external-workflow-governance.js";
 import {
   buildWikaParameterMissingAlert,
   buildWikaWriteBoundaryAlert
@@ -61,31 +65,6 @@ function normalizeList(values = []) {
     .filter(Boolean);
 }
 
-const ORDER_WORKFLOW_PROFILES = {
-  order_minimal_handoff: {
-    code: "order_minimal_handoff",
-    label: "最小订单交接包",
-    input_expectation: "只有基础行项目或极少买家信息，必须先人工补单再继续。",
-    common_blockers: ["missing_buyer_company", "missing_line_items", "missing_line_item_quantity"]
-  },
-  order_quote_confirmation_needed: {
-    code: "order_quote_confirmation_needed",
-    label: "报价确认型订单草稿",
-    input_expectation: "已有买家和行项目，但价格、总价、交期仍需人工确认。",
-    common_blockers: [
-      "missing_line_item_unit_price",
-      "missing_total_amount",
-      "missing_lead_time"
-    ]
-  },
-  order_commercial_review: {
-    code: "order_commercial_review",
-    label: "商务复核型订单草稿",
-    input_expectation: "主要商务字段已具备，可作为人工复核和补单底稿继续处理。",
-    common_blockers: ["missing_advance_amount", "missing_trade_term", "missing_shipment_method"]
-  }
-};
-
 function buildChecklistItem({ code, label, done, reason }) {
   return {
     code,
@@ -117,14 +96,14 @@ function determineOrderWorkflowProfile({ draft, hardBlockers, softBlockers }) {
   const hasLineItems = lineItems.length > 0;
 
   if (!hasBuyerIdentity || !hasLineItems) {
-    return ORDER_WORKFLOW_PROFILES.order_minimal_handoff;
+    return WIKA_ORDER_WORKFLOW_PROFILES.order_minimal_handoff;
   }
 
   if (hardBlockers.length > 0) {
-    return ORDER_WORKFLOW_PROFILES.order_quote_confirmation_needed;
+    return WIKA_ORDER_WORKFLOW_PROFILES.order_quote_confirmation_needed;
   }
 
-  return ORDER_WORKFLOW_PROFILES.order_commercial_review;
+  return WIKA_ORDER_WORKFLOW_PROFILES.order_commercial_review;
 }
 
 function buildOrderHandoffChecklist({ draft, hardBlockers, softBlockers }) {
@@ -797,7 +776,11 @@ export async function buildWikaExternalOrderDraftPackage(clientConfig, input = {
     account: "wika",
     workflow_type: "external_order_draft_package",
     workflow_profile: workflowProfile.code,
+    workflow_profile_meta: workflowProfile,
     template_version: WIKA_EXTERNAL_WORKFLOW_TEMPLATE_VERSION,
+    template_changelog_entry: getWikaExternalWorkflowTemplateChangelog(
+      WIKA_EXTERNAL_WORKFLOW_TEMPLATE_VERSION
+    ),
     input_summary: {
       buyer_company_name: normalizeString(input.company_name) || null,
       buyer_contact_name: normalizeString(input.contact_name) || null,

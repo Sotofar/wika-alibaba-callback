@@ -1,0 +1,413 @@
+{
+  "commercial_risk_summary": {
+    "escalation_recommendation": {
+      "level": "low",
+      "recommendation": "A human should still review commercial terms, delivery assumptions and buyer identity before reuse."
+    },
+    "hard_blockers": [],
+    "soft_blockers": []
+  },
+  "draft_usable_externally": true,
+  "export_format": "json",
+  "export_type": "order_handoff_pack",
+  "externally_usable_boundary_statement": "当前只能生成外部订单草稿，不能视为平台内订单草稿或真实订单。",
+  "follow_up_questions": [],
+  "handoff_checklist": [
+    {
+      "code": "buyer_identity",
+      "done": true,
+      "label": "买家身份已确认",
+      "reason": "买家公司、联系人和邮箱均已具备。"
+    },
+    {
+      "code": "pricing_ready",
+      "done": true,
+      "label": "价格字段已确认",
+      "reason": "单价与总价已具备。"
+    },
+    {
+      "code": "delivery_ready",
+      "done": true,
+      "label": "交期与物流条件已确认",
+      "reason": "交期、贸易术语和出运方式已具备基本上下文。"
+    },
+    {
+      "code": "external_only",
+      "done": true,
+      "label": "仍属于外部订单草稿",
+      "reason": "当前草稿只用于外部补单与人工跟进，不会创建平台订单。"
+    }
+  ],
+  "handoff_fields": [],
+  "handoff_required": false,
+  "input_summary": {
+    "buyer_company_name": "TEST BUYER / DO-NOT-USE",
+    "buyer_contact_name": "Sample Buyer",
+    "destination_country": "United States",
+    "line_item_count": 1,
+    "quoted_currency": "USD"
+  },
+  "manual_completion_sop": {
+    "blocker_summary": {
+      "hard_count": 0,
+      "soft_count": 0
+    },
+    "external_boundary": {
+      "draft_can_still_be_produced": true,
+      "platform_order_available": false,
+      "reason": "当前只能生成外部订单草稿，不能视为平台内订单草稿或真实订单。"
+    },
+    "sections": [
+      {
+        "fields": [
+          "buyer.company_name",
+          "buyer.contact_name",
+          "buyer.email"
+        ],
+        "notes": "买家主体、联系人和邮箱是人工补单和后续报价回传的基础。",
+        "owner": "sales",
+        "section_code": "buyer_identity",
+        "title": "买家身份"
+      },
+      {
+        "fields": [
+          "line_items[].unit_price",
+          "payment_terms.total_amount",
+          "payment_terms.advance_amount"
+        ],
+        "notes": "没有实时报价源，价格条款必须人工确认。",
+        "owner": "sales",
+        "section_code": "commercial_terms",
+        "title": "价格与付款条款"
+      },
+      {
+        "fields": [
+          "shipment_plan.lead_time_text",
+          "shipment_plan.trade_term",
+          "shipment_plan.shipment_method",
+          "shipment_plan.destination_country"
+        ],
+        "notes": "交期、贸易术语和出运方式决定订单草稿是否可继续人工推进。",
+        "owner": "sales / logistics",
+        "section_code": "delivery_terms",
+        "title": "交期与履约条款"
+      }
+    ],
+    "template_version": "2026-04-05.sop-v1",
+    "workflow_profile": "order_commercial_review"
+  },
+  "order_draft_package": {
+    "account": "wika",
+    "auto_generated_fields": [
+      "draft_header",
+      "line_items[].line_no",
+      "line_items[].product_id",
+      "line_items[].product_name",
+      "payment_terms.currency",
+      "shipment_plan.trade_term",
+      "shipment_plan.shipment_method",
+      "draft_boundary"
+    ],
+    "blocked_automation_fields": {
+      "trade_order_create": [
+        "buyer identity binding",
+        "product_list",
+        "price terms",
+        "payment terms",
+        "delivery terms",
+        "final order submit"
+      ]
+    },
+    "buyer": {
+      "buyer_member_seq": null,
+      "company_name": "TEST BUYER / DO-NOT-USE",
+      "contact_name": "Sample Buyer",
+      "country_code": "US",
+      "country_name": "United States",
+      "email": "buyer@example.com",
+      "phone": null
+    },
+    "draft_header": {
+      "draft_type": "external_order_draft",
+      "generated_at": "2026-04-05T04:09:12.694Z",
+      "source": "wika_order_entry_boundary"
+    },
+    "handoff": {
+      "account": "wika",
+      "action": "build_order_draft",
+      "api_name": "alibaba.trade.order.create",
+      "blocker_category": {
+        "code": "manual_confirmation_required",
+        "description": "虽然技术上可继续，但执行会影响真实线上对象，必须先人工确认。",
+        "label": "写操作需要人工确认"
+      },
+      "created_at": "2026-04-05T04:09:12.694Z",
+      "evidence": {
+        "missing_manual_fields": [
+          "buyer.company_name",
+          "buyer.contact_name",
+          "buyer.email",
+          "line_items[].quantity",
+          "line_items[].unit_price",
+          "payment_terms.total_amount",
+          "payment_terms.advance_amount",
+          "shipment_plan.lead_time_text"
+        ],
+        "reasons_cannot_submit": [
+          "当前仅形成外部订单草稿，不代表平台内订单已创建。",
+          "alibaba.trade.order.create 仍未证明存在非成交、可回滚、无副作用的安全边界。",
+          "当前缺少经过确认的买家、价格、交期与履约参数，不能自动发起真实信保下单。"
+        ]
+      },
+      "input_summary": {
+        "buyer_member_seq": null,
+        "currency": "USD",
+        "line_item_count": 1
+      },
+      "next_action": "先由人工补齐买家、价格、交期与履约信息，再决定是否进入订单入口的更深边界验证。",
+      "requires_human_handoff": true,
+      "severity": "high",
+      "stage": "order_entry_boundary",
+      "status": "pending_human_handoff",
+      "triggers": [
+        {
+          "code": "live_order_create",
+          "description": "任何会触发真实信保下单或真实订单生成的动作，都必须人工接管。",
+          "label": "真实订单创建"
+        },
+        {
+          "code": "pricing_or_delivery_uncertain",
+          "description": "写入内容涉及价格、MOQ、交期等承诺字段时，必须人工确认。",
+          "label": "价格或交期不确定"
+        },
+        {
+          "code": "irreversible_write_risk",
+          "description": "无法证明存在草稿/测试模式时，必须人工决定是否继续。",
+          "label": "不可逆写入风险"
+        }
+      ]
+    },
+    "line_items": [
+      {
+        "currency": "USD",
+        "image_url": "https://sc04.alicdn.com/kf/H081bc9376637401ab1b9fa4ac3d772e8l.jpg",
+        "line_no": 1,
+        "product_id": "1601700588198",
+        "product_name": "Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case",
+        "quantity": "1000",
+        "sku_description": null,
+        "sku_id": null,
+        "unit": "Pieces",
+        "unit_price": "0.65"
+      }
+    ],
+    "low_risk_write_boundary": {
+      "trade_order_create": {
+        "actual_api_classification": "业务参数错误（说明已过授权层）",
+        "allowed_next_step": "仅继续生成外部订单草稿，不进入真实订单创建。",
+        "api_name": "alibaba.trade.order.create",
+        "blocked_automation_fields": [
+          "buyer identity binding",
+          "product_list",
+          "price terms",
+          "payment terms",
+          "delivery terms",
+          "final order submit"
+        ],
+        "decision": "当前无法证明低风险边界，因此不继续实写验证",
+        "low_risk_boundary_proven": false,
+        "observable_evidence": {
+          "cleanup_evidence_proven": false,
+          "create_boundary_result": "使用空 param_order_create 调用 alibaba.trade.order.create 时，平台返回 MissingParameter(product_list)。",
+          "low_risk_precheck_or_draft_api_identified": false,
+          "official_explicit_related_methods_seen": [
+            "alibaba.trade.order.create",
+            "alibaba.seller.trade.query.drafttype"
+          ]
+        },
+        "reasons": [
+          "官方文档明确这是“国际站信保下单”，成功路径天然对应真实订单创建，而不是只读或无副作用的预检查。",
+          "当前使用空对象/不完整 payload 调用时，平台返回 MissingParameter，说明已过授权层，但这不等于存在安全草稿模式。",
+          "当前公开官方文档里，尚未识别到明确的 create 同家族 precheck / cancel / draft create 读侧边界，可用于证明可回滚或非成交。",
+          "在没有可逆、可清理、无外部成交副作用证据前，不应继续真实创单验证。"
+        ]
+      }
+    },
+    "manual_required_fields": [
+      "buyer.company_name",
+      "buyer.contact_name",
+      "buyer.email",
+      "line_items[].quantity",
+      "line_items[].unit_price",
+      "payment_terms.total_amount",
+      "payment_terms.advance_amount",
+      "shipment_plan.lead_time_text"
+    ],
+    "notes": [
+      "TEST / DO-NOT-USE",
+      "order commercial review regression"
+    ],
+    "ok": false,
+    "payment_terms": {
+      "advance_amount": "195",
+      "balance_amount": null,
+      "currency": "USD",
+      "payment_terms_text": "30% deposit, balance before shipment",
+      "total_amount": "650"
+    },
+    "ready_for_platform_submit": false,
+    "reasons_cannot_submit": [
+      "当前仅形成外部订单草稿，不代表平台内订单已创建。",
+      "alibaba.trade.order.create 仍未证明存在非成交、可回滚、无副作用的安全边界。",
+      "当前缺少经过确认的买家、价格、交期与履约参数，不能自动发起真实信保下单。"
+    ],
+    "shipment_plan": {
+      "destination_country": "United States",
+      "destination_port": null,
+      "lead_time_text": "25-30 days after artwork approval",
+      "logistics_notes": "TEST / DO-NOT-USE",
+      "shipment_method": "sea",
+      "trade_term": "FOB"
+    },
+    "stage": "external_order_draft_only",
+    "submit_mode": "manual_only"
+  },
+  "readiness_level": "externally_usable",
+  "required_manual_field_details": [
+    {
+      "collection_hint": "从客户签名、名片、邮箱域名或聊天记录中确认。",
+      "example_value": "ABC Trading LLC",
+      "field": "buyer.company_name",
+      "template_section": "buyer_identity",
+      "who_should_fill": "sales",
+      "why_required": "缺少买家公司主体，订单草稿无法交接给人工继续推进。"
+    },
+    {
+      "collection_hint": "优先从询盘落款、邮箱签名或聊天记录获取。",
+      "example_value": "John Smith",
+      "field": "buyer.contact_name",
+      "template_section": "buyer_identity",
+      "who_should_fill": "sales",
+      "why_required": "缺少联系人，人工回复和报价回传对象不明确。"
+    },
+    {
+      "collection_hint": "优先收集可正式回传文件的邮箱地址。",
+      "example_value": "buyer@example.com",
+      "field": "buyer.email",
+      "template_section": "buyer_identity",
+      "who_should_fill": "sales",
+      "why_required": "缺少正式联系邮箱，无法发送外部报价或订单草稿。"
+    },
+    {
+      "collection_hint": "确认正式采购量、MOQ 或打样数量。",
+      "example_value": "1000",
+      "field": "line_items[].quantity",
+      "template_section": "commercial_terms",
+      "who_should_fill": "sales",
+      "why_required": "数量决定价格、交期和包装方案。"
+    },
+    {
+      "collection_hint": "结合数量、材质、工艺和运费方案人工确认。",
+      "example_value": "0.65",
+      "field": "line_items[].unit_price",
+      "template_section": "commercial_terms",
+      "who_should_fill": "sales",
+      "why_required": "单价缺失会导致订单草稿无法形成有效报价包。"
+    },
+    {
+      "collection_hint": "按行项目汇总或人工确认总报价。",
+      "example_value": "650",
+      "field": "payment_terms.total_amount",
+      "template_section": "commercial_terms",
+      "who_should_fill": "sales",
+      "why_required": "缺少总价，无法形成完整订单草稿包。"
+    },
+    {
+      "collection_hint": "确认定金比例或预付款金额。",
+      "example_value": "195",
+      "field": "payment_terms.advance_amount",
+      "template_section": "commercial_terms",
+      "who_should_fill": "sales",
+      "why_required": "预付款安排影响付款条件和订单执行节奏。"
+    },
+    {
+      "collection_hint": "按打样、排产、出货阶段向业务或生产确认。",
+      "example_value": "25-30 days after artwork approval",
+      "field": "shipment_plan.lead_time_text",
+      "template_section": "delivery_terms",
+      "who_should_fill": "sales / production",
+      "why_required": "缺少交期会导致订单草稿无法形成明确承诺。"
+    }
+  ],
+  "required_manual_fields": [
+    "buyer.company_name",
+    "buyer.contact_name",
+    "buyer.email",
+    "line_items[].quantity",
+    "line_items[].unit_price",
+    "payment_terms.total_amount",
+    "payment_terms.advance_amount",
+    "shipment_plan.lead_time_text"
+  ],
+  "review_profile": "order_external_draft_review",
+  "review_version": "2026-04-05.review-v1",
+  "section_mapping": [
+    {
+      "fields": [
+        {
+          "collection_hint": "从客户签名、名片、邮箱域名或聊天记录中确认。",
+          "field": "buyer.company_name",
+          "who_should_fill": "sales"
+        },
+        {
+          "collection_hint": "优先从询盘落款、邮箱签名或聊天记录获取。",
+          "field": "buyer.contact_name",
+          "who_should_fill": "sales"
+        },
+        {
+          "collection_hint": "优先收集可正式回传文件的邮箱地址。",
+          "field": "buyer.email",
+          "who_should_fill": "sales"
+        }
+      ],
+      "section": "buyer_identity"
+    },
+    {
+      "fields": [
+        {
+          "collection_hint": "确认正式采购量、MOQ 或打样数量。",
+          "field": "line_items[].quantity",
+          "who_should_fill": "sales"
+        },
+        {
+          "collection_hint": "结合数量、材质、工艺和运费方案人工确认。",
+          "field": "line_items[].unit_price",
+          "who_should_fill": "sales"
+        },
+        {
+          "collection_hint": "按行项目汇总或人工确认总报价。",
+          "field": "payment_terms.total_amount",
+          "who_should_fill": "sales"
+        },
+        {
+          "collection_hint": "确认定金比例或预付款金额。",
+          "field": "payment_terms.advance_amount",
+          "who_should_fill": "sales"
+        }
+      ],
+      "section": "commercial_terms"
+    },
+    {
+      "fields": [
+        {
+          "collection_hint": "按打样、排产、出货阶段向业务或生产确认。",
+          "field": "shipment_plan.lead_time_text",
+          "who_should_fill": "sales / production"
+        }
+      ],
+      "section": "delivery_terms"
+    }
+  ],
+  "template_version": "2026-04-05.sop-v1",
+  "workflow_profile": "order_commercial_review"
+}

@@ -95,6 +95,7 @@
 19. `/tools/reply-draft` 已上线，不等于平台内回复已发送。
 20. `/tools/order-draft` 已上线，不等于平台内订单已创建。
 21. 模板、workflow profile、handoff checklist 与 blocker taxonomy 已补齐，不等于平台内能力已打通。
+22. 质量评估层、回归闸门、交接包导出已成立，不等于平台内已回复 / 已创单 / 已通知送达。
 
 ## 当前一句话结论
 

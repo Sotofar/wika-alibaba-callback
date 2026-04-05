@@ -168,3 +168,33 @@
 - 平台内自动回复
 - 平台内自动创单
 - 真实业务承诺已生效
+
+## 六、阶段16补充：字段映射与交接包
+
+### required_manual_fields 与人工补单 section 映射
+当前 order 草稿会把 `required_manual_fields` 显式映射到：
+- `buyer_identity`
+- `commercial_terms`
+- `delivery_terms`
+
+并为每个字段补充：
+- `why_required`
+- `example_value`
+- `collection_hint`
+- `who_should_fill`
+
+### handoff_fields 与人工接手关系
+当前 reply / order 的 `handoff_fields` 会继续保留，并补充：
+- `source`
+- `confidence`
+- `missing_reason`
+- `blocker_code`
+- `blocker_next_action`
+- `template_section`
+
+这样人工接手时不需要再二次判断“这个字段为什么缺、该补到哪一栏、由谁来补”。
+
+### 当前边界再次声明
+本轮没有做新 API 验证。
+本轮没有推进平台内自动回复、平台内订单创建、真实通知外发。
+本轮增强的是人工补单 / 人工接手 SOP，不代表平台内执行边界已成立。
