@@ -1,120 +1,97 @@
 # WIKA_执行计划
 
 ## 当前阶段
-阶段 10：任务 5 的正式订单入口边界验证
+阶段 11：任务 2 的产品/订单子诊断拆分
 
 ## 本阶段唯一目标
-只验证官方明确存在的订单创建相关入口，判断是否存在“安全草稿 / 参数验证 / 授权验证 / 低风险预检查”边界；不做真实订单创建。
+不再验证任何新 API，只复用当前已经上线并已线上验证的 WIKA 真实读侧能力，把现有
+`/integrations/alibaba/wika/reports/operations/minimal-diagnostic`
+拆成两个更细的只读子报告：
+- `/integrations/alibaba/wika/reports/products/minimal-diagnostic`
+- `/integrations/alibaba/wika/reports/orders/minimal-diagnostic`
 
 ## 起始基线
 - 只推进 `WIKA`
 - 一律复用 Railway production 认证闭环与 `/sync + access_token + sha256`
-- 已上线的 WIKA 读侧原始路由与最小经营诊断层已稳定可复用
-- `mydata / overview / self.product` 当前不再作为主线推进
-- 任务 3 当前卡在 `photobank.upload / product.add.draft` 的低风险边界不足
-- 任务 4 当前卡在 `customers` 权限 / 真实 id，以及 `inquiries / messages` 缺少明确读侧方法名
-- 任务 6 的最小正式通知闭环已经成立
-- 官方明确存在 `alibaba.trade.order.create`，当前值得做正式入口边界验证
+- 当前已存在总的 `operations/minimal-diagnostic`
+- 任务 3 / 4 / 5 当前都被权限或安全边界卡住
+- 当前最有价值的下一步，是把已有真实数据沉淀成更细的只读诊断层
 
 ## 可复用能力
 - 现有全部 WIKA 只读原始路由
-- 现有写侧护栏 helper 与人工接管规则
-- 现有正式通知 fallback 闭环
-- 现有产品 / 订单 / 物流 / schema / media 的真实样本与样例文档
+- `products/management-summary`
+- `reports/operations/minimal-diagnostic`
+- 现有最小经营诊断口径与样例文档
 
 ## 本阶段明确排除
 - XD
 - `mydata / overview / 数据管家`
 - `inquiries / messages / customers` 新验证
+- `order create` 新验证
 - `RFQ`
 - 真实商品发布
 - 真实线上商品修改
 - 真实客户沟通
-- 真实订单创建
-- 任何不可逆写动作
+- 真实通知外发配置
 - 自动进入下一阶段
 
 ## 执行顺序
-### A. 官方文档清点
-1. 确认 `alibaba.trade.order.create` 的官方文档信息、参数层级与是否明确属于国际站信保下单
-2. 继续只查找官方明确存在的同家族低风险候选：
-   - `draft`
-   - `precheck`
-   - `query`
-   - `status`
-   - `cancel`
-   - `quote / order draft`
-3. 仅当方法名在官方文档中明确出现时，才允许进入验证
-4. 新增或更新 `docs/framework/WIKA_订单入口候选清单.md`
+### A. 产品子诊断
+1. 从现有总诊断中拆出产品侧信号
+2. 覆盖：
+   - `final_score`
+   - `boutique_tag`
+   - `problem_map`
+   - `subject / description / keywords`
+   - `group / category`
+   - `gmt_modified`
+3. 新增：
+   - `docs/framework/WIKA_产品子诊断说明.md`
+   - `docs/framework/WIKA_产品子诊断样例.json`
 
-### B. 最小生产边界验证
-1. 优先验证 `alibaba.trade.order.create`
-2. 仅验证 A 步中明确存在的同家族低风险候选
-3. 默认只做缺参 / 不完整 payload / 明显不会成交的参数层验证
-4. 不构造可能触发真实订单创建的完整 payload
-5. 只有低风险读侧或预检查侧，且证据充分时，才允许考虑最小正式原始路由
+### B. 订单子诊断
+1. 从现有总诊断中拆出订单侧信号
+2. 覆盖：
+   - `logistics`
+   - `fund`
+   - `service_fee`
+   - 订单执行层风险提示
+3. 新增：
+   - `docs/framework/WIKA_订单子诊断说明.md`
+   - `docs/framework/WIKA_订单子诊断样例.json`
 
-### C. 订单草稿链路沉淀
-1. 新增订单草稿 helper
-2. 生成结构化订单草稿样例
-3. 新增或更新：
-   - `docs/framework/WIKA_订单草稿链路说明.md`
-   - `docs/framework/WIKA_订单草稿样例.json`
-4. 若 create 或同家族低风险接口证据不足，明确写成“当前只能做外部订单草稿”
+### C. 兼容总诊断层
+1. 不删除现有 `operations/minimal-diagnostic`
+2. 优先复用新的产品/订单子诊断逻辑
+3. 若改动风险过高，则至少保持口径一致
 
 ## 执行规则
-1. 本阶段不追求平台订单创建成功
-2. 只追求把任务 5 的正式入口边界摸清，并形成可靠的外部草稿中间层
-3. 若官方明确候选不足或边界过高，必须明确收口
-4. 不得因追求进度而越过真实创单风险边界
+1. 本阶段不追求更完整数据，只拆分现有真实数据
+2. 不得虚构 `UV / PV / 曝光 / 点击 / CTR / 来源 / 国家 / 询盘表现`
+3. 必须把“能诊断什么”和“还不能诊断什么”明确分开
+4. 不得把本阶段误写成“完整经营驾驶舱已完成”
 
 ## 完成标准
-- 已完成 `alibaba.trade.order.create` 的真实生产分类
-- 若官方明确存在同家族低风险候选，也已完成其真实生产分类；若不存在，已明确收口
-- 已形成订单草稿 helper + 订单草稿样例
-- 已明确写清当前是“平台内订单入口边界验证”还是“只能外部订单草稿”
+- 已形成产品子诊断路由并完成线上验收
+- 已形成订单子诊断路由并完成线上验收
+- 已形成两个子诊断的样例与说明文档
+- 现有总诊断层兼容性保持正常
+- 已明确写清这仍不是完整经营驾驶舱
 - 已更新基线、计划、缺口矩阵、复用清单、候选池、自治推进日志
 - 阶段结束后停止，不自动进入下一阶段
 
 ## 停止条件
-- `alibaba.trade.order.create` 及同家族明确候选完成真实分类
-- 或已证明当前只有高风险真实创单入口，不存在足够低风险的同家族边界
-- 或继续推进会触发不可接受的真实创单风险
-
-## 当前阶段收口
-- 官方清点结果：
-  - `alibaba.trade.order.create`
-  - `alibaba.seller.trade.query.drafttype`
-  - `alibaba.trade.order.modify`
-  - `alibaba.intention.order.save`
-- 其中真正进入本阶段验证的只有：
-  - `alibaba.trade.order.create`
-  - `alibaba.seller.trade.query.drafttype`
-- `alibaba.seller.trade.query.drafttype`
-  - 已真实走到 `/sync + access_token + sha256`
-  - 已返回真实 JSON
-  - 当前真实样本：`types=["TA"]`
-  - 已进入最小正式原始路由：
-    - `/integrations/alibaba/wika/data/orders/draft-types`
-- `alibaba.trade.order.create`
-  - 已真实走到 `/sync + access_token + sha256`
-  - 空对象验证：缺 `product_list`
-  - `product_list=[]` 验证：缺 `currency`
-  - 当前收口：`业务参数错误（说明已过授权层）`
-  - 但仍无法证明非成交、可回滚、无副作用边界，因此不进入正式路由
-- 本阶段新增外部订单草稿中间层：
-  - `shared/data/modules/alibaba-order-drafts.js`
-  - `docs/framework/WIKA_订单草稿链路说明.md`
-  - `docs/framework/WIKA_订单草稿样例.json`
-- 当前一句话收口：
-  - `draft-types` 可作为正式只读权限探针复用
-  - `order.create` 当前只证明到参数/授权边界
-  - 当前任务 5 只能先做“外部订单草稿”，不能误写成平台内订单已创建
+- 产品与订单两个子诊断都已完成最小落地
+- 或其中任一拆分存在不可接受的兼容性风险
+- 或继续拆分需要引入新的 API 验证
 
 ## 交付物
-- docs/framework/WIKA_订单入口候选清单.md
-- docs/framework/WIKA_订单草稿链路说明.md
-- docs/framework/WIKA_订单草稿样例.json
+- docs/framework/WIKA_最小经营诊断口径.md
+- docs/framework/WIKA_最小经营诊断说明.md
+- docs/framework/WIKA_产品子诊断说明.md
+- docs/framework/WIKA_产品子诊断样例.json
+- docs/framework/WIKA_订单子诊断说明.md
+- docs/framework/WIKA_订单子诊断样例.json
 - docs/framework/WIKA_项目基线.md
 - docs/framework/WIKA_执行计划.md
 - docs/framework/WIKA_面向6项任务_API缺口矩阵.md
