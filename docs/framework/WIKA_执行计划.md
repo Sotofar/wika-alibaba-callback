@@ -1,77 +1,80 @@
 # WIKA_执行计划
 
 ## 当前阶段
-阶段 17：任务 1/2 的经营数据候选接口只读验证
+阶段 18：经营数据清障与订单参数契约对账
 
 ## 本阶段唯一目标
-只验证官方明确存在的经营数据候选接口，在当前 `WIKA` production 闭环下判断：
+不新增任何 Alibaba API 验证，只围绕阶段 17 已有结果做两类收口：
 
-- 哪些方法能返回真实数据
-- 哪些只到参数层
-- 哪些被权限或能力阻塞
-- 订单级经营汇总是否可由现有官方交易读侧派生
+- `mydata` 5 个方法的权限清障包
+- `orders/detail/fund/logistics` 的参数契约对账包
 
-本阶段不新增任何平台内写动作，不回到本地旁路，不把候选验证误报成能力已打通。
+如果存在纯只读、纯参数映射层面的安全修正，则允许小范围纠偏并复测；如果不能证明是只读参数层问题，就明确写成阻塞并停止。
 
 ## 起始基线
-- 当前实际起始仓库状态以本阶段开始时的 `HEAD` 为准：`c26ef19`
+- 当前实际起始仓库状态以本阶段开始时的 `HEAD` 为准：`218d073`
 - 当前只推进 `WIKA`
 - 一律复用 Railway production 闭环与 `/sync + access_token + sha256`
 - 当前禁止任何本地 `.env` / callback / token 旁路
 - 当前禁止任何平台内写动作
-- 当前稳定可复用读侧包括：
-  - `products/list`
-  - `products/detail`
-  - `products/score`
-  - `products/groups`
-  - `orders/list`
-  - `orders/detail`
-  - `orders/fund`
-  - `orders/logistics`
-  - `products/management-summary`
-  - `operations / products / orders minimal-diagnostic`
+- 阶段 17 已收口：
+  - `alibaba.mydata.overview.date.get` -> `AUTH_BLOCKED`
+  - `alibaba.mydata.overview.industry.get` -> `AUTH_BLOCKED`
+  - `alibaba.mydata.overview.indicator.basic.get` -> `AUTH_BLOCKED`
+  - `alibaba.mydata.self.product.date.get` -> `AUTH_BLOCKED`
+  - `alibaba.mydata.self.product.get` -> `AUTH_BLOCKED`
+  - `alibaba.seller.order.list` -> `REAL_DATA_RETURNED`
+  - `alibaba.seller.order.get` -> `PARAMETER_REJECTED`
+  - `alibaba.seller.order.fund.get` -> `PARAMETER_REJECTED`
+  - `alibaba.seller.order.logistics.get` -> `PARAMETER_REJECTED`
+- 当前仅部分成立的订单派生信号：
+  - `趋势` -> 仅可由 `order.list.create_date` 做 partial derived signal
 
 ## 本阶段分解
-### A. 复用基础盘点
-- 找出现有官方 `/sync` 调用封装
-- 找出现有签名逻辑与 access_token 获取逻辑
-- 找出现有稳定 products/orders helper 与 smoke / validation 脚本模式
+### A. `mydata` 权限清障包
+- 复用阶段 17 现有 evidence
+- 对 5 个 `mydata` 官方方法逐一整理：
+  - method name
+  - intended use
+  - target fields
+  - observed result / error
+  - affected tasks
+  - minimal permission ask wording
+  - access grant 后可重开的 route/report
 
-### B. 只读候选脚本验证
-新增主脚本：
-- `scripts/validate-wika-metrics-candidates.js`
+### B. 订单参数契约对账
+- 对齐现有正式只读链路：
+  - `/orders/list`
+  - `/orders/detail`
+  - `/orders/fund`
+  - `/orders/logistics`
+- 明确：
+  - downstream Alibaba method
+  - expected params
+  - identifier shape
+  - identifier source
+  - stage-17 validation input
+  - mismatch finding
+  - current conclusion
+  - next action
 
-脚本只做：
-- 原始响应摘要
-- 字段覆盖矩阵
-- 统一分类结果
-- 脱敏证据落盘
+### C. 只读参数层安全纠偏
+- 只有在能证明问题只是：
+  - 参数名映射错误
+  - ID 来源使用错误
+  - helper 少传只读必要参数
+  - 路由文档与实际契约不一致
+  才允许最小只读修正并复测
+- 若无法证明，仅收口，不硬修
 
-### C. 候选验证顺序
-先验证店铺级：
-- `alibaba.mydata.overview.date.get`
-- `alibaba.mydata.overview.industry.get`
-- `alibaba.mydata.overview.indicator.basic.get`
-
-再验证产品级：
-- `alibaba.mydata.self.product.date.get`
-- `alibaba.mydata.self.product.get`
-
-最后验证订单级：
-- `alibaba.seller.order.list`
-- `alibaba.seller.order.get`
-- `alibaba.seller.order.fund.get`
-- 如有必要，再补 `alibaba.seller.order.logistics.get`
-
-### D. 派生证明
-基于真实订单数据，给出最小派生样例，判断能否派生：
-- 正式汇总
-- 趋势（按日 / 周）
-- 国家结构
-- 产品贡献
+### D. Partial derived signal 固化
+- 基于现有 `order.list.create_date`
+- 固化一份最小“订单趋势派生证明”
+- 明确它只是 `partial derived signal`，不能扩写成完整订单经营汇总
 
 ## 本阶段明确排除
 - XD
+- 任何新的 Alibaba API 验证
 - inquiries / messages / customers
 - RFQ
 - order create
@@ -84,55 +87,53 @@
 - 自动进入下一阶段
 
 ## 推进规则
-1. 每个候选 API 最多 3 轮 materially different attempts
-2. 只允许验证官方明确列出的 method
+1. 只允许围绕阶段 17 已验证方法做复核、对账、证据收口
+2. 不新增 undocumented method，不穷举新接口名
 3. 不直连 `router/rest`
-4. 不把 `permission error` 写成“接口不存在”
-5. 不把 `parameter accepted` 写成“已打通”
-6. 不虚构 UV / PV / 来源 / 国家字段
+4. 不把 `AUTH_BLOCKED` 写成“接口不存在”
+5. 不把“参数通过”写成“经营汇总已成立”
+6. 不能证明是只读参数层问题时，不做代码硬修
 
 ## 分类标准
-- `DOC_FOUND`
-- `ROUTE_NOT_BOUND`
+### `mydata`
 - `AUTH_BLOCKED`
-- `CAPABILITY_BLOCKED`
-- `PARAMETER_REJECTED`
-- `PARAMETER_ACCEPTED_NO_REAL_DATA`
-- `REAL_DATA_RETURNED`
-- `DERIVABLE_FROM_EXISTING_ORDER_APIS`
+- `ACCESS_REOPEN_READY`
 
-## 当前收口结果
-- `alibaba.mydata.overview.date.get` -> `AUTH_BLOCKED`
-- `alibaba.mydata.overview.industry.get` -> `AUTH_BLOCKED`
-- `alibaba.mydata.overview.indicator.basic.get` -> `AUTH_BLOCKED`
-- `alibaba.mydata.self.product.date.get` -> `AUTH_BLOCKED`
-- `alibaba.mydata.self.product.get` -> `AUTH_BLOCKED`
-- `alibaba.seller.order.list` -> `REAL_DATA_RETURNED`
-- `alibaba.seller.order.get` -> `PARAMETER_REJECTED`
-- `alibaba.seller.order.fund.get` -> `PARAMETER_REJECTED`
-- `alibaba.seller.order.logistics.get` -> `PARAMETER_REJECTED`
-- 订单级派生结论：
-  - `趋势` -> 可由现有 `order.list.create_date` 派生
-  - `正式汇总 / 国家结构 / 产品贡献` -> 当前未证明成立
+### 订单 detail / fund / logistics 契约
+- `SCRIPT_PARAM_NAME_MISMATCH`
+- `SCRIPT_ID_SOURCE_MISMATCH`
+- `MASKED_TRADE_ID_NOT_REUSABLE`
+- `ROUTE_USES_DIFFERENT_INTERNAL_ID_SOURCE`
+- `EXTRA_REQUIRED_PARAM_MISSING`
+- `READ_ONLY_ROUTE_CONFIRMED_WORKING`
+- `PARAM_CONTRACT_STILL_UNRESOLVED`
+
+## 当前预期交付
+- `docs/framework/WIKA_经营数据权限清障包.md`
+- `docs/framework/WIKA_订单参数契约对账.md`
+- `scripts/validate-wika-metrics-clearance-and-order-contract.js`
+- `docs/framework/evidence/wika-metrics-clearance-and-order-contract-summary.json`
 
 ## 完成标准
-- 已完成店铺级、产品级、订单级候选方法的真实生产分类
-- 已形成字段覆盖矩阵
-- 已落盘脱敏证据
-- 已判断哪些字段可直接取、哪些字段只能派生、哪些字段仍缺公开入口
-- 已更新基线、计划、缺口矩阵、候选池、自治推进日志
+- 已形成 `mydata` 权限清障包
+- 已形成订单参数契约对账矩阵
+- 如有纯参数层安全修正，已完成只读复测；如无，已明确阻塞
+- 已固化最小订单趋势派生证明
+- 已更新基线、计划、候选验证文档、字段矩阵、缺口矩阵、候选池、自治推进日志
 - 本阶段完成后停止，不自动进入下一阶段
 
 ## 停止条件
-- 候选方法全部完成分类
-- 或超过尝试预算仍无新证据
-- 或继续推进只会回到被禁止的权限碰撞 / 写动作方向
+- `mydata` 清障包与订单契约对账包都已形成
+- 或者无法证明存在纯只读参数层修正空间
+- 或继续推进只会回到新 API 验证 / 写动作方向
 
 ## 交付物
-- `scripts/validate-wika-metrics-candidates.js`
+- `scripts/validate-wika-metrics-clearance-and-order-contract.js`
+- `docs/framework/evidence/wika-metrics-clearance-and-order-contract-summary.json`
+- `docs/framework/WIKA_经营数据权限清障包.md`
+- `docs/framework/WIKA_订单参数契约对账.md`
 - `docs/framework/WIKA_经营数据候选接口验证.md`
 - `docs/framework/WIKA_经营数据字段覆盖矩阵.md`
-- `docs/framework/evidence/`
 - `docs/framework/WIKA_项目基线.md`
 - `docs/framework/WIKA_执行计划.md`
 - `docs/framework/WIKA_面向6项任务_API缺口矩阵.md`
