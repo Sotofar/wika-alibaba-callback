@@ -2,6 +2,13 @@ import {
   buildWikaHumanHandoffArtifact,
   getWikaLowRiskWriteBoundary
 } from "./alibaba-write-guardrails.js";
+import { fetchAlibabaOfficialProductDetail } from "./alibaba-official-extensions.js";
+import { fetchAlibabaOfficialOrderDraftTypes } from "./alibaba-official-order-entry.js";
+import {
+  buildWikaParameterMissingAlert,
+  buildWikaWriteBoundaryAlert
+} from "./wika-alerts.js";
+import { fetchWikaOrderMinimalDiagnostic } from "./wika-minimal-diagnostic.js";
 
 function normalizeString(value) {
   return String(value ?? "").trim();
@@ -153,5 +160,163 @@ export function buildWikaExternalOrderDraft(input = {}) {
       trade_order_create: lowRiskWriteBoundary.trade_order_create
     },
     handoff
+  };
+}
+
+function normalizeWorkflowMissingContext(draft) {
+  const fields = Array.isArray(draft?.manual_required_fields)
+    ? draft.manual_required_fields
+    : [];
+
+  return [...new Set(fields.map((value) => normalizeString(value)).filter(Boolean))];
+}
+
+async function hydrateLineItems(clientConfig, lineItems = []) {
+  const hydrated = [];
+
+  for (const item of lineItems) {
+    const productId = normalizeString(item?.product_id);
+    if (!productId || normalizeString(item?.product_name)) {
+      hydrated.push(item);
+      continue;
+    }
+
+    try {
+      const detailResult = await fetchAlibabaOfficialProductDetail(
+        {
+          account: "wika",
+          ...clientConfig
+        },
+        {
+          product_id: productId
+        }
+      );
+
+      hydrated.push({
+        ...item,
+        product_name:
+          normalizeString(item?.product_name) ||
+          normalizeString(detailResult?.product?.subject) ||
+          null,
+        image_url:
+          normalizeString(item?.image_url) ||
+          normalizeString(detailResult?.product?.main_image) ||
+          null
+      });
+    } catch {
+      hydrated.push(item);
+    }
+  }
+
+  return hydrated;
+}
+
+export async function buildWikaExternalOrderDraftPackage(clientConfig, input = {}) {
+  const normalizedInput = {
+    ...input,
+    line_items: await hydrateLineItems(clientConfig, input.line_items)
+  };
+  const draft = buildWikaExternalOrderDraft(normalizedInput);
+  const orderDiagnostic = await fetchWikaOrderMinimalDiagnostic(clientConfig, {
+    order_page_size: 8,
+    order_sample_limit: 5
+  });
+
+  let draftTypes = null;
+  try {
+    draftTypes = await fetchAlibabaOfficialOrderDraftTypes(
+      {
+        account: "wika",
+        ...clientConfig
+      },
+      {}
+    );
+  } catch {
+    draftTypes = null;
+  }
+
+  const missingContext = normalizeWorkflowMissingContext(draft);
+  const alertPayload =
+    missingContext.length > 0
+      ? buildWikaParameterMissingAlert({
+          stageName: "phase14_external_order_draft",
+          relatedApis: ["alibaba.trade.order.create"],
+          relatedModules: ["external_order_draft"],
+          evidence: [
+            "External order draft generated without platform order creation.",
+            `Missing manual fields: ${missingContext.join(", ")}`
+          ],
+          userNeeds: missingContext,
+          suggestedNextSteps: [
+            "Fill in buyer identity, final pricing and delivery details manually.",
+            "Use the draft package as an external working file only."
+          ],
+          inputSummary: {
+            buyer_member_seq: normalizeString(input.buyer_member_seq) || null,
+            line_item_count: Array.isArray(normalizedInput.line_items)
+              ? normalizedInput.line_items.length
+              : 0
+          }
+        })
+      : buildWikaWriteBoundaryAlert({
+          stageName: "phase14_external_order_draft",
+          relatedApis: ["alibaba.trade.order.create"],
+          relatedModules: ["external_order_draft"],
+          evidence: [
+            "Platform order create boundary is still unproven.",
+            "Current package remains external-only."
+          ],
+          userNeeds: ["manual_order_submit_decision"],
+          suggestedNextSteps: [
+            "Keep using the package as an external draft only.",
+            "Do not treat this as a platform order draft."
+          ],
+          inputSummary: {
+            line_item_count: Array.isArray(normalizedInput.line_items)
+              ? normalizedInput.line_items.length
+              : 0
+          }
+        });
+
+  return {
+    ok: draft.ok,
+    account: "wika",
+    workflow_type: "external_order_draft_package",
+    order_draft_package: draft,
+    workflow_meta: {
+      generated_at: new Date().toISOString(),
+      available_context: {
+        line_item_count: Array.isArray(normalizedInput.line_items)
+          ? normalizedInput.line_items.length
+          : 0,
+        buyer_company_name: normalizeString(input.company_name) || null,
+        destination_country:
+          normalizeString(input?.shipment_plan?.destination_country) || null,
+        draft_types: draftTypes?.types ?? []
+      },
+      missing_context: missingContext,
+      confidence: missingContext.length >= 4 ? "low" : "medium",
+      risk_level: "high",
+      human_action_required: true,
+      alert_payload: alertPayload
+    },
+    supporting_context: {
+      order_diagnostic_snapshot: {
+        available_signals: orderDiagnostic.available_signals,
+        logistics_summary: orderDiagnostic.logistics_summary,
+        fund_signal_summary: orderDiagnostic.fund_signal_summary,
+        operational_risks: orderDiagnostic.operational_risks
+      },
+      draft_type_probe: draftTypes
+        ? {
+            source: draftTypes.source,
+            types: draftTypes.types
+          }
+        : null
+    },
+    warnings: [
+      "This package is an external order draft only and does not create any platform order.",
+      "Final price, lead time, buyer identity and fulfillment terms still require human confirmation."
+    ]
   };
 }

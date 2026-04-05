@@ -40,11 +40,14 @@ import {
   fetchWikaOrderMinimalDiagnostic,
   fetchWikaProductMinimalDiagnostic
 } from "./shared/data/modules/wika-minimal-diagnostic.js";
+import { buildWikaExternalReplyDraftPackage } from "./shared/data/modules/alibaba-external-reply-drafts.js";
+import { buildWikaExternalOrderDraftPackage } from "./shared/data/modules/alibaba-order-drafts.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const envFilePath = path.join(__dirname, ".env");
 const app = express();
+app.use(express.json({ limit: "256kb" }));
 
 const STATE_TTL_MS = 10 * 60 * 1000;
 const CLEANUP_INTERVAL_MS = 60 * 1000;
@@ -2264,6 +2267,92 @@ function createWikaOrderMinimalDiagnosticHandler() {
   };
 }
 
+function normalizeToolRequestBody(body) {
+  if (!body || typeof body !== "object" || Array.isArray(body)) {
+    return {};
+  }
+
+  return body;
+}
+
+function createWikaExternalReplyDraftHandler() {
+  return async (req, res) => {
+    try {
+      const result = await buildWikaExternalReplyDraftPackage(
+        await getWikaReadOnlyClientConfig(),
+        normalizeToolRequestBody(req.body)
+      );
+
+      logInfo("Wika external reply draft generated", {
+        productContextCount:
+          result?.workflow_meta?.available_context?.product_context_count ?? 0,
+        missingContextCount:
+          Array.isArray(result?.workflow_meta?.missing_context)
+            ? result.workflow_meta.missing_context.length
+            : 0
+      });
+
+      res.status(200).json(result);
+    } catch (error) {
+      logError("Wika external reply draft failed", {
+        error: error instanceof Error ? error.message : String(error),
+        details:
+          error instanceof AlibabaApiError || error?.details
+            ? error.details
+            : undefined,
+        top_error: extractTopErrorResponse(error)
+      });
+
+      const hasMissingKeys =
+        error instanceof ConfigurationError ||
+        Array.isArray(error?.missingKeys);
+
+      res
+        .status(error instanceof ConfigurationError ? 500 : hasMissingKeys ? 400 : 502)
+        .json(buildReadOnlyErrorResponse(error));
+    }
+  };
+}
+
+function createWikaExternalOrderDraftHandler() {
+  return async (req, res) => {
+    try {
+      const result = await buildWikaExternalOrderDraftPackage(
+        await getWikaReadOnlyClientConfig(),
+        normalizeToolRequestBody(req.body)
+      );
+
+      logInfo("Wika external order draft generated", {
+        lineItemCount:
+          result?.workflow_meta?.available_context?.line_item_count ?? 0,
+        missingContextCount:
+          Array.isArray(result?.workflow_meta?.missing_context)
+            ? result.workflow_meta.missing_context.length
+            : 0
+      });
+
+      res.status(200).json(result);
+    } catch (error) {
+      logError("Wika external order draft failed", {
+        error: error instanceof Error ? error.message : String(error),
+        details:
+          error instanceof AlibabaApiError || error?.details
+            ? error.details
+            : undefined,
+        top_error: extractTopErrorResponse(error)
+      });
+
+      const hasMissingKeys =
+        error instanceof ConfigurationError ||
+        Array.isArray(error?.missingKeys);
+
+      res
+        .status(error instanceof ConfigurationError ? 500 : hasMissingKeys ? 400 : 502)
+        .json(buildReadOnlyErrorResponse(error));
+    }
+  };
+}
+
 const XD_ORDER_LIST_VERIFIED_FIELDS = Object.freeze([
   "response_meta.total_count",
   "response_meta.returned_item_count",
@@ -3089,6 +3178,14 @@ app.get(
 app.get(
   "/integrations/alibaba/wika/reports/operations/minimal-diagnostic",
   createWikaMinimalDiagnosticHandler()
+);
+app.post(
+  "/integrations/alibaba/wika/tools/reply-draft",
+  createWikaExternalReplyDraftHandler()
+);
+app.post(
+  "/integrations/alibaba/wika/tools/order-draft",
+  createWikaExternalOrderDraftHandler()
 );
 
 app.get(
