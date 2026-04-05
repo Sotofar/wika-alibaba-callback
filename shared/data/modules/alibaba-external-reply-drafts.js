@@ -5,6 +5,12 @@ import {
 } from "./alibaba-official-extensions.js";
 import { fetchAlibabaOfficialProductSchemaRender } from "./alibaba-official-product-schema.js";
 import {
+  WIKA_EXTERNAL_WORKFLOW_TEMPLATE_VERSION,
+  buildWikaWorkflowBlocker,
+  buildWikaWorkflowHandoffField,
+  dedupeStrings
+} from "./alibaba-external-workflow-taxonomy.js";
+import {
   buildWikaNoEntryAlert,
   buildWikaParameterMissingAlert
 } from "./wika-alerts.js";
@@ -23,21 +29,31 @@ function normalizeList(values = []) {
   return [...new Set(values.map((value) => normalizeString(value)).filter(Boolean))];
 }
 
-function buildBlockerItem({
-  key,
-  label,
-  reason,
-  followUpQuestion,
-  requiredField = null
-}) {
-  return {
-    key,
-    label,
-    reason,
-    follow_up_question: followUpQuestion,
-    required_field: requiredField || key
-  };
-}
+const REPLY_WORKFLOW_PROFILES = {
+  reply_minimal_handoff: {
+    code: "reply_minimal_handoff",
+    label: "最小上下文交接",
+    input_expectation: "只有询盘文本或极少上下文，需要先人工补齐再决定是否可发送。",
+    common_blockers: [
+      "missing_inquiry_text",
+      "missing_product_context",
+      "missing_customer_profile",
+      "missing_destination_country"
+    ]
+  },
+  reply_quote_confirmation_needed: {
+    code: "reply_quote_confirmation_needed",
+    label: "报价确认型回复草稿",
+    input_expectation: "已有基本产品和客户上下文，但价格和交期仍需人工确认。",
+    common_blockers: ["missing_final_quote", "missing_lead_time", "missing_quantity"]
+  },
+  reply_mockup_customization: {
+    code: "reply_mockup_customization",
+    label: "定制 / 效果图回复草稿",
+    input_expectation: "存在定制、logo 或 mockup 需求，需要同步收集素材和工艺信息。",
+    common_blockers: ["missing_mockup_assets", "missing_final_quote", "missing_lead_time"]
+  }
+};
 
 function normalizeKeywordValues(value) {
   if (Array.isArray(value)) {
@@ -75,6 +91,215 @@ function pickLanguage(input = {}) {
   }
 
   return "en";
+}
+
+function buildChecklistItem({ code, label, done, reason }) {
+  return {
+    code,
+    label,
+    done,
+    reason
+  };
+}
+
+function rankReplyQuestionPriority(blocker) {
+  if (blocker.blocker_level === "hard") {
+    return "high";
+  }
+
+  if (blocker.blocker_code === "missing_mockup_assets") {
+    return "medium";
+  }
+
+  return "low";
+}
+
+function buildReplyQuestionDetails(blockers = []) {
+  return blockers
+    .filter((blocker) => blocker.follow_up_question)
+    .map((blocker, index) => ({
+      sequence: index + 1,
+      priority: rankReplyQuestionPriority(blocker),
+      question: blocker.follow_up_question,
+      blocker_code: blocker.blocker_code,
+      required_field: blocker.required_field
+    }));
+}
+
+function determineReplyWorkflowProfile({
+  hardBlockers,
+  softBlockers,
+  validProductContexts,
+  mockupRequest,
+  customerProfile,
+  destination,
+  quantity
+}) {
+  const hasCustomerIdentity =
+    Boolean(normalizeString(customerProfile?.company_name)) ||
+    Boolean(normalizeString(customerProfile?.contact_name));
+  const hasProductContext = validProductContexts.length > 0;
+  const hasCommercialContext = hasCustomerIdentity && hasProductContext && Boolean(destination) && Boolean(quantity);
+
+  if (mockupRequest?.needed) {
+    return REPLY_WORKFLOW_PROFILES.reply_mockup_customization;
+  }
+
+  if (hasCommercialContext || hardBlockers.length > 0) {
+    return REPLY_WORKFLOW_PROFILES.reply_quote_confirmation_needed;
+  }
+
+  return REPLY_WORKFLOW_PROFILES.reply_minimal_handoff;
+}
+
+function buildReplyHandoffChecklist({
+  hardBlockers,
+  softBlockers,
+  validProductContexts,
+  customerProfile,
+  destination,
+  quantity,
+  mockupRequest
+}) {
+  const hasCustomerIdentity =
+    Boolean(normalizeString(customerProfile?.company_name)) ||
+    Boolean(normalizeString(customerProfile?.contact_name));
+
+  return [
+    buildChecklistItem({
+      code: "customer_identity",
+      label: "客户身份已确认",
+      done: hasCustomerIdentity,
+      reason: hasCustomerIdentity ? "已有公司或联系人信息。" : "仍缺客户公司名或联系人。"
+    }),
+    buildChecklistItem({
+      code: "product_context",
+      label: "产品上下文已确认",
+      done: validProductContexts.length > 0,
+      reason: validProductContexts.length > 0 ? "已绑定至少一个真实产品。" : "仍缺 product_id 或稳定产品上下文。"
+    }),
+    buildChecklistItem({
+      code: "commercial_context",
+      label: "数量与目的地已确认",
+      done: Boolean(quantity) && Boolean(destination),
+      reason:
+        Boolean(quantity) && Boolean(destination)
+          ? "数量与目的地已可用于人工回复。"
+          : "数量或目的地仍不完整。"
+    }),
+    buildChecklistItem({
+      code: "quote_and_lead_time",
+      label: "报价与交期已人工确认",
+      done: hardBlockers.length === 0,
+      reason: hardBlockers.length === 0 ? "当前无强 blocker。" : "最终报价或交期仍需人工确认。"
+    }),
+    buildChecklistItem({
+      code: "mockup_assets",
+      label: "效果图素材已齐备",
+      done: !mockupRequest?.needed || (mockupRequest.asset_requirements?.length ?? 0) === 0,
+      reason:
+        !mockupRequest?.needed || (mockupRequest.asset_requirements?.length ?? 0) === 0
+          ? "当前无需额外 mockup 素材，或素材已齐。"
+          : "mockup 所需素材仍未补齐。"
+    }),
+    buildChecklistItem({
+      code: "external_only",
+      label: "仍属于外部草稿工作流",
+      done: true,
+      reason: "当前草稿只能用于外部人工协同，不能视为平台内已回复。"
+    })
+  ];
+}
+
+function buildReplyManualCompletionSop({
+  profile,
+  hardBlockers,
+  softBlockers,
+  destination,
+  quantity,
+  mockupRequest
+}) {
+  return {
+    template_version: WIKA_EXTERNAL_WORKFLOW_TEMPLATE_VERSION,
+    workflow_profile: profile.code,
+    minimum_reply_package: {
+      ready_for_human_edit: hardBlockers.every((item) => item.blocker_code !== "missing_inquiry_text"),
+      must_handoff_before_any_send: hardBlockers.length > 0,
+      required_before_send: dedupeStrings([
+        ...hardBlockers.map((item) => item.required_field),
+        ...(!destination ? ["destination_country"] : []),
+        ...(!quantity ? ["quantity"] : [])
+      ])
+    },
+    sections: [
+      {
+        section_code: "pricing_confirmation",
+        title: "报价确认",
+        fields: ["price.quote_confirmation"],
+        owner: "sales",
+        notes: "没有实时价格源，最终报价必须人工确认。"
+      },
+      {
+        section_code: "lead_time_confirmation",
+        title: "交期确认",
+        fields: ["delivery.lead_time_confirmation"],
+        owner: "sales / production",
+        notes: "交期只能作为人工确认后的承诺，不应自动生成。"
+      },
+      {
+        section_code: "customer_and_destination",
+        title: "客户与目的地补全",
+        fields: ["customer_profile", "destination_country", "quantity"],
+        owner: "sales",
+        notes: "决定回复语气、物流建议和报价口径。"
+      },
+      {
+        section_code: "mockup_requirements",
+        title: "效果图需求补全",
+        fields: ["mockup_request.asset_requirements"],
+        owner: "sales / design",
+        notes:
+          mockupRequest?.needed
+            ? "当前询盘涉及 mockup 或定制需求，素材未齐时只能先输出需求包。"
+            : "当前不强制 mockup，但如客户追问需补 logo / 工艺 / 场景信息。"
+      }
+    ],
+    external_boundary: {
+      draft_can_still_be_produced: true,
+      platform_reply_available: false,
+      reason: "当前只生成外部回复草稿，不触发平台内回复发送。"
+    },
+    blocker_summary: {
+      hard_count: hardBlockers.length,
+      soft_count: softBlockers.length
+    }
+  };
+}
+
+function buildReplyMinimumPackage({
+  hardBlockers,
+  validProductContexts,
+  customerProfile,
+  quantity,
+  destination
+}) {
+  const hasCustomerIdentity =
+    Boolean(normalizeString(customerProfile?.company_name)) ||
+    Boolean(normalizeString(customerProfile?.contact_name));
+  const readyForHumanEdit =
+    hardBlockers.every((item) => item.blocker_code !== "missing_inquiry_text") &&
+    validProductContexts.length > 0;
+
+  return {
+    ready_for_human_edit: readyForHumanEdit,
+    minimum_context_available:
+      readyForHumanEdit &&
+      Boolean(destination) &&
+      Boolean(quantity) &&
+      hasCustomerIdentity,
+    draft_usable_externally: readyForHumanEdit,
+    must_handoff_before_any_send: hardBlockers.length > 0
+  };
 }
 
 function topProblemEntries(problemMap, limit = 5) {
@@ -447,27 +672,23 @@ function buildReplyWorkflowLayers({
   const hardBlockers = [];
   const softBlockers = [];
   const assumptions = [];
-  const followUpQuestions = [];
+  const followUpQuestionSeed = [];
   const handoffFields = [];
 
   const pushBlocker = (collection, blocker) => {
     collection.push(blocker);
     if (blocker.follow_up_question) {
-      followUpQuestions.push(blocker.follow_up_question);
+      followUpQuestionSeed.push(blocker);
     }
-    handoffFields.push({
-      field: blocker.required_field,
-      label: blocker.label,
-      reason: blocker.reason,
-      source: "human_input_required"
-    });
+    handoffFields.push(buildWikaWorkflowHandoffField(blocker));
   };
 
   if (!normalizeString(input.inquiry_text)) {
     pushBlocker(
       hardBlockers,
-      buildBlockerItem({
+      buildWikaWorkflowBlocker({
         key: "inquiry_text",
+        blockerCode: "missing_inquiry_text",
         label: language === "zh" ? "询盘原文" : "Inquiry text",
         reason:
           language === "zh"
@@ -484,8 +705,9 @@ function buildReplyWorkflowLayers({
   if (priceSection.status !== "available") {
     pushBlocker(
       hardBlockers,
-      buildBlockerItem({
+      buildWikaWorkflowBlocker({
         key: "final_quote",
+        blockerCode: "missing_final_quote",
         label: language === "zh" ? "最终报价" : "Final quote",
         reason: priceSection.text,
         followUpQuestion:
@@ -500,8 +722,9 @@ function buildReplyWorkflowLayers({
   if (leadTimeSection.status !== "available") {
     pushBlocker(
       hardBlockers,
-      buildBlockerItem({
+      buildWikaWorkflowBlocker({
         key: "lead_time",
+        blockerCode: "missing_lead_time",
         label: language === "zh" ? "交期确认" : "Lead time confirmation",
         reason: leadTimeSection.text,
         followUpQuestion:
@@ -516,8 +739,9 @@ function buildReplyWorkflowLayers({
   if (!normalizeString(input.destination) && !normalizeString(input.destination_country)) {
     pushBlocker(
       softBlockers,
-      buildBlockerItem({
+      buildWikaWorkflowBlocker({
         key: "destination_country",
+        blockerCode: "missing_destination_country",
         label: language === "zh" ? "目的国" : "Destination country",
         reason:
           language === "zh"
@@ -534,8 +758,9 @@ function buildReplyWorkflowLayers({
   if (validProductContexts.length === 0) {
     pushBlocker(
       softBlockers,
-      buildBlockerItem({
+      buildWikaWorkflowBlocker({
         key: "product_context",
+        blockerCode: "missing_product_context",
         label: language === "zh" ? "产品上下文" : "Product context",
         reason:
           language === "zh"
@@ -552,8 +777,9 @@ function buildReplyWorkflowLayers({
   if (!normalizeString(input.quantity)) {
     pushBlocker(
       softBlockers,
-      buildBlockerItem({
+      buildWikaWorkflowBlocker({
         key: "quantity",
+        blockerCode: "missing_quantity",
         label: language === "zh" ? "需求数量" : "Requested quantity",
         reason:
           language === "zh"
@@ -573,8 +799,9 @@ function buildReplyWorkflowLayers({
   if (!normalizeString(customerProfile.company_name) && !normalizeString(customerProfile.contact_name)) {
     pushBlocker(
       softBlockers,
-      buildBlockerItem({
+      buildWikaWorkflowBlocker({
         key: "customer_profile",
+        blockerCode: "missing_customer_profile",
         label: language === "zh" ? "客户身份" : "Customer identity",
         reason:
           language === "zh"
@@ -592,8 +819,9 @@ function buildReplyWorkflowLayers({
     for (const requirement of mockupRequest.asset_requirements) {
       pushBlocker(
         softBlockers,
-        buildBlockerItem({
+        buildWikaWorkflowBlocker({
           key: "mockup_assets",
+          blockerCode: "missing_mockup_assets",
           label: language === "zh" ? "效果图所需素材" : "Mockup assets",
           reason: requirement,
           followUpQuestion:
@@ -631,11 +859,14 @@ function buildReplyWorkflowLayers({
     );
   }
 
+  const followUpQuestionDetails = buildReplyQuestionDetails(followUpQuestionSeed);
+
   return {
     hard_blockers: hardBlockers,
     soft_blockers: softBlockers,
     assumptions: [...new Set(assumptions)],
-    follow_up_questions: [...new Set(followUpQuestions)],
+    follow_up_questions: followUpQuestionDetails.map((item) => item.question),
+    follow_up_question_details: followUpQuestionDetails,
     handoff_fields: handoffFields
   };
 }
@@ -798,6 +1029,54 @@ export async function buildWikaExternalReplyDraftPackage(clientConfig, input = {
     missingContext,
     riskFlags
   );
+  const workflowProfile = determineReplyWorkflowProfile({
+    hardBlockers: workflowLayers.hard_blockers,
+    softBlockers: workflowLayers.soft_blockers,
+    validProductContexts,
+    mockupRequest,
+    customerProfile,
+    destination,
+    quantity
+  });
+  const minimumReplyPackage = buildReplyMinimumPackage({
+    hardBlockers: workflowLayers.hard_blockers,
+    validProductContexts,
+    customerProfile,
+    quantity,
+    destination
+  });
+  const handoffChecklist = buildReplyHandoffChecklist({
+    hardBlockers: workflowLayers.hard_blockers,
+    softBlockers: workflowLayers.soft_blockers,
+    validProductContexts,
+    customerProfile,
+    destination,
+    quantity,
+    mockupRequest
+  });
+  const manualCompletionSop = buildReplyManualCompletionSop({
+    profile: workflowProfile,
+    hardBlockers: workflowLayers.hard_blockers,
+    softBlockers: workflowLayers.soft_blockers,
+    destination,
+    quantity,
+    mockupRequest
+  });
+  const enhancedHandoffFields = workflowLayers.handoff_fields.map((item) => ({
+    ...item,
+    template_section:
+      item.blocker_code === "missing_final_quote"
+        ? "pricing_confirmation"
+        : item.blocker_code === "missing_lead_time"
+          ? "lead_time_confirmation"
+          : item.blocker_code === "missing_mockup_assets"
+            ? "mockup_requirements"
+            : "customer_and_destination",
+    required_for_minimum_reply:
+      item.blocker_code === "missing_final_quote" ||
+      item.blocker_code === "missing_lead_time" ||
+      item.blocker_code === "missing_inquiry_text"
+  }));
 
   const alertPayload =
     missingContext.length > 0
@@ -848,6 +1127,8 @@ export async function buildWikaExternalReplyDraftPackage(clientConfig, input = {
     ok: missingContext.length === 0,
     account: "wika",
     workflow_type: "external_reply_draft",
+    workflow_profile: workflowProfile.code,
+    template_version: WIKA_EXTERNAL_WORKFLOW_TEMPLATE_VERSION,
     reply_draft: {
       subject: buildReplySubject(language, validProductContexts),
       opening: buildReplyOpening(language, customerProfile),
@@ -896,12 +1177,19 @@ export async function buildWikaExternalReplyDraftPackage(clientConfig, input = {
     soft_blockers: workflowLayers.soft_blockers,
     assumptions: workflowLayers.assumptions,
     follow_up_questions: workflowLayers.follow_up_questions,
+    follow_up_question_details: workflowLayers.follow_up_question_details,
     mockup_request: mockupRequest,
     escalation_recommendation: escalationRecommendation,
-    handoff_fields: workflowLayers.handoff_fields,
+    minimum_reply_package: minimumReplyPackage,
+    draft_usable_externally: minimumReplyPackage.draft_usable_externally,
+    handoff_checklist: handoffChecklist,
+    handoff_fields: enhancedHandoffFields,
+    manual_completion_sop: manualCompletionSop,
     alert_payload: alertPayload,
     workflow_meta: {
       generated_at: new Date().toISOString(),
+      workflow_profile: workflowProfile.code,
+      template_version: WIKA_EXTERNAL_WORKFLOW_TEMPLATE_VERSION,
       available_context: {
         inquiry_text: Boolean(normalizeString(input.inquiry_text)),
         product_context_count: validProductContexts.length,
@@ -914,6 +1202,8 @@ export async function buildWikaExternalReplyDraftPackage(clientConfig, input = {
       confidence: missingContext.length >= 3 ? "low" : "medium",
       risk_level: missingContext.length > 0 || riskFlags.length > 0 ? "high" : "medium",
       human_action_required: true,
+      handoff_required: minimumReplyPackage.must_handoff_before_any_send,
+      draft_usable_externally: minimumReplyPackage.draft_usable_externally,
       alert_payload: alertPayload
     },
     supporting_context: {

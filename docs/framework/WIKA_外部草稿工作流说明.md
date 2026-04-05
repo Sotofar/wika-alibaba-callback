@@ -1,95 +1,40 @@
 # WIKA_外部草稿工作流说明
 
+更新时间：2026-04-05
+
 ## 一句话定位
-这层能力只负责生成“外部可用的工作草稿”，不触发平台内回复发送，也不触发平台内订单创建。
+这一层能力只负责生成“外部可用的工作草稿与人工交接包”，不触发平台内回复发送，也不触发平台内订单创建。
 
-## 当前目标
-在 `WIKA` 已有真实读侧、诊断层、草稿 helper 与通知 fallback 的基础上，补一层人可以直接拿来继续处理的外部草稿工作流：
-- 客户回复草稿
-- 外部订单草稿包
-- 缺失信息 / 风险 / 人工接管建议
-- 与现有 alert / notifier 结构对齐
+## 当前边界
+当前只允许复用：
 
-## 输入协议
+- 已上线的 WIKA 真实读侧能力
+- 最小经营诊断层
+- 产品草稿 helper
+- 订单草稿 helper
+- notifier / alerts / fallback
+- 写侧护栏与人工接管规则
 
-配套模板文档：
-- `docs/framework/WIKA_外部回复输入模板.md`
-- `docs/framework/WIKA_外部订单输入模板.md`
-- `docs/framework/WIKA_人工补单模板.md`
+当前明确不做：
 
-### 1. 回复草稿输入
-最小建议字段：
-- `inquiry_text`
-- `product_id` 或 `product_ids`
+- 新 Alibaba API 验证
+- 平台内回复发送
+- 平台内订单创建
+- 真实商品发布
+- 真实线上商品修改
+- 真实通知外发
 
-可选增强字段：
-- `customer_profile`
-- `quantity`
-- `destination`
-- `destination_country`
-- `target_price`
-- `currency`
-- `expected_lead_time`
-- `lead_time_context`
-- `language_preference`
-- `language`
-- `notes`
-- `mockup_required`
-- `logo_file_reference`
-- `color_requirement`
-- `mockup_scene`
+## 当前工具入口
+- `POST /integrations/alibaba/wika/tools/reply-draft`
+- `POST /integrations/alibaba/wika/tools/order-draft`
 
-### 2. 订单草稿输入
-最小建议字段：
-- `line_items`
+这两个入口都只生成草稿，不产生外部副作用。
 
-可选增强字段：
-- `buyer_member_seq`
-- `company_name`
-- `contact_name`
-- `email`
-- `phone`
-- `country_code`
-- `country_name`
-- `payment_terms`
-- `shipment_plan`
-- `notes`
+## 稳定输出结构
 
-## 输出协议
-
-### 1. 回复草稿输出
-- `reply_draft.subject`
-- `reply_draft.opening`
-- `reply_draft.body`
-- `reply_draft.closing`
-- `reply_draft.price_information`
-- `reply_draft.product_support`
-- `reply_draft.lead_time_guidance`
-- `reply_draft.mockup_request`
-- `reply_draft.risk_flags`
-- `reply_draft.escalation_recommendation`
-
-### 2. 订单草稿包输出
-- `order_draft_package.buyer`
-- `order_draft_package.line_items`
-- `order_draft_package.payment_terms`
-- `order_draft_package.shipment_plan`
-- `order_draft_package.manual_required_fields`
-- `order_draft_package.reasons_cannot_submit`
-- `order_draft_package.handoff`
-
-### 3. workflow meta
-- `generated_at`
-- `available_context`
-- `missing_context`
-- `confidence`
-- `risk_level`
-- `human_action_required`
-- `alert_payload`
-
-## 当前增强后的工作流字段
-
-### 回复草稿输出当前至少包含
+### reply-draft 当前稳定输出
+- `workflow_profile`
+- `template_version`
 - `input_summary`
 - `available_context`
 - `missing_context`
@@ -97,13 +42,20 @@
 - `soft_blockers`
 - `assumptions`
 - `follow_up_questions`
+- `follow_up_question_details`
 - `reply_draft`
 - `mockup_request`
-- `escalation_recommendation`
+- `minimum_reply_package`
+- `draft_usable_externally`
+- `handoff_checklist`
 - `handoff_fields`
+- `manual_completion_sop`
 - `alert_payload`
+- `workflow_meta`
 
-### 订单草稿输出当前至少包含
+### order-draft 当前稳定输出
+- `workflow_profile`
+- `template_version`
 - `input_summary`
 - `available_context`
 - `missing_context`
@@ -111,93 +63,177 @@
 - `soft_blockers`
 - `assumptions`
 - `required_manual_fields`
+- `required_manual_field_details`
 - `order_draft_package`
 - `follow_up_questions`
-- `escalation_recommendation`
+- `follow_up_question_details`
+- `handoff_checklist`
 - `handoff_fields`
+- `manual_completion_sop`
+- `draft_usable_externally`
 - `alert_payload`
+- `workflow_meta`
 
-## 当前复用的数据源
-只复用已经上线并已线上验证的 WIKA 能力：
+## blocker taxonomy
+代码与文档当前统一使用：
+
+- `shared/data/modules/alibaba-external-workflow-taxonomy.js`
+
+taxonomy 统一定义了：
+
+- `blocker_code`
+- `blocker_level`
+- `blocker_definition`
+- `blocker_reason`
+- `blocker_next_action`
+- `draft_can_still_be_produced`
+- `handoff_mandatory`
+
+当前常见 reply blocker：
+
+- `missing_inquiry_text`
+- `missing_final_quote`
+- `missing_lead_time`
+- `missing_destination_country`
+- `missing_product_context`
+- `missing_quantity`
+- `missing_customer_profile`
+- `missing_mockup_assets`
+
+当前常见 order blocker：
+
+- `missing_buyer_company`
+- `missing_buyer_contact`
+- `missing_buyer_email`
+- `missing_line_items`
+- `missing_line_item_quantity`
+- `missing_line_item_unit_price`
+- `missing_total_amount`
+- `missing_advance_amount`
+- `missing_trade_term`
+- `missing_shipment_method`
+- `missing_destination_country`
+- `missing_lead_time`
+
+## workflow profile
+
+### reply profile
+- `reply_minimal_handoff`
+  - 适用：只有最小询盘上下文，必须先人工补信息
+- `reply_quote_confirmation_needed`
+  - 适用：已有产品与客户上下文，但报价 / 交期仍需人工确认
+- `reply_mockup_customization`
+  - 适用：涉及 logo、效果图、定制说明，需要素材和需求补齐
+
+### order profile
+- `order_minimal_handoff`
+  - 适用：只有最小行项目或买家信息，必须先人工补单
+- `order_quote_confirmation_needed`
+  - 适用：已有订单骨架，但价格 / 总价 / 交期仍需人工确认
+- `order_commercial_review`
+  - 适用：主要商务字段基本具备，可进入人工复核
+
+## 数据复用来源
+当前只复用已上线 WIKA 真实读侧：
+
 - `products/detail`
 - `products/score`
 - `products/groups`
+- `products/minimal-diagnostic`
 - `orders/fund`
 - `orders/logistics`
-- `products/minimal-diagnostic`
 - `orders/minimal-diagnostic`
 - `products/schema/render`
 
-## 当前能自动生成的内容
-- 产品基础说明
-- 产品质量分与常见问题提示
-- 基础回复结构
-- mockup / 效果图需求包
-- 外部订单草稿包
-- 缺失信息 blocker
-- 人工接管建议
-- 与现有 alert 结构兼容的结构化 payload
+## 当前自动生成能力
+
+### reply-draft 可自动生成
+- 基础回复结构：
+  - `subject`
+  - `opening`
+  - `body`
+  - `closing`
+- 产品支撑信息
+- 价格 / 交期 blocker
+- `mockup_request`
+- `follow_up_questions`
+- `handoff_fields`
+- `alert_payload`
+
+### order-draft 可自动生成
+- 订单草稿包骨架
+- 买家摘要
+- line items 草稿
+- 付款 / 物流占位字段
+- `required_manual_fields`
+- `required_manual_field_details`
+- `handoff_fields`
+- `alert_payload`
 
 ## 当前不能自动完成的内容
 - 平台内发送回复
 - 平台内创建订单
-- 自动给出真实成交价格
+- 自动承诺最终成交价格
 - 自动承诺最终交期
 - 自动生成真实效果图
+- 自动发送真实通知
 
-## blocker 处理原则
-只要缺以下关键条件，就必须输出 blocker，而不是瞎编：
-- 真实价格
-- 真实交期
-- 明确目的地
-- 客户身份
-- logo / artwork / mockup 场景
-- 最终成交条款
+## 人工接手与补单
+当前人工接手统一配套：
 
-### blocker 分层
-
-- `hard_blockers`
-  - 不补信息就不能把草稿当成可直接发送 / 可直接报价的工作包
-- `soft_blockers`
-  - 可以先出草稿，但内容会明显更保守
-- `assumptions`
-  - 当前系统采用了哪些保守假设，人工接手时必须重新确认
-
-## 人工接手产物
-
-当前路由输出已经附带：
-
-- `follow_up_questions`
-- `handoff_fields`
-- `escalation_recommendation`
-- 与现有 alerts 兼容的 `alert_payload`
-
-并可配合：
-
+- `docs/framework/WIKA_外部回复输入模板.md`
+- `docs/framework/WIKA_外部订单输入模板.md`
 - `docs/framework/WIKA_人工补单模板.md`
 
-## 路由边界
-如采用 route 方案，工具路由只能做草稿生成：
-- `POST /integrations/alibaba/wika/tools/reply-draft`
-- `POST /integrations/alibaba/wika/tools/order-draft`
+人工接手的核心依据：
 
-这些 route 的产物只用于外部工作流，不代表：
+- 先看 `hard_blockers`
+- 再看 `soft_blockers`
+- 再看 `follow_up_question_details`
+- 再看 `handoff_checklist`
+- 最后按 `manual_completion_sop` 补齐字段
+
+## 样例与验证
+当前样例已经固定为 6 组：
+
+### reply
+- `complete_context_sample`
+- `mockup_customization_sample`
+- `minimal_handoff_sample`
+
+### order
+- `commercial_review_sample`
+- `pricing_gap_sample`
+- `minimal_handoff_sample`
+
+主验证脚本：
+
+- `scripts/validate-wika-external-draft-workflows.js`
+
+兼容别名脚本：
+
+- `scripts/validate-wika-workflow-phase14.js`
+
+验证脚本会输出：
+
+- `workflow_profile`
+- `template_version`
+- `hard_blockers_count`
+- `soft_blockers_count`
+- `handoff_required`
+- `draft_usable_externally`
+
+## 当前结论
+当前已经形成“外部草稿工作流层 + blocker taxonomy + 人工补单 SOP + 可复现样例”的稳定中间层。
+
+但这仍然只代表：
+
+- 外部回复草稿可用
+- 外部订单草稿可用
+- 人工接手更顺畅
+
+并不代表：
+
 - 平台内已回复
 - 平台内已创单
-- 真实业务承诺已生效
-
-## 当前状态结论
-当前已经可以形成“人可直接继续处理”的外部草稿工作流层。 
-当前阶段进一步把它增强成：
-- 更稳定的输入模板
-- 更明确的 blocker 分层
-- 更直接可用的 follow-up questions
-- 更适合人工补单 / 人工补回的 handoff 字段
-
-当前样例已经固定为 4 组：
-- 信息较完整的 reply draft
-- 信息缺失明显的 reply draft
-- 信息较完整的 order draft
-- 信息缺失明显的 order draft
-
-但它仍然不是平台内自动回复，也不是平台内订单创建闭环。
+- 真实通知已送达

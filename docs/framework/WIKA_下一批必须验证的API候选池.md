@@ -11,7 +11,7 @@
 3. 再补任务 3：只继续验证“可隔离、可清理、可回滚”的剩余写侧证据
 4. 再补任务 4：只继续验证官方明确存在的 customers / inquiries / messages 读侧入口
 5. 任务 5 当前已完成正式入口边界摸底；在出现新的官方低风险候选前，不再继续深挖 `order.create`
-6. 任务 4 / 5 当前已经形成“模板化的外部草稿工作流层”，后续若继续，应优先增强输入模板版本、人工补单 SOP、handoff checklist 和 blocker 说明，而不是回到平台内写动作
+6. 任务 4 / 5 当前已经形成“模板化的外部草稿工作流 SOP 层”，后续若继续，应优先增强输入模板版本、人工补单 SOP、handoff checklist 和 blocker taxonomy，而不是回到平台内写动作
 
 ## 当前已成立，不再进入候选池主线的能力
 
@@ -26,11 +26,11 @@
   - 后续若继续任务 2，应优先增强订单执行信号的解释层
 - `/integrations/alibaba/wika/tools/reply-draft`
   - 当前已经形成外部回复草稿工具
-  - 当前输入模板、follow-up questions、handoff_fields、人工补单模板与 blocker 分层都已补齐
+  - 当前输入模板、workflow_profile、follow-up questions、handoff_fields、handoff checklist、manual completion SOP 与 blocker taxonomy 都已补齐
   - 后续若继续任务 4，应优先增强人机协同体验，而不是回到平台内回复发送
 - `/integrations/alibaba/wika/tools/order-draft`
   - 当前已经形成外部订单草稿工具
-  - 当前 required_manual_fields、follow-up questions、handoff_fields 与人工补单模板都已补齐
+  - 当前 required_manual_fields、required_manual_field_details、follow-up questions、handoff_fields、handoff checklist 与人工补单模板都已补齐
   - 后续若继续任务 5，应优先增强外部订单包字段完整度与人工补齐 SOP，而不是回到平台内创单验证
 
 ## 第一梯队：任务 6（正式通知闭环）
@@ -89,4 +89,4 @@
 
 ## 当前一句话结论
 
-当前最优先的下一批验证对象仍然是“真实 provider 外发验证”与“写侧可回滚证据”；而任务 4 / 5 当前已经有可直接使用、并且更适合人机协同的外部草稿工作流层，不应再把它们误写成平台内自动执行闭环。
+当前最优先的下一批验证对象仍然是“真实 provider 外发验证”与“写侧可回滚证据”；而任务 4 / 5 当前已经有可直接使用、并且更适合人机协同的外部草稿工作流 SOP 层，不应再把它们误写成平台内自动执行闭环。

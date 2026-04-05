@@ -83,7 +83,7 @@
 | 客户详情 / 客户画像 | 4 | `alibaba.seller.customer.get` 已真实走到 `/sync + access_token + sha256`，当前缺少 `buyer_member_seq`，还没有真实 JSON 样本 | `alibaba.seller.customer.get` | 否 |
 | 客户小记列表 | 4 | `alibaba.seller.customer.note.get` 已真实走到 `/sync + access_token + sha256`，当前缺少 `page_num / page_size / customer_id` | `alibaba.seller.customer.note.get` | 否 |
 | 客户小记明细 | 4 | `alibaba.seller.customer.note.query` 已真实走到 `/sync + access_token + sha256`，当前缺少 `note_id` | `alibaba.seller.customer.note.query` | 否 |
-| 外部回复草稿工作流 | 7 | 已形成只生成草稿的外部工作流层；当前已补齐输入模板、blocker 分层、follow-up questions、handoff_fields 与人工补单模板，不触发平台内发送 | `/integrations/alibaba/wika/tools/reply-draft` | 否 |
+| 外部回复草稿工作流 | 7 | 已形成只生成草稿的外部工作流层；当前已补齐输入模板、workflow_profile、template_version、blocker taxonomy、follow-up questions、handoff checklist、manual completion SOP 与人工补单模板，不触发平台内发送 | `/integrations/alibaba/wika/tools/reply-draft` | 否 |
 | 平台内回复动作 | 6 | 当前没有稳定可用入口 | 待识别 | 否 |
 | 价格生成 | 7 | 当前只支持基于真实上下文生成报价 blocker 和人工补充建议，不等于真实报价已生成 | `/integrations/alibaba/wika/tools/reply-draft` | 否 |
 | 产品细节调用 | 1 | 已有 detail/groups/score 等原始路由可复用 | 既有原始路由 | 否 |
@@ -96,7 +96,7 @@
 | --- | --- | --- | --- | --- |
 | 订单起草类型权限探针 | 1 | 已上线正式原始路由；真实返回 `types=["TA"]` | `/integrations/alibaba/wika/data/orders/draft-types` | 否 |
 | 平台内订单草稿 / 交易创建 | 5 | `alibaba.trade.order.create` 已完成真实生产分类；两轮不完整 payload 都只到业务参数错误，当前仍无法证明非成交、可回滚、无副作用边界 | `alibaba.trade.order.create` | 否 |
-| 外部结构化报价单 / 订单草稿文档 | 7 | 已实现外部订单草稿 helper、样例与工具路由；当前已补齐 blocker 分层、required_manual_fields、follow_up_questions、handoff_fields 与人工补单模板，但明确不等于平台内订单已创建 | `/integrations/alibaba/wika/tools/order-draft` | 否 |
+| 外部结构化报价单 / 订单草稿文档 | 7 | 已实现外部订单草稿 helper、样例与工具路由；当前已补齐 workflow_profile、template_version、blocker taxonomy、required_manual_fields、required_manual_field_details、follow_up_questions、handoff checklist、manual completion SOP 与人工补单模板，但明确不等于平台内订单已创建 | `/integrations/alibaba/wika/tools/order-draft` | 否 |
 
 ## F. 异常通知
 
@@ -114,5 +114,5 @@
 1. 当前最稳的已上线能力，集中在产品主数据、产品结构、订单原始数据、类目/属性/schema 读取，以及最小经营诊断和 products/orders 子诊断。
 2. mydata / overview / self.product 这条经营指标路线当前统一停在“权限/能力阻塞”，不再作为当前主线循环。
 3. 写侧方向已经推进到 schema-aware 草稿准备层，并新增了 media 可观测与 draft 可区分证据；但 photobank.upload 与 product.add.draft 的低风险边界都还未被证明。
-4. 当前已经形成“外部回复草稿 + 外部订单草稿”这一层可直接使用的中间层，并且已经补齐模板化输入、blocker 分层和人工接手字段；但它们都不等于平台内回复或平台内创单。
+4. 当前已经形成“外部回复草稿 + 外部订单草稿”这一层可直接使用的中间层，并且已经补齐模板化输入、workflow profile、blocker taxonomy、handoff checklist 和人工接手字段；但它们都不等于平台内回复或平台内创单。
 5. 当前最缺的仍然是：经营指标入口、最小经营聚合、询盘/消息读侧、可真正读出的 customers 数据、平台内安全写入边界，以及通知闭环的真实 provider 配置与真实外发送达证据。

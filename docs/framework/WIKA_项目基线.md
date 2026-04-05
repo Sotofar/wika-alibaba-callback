@@ -1,7 +1,7 @@
 # WIKA_项目基线
 
 ## 一句话总基线
-只推进 `WIKA`。当前主线已经形成“真实读侧原始路由 + 最小经营诊断层 + provider-agnostic 正式通知闭环 + 模板化的外部草稿工作流层”，但仍未形成完整经营驾驶舱，也未证明平台内安全写入边界。
+只推进 `WIKA`。当前主线已经形成“真实读侧原始路由 + 最小经营诊断层 + provider-agnostic 正式通知闭环 + 模板化外部草稿工作流 SOP 层”，但仍未形成完整经营驾驶舱，也未证明平台内安全写入边界。
 
 ## 当前已完成阶段
 - 产品 / 订单 / 物流基础读侧原始路由已上线并线上验证
@@ -15,8 +15,8 @@
 - operations / products / orders minimal-diagnostic 已上线并线上验证
 - 外部回复草稿工具路由已上线并线上验证
 - 外部订单草稿工具路由已上线并线上验证
-- 外部回复 / 外部订单工作流输入模板、blocker 分层、follow-up questions、handoff_fields 已成立
-- 外部回复 / 外部订单的人机协同模板与人工补单模板已成立
+- 外部回复 / 外部订单工作流输入模板、blocker taxonomy、follow-up questions、handoff_fields 已成立
+- 外部回复 / 外部订单的人机协同模板、人工补单模板、handoff checklist 与 manual completion SOP 已成立
 - mydata / overview / self.product 路线已收口为权限 / 能力阻塞
 - photobank.upload 已过授权层，但当前无法证明低风险上传边界
 - product.add.draft 已过授权层，但当前无法证明安全草稿边界
@@ -105,7 +105,7 @@
 - 把正式通知闭环挂到更多真实 blocker 触发点
 
 ## 当前唯一推荐下一步
-如果继续，只建议在“模板化的外部草稿工作流层”上继续做更稳的输入模板版本、人工补单模板和 blocker 分层，不回到新 API 验证循环，除非出现新的官方明确入口或新的 provider 配置。
+如果继续，只建议在“模板化的外部草稿工作流 SOP 层”上继续做更稳的输入模板版本、人工补单模板、handoff checklist 和 blocker 文案，不回到新 API 验证循环，除非出现新的官方明确入口或新的 provider 配置。
 
 ## 当前真实数据结论
 - media 可观测：已成立
@@ -118,7 +118,8 @@
 - 当前真实 provider 最小外发验证前置条件不足：已成立
 - 当前总诊断层、产品子诊断、订单子诊断都已成立：已成立
 - 当前外部回复草稿与外部订单草稿工作流层都已成立：已成立
-- 当前外部草稿工作流的 blocker 分层、follow-up questions、handoff_fields 都已成立：已成立
+- 当前外部草稿工作流的 blocker taxonomy、workflow profile、template version、handoff checklist 都已成立：已成立
+- 当前 reply/order 已具备面向人工接手的 manual completion SOP 与字段级 missing reason：已成立
 - 当前仍不能诊断 UV / PV / 曝光 / 点击 / CTR / 来源 / 国家 / 询盘表现：已成立
 - 当前只能生成外部草稿，不得误写为平台内已回复或已创单：已成立
 

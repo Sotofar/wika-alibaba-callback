@@ -493,3 +493,56 @@
   - 当前不能误写成平台内已回复或平台内已创单
   - 若后续继续，应优先增强人机协同模板与 handoff checklist，而不是回到平台内写动作
 
+### 阶段 15 收口任务：外部草稿工作流 SOP 化与交接标准包
+
+- 实际起始 commit：`183384f`
+- 本轮未做任何新的 Alibaba API 验证
+- 本轮未推进平台内自动回复、平台内订单创建、真实通知外发
+- 本轮只做：
+  - workflow_profile 与 template_version 收口
+  - blocker taxonomy 统一
+  - handoff checklist / manual completion SOP 固化
+  - reply / order 输入模板版本化
+  - 样例扩展到 6 组
+  - 验证脚本稳定命名
+- 新增 / 固化沉淀：
+  - `shared/data/modules/alibaba-external-workflow-taxonomy.js`
+  - `scripts/validate-wika-external-draft-workflows.js`
+  - `scripts/validate-wika-workflow-phase14.js`（兼容别名）
+  - `docs/framework/WIKA_外部回复输入模板.md`
+  - `docs/framework/WIKA_外部订单输入模板.md`
+  - `docs/framework/WIKA_人工补单模板.md`
+- 收口后的固定 profile：
+  - reply：
+    - `reply_minimal_handoff`
+    - `reply_quote_confirmation_needed`
+    - `reply_mockup_customization`
+  - order：
+    - `order_minimal_handoff`
+    - `order_quote_confirmation_needed`
+    - `order_commercial_review`
+- 当前 route 输出新增并稳定的字段：
+  - `workflow_profile`
+  - `template_version`
+  - `follow_up_question_details`
+  - `handoff_checklist`
+  - `manual_completion_sop`
+  - `draft_usable_externally`
+  - `required_manual_field_details`（order）
+- 样例与验证：
+  - reply 3 组
+  - order 3 组
+  - 当前总样例 6 组
+  - 主验证脚本输出：
+    - `workflow_profile`
+    - `template_version`
+    - `hard_blockers_count`
+    - `soft_blockers_count`
+    - `handoff_required`
+    - `draft_usable_externally`
+- 当前边界：
+  - 仍然只是外部草稿工作流 SOP 层
+  - 不是平台内自动回复
+  - 不是平台内订单创建
+  - 不是真实通知送达
+
