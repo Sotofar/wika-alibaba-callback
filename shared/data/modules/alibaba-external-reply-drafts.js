@@ -23,6 +23,22 @@ function normalizeList(values = []) {
   return [...new Set(values.map((value) => normalizeString(value)).filter(Boolean))];
 }
 
+function buildBlockerItem({
+  key,
+  label,
+  reason,
+  followUpQuestion,
+  requiredField = null
+}) {
+  return {
+    key,
+    label,
+    reason,
+    follow_up_question: followUpQuestion,
+    required_field: requiredField || key
+  };
+}
+
 function normalizeKeywordValues(value) {
   if (Array.isArray(value)) {
     return normalizeList(value);
@@ -51,7 +67,9 @@ function normalizeProductIds(input = {}) {
 }
 
 function pickLanguage(input = {}) {
-  const preferred = normalizeString(input.language_preference).toLowerCase();
+  const preferred = normalizeString(
+    input.language || input.language_preference
+  ).toLowerCase();
   if (preferred.startsWith("zh")) {
     return "zh";
   }
@@ -258,7 +276,9 @@ function buildPriceSection(language, input, productContexts) {
 }
 
 function buildLeadTimeSection(language, input) {
-  const leadTimeContext = normalizeString(input.lead_time_context);
+  const leadTimeContext =
+    normalizeString(input.expected_lead_time) ||
+    normalizeString(input.lead_time_context);
   if (leadTimeContext) {
     return {
       status: "contextual_only",
@@ -416,6 +436,210 @@ function buildEscalationRecommendation(language, missingContext, riskFlags) {
   };
 }
 
+function buildReplyWorkflowLayers({
+  language,
+  input,
+  validProductContexts,
+  priceSection,
+  leadTimeSection,
+  mockupRequest
+}) {
+  const hardBlockers = [];
+  const softBlockers = [];
+  const assumptions = [];
+  const followUpQuestions = [];
+  const handoffFields = [];
+
+  const pushBlocker = (collection, blocker) => {
+    collection.push(blocker);
+    if (blocker.follow_up_question) {
+      followUpQuestions.push(blocker.follow_up_question);
+    }
+    handoffFields.push({
+      field: blocker.required_field,
+      label: blocker.label,
+      reason: blocker.reason,
+      source: "human_input_required"
+    });
+  };
+
+  if (!normalizeString(input.inquiry_text)) {
+    pushBlocker(
+      hardBlockers,
+      buildBlockerItem({
+        key: "inquiry_text",
+        label: language === "zh" ? "询盘原文" : "Inquiry text",
+        reason:
+          language === "zh"
+            ? "没有询盘原文，无法生成可靠回复。"
+            : "No inquiry text was provided, so the system cannot build a reliable reply draft.",
+        followUpQuestion:
+          language === "zh"
+            ? "请提供客户原始询盘内容。"
+            : "Please provide the original customer inquiry text."
+      })
+    );
+  }
+
+  if (priceSection.status !== "available") {
+    pushBlocker(
+      hardBlockers,
+      buildBlockerItem({
+        key: "final_quote",
+        label: language === "zh" ? "最终报价" : "Final quote",
+        reason: priceSection.text,
+        followUpQuestion:
+          language === "zh"
+            ? "请确认最终报价、币种和报价口径。"
+            : "Please confirm the final quote, currency and quote basis.",
+        requiredField: "price.quote_confirmation"
+      })
+    );
+  }
+
+  if (leadTimeSection.status !== "available") {
+    pushBlocker(
+      hardBlockers,
+      buildBlockerItem({
+        key: "lead_time",
+        label: language === "zh" ? "交期确认" : "Lead time confirmation",
+        reason: leadTimeSection.text,
+        followUpQuestion:
+          language === "zh"
+            ? "请确认样品期、量产期和起算条件。"
+            : "Please confirm sample lead time, production lead time and the start condition.",
+        requiredField: "delivery.lead_time_confirmation"
+      })
+    );
+  }
+
+  if (!normalizeString(input.destination) && !normalizeString(input.destination_country)) {
+    pushBlocker(
+      softBlockers,
+      buildBlockerItem({
+        key: "destination_country",
+        label: language === "zh" ? "目的国" : "Destination country",
+        reason:
+          language === "zh"
+            ? "没有目的国信息，物流、包装和时效建议会受限。"
+            : "Destination is missing, so logistics and delivery suggestions stay generic.",
+        followUpQuestion:
+          language === "zh"
+            ? "请确认目的国或目的港。"
+            : "Please confirm the destination country or destination port."
+      })
+    );
+  }
+
+  if (validProductContexts.length === 0) {
+    pushBlocker(
+      softBlockers,
+      buildBlockerItem({
+        key: "product_context",
+        label: language === "zh" ? "产品上下文" : "Product context",
+        reason:
+          language === "zh"
+            ? "当前没有稳定的产品上下文，回复只能保持泛化。"
+            : "No stable product context is available, so the reply will stay generic.",
+        followUpQuestion:
+          language === "zh"
+            ? "请补充 product_id 或至少提供产品名称/链接。"
+            : "Please provide product_id or at least the product name / product link."
+      })
+    );
+  }
+
+  if (!normalizeString(input.quantity)) {
+    pushBlocker(
+      softBlockers,
+      buildBlockerItem({
+        key: "quantity",
+        label: language === "zh" ? "需求数量" : "Requested quantity",
+        reason:
+          language === "zh"
+            ? "没有数量信息，价格和交期只能保持保守表述。"
+            : "Quantity is missing, so quote and lead-time statements must stay conservative.",
+        followUpQuestion:
+          language === "zh"
+            ? "请确认目标采购数量。"
+            : "Please confirm the target quantity."
+      })
+    );
+  }
+
+  const customerProfile = input.customer_profile && typeof input.customer_profile === "object"
+    ? input.customer_profile
+    : {};
+  if (!normalizeString(customerProfile.company_name) && !normalizeString(customerProfile.contact_name)) {
+    pushBlocker(
+      softBlockers,
+      buildBlockerItem({
+        key: "customer_profile",
+        label: language === "zh" ? "客户身份" : "Customer identity",
+        reason:
+          language === "zh"
+            ? "当前没有客户身份信息，称呼与商务判断会偏保守。"
+            : "Customer identity is missing, so greeting and business judgement stay conservative.",
+        followUpQuestion:
+          language === "zh"
+            ? "请补充客户公司名、联系人或买家画像。"
+            : "Please provide buyer company name, contact name or customer profile."
+      })
+    );
+  }
+
+  if (mockupRequest.needed) {
+    for (const requirement of mockupRequest.asset_requirements) {
+      pushBlocker(
+        softBlockers,
+        buildBlockerItem({
+          key: "mockup_assets",
+          label: language === "zh" ? "效果图所需素材" : "Mockup assets",
+          reason: requirement,
+          followUpQuestion:
+            language === "zh"
+              ? "请补充 logo、工艺、颜色或展示场景素材。"
+              : "Please provide logo, finish, color or scene assets for the mockup package.",
+          requiredField: "mockup_request.asset_requirements"
+        })
+      );
+    }
+  }
+
+  assumptions.push(
+    language === "zh"
+      ? "当前草稿只用于外部工作流，不会自动发送平台内回复。"
+      : "This draft is for the external workflow only and will not send any platform reply automatically."
+  );
+  assumptions.push(
+    language === "zh"
+      ? "如无明确语言偏好，系统默认使用英文草稿。"
+      : "If language preference is not explicit, the system defaults to English."
+  );
+  if (!normalizeString(input.target_price)) {
+    assumptions.push(
+      language === "zh"
+        ? "当前没有实时价格源，系统不会自动给出正式报价。"
+        : "There is no verified live pricing source, so the system does not produce a firm quote."
+    );
+  }
+  if (!normalizeString(input.lead_time_context) && !normalizeString(input.expected_lead_time)) {
+    assumptions.push(
+      language === "zh"
+        ? "当前没有已验证交期源，交期只能保持待人工确认。"
+        : "There is no verified lead-time source, so lead time remains subject to manual confirmation."
+    );
+  }
+
+  return {
+    hard_blockers: hardBlockers,
+    soft_blockers: softBlockers,
+    assumptions: [...new Set(assumptions)],
+    follow_up_questions: [...new Set(followUpQuestions)],
+    handoff_fields: handoffFields
+  };
+}
+
 async function resolveProductContext(clientConfig, productId) {
   const listResult = await fetchWikaProductList(clientConfig, {
     id: productId,
@@ -544,22 +768,18 @@ export async function buildWikaExternalReplyDraftPackage(clientConfig, input = {
   const leadTimeSection = buildLeadTimeSection(language, input);
   const mockupRequest = buildMockupRequest(language, input, validProductContexts);
 
-  const missingContext = [];
-  if (!normalizeString(input.inquiry_text)) {
-    missingContext.push(language === "zh" ? "询盘原文" : "inquiry_text");
-  }
-  if (validProductContexts.length === 0) {
-    missingContext.push(language === "zh" ? "有效产品上下文" : "valid_product_context");
-  }
-  if (priceSection.status !== "contextual_only" && priceSection.status !== "available") {
-    missingContext.push(language === "zh" ? "正式价格" : "final_quote");
-  }
-  if (leadTimeSection.status === "blocked") {
-    missingContext.push(language === "zh" ? "交期" : "lead_time");
-  }
-  if (!destination) {
-    missingContext.push(language === "zh" ? "目的地" : "destination");
-  }
+  const workflowLayers = buildReplyWorkflowLayers({
+    language,
+    input,
+    validProductContexts,
+    priceSection,
+    leadTimeSection,
+    mockupRequest
+  });
+  const missingContext = [
+    ...workflowLayers.hard_blockers.map((item) => item.key),
+    ...workflowLayers.soft_blockers.map((item) => item.key)
+  ];
 
   const riskFlags = [
     "platform_reply_unavailable",
@@ -648,6 +868,38 @@ export async function buildWikaExternalReplyDraftPackage(clientConfig, input = {
       risk_flags: riskFlags,
       escalation_recommendation: escalationRecommendation
     },
+    input_summary: {
+      inquiry_text_present: Boolean(normalizeString(input.inquiry_text)),
+      product_ids: productIds,
+      quantity: quantity || null,
+      destination_country: destination || null,
+      target_price: normalizeString(input.target_price) || null,
+      expected_lead_time: normalizeString(input.expected_lead_time) || normalizeString(input.lead_time_context) || null,
+      language,
+      customer_profile_present:
+        Boolean(normalizeString(customerProfile.company_name)) ||
+        Boolean(normalizeString(customerProfile.contact_name))
+    },
+    available_context: {
+      product_context_count: validProductContexts.length,
+      has_product_diagnostic: Boolean(productDiagnostic),
+      has_price_reference: Boolean(normalizeString(input.target_price)),
+      has_destination: Boolean(destination),
+      has_quantity: Boolean(quantity),
+      has_customer_profile:
+        Boolean(normalizeString(customerProfile.company_name)) ||
+        Boolean(normalizeString(customerProfile.contact_name)),
+      has_mockup_signal: Boolean(mockupRequest.needed)
+    },
+    missing_context: missingContext,
+    hard_blockers: workflowLayers.hard_blockers,
+    soft_blockers: workflowLayers.soft_blockers,
+    assumptions: workflowLayers.assumptions,
+    follow_up_questions: workflowLayers.follow_up_questions,
+    mockup_request: mockupRequest,
+    escalation_recommendation: escalationRecommendation,
+    handoff_fields: workflowLayers.handoff_fields,
+    alert_payload: alertPayload,
     workflow_meta: {
       generated_at: new Date().toISOString(),
       available_context: {

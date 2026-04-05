@@ -56,6 +56,22 @@ function normalizeList(values = []) {
     .filter(Boolean);
 }
 
+function buildBlockerItem({
+  key,
+  label,
+  reason,
+  followUpQuestion,
+  requiredField = null
+}) {
+  return {
+    key,
+    label,
+    reason,
+    follow_up_question: followUpQuestion,
+    required_field: requiredField || key
+  };
+}
+
 function normalizeLineItems(items = []) {
   if (!Array.isArray(items)) {
     return [];
@@ -203,6 +219,208 @@ function normalizeWorkflowMissingContext(draft) {
   return [...new Set(fields.map((value) => normalizeString(value)).filter(Boolean))];
 }
 
+function buildOrderWorkflowLayers(input = {}, draft) {
+  const hardBlockers = [];
+  const softBlockers = [];
+  const assumptions = [];
+  const followUpQuestions = [];
+  const handoffFields = [];
+
+  const pushBlocker = (collection, blocker) => {
+    collection.push(blocker);
+    if (blocker.follow_up_question) {
+      followUpQuestions.push(blocker.follow_up_question);
+    }
+    handoffFields.push({
+      field: blocker.required_field,
+      label: blocker.label,
+      reason: blocker.reason,
+      source: "human_input_required"
+    });
+  };
+
+  const buyer = draft?.buyer ?? {};
+  const lineItems = Array.isArray(draft?.line_items) ? draft.line_items : [];
+  const paymentTerms = draft?.payment_terms ?? {};
+  const shipmentPlan = draft?.shipment_plan ?? {};
+
+  if (!normalizeString(buyer.company_name)) {
+    pushBlocker(
+      hardBlockers,
+      buildBlockerItem({
+        key: "buyer.company_name",
+        label: "Buyer company name",
+        reason: "Company identity is missing, so the draft cannot be treated as a usable commercial order package.",
+        followUpQuestion: "Please provide the buyer company name.",
+        requiredField: "buyer.company_name"
+      })
+    );
+  }
+
+  if (!normalizeString(buyer.contact_name)) {
+    pushBlocker(
+      hardBlockers,
+      buildBlockerItem({
+        key: "buyer.contact_name",
+        label: "Buyer contact name",
+        reason: "The buyer contact person is missing, so handoff and follow-up cannot be targeted correctly.",
+        followUpQuestion: "Please provide the buyer contact name.",
+        requiredField: "buyer.contact_name"
+      })
+    );
+  }
+
+  if (!normalizeString(buyer.email)) {
+    pushBlocker(
+      hardBlockers,
+      buildBlockerItem({
+        key: "buyer.email",
+        label: "Buyer email",
+        reason: "No buyer email is available for manual follow-up or quote delivery.",
+        followUpQuestion: "Please provide the buyer email address.",
+        requiredField: "buyer.email"
+      })
+    );
+  }
+
+  if (lineItems.length === 0) {
+    pushBlocker(
+      hardBlockers,
+      buildBlockerItem({
+        key: "line_items",
+        label: "Line items",
+        reason: "No line items are present, so no usable order draft can be built.",
+        followUpQuestion: "Please add at least one line item with product and quantity.",
+        requiredField: "line_items"
+      })
+    );
+  }
+
+  for (const item of lineItems) {
+    if (!normalizeString(item.quantity)) {
+      pushBlocker(
+        hardBlockers,
+        buildBlockerItem({
+          key: `line_items.${item.line_no}.quantity`,
+          label: `Line ${item.line_no} quantity`,
+          reason: "Quantity is required before any usable quote or order package can be reviewed.",
+          followUpQuestion: `Please confirm the quantity for line ${item.line_no}.`,
+          requiredField: `line_items[${item.line_no - 1}].quantity`
+        })
+      );
+    }
+
+    if (!normalizeString(item.unit_price)) {
+      pushBlocker(
+        hardBlockers,
+        buildBlockerItem({
+          key: `line_items.${item.line_no}.unit_price`,
+          label: `Line ${item.line_no} unit price`,
+          reason: "Unit price is missing, so the draft cannot become a confirmed quote or order package.",
+          followUpQuestion: `Please confirm the unit price for line ${item.line_no}.`,
+          requiredField: `line_items[${item.line_no - 1}].unit_price`
+        })
+      );
+    }
+  }
+
+  if (!normalizeString(paymentTerms.total_amount)) {
+    pushBlocker(
+      hardBlockers,
+      buildBlockerItem({
+        key: "payment_terms.total_amount",
+        label: "Total amount",
+        reason: "Total amount is missing, so the draft remains incomplete for commercial review.",
+        followUpQuestion: "Please confirm the total amount or quote total.",
+        requiredField: "payment_terms.total_amount"
+      })
+    );
+  }
+
+  if (!normalizeString(paymentTerms.advance_amount)) {
+    pushBlocker(
+      softBlockers,
+      buildBlockerItem({
+        key: "payment_terms.advance_amount",
+        label: "Advance amount",
+        reason: "Advance payment arrangement is missing, so payment terms stay generic.",
+        followUpQuestion: "Please confirm the deposit or advance payment amount.",
+        requiredField: "payment_terms.advance_amount"
+      })
+    );
+  }
+
+  if (
+    !normalizeString(shipmentPlan.lead_time_text) ||
+    normalizeString(shipmentPlan.lead_time_text) === "TBD by human confirmation"
+  ) {
+    pushBlocker(
+      hardBlockers,
+      buildBlockerItem({
+        key: "shipment_plan.lead_time_text",
+        label: "Lead time",
+        reason: "Lead time is still a placeholder, so the draft cannot carry a confirmed delivery commitment.",
+        followUpQuestion: "Please confirm the production lead time and shipping readiness condition.",
+        requiredField: "shipment_plan.lead_time_text"
+      })
+    );
+  }
+
+  if (!normalizeString(shipmentPlan.destination_country)) {
+    pushBlocker(
+      softBlockers,
+      buildBlockerItem({
+        key: "shipment_plan.destination_country",
+        label: "Destination country",
+        reason: "Destination is missing, so logistics, freight and incoterm review remain incomplete.",
+        followUpQuestion: "Please confirm the destination country or destination port.",
+        requiredField: "shipment_plan.destination_country"
+      })
+    );
+  }
+
+  if (!normalizeString(shipmentPlan.trade_term)) {
+    pushBlocker(
+      softBlockers,
+      buildBlockerItem({
+        key: "shipment_plan.trade_term",
+        label: "Incoterm / trade term",
+        reason: "Trade term is missing, so logistics and pricing assumptions remain generic.",
+        followUpQuestion: "Please confirm the trade term, for example FOB or CIF.",
+        requiredField: "shipment_plan.trade_term"
+      })
+    );
+  }
+
+  if (!normalizeString(shipmentPlan.shipment_method)) {
+    pushBlocker(
+      softBlockers,
+      buildBlockerItem({
+        key: "shipment_plan.shipment_method",
+        label: "Shipment method",
+        reason: "Shipment method is missing, so logistics suggestions remain generic.",
+        followUpQuestion: "Please confirm whether the shipment should be by sea, air or express.",
+        requiredField: "shipment_plan.shipment_method"
+      })
+    );
+  }
+
+  assumptions.push("This package is an external order draft only and does not create any platform order.");
+  assumptions.push("Currency defaults to USD if no confirmed payment currency is supplied.");
+  assumptions.push("Any missing commercial field remains subject to human confirmation.");
+  if (!normalizeString(input?.shipment_plan?.lead_time_text)) {
+    assumptions.push("Lead time stays as a placeholder until a human confirms it.");
+  }
+
+  return {
+    hard_blockers: hardBlockers,
+    soft_blockers: softBlockers,
+    assumptions: [...new Set(assumptions)],
+    follow_up_questions: [...new Set(followUpQuestions)],
+    handoff_fields: handoffFields
+  };
+}
+
 async function hydrateLineItems(clientConfig, lineItems = []) {
   const hydrated = [];
 
@@ -249,6 +467,7 @@ export async function buildWikaExternalOrderDraftPackage(clientConfig, input = {
     line_items: await hydrateLineItems(clientConfig, input.line_items)
   };
   const draft = buildWikaExternalOrderDraft(normalizedInput);
+  const workflowLayers = buildOrderWorkflowLayers(normalizedInput, draft);
   const orderDiagnostic = await fetchWikaOrderMinimalDiagnostic(clientConfig, {
     order_page_size: 8,
     order_sample_limit: 5
@@ -267,7 +486,10 @@ export async function buildWikaExternalOrderDraftPackage(clientConfig, input = {
     draftTypes = null;
   }
 
-  const missingContext = normalizeWorkflowMissingContext(draft);
+  const missingContext = [
+    ...workflowLayers.hard_blockers.map((item) => item.required_field),
+    ...workflowLayers.soft_blockers.map((item) => item.required_field)
+  ];
   const alertPayload =
     missingContext.length > 0
       ? buildWikaParameterMissingAlert({
@@ -314,7 +536,64 @@ export async function buildWikaExternalOrderDraftPackage(clientConfig, input = {
     ok: draft.ok,
     account: "wika",
     workflow_type: "external_order_draft_package",
+    input_summary: {
+      buyer_company_name: normalizeString(input.company_name) || null,
+      buyer_contact_name: normalizeString(input.contact_name) || null,
+      destination_country:
+        normalizeString(input?.shipment_plan?.destination_country) || null,
+      line_item_count: Array.isArray(normalizedInput.line_items)
+        ? normalizedInput.line_items.length
+        : 0,
+      quoted_currency:
+        normalizeString(input?.payment_terms?.currency) ||
+        normalizeString(
+          Array.isArray(normalizedInput.line_items)
+            ? normalizedInput.line_items[0]?.currency
+            : null
+        ) ||
+        "USD"
+    },
+    available_context: {
+      has_buyer_identity:
+        Boolean(normalizeString(input.company_name)) &&
+        Boolean(normalizeString(input.contact_name)) &&
+        Boolean(normalizeString(input.email)),
+      has_destination: Boolean(
+        normalizeString(input?.shipment_plan?.destination_country)
+      ),
+      has_price_fields: Boolean(
+        Array.isArray(normalizedInput.line_items) &&
+          normalizedInput.line_items.some((item) => normalizeString(item.unit_price))
+      ),
+      has_delivery_fields: Boolean(
+        normalizeString(input?.shipment_plan?.lead_time_text)
+      ),
+      line_item_count: Array.isArray(normalizedInput.line_items)
+        ? normalizedInput.line_items.length
+        : 0,
+      draft_types: draftTypes?.types ?? []
+    },
+    missing_context: [...new Set(missingContext.filter(Boolean))],
+    hard_blockers: workflowLayers.hard_blockers,
+    soft_blockers: workflowLayers.soft_blockers,
+    assumptions: workflowLayers.assumptions,
+    required_manual_fields: draft.manual_required_fields,
     order_draft_package: draft,
+    follow_up_questions: workflowLayers.follow_up_questions,
+    escalation_recommendation: {
+      level:
+        workflowLayers.hard_blockers.length > 0
+          ? "high"
+          : workflowLayers.soft_blockers.length > 0
+            ? "medium"
+            : "low",
+      recommendation:
+        workflowLayers.hard_blockers.length > 0
+          ? "Human confirmation is required before this draft can be turned into a quote or any platform-side order attempt."
+          : "A human should still review commercial terms, delivery assumptions and buyer identity before reuse."
+    },
+    handoff_fields: workflowLayers.handoff_fields,
+    alert_payload: alertPayload,
     workflow_meta: {
       generated_at: new Date().toISOString(),
       available_context: {

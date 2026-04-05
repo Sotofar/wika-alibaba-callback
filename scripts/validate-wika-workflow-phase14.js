@@ -53,7 +53,7 @@ const replyCompleteInput = {
   target_price: "0.65",
   currency: "USD",
   lead_time_context: "Customer expects ex-factory lead time around 25-30 days after artwork confirmation.",
-  language_preference: "en",
+  language: "en",
   mockup_required: true,
   logo_file_reference: "logo-ai-file-needed",
   color_requirement: "black outside / beige inside",
@@ -63,7 +63,7 @@ const replyCompleteInput = {
 const replyIncompleteInput = {
   inquiry_text: "Need more details for custom case.",
   product_ids: ["1601700588198"],
-  language_preference: "en"
+  language: "en"
 };
 
 const orderCompleteInput = {
@@ -121,16 +121,36 @@ async function main() {
     "Reply complete sample must contain reply_draft.subject"
   );
   assert(
+    Array.isArray(replyComplete.json?.hard_blockers),
+    "Reply complete sample must contain hard_blockers"
+  );
+  assert(
+    Array.isArray(replyComplete.json?.follow_up_questions),
+    "Reply complete sample must contain follow_up_questions"
+  );
+  assert(
     replyIncomplete.json?.workflow_meta?.missing_context,
     "Reply incomplete sample must contain workflow_meta.missing_context"
+  );
+  assert(
+    Array.isArray(replyIncomplete.json?.soft_blockers),
+    "Reply incomplete sample must contain soft_blockers"
   );
   assert(
     orderComplete.json?.order_draft_package?.line_items,
     "Order complete sample must contain order_draft_package.line_items"
   );
   assert(
+    Array.isArray(orderComplete.json?.required_manual_fields),
+    "Order complete sample must contain required_manual_fields"
+  );
+  assert(
     orderIncomplete.json?.workflow_meta?.missing_context,
     "Order incomplete sample must contain workflow_meta.missing_context"
+  );
+  assert(
+    Array.isArray(orderIncomplete.json?.hard_blockers),
+    "Order incomplete sample must contain hard_blockers"
   );
 
   const replyFile = writeJson("WIKA_外部回复草稿样例.json", {

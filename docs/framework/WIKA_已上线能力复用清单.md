@@ -44,8 +44,8 @@
 | `/integrations/alibaba/wika/reports/operations/minimal-diagnostic` | 最小经营诊断层 | 严格基于现有真实产品/订单读侧，只覆盖产品质量/结构与订单执行信号，不等于完整经营驾驶舱 |
 | `/integrations/alibaba/wika/reports/products/minimal-diagnostic` | 产品子诊断 | 严格基于 products 真实读侧字段拆出的子报告，只覆盖质量/内容/结构信号 |
 | `/integrations/alibaba/wika/reports/orders/minimal-diagnostic` | 订单子诊断 | 严格基于 orders 真实读侧字段拆出的子报告，只覆盖执行/物流/资金可见信号 |
-| `/integrations/alibaba/wika/tools/reply-draft` | 外部回复草稿工具 | 只生成外部 reply draft、blockers、mockup requirement pack 和 alert payload，不发送平台内回复 |
-| `/integrations/alibaba/wika/tools/order-draft` | 外部订单草稿工具 | 只生成外部 order draft package、missing fields、handoff 与 alert payload，不创建平台订单 |
+| `/integrations/alibaba/wika/tools/reply-draft` | 外部回复草稿工具 | 只生成外部 reply draft、blocker 分层、follow-up questions、mockup requirement pack、handoff_fields 和 alert payload，不发送平台内回复 |
+| `/integrations/alibaba/wika/tools/order-draft` | 外部订单草稿工具 | 只生成外部 order draft package、required_manual_fields、blocker 分层、follow-up questions、handoff_fields 与 alert payload，不创建平台订单 |
 
 ## 4. 已上线的权限探针型只读路由
 
@@ -63,7 +63,8 @@
 | 低风险写侧边界规则 | 已落盘可复用 | 已明确 `photobank.upload` 与 `product.add.draft` 当前都不能继续实写验证 |
 | 可观测 / 可回滚证据规则 | 已落盘可复用 | 已明确 media 可观测能力、draft 可区分能力以及“尚未具备最小真实写入前置条件” |
 | 外部订单草稿 helper | 已实现可复用 | 可输出买家、产品、价格、交期、物流、付款等结构化草稿，但不等于平台订单已创建 |
-| 外部回复草稿 helper | 已实现可复用 | 可输出 reply subject/opening/body/closing、price blocker、lead time blocker、mockup requirement pack 和 escalation recommendation，但不等于平台内已回复 |
+| 外部回复草稿 helper | 已实现可复用 | 可输出 reply subject/opening/body/closing、price blocker、lead time blocker、follow-up questions、mockup requirement pack 和 escalation recommendation，但不等于平台内已回复 |
+| 外部草稿工作流模板 | 已实现可复用 | 已沉淀回复输入模板、订单输入模板和人工补单模板，适合直接进入人工接手流程 |
 | 订单入口候选清单 | 已落盘可复用 | 已明确 `order.create` 与 `drafttype` 的边界、参数层级与收口方式 |
 | media 管理侧证据 | 已沉淀可复用 | `photobank.group.operate` 已在 production 闭环下过授权层，但当前仍不能证明低风险管理/清理边界 |
 | draft 管理侧证据 | 已沉淀可复用 | 当前公开官方文档中，除 `schema.render.draft` 外未识别到新增 draft 查询 / 删除 / 管理接口 |
@@ -92,7 +93,8 @@
 18. `products/orders` 子诊断已上线，不等于完整经营驾驶舱已完成。
 19. `/tools/reply-draft` 已上线，不等于平台内回复已发送。
 20. `/tools/order-draft` 已上线，不等于平台内订单已创建。
+21. 模板与 blocker 分层已补齐，不等于平台内能力已打通。
 
 ## 当前一句话结论
 
-WIKA 当前已经有一套稳定可复用的读侧原始路由底座，以及更扎实的 schema-aware 产品草稿、外部回复草稿和外部订单草稿工作流；但写侧仍停留在“草稿准备 + 风险边界判断”，还没有进入真实平台写入闭环。
+WIKA 当前已经有一套稳定可复用的读侧原始路由底座，以及更扎实的 schema-aware 产品草稿、外部回复草稿、外部订单草稿与人工补单模板工作流；但写侧仍停留在“草稿准备 + 风险边界判断”，还没有进入真实平台写入闭环。

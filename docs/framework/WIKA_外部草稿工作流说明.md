@@ -12,6 +12,10 @@
 
 ## 输入协议
 
+配套模板文档：
+- `docs/framework/WIKA_外部回复输入模板.md`
+- `docs/framework/WIKA_外部订单输入模板.md`
+
 ### 1. 回复草稿输入
 最小建议字段：
 - `inquiry_text`
@@ -21,10 +25,14 @@
 - `customer_profile`
 - `quantity`
 - `destination`
+- `destination_country`
 - `target_price`
 - `currency`
+- `expected_lead_time`
 - `lead_time_context`
 - `language_preference`
+- `language`
+- `notes`
 - `mockup_required`
 - `logo_file_reference`
 - `color_requirement`
@@ -78,6 +86,36 @@
 - `human_action_required`
 - `alert_payload`
 
+## 当前增强后的工作流字段
+
+### 回复草稿输出当前至少包含
+- `input_summary`
+- `available_context`
+- `missing_context`
+- `hard_blockers`
+- `soft_blockers`
+- `assumptions`
+- `follow_up_questions`
+- `reply_draft`
+- `mockup_request`
+- `escalation_recommendation`
+- `handoff_fields`
+- `alert_payload`
+
+### 订单草稿输出当前至少包含
+- `input_summary`
+- `available_context`
+- `missing_context`
+- `hard_blockers`
+- `soft_blockers`
+- `assumptions`
+- `required_manual_fields`
+- `order_draft_package`
+- `follow_up_questions`
+- `escalation_recommendation`
+- `handoff_fields`
+- `alert_payload`
+
 ## 当前复用的数据源
 只复用已经上线并已线上验证的 WIKA 能力：
 - `products/detail`
@@ -115,6 +153,28 @@
 - logo / artwork / mockup 场景
 - 最终成交条款
 
+### blocker 分层
+
+- `hard_blockers`
+  - 不补信息就不能把草稿当成可直接发送 / 可直接报价的工作包
+- `soft_blockers`
+  - 可以先出草稿，但内容会明显更保守
+- `assumptions`
+  - 当前系统采用了哪些保守假设，人工接手时必须重新确认
+
+## 人工接手产物
+
+当前路由输出已经附带：
+
+- `follow_up_questions`
+- `handoff_fields`
+- `escalation_recommendation`
+- 与现有 alerts 兼容的 `alert_payload`
+
+并可配合：
+
+- `docs/framework/WIKA_人工补单模板.md`
+
 ## 路由边界
 如采用 route 方案，工具路由只能做草稿生成：
 - `POST /integrations/alibaba/wika/tools/reply-draft`
@@ -127,4 +187,10 @@
 
 ## 当前状态结论
 当前已经可以形成“人可直接继续处理”的外部草稿工作流层。  
+当前阶段进一步把它增强成：
+- 更稳定的输入模板
+- 更明确的 blocker 分层
+- 更直接可用的 follow-up questions
+- 更适合人工补单 / 人工补回的 handoff 字段
+
 但它仍然不是平台内自动回复，也不是平台内订单创建闭环。
