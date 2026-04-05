@@ -83,7 +83,7 @@
 | 客户详情 / 客户画像 | 4 | `alibaba.seller.customer.get` 已真实走到 `/sync + access_token + sha256`，当前缺少 `buyer_member_seq`，还没有真实 JSON 样本 | `alibaba.seller.customer.get` | 否 |
 | 客户小记列表 | 4 | `alibaba.seller.customer.note.get` 已真实走到 `/sync + access_token + sha256`，当前缺少 `page_num / page_size / customer_id` | `alibaba.seller.customer.note.get` | 否 |
 | 客户小记明细 | 4 | `alibaba.seller.customer.note.query` 已真实走到 `/sync + access_token + sha256`，当前缺少 `note_id` | `alibaba.seller.customer.note.query` | 否 |
-| 外部回复草稿工作流 | 7 | 已形成只生成草稿的外部工作流层；当前已补齐输入模板、blocker 分层、follow-up questions 与 handoff_fields，不触发平台内发送 | `/integrations/alibaba/wika/tools/reply-draft` | 否 |
+| 外部回复草稿工作流 | 7 | 已形成只生成草稿的外部工作流层；当前已补齐输入模板、blocker 分层、follow-up questions、handoff_fields 与人工补单模板，不触发平台内发送 | `/integrations/alibaba/wika/tools/reply-draft` | 否 |
 | 平台内回复动作 | 6 | 当前没有稳定可用入口 | 待识别 | 否 |
 | 价格生成 | 7 | 当前只支持基于真实上下文生成报价 blocker 和人工补充建议，不等于真实报价已生成 | `/integrations/alibaba/wika/tools/reply-draft` | 否 |
 | 产品细节调用 | 1 | 已有 detail/groups/score 等原始路由可复用 | 既有原始路由 | 否 |
@@ -96,7 +96,7 @@
 | --- | --- | --- | --- | --- |
 | 订单起草类型权限探针 | 1 | 已上线正式原始路由；真实返回 `types=["TA"]` | `/integrations/alibaba/wika/data/orders/draft-types` | 否 |
 | 平台内订单草稿 / 交易创建 | 5 | `alibaba.trade.order.create` 已完成真实生产分类；两轮不完整 payload 都只到业务参数错误，当前仍无法证明非成交、可回滚、无副作用边界 | `alibaba.trade.order.create` | 否 |
-| 外部结构化报价单 / 订单草稿文档 | 7 | 已实现外部订单草稿 helper、样例与工具路由；当前已补齐 blocker 分层、required_manual_fields、follow_up_questions 与 handoff_fields，但明确不等于平台内订单已创建 | `/integrations/alibaba/wika/tools/order-draft` | 否 |
+| 外部结构化报价单 / 订单草稿文档 | 7 | 已实现外部订单草稿 helper、样例与工具路由；当前已补齐 blocker 分层、required_manual_fields、follow_up_questions、handoff_fields 与人工补单模板，但明确不等于平台内订单已创建 | `/integrations/alibaba/wika/tools/order-draft` | 否 |
 
 ## F. 异常通知
 

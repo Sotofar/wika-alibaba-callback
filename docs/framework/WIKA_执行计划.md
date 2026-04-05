@@ -100,6 +100,31 @@
 ## 当前推荐下一步
 如果本阶段完成且仍需继续，只建议围绕“人机协同使用体验”继续做低风险增强，例如更细的输入模板版本、更清楚的 handoff checklist，或对现有 blocker 分层进一步精炼；不回到新 API 验证循环。
 
+## 当前执行结果（已完成）
+- 现有 `/tools/reply-draft` 与 `/tools/order-draft` 已确认具备：
+  - `input_summary`
+  - `available_context`
+  - `missing_context`
+  - `hard_blockers`
+  - `soft_blockers`
+  - `assumptions`
+  - `follow_up_questions`
+  - `handoff_fields`
+  - `alert_payload`
+- 输入模板文档已补齐：
+  - `docs/framework/WIKA_外部回复输入模板.md`
+  - `docs/framework/WIKA_外部订单输入模板.md`
+- 人工补单模板已补齐：
+  - `docs/framework/WIKA_人工补单模板.md`
+- 已重新生成 4 组高质量样例：
+  - 信息较完整的 reply draft
+  - 信息缺失明显的 reply draft
+  - 信息较完整的 order draft
+  - 信息缺失明显的 order draft
+- 当前阶段结论：
+  - 外部草稿工作流已经更适合人机协同
+  - 但它仍然只是外部草稿，不是平台内自动回复，也不是平台内订单创建
+
 ## 停止条件
 - 输入模板已标准化
 - reply/order draft 输出已具备 blocker 分层、follow-up questions、handoff_fields

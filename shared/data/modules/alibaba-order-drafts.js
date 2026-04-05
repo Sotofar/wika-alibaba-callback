@@ -493,7 +493,7 @@ export async function buildWikaExternalOrderDraftPackage(clientConfig, input = {
   const alertPayload =
     missingContext.length > 0
       ? buildWikaParameterMissingAlert({
-          stageName: "phase14_external_order_draft",
+          stageName: "external_order_draft_workflow",
           relatedApis: ["alibaba.trade.order.create"],
           relatedModules: ["external_order_draft"],
           evidence: [
@@ -513,7 +513,7 @@ export async function buildWikaExternalOrderDraftPackage(clientConfig, input = {
           }
         })
       : buildWikaWriteBoundaryAlert({
-          stageName: "phase14_external_order_draft",
+          stageName: "external_order_draft_workflow",
           relatedApis: ["alibaba.trade.order.create"],
           relatedModules: ["external_order_draft"],
           evidence: [

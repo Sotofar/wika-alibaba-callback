@@ -16,6 +16,7 @@
 - 外部回复草稿工具路由已上线并线上验证
 - 外部订单草稿工具路由已上线并线上验证
 - 外部回复 / 外部订单工作流输入模板、blocker 分层、follow-up questions、handoff_fields 已成立
+- 外部回复 / 外部订单的人机协同模板与人工补单模板已成立
 - mydata / overview / self.product 路线已收口为权限 / 能力阻塞
 - photobank.upload 已过授权层，但当前无法证明低风险上传边界
 - product.add.draft 已过授权层，但当前无法证明安全草稿边界

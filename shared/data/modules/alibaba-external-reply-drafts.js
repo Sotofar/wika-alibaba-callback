@@ -802,7 +802,7 @@ export async function buildWikaExternalReplyDraftPackage(clientConfig, input = {
   const alertPayload =
     missingContext.length > 0
       ? buildWikaParameterMissingAlert({
-          stageName: "phase14_external_reply_draft",
+          stageName: "external_reply_draft_workflow",
           relatedApis: [
             "alibaba.seller.customer.batch.get",
             "alibaba.seller.customer.get"
@@ -828,7 +828,7 @@ export async function buildWikaExternalReplyDraftPackage(clientConfig, input = {
           }
         })
       : buildWikaNoEntryAlert({
-          stageName: "phase14_external_reply_draft",
+          stageName: "external_reply_draft_workflow",
           relatedApis: [],
           relatedModules: ["external_reply_draft"],
           evidence: [

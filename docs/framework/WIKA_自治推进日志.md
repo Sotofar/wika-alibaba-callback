@@ -443,3 +443,53 @@
 - 实现提交：`7b4f741`
 - 清洗修正提交：`f9df52d`
 
+### 阶段 15：任务 4/5 的外部草稿工作流模板化与人工补单包
+
+- 起始 checkpoint：`0e24fd2`
+- 本阶段只做一件事：
+  - 不验证任何新 Alibaba API，不推进平台内读写
+  - 只把现有 `/tools/reply-draft` 与 `/tools/order-draft` 继续增强成更适合人机协同的模板化外部草稿工作流
+- 本阶段确认并固化的输出结构：
+  - reply draft：
+    - `input_summary`
+    - `available_context`
+    - `missing_context`
+    - `hard_blockers`
+    - `soft_blockers`
+    - `assumptions`
+    - `follow_up_questions`
+    - `handoff_fields`
+    - `alert_payload`
+  - order draft：
+    - `input_summary`
+    - `available_context`
+    - `missing_context`
+    - `hard_blockers`
+    - `soft_blockers`
+    - `assumptions`
+    - `required_manual_fields`
+    - `follow_up_questions`
+    - `handoff_fields`
+    - `alert_payload`
+- 新增 / 固化沉淀：
+  - `docs/framework/WIKA_外部回复输入模板.md`
+  - `docs/framework/WIKA_外部订单输入模板.md`
+  - `docs/framework/WIKA_人工补单模板.md`
+  - `docs/framework/WIKA_外部草稿工作流说明.md`
+  - `docs/framework/WIKA_外部回复草稿样例.json`
+  - `docs/framework/WIKA_外部订单草稿样例.json`
+- 样例结果：
+  - 已形成 4 组可复现样例：
+    - 信息较完整的 reply draft
+    - 信息缺失明显的 reply draft
+    - 信息较完整的 order draft
+    - 信息缺失明显的 order draft
+- route 验收：
+  - `POST /integrations/alibaba/wika/tools/reply-draft` -> `200 + 真实 JSON`
+  - `POST /integrations/alibaba/wika/tools/order-draft` -> `200 + 真实 JSON`
+  - `node scripts/validate-wika-workflow-phase14.js` 已成功回灌阶段 15 样例
+- 阶段收口：
+  - 当前已经形成更稳定的外部草稿工作流模板层
+  - 当前不能误写成平台内已回复或平台内已创单
+  - 若后续继续，应优先增强人机协同模板与 handoff checklist，而不是回到平台内写动作
+
