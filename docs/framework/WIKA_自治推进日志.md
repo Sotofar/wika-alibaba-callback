@@ -397,6 +397,6 @@
     - dry-run 已成立
     - fallback 已成立
   - 但当前不能误写成“真实通知已送达”
-- 结束 checkpoint：待本阶段收口提交
-- push：待本阶段收口后执行
+- 结束 checkpoint：`97a1943`
+- push：`origin/main` 成功
 
