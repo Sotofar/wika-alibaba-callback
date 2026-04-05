@@ -374,6 +374,6 @@
   - 当前已证明真实 provider 预接线成立
   - 当前仍不能误写成真实邮件或 webhook 已送达
   - 若继续任务 6，下一步只能在 production 配置真实 provider 后做一次最小真实外发验证
-- 结束 checkpoint：见本阶段收口提交
+- 结束 checkpoint：`7838ef6`
 - push：`origin/main` 成功
 
