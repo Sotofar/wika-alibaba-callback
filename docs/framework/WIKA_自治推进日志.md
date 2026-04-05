@@ -293,6 +293,9 @@
     - 当前分类：`业务参数错误（说明已过授权层）`
 - 新增正式只读路由：
   - `/integrations/alibaba/wika/data/orders/draft-types`
+- 线上验收：
+  - `/integrations/alibaba/wika/data/orders/draft-types` -> `200 + 真实 JSON`
+  - 当前真实样本：`types=["TA"]`
 - 新增沉淀：
   - `shared/data/modules/alibaba-official-order-entry.js`
   - `shared/data/modules/alibaba-order-drafts.js`
@@ -303,6 +306,33 @@
 - 阶段收口：
   - `draft-types` 已可作为正式只读权限探针复用
   - `order.create` 当前只证明到参数/授权边界，仍不能证明存在安全创单边界
-  - 当前任务 5 只能先做“外部订单草稿”，不能误写成“平台内订单已起草成功”
-- 结束 checkpoint：待本阶段收口提交
+- 当前任务 5 只能先做“外部订单草稿”，不能误写成“平台内订单已起草成功”
+- 结束 checkpoint：`03a937c`
+- push：`origin/main` 成功
+
+### 阶段 11：任务 2 的产品/订单子诊断拆分
+
+- 起始 checkpoint：`600c45b`
+- 本阶段只做一件事：
+  - 不验证任何新 API，只复用现有真实读侧能力，把总的最小经营诊断拆成 products/orders 两个子报告
+- 新增正式只读路由：
+  - `/integrations/alibaba/wika/reports/products/minimal-diagnostic`
+  - `/integrations/alibaba/wika/reports/orders/minimal-diagnostic`
+- 新增沉淀：
+  - `shared/data/modules/wika-minimal-diagnostic.js` 阶段 11 拆分与复用逻辑
+  - `scripts/validate-wika-diagnostic-phase11.js`
+  - `docs/framework/WIKA_产品子诊断说明.md`
+  - `docs/framework/WIKA_产品子诊断样例.json`
+  - `docs/framework/WIKA_订单子诊断说明.md`
+  - `docs/framework/WIKA_订单子诊断样例.json`
+- 线上验收：
+  - `/integrations/alibaba/wika/reports/products/minimal-diagnostic` -> `200 + 真实 JSON`
+  - `/integrations/alibaba/wika/reports/orders/minimal-diagnostic` -> `200 + 真实 JSON`
+  - `/integrations/alibaba/wika/reports/operations/minimal-diagnostic` 兼容性保持正常
+- 当前样例口径：
+  - 产品子诊断样本：`product_snapshot_count=12, product_score_count=8, product_detail_count=8`
+  - 订单子诊断样本：`order_snapshot_count=8, order_fund_count=5, order_logistics_count=5`
+- 阶段收口：
+  - 当前最小经营诊断已经拆成“总报告 + 产品子诊断 + 订单子诊断”
+  - 当前仍不能误写成“完整经营驾驶舱已完成”
 

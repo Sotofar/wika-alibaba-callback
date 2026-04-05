@@ -5,6 +5,19 @@
 ## 一句话定义
 当前最小经营诊断层只基于已经上线并已线上验证的 `WIKA` 真实读侧数据，输出“产品质量与结构 + 订单执行信号”的最小可信诊断，不覆盖流量、曝光、点击、CTR、来源、国家和询盘经营分析。
 
+## 当前路由分层
+- 总报告：
+  - `/integrations/alibaba/wika/reports/operations/minimal-diagnostic`
+- 产品子诊断：
+  - `/integrations/alibaba/wika/reports/products/minimal-diagnostic`
+- 订单子诊断：
+  - `/integrations/alibaba/wika/reports/orders/minimal-diagnostic`
+
+当前关系是：
+- 总报告负责聚合产品与订单两个子诊断口径
+- 子诊断负责给出更细的模块内结论
+- 三者都不等于完整经营驾驶舱
+
 ## 当前使用的真实数据源
 - `/integrations/alibaba/wika/data/products/list`
 - `/integrations/alibaba/wika/data/products/score`

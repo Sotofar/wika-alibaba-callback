@@ -4,9 +4,16 @@
 
 ## 当前路由
 - `/integrations/alibaba/wika/reports/operations/minimal-diagnostic`
+- `/integrations/alibaba/wika/reports/products/minimal-diagnostic`
+- `/integrations/alibaba/wika/reports/orders/minimal-diagnostic`
 
 ## 目标
-这条路由不是完整经营驾驶舱，而是把当前已经上线、已经真实可读的 WIKA 产品与订单原始数据，整理成一层可追溯、可解释、可直接执行的最小经营诊断。
+这些路由都不是完整经营驾驶舱，而是把当前已经上线、已经真实可读的 WIKA 产品与订单原始数据，整理成一层可追溯、可解释、可直接执行的最小经营诊断。
+
+其中：
+- `operations/minimal-diagnostic`：总报告
+- `products/minimal-diagnostic`：产品子诊断
+- `orders/minimal-diagnostic`：订单子诊断
 
 ## 当前使用的数据源
 
@@ -95,6 +102,8 @@
 - 当前采样存在详情缺失和关键词缺失
 - 当前采样存在未分组产品
 - 当前采样订单物流状态可见，且资金字段可见
+- 当前产品子诊断已可单独输出质量分、内容完整度、结构提示
+- 当前订单子诊断已可单独输出物流摘要、资金可见信号与执行层风险提示
 
 ## 当前仍缺的关键经营数据
 - `UV`

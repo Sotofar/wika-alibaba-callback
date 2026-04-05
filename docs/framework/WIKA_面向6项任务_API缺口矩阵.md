@@ -44,6 +44,8 @@
 | 产品结构诊断底座 | 1 | 已形成最小经营诊断层中的产品诊断部分 | `products/list + detail + groups + score` | 否 |
 | 订单经营观察底座 | 1 | 已形成最小经营诊断层中的订单执行诊断部分 | `orders/list + detail + fund + logistics` | 否 |
 | 最小经营诊断报告 | 1 | 已上线正式诊断路由；输出 available_signals / findings / recommendations / blockers | `/integrations/alibaba/wika/reports/operations/minimal-diagnostic` | 否 |
+| 产品子诊断报告 | 1 | 已上线正式诊断路由；严格基于 products 真实读侧字段形成更细诊断 | `/integrations/alibaba/wika/reports/products/minimal-diagnostic` | 否 |
+| 订单子诊断报告 | 1 | 已上线正式诊断路由；严格基于 orders 真实读侧字段形成更细诊断 | `/integrations/alibaba/wika/reports/orders/minimal-diagnostic` | 否 |
 | 店铺曝光 / 点击 / CTR / 趋势 | 4 | 数据管家权限阻塞 | `alibaba.mydata.overview.indicator.basic.get` | 否 |
 | 产品曝光 / 点击 / CTR / 趋势 | 4 | 数据管家权限阻塞 | `alibaba.mydata.self.product.get` | 否 |
 | 来源结构 / 国家结构 / 热门关键词 | 4 | 数据管家权限阻塞 | `alibaba.mydata.*` | 否 |
@@ -107,7 +109,7 @@
 
 ## 当前收口结论
 
-1. 当前最稳的已上线能力，集中在产品主数据、产品结构、订单原始数据、类目/属性/schema 读取。
+1. 当前最稳的已上线能力，集中在产品主数据、产品结构、订单原始数据、类目/属性/schema 读取，以及最小经营诊断和 products/orders 子诊断。
 2. mydata / overview / self.product 这条经营指标路线当前统一停在“权限/能力阻塞”，不再作为当前主线循环。
 3. 写侧方向已经推进到 schema-aware 草稿准备层，并新增了 media 可观测与 draft 可区分证据；但 photobank.upload 与 product.add.draft 的低风险边界都还未被证明。
 4. 当前最缺的仍然是：经营指标入口、最小经营聚合、询盘/消息读侧、可真正读出的 customers 数据、订单草稿，以及通知闭环的真实外发 provider。

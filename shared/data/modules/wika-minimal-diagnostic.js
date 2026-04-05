@@ -257,6 +257,8 @@ function buildProductSignals(productListResult, productScores, productDetails) {
   let missingKeywordsCount = 0;
   let missingSubjectCount = 0;
   const staleProducts = [];
+  let updatedWithin30DaysCount = 0;
+  const modifiedDates = [];
 
   for (const item of detailItems) {
     const key = String(item?.request_meta?.product_id ?? item?.product?.product_id ?? "");
@@ -265,6 +267,7 @@ function buildProductSignals(productListResult, productScores, productDetails) {
     const description = String(detail.description ?? "").trim();
     const keywords = normalizeKeywords(detail.keywords ?? item.keywords);
     const ageInDays = getAgeInDays(detail.gmt_modified ?? item.gmt_modified);
+    const modifiedAt = detail.gmt_modified ?? item.gmt_modified ?? null;
 
     if (!subject) {
       missingSubjectCount += 1;
@@ -276,6 +279,14 @@ function buildProductSignals(productListResult, productScores, productDetails) {
 
     if (keywords.length === 0) {
       missingKeywordsCount += 1;
+    }
+
+    if (modifiedAt) {
+      modifiedDates.push(modifiedAt);
+    }
+
+    if (ageInDays !== null && ageInDays <= 30) {
+      updatedWithin30DaysCount += 1;
     }
 
     if (ageInDays !== null && ageInDays >= 90) {
@@ -327,11 +338,15 @@ function buildProductSignals(productListResult, productScores, productDetails) {
       missing_description_count: missingDescriptionCount,
       missing_keywords_count: missingKeywordsCount
     },
+    recency_hints: {
+      modified_time_window: summarizeDateWindow(modifiedDates),
+      updated_within_30_days_count: updatedWithin30DaysCount,
+      stale_over_90_days: staleProducts.slice(0, 10)
+    },
     structure_hints: {
       ungrouped_count: items.filter((item) => !item.group_name).length,
       group_coverage_top: groupCoverage.slice(0, 10),
-      category_coverage_top: categoryCoverage.slice(0, 10),
-      stale_over_90_days: staleProducts.slice(0, 10)
+      category_coverage_top: categoryCoverage.slice(0, 10)
     }
   };
 }
@@ -404,7 +419,7 @@ function buildOrderSignals(orderListResult, fundResults, logisticsResults) {
   };
 }
 
-function buildAvailableSignals(productSignals, orderSignals, sampleConfig) {
+function buildProductAvailableSignals(productSignals, sampleConfig) {
   return [
     {
       module: "products",
@@ -439,7 +454,12 @@ function buildAvailableSignals(productSignals, orderSignals, sampleConfig) {
       ],
       sample_size: productSignals.sample_size.detail_count,
       notes: `内容完整度按前 ${sampleConfig.product_detail_limit} 个产品采样。`
-    },
+    }
+  ];
+}
+
+function buildOrderAvailableSignals(orderSignals, sampleConfig) {
+  return [
     {
       module: "orders",
       source_route: "/integrations/alibaba/wika/data/orders/list",
@@ -464,68 +484,68 @@ function buildAvailableSignals(productSignals, orderSignals, sampleConfig) {
   ];
 }
 
-function buildDiagnosticFindings(productSignals, orderSignals) {
-  const findings = [];
-
-  findings.push({
-    area: "products",
-    strength: "strong",
-    finding:
-      productSignals.problem_map_top.length > 0
-        ? "样本产品的质量分与问题映射可直接支持质量修复优先级判断。"
-        : "样本产品质量分可读，但当前采样里没有稳定浮出的高频 problem_map 问题。",
-    basis_fields: ["result.final_score", "result.problem_map", "result.boutique_tag"],
-    evidence: {
-      quality_score: productSignals.quality_score,
-      boutique_tag: productSignals.boutique_tag,
-      problem_map_top: productSignals.problem_map_top
+function buildProductDiagnosticFindings(productSignals) {
+  return [
+    {
+      area: "products",
+      strength: "strong",
+      finding:
+        productSignals.problem_map_top.length > 0
+          ? "样本产品的质量分与问题映射可直接支持质量修复优先级判断。"
+          : "样本产品质量分可读，但当前采样里没有稳定浮出的高频 problem_map 问题。",
+      basis_fields: ["result.final_score", "result.problem_map", "result.boutique_tag"],
+      evidence: {
+        quality_score: productSignals.quality_score,
+        boutique_tag: productSignals.boutique_tag,
+        problem_map_top: productSignals.problem_map_top
+      }
+    },
+    {
+      area: "products",
+      strength: "strong",
+      finding: "样本产品的详情完整度与修改时间信号可直接从 detail 字段判断。",
+      basis_fields: [
+        "product.subject",
+        "product.description",
+        "product.keywords",
+        "product.gmt_modified"
+      ],
+      evidence: {
+        content_completeness: productSignals.content_completeness,
+        recency_hints: productSignals.recency_hints
+      }
+    },
+    {
+      area: "products",
+      strength: "strong",
+      finding: "样本产品的分组与类目结构分布可直接从主数据快照判断。",
+      basis_fields: ["group_name", "category_id", "display", "status"],
+      evidence: {
+        group_coverage_top: productSignals.structure_hints.group_coverage_top,
+        category_coverage_top: productSignals.structure_hints.category_coverage_top,
+        ungrouped_count: productSignals.structure_hints.ungrouped_count
+      }
     }
-  });
-
-  findings.push({
-    area: "products",
-    strength: "strong",
-    finding: "样本产品的详情完整度与内容老化可直接从 detail 字段判断。",
-    basis_fields: [
-      "product.subject",
-      "product.description",
-      "product.keywords",
-      "product.gmt_modified"
-    ],
-    evidence: {
-      content_completeness: productSignals.content_completeness,
-      stale_over_90_days: productSignals.structure_hints.stale_over_90_days
-    }
-  });
-
-  findings.push({
-    area: "products",
-    strength: "strong",
-    finding: "样本产品的分组与类目结构分布可直接从主数据快照判断。",
-    basis_fields: ["group_name", "category_id", "display", "status"],
-    evidence: {
-      group_coverage_top: productSignals.structure_hints.group_coverage_top,
-      category_coverage_top: productSignals.structure_hints.category_coverage_top,
-      ungrouped_count: productSignals.structure_hints.ungrouped_count
-    }
-  });
-
-  findings.push({
-    area: "orders",
-    strength: "strong",
-    finding: "当前订单层可以做执行状态观察，但不能替代完整经营趋势分析。",
-    basis_fields: ["value.logistic_status", "value.shipping_order_list", "value.service_fee"],
-    evidence: {
-      logistics_status_distribution: orderSignals.logistics_status_distribution,
-      fund_visibility: orderSignals.fund_visibility,
-      execution_risks: orderSignals.execution_risks
-    }
-  });
-
-  return findings;
+  ];
 }
 
-function buildRecommendations(productSignals, orderSignals) {
+function buildOrderDiagnosticFindings(orderSignals) {
+  return [
+    {
+      area: "orders",
+      strength: "strong",
+      finding: "当前订单层可以做执行状态观察，但不能替代完整经营趋势分析。",
+      basis_fields: ["value.logistic_status", "value.shipping_order_list", "value.service_fee"],
+      evidence: {
+        logistics_status_distribution: orderSignals.logistics_status_distribution,
+        fund_visibility: orderSignals.fund_visibility,
+        execution_risks: orderSignals.execution_risks
+      }
+    }
+  ];
+}
+
+function buildProductRecommendations(productSignals) {
   const immediateActions = [];
   const needsMoreDataActions = [];
 
@@ -580,6 +600,56 @@ function buildRecommendations(productSignals, orderSignals) {
     });
   }
 
+  if (safeArray(productSignals.recency_hints.stale_over_90_days).length > 0) {
+    immediateActions.push({
+      strength: "strong",
+      theme: "优先更新长期未改产品",
+      reason: "样本产品里已能看见超过 90 天未更新的条目，当前可直接从 gmt_modified 判断。",
+      evidence: {
+        stale_over_90_days: safeArray(productSignals.recency_hints.stale_over_90_days).slice(0, 5)
+      }
+    });
+  }
+
+  needsMoreDataActions.push({
+    strength: "weak",
+    theme: "等待产品表现数据后再做增长判断",
+    reason:
+      "当前没有曝光、点击、CTR、关键词来源、询盘来源、国家来源，因此不能对产品流量效率下完整结论。",
+    blocker_keys: [
+      "exposure",
+      "click",
+      "ctr",
+      "keyword_source",
+      "inquiry_source",
+      "country_source"
+    ]
+  });
+
+  return {
+    immediate_actions: immediateActions,
+    needs_more_data_actions: needsMoreDataActions
+  };
+}
+
+function buildOrderRecommendations(orderSignals) {
+  const immediateActions = [];
+  const needsMoreDataActions = [];
+  const logisticsStatuses = orderSignals.logistics_status_distribution;
+  const undelivered = logisticsStatuses.find((item) => item.key === "UNDELIVERED");
+
+  if ((undelivered?.count ?? 0) > 0) {
+    immediateActions.push({
+      strength: "strong",
+      theme: "持续跟进未发货订单",
+      reason: "当前样本订单的主要物流状态仍是未发货，应优先人工推进履约节点。",
+      evidence: {
+        undelivered_count: undelivered.count,
+        logistics_status_distribution: logisticsStatuses.slice(0, 5)
+      }
+    });
+  }
+
   if (orderSignals.execution_risks.length > 0) {
     immediateActions.push({
       strength: "strong",
@@ -593,24 +663,7 @@ function buildRecommendations(productSignals, orderSignals) {
 
   needsMoreDataActions.push({
     strength: "weak",
-    theme: "等待经营流量数据后再做增长判断",
-    reason:
-      "当前没有 UV/PV/曝光/点击/CTR/来源/国家/询盘表现，因此不能对流量质量和渠道效率下完整结论。",
-    blocker_keys: [
-      "uv",
-      "pv",
-      "exposure",
-      "click",
-      "ctr",
-      "traffic_source",
-      "country_source",
-      "inquiry_performance"
-    ]
-  });
-
-  needsMoreDataActions.push({
-    strength: "weak",
-    theme: "等待更多订单样本后再做经营趋势判断",
+    theme: "等待更多订单数据后再做经营趋势判断",
     reason:
       "当前订单层只覆盖执行信号与可见费用字段，不足以支撑完整的金额趋势、国家结构和产品贡献分析。",
     blocker_keys: [
@@ -627,54 +680,91 @@ function buildRecommendations(productSignals, orderSignals) {
   };
 }
 
-export function buildWikaMinimalDiagnosticScope(sampleConfig = {}) {
-  return {
-    can_answer: [
-      "当前样本产品的质量分分布、精品标签覆盖与高频问题项",
-      "当前样本产品的标题/详情/关键词完整度与更新时间老化情况",
-      "当前样本产品的分组与类目结构提示",
-      "当前样本订单的物流状态摘要与可见资金字段信号",
-      "哪些产品需要优先补详情、补关键词、补结构",
-      "哪些订单执行环节需要人工重点关注"
-    ],
-    cannot_answer: [
-      "全店 UV / PV / 曝光 / 点击 / CTR",
-      "流量来源、关键词来源、国家来源",
-      "询盘表现、响应率、快速回复率",
-      "完整订单经营趋势、国家结构、产品贡献",
-      "完整经营驾驶舱级别的增长判断"
-    ],
-    sampling_boundary: {
-      product_page_size: sampleConfig.product_page_size ?? null,
-      product_score_limit: sampleConfig.product_score_limit ?? null,
-      product_detail_limit: sampleConfig.product_detail_limit ?? null,
-      order_page_size: sampleConfig.order_page_size ?? null,
-      order_sample_limit: sampleConfig.order_sample_limit ?? null
+function buildProductMissingDataBlockers() {
+  return [
+    {
+      blocker: "产品表现指标缺失",
+      missing_metrics: ["曝光", "点击", "CTR", "关键词来源", "询盘来源", "国家来源"],
+      impact: "当前产品子诊断只能覆盖质量、内容完整度与结构问题，不能完成流量效率分析。"
     }
+  ];
+}
+
+function buildOrderMissingDataBlockers() {
+  return [
+    {
+      blocker: "订单经营层趋势缺失",
+      missing_metrics: ["金额趋势", "国家结构", "产品贡献"],
+      impact: "当前订单子诊断更适合做执行风险提示，不适合下完整经营趋势结论。"
+    }
+  ];
+}
+
+function buildOperationsMissingDataBlockers() {
+  return [
+    {
+      blocker: "店铺经营指标缺失",
+      missing_metrics: [
+        "UV",
+        "PV",
+        "曝光",
+        "点击",
+        "CTR",
+        "流量来源",
+        "国家来源",
+        "询盘表现"
+      ],
+      impact:
+        "当前不能完成完整经营分析，只能形成产品质量与订单执行层的最小诊断。"
+    },
+    ...buildOrderMissingDataBlockers()
+  ];
+}
+
+function buildOperationsRecommendations(productSignals, orderSignals) {
+  const productRecommendations = buildProductRecommendations(productSignals);
+  const orderRecommendations = buildOrderRecommendations(orderSignals);
+
+  return {
+    immediate_actions: [
+      ...productRecommendations.immediate_actions,
+      ...orderRecommendations.immediate_actions
+    ],
+    needs_more_data_actions: [
+      ...productRecommendations.needs_more_data_actions,
+      ...orderRecommendations.needs_more_data_actions
+    ]
   };
 }
 
-export async function fetchWikaMinimalDiagnostic(
-  clientConfig,
-  query = {}
-) {
-  const productPageSize = toPositiveInteger(query.product_page_size, 20, 30);
+function resolveProductDiagnosticSampleConfig(query = {}) {
   const productScoreLimit = toPositiveInteger(query.product_score_limit, 8, 10);
-  const productDetailLimit = toPositiveInteger(
-    query.product_detail_limit,
-    productScoreLimit,
-    10
-  );
-  const orderPageSize = toPositiveInteger(query.order_page_size, 8, 10);
-  const orderSampleLimit = toPositiveInteger(query.order_sample_limit, 5, 8);
+  return {
+    product_page_size: toPositiveInteger(query.product_page_size, 20, 30),
+    product_score_limit: productScoreLimit,
+    product_detail_limit: toPositiveInteger(
+      query.product_detail_limit,
+      productScoreLimit,
+      10
+    )
+  };
+}
 
+function resolveOrderDiagnosticSampleConfig(query = {}) {
+  return {
+    order_page_size: toPositiveInteger(query.order_page_size, 8, 10),
+    order_sample_limit: toPositiveInteger(query.order_sample_limit, 5, 8)
+  };
+}
+
+async function collectWikaProductDiagnosticData(clientConfig, query = {}) {
+  const sampleConfig = resolveProductDiagnosticSampleConfig(query);
   const productListResult = await fetchWikaProductList(clientConfig, {
-    page_size: productPageSize
+    page_size: sampleConfig.product_page_size
   });
-
   const productItems = safeArray(productListResult.items);
-  const scoreTargets = productItems.slice(0, productScoreLimit);
-  const detailTargets = productItems.slice(0, productDetailLimit);
+  const scoreTargets = productItems.slice(0, sampleConfig.product_score_limit);
+  const detailTargets = productItems.slice(0, sampleConfig.product_detail_limit);
 
   const productScores = await Promise.all(
     scoreTargets.map((item) =>
@@ -705,6 +795,18 @@ export async function fetchWikaMinimalDiagnostic(
     )
   );
 
+  return {
+    sampleConfig,
+    productSignals: buildProductSignals(
+      productListResult,
+      productScores,
+      productDetails
+    )
+  };
+}
+
+async function collectWikaOrderDiagnosticData(clientConfig, query = {}) {
+  const sampleConfig = resolveOrderDiagnosticSampleConfig(query);
   const orderListResult = await fetchAlibabaOfficialOrderList(
     {
       account: "wika",
@@ -712,12 +814,16 @@ export async function fetchWikaMinimalDiagnostic(
     },
     {
       start_page: 0,
-      page_size: orderPageSize,
+      page_size: sampleConfig.order_page_size,
       role: "seller"
     }
   );
 
-  const orderTargets = safeArray(orderListResult.items).slice(0, orderSampleLimit);
+  const orderTargets = safeArray(orderListResult.items).slice(
+    0,
+    sampleConfig.order_sample_limit
+  );
+
   const fundResults = await Promise.all(
     orderTargets.map((item) =>
       fetchAlibabaOfficialOrderFund(
@@ -746,31 +852,24 @@ export async function fetchWikaMinimalDiagnostic(
     )
   );
 
-  const sampleConfig = {
-    product_page_size: productPageSize,
-    product_score_limit: productScoreLimit,
-    product_detail_limit: productDetailLimit,
-    order_page_size: orderPageSize,
-    order_sample_limit: orderSampleLimit
+  return {
+    sampleConfig,
+    orderSignals: buildOrderSignals(
+      orderListResult,
+      fundResults,
+      logisticsResults
+    )
   };
-  const productSignals = buildProductSignals(
-    productListResult,
-    productScores,
-    productDetails
-  );
-  const orderSignals = buildOrderSignals(
-    orderListResult,
-    fundResults,
-    logisticsResults
-  );
+}
 
+function buildWikaProductMinimalDiagnosticReport(productSignals, sampleConfig, generatedAt) {
   return {
     ok: true,
     account: "wika",
-    module: "operations",
+    module: "products",
     report_type: "minimal_diagnostic",
     read_only: true,
-    generated_at: new Date().toISOString(),
+    generated_at: generatedAt,
     data_scope: {
       mode: "sampled_snapshot",
       ...sampleConfig
@@ -779,44 +878,185 @@ export async function fetchWikaMinimalDiagnostic(
       product_snapshot_count: productSignals.sample_size.list_count,
       product_score_count: productSignals.sample_size.score_count,
       product_detail_count: productSignals.sample_size.detail_count,
+      total_item: productSignals.sample_size.total_item
+    },
+    time_window: {
+      type: "snapshot",
+      product_modified_date_range: productSignals.recency_hints.modified_time_window
+    },
+    available_signals: buildProductAvailableSignals(productSignals, sampleConfig),
+    score_summary: {
+      quality_score: productSignals.quality_score,
+      boutique_tag: productSignals.boutique_tag,
+      problem_map_top: productSignals.problem_map_top
+    },
+    content_completeness_findings: {
+      ...productSignals.content_completeness,
+      ...productSignals.recency_hints
+    },
+    structure_findings: productSignals.structure_hints,
+    diagnostic_findings: buildProductDiagnosticFindings(productSignals),
+    recommendations: buildProductRecommendations(productSignals),
+    missing_data_blockers: buildProductMissingDataBlockers(),
+    management_summary: productSignals.summary,
+    limitations: [
+      "当前产品子诊断严格基于已上线真实读侧，不包含曝光、点击、CTR、来源和询盘表现。",
+      "当前输出属于最小产品诊断层，不等于完整经营驾驶舱。"
+    ]
+  };
+}
+
+function buildWikaOrderMinimalDiagnosticReport(orderSignals, sampleConfig, generatedAt) {
+  return {
+    ok: true,
+    account: "wika",
+    module: "orders",
+    report_type: "minimal_diagnostic",
+    read_only: true,
+    generated_at: generatedAt,
+    data_scope: {
+      mode: "sampled_snapshot",
+      ...sampleConfig
+    },
+    sample_size: {
       order_snapshot_count: orderSignals.sample_size.order_list_count,
       order_fund_count: orderSignals.sample_size.fund_count,
-      order_logistics_count: orderSignals.sample_size.logistics_count
+      order_logistics_count: orderSignals.sample_size.logistics_count,
+      total_count: orderSignals.sample_size.total_count
     },
     time_window: {
       type: "snapshot",
       orders_create_date_range: orderSignals.time_window
     },
-    available_signals: buildAvailableSignals(
-      productSignals,
-      orderSignals,
-      sampleConfig
-    ),
-    diagnostic_findings: buildDiagnosticFindings(productSignals, orderSignals),
-    recommendations: buildRecommendations(productSignals, orderSignals),
-    missing_data_blockers: [
-      {
-        blocker: "店铺经营指标缺失",
-        missing_metrics: [
-          "UV",
-          "PV",
-          "曝光",
-          "点击",
-          "CTR",
-          "流量来源",
-          "国家来源",
-          "询盘表现"
-        ],
-        impact:
-          "当前不能完成完整经营分析，只能形成产品质量与订单执行层的最小诊断。"
-      },
-      {
-        blocker: "订单经营层趋势缺失",
-        missing_metrics: ["金额趋势", "国家结构", "产品贡献"],
-        impact:
-          "当前订单层更适合做执行风险提示，不适合下完整经营趋势结论。"
-      }
+    available_signals: buildOrderAvailableSignals(orderSignals, sampleConfig),
+    logistics_summary: {
+      distribution: orderSignals.logistics_status_distribution,
+      at_risk_count: orderSignals.execution_risks.length
+    },
+    fund_signal_summary: orderSignals.fund_visibility,
+    operational_risks: orderSignals.execution_risks,
+    diagnostic_findings: buildOrderDiagnosticFindings(orderSignals),
+    recommendations: buildOrderRecommendations(orderSignals),
+    missing_data_blockers: buildOrderMissingDataBlockers(),
+    limitations: [
+      "当前订单子诊断只覆盖执行信号与可见资金字段，不包含完整金额趋势、国家结构和产品贡献。",
+      "当前输出属于最小订单诊断层，不等于完整经营驾驶舱。"
+    ]
+  };
+}
+
+export function buildWikaMinimalDiagnosticScope(sampleConfig = {}) {
+  return {
+    can_answer: [
+      "当前样本产品的质量分分布、精品标签覆盖与高频问题项",
+      "当前样本产品的标题/详情/关键词完整度与更新时间老化情况",
+      "当前样本产品的分组与类目结构提示",
+      "当前样本订单的物流状态摘要与可见资金字段信号",
+      "哪些产品需要优先补详情、补关键词、补结构",
+      "哪些订单执行环节需要人工重点关注"
     ],
+    cannot_answer: [
+      "全店 UV / PV / 曝光 / 点击 / CTR",
+      "流量来源、关键词来源、国家来源",
+      "询盘表现、响应率、快速回复率",
+      "完整订单经营趋势、国家结构、产品贡献",
+      "完整经营驾驶舱级别的增长判断"
+    ],
+    sampling_boundary: {
+      product_page_size: sampleConfig.product_page_size ?? null,
+      product_score_limit: sampleConfig.product_score_limit ?? null,
+      product_detail_limit: sampleConfig.product_detail_limit ?? null,
+      order_page_size: sampleConfig.order_page_size ?? null,
+      order_sample_limit: sampleConfig.order_sample_limit ?? null
+    }
+  };
+}
+
+export async function fetchWikaProductMinimalDiagnostic(clientConfig, query = {}) {
+  const generatedAt = new Date().toISOString();
+  const { sampleConfig, productSignals } = await collectWikaProductDiagnosticData(
+    clientConfig,
+    query
+  );
+
+  return buildWikaProductMinimalDiagnosticReport(
+    productSignals,
+    sampleConfig,
+    generatedAt
+  );
+}
+
+export async function fetchWikaOrderMinimalDiagnostic(clientConfig, query = {}) {
+  const generatedAt = new Date().toISOString();
+  const { sampleConfig, orderSignals } = await collectWikaOrderDiagnosticData(
+    clientConfig,
+    query
+  );
+
+  return buildWikaOrderMinimalDiagnosticReport(
+    orderSignals,
+    sampleConfig,
+    generatedAt
+  );
+}
+
+export async function fetchWikaMinimalDiagnostic(clientConfig, query = {}) {
+  const generatedAt = new Date().toISOString();
+  const { sampleConfig: productSampleConfig, productSignals } =
+    await collectWikaProductDiagnosticData(clientConfig, query);
+  const { sampleConfig: orderSampleConfig, orderSignals } =
+    await collectWikaOrderDiagnosticData(clientConfig, query);
+
+  const productReport = buildWikaProductMinimalDiagnosticReport(
+    productSignals,
+    productSampleConfig,
+    generatedAt
+  );
+  const orderReport = buildWikaOrderMinimalDiagnosticReport(
+    orderSignals,
+    orderSampleConfig,
+    generatedAt
+  );
+  const sampleConfig = {
+    ...productSampleConfig,
+    ...orderSampleConfig
+  };
+
+  return {
+    ok: true,
+    account: "wika",
+    module: "operations",
+    report_type: "minimal_diagnostic",
+    read_only: true,
+    generated_at: generatedAt,
+    data_scope: {
+      mode: "sampled_snapshot",
+      ...sampleConfig
+    },
+    sample_size: {
+      product_snapshot_count: productReport.sample_size.product_snapshot_count,
+      product_score_count: productReport.sample_size.product_score_count,
+      product_detail_count: productReport.sample_size.product_detail_count,
+      order_snapshot_count: orderReport.sample_size.order_snapshot_count,
+      order_fund_count: orderReport.sample_size.order_fund_count,
+      order_logistics_count: orderReport.sample_size.order_logistics_count
+    },
+    time_window: {
+      type: "snapshot",
+      products_modified_date_range:
+        productReport.time_window.product_modified_date_range,
+      orders_create_date_range: orderReport.time_window.orders_create_date_range
+    },
+    available_signals: [
+      ...productReport.available_signals,
+      ...orderReport.available_signals
+    ],
+    diagnostic_findings: [
+      ...productReport.diagnostic_findings,
+      ...orderReport.diagnostic_findings
+    ],
+    recommendations: buildOperationsRecommendations(productSignals, orderSignals),
+    missing_data_blockers: buildOperationsMissingDataBlockers(),
     scope_definition: buildWikaMinimalDiagnosticScope(sampleConfig),
     product_diagnostic: productSignals,
     order_diagnostic: orderSignals,

@@ -85,6 +85,35 @@
 - 或其中任一拆分存在不可接受的兼容性风险
 - 或继续拆分需要引入新的 API 验证
 
+## 当前阶段收口
+- 本阶段新增正式只读路由：
+  - `/integrations/alibaba/wika/reports/products/minimal-diagnostic`
+  - `/integrations/alibaba/wika/reports/orders/minimal-diagnostic`
+- `products/minimal-diagnostic`
+  - 已真实复用现有 products 读侧路由
+  - 已线上返回 `200 + 真实 JSON`
+  - 当前可稳定输出：
+    - `score_summary`
+    - `content_completeness_findings`
+    - `structure_findings`
+    - `recommendations`
+    - `missing_data_blockers`
+- `orders/minimal-diagnostic`
+  - 已真实复用现有 orders 读侧路由
+  - 已线上返回 `200 + 真实 JSON`
+  - 当前可稳定输出：
+    - `logistics_summary`
+    - `fund_signal_summary`
+    - `operational_risks`
+    - `recommendations`
+    - `missing_data_blockers`
+- `operations/minimal-diagnostic`
+  - 兼容性保留
+  - 当前已改为复用 products/orders 子诊断逻辑拼装总报告
+- 当前一句话收口：
+  - 任务 2 已从“总的最小诊断层”推进到“总报告 + 产品子诊断 + 订单子诊断”
+  - 但当前仍不是完整经营驾驶舱
+
 ## 交付物
 - docs/framework/WIKA_最小经营诊断口径.md
 - docs/framework/WIKA_最小经营诊断说明.md

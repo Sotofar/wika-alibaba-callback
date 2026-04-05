@@ -35,7 +35,11 @@ import {
   buildProductRecommendations,
   fetchWikaProductList
 } from "./projects/wika/data/products/module.js";
-import { fetchWikaMinimalDiagnostic } from "./shared/data/modules/wika-minimal-diagnostic.js";
+import {
+  fetchWikaMinimalDiagnostic,
+  fetchWikaOrderMinimalDiagnostic,
+  fetchWikaProductMinimalDiagnostic
+} from "./shared/data/modules/wika-minimal-diagnostic.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -2188,6 +2192,78 @@ function createWikaMinimalDiagnosticHandler() {
   };
 }
 
+function createWikaProductMinimalDiagnosticHandler() {
+  return async (req, res) => {
+    try {
+      const result = await fetchWikaProductMinimalDiagnostic(
+        await getWikaReadOnlyClientConfig(),
+        req.query
+      );
+
+      logInfo("Wika minimal products diagnostic completed", {
+        productSnapshotCount: result.sample_size.product_snapshot_count,
+        productScoreCount: result.sample_size.product_score_count
+      });
+
+      res.status(200).json(result);
+    } catch (error) {
+      logError("Wika minimal products diagnostic failed", {
+        error: error instanceof Error ? error.message : String(error),
+        details:
+          error instanceof AlibabaApiError || error?.details
+            ? error.details
+            : undefined,
+        top_error: extractTopErrorResponse(error),
+        query: req.query
+      });
+
+      const hasMissingKeys =
+        error instanceof ConfigurationError ||
+        Array.isArray(error?.missingKeys);
+
+      res
+        .status(error instanceof ConfigurationError ? 500 : hasMissingKeys ? 400 : 502)
+        .json(buildReadOnlyErrorResponse(error));
+    }
+  };
+}
+
+function createWikaOrderMinimalDiagnosticHandler() {
+  return async (req, res) => {
+    try {
+      const result = await fetchWikaOrderMinimalDiagnostic(
+        await getWikaReadOnlyClientConfig(),
+        req.query
+      );
+
+      logInfo("Wika minimal orders diagnostic completed", {
+        orderSnapshotCount: result.sample_size.order_snapshot_count,
+        orderFundCount: result.sample_size.order_fund_count
+      });
+
+      res.status(200).json(result);
+    } catch (error) {
+      logError("Wika minimal orders diagnostic failed", {
+        error: error instanceof Error ? error.message : String(error),
+        details:
+          error instanceof AlibabaApiError || error?.details
+            ? error.details
+            : undefined,
+        top_error: extractTopErrorResponse(error),
+        query: req.query
+      });
+
+      const hasMissingKeys =
+        error instanceof ConfigurationError ||
+        Array.isArray(error?.missingKeys);
+
+      res
+        .status(error instanceof ConfigurationError ? 500 : hasMissingKeys ? 400 : 502)
+        .json(buildReadOnlyErrorResponse(error));
+    }
+  };
+}
+
 const XD_ORDER_LIST_VERIFIED_FIELDS = Object.freeze([
   "response_meta.total_count",
   "response_meta.returned_item_count",
@@ -2998,6 +3074,16 @@ app.get(
         .json(buildReadOnlyErrorResponse(error));
     }
   }
+);
+
+app.get(
+  "/integrations/alibaba/wika/reports/products/minimal-diagnostic",
+  createWikaProductMinimalDiagnosticHandler()
+);
+
+app.get(
+  "/integrations/alibaba/wika/reports/orders/minimal-diagnostic",
+  createWikaOrderMinimalDiagnosticHandler()
 );
 
 app.get(

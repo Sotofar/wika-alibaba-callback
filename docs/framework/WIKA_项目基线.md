@@ -1,7 +1,7 @@
 # WIKA_项目基线
 
 ## 一句话总基线
-只推进 WIKA；当前主线已形成“基于现有真实读侧的最小经营诊断层 + 订单入口边界探针层”：系统已经能基于真实产品与订单执行信号输出可追溯诊断，并且已经证明 `order.create` 能到参数层、`drafttype` 能返回真实 JSON，但仍不具备平台内安全创单边界。
+只推进 WIKA；当前主线已形成“基于现有真实读侧的总诊断 + 产品子诊断 + 订单子诊断 + 订单入口边界探针层”：系统已经能基于真实产品与订单执行信号输出可追溯诊断，但仍不具备完整经营驾驶舱和平台内安全创单边界。
 
 ## 当前已完成阶段
 - 产品 / 订单 / 物流基础读侧原始路由已上线并线上验证
@@ -13,6 +13,8 @@
 - provider-agnostic 正式通知模块已落地
 - 最小正式通知闭环已成立（当前默认 outbox fallback）
 - 最小经营诊断层已上线并线上验证
+- 产品子诊断路由已上线并线上验证
+- 订单子诊断路由已上线并线上验证
 - 订单入口候选清点与生产边界验证已完成
 - orders/draft-types 权限探针型只读路由已上线并线上验收
 - mydata / overview / self.product 路线已收口为权限/能力阻塞
@@ -40,6 +42,8 @@
 - /integrations/alibaba/wika/data/customers/list
 - /integrations/alibaba/wika/data/orders/draft-types
 - /integrations/alibaba/wika/reports/operations/minimal-diagnostic
+- /integrations/alibaba/wika/reports/products/minimal-diagnostic
+- /integrations/alibaba/wika/reports/orders/minimal-diagnostic
 
 ## 已确认的写侧事实
 - alibaba.icbu.category.get.new -> 真实 JSON 样本数据
@@ -100,7 +104,7 @@
 - 把正式通知闭环接到更多真实阻塞触发点
 
 ## 当前唯一推荐下一步
-若继续任务 5，只建议继续寻找官方明确存在的 `order` 同家族低风险查询 / 状态 / 取消 / 草稿管理接口；在这些接口出现前，不再围绕 `order.create` 做更深的真实创单验证。
+若继续任务 2，只建议在现有 products/orders 子诊断之上增强样本边界与解释层，不回头追新 API；若转回任务 5，则只继续找官方明确存在的低风险 order 同家族接口。
 
 ## 当前真实数据结论
 - media 可观测：已成立
@@ -114,6 +118,9 @@
 - 当前没有现成通知 provider 配置：已成立
 - 当前最小正式通知闭环已成立（provider-agnostic + outbox fallback）：已成立
 - 最小经营诊断层已成立，但当前只覆盖产品质量/结构与订单执行信号：已成立
+- 产品子诊断层已成立：已成立
+- 订单子诊断层已成立：已成立
+- 总诊断层与 products/orders 子诊断口径一致：已成立
 - 当前仍不能诊断 UV/PV/曝光/点击/CTR/来源/国家/询盘表现：已成立
 - `alibaba.seller.trade.query.drafttype` 当前可稳定返回真实 JSON：已成立
 - `alibaba.trade.order.create` 当前只到参数门槛与授权门槛：已成立

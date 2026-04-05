@@ -1,0 +1,361 @@
+{
+  "ok": true,
+  "account": "wika",
+  "module": "products",
+  "report_type": "minimal_diagnostic",
+  "read_only": true,
+  "generated_at": "2026-04-05T00:25:53.978Z",
+  "data_scope": {
+    "mode": "sampled_snapshot",
+    "product_page_size": 12,
+    "product_score_limit": 8,
+    "product_detail_limit": 8
+  },
+  "sample_size": {
+    "product_snapshot_count": 12,
+    "product_score_count": 8,
+    "product_detail_count": 8,
+    "total_item": 533
+  },
+  "time_window": {
+    "type": "snapshot",
+    "product_modified_date_range": {
+      "start": "2026-02-12T02:36:47.000Z",
+      "end": "2026-03-26T07:51:53.000Z"
+    }
+  },
+  "available_signals": [
+    {
+      "module": "products",
+      "source_route": "/integrations/alibaba/wika/data/products/list",
+      "fields": [
+        "id",
+        "subject",
+        "group_name",
+        "category_id",
+        "status",
+        "display",
+        "gmt_modified"
+      ],
+      "sample_size": 12,
+      "notes": "当前产品快照按 page_size=12 采样。"
+    },
+    {
+      "module": "products",
+      "source_route": "/integrations/alibaba/wika/data/products/score",
+      "fields": [
+        "result.final_score",
+        "result.boutique_tag",
+        "result.problem_map"
+      ],
+      "sample_size": 8,
+      "notes": "质量分与问题分布按前 8 个产品采样。"
+    },
+    {
+      "module": "products",
+      "source_route": "/integrations/alibaba/wika/data/products/detail",
+      "fields": [
+        "product.subject",
+        "product.description",
+        "product.keywords",
+        "product.gmt_modified"
+      ],
+      "sample_size": 8,
+      "notes": "内容完整度按前 8 个产品采样。"
+    }
+  ],
+  "score_summary": {
+    "quality_score": {
+      "available_count": 8,
+      "average": 4.96,
+      "min": 4.9,
+      "max": 5,
+      "scale": "five_point",
+      "low_score_threshold": 4.8,
+      "low_score_count": 0
+    },
+    "boutique_tag": {
+      "tagged_count": 8,
+      "untagged_count": 0
+    },
+    "problem_map_top": []
+  },
+  "content_completeness_findings": {
+    "missing_subject_count": 0,
+    "missing_description_count": 4,
+    "missing_keywords_count": 8,
+    "modified_time_window": {
+      "start": "2026-02-12T02:36:47.000Z",
+      "end": "2026-03-26T07:51:53.000Z"
+    },
+    "updated_within_30_days_count": 5,
+    "stale_over_90_days": []
+  },
+  "structure_findings": {
+    "ungrouped_count": 1,
+    "group_coverage_top": [
+      {
+        "key": "Soft Case",
+        "count": 4
+      },
+      {
+        "key": "Packaging Set",
+        "count": 3
+      },
+      {
+        "key": "Folding Case",
+        "count": 2
+      },
+      {
+        "key": "Lens Cleaner",
+        "count": 1
+      },
+      {
+        "key": "Pouch",
+        "count": 1
+      },
+      {
+        "key": "UNKNOWN",
+        "count": 1
+      }
+    ],
+    "category_coverage_top": [
+      {
+        "key": "36127040",
+        "count": 11
+      },
+      {
+        "key": "36127030",
+        "count": 1
+      }
+    ]
+  },
+  "diagnostic_findings": [
+    {
+      "area": "products",
+      "strength": "strong",
+      "finding": "样本产品质量分可读，但当前采样里没有稳定浮出的高频 problem_map 问题。",
+      "basis_fields": [
+        "result.final_score",
+        "result.problem_map",
+        "result.boutique_tag"
+      ],
+      "evidence": {
+        "quality_score": {
+          "available_count": 8,
+          "average": 4.96,
+          "min": 4.9,
+          "max": 5,
+          "scale": "five_point",
+          "low_score_threshold": 4.8,
+          "low_score_count": 0
+        },
+        "boutique_tag": {
+          "tagged_count": 8,
+          "untagged_count": 0
+        },
+        "problem_map_top": []
+      }
+    },
+    {
+      "area": "products",
+      "strength": "strong",
+      "finding": "样本产品的详情完整度与修改时间信号可直接从 detail 字段判断。",
+      "basis_fields": [
+        "product.subject",
+        "product.description",
+        "product.keywords",
+        "product.gmt_modified"
+      ],
+      "evidence": {
+        "content_completeness": {
+          "missing_subject_count": 0,
+          "missing_description_count": 4,
+          "missing_keywords_count": 8
+        },
+        "recency_hints": {
+          "modified_time_window": {
+            "start": "2026-02-12T02:36:47.000Z",
+            "end": "2026-03-26T07:51:53.000Z"
+          },
+          "updated_within_30_days_count": 5,
+          "stale_over_90_days": []
+        }
+      }
+    },
+    {
+      "area": "products",
+      "strength": "strong",
+      "finding": "样本产品的分组与类目结构分布可直接从主数据快照判断。",
+      "basis_fields": [
+        "group_name",
+        "category_id",
+        "display",
+        "status"
+      ],
+      "evidence": {
+        "group_coverage_top": [
+          {
+            "key": "Soft Case",
+            "count": 4
+          },
+          {
+            "key": "Packaging Set",
+            "count": 3
+          },
+          {
+            "key": "Folding Case",
+            "count": 2
+          },
+          {
+            "key": "Lens Cleaner",
+            "count": 1
+          },
+          {
+            "key": "Pouch",
+            "count": 1
+          },
+          {
+            "key": "UNKNOWN",
+            "count": 1
+          }
+        ],
+        "category_coverage_top": [
+          {
+            "key": "36127040",
+            "count": 11
+          },
+          {
+            "key": "36127030",
+            "count": 1
+          }
+        ],
+        "ungrouped_count": 1
+      }
+    }
+  ],
+  "recommendations": {
+    "immediate_actions": [
+      {
+        "strength": "strong",
+        "theme": "补详情",
+        "reason": "样本产品存在 description 缺失，当前可直接从真实 detail 字段确认。",
+        "evidence": {
+          "missing_description_count": 4
+        }
+      },
+      {
+        "strength": "strong",
+        "theme": "补关键词",
+        "reason": "样本产品存在 keywords 缺失，说明搜索承接基础信息不完整。",
+        "evidence": {
+          "missing_keywords_count": 8
+        }
+      },
+      {
+        "strength": "strong",
+        "theme": "补分组结构",
+        "reason": "样本产品存在未分组项，当前可直接从主数据快照判断结构管理存在缺口。",
+        "evidence": {
+          "ungrouped_count": 1
+        }
+      }
+    ],
+    "needs_more_data_actions": [
+      {
+        "strength": "weak",
+        "theme": "等待产品表现数据后再做增长判断",
+        "reason": "当前没有曝光、点击、CTR、关键词来源、询盘来源、国家来源，因此不能对产品流量效率下完整结论。",
+        "blocker_keys": [
+          "exposure",
+          "click",
+          "ctr",
+          "keyword_source",
+          "inquiry_source",
+          "country_source"
+        ]
+      }
+    ]
+  },
+  "missing_data_blockers": [
+    {
+      "blocker": "产品表现指标缺失",
+      "missing_metrics": [
+        "曝光",
+        "点击",
+        "CTR",
+        "关键词来源",
+        "询盘来源",
+        "国家来源"
+      ],
+      "impact": "当前产品子诊断只能覆盖质量、内容完整度与结构问题，不能完成流量效率分析。"
+    }
+  ],
+  "management_summary": {
+    "module": "products",
+    "account": "wika",
+    "report_type": "management_summary",
+    "reporting_basis": "Official product list snapshot",
+    "snapshot": {
+      "total_item": 533,
+      "returned_item_count": 12,
+      "current_page": 1,
+      "page_size": 12,
+      "online_count": 12,
+      "offline_count": 0,
+      "approved_count": 12,
+      "ungrouped_count": 1,
+      "stale_over_90_days_count": 0
+    },
+    "focus_products": [
+      {
+        "id": 1601700588198,
+        "subject": "Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case",
+        "group_name": null,
+        "status": "approved",
+        "display": "Y",
+        "gmt_modified": "2026-03-26 15:51:53"
+      },
+      {
+        "id": 1601592243227,
+        "subject": "Colorful Glasses Packaging Bags 18*9cm Soft Sunglasses case Microfiber Pouch Eyeglass Bag with logo Custom",
+        "group_name": "Pouch",
+        "status": "approved",
+        "display": "Y",
+        "gmt_modified": "2026-03-26 15:45:17"
+      },
+      {
+        "id": 1601635441014,
+        "subject": "Folding Square Box Custom Logo Fashionable Hard PU Leather Sunglasses Cases for Men Women",
+        "group_name": "Folding Case",
+        "status": "approved",
+        "display": "Y",
+        "gmt_modified": "2026-03-26 15:03:59"
+      },
+      {
+        "id": 1601700527245,
+        "subject": "Hot Selling Luxury Special Custom Logo Printed Black Cardboard Eyewear Drawer Packaging Box",
+        "group_name": "Packaging Set",
+        "status": "approved",
+        "display": "Y",
+        "gmt_modified": "2026-03-09 17:43:24"
+      },
+      {
+        "id": 1601710115214,
+        "subject": "Premium Spectacle Leather Case Set: Eyeglass Pouch + Sunglasses Box + Cleaning Cloths with UV Printing logo",
+        "group_name": "Packaging Set",
+        "status": "approved",
+        "display": "Y",
+        "gmt_modified": "2026-03-05 17:15:10"
+      }
+    ],
+    "limitations": [
+      "This summary is based on alibaba.icbu.product.list and does not include performance fields such as impressions or clicks.",
+      "If total_item is larger than returned_item_count, you still need pagination to cover the full catalog."
+    ]
+  },
+  "limitations": [
+    "当前产品子诊断严格基于已上线真实读侧，不包含曝光、点击、CTR、来源和询盘表现。",
+    "当前输出属于最小产品诊断层，不等于完整经营驾驶舱。"
+  ]
+}

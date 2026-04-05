@@ -41,6 +41,8 @@
 | --- | --- | --- |
 | `/integrations/alibaba/wika/reports/products/management-summary` | 产品管理摘要 | 仅属于最小派生摘要，不等于完整经营层 summary |
 | `/integrations/alibaba/wika/reports/operations/minimal-diagnostic` | 最小经营诊断层 | 严格基于现有真实产品/订单读侧，只覆盖产品质量/结构与订单执行信号，不等于完整经营驾驶舱 |
+| `/integrations/alibaba/wika/reports/products/minimal-diagnostic` | 产品子诊断 | 严格基于 products 真实读侧字段拆出的子报告，只覆盖质量/内容/结构信号 |
+| `/integrations/alibaba/wika/reports/orders/minimal-diagnostic` | 订单子诊断 | 严格基于 orders 真实读侧字段拆出的子报告，只覆盖执行/物流/资金可见信号 |
 
 ## 4. 已上线的权限探针型只读路由
 
@@ -83,6 +85,7 @@
 15. `orders/draft-types` 已上线，不等于平台订单草稿已可安全创建。
 16. `alibaba.trade.order.create` 已过参数层，不等于存在安全创单边界。
 17. 外部订单草稿 helper 已落地，不等于平台内订单已起草成功。
+18. `products/orders` 子诊断已上线，不等于完整经营驾驶舱已完成。
 
 ## 当前一句话结论
 

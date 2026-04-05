@@ -6,7 +6,7 @@
 
 ## 排序原则
 
-1. 任务 2 的最小经营诊断层已经成立，不再为诊断层去追新 API
+1. 任务 2 的总诊断层与 products/orders 子诊断都已经成立，不再为诊断层去追新 API
 2. 先补任务 6：把当前 outbox fallback 升级成真实外发 provider
 3. 再补任务 3：只继续验证“可隔离、可清理、可回滚”的剩余写侧证据
 4. 再补任务 4：只继续验证官方明确存在的 customers / inquiries / messages 读侧入口
@@ -17,6 +17,12 @@
 - `/integrations/alibaba/wika/reports/operations/minimal-diagnostic`
   - 当前已经形成最小经营诊断层
   - 后续若继续任务 2，应优先扩报告口径，而不是再回头验证新指标 API
+- `/integrations/alibaba/wika/reports/products/minimal-diagnostic`
+  - 当前已经形成产品子诊断层
+  - 后续若继续任务 2，应优先增强产品样本策略与解释层
+- `/integrations/alibaba/wika/reports/orders/minimal-diagnostic`
+  - 当前已经形成订单子诊断层
+  - 后续若继续任务 2，应优先增强订单执行信号的解释层
 
 ## 第一梯队：任务 6（正式通知闭环）
 
@@ -74,4 +80,4 @@
 
 ## 当前一句话结论
 
-当前最优先的下一批验证对象仍然是“真实外发通知 provider”与“写侧可回滚证据”；任务 5 已经明确收口为：`draft-types` 可读、`order.create` 只到参数/授权边界、当前只能先做外部订单草稿。
+当前最优先的下一批验证对象仍然是“真实外发通知 provider”与“写侧可回滚证据”；任务 2 当前已经收口为：总诊断 + 产品子诊断 + 订单子诊断均已成立，不再回头追新诊断 API。
