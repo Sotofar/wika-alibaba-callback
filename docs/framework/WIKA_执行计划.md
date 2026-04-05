@@ -1,151 +1,129 @@
 # WIKA_执行计划
 
 ## 当前阶段
-阶段 16：任务 4/5 的外部草稿工作流质量评估、回归闸门与交接包导出
+阶段 17：任务 1/2 的经营数据候选接口只读验证
 
 ## 本阶段唯一目标
-不验证任何新的 Alibaba API，不推进平台内读写，也不推进真实通知外发。
-只在现有：
+只验证官方明确存在的经营数据候选接口，在当前 WIKA production 闭环下判断：
 
-- `/integrations/alibaba/wika/tools/reply-draft`
-- `/integrations/alibaba/wika/tools/order-draft`
+- 哪些方法能返回真实数据
+- 哪些只到参数层
+- 哪些被权限或能力阻塞
+- 订单级经营汇总是否可由现有官方交易读侧派生
 
-基础上，补齐一层：
-
-- 可评估
-- 可回归
-- 可审计
-- 可交接
-
-的外部草稿工作流质量控制层。
+本阶段不新增任何平台内写动作，不回到本地旁路，不把候选验证误报成能力已打通。
 
 ## 起始基线
-- 当前实际起始仓库状态以本阶段开始时的 `HEAD` 为准：`14997a3`
+- 当前实际起始仓库状态以本阶段开始时的 `HEAD` 为准：`2aa82d4`
 - 当前只推进 `WIKA`
 - 一律复用 Railway production 闭环与 `/sync + access_token + sha256`
-- 当前禁止任何新的 Alibaba API 验证
+- 当前禁止任何本地 `.env` / callback / token 旁路
 - 当前禁止任何平台内写动作
 - 当前已稳定存在：
-  - `reply-draft` / `order-draft` 工具路由
-  - 产品 / 订单 / operations minimal-diagnostic
-  - 产品草稿 helper
-  - 订单草稿 helper
-  - notifier / alerts / fallback
-  - blocker taxonomy
-  - 输入模板、人工补单模板、样例产物
+  - `products/list`
+  - `products/detail`
+  - `products/score`
+  - `products/groups`
+  - `orders/list`
+  - `orders/detail`
+  - `orders/fund`
+  - `orders/logistics`
+  - `products/management-summary`
+  - `products/orders/operations minimal-diagnostic`
 
 ## 本阶段分解
-### A. 建立统一质量评估层
-优先新增共享 review helper，而不是强行改主路由语义。
+### A. 复用基础盘点
+- 找出现有官方 `/sync` 调用封装
+- 找出现有签名逻辑与 access_token 获取逻辑
+- 找出现有稳定 products/orders helper 与 smoke / validation 脚本模式
 
-至少覆盖：
+### B. 只读候选脚本验证
+新增主脚本：
+- `scripts/validate-wika-metrics-candidates.js`
 
-- `structure_completeness`
-- `blocker_consistency`
-- `minimum_package_readiness`
-- `handoff_clarity`
-- `manual_completion_readiness`
-- `externally_usable_boundary`
-- `source_traceability`
+脚本只做：
+- 原始响应摘要
+- 字段覆盖矩阵
+- 统一分类结果
+- 脱敏证据落盘
 
-统一 review 输出至少包含：
+### C. 候选验证顺序
+先验证店铺级：
+- `alibaba.mydata.overview.date.get`
+- `alibaba.mydata.overview.industry.get`
+- `alibaba.mydata.overview.indicator.basic.get`
 
-- `review_profile`
-- `review_version`
-- `readiness_level`
-- `passed_checks`
-- `failed_checks`
-- `review_findings`
-- `recommended_next_action`
-- `handoff_mandatory`
-- `draft_usable_externally`
+再验证产品级：
+- `alibaba.mydata.self.product.date.get`
+- `alibaba.mydata.self.product.get`
 
-### B. 建立可失败的回归闸门
-- 样例从当前 6 组扩充到至少 8 组
-- 每组样例必须有明确断言
-- 验证失败必须返回非 0 退出码
-- 主入口使用稳定命名：
-  - `scripts/validate-wika-external-draft-regression.js`
-- 旧 `phase14` 脚本若保留，只能作为薄别名
+最后验证订单级：
+- `alibaba.seller.order.list`
+- `alibaba.seller.order.get`
+- `alibaba.seller.order.fund.get`
+- 如有必要，再补 `alibaba.seller.order.logistics.get`
 
-### C. 建立人工交接包导出
-至少支持：
-
-- reply handoff pack
-- order handoff pack
-
-导出格式至少支持：
-
-- JSON
-- Markdown
-
-交接包必须明确：
-
-- 这是外部草稿
-- 不代表平台内已回复
-- 不代表平台内已创单
-- 不代表真实通知已送达
-
-### D. 做 profile / taxonomy / version 治理
-收口：
-
-- workflow_profile 定义
-- template_version 定义
-- blocker taxonomy usage matrix
-- profile coverage matrix
-- template_version 最小 changelog
-
-代码和文档必须共用同一套命名。
+### D. 派生证明
+基于真实订单数据，给出最小派生样例，判断能否派生：
+- 正式汇总
+- 趋势（按日/周）
+- 国家结构
+- 产品贡献
 
 ## 本阶段明确排除
 - XD
-- mydata / overview / 数据管家
-- inquiries / messages / customers 新验证
-- order create 新验证
+- inquiries / messages / customers
 - RFQ
+- order create
+- photobank / add.draft / 任何写侧边界继续循环
+- 本地旁路
 - 真实商品发布
 - 真实线上商品修改
 - 真实客户沟通
-- 平台内回复发送
-- 平台内订单创建
 - 真实通知外发
 - 自动进入下一阶段
 
 ## 推进规则
-1. 只复用现有已验证读侧与现有中间层
-2. 不新增任何平台内写动作
-3. 不做任何新的 Alibaba API 探测、撞权限、撞参数
-4. 若发现潜在新 API，只记入候选池，不实测
-5. 所有新增结构必须向后兼容
-6. 当前边界必须持续写清：这仍然只是外部草稿工作流层
+1. 每个候选 API 最多 3 轮 materially different attempts
+2. 只允许验证官方明确列出的 method
+3. 不直连 `router/rest`
+4. 不把 `permission error` 写成“接口不存在”
+5. 不把 `parameter accepted` 写成“已打通”
+6. 不虚构 UV / PV / 来源 / 国家字段
+
+## 分类标准
+- `DOC_FOUND`
+- `ROUTE_NOT_BOUND`
+- `AUTH_BLOCKED`
+- `CAPABILITY_BLOCKED`
+- `PARAMETER_REJECTED`
+- `PARAMETER_ACCEPTED_NO_REAL_DATA`
+- `REAL_DATA_RETURNED`
+- `DERIVABLE_FROM_EXISTING_ORDER_APIS`
 
 ## 完成标准
-- 已形成统一质量评估层
-- 已形成可失败的回归闸门
-- 已形成 reply / order handoff pack 导出
-- 已完成 profile / taxonomy / version 治理
-- 已刷新样例并完成回归脚本验证
-- 已更新基线、计划、缺口矩阵、复用清单、候选池、自治推进日志
+- 已完成店铺级、产品级、订单级候选方法的真实生产分类
+- 已形成字段覆盖矩阵
+- 已落盘脱敏证据
+- 已判断哪些字段可直接取、哪些只能派生、哪些仍缺公开入口
+- 已更新基线、计划、缺口矩阵、候选池、自治推进日志
 - 本阶段完成后停止，不自动进入下一阶段
 
 ## 停止条件
-- 当前外部草稿工作流已经具备稳定 review / regression / handoff 导出能力
-- 或继续推进只会重复已有工作，不再增加真实证据
+- 候选方法全部完成分类
+- 或超过尝试预算仍无新证据
+- 或继续推进只会回到被禁止的权限碰撞 / 写动作方向
 
 ## 交付物
-- `shared/data/modules/alibaba-external-draft-review.js`
-- `shared/data/modules/alibaba-external-workflow-taxonomy.js`
-- `scripts/validate-wika-external-draft-regression.js`
+- `scripts/validate-wika-metrics-candidates.js`
+- `docs/framework/WIKA_经营数据候选接口验证.md`
+- `docs/framework/WIKA_经营数据字段覆盖矩阵.md`
+- `docs/framework/evidence/`
 - `docs/framework/WIKA_项目基线.md`
 - `docs/framework/WIKA_执行计划.md`
-- `docs/framework/WIKA_自治推进日志.md`
-- `docs/framework/WIKA_外部草稿工作流说明.md`
-- `docs/framework/WIKA_外部回复输入模板.md`
-- `docs/framework/WIKA_外部订单输入模板.md`
-- `docs/framework/WIKA_人工补单模板.md`
-- `docs/framework/WIKA_已上线能力复用清单.md`
 - `docs/framework/WIKA_面向6项任务_API缺口矩阵.md`
 - `docs/framework/WIKA_下一批必须验证的API候选池.md`
+- `docs/framework/WIKA_自治推进日志.md`
 
 ## 固定汇报结构
 - 当前阶段
