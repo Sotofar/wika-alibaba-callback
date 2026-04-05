@@ -11,6 +11,10 @@
 - 人工补单模板
 - handoff / escalation 包
 
+本阶段实现策略：
+- 优先增强现有工具路由输出，不新增平台内执行动作
+- 所有样例都必须可复现，且必须明确区分 hard blocker / soft blocker / assumption
+
 ## 起始基线
 - 只推进 `WIKA`
 - 一律复用 Railway production 认证闭环与 `/sync + access_token + sha256`
