@@ -400,3 +400,46 @@
 - 结束 checkpoint：`97a1943`
 - push：`origin/main` 成功
 
+### 阶段 14：任务 4/5 的外部草稿工作流层
+
+- 起始 checkpoint：`42e039e`
+- 本阶段只做一件事：
+  - 不再验证新 Alibaba API，也不再推进平台内读写
+  - 只基于现有真实读侧、诊断层、草稿 helper、alerts/notifier，形成“外部草稿工作流层”
+- 新增工具路由：
+  - `/integrations/alibaba/wika/tools/reply-draft`
+  - `/integrations/alibaba/wika/tools/order-draft`
+- 新增沉淀：
+  - `shared/data/modules/alibaba-external-reply-drafts.js`
+  - `shared/data/modules/alibaba-order-drafts.js`（增强）
+  - `scripts/validate-wika-workflow-phase14.js`
+  - `docs/framework/WIKA_外部草稿工作流说明.md`
+  - `docs/framework/WIKA_外部回复草稿样例.json`
+  - `docs/framework/WIKA_外部订单草稿样例.json`
+- 工作流能力结果：
+  - 回复草稿可输出：
+    - `subject / opening / body / closing`
+    - 价格 blocker
+    - 交期 blocker
+    - `mockup_request / visual_requirements / asset_requirements`
+    - `risk_flags / escalation_recommendation`
+    - 与现有 alerts 兼容的结构化 `alert_payload`
+  - 订单草稿包可输出：
+    - 买家摘要
+    - line items
+    - 价格 / 交期 / 物流 / 付款占位
+    - `manual_required_fields`
+    - `reasons_cannot_submit`
+    - `handoff`
+    - 与现有 alerts 兼容的结构化 `alert_payload`
+- 线上验收：
+  - `POST /integrations/alibaba/wika/tools/reply-draft` -> `200 + 真实 JSON`
+  - `POST /integrations/alibaba/wika/tools/order-draft` -> `200 + 真实 JSON`
+  - `node scripts/validate-wika-workflow-phase14.js` 成功生成两组样例
+- 阶段收口：
+  - 当前已经形成“可直接给人继续处理”的外部回复草稿与外部订单草稿工作流层
+  - 当前不能误写成平台内已回复、平台内已创单
+  - 后续若继续，应优先增强输入模板、blocker 分层和人工补充模板，而不是回到平台内写动作
+- 实现提交：`7b4f741`
+- 清洗修正提交：`f9df52d`
+

@@ -1,26 +1,21 @@
 # WIKA_项目基线
 
 ## 一句话总基线
-只推进 WIKA；当前主线已形成“真实读侧原始路由 + 最小经营诊断层 + provider-agnostic 正式通知闭环 + 真实 provider 预接线 dry-run + phase13 的真实外发前置条件收口”，但仍不具备完整经营驾驶舱、平台内安全写入边界和真实外发送达证明。
+只推进 `WIKA`。当前主线已经形成“真实读侧原始路由 + 最小经营诊断层 + provider-agnostic 正式通知闭环 + 外部草稿工作流层”，但仍未形成完整经营驾驶舱，也未证明平台内安全写入边界。
 
 ## 当前已完成阶段
 - 产品 / 订单 / 物流基础读侧原始路由已上线并线上验证
 - 类目 / 属性原始路由已上线并线上验证
 - schema / schema.render 原始路由已上线并线上验证
 - media/list、media/groups、products/schema/render/draft 原始路由已上线并线上验证
-- customers 家族已完成真实生产分类
-- customers/list 权限探针型只读路由已上线并线上验收
-- provider-agnostic 正式通知模块已落地
-- webhook / resend provider 预接线与 dry-run 验证已完成
-- 真实 provider 最小外发前置条件检查已完成，并确认当前缺配置 / 缺可控目标
-- 最小正式通知闭环已成立（当前可 provider dry-run，可 fallback 落盘）
-- 最小经营诊断层已上线并线上验证
-- 产品子诊断路由已上线并线上验证
-- 订单子诊断路由已上线并线上验证
-- 订单入口候选清点与生产边界验证已完成
-- orders/draft-types 权限探针型只读路由已上线并线上验收
+- customers 家族已完成生产分类，`customers/list` 作为权限探针型只读路由已上线
+- provider-agnostic 正式通知闭环已成立
+- webhook / resend provider 预接线与 dry-run 已成立
+- phase13 已确认真实 provider 外发当前缺配置 / 缺可控目标
+- operations / products / orders minimal-diagnostic 已上线并线上验证
+- 外部回复草稿工具路由已上线并线上验证
+- 外部订单草稿工具路由已上线并线上验证
 - mydata / overview / self.product 路线已收口为权限 / 能力阻塞
-- photobank.group.operate 已过授权层，但当前仍无法证明低风险管理边界
 - photobank.upload 已过授权层，但当前无法证明低风险上传边界
 - product.add.draft 已过授权层，但当前无法证明安全草稿边界
 
@@ -46,6 +41,8 @@
 - /integrations/alibaba/wika/reports/operations/minimal-diagnostic
 - /integrations/alibaba/wika/reports/products/minimal-diagnostic
 - /integrations/alibaba/wika/reports/orders/minimal-diagnostic
+- /integrations/alibaba/wika/tools/reply-draft
+- /integrations/alibaba/wika/tools/order-draft
 
 ## 已确认的写侧事实
 - alibaba.icbu.category.get.new -> 真实 JSON 样本数据
@@ -60,19 +57,23 @@
 - alibaba.icbu.photobank.upload -> 已过授权层，但当前无法证明低风险上传边界
 - alibaba.icbu.product.add.draft -> 已过授权层，但当前无法证明安全草稿边界
 - alibaba.icbu.product.add / schema.add / update / schema.update / update.field -> 仍只到授权层与 payload 门槛验证
-- alibaba.trade.order.create -> 已真实走到 `/sync + access_token + sha256`；当前只证明到了参数校验层，仍不能证明安全创单边界
+- alibaba.trade.order.create -> 已真实走到 `/sync + access_token + sha256`，但当前只证明到参数校验层，仍不能证明安全创单边界
 
 ## 当前明确不推进
 - XD
 - mydata / overview / 数据管家
+- inquiries / messages / customers 新验证
+- order create 新验证
 - RFQ
 - 本地 `.env` / 本地 callback / 本地 token 旁路
-- 真实订单创建
 - 真实商品发布
 - 真实线上商品修改
 - 真实客户沟通
+- 平台内回复发送
+- 平台内订单创建
 
 ## 当前还缺的核心能力
+
 ### 任务 1
 - 店铺经营指标入口
 - 产品表现入口
@@ -93,14 +94,14 @@
 
 ### 任务 5
 - 平台内订单草稿 / 交易创建的安全边界证明
-- 外部订单草稿向更完整报价单 / 订单草稿链路扩展
+- 外部订单草稿向更完整报价单 / 订单包继续扩展
 
 ### 任务 6
 - 真实 webhook / email provider 外发
-- 把正式通知闭环接到更多真实阻塞触发点
+- 把正式通知闭环挂到更多真实 blocker 触发点
 
 ## 当前唯一推荐下一步
-继续只做“真实 provider 配置后的最小外发验证”，优先 webhook，其次 Resend；在真实 provider 和可控目标都未配置前，不把 dry-run 或 outbox fallback 误写成真实送达。
+如果继续，只建议在“外部草稿工作流层”上做更稳定的输入模板和 blocker 分层，不回到新 API 验证循环，除非出现新的官方明确入口或新的 provider 配置。
 
 ## 当前真实数据结论
 - media 可观测：已成立
@@ -111,13 +112,14 @@
 - 当前最小正式通知闭环已成立：已成立
 - 当前真实 provider 预接线 dry-run 已成立：已成立
 - 当前真实 provider 最小外发验证前置条件不足：已成立
-- 当前最小经营诊断层、产品子诊断、订单子诊断都已成立：已成立
+- 当前总诊断层、产品子诊断、订单子诊断都已成立：已成立
+- 当前外部回复草稿与外部订单草稿工作流层都已成立：已成立
 - 当前仍不能诊断 UV / PV / 曝光 / 点击 / CTR / 来源 / 国家 / 询盘表现：已成立
-- 当前只能生成外部订单草稿，不能误写成平台内订单已起草成功：已成立
+- 当前只能生成外部草稿，不得误写为平台内已回复或已创单：已成立
 
 ## 当前待验证判断
-- webhook 或 Resend 在 production 配置完成且目标可控后，是否能完成低风险真实外发
+- webhook 或 Resend 在 production 配置完成后，是否能完成低风险真实外发
 - customers 详情 / note 是否能在拿到真实 id 后返回真实 JSON
 - inquiry / message 是否会出现官方明确的读侧 list/detail 方法
-- media / draft 证据补齐后，是否才可进入最小真实写入验证
-- 后续是否会出现官方明确的订单 `precheck / cancel / status / draft` 低风险接口
+- media / draft 边界证据补齐后，是否才可进入最小真实写入验证
+- 后续是否会出现官方明确的 order `precheck / cancel / status / draft` 低风险接口

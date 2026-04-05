@@ -1,0 +1,607 @@
+{
+  "generated_at": "2026-04-05T01:57:48.628Z",
+  "route": "https://api.wikapacking.com/integrations/alibaba/wika/tools/reply-draft",
+  "complete_sample": {
+    "input": {
+      "inquiry_text": "Hello, we are looking for 1000 pcs custom PU sunglasses cases with logo. Please share quote, lead time and whether you can prepare a mockup for US shipment.",
+      "customer_profile": {
+        "company_name": "TEST BUYER / DO-NOT-USE",
+        "contact_name": "Sample Buyer"
+      },
+      "product_id": "1601700588198",
+      "quantity": "1000 pcs",
+      "destination": "United States",
+      "target_price": "0.65",
+      "currency": "USD",
+      "lead_time_context": "Customer expects ex-factory lead time around 25-30 days after artwork confirmation.",
+      "language_preference": "en",
+      "mockup_required": true,
+      "logo_file_reference": "logo-ai-file-needed",
+      "color_requirement": "black outside / beige inside",
+      "mockup_scene": "front + open case view"
+    },
+    "output": {
+      "ok": false,
+      "account": "wika",
+      "workflow_type": "external_reply_draft",
+      "reply_draft": {
+        "subject": "Draft reply for Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case",
+        "opening": "Hello, thank you for your inquiry from TEST BUYER / DO-NOT-USE.",
+        "body": "Inquiry summary: Hello, we are looking for 1000 pcs custom PU sunglasses cases with logo. Please share quote, lead time and whether you can prepare a mockup for US shipment.\n\nRequested quantity: 1000 pcs\n\nDestination: United States\n\nProduct references:\n- Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case | description available\n\nPrice note: Customer target price reference: USD 0.65. The current system has no verified live pricing source, so the final quote still requires human confirmation.\n\nLead time note: Current lead-time context is manually supplied: Customer expects ex-factory lead time around 25-30 days after artwork confirmation.. Final lead time still requires human confirmation.",
+        "closing": "Please confirm the following items before sending a formal reply: final_quote.",
+        "price_information": {
+          "status": "needs_human_quote",
+          "text": "Customer target price reference: USD 0.65. The current system has no verified live pricing source, so the final quote still requires human confirmation.",
+          "blocker_keys": [
+            "final_quote_confirmation"
+          ]
+        },
+        "product_support": [
+          {
+            "product_id": "1601700588198",
+            "subject": "Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case",
+            "category_id": 36127040,
+            "group_id": null,
+            "group_name": null,
+            "pc_detail_url": "https://www.alibaba.com/product-detail/Customizable-PU-Leather-Portable-Sunglasses-Case_1601700588198.html",
+            "main_image_url": "https://sc04.alicdn.com/kf/H081bc9376637401ab1b9fa4ac3d772e8l.jpg",
+            "description_available": true,
+            "keywords": [],
+            "gmt_modified": "2026-03-26 15:51:53",
+            "quality_signals": [
+              "quality score 5",
+              "boutique tag enabled"
+            ],
+            "problem_hints": []
+          }
+        ],
+        "lead_time_guidance": {
+          "status": "contextual_only",
+          "text": "Current lead-time context is manually supplied: Customer expects ex-factory lead time around 25-30 days after artwork confirmation.. Final lead time still requires human confirmation.",
+          "blocker_keys": [
+            "final_lead_time_confirmation"
+          ]
+        },
+        "mockup_request": {
+          "needed": true,
+          "mockup_request": "Prepare a mockup requirement pack for manual or design-tool follow-up.",
+          "visual_requirements": [
+            "Show logo placement and print method",
+            "Keep real material and closure structure visible"
+          ],
+          "asset_requirements": [],
+          "product_references": [
+            {
+              "product_id": "1601700588198",
+              "subject": "Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case",
+              "pc_detail_url": "https://www.alibaba.com/product-detail/Customizable-PU-Leather-Portable-Sunglasses-Case_1601700588198.html"
+            }
+          ]
+        },
+        "risk_flags": [
+          "platform_reply_unavailable"
+        ],
+        "escalation_recommendation": {
+          "level": "high",
+          "recommendation": "A human should fill in pricing, lead time, customer identity or destination details before a formal reply is sent."
+        }
+      },
+      "workflow_meta": {
+        "generated_at": "2026-04-05T01:57:30.003Z",
+        "available_context": {
+          "inquiry_text": true,
+          "product_context_count": 1,
+          "quantity": "1000 pcs",
+          "destination": "United States",
+          "language_preference": "en",
+          "product_diagnostic_sample_size": 12
+        },
+        "missing_context": [
+          "final_quote"
+        ],
+        "confidence": "medium",
+        "risk_level": "high",
+        "human_action_required": true,
+        "alert_payload": {
+          "schema_version": 1,
+          "kind": "wika_blocker_alert",
+          "account": "wika",
+          "stage_name": "phase14_external_reply_draft",
+          "blocker_category": {
+            "code": "parameter_missing",
+            "label": "参数缺失",
+            "description": "关键入参、业务参数或必填字段不足，无法继续验证或生成草稿。"
+          },
+          "triggered_at": "2026-04-05T01:57:30.003Z",
+          "related_apis": [
+            "alibaba.seller.customer.batch.get",
+            "alibaba.seller.customer.get"
+          ],
+          "related_modules": [
+            "external_reply_draft",
+            "wika_minimal_product_diagnostic"
+          ],
+          "current_evidence": [
+            "External reply draft generated from existing read-side signals only.",
+            "Current platform reply path is still unavailable or unverified.",
+            "Missing context: final_quote"
+          ],
+          "cannot_continue_reason": "关键参数或样本 id 缺失，当前无法继续完成真实实证。",
+          "user_needs": [
+            "final_quote"
+          ],
+          "suggested_next_steps": [
+            "Manually confirm final quote and lead time before sending.",
+            "Provide destination, customer identity and artwork files if a mockup is required."
+          ],
+          "allow_human_handoff": true,
+          "human_handoff": {
+            "account": "wika",
+            "stage": "formal_notification_loop",
+            "status": "pending_human_handoff",
+            "severity": "high",
+            "action": "parameter_backfill",
+            "api_name": null,
+            "blocker_category": {
+              "code": "parameter_missing",
+              "label": "参数缺失",
+              "description": "关键入参、业务参数或必填字段不足，无法继续验证或生成草稿。"
+            },
+            "triggers": [
+              {
+                "code": "missing_category_or_attributes",
+                "label": "类目或属性不足",
+                "description": "草稿所需的类目、属性或必填项未补齐时，必须人工确认后续信息来源。"
+              }
+            ],
+            "requires_human_handoff": true,
+            "input_summary": {
+              "product_ids": [
+                "1601700588198"
+              ],
+              "quantity": "1000 pcs",
+              "destination": "United States"
+            },
+            "evidence": {
+              "stage_name": "phase14_external_reply_draft",
+              "related_apis": [
+                "alibaba.seller.customer.batch.get",
+                "alibaba.seller.customer.get"
+              ],
+              "related_modules": [
+                "external_reply_draft",
+                "wika_minimal_product_diagnostic"
+              ],
+              "current_evidence": [
+                "External reply draft generated from existing read-side signals only.",
+                "Current platform reply path is still unavailable or unverified.",
+                "Missing context: final_quote"
+              ],
+              "cannot_continue_reason": "关键参数或样本 id 缺失，当前无法继续完成真实实证。"
+            },
+            "next_action": "Manually confirm final quote and lead time before sending.；Provide destination, customer identity and artwork files if a mockup is required.",
+            "created_at": "2026-04-05T01:57:30.003Z"
+          }
+        }
+      },
+      "supporting_context": {
+        "inquiry_text": "Hello, we are looking for 1000 pcs custom PU sunglasses cases with logo. Please share quote, lead time and whether you can prepare a mockup for US shipment.",
+        "customer_profile": {
+          "company_name": "TEST BUYER / DO-NOT-USE",
+          "contact_name": "Sample Buyer"
+        },
+        "product_diagnostic_snapshot": {
+          "available_signals": [
+            {
+              "module": "products",
+              "source_route": "/integrations/alibaba/wika/data/products/list",
+              "fields": [
+                "id",
+                "subject",
+                "group_name",
+                "category_id",
+                "status",
+                "display",
+                "gmt_modified"
+              ],
+              "sample_size": 12,
+              "notes": "当前产品快照按 page_size=12 采样。"
+            },
+            {
+              "module": "products",
+              "source_route": "/integrations/alibaba/wika/data/products/score",
+              "fields": [
+                "result.final_score",
+                "result.boutique_tag",
+                "result.problem_map"
+              ],
+              "sample_size": 8,
+              "notes": "质量分与问题分布按前 8 个产品采样。"
+            },
+            {
+              "module": "products",
+              "source_route": "/integrations/alibaba/wika/data/products/detail",
+              "fields": [
+                "product.subject",
+                "product.description",
+                "product.keywords",
+                "product.gmt_modified"
+              ],
+              "sample_size": 8,
+              "notes": "内容完整度按前 8 个产品采样。"
+            }
+          ],
+          "score_summary": {
+            "quality_score": {
+              "available_count": 8,
+              "average": 4.96,
+              "min": 4.9,
+              "max": 5,
+              "scale": "five_point",
+              "low_score_threshold": 4.8,
+              "low_score_count": 0
+            },
+            "boutique_tag": {
+              "tagged_count": 8,
+              "untagged_count": 0
+            },
+            "problem_map_top": []
+          },
+          "content_completeness_findings": {
+            "missing_subject_count": 0,
+            "missing_description_count": 4,
+            "missing_keywords_count": 8,
+            "modified_time_window": {
+              "start": "2026-02-12T10:36:47.000Z",
+              "end": "2026-03-26T15:51:53.000Z"
+            },
+            "updated_within_30_days_count": 5,
+            "stale_over_90_days": []
+          },
+          "structure_findings": {
+            "ungrouped_count": 1,
+            "group_coverage_top": [
+              {
+                "key": "Soft Case",
+                "count": 4
+              },
+              {
+                "key": "Packaging Set",
+                "count": 3
+              },
+              {
+                "key": "Folding Case",
+                "count": 2
+              },
+              {
+                "key": "Lens Cleaner",
+                "count": 1
+              },
+              {
+                "key": "Pouch",
+                "count": 1
+              },
+              {
+                "key": "UNKNOWN",
+                "count": 1
+              }
+            ],
+            "category_coverage_top": [
+              {
+                "key": "36127040",
+                "count": 11
+              },
+              {
+                "key": "36127030",
+                "count": 1
+              }
+            ]
+          }
+        }
+      },
+      "warnings": [
+        "This package is an external draft only and does not send any platform reply.",
+        "Price, lead time and mockup commitments still require human confirmation."
+      ]
+    }
+  },
+  "incomplete_sample": {
+    "input": {
+      "inquiry_text": "Need more details for custom case.",
+      "product_ids": [
+        "1601700588198"
+      ],
+      "language_preference": "en"
+    },
+    "output": {
+      "ok": false,
+      "account": "wika",
+      "workflow_type": "external_reply_draft",
+      "reply_draft": {
+        "subject": "Draft reply for Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case",
+        "opening": "Hello, thank you for your inquiry.",
+        "body": "Inquiry summary: Need more details for custom case.\n\nRequested quantity: to be confirmed.\n\nDestination: to be confirmed.\n\nProduct references:\n- Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case | description available\n\nPrice note: There is no verified live pricing field available, so the system cannot generate a firm quote automatically.\n\nLead time note: There is no verified lead-time data source, so the system cannot commit a delivery schedule automatically.",
+        "closing": "Please confirm the following items before sending a formal reply: final_quote, lead_time, destination.",
+        "price_information": {
+          "status": "blocked",
+          "text": "There is no verified live pricing field available, so the system cannot generate a firm quote automatically.",
+          "blocker_keys": [
+            "price",
+            "currency_confirmation"
+          ],
+          "related_products": [
+            "1601700588198"
+          ]
+        },
+        "product_support": [
+          {
+            "product_id": "1601700588198",
+            "subject": "Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case",
+            "category_id": 36127040,
+            "group_id": null,
+            "group_name": null,
+            "pc_detail_url": "https://www.alibaba.com/product-detail/Customizable-PU-Leather-Portable-Sunglasses-Case_1601700588198.html",
+            "main_image_url": "https://sc04.alicdn.com/kf/H081bc9376637401ab1b9fa4ac3d772e8l.jpg",
+            "description_available": true,
+            "keywords": [],
+            "gmt_modified": "2026-03-26 15:51:53",
+            "quality_signals": [
+              "quality score 5",
+              "boutique tag enabled"
+            ],
+            "problem_hints": []
+          }
+        ],
+        "lead_time_guidance": {
+          "status": "blocked",
+          "text": "There is no verified lead-time data source, so the system cannot commit a delivery schedule automatically.",
+          "blocker_keys": [
+            "lead_time"
+          ]
+        },
+        "mockup_request": {
+          "needed": false,
+          "mockup_request": "The current inquiry does not explicitly request a mockup.",
+          "visual_requirements": [],
+          "asset_requirements": [
+            "Customer logo / artwork source file is required",
+            "Color / finish requirement needs confirmation",
+            "Mockup scene / usage context needs confirmation"
+          ],
+          "product_references": [
+            {
+              "product_id": "1601700588198",
+              "subject": "Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case",
+              "pc_detail_url": "https://www.alibaba.com/product-detail/Customizable-PU-Leather-Portable-Sunglasses-Case_1601700588198.html"
+            }
+          ]
+        },
+        "risk_flags": [
+          "platform_reply_unavailable"
+        ],
+        "escalation_recommendation": {
+          "level": "high",
+          "recommendation": "A human should fill in pricing, lead time, customer identity or destination details before a formal reply is sent."
+        }
+      },
+      "workflow_meta": {
+        "generated_at": "2026-04-05T01:57:36.429Z",
+        "available_context": {
+          "inquiry_text": true,
+          "product_context_count": 1,
+          "quantity": null,
+          "destination": null,
+          "language_preference": "en",
+          "product_diagnostic_sample_size": 12
+        },
+        "missing_context": [
+          "final_quote",
+          "lead_time",
+          "destination"
+        ],
+        "confidence": "low",
+        "risk_level": "high",
+        "human_action_required": true,
+        "alert_payload": {
+          "schema_version": 1,
+          "kind": "wika_blocker_alert",
+          "account": "wika",
+          "stage_name": "phase14_external_reply_draft",
+          "blocker_category": {
+            "code": "parameter_missing",
+            "label": "参数缺失",
+            "description": "关键入参、业务参数或必填字段不足，无法继续验证或生成草稿。"
+          },
+          "triggered_at": "2026-04-05T01:57:36.429Z",
+          "related_apis": [
+            "alibaba.seller.customer.batch.get",
+            "alibaba.seller.customer.get"
+          ],
+          "related_modules": [
+            "external_reply_draft",
+            "wika_minimal_product_diagnostic"
+          ],
+          "current_evidence": [
+            "External reply draft generated from existing read-side signals only.",
+            "Current platform reply path is still unavailable or unverified.",
+            "Missing context: final_quote, lead_time, destination"
+          ],
+          "cannot_continue_reason": "关键参数或样本 id 缺失，当前无法继续完成真实实证。",
+          "user_needs": [
+            "final_quote",
+            "lead_time",
+            "destination"
+          ],
+          "suggested_next_steps": [
+            "Manually confirm final quote and lead time before sending.",
+            "Provide destination, customer identity and artwork files if a mockup is required."
+          ],
+          "allow_human_handoff": true,
+          "human_handoff": {
+            "account": "wika",
+            "stage": "formal_notification_loop",
+            "status": "pending_human_handoff",
+            "severity": "high",
+            "action": "parameter_backfill",
+            "api_name": null,
+            "blocker_category": {
+              "code": "parameter_missing",
+              "label": "参数缺失",
+              "description": "关键入参、业务参数或必填字段不足，无法继续验证或生成草稿。"
+            },
+            "triggers": [
+              {
+                "code": "missing_category_or_attributes",
+                "label": "类目或属性不足",
+                "description": "草稿所需的类目、属性或必填项未补齐时，必须人工确认后续信息来源。"
+              }
+            ],
+            "requires_human_handoff": true,
+            "input_summary": {
+              "product_ids": [
+                "1601700588198"
+              ],
+              "quantity": null,
+              "destination": null
+            },
+            "evidence": {
+              "stage_name": "phase14_external_reply_draft",
+              "related_apis": [
+                "alibaba.seller.customer.batch.get",
+                "alibaba.seller.customer.get"
+              ],
+              "related_modules": [
+                "external_reply_draft",
+                "wika_minimal_product_diagnostic"
+              ],
+              "current_evidence": [
+                "External reply draft generated from existing read-side signals only.",
+                "Current platform reply path is still unavailable or unverified.",
+                "Missing context: final_quote, lead_time, destination"
+              ],
+              "cannot_continue_reason": "关键参数或样本 id 缺失，当前无法继续完成真实实证。"
+            },
+            "next_action": "Manually confirm final quote and lead time before sending.；Provide destination, customer identity and artwork files if a mockup is required.",
+            "created_at": "2026-04-05T01:57:36.429Z"
+          }
+        }
+      },
+      "supporting_context": {
+        "inquiry_text": "Need more details for custom case.",
+        "customer_profile": {},
+        "product_diagnostic_snapshot": {
+          "available_signals": [
+            {
+              "module": "products",
+              "source_route": "/integrations/alibaba/wika/data/products/list",
+              "fields": [
+                "id",
+                "subject",
+                "group_name",
+                "category_id",
+                "status",
+                "display",
+                "gmt_modified"
+              ],
+              "sample_size": 12,
+              "notes": "当前产品快照按 page_size=12 采样。"
+            },
+            {
+              "module": "products",
+              "source_route": "/integrations/alibaba/wika/data/products/score",
+              "fields": [
+                "result.final_score",
+                "result.boutique_tag",
+                "result.problem_map"
+              ],
+              "sample_size": 8,
+              "notes": "质量分与问题分布按前 8 个产品采样。"
+            },
+            {
+              "module": "products",
+              "source_route": "/integrations/alibaba/wika/data/products/detail",
+              "fields": [
+                "product.subject",
+                "product.description",
+                "product.keywords",
+                "product.gmt_modified"
+              ],
+              "sample_size": 8,
+              "notes": "内容完整度按前 8 个产品采样。"
+            }
+          ],
+          "score_summary": {
+            "quality_score": {
+              "available_count": 8,
+              "average": 4.96,
+              "min": 4.9,
+              "max": 5,
+              "scale": "five_point",
+              "low_score_threshold": 4.8,
+              "low_score_count": 0
+            },
+            "boutique_tag": {
+              "tagged_count": 8,
+              "untagged_count": 0
+            },
+            "problem_map_top": []
+          },
+          "content_completeness_findings": {
+            "missing_subject_count": 0,
+            "missing_description_count": 4,
+            "missing_keywords_count": 8,
+            "modified_time_window": {
+              "start": "2026-02-12T10:36:47.000Z",
+              "end": "2026-03-26T15:51:53.000Z"
+            },
+            "updated_within_30_days_count": 5,
+            "stale_over_90_days": []
+          },
+          "structure_findings": {
+            "ungrouped_count": 1,
+            "group_coverage_top": [
+              {
+                "key": "Soft Case",
+                "count": 4
+              },
+              {
+                "key": "Packaging Set",
+                "count": 3
+              },
+              {
+                "key": "Folding Case",
+                "count": 2
+              },
+              {
+                "key": "Lens Cleaner",
+                "count": 1
+              },
+              {
+                "key": "Pouch",
+                "count": 1
+              },
+              {
+                "key": "UNKNOWN",
+                "count": 1
+              }
+            ],
+            "category_coverage_top": [
+              {
+                "key": "36127040",
+                "count": 11
+              },
+              {
+                "key": "36127030",
+                "count": 1
+              }
+            ]
+          }
+        }
+      },
+      "warnings": [
+        "This package is an external draft only and does not send any platform reply.",
+        "Price, lead time and mockup commitments still require human confirmation."
+      ]
+    }
+  }
+}
