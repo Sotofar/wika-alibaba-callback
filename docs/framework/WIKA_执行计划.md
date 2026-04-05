@@ -108,6 +108,24 @@
 - `READ_ONLY_ROUTE_CONFIRMED_WORKING`
 - `PARAM_CONTRACT_STILL_UNRESOLVED`
 
+## 当前收口结果
+- `mydata` 5 个方法本轮不再重复实测，只复用阶段 17 已有 evidence 形成权限清障包：
+  - 当前分类保持 `AUTH_BLOCKED`
+  - 当前清障状态固化为 `ACCESS_REOPEN_READY`
+- 订单链路契约对账结论：
+  - `/orders/list` -> `READ_ONLY_ROUTE_CONFIRMED_WORKING`
+  - `/orders/detail` -> `MASKED_TRADE_ID_NOT_REUSABLE`
+  - `/orders/fund` -> `MASKED_TRADE_ID_NOT_REUSABLE`
+  - `/orders/logistics` -> `MASKED_TRADE_ID_NOT_REUSABLE`
+- 阶段 17 验证脚本与现有只读 route 的关键差异已固定：
+  - stage-17 用的是 `/orders/list` 返回的遮罩 `trade_id`
+  - 现有 detail / fund / logistics 都要求外部传入 `e_trade_id`
+  - 当前 public 只读链路里没有证据证明遮罩 `trade_id` 可以直接复用
+- 当前没有发现可证明成立的“纯参数层安全修正”，因此本轮不做 runtime 代码硬修
+- 当前仅有一个 partial derived signal 成立：
+  - `订单趋势` -> 仅可由 `order.list.create_date` 派生
+  - `正式汇总 / 国家结构 / 产品贡献` -> 当前仍未证明成立
+
 ## 当前预期交付
 - `docs/framework/WIKA_经营数据权限清障包.md`
 - `docs/framework/WIKA_订单参数契约对账.md`

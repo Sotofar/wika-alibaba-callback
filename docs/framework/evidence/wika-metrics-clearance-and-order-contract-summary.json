@@ -1,0 +1,350 @@
+{
+  "evaluated_at": "2026-04-05T10:32:52.552Z",
+  "stage_scope": "stage18_clearance_and_order_contract_audit",
+  "stage17_summary_source": "docs\\framework\\evidence\\wika-metrics-candidates-summary.json",
+  "no_new_alibaba_api_validation": true,
+  "no_write_action_attempted": true,
+  "mydata_clearance": [
+    {
+      "official_method_name": "alibaba.mydata.overview.date.get",
+      "intended_business_use": "店铺级经营日期窗口发现，给后续 overview 指标查询提供真实可用日期范围",
+      "target_fields": [
+        "start_date",
+        "end_date"
+      ],
+      "stage17_observed_result": "AUTH_BLOCKED",
+      "observed_error_code": "InsufficientPermission",
+      "observed_error_message": "App does not have permission to access this api",
+      "current_classification": "AUTH_BLOCKED",
+      "affected_tasks": [
+        "任务1",
+        "任务2"
+      ],
+      "why_this_method_matters": "没有 date range，就无法对店铺级 visitor/imps/click/fb/reply 口径做稳定调用与复验。",
+      "minimal_permission_scope_ask_wording": "Please grant the current WIKA app tenant access to alibaba.mydata.overview.date.get for the current ICBU seller account so we can discover valid overview date windows in production.",
+      "evidence_of_access_granted": "真实返回 start_date / end_date 范围，且不再出现 InsufficientPermission。",
+      "route_or_report_to_reopen_after_access": [
+        "/integrations/alibaba/wika/data/store/overview-basic",
+        "/integrations/alibaba/wika/reports/operations/minimal-diagnostic"
+      ],
+      "evidence_file": "alibaba_mydata_overview_date_get.json",
+      "status_after_pack": "ACCESS_REOPEN_READY"
+    },
+    {
+      "official_method_name": "alibaba.mydata.overview.industry.get",
+      "intended_business_use": "店铺级行业/主营维度发现，给 overview 指标查询提供真实 industry context",
+      "target_fields": [
+        "industry_id",
+        "industry_desc",
+        "main_category"
+      ],
+      "stage17_observed_result": "AUTH_BLOCKED",
+      "observed_error_code": "InsufficientPermission",
+      "observed_error_message": "App does not have permission to access this api",
+      "current_classification": "AUTH_BLOCKED",
+      "affected_tasks": [
+        "任务1",
+        "任务2"
+      ],
+      "why_this_method_matters": "没有 industry 维度，就无法稳定构造店铺级 overview 指标查询的真实业务参数。",
+      "minimal_permission_scope_ask_wording": "Please grant the current WIKA app tenant access to alibaba.mydata.overview.industry.get for the current ICBU seller account so we can discover valid industry context in production.",
+      "evidence_of_access_granted": "真实返回 industry_id / industry_desc / main_category，且不再出现 InsufficientPermission。",
+      "route_or_report_to_reopen_after_access": [
+        "/integrations/alibaba/wika/data/store/overview-basic",
+        "/integrations/alibaba/wika/reports/operations/minimal-diagnostic"
+      ],
+      "evidence_file": "alibaba_mydata_overview_industry_get.json",
+      "status_after_pack": "ACCESS_REOPEN_READY"
+    },
+    {
+      "official_method_name": "alibaba.mydata.overview.indicator.basic.get",
+      "intended_business_use": "店铺级经营基础指标读取",
+      "target_fields": [
+        "visitor",
+        "imps",
+        "clk",
+        "clk_rate",
+        "fb",
+        "reply"
+      ],
+      "stage17_observed_result": "AUTH_BLOCKED",
+      "observed_error_code": "InsufficientPermission",
+      "observed_error_message": "App does not have permission to access this api",
+      "current_classification": "AUTH_BLOCKED",
+      "affected_tasks": [
+        "任务1",
+        "任务2"
+      ],
+      "why_this_method_matters": "这是当前最直接的店铺级 UV / 曝光 / 点击 / 询盘 / 回复相关公开候选入口；若无权限，任务 1/2 无法获得店铺级经营指标。",
+      "minimal_permission_scope_ask_wording": "Please grant the current WIKA app tenant access to alibaba.mydata.overview.indicator.basic.get for the current ICBU seller account so we can read store-level visitor / imps / click / feedback / reply metrics in production.",
+      "evidence_of_access_granted": "真实返回 visitor / imps / clk / clk_rate / fb / reply 任一字段，且不再出现 InsufficientPermission。",
+      "route_or_report_to_reopen_after_access": [
+        "/integrations/alibaba/wika/data/store/overview-basic",
+        "/integrations/alibaba/wika/reports/operations/minimal-diagnostic"
+      ],
+      "evidence_file": "alibaba_mydata_overview_indicator_basic_get.json",
+      "status_after_pack": "ACCESS_REOPEN_READY"
+    },
+    {
+      "official_method_name": "alibaba.mydata.self.product.date.get",
+      "intended_business_use": "产品级表现日期窗口发现，给 self.product 指标查询提供真实统计周期",
+      "target_fields": [
+        "start_date",
+        "end_date"
+      ],
+      "stage17_observed_result": "AUTH_BLOCKED",
+      "observed_error_code": "InsufficientPermission",
+      "observed_error_message": "App does not have permission to access this api",
+      "current_classification": "AUTH_BLOCKED",
+      "affected_tasks": [
+        "任务1",
+        "任务2"
+      ],
+      "why_this_method_matters": "没有产品级 date range，就无法稳定调用曝光、点击、访客、询盘等产品表现指标。",
+      "minimal_permission_scope_ask_wording": "Please grant the current WIKA app tenant access to alibaba.mydata.self.product.date.get for the current ICBU seller account so we can discover valid product-performance date windows in production.",
+      "evidence_of_access_granted": "真实返回 start_date / end_date 范围，且不再出现 InsufficientPermission。",
+      "route_or_report_to_reopen_after_access": [
+        "/integrations/alibaba/wika/data/products/performance-by-date",
+        "/integrations/alibaba/wika/reports/products/minimal-diagnostic"
+      ],
+      "evidence_file": "alibaba_mydata_self_product_date_get.json",
+      "status_after_pack": "ACCESS_REOPEN_READY"
+    },
+    {
+      "official_method_name": "alibaba.mydata.self.product.get",
+      "intended_business_use": "产品级表现指标读取",
+      "target_fields": [
+        "click",
+        "impression",
+        "visitor",
+        "fb",
+        "order",
+        "bookmark",
+        "compare",
+        "share",
+        "keyword_effects"
+      ],
+      "stage17_observed_result": "AUTH_BLOCKED",
+      "observed_error_code": "InsufficientPermission",
+      "observed_error_message": "App does not have permission to access this api",
+      "current_classification": "AUTH_BLOCKED",
+      "affected_tasks": [
+        "任务1",
+        "任务2"
+      ],
+      "why_this_method_matters": "这是当前最直接的产品级曝光、点击、访客、询盘、关键词效果公开候选入口；若无权限，任务 1/2 无法获得产品表现层。",
+      "minimal_permission_scope_ask_wording": "Please grant the current WIKA app tenant access to alibaba.mydata.self.product.get for the current ICBU seller account so we can read product-level performance metrics in production.",
+      "evidence_of_access_granted": "真实返回 click / impression / visitor / fb / order / bookmark / compare / share / keyword_effects 任一字段，且不再出现 InsufficientPermission。",
+      "route_or_report_to_reopen_after_access": [
+        "/integrations/alibaba/wika/data/products/performance",
+        "/integrations/alibaba/wika/reports/products/minimal-diagnostic"
+      ],
+      "evidence_file": "alibaba_mydata_self_product_get.json",
+      "status_after_pack": "ACCESS_REOPEN_READY"
+    }
+  ],
+  "order_contract_audit": [
+    {
+      "route_name": "/integrations/alibaba/wika/data/orders/list",
+      "downstream_alibaba_method": "alibaba.seller.order.list",
+      "expected_params": [
+        "role",
+        "start_page",
+        "page_size",
+        "status",
+        "sales_man_login_id"
+      ],
+      "identifier_shape": "N/A; list returns masked trade_id in current tenant",
+      "identifier_source": "response_meta + items[].trade_id",
+      "source_file": "shared/data/modules/alibaba-official-orders.js",
+      "route_file": "app.js",
+      "source_line_hints": {
+        "route_line": 3094,
+        "method_line": 169,
+        "identifier_line": 90,
+        "stage17_input_line": 1219
+      },
+      "stage17_validation_input": "param_trade_ecology_order_list_query.role/start_page/page_size; recent_window also tried create_date_start/create_date_end",
+      "mismatch_finding": "SCRIPT_PARAM_NAME_MISMATCH",
+      "current_conclusion": "READ_ONLY_ROUTE_CONFIRMED_WORKING",
+      "next_action": "Keep list as confirmed working readonly route; if date-window contract is needed later, reopen only with explicit official parameter evidence.",
+      "stage17_best_attempt": "fallback_minimal_windowless",
+      "stage17_error": null
+    },
+    {
+      "route_name": "/integrations/alibaba/wika/data/orders/detail",
+      "downstream_alibaba_method": "alibaba.seller.order.get",
+      "expected_params": [
+        "e_trade_id"
+      ],
+      "identifier_shape": "Unmasked reusable e_trade_id expected; current public list only exposes masked trade_id",
+      "identifier_source": "External query param only; no internal remapping in current route",
+      "source_file": "shared/data/modules/alibaba-official-orders.js",
+      "route_file": "app.js",
+      "source_line_hints": {
+        "route_line": 3098,
+        "method_line": 261,
+        "identifier_line": null,
+        "stage17_input_line": 1258
+      },
+      "stage17_validation_input": "e_trade_id sourced from stage-17 order.list items[].trade_id (masked values like 21***54)",
+      "mismatch_finding": "SCRIPT_ID_SOURCE_MISMATCH",
+      "current_conclusion": "MASKED_TRADE_ID_NOT_REUSABLE",
+      "next_action": "Do not hard-fix route. Reopen only after proving a reusable unmasked order identifier source inside current readonly chain or after official contract clarification.",
+      "stage17_best_attempt": "trade_1",
+      "stage17_error": {
+        "code": "15",
+        "type": "ISP",
+        "sub_code": "isv.402",
+        "sub_msg": "invalidate request",
+        "msg": "Remote service error",
+        "request_id": "213f5a2117753776977567425",
+        "_trace_id_": "212cf75117753776977537511e0f29"
+      }
+    },
+    {
+      "route_name": "/integrations/alibaba/wika/data/orders/fund",
+      "downstream_alibaba_method": "alibaba.seller.order.fund.get",
+      "expected_params": [
+        "e_trade_id",
+        "data_select"
+      ],
+      "identifier_shape": "Unmasked reusable e_trade_id expected; current public list only exposes masked trade_id",
+      "identifier_source": "External query param only; no internal remapping in current route",
+      "source_file": "shared/data/modules/alibaba-official-extensions.js",
+      "route_file": "app.js",
+      "source_line_hints": {
+        "route_line": 3102,
+        "method_line": 310,
+        "identifier_line": 374,
+        "stage17_input_line": 1258
+      },
+      "stage17_validation_input": "e_trade_id sourced from stage-17 order.list items[].trade_id + data_select=fund_serviceFee,fund_fundPay,fund_refund",
+      "mismatch_finding": "SCRIPT_ID_SOURCE_MISMATCH",
+      "current_conclusion": "MASKED_TRADE_ID_NOT_REUSABLE",
+      "next_action": "Hold current route as contract-unresolved for public chaining. Reopen only after a reusable order identifier source is evidenced.",
+      "stage17_best_attempt": "trade_1",
+      "stage17_error": {
+        "code": "15",
+        "type": "ISP",
+        "sub_code": "isv.402",
+        "sub_msg": "tradeId is invalid",
+        "msg": "Remote service error",
+        "request_id": "0b51f6a417753776986487822",
+        "_trace_id_": "212cf75117753776986457527e0f29"
+      }
+    },
+    {
+      "route_name": "/integrations/alibaba/wika/data/orders/logistics",
+      "downstream_alibaba_method": "alibaba.seller.order.logistics.get",
+      "expected_params": [
+        "e_trade_id",
+        "data_select"
+      ],
+      "identifier_shape": "Unmasked reusable e_trade_id expected; current public list only exposes masked trade_id",
+      "identifier_source": "External query param only; no internal remapping in current route",
+      "source_file": "shared/data/modules/alibaba-official-extensions.js",
+      "route_file": "app.js",
+      "source_line_hints": {
+        "route_line": 3106,
+        "method_line": 384,
+        "identifier_line": null,
+        "stage17_input_line": 1258
+      },
+      "stage17_validation_input": "e_trade_id sourced from stage-17 order.list items[].trade_id + data_select=logistic_order",
+      "mismatch_finding": "SCRIPT_ID_SOURCE_MISMATCH",
+      "current_conclusion": "MASKED_TRADE_ID_NOT_REUSABLE",
+      "next_action": "Hold current route as contract-unresolved for public chaining. Reopen only after a reusable order identifier source is evidenced.",
+      "stage17_best_attempt": "trade_1",
+      "stage17_error": {
+        "code": "15",
+        "type": "ISP",
+        "sub_code": "402",
+        "sub_msg": "tradeId is invalid",
+        "msg": "Remote service error",
+        "request_id": "212c6fc617753776995595410",
+        "_trace_id_": "212cf75117753776995567546e0f29"
+      }
+    }
+  ],
+  "safe_readonly_param_fix_found": false,
+  "safe_readonly_param_fix_applied": false,
+  "partial_derived_signal": {
+    "signal_type": "partial_derived_signal",
+    "derived_from": "alibaba.seller.order.list.create_date",
+    "statement": "当前仅证明订单创建量趋势可由现有官方交易 list 接口部分派生，不能扩写成完整订单经营汇总。",
+    "sample_size": 8,
+    "trend": [
+      {
+        "date_label": "2026-03-31",
+        "order_count": 2
+      },
+      {
+        "date_label": "2026-03-29",
+        "order_count": 2
+      },
+      {
+        "date_label": "2026-03-23",
+        "order_count": 1
+      },
+      {
+        "date_label": "2026-03-22",
+        "order_count": 1
+      },
+      {
+        "date_label": "2026-03-19",
+        "order_count": 1
+      },
+      {
+        "date_label": "2026-03-18",
+        "order_count": 1
+      }
+    ]
+  },
+  "field_coverage_increment": {
+    "public_official_entry_exists_but_auth_blocked": {
+      "store_level": [
+        "UV(visitor)",
+        "PV/imps",
+        "点击(clk)",
+        "CTR(clk_rate)",
+        "询盘表现(fb)",
+        "响应相关(reply)"
+      ],
+      "product_level": [
+        "曝光(impression)",
+        "点击(click)",
+        "访客(visitor)",
+        "询盘(fb)",
+        "订单(order)",
+        "bookmark",
+        "compare",
+        "share",
+        "关键词来源(keyword_effects)"
+      ]
+    },
+    "not_found_in_current_response_or_not_yet_evidenced": {
+      "store_level": [
+        "流量来源",
+        "国家来源",
+        "快速回复率"
+      ],
+      "product_level": [
+        "访问来源",
+        "询盘来源",
+        "国家来源",
+        "近周期变化"
+      ],
+      "order_level": [
+        "正式汇总",
+        "国家结构",
+        "产品贡献"
+      ]
+    },
+    "only_derivable_from_existing_order_apis": {
+      "order_level": [
+        "订单趋势（仅基于 order.list.create_date）"
+      ]
+    }
+  }
+}

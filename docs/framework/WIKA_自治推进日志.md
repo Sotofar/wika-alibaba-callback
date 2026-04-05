@@ -622,3 +622,43 @@
   - 当前不建议正式重开 `mydata` 主线
   - 若继续任务 2，订单级经营汇总只能先写成“基于现有交易 API 的部分派生”
   - 本轮只是候选接口验证，不等于任务 1 / 2 已完成
+
+### 阶段 18：经营数据清障与订单参数契约对账
+
+- 实际起始 commit：`218d073fe9aa3f5bc6b11682a5eadb4a4e1a8a90`
+- 起始 checkpoint：`97d00e2`
+- 本轮没有新增任何 Alibaba API 验证
+- 本轮没有推进平台内回复、平台内创单、真实通知外发
+- 本轮只做两件事：
+  - 复用阶段 17 证据，形成 `mydata` 权限清障包
+  - 复用阶段 17 证据与现有代码，形成订单参数契约对账包
+- 新增 / 固化沉淀：
+  - `scripts/validate-wika-metrics-clearance-and-order-contract.js`
+  - `docs/framework/WIKA_经营数据权限清障包.md`
+  - `docs/framework/WIKA_订单参数契约对账.md`
+  - `docs/framework/evidence/wika-metrics-clearance-and-order-contract-summary.json`
+  - `docs/framework/evidence/wika-order-trend-partial-derived-sample.json`
+- `mydata` 清障收口结论：
+  - `alibaba.mydata.overview.date.get` -> `AUTH_BLOCKED`
+  - `alibaba.mydata.overview.industry.get` -> `AUTH_BLOCKED`
+  - `alibaba.mydata.overview.indicator.basic.get` -> `AUTH_BLOCKED`
+  - `alibaba.mydata.self.product.date.get` -> `AUTH_BLOCKED`
+  - `alibaba.mydata.self.product.get` -> `AUTH_BLOCKED`
+  - 当前清障包状态：`ACCESS_REOPEN_READY`
+- 订单参数契约对账结论：
+  - `/orders/list` -> `READ_ONLY_ROUTE_CONFIRMED_WORKING`
+  - `/orders/detail` -> `MASKED_TRADE_ID_NOT_REUSABLE`
+  - `/orders/fund` -> `MASKED_TRADE_ID_NOT_REUSABLE`
+  - `/orders/logistics` -> `MASKED_TRADE_ID_NOT_REUSABLE`
+  - 当前 public 只读链路里没有证据证明 `order.list` 返回的遮罩 `trade_id` 可以直接复用为 `e_trade_id`
+- 只读纠偏结论：
+  - 当前没有发现可证明成立的“纯参数层安全修正”
+  - 因此本轮不做 runtime 代码硬修
+- partial derived signal：
+  - `订单趋势` -> 仅由 `order.list.create_date` 部分派生
+  - `正式汇总 / 国家结构 / 产品贡献` -> 当前仍未证明成立
+- 阶段收口：
+  - 当前不是 task 1 complete
+  - 当前不是 task 2 complete
+  - 当前没有任何写侧动作
+  - 当前不是平台内闭环

@@ -1,7 +1,7 @@
 # WIKA_项目基线
 
 ## 一句话总基线
-只推进 `WIKA`；当前主线已经形成“真实读侧原始路由 + 最小经营诊断层 + provider-agnostic 正式通知闭环 + 模板化外部草稿工作流 SOP 层”，并补充完成一轮“经营数据候选接口只读验证”；但 `mydata / overview / self.product` 仍停在权限/能力阻塞，订单级经营汇总当前只证明到“可由现有交易 API 部分派生”，还没有形成完整经营驾驶舱，也没有证明平台内安全写入边界。
+只推进 `WIKA`；当前主线已经形成“真实读侧原始路由 + 最小经营诊断层 + provider-agnostic 正式通知闭环 + 模板化外部草稿工作流 SOP 层”，并补充完成“经营数据候选接口只读验证 + mydata 权限清障包 + 订单参数契约对账包”；但 `mydata / overview / self.product` 仍停在权限/能力阻塞，订单级经营汇总当前只证明到“可由现有交易 API 部分派生”，还没有形成完整经营驾驶舱，也没有证明平台内安全写入边界。
 
 ## 当前已完成阶段
 - 产品 / 订单 / 物流基础读侧原始路由已上线并线上验证
@@ -31,6 +31,15 @@
   - `alibaba.seller.order.fund.get` -> `PARAMETER_REJECTED`
   - `alibaba.seller.order.logistics.get` -> `PARAMETER_REJECTED`
   - 订单经营汇总当前只证明到 `DERIVABLE_FROM_EXISTING_ORDER_APIS` 的“部分成立”
+- 阶段 18 已完成经营数据清障与订单参数契约对账：
+  - `mydata` 5 个方法已形成对外权限清障包，当前状态统一固定为：
+    - current classification = `AUTH_BLOCKED`
+    - clearance status = `ACCESS_REOPEN_READY`
+  - `/orders/list` 当前对账结论 = `READ_ONLY_ROUTE_CONFIRMED_WORKING`
+  - `/orders/detail` 当前对账结论 = `MASKED_TRADE_ID_NOT_REUSABLE`
+  - `/orders/fund` 当前对账结论 = `MASKED_TRADE_ID_NOT_REUSABLE`
+  - `/orders/logistics` 当前对账结论 = `MASKED_TRADE_ID_NOT_REUSABLE`
+  - 当前没有发现可证明成立的“纯参数层安全修正”
 
 ## 已上线可复用路由
 - /integrations/alibaba/wika/data/products/list
@@ -134,6 +143,10 @@
 - 当前 `mydata / overview / self.product` 在当前租户下仍统一 `AUTH_BLOCKED`：已成立
 - 当前 `order.list` 能稳定返回真实数据：已成立
 - 当前 `order.get / fund.get / logistics.get` 在使用 `order.list` 返回的遮罩 `trade_id` 时统一落到 `PARAMETER_REJECTED`：已成立
+- 当前 `mydata` 权限清障包已经可直接用于对外申请：已成立
+- 当前订单参数契约对账已明确：
+  - `orders/list` 是当前唯一稳定成立的只读订单入口：已成立
+  - `detail / fund / logistics` 当前 public chaining 仍未闭合：已成立
 - 当前订单级经营汇总只能部分派生：
   - 趋势：已成立（来自 `order.list.create_date`）
   - 正式汇总：未成立
@@ -148,3 +161,4 @@
 - inquiry / message 是否会出现官方明确的读侧 list/detail 方法
 - media / draft 边界证据补齐后，是否才可进入最小真实写入验证
 - 后续是否会出现官方明确的 order `precheck / cancel / status / draft` 低风险接口
+- 后续是否能在当前官方只读链路里拿到可复用的未遮罩订单 identifier，补齐 detail / fund / logistics 契约

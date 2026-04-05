@@ -31,9 +31,9 @@
 | `/integrations/alibaba/wika/data/media/list` | `alibaba.icbu.photobank.list` | 图片银行素材列表 / 可观测能力 | 已上线并已线上验证 |
 | `/integrations/alibaba/wika/data/media/groups` | `alibaba.icbu.photobank.group.list` | 图片银行分组可观测能力 | 已上线并已线上验证 |
 | `/integrations/alibaba/wika/data/orders/list` | `alibaba.seller.order.list` | 最小订单列表 | 已上线并已线上验证 |
-| `/integrations/alibaba/wika/data/orders/detail` | `alibaba.seller.order.get` | 最小订单详情 | 已上线并已线上验证 |
-| `/integrations/alibaba/wika/data/orders/fund` | `alibaba.seller.order.fund.get` | 支付 / 到账 / 退款 / 服务费原始数据 | 已上线并已线上验证 |
-| `/integrations/alibaba/wika/data/orders/logistics` | `alibaba.seller.order.logistics.get` | 物流状态 / 发货单原始数据 | 已上线并已线上验证 |
+| `/integrations/alibaba/wika/data/orders/detail` | `alibaba.seller.order.get` | 最小订单详情 | 已上线；阶段 18 已补参数契约对账，当前 public list 返回的遮罩 `trade_id` 不能直接闭合 detail 契约 |
+| `/integrations/alibaba/wika/data/orders/fund` | `alibaba.seller.order.fund.get` | 支付 / 到账 / 退款 / 服务费原始数据 | 已上线；阶段 18 已补参数契约对账，当前 public list 返回的遮罩 `trade_id` 不能直接闭合 fund 契约 |
+| `/integrations/alibaba/wika/data/orders/logistics` | `alibaba.seller.order.logistics.get` | 物流状态 / 发货单原始数据 | 已上线；阶段 18 已补参数契约对账，当前 public list 返回的遮罩 `trade_id` 不能直接闭合 logistics 契约 |
 | `/integrations/alibaba/wika/data/orders/draft-types` | `alibaba.seller.trade.query.drafttype` | 订单起草类型权限探针 | 已上线并已线上验证 |
 
 ## 3. 已上线的派生只读路由
@@ -100,6 +100,7 @@
 23. 经营数据候选接口验证脚本、字段覆盖矩阵和 evidence 已落盘，不等于任务 1 / 2 已打通。
 24. `alibaba.seller.order.list` 已返回真实数据，不等于订单经营汇总已经完整成立。
 25. “订单趋势可由现有交易 API 派生”不等于正式汇总 / 国家结构 / 产品贡献已经稳定可得。
+26. `/orders/detail`、`/orders/fund`、`/orders/logistics` 路由已存在，不等于当前 public list -> detail/fund/logistics 的参数契约已经闭合。
 
 ## 当前一句话结论
 

@@ -1,0 +1,32 @@
+{
+  "signal_type": "partial_derived_signal",
+  "derived_from": "alibaba.seller.order.list.create_date",
+  "statement": "当前仅证明订单创建量趋势可由现有官方交易 list 接口部分派生，不能扩写成完整订单经营汇总。",
+  "sample_size": 8,
+  "trend": [
+    {
+      "date_label": "2026-03-31",
+      "order_count": 2
+    },
+    {
+      "date_label": "2026-03-29",
+      "order_count": 2
+    },
+    {
+      "date_label": "2026-03-23",
+      "order_count": 1
+    },
+    {
+      "date_label": "2026-03-22",
+      "order_count": 1
+    },
+    {
+      "date_label": "2026-03-19",
+      "order_count": 1
+    },
+    {
+      "date_label": "2026-03-18",
+      "order_count": 1
+    }
+  ]
+}
