@@ -1,0 +1,616 @@
+{
+  "api_name": "alibaba.seller.order.list",
+  "doc_status": "DOC_FOUND",
+  "final_category": "REAL_DATA_RETURNED",
+  "best_attempt": {
+    "attempt_name": "fallback_minimal_windowless",
+    "classification": "REAL_DATA_RETURNED",
+    "http_status": 200,
+    "request_params": {
+      "param_trade_ecology_order_list_query": {
+        "role": "seller",
+        "start_page": 0,
+        "page_size": 10
+      }
+    },
+    "root_key": "alibaba_seller_order_list_response",
+    "payload_keys": [
+      "_trace_id_",
+      "create_date",
+      "format_date",
+      "modify_date",
+      "order_list",
+      "request_id",
+      "result",
+      "success"
+    ],
+    "extracted": {
+      "total_count": 120,
+      "returned_item_count": 10,
+      "items": [
+        {
+          "trade_id": "21***54",
+          "create_date": {
+            "timestamp": 1775004580000,
+            "format_date": "Mar. 31, 2026, 17:49:40 PDT."
+          },
+          "modify_date": {
+            "timestamp": 1775004787000,
+            "format_date": "Mar. 31, 2026, 17:53:07 PDT."
+          },
+          "trade_status": null
+        },
+        {
+          "trade_id": "29***76",
+          "create_date": {
+            "timestamp": 1775004052000,
+            "format_date": "Mar. 31, 2026, 17:40:52 PDT."
+          },
+          "modify_date": {
+            "timestamp": 1775030525000,
+            "format_date": "Apr. 1, 2026, 01:02:05 PDT."
+          },
+          "trade_status": null
+        },
+        {
+          "trade_id": "29***56",
+          "create_date": {
+            "timestamp": 1774850246000,
+            "format_date": "Mar. 29, 2026, 22:57:26 PDT."
+          },
+          "modify_date": {
+            "timestamp": 1775009466000,
+            "format_date": "Mar. 31, 2026, 19:11:06 PDT."
+          },
+          "trade_status": null
+        },
+        {
+          "trade_id": "29***16",
+          "create_date": {
+            "timestamp": 1774836159000,
+            "format_date": "Mar. 29, 2026, 19:02:39 PDT."
+          },
+          "modify_date": {
+            "timestamp": 1774838053000,
+            "format_date": "Mar. 29, 2026, 19:34:13 PDT."
+          },
+          "trade_status": null
+        },
+        {
+          "trade_id": "21***16",
+          "create_date": {
+            "timestamp": 1774319792000,
+            "format_date": "Mar. 23, 2026, 19:36:32 PDT."
+          },
+          "modify_date": {
+            "timestamp": 1774319832000,
+            "format_date": "Mar. 23, 2026, 19:37:12 PDT."
+          },
+          "trade_status": null
+        },
+        {
+          "trade_id": "29***58",
+          "create_date": {
+            "timestamp": 1774228174000,
+            "format_date": "Mar. 22, 2026, 18:09:34 PDT."
+          },
+          "modify_date": {
+            "timestamp": 1774228807000,
+            "format_date": "Mar. 22, 2026, 18:20:07 PDT."
+          },
+          "trade_status": null
+        },
+        {
+          "trade_id": "25***56",
+          "create_date": {
+            "timestamp": 1773966603000,
+            "format_date": "Mar. 19, 2026, 17:30:03 PDT."
+          },
+          "modify_date": {
+            "timestamp": 1774222486000,
+            "format_date": "Mar. 22, 2026, 16:34:46 PDT."
+          },
+          "trade_status": null
+        },
+        {
+          "trade_id": "29***49",
+          "create_date": {
+            "timestamp": 1773840784000,
+            "format_date": "Mar. 18, 2026, 06:33:04 PDT."
+          },
+          "modify_date": {
+            "timestamp": 1773986290000,
+            "format_date": "Mar. 19, 2026, 22:58:10 PDT."
+          },
+          "trade_status": null
+        }
+      ]
+    },
+    "error_response": null,
+    "response_excerpt": {
+      "root_key": "alibaba_seller_order_list_response",
+      "payload": {
+        "result": {
+          "success": true,
+          "value": {
+            "total_count": 120,
+            "order_list": {
+              "trade_ecology_order": [
+                {
+                  "trade_id": "21***54",
+                  "create_date": {
+                    "timestamp": 1775004580000,
+                    "format_date": "Mar. 31, 2026, 17:49:40 PDT."
+                  },
+                  "modify_date": {
+                    "timestamp": 1775004787000,
+                    "format_date": "Mar. 31, 2026, 17:53:07 PDT."
+                  }
+                },
+                {
+                  "trade_id": "29***76",
+                  "create_date": {
+                    "timestamp": 1775004052000,
+                    "format_date": "Mar. 31, 2026, 17:40:52 PDT."
+                  },
+                  "modify_date": {
+                    "timestamp": 1775030525000,
+                    "format_date": "Apr. 1, 2026, 01:02:05 PDT."
+                  }
+                },
+                {
+                  "trade_id": "29***56",
+                  "create_date": {
+                    "timestamp": 1774850246000,
+                    "format_date": "Mar. 29, 2026, 22:57:26 PDT."
+                  },
+                  "modify_date": {
+                    "timestamp": 1775009466000,
+                    "format_date": "Mar. 31, 2026, 19:11:06 PDT."
+                  }
+                },
+                {
+                  "trade_id": "29***16",
+                  "create_date": {
+                    "timestamp": 1774836159000,
+                    "format_date": "Mar. 29, 2026, 19:02:39 PDT."
+                  },
+                  "modify_date": {
+                    "timestamp": 1774838053000,
+                    "format_date": "Mar. 29, 2026, 19:34:13 PDT."
+                  }
+                },
+                {
+                  "trade_id": "21***16",
+                  "create_date": {
+                    "timestamp": 1774319792000,
+                    "format_date": "Mar. 23, 2026, 19:36:32 PDT."
+                  },
+                  "modify_date": {
+                    "timestamp": 1774319832000,
+                    "format_date": "Mar. 23, 2026, 19:37:12 PDT."
+                  }
+                },
+                {
+                  "trade_id": "29***58",
+                  "create_date": {
+                    "timestamp": 1774228174000,
+                    "format_date": "Mar. 22, 2026, 18:09:34 PDT."
+                  },
+                  "modify_date": {
+                    "timestamp": 1774228807000,
+                    "format_date": "Mar. 22, 2026, 18:20:07 PDT."
+                  }
+                },
+                {
+                  "trade_id": "25***56",
+                  "create_date": {
+                    "timestamp": 1773966603000,
+                    "format_date": "Mar. 19, 2026, 17:30:03 PDT."
+                  },
+                  "modify_date": {
+                    "timestamp": 1774222486000,
+                    "format_date": "Mar. 22, 2026, 16:34:46 PDT."
+                  }
+                },
+                {
+                  "trade_id": "29***49",
+                  "create_date": {
+                    "timestamp": 1773840784000,
+                    "format_date": "Mar. 18, 2026, 06:33:04 PDT."
+                  },
+                  "modify_date": {
+                    "timestamp": 1773986290000,
+                    "format_date": "Mar. 19, 2026, 22:58:10 PDT."
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "request_id": "212c6fc617753776974375374",
+        "_trace_id_": "212cf75117753776974347500e0f29"
+      }
+    }
+  },
+  "attempts": [
+    {
+      "attempt_name": "recent_window",
+      "classification": "PARAMETER_REJECTED",
+      "http_status": 200,
+      "request_params": {
+        "param_trade_ecology_order_list_query": {
+          "role": "seller",
+          "start_page": 0,
+          "page_size": 10,
+          "create_date_start": "20***06",
+          "create_date_end": "20***04"
+        }
+      },
+      "root_key": "alibaba_seller_order_list_response",
+      "payload_keys": [
+        "_trace_id_",
+        "code",
+        "error_response",
+        "msg",
+        "request_id",
+        "type"
+      ],
+      "extracted": null,
+      "error_response": {
+        "type": "ISV",
+        "code": "InvalidParameter",
+        "msg": "The specified parameter “null#create_date_end” is not valid",
+        "request_id": "210829b717753776973884594",
+        "_trace_id_": "212cf75117753776973857496e0f29"
+      },
+      "response_excerpt": {
+        "root_key": "alibaba_seller_order_list_response",
+        "payload": {
+          "error_response": {
+            "type": "ISV",
+            "code": "InvalidParameter",
+            "msg": "The specified parameter “null#create_date_end” is not valid",
+            "request_id": "210829b717753776973884594",
+            "_trace_id_": "212cf75117753776973857496e0f29"
+          }
+        }
+      }
+    },
+    {
+      "attempt_name": "fallback_minimal_windowless",
+      "classification": "REAL_DATA_RETURNED",
+      "http_status": 200,
+      "request_params": {
+        "param_trade_ecology_order_list_query": {
+          "role": "seller",
+          "start_page": 0,
+          "page_size": 10
+        }
+      },
+      "root_key": "alibaba_seller_order_list_response",
+      "payload_keys": [
+        "_trace_id_",
+        "create_date",
+        "format_date",
+        "modify_date",
+        "order_list",
+        "request_id",
+        "result",
+        "success"
+      ],
+      "extracted": {
+        "total_count": 120,
+        "returned_item_count": 10,
+        "items": [
+          {
+            "trade_id": "21***54",
+            "create_date": {
+              "timestamp": 1775004580000,
+              "format_date": "Mar. 31, 2026, 17:49:40 PDT."
+            },
+            "modify_date": {
+              "timestamp": 1775004787000,
+              "format_date": "Mar. 31, 2026, 17:53:07 PDT."
+            },
+            "trade_status": null
+          },
+          {
+            "trade_id": "29***76",
+            "create_date": {
+              "timestamp": 1775004052000,
+              "format_date": "Mar. 31, 2026, 17:40:52 PDT."
+            },
+            "modify_date": {
+              "timestamp": 1775030525000,
+              "format_date": "Apr. 1, 2026, 01:02:05 PDT."
+            },
+            "trade_status": null
+          },
+          {
+            "trade_id": "29***56",
+            "create_date": {
+              "timestamp": 1774850246000,
+              "format_date": "Mar. 29, 2026, 22:57:26 PDT."
+            },
+            "modify_date": {
+              "timestamp": 1775009466000,
+              "format_date": "Mar. 31, 2026, 19:11:06 PDT."
+            },
+            "trade_status": null
+          },
+          {
+            "trade_id": "29***16",
+            "create_date": {
+              "timestamp": 1774836159000,
+              "format_date": "Mar. 29, 2026, 19:02:39 PDT."
+            },
+            "modify_date": {
+              "timestamp": 1774838053000,
+              "format_date": "Mar. 29, 2026, 19:34:13 PDT."
+            },
+            "trade_status": null
+          },
+          {
+            "trade_id": "21***16",
+            "create_date": {
+              "timestamp": 1774319792000,
+              "format_date": "Mar. 23, 2026, 19:36:32 PDT."
+            },
+            "modify_date": {
+              "timestamp": 1774319832000,
+              "format_date": "Mar. 23, 2026, 19:37:12 PDT."
+            },
+            "trade_status": null
+          },
+          {
+            "trade_id": "29***58",
+            "create_date": {
+              "timestamp": 1774228174000,
+              "format_date": "Mar. 22, 2026, 18:09:34 PDT."
+            },
+            "modify_date": {
+              "timestamp": 1774228807000,
+              "format_date": "Mar. 22, 2026, 18:20:07 PDT."
+            },
+            "trade_status": null
+          },
+          {
+            "trade_id": "25***56",
+            "create_date": {
+              "timestamp": 1773966603000,
+              "format_date": "Mar. 19, 2026, 17:30:03 PDT."
+            },
+            "modify_date": {
+              "timestamp": 1774222486000,
+              "format_date": "Mar. 22, 2026, 16:34:46 PDT."
+            },
+            "trade_status": null
+          },
+          {
+            "trade_id": "29***49",
+            "create_date": {
+              "timestamp": 1773840784000,
+              "format_date": "Mar. 18, 2026, 06:33:04 PDT."
+            },
+            "modify_date": {
+              "timestamp": 1773986290000,
+              "format_date": "Mar. 19, 2026, 22:58:10 PDT."
+            },
+            "trade_status": null
+          }
+        ]
+      },
+      "error_response": null,
+      "response_excerpt": {
+        "root_key": "alibaba_seller_order_list_response",
+        "payload": {
+          "result": {
+            "success": true,
+            "value": {
+              "total_count": 120,
+              "order_list": {
+                "trade_ecology_order": [
+                  {
+                    "trade_id": "21***54",
+                    "create_date": {
+                      "timestamp": 1775004580000,
+                      "format_date": "Mar. 31, 2026, 17:49:40 PDT."
+                    },
+                    "modify_date": {
+                      "timestamp": 1775004787000,
+                      "format_date": "Mar. 31, 2026, 17:53:07 PDT."
+                    }
+                  },
+                  {
+                    "trade_id": "29***76",
+                    "create_date": {
+                      "timestamp": 1775004052000,
+                      "format_date": "Mar. 31, 2026, 17:40:52 PDT."
+                    },
+                    "modify_date": {
+                      "timestamp": 1775030525000,
+                      "format_date": "Apr. 1, 2026, 01:02:05 PDT."
+                    }
+                  },
+                  {
+                    "trade_id": "29***56",
+                    "create_date": {
+                      "timestamp": 1774850246000,
+                      "format_date": "Mar. 29, 2026, 22:57:26 PDT."
+                    },
+                    "modify_date": {
+                      "timestamp": 1775009466000,
+                      "format_date": "Mar. 31, 2026, 19:11:06 PDT."
+                    }
+                  },
+                  {
+                    "trade_id": "29***16",
+                    "create_date": {
+                      "timestamp": 1774836159000,
+                      "format_date": "Mar. 29, 2026, 19:02:39 PDT."
+                    },
+                    "modify_date": {
+                      "timestamp": 1774838053000,
+                      "format_date": "Mar. 29, 2026, 19:34:13 PDT."
+                    }
+                  },
+                  {
+                    "trade_id": "21***16",
+                    "create_date": {
+                      "timestamp": 1774319792000,
+                      "format_date": "Mar. 23, 2026, 19:36:32 PDT."
+                    },
+                    "modify_date": {
+                      "timestamp": 1774319832000,
+                      "format_date": "Mar. 23, 2026, 19:37:12 PDT."
+                    }
+                  },
+                  {
+                    "trade_id": "29***58",
+                    "create_date": {
+                      "timestamp": 1774228174000,
+                      "format_date": "Mar. 22, 2026, 18:09:34 PDT."
+                    },
+                    "modify_date": {
+                      "timestamp": 1774228807000,
+                      "format_date": "Mar. 22, 2026, 18:20:07 PDT."
+                    }
+                  },
+                  {
+                    "trade_id": "25***56",
+                    "create_date": {
+                      "timestamp": 1773966603000,
+                      "format_date": "Mar. 19, 2026, 17:30:03 PDT."
+                    },
+                    "modify_date": {
+                      "timestamp": 1774222486000,
+                      "format_date": "Mar. 22, 2026, 16:34:46 PDT."
+                    }
+                  },
+                  {
+                    "trade_id": "29***49",
+                    "create_date": {
+                      "timestamp": 1773840784000,
+                      "format_date": "Mar. 18, 2026, 06:33:04 PDT."
+                    },
+                    "modify_date": {
+                      "timestamp": 1773986290000,
+                      "format_date": "Mar. 19, 2026, 22:58:10 PDT."
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "request_id": "212c6fc617753776974375374",
+          "_trace_id_": "212cf75117753776974347500e0f29"
+        }
+      }
+    }
+  ],
+  "real_extracted": [
+    {
+      "total_count": 120,
+      "returned_item_count": 10,
+      "items": [
+        {
+          "trade_id": "21***54",
+          "create_date": {
+            "timestamp": 1775004580000,
+            "format_date": "Mar. 31, 2026, 17:49:40 PDT."
+          },
+          "modify_date": {
+            "timestamp": 1775004787000,
+            "format_date": "Mar. 31, 2026, 17:53:07 PDT."
+          },
+          "trade_status": null
+        },
+        {
+          "trade_id": "29***76",
+          "create_date": {
+            "timestamp": 1775004052000,
+            "format_date": "Mar. 31, 2026, 17:40:52 PDT."
+          },
+          "modify_date": {
+            "timestamp": 1775030525000,
+            "format_date": "Apr. 1, 2026, 01:02:05 PDT."
+          },
+          "trade_status": null
+        },
+        {
+          "trade_id": "29***56",
+          "create_date": {
+            "timestamp": 1774850246000,
+            "format_date": "Mar. 29, 2026, 22:57:26 PDT."
+          },
+          "modify_date": {
+            "timestamp": 1775009466000,
+            "format_date": "Mar. 31, 2026, 19:11:06 PDT."
+          },
+          "trade_status": null
+        },
+        {
+          "trade_id": "29***16",
+          "create_date": {
+            "timestamp": 1774836159000,
+            "format_date": "Mar. 29, 2026, 19:02:39 PDT."
+          },
+          "modify_date": {
+            "timestamp": 1774838053000,
+            "format_date": "Mar. 29, 2026, 19:34:13 PDT."
+          },
+          "trade_status": null
+        },
+        {
+          "trade_id": "21***16",
+          "create_date": {
+            "timestamp": 1774319792000,
+            "format_date": "Mar. 23, 2026, 19:36:32 PDT."
+          },
+          "modify_date": {
+            "timestamp": 1774319832000,
+            "format_date": "Mar. 23, 2026, 19:37:12 PDT."
+          },
+          "trade_status": null
+        },
+        {
+          "trade_id": "29***58",
+          "create_date": {
+            "timestamp": 1774228174000,
+            "format_date": "Mar. 22, 2026, 18:09:34 PDT."
+          },
+          "modify_date": {
+            "timestamp": 1774228807000,
+            "format_date": "Mar. 22, 2026, 18:20:07 PDT."
+          },
+          "trade_status": null
+        },
+        {
+          "trade_id": "25***56",
+          "create_date": {
+            "timestamp": 1773966603000,
+            "format_date": "Mar. 19, 2026, 17:30:03 PDT."
+          },
+          "modify_date": {
+            "timestamp": 1774222486000,
+            "format_date": "Mar. 22, 2026, 16:34:46 PDT."
+          },
+          "trade_status": null
+        },
+        {
+          "trade_id": "29***49",
+          "create_date": {
+            "timestamp": 1773840784000,
+            "format_date": "Mar. 18, 2026, 06:33:04 PDT."
+          },
+          "modify_date": {
+            "timestamp": 1773986290000,
+            "format_date": "Mar. 19, 2026, 22:58:10 PDT."
+          },
+          "trade_status": null
+        }
+      ]
+    }
+  ]
+}

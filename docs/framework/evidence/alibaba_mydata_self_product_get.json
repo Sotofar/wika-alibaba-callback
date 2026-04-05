@@ -1,0 +1,164 @@
+{
+  "api_name": "alibaba.mydata.self.product.get",
+  "doc_status": "DOC_FOUND",
+  "final_category": "AUTH_BLOCKED",
+  "best_attempt": {
+    "attempt_name": "day",
+    "classification": "AUTH_BLOCKED",
+    "http_status": 200,
+    "request_params": {
+      "statistics_type": "day",
+      "stat_date": "20***04",
+      "product_ids": "16***98"
+    },
+    "root_key": "alibaba_mydata_self_product_get_response",
+    "payload_keys": [
+      "_trace_id_",
+      "code",
+      "error_response",
+      "msg",
+      "request_id",
+      "type"
+    ],
+    "extracted": null,
+    "error_response": {
+      "type": "ISV",
+      "code": "InsufficientPermission",
+      "msg": "App does not have permission to access this api",
+      "request_id": "0b51f69917753776972045335",
+      "_trace_id_": "212cf75117753776972017489e0f29"
+    },
+    "response_excerpt": {
+      "root_key": "alibaba_mydata_self_product_get_response",
+      "payload": {
+        "error_response": {
+          "type": "ISV",
+          "code": "InsufficientPermission",
+          "msg": "App does not have permission to access this api",
+          "request_id": "0b51f69917753776972045335",
+          "_trace_id_": "212cf75117753776972017489e0f29"
+        }
+      }
+    }
+  },
+  "attempts": [
+    {
+      "attempt_name": "day",
+      "classification": "AUTH_BLOCKED",
+      "http_status": 200,
+      "request_params": {
+        "statistics_type": "day",
+        "stat_date": "20***04",
+        "product_ids": "16***98"
+      },
+      "root_key": "alibaba_mydata_self_product_get_response",
+      "payload_keys": [
+        "_trace_id_",
+        "code",
+        "error_response",
+        "msg",
+        "request_id",
+        "type"
+      ],
+      "extracted": null,
+      "error_response": {
+        "type": "ISV",
+        "code": "InsufficientPermission",
+        "msg": "App does not have permission to access this api",
+        "request_id": "0b51f69917753776972045335",
+        "_trace_id_": "212cf75117753776972017489e0f29"
+      },
+      "response_excerpt": {
+        "root_key": "alibaba_mydata_self_product_get_response",
+        "payload": {
+          "error_response": {
+            "type": "ISV",
+            "code": "InsufficientPermission",
+            "msg": "App does not have permission to access this api",
+            "request_id": "0b51f69917753776972045335",
+            "_trace_id_": "212cf75117753776972017489e0f29"
+          }
+        }
+      }
+    },
+    {
+      "attempt_name": "week",
+      "classification": "AUTH_BLOCKED",
+      "http_status": 200,
+      "request_params": {
+        "statistics_type": "week",
+        "stat_date": "20***04",
+        "product_ids": "16***98"
+      },
+      "root_key": "alibaba_mydata_self_product_get_response",
+      "payload_keys": [
+        "_trace_id_",
+        "code",
+        "error_response",
+        "msg",
+        "request_id",
+        "type"
+      ],
+      "extracted": null,
+      "error_response": {
+        "type": "ISV",
+        "code": "InsufficientPermission",
+        "msg": "App does not have permission to access this api",
+        "request_id": "0b51f6a417753776972877808",
+        "_trace_id_": "212cf75117753776972857491e0f29"
+      },
+      "response_excerpt": {
+        "root_key": "alibaba_mydata_self_product_get_response",
+        "payload": {
+          "error_response": {
+            "type": "ISV",
+            "code": "InsufficientPermission",
+            "msg": "App does not have permission to access this api",
+            "request_id": "0b51f6a417753776972877808",
+            "_trace_id_": "212cf75117753776972857491e0f29"
+          }
+        }
+      }
+    },
+    {
+      "attempt_name": "month",
+      "classification": "AUTH_BLOCKED",
+      "http_status": 200,
+      "request_params": {
+        "statistics_type": "month",
+        "stat_date": "20***04",
+        "product_ids": "16***98"
+      },
+      "root_key": "alibaba_mydata_self_product_get_response",
+      "payload_keys": [
+        "_trace_id_",
+        "code",
+        "error_response",
+        "msg",
+        "request_id",
+        "type"
+      ],
+      "extracted": null,
+      "error_response": {
+        "type": "ISV",
+        "code": "InsufficientPermission",
+        "msg": "App does not have permission to access this api",
+        "request_id": "212c8daf17753776973323358",
+        "_trace_id_": "212cf75117753776973297493e0f29"
+      },
+      "response_excerpt": {
+        "root_key": "alibaba_mydata_self_product_get_response",
+        "payload": {
+          "error_response": {
+            "type": "ISV",
+            "code": "InsufficientPermission",
+            "msg": "App does not have permission to access this api",
+            "request_id": "212c8daf17753776973323358",
+            "_trace_id_": "212cf75117753776973297493e0f29"
+          }
+        }
+      }
+    }
+  ],
+  "real_extracted": []
+}

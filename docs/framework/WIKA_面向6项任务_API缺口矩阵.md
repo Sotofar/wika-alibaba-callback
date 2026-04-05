@@ -32,9 +32,9 @@
 | 订单资金数据 | 1 | 已上线正式原始路由 | `/integrations/alibaba/wika/data/orders/fund` | 否 |
 | 订单物流数据 | 1 | 已上线正式原始路由 | `/integrations/alibaba/wika/data/orders/logistics` | 否 |
 | 订单起草类型权限 | 1 | 已上线正式原始路由；真实返回 `types=["TA"]` | `/integrations/alibaba/wika/data/orders/draft-types` | 否 |
-| 店铺经营指标（UV/PV/曝光/点击/回复率） | 4 | 当前 production 实测统一 `InsufficientPermission` | `alibaba.mydata.overview.indicator.basic.get` | 否 |
-| 店铺概览日期/行业维度 | 4 | 当前 production 实测统一 `InsufficientPermission` | `overview.date.get` / `overview.industry.get` | 否 |
-| 产品表现原始数据（曝光/点击/访客/关键词） | 4 | 当前 production 实测统一 `InsufficientPermission` | `alibaba.mydata.self.product.get` / `self.product.date.get` | 否 |
+| 店铺经营指标（UV/PV/曝光/点击/回复率） | 4 | 阶段 17 在 production 闭环下再次实测，`overview.indicator.basic.get` 仍统一返回 `InsufficientPermission` | `alibaba.mydata.overview.indicator.basic.get` | 否 |
+| 店铺概览日期/行业维度 | 4 | 阶段 17 在 production 闭环下再次实测，`overview.date.get` / `overview.industry.get` 仍统一返回 `InsufficientPermission` | `overview.date.get` / `overview.industry.get` | 否 |
+| 产品表现原始数据（曝光/点击/访客/关键词） | 4 | 阶段 17 在 production 闭环下再次实测，`self.product.get` / `self.product.date.get` 仍统一返回 `InsufficientPermission` | `alibaba.mydata.self.product.get` / `self.product.date.get` | 否 |
 | 最小经营诊断层原始聚合 | 1 | 已上线正式诊断路由；严格基于现有真实产品/订单读侧 | `/integrations/alibaba/wika/reports/operations/minimal-diagnostic` | 否 |
 
 ## B. 运营诊断
@@ -42,13 +42,13 @@
 | 能力项 | 当前状态 | 当前依据 | 对应入口 | 是否已形成任务闭环能力 |
 | --- | --- | --- | --- | --- |
 | 产品结构诊断底座 | 1 | 已形成最小经营诊断层中的产品诊断部分 | `products/list + detail + groups + score` | 否 |
-| 订单经营观察底座 | 1 | 已形成最小经营诊断层中的订单执行诊断部分 | `orders/list + detail + fund + logistics` | 否 |
+| 订单经营观察底座 | 1 | 已形成最小经营诊断层中的订单执行诊断部分；阶段 17 进一步证明 `order.list` 可真实返回、趋势可部分派生 | `orders/list + detail + fund + logistics` | 否 |
 | 最小经营诊断报告 | 1 | 已上线正式诊断路由；输出 available_signals / findings / recommendations / blockers | `/integrations/alibaba/wika/reports/operations/minimal-diagnostic` | 否 |
 | 产品子诊断报告 | 1 | 已上线正式诊断路由；严格基于 products 真实读侧字段形成更细诊断 | `/integrations/alibaba/wika/reports/products/minimal-diagnostic` | 否 |
 | 订单子诊断报告 | 1 | 已上线正式诊断路由；严格基于 orders 真实读侧字段形成更细诊断 | `/integrations/alibaba/wika/reports/orders/minimal-diagnostic` | 否 |
-| 店铺曝光 / 点击 / CTR / 趋势 | 4 | 数据管家权限阻塞 | `alibaba.mydata.overview.indicator.basic.get` | 否 |
-| 产品曝光 / 点击 / CTR / 趋势 | 4 | 数据管家权限阻塞 | `alibaba.mydata.self.product.get` | 否 |
-| 来源结构 / 国家结构 / 热门关键词 | 4 | 数据管家权限阻塞 | `alibaba.mydata.*` | 否 |
+| 店铺曝光 / 点击 / CTR / 趋势 | 4 | 阶段 17 production 复核仍为权限阻塞 | `alibaba.mydata.overview.indicator.basic.get` | 否 |
+| 产品曝光 / 点击 / CTR / 趋势 | 4 | 阶段 17 production 复核仍为权限阻塞 | `alibaba.mydata.self.product.get` | 否 |
+| 来源结构 / 国家结构 / 热门关键词 | 4 | 阶段 17 production 复核仍缺公开可读字段；当前未见公开 source / country 覆盖 | `alibaba.mydata.*` | 否 |
 
 ## C. 产品上新与详情编写
 
@@ -112,9 +112,11 @@
 ## 当前收口结论
 
 1. 当前最稳的已上线能力，集中在产品主数据、产品结构、订单原始数据、类目/属性/schema 读取，以及最小经营诊断和 products/orders 子诊断。
-2. mydata / overview / self.product 这条经营指标路线当前统一停在“权限/能力阻塞”，不再作为当前主线循环。
-3. 写侧方向已经推进到 schema-aware 草稿准备层，并新增了 media 可观测与 draft 可区分证据；但 photobank.upload 与 product.add.draft 的低风险边界都还未被证明。
-4. 当前已经形成“外部回复草稿 + 外部订单草稿”这一层可直接使用的中间层，并且已经补齐模板化输入、workflow profile、blocker taxonomy、handoff checklist 和人工接手字段；但它们都不等于平台内回复或平台内创单。
-5. 当前最缺的仍然是：经营指标入口、最小经营聚合、询盘/消息读侧、可真正读出的 customers 数据、平台内安全写入边界，以及通知闭环的真实 provider 配置与真实外发送达证据。
-
-6. 本轮没有做任何新的 Alibaba API 验证；本轮增强的是任务 4/5 的“质量评估与回归闸门层”，当前边界依旧只是外部草稿工作流层。
+2. `mydata / overview / self.product` 这条经营指标路线在阶段 17 的 production 只读验证里再次统一停在 `AUTH_BLOCKED`，不再作为当前主线循环。
+3. 订单级经营汇总当前只证明到“可由现有官方交易读侧部分派生”：
+   - `趋势` 可由 `order.list.create_date` 派生
+   - `正式汇总 / 国家结构 / 产品贡献` 当前未证明成立
+4. 写侧方向已经推进到 schema-aware 草稿准备层，并新增了 media 可观测与 draft 可区分证据；但 `photobank.upload` 与 `product.add.draft` 的低风险边界都还未被证明。
+5. 当前已经形成“外部回复草稿 + 外部订单草稿”这一层可直接使用的中间层，并且已经补齐模板化输入、workflow profile、blocker taxonomy、handoff checklist 和人工接手字段；但它们都不等于平台内回复或平台内创单。
+6. 当前最缺的仍然是：经营指标入口、最小经营聚合、询盘/消息读侧、可真正读出的 customers 数据、平台内安全写入边界，以及通知闭环的真实 provider 配置与真实外发送达证据。
+7. 本轮没有做任何新的 Alibaba API 验证；本轮增强的是任务 4/5 的“质量评估与回归闸门层”，当前边界依旧只是外部草稿工作流层。

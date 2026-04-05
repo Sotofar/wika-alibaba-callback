@@ -65,6 +65,7 @@
 | 外部订单草稿 helper | 已实现可复用 | 可输出买家、产品、价格、交期、物流、付款等结构化草稿，但不等于平台订单已创建 |
 | 外部回复草稿 helper | 已实现可复用 | 可输出 reply subject/opening/body/closing、workflow_profile、template_version、price blocker、lead time blocker、follow-up questions、mockup requirement pack、handoff checklist 和 escalation recommendation，但不等于平台内已回复 |
 | 外部草稿工作流模板 | 已实现可复用 | 已沉淀回复输入模板、订单输入模板、blocker taxonomy 和人工补单模板，适合直接进入人工接手流程 |
+| 经营数据候选验证脚本与证据包 | 已沉淀可复用 | 已有 `scripts/validate-wika-metrics-candidates.js`、字段覆盖矩阵、脱敏 evidence，可直接复用于后续只读候选验证；但它们只是验证资产，不是已打通能力 |
 | 人工补单模板 | 已实现可复用 | 已把 hard_blockers / soft_blockers / assumptions / handoff_fields / required_manual_fields 的人工补齐顺序与 section 映射固定下来，适合接手回复草稿和订单草稿 |
 | 订单入口候选清单 | 已落盘可复用 | 已明确 `order.create` 与 `drafttype` 的边界、参数层级与收口方式 |
 | media 管理侧证据 | 已沉淀可复用 | `photobank.group.operate` 已在 production 闭环下过授权层，但当前仍不能证明低风险管理/清理边界 |
@@ -96,7 +97,10 @@
 20. `/tools/order-draft` 已上线，不等于平台内订单已创建。
 21. 模板、workflow profile、handoff checklist 与 blocker taxonomy 已补齐，不等于平台内能力已打通。
 22. 质量评估层、回归闸门、交接包导出已成立，不等于平台内已回复 / 已创单 / 已通知送达。
+23. 经营数据候选接口验证脚本、字段覆盖矩阵和 evidence 已落盘，不等于任务 1 / 2 已打通。
+24. `alibaba.seller.order.list` 已返回真实数据，不等于订单经营汇总已经完整成立。
+25. “订单趋势可由现有交易 API 派生”不等于正式汇总 / 国家结构 / 产品贡献已经稳定可得。
 
 ## 当前一句话结论
 
-WIKA 当前已经有一套稳定可复用的读侧原始路由底座，以及更扎实的 schema-aware 产品草稿、外部回复草稿、外部订单草稿、blocker taxonomy 与人工补单模板工作流；但写侧仍停留在“草稿准备 + 风险边界判断”，还没有进入真实平台写入闭环。
+WIKA 当前已经有一套稳定可复用的读侧原始路由底座，以及更扎实的 schema-aware 产品草稿、外部回复草稿、外部订单草稿、blocker taxonomy 与人工补单模板工作流；阶段 17 也补齐了经营数据候选验证证据包。但写侧仍停留在“草稿准备 + 风险边界判断”，经营指标主线也仍未打通。

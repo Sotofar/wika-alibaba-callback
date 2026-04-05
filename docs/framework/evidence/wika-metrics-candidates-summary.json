@@ -1,0 +1,3640 @@
+{
+  "evaluated_at": "2026-04-05T08:28:20.706Z",
+  "route_line": "Railway production -> /sync + access_token + sha256",
+  "production_samples": {
+    "products_route_summary": {
+      "item_count": 30,
+      "sample_items": [
+        {
+          "group_id": null,
+          "group_name": null,
+          "id": 1601700588198,
+          "keywords": [],
+          "main_image_urls": [],
+          "status": "approved",
+          "subject": "Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case",
+          "product_type": "sourcing",
+          "language": "ENGLISH",
+          "display": "Y",
+          "owner_member_display_name": "Judy Liu",
+          "category_id": 36127040,
+          "is_specific": true,
+          "is_rts": false,
+          "pc_detail_url": "https://www.alibaba.com/product-detail/Customizable-PU-Leather-Portable-Sunglasses-Case_1601700588198.html",
+          "smart_edit": true,
+          "gmt_create": "2026-02-09 15:34:07",
+          "gmt_modified": "2026-03-26 15:51:53",
+          "red_model": "S023",
+          "product_id": "AAHoxslEAOVqtWWP0tWs39sc"
+        },
+        {
+          "group_id": 956962041,
+          "group_name": "Pouch",
+          "id": 1601592243227,
+          "keywords": [],
+          "main_image_urls": [],
+          "status": "approved",
+          "subject": "Colorful Glasses Packaging Bags 18*9cm Soft Sunglasses case Microfiber Pouch Eyeglass Bag with logo Custom",
+          "product_type": "sourcing",
+          "language": "ENGLISH",
+          "display": "Y",
+          "owner_member_display_name": "Judy Liu",
+          "category_id": 36127040,
+          "is_specific": true,
+          "is_rts": false,
+          "pc_detail_url": "https://www.alibaba.com/product-detail/Colorful-Glasses-Packaging-Bags-18-9cm_1601592243227.html",
+          "smart_edit": true,
+          "gmt_create": "2025-09-24 14:29:31",
+          "gmt_modified": "2026-03-26 15:45:17",
+          "red_model": "P001",
+          "product_id": "AAH0xslEAOVqtWWP0tWmQoWh"
+        },
+        {
+          "group_id": 956971621,
+          "group_name": "Packaging Set",
+          "id": 1601700527245,
+          "keywords": [],
+          "main_image_urls": [],
+          "status": "approved",
+          "subject": "Hot Selling Luxury Special Custom Logo Printed Black Cardboard Eyewear Drawer Packaging Box",
+          "product_type": "sourcing",
+          "language": "ENGLISH",
+          "display": "Y",
+          "owner_member_display_name": "Judy Liu",
+          "category_id": 36127040,
+          "is_specific": true,
+          "is_rts": false,
+          "pc_detail_url": "https://www.alibaba.com/product-detail/Hot-Selling-Luxury-Special-Custom-Logo_1601700527245.html",
+          "smart_edit": false,
+          "gmt_create": "2026-02-09 14:47:56",
+          "gmt_modified": "2026-03-09 17:43:24",
+          "red_model": "WK-H005S",
+          "product_id": "AAH0xslEAOVqtWWP0tWs3s03"
+        },
+        {
+          "group_id": 957687016,
+          "group_name": "Folding Case",
+          "id": 1601635441014,
+          "keywords": [],
+          "main_image_urls": [],
+          "status": "approved",
+          "subject": "Folding Square Box Custom Logo Fashionable Hard PU Leather Sunglasses Cases for Men Women",
+          "product_type": "sourcing",
+          "language": "ENGLISH",
+          "display": "Y",
+          "owner_member_display_name": "Judy Liu",
+          "category_id": 36127040,
+          "is_specific": true,
+          "is_rts": false,
+          "pc_detail_url": "https://www.alibaba.com/product-detail/Folding-Square-Box-Custom-Logo-Fashionable_1601635441014.html",
+          "smart_edit": false,
+          "gmt_create": "2025-11-26 16:03:07",
+          "gmt_modified": "2026-03-26 15:03:59",
+          "red_model": "Wk-H005",
+          "product_id": "AAG_xslEAOVqtWWP0tWo_ejM"
+        },
+        {
+          "group_id": 956971621,
+          "group_name": "Packaging Set",
+          "id": 1601710115214,
+          "keywords": [],
+          "main_image_urls": [],
+          "status": "approved",
+          "subject": "Premium Spectacle Leather Case Set: Eyeglass Pouch + Sunglasses Box + Cleaning Cloths with UV Printing logo",
+          "product_type": "sourcing",
+          "language": "ENGLISH",
+          "display": "Y",
+          "owner_member_display_name": "Ella Ma",
+          "category_id": 36127040,
+          "is_specific": true,
+          "is_rts": false,
+          "pc_detail_url": "https://www.alibaba.com/product-detail/Premium-Spectacle-Leather-Case-Set-Eyeglass_1601710115214.html",
+          "smart_edit": false,
+          "gmt_create": "2026-03-05 17:15:10",
+          "gmt_modified": "2026-03-05 17:15:10",
+          "red_model": "WIKA-brown set",
+          "product_id": "AAEHxslEAOVqtWWP0tWtSHg0"
+        }
+      ]
+    },
+    "orders_route_summary": {
+      "item_count": 10,
+      "sample_items": [
+        {
+          "trade_id": "21***54",
+          "create_date": {
+            "timestamp": 1775004580000,
+            "format_date": "Mar. 31, 2026, 17:49:40 PDT."
+          },
+          "modify_date": {
+            "timestamp": 1775004787000,
+            "format_date": "Mar. 31, 2026, 17:53:07 PDT."
+          }
+        },
+        {
+          "trade_id": "29***76",
+          "create_date": {
+            "timestamp": 1775004052000,
+            "format_date": "Mar. 31, 2026, 17:40:52 PDT."
+          },
+          "modify_date": {
+            "timestamp": 1775030525000,
+            "format_date": "Apr. 1, 2026, 01:02:05 PDT."
+          }
+        },
+        {
+          "trade_id": "29***56",
+          "create_date": {
+            "timestamp": 1774850246000,
+            "format_date": "Mar. 29, 2026, 22:57:26 PDT."
+          },
+          "modify_date": {
+            "timestamp": 1775009466000,
+            "format_date": "Mar. 31, 2026, 19:11:06 PDT."
+          }
+        },
+        {
+          "trade_id": "29***16",
+          "create_date": {
+            "timestamp": 1774836159000,
+            "format_date": "Mar. 29, 2026, 19:02:39 PDT."
+          },
+          "modify_date": {
+            "timestamp": 1774838053000,
+            "format_date": "Mar. 29, 2026, 19:34:13 PDT."
+          }
+        },
+        {
+          "trade_id": "21***16",
+          "create_date": {
+            "timestamp": 1774319792000,
+            "format_date": "Mar. 23, 2026, 19:36:32 PDT."
+          },
+          "modify_date": {
+            "timestamp": 1774319832000,
+            "format_date": "Mar. 23, 2026, 19:37:12 PDT."
+          }
+        }
+      ]
+    },
+    "numeric_product_ids": [
+      "16***98",
+      "16***27",
+      "16***45",
+      "16***14",
+      "16***14",
+      "16***41",
+      "16***33",
+      "16***69"
+    ],
+    "trade_ids": [
+      "21***54",
+      "29***76",
+      "29***56",
+      "29***16",
+      "21***16",
+      "29***58",
+      "25***56",
+      "29***49"
+    ]
+  },
+  "store_level": {
+    "selected_date_range": {
+      "start_date": "20***29",
+      "end_date": "20***04",
+      "source": "fallback_recent_window"
+    },
+    "selected_industry": {
+      "industry_id": 111,
+      "industry_desc": "All",
+      "main_category": true,
+      "source": "fallback_all_industry"
+    },
+    "methods": {
+      "alibaba.mydata.overview.date.get": {
+        "api_name": "alibaba.mydata.overview.date.get",
+        "doc_status": "DOC_FOUND",
+        "final_category": "AUTH_BLOCKED",
+        "best_attempt": {
+          "attempt_name": "empty_params",
+          "classification": "AUTH_BLOCKED",
+          "http_status": 200,
+          "request_params": {},
+          "root_key": "alibaba_mydata_overview_date_get_response",
+          "payload_keys": [
+            "_trace_id_",
+            "code",
+            "error_response",
+            "msg",
+            "request_id",
+            "type"
+          ],
+          "extracted": null,
+          "error_response": {
+            "type": "ISV",
+            "code": "InsufficientPermission",
+            "msg": "App does not have permission to access this api",
+            "request_id": "0b51f6a417753776968087800",
+            "_trace_id_": "212cf75117753776968057472e0f29"
+          },
+          "response_excerpt": {
+            "root_key": "alibaba_mydata_overview_date_get_response",
+            "payload": {
+              "error_response": {
+                "type": "ISV",
+                "code": "InsufficientPermission",
+                "msg": "App does not have permission to access this api",
+                "request_id": "0b51f6a417753776968087800",
+                "_trace_id_": "212cf75117753776968057472e0f29"
+              }
+            }
+          }
+        },
+        "attempts": [
+          {
+            "attempt_name": "empty_params",
+            "classification": "AUTH_BLOCKED",
+            "http_status": 200,
+            "request_params": {},
+            "root_key": "alibaba_mydata_overview_date_get_response",
+            "payload_keys": [
+              "_trace_id_",
+              "code",
+              "error_response",
+              "msg",
+              "request_id",
+              "type"
+            ],
+            "extracted": null,
+            "error_response": {
+              "type": "ISV",
+              "code": "InsufficientPermission",
+              "msg": "App does not have permission to access this api",
+              "request_id": "0b51f6a417753776968087800",
+              "_trace_id_": "212cf75117753776968057472e0f29"
+            },
+            "response_excerpt": {
+              "root_key": "alibaba_mydata_overview_date_get_response",
+              "payload": {
+                "error_response": {
+                  "type": "ISV",
+                  "code": "InsufficientPermission",
+                  "msg": "App does not have permission to access this api",
+                  "request_id": "0b51f6a417753776968087800",
+                  "_trace_id_": "212cf75117753776968057472e0f29"
+                }
+              }
+            }
+          }
+        ],
+        "real_extracted": []
+      },
+      "alibaba.mydata.overview.industry.get": {
+        "api_name": "alibaba.mydata.overview.industry.get",
+        "doc_status": "DOC_FOUND",
+        "final_category": "AUTH_BLOCKED",
+        "best_attempt": {
+          "attempt_name": "fallback_recent_window",
+          "classification": "AUTH_BLOCKED",
+          "http_status": 200,
+          "request_params": {
+            "date_range": {
+              "start_date": "20***29",
+              "end_date": "20***04"
+            }
+          },
+          "root_key": "alibaba_mydata_overview_industry_get_response",
+          "payload_keys": [
+            "_trace_id_",
+            "code",
+            "error_response",
+            "msg",
+            "request_id",
+            "type"
+          ],
+          "extracted": null,
+          "error_response": {
+            "type": "ISV",
+            "code": "InsufficientPermission",
+            "msg": "App does not have permission to access this api",
+            "request_id": "212c8daf17753776968913349",
+            "_trace_id_": "212cf75117753776968887474e0f29"
+          },
+          "response_excerpt": {
+            "root_key": "alibaba_mydata_overview_industry_get_response",
+            "payload": {
+              "error_response": {
+                "type": "ISV",
+                "code": "InsufficientPermission",
+                "msg": "App does not have permission to access this api",
+                "request_id": "212c8daf17753776968913349",
+                "_trace_id_": "212cf75117753776968887474e0f29"
+              }
+            }
+          }
+        },
+        "attempts": [
+          {
+            "attempt_name": "fallback_recent_window",
+            "classification": "AUTH_BLOCKED",
+            "http_status": 200,
+            "request_params": {
+              "date_range": {
+                "start_date": "20***29",
+                "end_date": "20***04"
+              }
+            },
+            "root_key": "alibaba_mydata_overview_industry_get_response",
+            "payload_keys": [
+              "_trace_id_",
+              "code",
+              "error_response",
+              "msg",
+              "request_id",
+              "type"
+            ],
+            "extracted": null,
+            "error_response": {
+              "type": "ISV",
+              "code": "InsufficientPermission",
+              "msg": "App does not have permission to access this api",
+              "request_id": "212c8daf17753776968913349",
+              "_trace_id_": "212cf75117753776968887474e0f29"
+            },
+            "response_excerpt": {
+              "root_key": "alibaba_mydata_overview_industry_get_response",
+              "payload": {
+                "error_response": {
+                  "type": "ISV",
+                  "code": "InsufficientPermission",
+                  "msg": "App does not have permission to access this api",
+                  "request_id": "212c8daf17753776968913349",
+                  "_trace_id_": "212cf75117753776968887474e0f29"
+                }
+              }
+            }
+          }
+        ],
+        "real_extracted": []
+      },
+      "alibaba.mydata.overview.indicator.basic.get": {
+        "api_name": "alibaba.mydata.overview.indicator.basic.get",
+        "doc_status": "DOC_FOUND",
+        "final_category": "AUTH_BLOCKED",
+        "best_attempt": {
+          "attempt_name": "fallback_recent_window_fallback_all_industry",
+          "classification": "AUTH_BLOCKED",
+          "http_status": 200,
+          "request_params": {
+            "date_range": {
+              "start_date": "20***29",
+              "end_date": "20***04"
+            },
+            "industry": {
+              "industry_id": 111,
+              "industry_desc": "All",
+              "main_category": true
+            }
+          },
+          "root_key": "alibaba_mydata_overview_indicator_basic_get_response",
+          "payload_keys": [
+            "_trace_id_",
+            "code",
+            "error_response",
+            "msg",
+            "request_id",
+            "type"
+          ],
+          "extracted": null,
+          "error_response": {
+            "type": "ISV",
+            "code": "InsufficientPermission",
+            "msg": "App does not have permission to access this api",
+            "request_id": "210829b717753776969824588",
+            "_trace_id_": "212cf75117753776969797478e0f29"
+          },
+          "response_excerpt": {
+            "root_key": "alibaba_mydata_overview_indicator_basic_get_response",
+            "payload": {
+              "error_response": {
+                "type": "ISV",
+                "code": "InsufficientPermission",
+                "msg": "App does not have permission to access this api",
+                "request_id": "210829b717753776969824588",
+                "_trace_id_": "212cf75117753776969797478e0f29"
+              }
+            }
+          }
+        },
+        "attempts": [
+          {
+            "attempt_name": "fallback_recent_window_fallback_all_industry",
+            "classification": "AUTH_BLOCKED",
+            "http_status": 200,
+            "request_params": {
+              "date_range": {
+                "start_date": "20***29",
+                "end_date": "20***04"
+              },
+              "industry": {
+                "industry_id": 111,
+                "industry_desc": "All",
+                "main_category": true
+              }
+            },
+            "root_key": "alibaba_mydata_overview_indicator_basic_get_response",
+            "payload_keys": [
+              "_trace_id_",
+              "code",
+              "error_response",
+              "msg",
+              "request_id",
+              "type"
+            ],
+            "extracted": null,
+            "error_response": {
+              "type": "ISV",
+              "code": "InsufficientPermission",
+              "msg": "App does not have permission to access this api",
+              "request_id": "210829b717753776969824588",
+              "_trace_id_": "212cf75117753776969797478e0f29"
+            },
+            "response_excerpt": {
+              "root_key": "alibaba_mydata_overview_indicator_basic_get_response",
+              "payload": {
+                "error_response": {
+                  "type": "ISV",
+                  "code": "InsufficientPermission",
+                  "msg": "App does not have permission to access this api",
+                  "request_id": "210829b717753776969824588",
+                  "_trace_id_": "212cf75117753776969797478e0f29"
+                }
+              }
+            }
+          }
+        ],
+        "real_extracted": []
+      }
+    }
+  },
+  "product_level": {
+    "validated_product_ids": [
+      "16***98",
+      "16***27",
+      "16***45",
+      "16***14",
+      "16***14"
+    ],
+    "methods": {
+      "alibaba.mydata.self.product.date.get": {
+        "api_name": "alibaba.mydata.self.product.date.get",
+        "doc_status": "DOC_FOUND",
+        "final_category": "AUTH_BLOCKED",
+        "best_attempt": {
+          "attempt_name": "day",
+          "classification": "AUTH_BLOCKED",
+          "http_status": 200,
+          "request_params": {
+            "statistics_type": "day"
+          },
+          "root_key": "alibaba_mydata_self_product_date_get_response",
+          "payload_keys": [
+            "_trace_id_",
+            "code",
+            "error_response",
+            "msg",
+            "request_id",
+            "type"
+          ],
+          "extracted": null,
+          "error_response": {
+            "type": "ISV",
+            "code": "InsufficientPermission",
+            "msg": "App does not have permission to access this api",
+            "request_id": "212c6fc617753776970605365",
+            "_trace_id_": "212cf75117753776970577482e0f29"
+          },
+          "response_excerpt": {
+            "root_key": "alibaba_mydata_self_product_date_get_response",
+            "payload": {
+              "error_response": {
+                "type": "ISV",
+                "code": "InsufficientPermission",
+                "msg": "App does not have permission to access this api",
+                "request_id": "212c6fc617753776970605365",
+                "_trace_id_": "212cf75117753776970577482e0f29"
+              }
+            }
+          }
+        },
+        "attempts": [
+          {
+            "attempt_name": "day",
+            "classification": "AUTH_BLOCKED",
+            "http_status": 200,
+            "request_params": {
+              "statistics_type": "day"
+            },
+            "root_key": "alibaba_mydata_self_product_date_get_response",
+            "payload_keys": [
+              "_trace_id_",
+              "code",
+              "error_response",
+              "msg",
+              "request_id",
+              "type"
+            ],
+            "extracted": null,
+            "error_response": {
+              "type": "ISV",
+              "code": "InsufficientPermission",
+              "msg": "App does not have permission to access this api",
+              "request_id": "212c6fc617753776970605365",
+              "_trace_id_": "212cf75117753776970577482e0f29"
+            },
+            "response_excerpt": {
+              "root_key": "alibaba_mydata_self_product_date_get_response",
+              "payload": {
+                "error_response": {
+                  "type": "ISV",
+                  "code": "InsufficientPermission",
+                  "msg": "App does not have permission to access this api",
+                  "request_id": "212c6fc617753776970605365",
+                  "_trace_id_": "212cf75117753776970577482e0f29"
+                }
+              }
+            }
+          },
+          {
+            "attempt_name": "week",
+            "classification": "AUTH_BLOCKED",
+            "http_status": 200,
+            "request_params": {
+              "statistics_type": "week"
+            },
+            "root_key": "alibaba_mydata_self_product_date_get_response",
+            "payload_keys": [
+              "_trace_id_",
+              "code",
+              "error_response",
+              "msg",
+              "request_id",
+              "type"
+            ],
+            "extracted": null,
+            "error_response": {
+              "type": "ISV",
+              "code": "InsufficientPermission",
+              "msg": "App does not have permission to access this api",
+              "request_id": "213f5a2117753776971097416",
+              "_trace_id_": "212cf75117753776971067485e0f29"
+            },
+            "response_excerpt": {
+              "root_key": "alibaba_mydata_self_product_date_get_response",
+              "payload": {
+                "error_response": {
+                  "type": "ISV",
+                  "code": "InsufficientPermission",
+                  "msg": "App does not have permission to access this api",
+                  "request_id": "213f5a2117753776971097416",
+                  "_trace_id_": "212cf75117753776971067485e0f29"
+                }
+              }
+            }
+          },
+          {
+            "attempt_name": "month",
+            "classification": "AUTH_BLOCKED",
+            "http_status": 200,
+            "request_params": {
+              "statistics_type": "month"
+            },
+            "root_key": "alibaba_mydata_self_product_date_get_response",
+            "payload_keys": [
+              "_trace_id_",
+              "code",
+              "error_response",
+              "msg",
+              "request_id",
+              "type"
+            ],
+            "extracted": null,
+            "error_response": {
+              "type": "ISV",
+              "code": "InsufficientPermission",
+              "msg": "App does not have permission to access this api",
+              "request_id": "212cbf3217753776971548765",
+              "_trace_id_": "212cf75117753776971527487e0f29"
+            },
+            "response_excerpt": {
+              "root_key": "alibaba_mydata_self_product_date_get_response",
+              "payload": {
+                "error_response": {
+                  "type": "ISV",
+                  "code": "InsufficientPermission",
+                  "msg": "App does not have permission to access this api",
+                  "request_id": "212cbf3217753776971548765",
+                  "_trace_id_": "212cf75117753776971527487e0f29"
+                }
+              }
+            }
+          }
+        ],
+        "real_extracted": []
+      },
+      "alibaba.mydata.self.product.get": {
+        "api_name": "alibaba.mydata.self.product.get",
+        "doc_status": "DOC_FOUND",
+        "final_category": "AUTH_BLOCKED",
+        "best_attempt": {
+          "attempt_name": "day",
+          "classification": "AUTH_BLOCKED",
+          "http_status": 200,
+          "request_params": {
+            "statistics_type": "day",
+            "stat_date": "20***04",
+            "product_ids": "16***98"
+          },
+          "root_key": "alibaba_mydata_self_product_get_response",
+          "payload_keys": [
+            "_trace_id_",
+            "code",
+            "error_response",
+            "msg",
+            "request_id",
+            "type"
+          ],
+          "extracted": null,
+          "error_response": {
+            "type": "ISV",
+            "code": "InsufficientPermission",
+            "msg": "App does not have permission to access this api",
+            "request_id": "0b51f69917753776972045335",
+            "_trace_id_": "212cf75117753776972017489e0f29"
+          },
+          "response_excerpt": {
+            "root_key": "alibaba_mydata_self_product_get_response",
+            "payload": {
+              "error_response": {
+                "type": "ISV",
+                "code": "InsufficientPermission",
+                "msg": "App does not have permission to access this api",
+                "request_id": "0b51f69917753776972045335",
+                "_trace_id_": "212cf75117753776972017489e0f29"
+              }
+            }
+          }
+        },
+        "attempts": [
+          {
+            "attempt_name": "day",
+            "classification": "AUTH_BLOCKED",
+            "http_status": 200,
+            "request_params": {
+              "statistics_type": "day",
+              "stat_date": "20***04",
+              "product_ids": "16***98"
+            },
+            "root_key": "alibaba_mydata_self_product_get_response",
+            "payload_keys": [
+              "_trace_id_",
+              "code",
+              "error_response",
+              "msg",
+              "request_id",
+              "type"
+            ],
+            "extracted": null,
+            "error_response": {
+              "type": "ISV",
+              "code": "InsufficientPermission",
+              "msg": "App does not have permission to access this api",
+              "request_id": "0b51f69917753776972045335",
+              "_trace_id_": "212cf75117753776972017489e0f29"
+            },
+            "response_excerpt": {
+              "root_key": "alibaba_mydata_self_product_get_response",
+              "payload": {
+                "error_response": {
+                  "type": "ISV",
+                  "code": "InsufficientPermission",
+                  "msg": "App does not have permission to access this api",
+                  "request_id": "0b51f69917753776972045335",
+                  "_trace_id_": "212cf75117753776972017489e0f29"
+                }
+              }
+            }
+          },
+          {
+            "attempt_name": "week",
+            "classification": "AUTH_BLOCKED",
+            "http_status": 200,
+            "request_params": {
+              "statistics_type": "week",
+              "stat_date": "20***04",
+              "product_ids": "16***98"
+            },
+            "root_key": "alibaba_mydata_self_product_get_response",
+            "payload_keys": [
+              "_trace_id_",
+              "code",
+              "error_response",
+              "msg",
+              "request_id",
+              "type"
+            ],
+            "extracted": null,
+            "error_response": {
+              "type": "ISV",
+              "code": "InsufficientPermission",
+              "msg": "App does not have permission to access this api",
+              "request_id": "0b51f6a417753776972877808",
+              "_trace_id_": "212cf75117753776972857491e0f29"
+            },
+            "response_excerpt": {
+              "root_key": "alibaba_mydata_self_product_get_response",
+              "payload": {
+                "error_response": {
+                  "type": "ISV",
+                  "code": "InsufficientPermission",
+                  "msg": "App does not have permission to access this api",
+                  "request_id": "0b51f6a417753776972877808",
+                  "_trace_id_": "212cf75117753776972857491e0f29"
+                }
+              }
+            }
+          },
+          {
+            "attempt_name": "month",
+            "classification": "AUTH_BLOCKED",
+            "http_status": 200,
+            "request_params": {
+              "statistics_type": "month",
+              "stat_date": "20***04",
+              "product_ids": "16***98"
+            },
+            "root_key": "alibaba_mydata_self_product_get_response",
+            "payload_keys": [
+              "_trace_id_",
+              "code",
+              "error_response",
+              "msg",
+              "request_id",
+              "type"
+            ],
+            "extracted": null,
+            "error_response": {
+              "type": "ISV",
+              "code": "InsufficientPermission",
+              "msg": "App does not have permission to access this api",
+              "request_id": "212c8daf17753776973323358",
+              "_trace_id_": "212cf75117753776973297493e0f29"
+            },
+            "response_excerpt": {
+              "root_key": "alibaba_mydata_self_product_get_response",
+              "payload": {
+                "error_response": {
+                  "type": "ISV",
+                  "code": "InsufficientPermission",
+                  "msg": "App does not have permission to access this api",
+                  "request_id": "212c8daf17753776973323358",
+                  "_trace_id_": "212cf75117753776973297493e0f29"
+                }
+              }
+            }
+          }
+        ],
+        "real_extracted": []
+      }
+    }
+  },
+  "order_level": {
+    "recent_window": {
+      "start_date": "20***06",
+      "end_date": "20***04"
+    },
+    "selected_trade_ids": [
+      "21***54",
+      "29***76",
+      "29***56"
+    ],
+    "methods": {
+      "alibaba.seller.order.list": {
+        "api_name": "alibaba.seller.order.list",
+        "doc_status": "DOC_FOUND",
+        "final_category": "REAL_DATA_RETURNED",
+        "best_attempt": {
+          "attempt_name": "fallback_minimal_windowless",
+          "classification": "REAL_DATA_RETURNED",
+          "http_status": 200,
+          "request_params": {
+            "param_trade_ecology_order_list_query": {
+              "role": "seller",
+              "start_page": 0,
+              "page_size": 10
+            }
+          },
+          "root_key": "alibaba_seller_order_list_response",
+          "payload_keys": [
+            "_trace_id_",
+            "create_date",
+            "format_date",
+            "modify_date",
+            "order_list",
+            "request_id",
+            "result",
+            "success"
+          ],
+          "extracted": {
+            "total_count": 120,
+            "returned_item_count": 10,
+            "items": [
+              {
+                "trade_id": "21***54",
+                "create_date": {
+                  "timestamp": 1775004580000,
+                  "format_date": "Mar. 31, 2026, 17:49:40 PDT."
+                },
+                "modify_date": {
+                  "timestamp": 1775004787000,
+                  "format_date": "Mar. 31, 2026, 17:53:07 PDT."
+                },
+                "trade_status": null
+              },
+              {
+                "trade_id": "29***76",
+                "create_date": {
+                  "timestamp": 1775004052000,
+                  "format_date": "Mar. 31, 2026, 17:40:52 PDT."
+                },
+                "modify_date": {
+                  "timestamp": 1775030525000,
+                  "format_date": "Apr. 1, 2026, 01:02:05 PDT."
+                },
+                "trade_status": null
+              },
+              {
+                "trade_id": "29***56",
+                "create_date": {
+                  "timestamp": 1774850246000,
+                  "format_date": "Mar. 29, 2026, 22:57:26 PDT."
+                },
+                "modify_date": {
+                  "timestamp": 1775009466000,
+                  "format_date": "Mar. 31, 2026, 19:11:06 PDT."
+                },
+                "trade_status": null
+              },
+              {
+                "trade_id": "29***16",
+                "create_date": {
+                  "timestamp": 1774836159000,
+                  "format_date": "Mar. 29, 2026, 19:02:39 PDT."
+                },
+                "modify_date": {
+                  "timestamp": 1774838053000,
+                  "format_date": "Mar. 29, 2026, 19:34:13 PDT."
+                },
+                "trade_status": null
+              },
+              {
+                "trade_id": "21***16",
+                "create_date": {
+                  "timestamp": 1774319792000,
+                  "format_date": "Mar. 23, 2026, 19:36:32 PDT."
+                },
+                "modify_date": {
+                  "timestamp": 1774319832000,
+                  "format_date": "Mar. 23, 2026, 19:37:12 PDT."
+                },
+                "trade_status": null
+              },
+              {
+                "trade_id": "29***58",
+                "create_date": {
+                  "timestamp": 1774228174000,
+                  "format_date": "Mar. 22, 2026, 18:09:34 PDT."
+                },
+                "modify_date": {
+                  "timestamp": 1774228807000,
+                  "format_date": "Mar. 22, 2026, 18:20:07 PDT."
+                },
+                "trade_status": null
+              },
+              {
+                "trade_id": "25***56",
+                "create_date": {
+                  "timestamp": 1773966603000,
+                  "format_date": "Mar. 19, 2026, 17:30:03 PDT."
+                },
+                "modify_date": {
+                  "timestamp": 1774222486000,
+                  "format_date": "Mar. 22, 2026, 16:34:46 PDT."
+                },
+                "trade_status": null
+              },
+              {
+                "trade_id": "29***49",
+                "create_date": {
+                  "timestamp": 1773840784000,
+                  "format_date": "Mar. 18, 2026, 06:33:04 PDT."
+                },
+                "modify_date": {
+                  "timestamp": 1773986290000,
+                  "format_date": "Mar. 19, 2026, 22:58:10 PDT."
+                },
+                "trade_status": null
+              }
+            ]
+          },
+          "error_response": null,
+          "response_excerpt": {
+            "root_key": "alibaba_seller_order_list_response",
+            "payload": {
+              "result": {
+                "success": true,
+                "value": {
+                  "total_count": 120,
+                  "order_list": {
+                    "trade_ecology_order": [
+                      {
+                        "trade_id": "21***54",
+                        "create_date": {
+                          "timestamp": 1775004580000,
+                          "format_date": "Mar. 31, 2026, 17:49:40 PDT."
+                        },
+                        "modify_date": {
+                          "timestamp": 1775004787000,
+                          "format_date": "Mar. 31, 2026, 17:53:07 PDT."
+                        }
+                      },
+                      {
+                        "trade_id": "29***76",
+                        "create_date": {
+                          "timestamp": 1775004052000,
+                          "format_date": "Mar. 31, 2026, 17:40:52 PDT."
+                        },
+                        "modify_date": {
+                          "timestamp": 1775030525000,
+                          "format_date": "Apr. 1, 2026, 01:02:05 PDT."
+                        }
+                      },
+                      {
+                        "trade_id": "29***56",
+                        "create_date": {
+                          "timestamp": 1774850246000,
+                          "format_date": "Mar. 29, 2026, 22:57:26 PDT."
+                        },
+                        "modify_date": {
+                          "timestamp": 1775009466000,
+                          "format_date": "Mar. 31, 2026, 19:11:06 PDT."
+                        }
+                      },
+                      {
+                        "trade_id": "29***16",
+                        "create_date": {
+                          "timestamp": 1774836159000,
+                          "format_date": "Mar. 29, 2026, 19:02:39 PDT."
+                        },
+                        "modify_date": {
+                          "timestamp": 1774838053000,
+                          "format_date": "Mar. 29, 2026, 19:34:13 PDT."
+                        }
+                      },
+                      {
+                        "trade_id": "21***16",
+                        "create_date": {
+                          "timestamp": 1774319792000,
+                          "format_date": "Mar. 23, 2026, 19:36:32 PDT."
+                        },
+                        "modify_date": {
+                          "timestamp": 1774319832000,
+                          "format_date": "Mar. 23, 2026, 19:37:12 PDT."
+                        }
+                      },
+                      {
+                        "trade_id": "29***58",
+                        "create_date": {
+                          "timestamp": 1774228174000,
+                          "format_date": "Mar. 22, 2026, 18:09:34 PDT."
+                        },
+                        "modify_date": {
+                          "timestamp": 1774228807000,
+                          "format_date": "Mar. 22, 2026, 18:20:07 PDT."
+                        }
+                      },
+                      {
+                        "trade_id": "25***56",
+                        "create_date": {
+                          "timestamp": 1773966603000,
+                          "format_date": "Mar. 19, 2026, 17:30:03 PDT."
+                        },
+                        "modify_date": {
+                          "timestamp": 1774222486000,
+                          "format_date": "Mar. 22, 2026, 16:34:46 PDT."
+                        }
+                      },
+                      {
+                        "trade_id": "29***49",
+                        "create_date": {
+                          "timestamp": 1773840784000,
+                          "format_date": "Mar. 18, 2026, 06:33:04 PDT."
+                        },
+                        "modify_date": {
+                          "timestamp": 1773986290000,
+                          "format_date": "Mar. 19, 2026, 22:58:10 PDT."
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              "request_id": "212c6fc617753776974375374",
+              "_trace_id_": "212cf75117753776974347500e0f29"
+            }
+          }
+        },
+        "attempts": [
+          {
+            "attempt_name": "recent_window",
+            "classification": "PARAMETER_REJECTED",
+            "http_status": 200,
+            "request_params": {
+              "param_trade_ecology_order_list_query": {
+                "role": "seller",
+                "start_page": 0,
+                "page_size": 10,
+                "create_date_start": "20***06",
+                "create_date_end": "20***04"
+              }
+            },
+            "root_key": "alibaba_seller_order_list_response",
+            "payload_keys": [
+              "_trace_id_",
+              "code",
+              "error_response",
+              "msg",
+              "request_id",
+              "type"
+            ],
+            "extracted": null,
+            "error_response": {
+              "type": "ISV",
+              "code": "InvalidParameter",
+              "msg": "The specified parameter “null#create_date_end” is not valid",
+              "request_id": "210829b717753776973884594",
+              "_trace_id_": "212cf75117753776973857496e0f29"
+            },
+            "response_excerpt": {
+              "root_key": "alibaba_seller_order_list_response",
+              "payload": {
+                "error_response": {
+                  "type": "ISV",
+                  "code": "InvalidParameter",
+                  "msg": "The specified parameter “null#create_date_end” is not valid",
+                  "request_id": "210829b717753776973884594",
+                  "_trace_id_": "212cf75117753776973857496e0f29"
+                }
+              }
+            }
+          },
+          {
+            "attempt_name": "fallback_minimal_windowless",
+            "classification": "REAL_DATA_RETURNED",
+            "http_status": 200,
+            "request_params": {
+              "param_trade_ecology_order_list_query": {
+                "role": "seller",
+                "start_page": 0,
+                "page_size": 10
+              }
+            },
+            "root_key": "alibaba_seller_order_list_response",
+            "payload_keys": [
+              "_trace_id_",
+              "create_date",
+              "format_date",
+              "modify_date",
+              "order_list",
+              "request_id",
+              "result",
+              "success"
+            ],
+            "extracted": {
+              "total_count": 120,
+              "returned_item_count": 10,
+              "items": [
+                {
+                  "trade_id": "21***54",
+                  "create_date": {
+                    "timestamp": 1775004580000,
+                    "format_date": "Mar. 31, 2026, 17:49:40 PDT."
+                  },
+                  "modify_date": {
+                    "timestamp": 1775004787000,
+                    "format_date": "Mar. 31, 2026, 17:53:07 PDT."
+                  },
+                  "trade_status": null
+                },
+                {
+                  "trade_id": "29***76",
+                  "create_date": {
+                    "timestamp": 1775004052000,
+                    "format_date": "Mar. 31, 2026, 17:40:52 PDT."
+                  },
+                  "modify_date": {
+                    "timestamp": 1775030525000,
+                    "format_date": "Apr. 1, 2026, 01:02:05 PDT."
+                  },
+                  "trade_status": null
+                },
+                {
+                  "trade_id": "29***56",
+                  "create_date": {
+                    "timestamp": 1774850246000,
+                    "format_date": "Mar. 29, 2026, 22:57:26 PDT."
+                  },
+                  "modify_date": {
+                    "timestamp": 1775009466000,
+                    "format_date": "Mar. 31, 2026, 19:11:06 PDT."
+                  },
+                  "trade_status": null
+                },
+                {
+                  "trade_id": "29***16",
+                  "create_date": {
+                    "timestamp": 1774836159000,
+                    "format_date": "Mar. 29, 2026, 19:02:39 PDT."
+                  },
+                  "modify_date": {
+                    "timestamp": 1774838053000,
+                    "format_date": "Mar. 29, 2026, 19:34:13 PDT."
+                  },
+                  "trade_status": null
+                },
+                {
+                  "trade_id": "21***16",
+                  "create_date": {
+                    "timestamp": 1774319792000,
+                    "format_date": "Mar. 23, 2026, 19:36:32 PDT."
+                  },
+                  "modify_date": {
+                    "timestamp": 1774319832000,
+                    "format_date": "Mar. 23, 2026, 19:37:12 PDT."
+                  },
+                  "trade_status": null
+                },
+                {
+                  "trade_id": "29***58",
+                  "create_date": {
+                    "timestamp": 1774228174000,
+                    "format_date": "Mar. 22, 2026, 18:09:34 PDT."
+                  },
+                  "modify_date": {
+                    "timestamp": 1774228807000,
+                    "format_date": "Mar. 22, 2026, 18:20:07 PDT."
+                  },
+                  "trade_status": null
+                },
+                {
+                  "trade_id": "25***56",
+                  "create_date": {
+                    "timestamp": 1773966603000,
+                    "format_date": "Mar. 19, 2026, 17:30:03 PDT."
+                  },
+                  "modify_date": {
+                    "timestamp": 1774222486000,
+                    "format_date": "Mar. 22, 2026, 16:34:46 PDT."
+                  },
+                  "trade_status": null
+                },
+                {
+                  "trade_id": "29***49",
+                  "create_date": {
+                    "timestamp": 1773840784000,
+                    "format_date": "Mar. 18, 2026, 06:33:04 PDT."
+                  },
+                  "modify_date": {
+                    "timestamp": 1773986290000,
+                    "format_date": "Mar. 19, 2026, 22:58:10 PDT."
+                  },
+                  "trade_status": null
+                }
+              ]
+            },
+            "error_response": null,
+            "response_excerpt": {
+              "root_key": "alibaba_seller_order_list_response",
+              "payload": {
+                "result": {
+                  "success": true,
+                  "value": {
+                    "total_count": 120,
+                    "order_list": {
+                      "trade_ecology_order": [
+                        {
+                          "trade_id": "21***54",
+                          "create_date": {
+                            "timestamp": 1775004580000,
+                            "format_date": "Mar. 31, 2026, 17:49:40 PDT."
+                          },
+                          "modify_date": {
+                            "timestamp": 1775004787000,
+                            "format_date": "Mar. 31, 2026, 17:53:07 PDT."
+                          }
+                        },
+                        {
+                          "trade_id": "29***76",
+                          "create_date": {
+                            "timestamp": 1775004052000,
+                            "format_date": "Mar. 31, 2026, 17:40:52 PDT."
+                          },
+                          "modify_date": {
+                            "timestamp": 1775030525000,
+                            "format_date": "Apr. 1, 2026, 01:02:05 PDT."
+                          }
+                        },
+                        {
+                          "trade_id": "29***56",
+                          "create_date": {
+                            "timestamp": 1774850246000,
+                            "format_date": "Mar. 29, 2026, 22:57:26 PDT."
+                          },
+                          "modify_date": {
+                            "timestamp": 1775009466000,
+                            "format_date": "Mar. 31, 2026, 19:11:06 PDT."
+                          }
+                        },
+                        {
+                          "trade_id": "29***16",
+                          "create_date": {
+                            "timestamp": 1774836159000,
+                            "format_date": "Mar. 29, 2026, 19:02:39 PDT."
+                          },
+                          "modify_date": {
+                            "timestamp": 1774838053000,
+                            "format_date": "Mar. 29, 2026, 19:34:13 PDT."
+                          }
+                        },
+                        {
+                          "trade_id": "21***16",
+                          "create_date": {
+                            "timestamp": 1774319792000,
+                            "format_date": "Mar. 23, 2026, 19:36:32 PDT."
+                          },
+                          "modify_date": {
+                            "timestamp": 1774319832000,
+                            "format_date": "Mar. 23, 2026, 19:37:12 PDT."
+                          }
+                        },
+                        {
+                          "trade_id": "29***58",
+                          "create_date": {
+                            "timestamp": 1774228174000,
+                            "format_date": "Mar. 22, 2026, 18:09:34 PDT."
+                          },
+                          "modify_date": {
+                            "timestamp": 1774228807000,
+                            "format_date": "Mar. 22, 2026, 18:20:07 PDT."
+                          }
+                        },
+                        {
+                          "trade_id": "25***56",
+                          "create_date": {
+                            "timestamp": 1773966603000,
+                            "format_date": "Mar. 19, 2026, 17:30:03 PDT."
+                          },
+                          "modify_date": {
+                            "timestamp": 1774222486000,
+                            "format_date": "Mar. 22, 2026, 16:34:46 PDT."
+                          }
+                        },
+                        {
+                          "trade_id": "29***49",
+                          "create_date": {
+                            "timestamp": 1773840784000,
+                            "format_date": "Mar. 18, 2026, 06:33:04 PDT."
+                          },
+                          "modify_date": {
+                            "timestamp": 1773986290000,
+                            "format_date": "Mar. 19, 2026, 22:58:10 PDT."
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                "request_id": "212c6fc617753776974375374",
+                "_trace_id_": "212cf75117753776974347500e0f29"
+              }
+            }
+          }
+        ],
+        "real_extracted": [
+          {
+            "total_count": 120,
+            "returned_item_count": 10,
+            "items": [
+              {
+                "trade_id": "21***54",
+                "create_date": {
+                  "timestamp": 1775004580000,
+                  "format_date": "Mar. 31, 2026, 17:49:40 PDT."
+                },
+                "modify_date": {
+                  "timestamp": 1775004787000,
+                  "format_date": "Mar. 31, 2026, 17:53:07 PDT."
+                },
+                "trade_status": null
+              },
+              {
+                "trade_id": "29***76",
+                "create_date": {
+                  "timestamp": 1775004052000,
+                  "format_date": "Mar. 31, 2026, 17:40:52 PDT."
+                },
+                "modify_date": {
+                  "timestamp": 1775030525000,
+                  "format_date": "Apr. 1, 2026, 01:02:05 PDT."
+                },
+                "trade_status": null
+              },
+              {
+                "trade_id": "29***56",
+                "create_date": {
+                  "timestamp": 1774850246000,
+                  "format_date": "Mar. 29, 2026, 22:57:26 PDT."
+                },
+                "modify_date": {
+                  "timestamp": 1775009466000,
+                  "format_date": "Mar. 31, 2026, 19:11:06 PDT."
+                },
+                "trade_status": null
+              },
+              {
+                "trade_id": "29***16",
+                "create_date": {
+                  "timestamp": 1774836159000,
+                  "format_date": "Mar. 29, 2026, 19:02:39 PDT."
+                },
+                "modify_date": {
+                  "timestamp": 1774838053000,
+                  "format_date": "Mar. 29, 2026, 19:34:13 PDT."
+                },
+                "trade_status": null
+              },
+              {
+                "trade_id": "21***16",
+                "create_date": {
+                  "timestamp": 1774319792000,
+                  "format_date": "Mar. 23, 2026, 19:36:32 PDT."
+                },
+                "modify_date": {
+                  "timestamp": 1774319832000,
+                  "format_date": "Mar. 23, 2026, 19:37:12 PDT."
+                },
+                "trade_status": null
+              },
+              {
+                "trade_id": "29***58",
+                "create_date": {
+                  "timestamp": 1774228174000,
+                  "format_date": "Mar. 22, 2026, 18:09:34 PDT."
+                },
+                "modify_date": {
+                  "timestamp": 1774228807000,
+                  "format_date": "Mar. 22, 2026, 18:20:07 PDT."
+                },
+                "trade_status": null
+              },
+              {
+                "trade_id": "25***56",
+                "create_date": {
+                  "timestamp": 1773966603000,
+                  "format_date": "Mar. 19, 2026, 17:30:03 PDT."
+                },
+                "modify_date": {
+                  "timestamp": 1774222486000,
+                  "format_date": "Mar. 22, 2026, 16:34:46 PDT."
+                },
+                "trade_status": null
+              },
+              {
+                "trade_id": "29***49",
+                "create_date": {
+                  "timestamp": 1773840784000,
+                  "format_date": "Mar. 18, 2026, 06:33:04 PDT."
+                },
+                "modify_date": {
+                  "timestamp": 1773986290000,
+                  "format_date": "Mar. 19, 2026, 22:58:10 PDT."
+                },
+                "trade_status": null
+              }
+            ]
+          }
+        ]
+      },
+      "alibaba.seller.order.get": {
+        "api_name": "alibaba.seller.order.get",
+        "doc_status": "DOC_FOUND",
+        "final_category": "PARAMETER_REJECTED",
+        "best_attempt": {
+          "attempt_name": "trade_1",
+          "classification": "PARAMETER_REJECTED",
+          "http_status": 200,
+          "request_params": {
+            "e_trade_id": "21***54"
+          },
+          "root_key": "alibaba_seller_order_get_response",
+          "payload_keys": [
+            "_trace_id_",
+            "code",
+            "error_response",
+            "msg",
+            "request_id",
+            "sub_code",
+            "sub_msg",
+            "type"
+          ],
+          "extracted": null,
+          "error_response": {
+            "code": "15",
+            "type": "ISP",
+            "sub_code": "isv.402",
+            "sub_msg": "invalidate request",
+            "msg": "Remote service error",
+            "request_id": "213f5a2117753776977567425",
+            "_trace_id_": "212cf75117753776977537511e0f29"
+          },
+          "response_excerpt": {
+            "root_key": "alibaba_seller_order_get_response",
+            "payload": {
+              "error_response": {
+                "code": "15",
+                "type": "ISP",
+                "sub_code": "isv.402",
+                "sub_msg": "invalidate request",
+                "msg": "Remote service error",
+                "request_id": "213f5a2117753776977567425",
+                "_trace_id_": "212cf75117753776977537511e0f29"
+              }
+            }
+          }
+        },
+        "attempts": [
+          {
+            "attempt_name": "trade_1",
+            "classification": "PARAMETER_REJECTED",
+            "http_status": 200,
+            "request_params": {
+              "e_trade_id": "21***54"
+            },
+            "root_key": "alibaba_seller_order_get_response",
+            "payload_keys": [
+              "_trace_id_",
+              "code",
+              "error_response",
+              "msg",
+              "request_id",
+              "sub_code",
+              "sub_msg",
+              "type"
+            ],
+            "extracted": null,
+            "error_response": {
+              "code": "15",
+              "type": "ISP",
+              "sub_code": "isv.402",
+              "sub_msg": "invalidate request",
+              "msg": "Remote service error",
+              "request_id": "213f5a2117753776977567425",
+              "_trace_id_": "212cf75117753776977537511e0f29"
+            },
+            "response_excerpt": {
+              "root_key": "alibaba_seller_order_get_response",
+              "payload": {
+                "error_response": {
+                  "code": "15",
+                  "type": "ISP",
+                  "sub_code": "isv.402",
+                  "sub_msg": "invalidate request",
+                  "msg": "Remote service error",
+                  "request_id": "213f5a2117753776977567425",
+                  "_trace_id_": "212cf75117753776977537511e0f29"
+                }
+              }
+            }
+          },
+          {
+            "attempt_name": "trade_2",
+            "classification": "PARAMETER_REJECTED",
+            "http_status": 200,
+            "request_params": {
+              "e_trade_id": "29***76"
+            },
+            "root_key": "alibaba_seller_order_get_response",
+            "payload_keys": [
+              "_trace_id_",
+              "code",
+              "error_response",
+              "msg",
+              "request_id",
+              "sub_code",
+              "sub_msg",
+              "type"
+            ],
+            "extracted": null,
+            "error_response": {
+              "code": "15",
+              "type": "ISP",
+              "sub_code": "isv.402",
+              "sub_msg": "invalidate request",
+              "msg": "Remote service error",
+              "request_id": "212cbf3217753776980378774",
+              "_trace_id_": "212cf75117753776980357516e0f29"
+            },
+            "response_excerpt": {
+              "root_key": "alibaba_seller_order_get_response",
+              "payload": {
+                "error_response": {
+                  "code": "15",
+                  "type": "ISP",
+                  "sub_code": "isv.402",
+                  "sub_msg": "invalidate request",
+                  "msg": "Remote service error",
+                  "request_id": "212cbf3217753776980378774",
+                  "_trace_id_": "212cf75117753776980357516e0f29"
+                }
+              }
+            }
+          },
+          {
+            "attempt_name": "trade_3",
+            "classification": "PARAMETER_REJECTED",
+            "http_status": 200,
+            "request_params": {
+              "e_trade_id": "29***56"
+            },
+            "root_key": "alibaba_seller_order_get_response",
+            "payload_keys": [
+              "_trace_id_",
+              "code",
+              "error_response",
+              "msg",
+              "request_id",
+              "sub_code",
+              "sub_msg",
+              "type"
+            ],
+            "extracted": null,
+            "error_response": {
+              "code": "15",
+              "type": "ISP",
+              "sub_code": "isv.402",
+              "sub_msg": "invalidate request",
+              "msg": "Remote service error",
+              "request_id": "0b51f69917753776983545350",
+              "_trace_id_": "212cf75117753776983517521e0f29"
+            },
+            "response_excerpt": {
+              "root_key": "alibaba_seller_order_get_response",
+              "payload": {
+                "error_response": {
+                  "code": "15",
+                  "type": "ISP",
+                  "sub_code": "isv.402",
+                  "sub_msg": "invalidate request",
+                  "msg": "Remote service error",
+                  "request_id": "0b51f69917753776983545350",
+                  "_trace_id_": "212cf75117753776983517521e0f29"
+                }
+              }
+            }
+          }
+        ],
+        "real_extracted": []
+      },
+      "alibaba.seller.order.fund.get": {
+        "api_name": "alibaba.seller.order.fund.get",
+        "doc_status": "DOC_FOUND",
+        "final_category": "PARAMETER_REJECTED",
+        "best_attempt": {
+          "attempt_name": "trade_1",
+          "classification": "PARAMETER_REJECTED",
+          "http_status": 200,
+          "request_params": {
+            "e_trade_id": "21***54",
+            "data_select": "fund_serviceFee,fund_fundPay,fund_refund"
+          },
+          "root_key": "alibaba_seller_order_fund_get_response",
+          "payload_keys": [
+            "_trace_id_",
+            "code",
+            "error_response",
+            "msg",
+            "request_id",
+            "sub_code",
+            "sub_msg",
+            "type"
+          ],
+          "extracted": null,
+          "error_response": {
+            "code": "15",
+            "type": "ISP",
+            "sub_code": "isv.402",
+            "sub_msg": "tradeId is invalid",
+            "msg": "Remote service error",
+            "request_id": "0b51f6a417753776986487822",
+            "_trace_id_": "212cf75117753776986457527e0f29"
+          },
+          "response_excerpt": {
+            "root_key": "alibaba_seller_order_fund_get_response",
+            "payload": {
+              "error_response": {
+                "code": "15",
+                "type": "ISP",
+                "sub_code": "isv.402",
+                "sub_msg": "tradeId is invalid",
+                "msg": "Remote service error",
+                "request_id": "0b51f6a417753776986487822",
+                "_trace_id_": "212cf75117753776986457527e0f29"
+              }
+            }
+          }
+        },
+        "attempts": [
+          {
+            "attempt_name": "trade_1",
+            "classification": "PARAMETER_REJECTED",
+            "http_status": 200,
+            "request_params": {
+              "e_trade_id": "21***54",
+              "data_select": "fund_serviceFee,fund_fundPay,fund_refund"
+            },
+            "root_key": "alibaba_seller_order_fund_get_response",
+            "payload_keys": [
+              "_trace_id_",
+              "code",
+              "error_response",
+              "msg",
+              "request_id",
+              "sub_code",
+              "sub_msg",
+              "type"
+            ],
+            "extracted": null,
+            "error_response": {
+              "code": "15",
+              "type": "ISP",
+              "sub_code": "isv.402",
+              "sub_msg": "tradeId is invalid",
+              "msg": "Remote service error",
+              "request_id": "0b51f6a417753776986487822",
+              "_trace_id_": "212cf75117753776986457527e0f29"
+            },
+            "response_excerpt": {
+              "root_key": "alibaba_seller_order_fund_get_response",
+              "payload": {
+                "error_response": {
+                  "code": "15",
+                  "type": "ISP",
+                  "sub_code": "isv.402",
+                  "sub_msg": "tradeId is invalid",
+                  "msg": "Remote service error",
+                  "request_id": "0b51f6a417753776986487822",
+                  "_trace_id_": "212cf75117753776986457527e0f29"
+                }
+              }
+            }
+          },
+          {
+            "attempt_name": "trade_2",
+            "classification": "PARAMETER_REJECTED",
+            "http_status": 200,
+            "request_params": {
+              "e_trade_id": "29***76",
+              "data_select": "fund_serviceFee,fund_fundPay,fund_refund"
+            },
+            "root_key": "alibaba_seller_order_fund_get_response",
+            "payload_keys": [
+              "_trace_id_",
+              "code",
+              "error_response",
+              "msg",
+              "request_id",
+              "sub_code",
+              "sub_msg",
+              "type"
+            ],
+            "extracted": null,
+            "error_response": {
+              "code": "15",
+              "type": "ISP",
+              "sub_code": "isv.402",
+              "sub_msg": "tradeId is invalid",
+              "msg": "Remote service error",
+              "request_id": "212c8daf17753776989413379",
+              "_trace_id_": "212cf75117753776989397532e0f29"
+            },
+            "response_excerpt": {
+              "root_key": "alibaba_seller_order_fund_get_response",
+              "payload": {
+                "error_response": {
+                  "code": "15",
+                  "type": "ISP",
+                  "sub_code": "isv.402",
+                  "sub_msg": "tradeId is invalid",
+                  "msg": "Remote service error",
+                  "request_id": "212c8daf17753776989413379",
+                  "_trace_id_": "212cf75117753776989397532e0f29"
+                }
+              }
+            }
+          },
+          {
+            "attempt_name": "trade_3",
+            "classification": "PARAMETER_REJECTED",
+            "http_status": 200,
+            "request_params": {
+              "e_trade_id": "29***56",
+              "data_select": "fund_serviceFee,fund_fundPay,fund_refund"
+            },
+            "root_key": "alibaba_seller_order_fund_get_response",
+            "payload_keys": [
+              "_trace_id_",
+              "code",
+              "error_response",
+              "msg",
+              "request_id",
+              "sub_code",
+              "sub_msg",
+              "type"
+            ],
+            "extracted": null,
+            "error_response": {
+              "code": "15",
+              "type": "ISP",
+              "sub_code": "isv.402",
+              "sub_msg": "tradeId is invalid",
+              "msg": "Remote service error",
+              "request_id": "210829b717753776992364631",
+              "_trace_id_": "212cf75117753776992337541e0f29"
+            },
+            "response_excerpt": {
+              "root_key": "alibaba_seller_order_fund_get_response",
+              "payload": {
+                "error_response": {
+                  "code": "15",
+                  "type": "ISP",
+                  "sub_code": "isv.402",
+                  "sub_msg": "tradeId is invalid",
+                  "msg": "Remote service error",
+                  "request_id": "210829b717753776992364631",
+                  "_trace_id_": "212cf75117753776992337541e0f29"
+                }
+              }
+            }
+          }
+        ],
+        "real_extracted": []
+      },
+      "alibaba.seller.order.logistics.get": {
+        "api_name": "alibaba.seller.order.logistics.get",
+        "doc_status": "DOC_FOUND",
+        "final_category": "PARAMETER_REJECTED",
+        "best_attempt": {
+          "attempt_name": "trade_1",
+          "classification": "PARAMETER_REJECTED",
+          "http_status": 200,
+          "request_params": {
+            "e_trade_id": "21***54",
+            "data_select": "logistic_order"
+          },
+          "root_key": "alibaba_seller_order_logistics_get_response",
+          "payload_keys": [
+            "_trace_id_",
+            "code",
+            "error_response",
+            "msg",
+            "request_id",
+            "sub_code",
+            "sub_msg",
+            "type"
+          ],
+          "extracted": null,
+          "error_response": {
+            "code": "15",
+            "type": "ISP",
+            "sub_code": "402",
+            "sub_msg": "tradeId is invalid",
+            "msg": "Remote service error",
+            "request_id": "212c6fc617753776995595410",
+            "_trace_id_": "212cf75117753776995567546e0f29"
+          },
+          "response_excerpt": {
+            "root_key": "alibaba_seller_order_logistics_get_response",
+            "payload": {
+              "error_response": {
+                "code": "15",
+                "type": "ISP",
+                "sub_code": "402",
+                "sub_msg": "tradeId is invalid",
+                "msg": "Remote service error",
+                "request_id": "212c6fc617753776995595410",
+                "_trace_id_": "212cf75117753776995567546e0f29"
+              }
+            }
+          }
+        },
+        "attempts": [
+          {
+            "attempt_name": "trade_1",
+            "classification": "PARAMETER_REJECTED",
+            "http_status": 200,
+            "request_params": {
+              "e_trade_id": "21***54",
+              "data_select": "logistic_order"
+            },
+            "root_key": "alibaba_seller_order_logistics_get_response",
+            "payload_keys": [
+              "_trace_id_",
+              "code",
+              "error_response",
+              "msg",
+              "request_id",
+              "sub_code",
+              "sub_msg",
+              "type"
+            ],
+            "extracted": null,
+            "error_response": {
+              "code": "15",
+              "type": "ISP",
+              "sub_code": "402",
+              "sub_msg": "tradeId is invalid",
+              "msg": "Remote service error",
+              "request_id": "212c6fc617753776995595410",
+              "_trace_id_": "212cf75117753776995567546e0f29"
+            },
+            "response_excerpt": {
+              "root_key": "alibaba_seller_order_logistics_get_response",
+              "payload": {
+                "error_response": {
+                  "code": "15",
+                  "type": "ISP",
+                  "sub_code": "402",
+                  "sub_msg": "tradeId is invalid",
+                  "msg": "Remote service error",
+                  "request_id": "212c6fc617753776995595410",
+                  "_trace_id_": "212cf75117753776995567546e0f29"
+                }
+              }
+            }
+          },
+          {
+            "attempt_name": "trade_2",
+            "classification": "PARAMETER_REJECTED",
+            "http_status": 200,
+            "request_params": {
+              "e_trade_id": "29***76",
+              "data_select": "logistic_order"
+            },
+            "root_key": "alibaba_seller_order_logistics_get_response",
+            "payload_keys": [
+              "_trace_id_",
+              "code",
+              "error_response",
+              "msg",
+              "request_id",
+              "sub_code",
+              "sub_msg",
+              "type"
+            ],
+            "extracted": null,
+            "error_response": {
+              "code": "15",
+              "type": "ISP",
+              "sub_code": "402",
+              "sub_msg": "tradeId is invalid",
+              "msg": "Remote service error",
+              "request_id": "213f5a2117753776998537457",
+              "_trace_id_": "212cf75117753776998507554e0f29"
+            },
+            "response_excerpt": {
+              "root_key": "alibaba_seller_order_logistics_get_response",
+              "payload": {
+                "error_response": {
+                  "code": "15",
+                  "type": "ISP",
+                  "sub_code": "402",
+                  "sub_msg": "tradeId is invalid",
+                  "msg": "Remote service error",
+                  "request_id": "213f5a2117753776998537457",
+                  "_trace_id_": "212cf75117753776998507554e0f29"
+                }
+              }
+            }
+          }
+        ],
+        "real_extracted": []
+      }
+    }
+  },
+  "order_derivation": {
+    "final_category": "DERIVABLE_FROM_EXISTING_ORDER_APIS",
+    "derivable": {
+      "正式汇总": false,
+      "趋势": true,
+      "国家结构": false,
+      "产品贡献": false
+    },
+    "summary": {
+      "order_count": 8,
+      "total_amount_sum": null
+    },
+    "trend_sample": [
+      {
+        "date": "Mar. 18, 2",
+        "order_count": 1,
+        "amount": 0
+      },
+      {
+        "date": "Mar. 19, 2",
+        "order_count": 1,
+        "amount": 0
+      },
+      {
+        "date": "Mar. 22, 2",
+        "order_count": 1,
+        "amount": 0
+      },
+      {
+        "date": "Mar. 23, 2",
+        "order_count": 1,
+        "amount": 0
+      },
+      {
+        "date": "Mar. 29, 2",
+        "order_count": 2,
+        "amount": 0
+      },
+      {
+        "date": "Mar. 31, 2",
+        "order_count": 2,
+        "amount": 0
+      }
+    ],
+    "country_structure_sample": [],
+    "product_contribution_sample": [],
+    "fund_signal_sample": "***"
+  },
+  "method_results": [
+    {
+      "api_name": "alibaba.mydata.overview.date.get",
+      "doc_status": "DOC_FOUND",
+      "final_category": "AUTH_BLOCKED",
+      "best_attempt": {
+        "attempt_name": "empty_params",
+        "classification": "AUTH_BLOCKED",
+        "http_status": 200,
+        "request_params": {},
+        "root_key": "alibaba_mydata_overview_date_get_response",
+        "payload_keys": [
+          "_trace_id_",
+          "code",
+          "error_response",
+          "msg",
+          "request_id",
+          "type"
+        ],
+        "extracted": null,
+        "error_response": {
+          "type": "ISV",
+          "code": "InsufficientPermission",
+          "msg": "App does not have permission to access this api",
+          "request_id": "0b51f6a417753776968087800",
+          "_trace_id_": "212cf75117753776968057472e0f29"
+        },
+        "response_excerpt": {
+          "root_key": "alibaba_mydata_overview_date_get_response",
+          "payload": {
+            "error_response": {
+              "type": "ISV",
+              "code": "InsufficientPermission",
+              "msg": "App does not have permission to access this api",
+              "request_id": "0b51f6a417753776968087800",
+              "_trace_id_": "212cf75117753776968057472e0f29"
+            }
+          }
+        }
+      },
+      "attempts": [
+        {
+          "attempt_name": "empty_params",
+          "classification": "AUTH_BLOCKED",
+          "http_status": 200,
+          "request_params": {},
+          "root_key": "alibaba_mydata_overview_date_get_response",
+          "payload_keys": [
+            "_trace_id_",
+            "code",
+            "error_response",
+            "msg",
+            "request_id",
+            "type"
+          ],
+          "extracted": null,
+          "error_response": {
+            "type": "ISV",
+            "code": "InsufficientPermission",
+            "msg": "App does not have permission to access this api",
+            "request_id": "0b51f6a417753776968087800",
+            "_trace_id_": "212cf75117753776968057472e0f29"
+          },
+          "response_excerpt": {
+            "root_key": "alibaba_mydata_overview_date_get_response",
+            "payload": {
+              "error_response": {
+                "type": "ISV",
+                "code": "InsufficientPermission",
+                "msg": "App does not have permission to access this api",
+                "request_id": "0b51f6a417753776968087800",
+                "_trace_id_": "212cf75117753776968057472e0f29"
+              }
+            }
+          }
+        }
+      ],
+      "real_extracted": [],
+      "scope": "store",
+      "evidence_file": "D:\\Code\\阿里国际站\\docs\\framework\\evidence\\alibaba_mydata_overview_date_get.json",
+      "evidence_file_name": "alibaba_mydata_overview_date_get.json"
+    },
+    {
+      "api_name": "alibaba.mydata.overview.industry.get",
+      "doc_status": "DOC_FOUND",
+      "final_category": "AUTH_BLOCKED",
+      "best_attempt": {
+        "attempt_name": "fallback_recent_window",
+        "classification": "AUTH_BLOCKED",
+        "http_status": 200,
+        "request_params": {
+          "date_range": {
+            "start_date": "20***29",
+            "end_date": "20***04"
+          }
+        },
+        "root_key": "alibaba_mydata_overview_industry_get_response",
+        "payload_keys": [
+          "_trace_id_",
+          "code",
+          "error_response",
+          "msg",
+          "request_id",
+          "type"
+        ],
+        "extracted": null,
+        "error_response": {
+          "type": "ISV",
+          "code": "InsufficientPermission",
+          "msg": "App does not have permission to access this api",
+          "request_id": "212c8daf17753776968913349",
+          "_trace_id_": "212cf75117753776968887474e0f29"
+        },
+        "response_excerpt": {
+          "root_key": "alibaba_mydata_overview_industry_get_response",
+          "payload": {
+            "error_response": {
+              "type": "ISV",
+              "code": "InsufficientPermission",
+              "msg": "App does not have permission to access this api",
+              "request_id": "212c8daf17753776968913349",
+              "_trace_id_": "212cf75117753776968887474e0f29"
+            }
+          }
+        }
+      },
+      "attempts": [
+        {
+          "attempt_name": "fallback_recent_window",
+          "classification": "AUTH_BLOCKED",
+          "http_status": 200,
+          "request_params": {
+            "date_range": {
+              "start_date": "20***29",
+              "end_date": "20***04"
+            }
+          },
+          "root_key": "alibaba_mydata_overview_industry_get_response",
+          "payload_keys": [
+            "_trace_id_",
+            "code",
+            "error_response",
+            "msg",
+            "request_id",
+            "type"
+          ],
+          "extracted": null,
+          "error_response": {
+            "type": "ISV",
+            "code": "InsufficientPermission",
+            "msg": "App does not have permission to access this api",
+            "request_id": "212c8daf17753776968913349",
+            "_trace_id_": "212cf75117753776968887474e0f29"
+          },
+          "response_excerpt": {
+            "root_key": "alibaba_mydata_overview_industry_get_response",
+            "payload": {
+              "error_response": {
+                "type": "ISV",
+                "code": "InsufficientPermission",
+                "msg": "App does not have permission to access this api",
+                "request_id": "212c8daf17753776968913349",
+                "_trace_id_": "212cf75117753776968887474e0f29"
+              }
+            }
+          }
+        }
+      ],
+      "real_extracted": [],
+      "scope": "store",
+      "evidence_file": "D:\\Code\\阿里国际站\\docs\\framework\\evidence\\alibaba_mydata_overview_industry_get.json",
+      "evidence_file_name": "alibaba_mydata_overview_industry_get.json"
+    },
+    {
+      "api_name": "alibaba.mydata.overview.indicator.basic.get",
+      "doc_status": "DOC_FOUND",
+      "final_category": "AUTH_BLOCKED",
+      "best_attempt": {
+        "attempt_name": "fallback_recent_window_fallback_all_industry",
+        "classification": "AUTH_BLOCKED",
+        "http_status": 200,
+        "request_params": {
+          "date_range": {
+            "start_date": "20***29",
+            "end_date": "20***04"
+          },
+          "industry": {
+            "industry_id": 111,
+            "industry_desc": "All",
+            "main_category": true
+          }
+        },
+        "root_key": "alibaba_mydata_overview_indicator_basic_get_response",
+        "payload_keys": [
+          "_trace_id_",
+          "code",
+          "error_response",
+          "msg",
+          "request_id",
+          "type"
+        ],
+        "extracted": null,
+        "error_response": {
+          "type": "ISV",
+          "code": "InsufficientPermission",
+          "msg": "App does not have permission to access this api",
+          "request_id": "210829b717753776969824588",
+          "_trace_id_": "212cf75117753776969797478e0f29"
+        },
+        "response_excerpt": {
+          "root_key": "alibaba_mydata_overview_indicator_basic_get_response",
+          "payload": {
+            "error_response": {
+              "type": "ISV",
+              "code": "InsufficientPermission",
+              "msg": "App does not have permission to access this api",
+              "request_id": "210829b717753776969824588",
+              "_trace_id_": "212cf75117753776969797478e0f29"
+            }
+          }
+        }
+      },
+      "attempts": [
+        {
+          "attempt_name": "fallback_recent_window_fallback_all_industry",
+          "classification": "AUTH_BLOCKED",
+          "http_status": 200,
+          "request_params": {
+            "date_range": {
+              "start_date": "20***29",
+              "end_date": "20***04"
+            },
+            "industry": {
+              "industry_id": 111,
+              "industry_desc": "All",
+              "main_category": true
+            }
+          },
+          "root_key": "alibaba_mydata_overview_indicator_basic_get_response",
+          "payload_keys": [
+            "_trace_id_",
+            "code",
+            "error_response",
+            "msg",
+            "request_id",
+            "type"
+          ],
+          "extracted": null,
+          "error_response": {
+            "type": "ISV",
+            "code": "InsufficientPermission",
+            "msg": "App does not have permission to access this api",
+            "request_id": "210829b717753776969824588",
+            "_trace_id_": "212cf75117753776969797478e0f29"
+          },
+          "response_excerpt": {
+            "root_key": "alibaba_mydata_overview_indicator_basic_get_response",
+            "payload": {
+              "error_response": {
+                "type": "ISV",
+                "code": "InsufficientPermission",
+                "msg": "App does not have permission to access this api",
+                "request_id": "210829b717753776969824588",
+                "_trace_id_": "212cf75117753776969797478e0f29"
+              }
+            }
+          }
+        }
+      ],
+      "real_extracted": [],
+      "scope": "store",
+      "evidence_file": "D:\\Code\\阿里国际站\\docs\\framework\\evidence\\alibaba_mydata_overview_indicator_basic_get.json",
+      "evidence_file_name": "alibaba_mydata_overview_indicator_basic_get.json"
+    },
+    {
+      "api_name": "alibaba.mydata.self.product.date.get",
+      "doc_status": "DOC_FOUND",
+      "final_category": "AUTH_BLOCKED",
+      "best_attempt": {
+        "attempt_name": "day",
+        "classification": "AUTH_BLOCKED",
+        "http_status": 200,
+        "request_params": {
+          "statistics_type": "day"
+        },
+        "root_key": "alibaba_mydata_self_product_date_get_response",
+        "payload_keys": [
+          "_trace_id_",
+          "code",
+          "error_response",
+          "msg",
+          "request_id",
+          "type"
+        ],
+        "extracted": null,
+        "error_response": {
+          "type": "ISV",
+          "code": "InsufficientPermission",
+          "msg": "App does not have permission to access this api",
+          "request_id": "212c6fc617753776970605365",
+          "_trace_id_": "212cf75117753776970577482e0f29"
+        },
+        "response_excerpt": {
+          "root_key": "alibaba_mydata_self_product_date_get_response",
+          "payload": {
+            "error_response": {
+              "type": "ISV",
+              "code": "InsufficientPermission",
+              "msg": "App does not have permission to access this api",
+              "request_id": "212c6fc617753776970605365",
+              "_trace_id_": "212cf75117753776970577482e0f29"
+            }
+          }
+        }
+      },
+      "attempts": [
+        {
+          "attempt_name": "day",
+          "classification": "AUTH_BLOCKED",
+          "http_status": 200,
+          "request_params": {
+            "statistics_type": "day"
+          },
+          "root_key": "alibaba_mydata_self_product_date_get_response",
+          "payload_keys": [
+            "_trace_id_",
+            "code",
+            "error_response",
+            "msg",
+            "request_id",
+            "type"
+          ],
+          "extracted": null,
+          "error_response": {
+            "type": "ISV",
+            "code": "InsufficientPermission",
+            "msg": "App does not have permission to access this api",
+            "request_id": "212c6fc617753776970605365",
+            "_trace_id_": "212cf75117753776970577482e0f29"
+          },
+          "response_excerpt": {
+            "root_key": "alibaba_mydata_self_product_date_get_response",
+            "payload": {
+              "error_response": {
+                "type": "ISV",
+                "code": "InsufficientPermission",
+                "msg": "App does not have permission to access this api",
+                "request_id": "212c6fc617753776970605365",
+                "_trace_id_": "212cf75117753776970577482e0f29"
+              }
+            }
+          }
+        },
+        {
+          "attempt_name": "week",
+          "classification": "AUTH_BLOCKED",
+          "http_status": 200,
+          "request_params": {
+            "statistics_type": "week"
+          },
+          "root_key": "alibaba_mydata_self_product_date_get_response",
+          "payload_keys": [
+            "_trace_id_",
+            "code",
+            "error_response",
+            "msg",
+            "request_id",
+            "type"
+          ],
+          "extracted": null,
+          "error_response": {
+            "type": "ISV",
+            "code": "InsufficientPermission",
+            "msg": "App does not have permission to access this api",
+            "request_id": "213f5a2117753776971097416",
+            "_trace_id_": "212cf75117753776971067485e0f29"
+          },
+          "response_excerpt": {
+            "root_key": "alibaba_mydata_self_product_date_get_response",
+            "payload": {
+              "error_response": {
+                "type": "ISV",
+                "code": "InsufficientPermission",
+                "msg": "App does not have permission to access this api",
+                "request_id": "213f5a2117753776971097416",
+                "_trace_id_": "212cf75117753776971067485e0f29"
+              }
+            }
+          }
+        },
+        {
+          "attempt_name": "month",
+          "classification": "AUTH_BLOCKED",
+          "http_status": 200,
+          "request_params": {
+            "statistics_type": "month"
+          },
+          "root_key": "alibaba_mydata_self_product_date_get_response",
+          "payload_keys": [
+            "_trace_id_",
+            "code",
+            "error_response",
+            "msg",
+            "request_id",
+            "type"
+          ],
+          "extracted": null,
+          "error_response": {
+            "type": "ISV",
+            "code": "InsufficientPermission",
+            "msg": "App does not have permission to access this api",
+            "request_id": "212cbf3217753776971548765",
+            "_trace_id_": "212cf75117753776971527487e0f29"
+          },
+          "response_excerpt": {
+            "root_key": "alibaba_mydata_self_product_date_get_response",
+            "payload": {
+              "error_response": {
+                "type": "ISV",
+                "code": "InsufficientPermission",
+                "msg": "App does not have permission to access this api",
+                "request_id": "212cbf3217753776971548765",
+                "_trace_id_": "212cf75117753776971527487e0f29"
+              }
+            }
+          }
+        }
+      ],
+      "real_extracted": [],
+      "scope": "product",
+      "evidence_file": "D:\\Code\\阿里国际站\\docs\\framework\\evidence\\alibaba_mydata_self_product_date_get.json",
+      "evidence_file_name": "alibaba_mydata_self_product_date_get.json"
+    },
+    {
+      "api_name": "alibaba.mydata.self.product.get",
+      "doc_status": "DOC_FOUND",
+      "final_category": "AUTH_BLOCKED",
+      "best_attempt": {
+        "attempt_name": "day",
+        "classification": "AUTH_BLOCKED",
+        "http_status": 200,
+        "request_params": {
+          "statistics_type": "day",
+          "stat_date": "20***04",
+          "product_ids": "16***98"
+        },
+        "root_key": "alibaba_mydata_self_product_get_response",
+        "payload_keys": [
+          "_trace_id_",
+          "code",
+          "error_response",
+          "msg",
+          "request_id",
+          "type"
+        ],
+        "extracted": null,
+        "error_response": {
+          "type": "ISV",
+          "code": "InsufficientPermission",
+          "msg": "App does not have permission to access this api",
+          "request_id": "0b51f69917753776972045335",
+          "_trace_id_": "212cf75117753776972017489e0f29"
+        },
+        "response_excerpt": {
+          "root_key": "alibaba_mydata_self_product_get_response",
+          "payload": {
+            "error_response": {
+              "type": "ISV",
+              "code": "InsufficientPermission",
+              "msg": "App does not have permission to access this api",
+              "request_id": "0b51f69917753776972045335",
+              "_trace_id_": "212cf75117753776972017489e0f29"
+            }
+          }
+        }
+      },
+      "attempts": [
+        {
+          "attempt_name": "day",
+          "classification": "AUTH_BLOCKED",
+          "http_status": 200,
+          "request_params": {
+            "statistics_type": "day",
+            "stat_date": "20***04",
+            "product_ids": "16***98"
+          },
+          "root_key": "alibaba_mydata_self_product_get_response",
+          "payload_keys": [
+            "_trace_id_",
+            "code",
+            "error_response",
+            "msg",
+            "request_id",
+            "type"
+          ],
+          "extracted": null,
+          "error_response": {
+            "type": "ISV",
+            "code": "InsufficientPermission",
+            "msg": "App does not have permission to access this api",
+            "request_id": "0b51f69917753776972045335",
+            "_trace_id_": "212cf75117753776972017489e0f29"
+          },
+          "response_excerpt": {
+            "root_key": "alibaba_mydata_self_product_get_response",
+            "payload": {
+              "error_response": {
+                "type": "ISV",
+                "code": "InsufficientPermission",
+                "msg": "App does not have permission to access this api",
+                "request_id": "0b51f69917753776972045335",
+                "_trace_id_": "212cf75117753776972017489e0f29"
+              }
+            }
+          }
+        },
+        {
+          "attempt_name": "week",
+          "classification": "AUTH_BLOCKED",
+          "http_status": 200,
+          "request_params": {
+            "statistics_type": "week",
+            "stat_date": "20***04",
+            "product_ids": "16***98"
+          },
+          "root_key": "alibaba_mydata_self_product_get_response",
+          "payload_keys": [
+            "_trace_id_",
+            "code",
+            "error_response",
+            "msg",
+            "request_id",
+            "type"
+          ],
+          "extracted": null,
+          "error_response": {
+            "type": "ISV",
+            "code": "InsufficientPermission",
+            "msg": "App does not have permission to access this api",
+            "request_id": "0b51f6a417753776972877808",
+            "_trace_id_": "212cf75117753776972857491e0f29"
+          },
+          "response_excerpt": {
+            "root_key": "alibaba_mydata_self_product_get_response",
+            "payload": {
+              "error_response": {
+                "type": "ISV",
+                "code": "InsufficientPermission",
+                "msg": "App does not have permission to access this api",
+                "request_id": "0b51f6a417753776972877808",
+                "_trace_id_": "212cf75117753776972857491e0f29"
+              }
+            }
+          }
+        },
+        {
+          "attempt_name": "month",
+          "classification": "AUTH_BLOCKED",
+          "http_status": 200,
+          "request_params": {
+            "statistics_type": "month",
+            "stat_date": "20***04",
+            "product_ids": "16***98"
+          },
+          "root_key": "alibaba_mydata_self_product_get_response",
+          "payload_keys": [
+            "_trace_id_",
+            "code",
+            "error_response",
+            "msg",
+            "request_id",
+            "type"
+          ],
+          "extracted": null,
+          "error_response": {
+            "type": "ISV",
+            "code": "InsufficientPermission",
+            "msg": "App does not have permission to access this api",
+            "request_id": "212c8daf17753776973323358",
+            "_trace_id_": "212cf75117753776973297493e0f29"
+          },
+          "response_excerpt": {
+            "root_key": "alibaba_mydata_self_product_get_response",
+            "payload": {
+              "error_response": {
+                "type": "ISV",
+                "code": "InsufficientPermission",
+                "msg": "App does not have permission to access this api",
+                "request_id": "212c8daf17753776973323358",
+                "_trace_id_": "212cf75117753776973297493e0f29"
+              }
+            }
+          }
+        }
+      ],
+      "real_extracted": [],
+      "scope": "product",
+      "evidence_file": "D:\\Code\\阿里国际站\\docs\\framework\\evidence\\alibaba_mydata_self_product_get.json",
+      "evidence_file_name": "alibaba_mydata_self_product_get.json"
+    },
+    {
+      "api_name": "alibaba.seller.order.list",
+      "doc_status": "DOC_FOUND",
+      "final_category": "REAL_DATA_RETURNED",
+      "best_attempt": {
+        "attempt_name": "fallback_minimal_windowless",
+        "classification": "REAL_DATA_RETURNED",
+        "http_status": 200,
+        "request_params": {
+          "param_trade_ecology_order_list_query": {
+            "role": "seller",
+            "start_page": 0,
+            "page_size": 10
+          }
+        },
+        "root_key": "alibaba_seller_order_list_response",
+        "payload_keys": [
+          "_trace_id_",
+          "create_date",
+          "format_date",
+          "modify_date",
+          "order_list",
+          "request_id",
+          "result",
+          "success"
+        ],
+        "extracted": {
+          "total_count": 120,
+          "returned_item_count": 10,
+          "items": [
+            {
+              "trade_id": "21***54",
+              "create_date": {
+                "timestamp": 1775004580000,
+                "format_date": "Mar. 31, 2026, 17:49:40 PDT."
+              },
+              "modify_date": {
+                "timestamp": 1775004787000,
+                "format_date": "Mar. 31, 2026, 17:53:07 PDT."
+              },
+              "trade_status": null
+            },
+            {
+              "trade_id": "29***76",
+              "create_date": {
+                "timestamp": 1775004052000,
+                "format_date": "Mar. 31, 2026, 17:40:52 PDT."
+              },
+              "modify_date": {
+                "timestamp": 1775030525000,
+                "format_date": "Apr. 1, 2026, 01:02:05 PDT."
+              },
+              "trade_status": null
+            },
+            {
+              "trade_id": "29***56",
+              "create_date": {
+                "timestamp": 1774850246000,
+                "format_date": "Mar. 29, 2026, 22:57:26 PDT."
+              },
+              "modify_date": {
+                "timestamp": 1775009466000,
+                "format_date": "Mar. 31, 2026, 19:11:06 PDT."
+              },
+              "trade_status": null
+            },
+            {
+              "trade_id": "29***16",
+              "create_date": {
+                "timestamp": 1774836159000,
+                "format_date": "Mar. 29, 2026, 19:02:39 PDT."
+              },
+              "modify_date": {
+                "timestamp": 1774838053000,
+                "format_date": "Mar. 29, 2026, 19:34:13 PDT."
+              },
+              "trade_status": null
+            },
+            {
+              "trade_id": "21***16",
+              "create_date": {
+                "timestamp": 1774319792000,
+                "format_date": "Mar. 23, 2026, 19:36:32 PDT."
+              },
+              "modify_date": {
+                "timestamp": 1774319832000,
+                "format_date": "Mar. 23, 2026, 19:37:12 PDT."
+              },
+              "trade_status": null
+            },
+            {
+              "trade_id": "29***58",
+              "create_date": {
+                "timestamp": 1774228174000,
+                "format_date": "Mar. 22, 2026, 18:09:34 PDT."
+              },
+              "modify_date": {
+                "timestamp": 1774228807000,
+                "format_date": "Mar. 22, 2026, 18:20:07 PDT."
+              },
+              "trade_status": null
+            },
+            {
+              "trade_id": "25***56",
+              "create_date": {
+                "timestamp": 1773966603000,
+                "format_date": "Mar. 19, 2026, 17:30:03 PDT."
+              },
+              "modify_date": {
+                "timestamp": 1774222486000,
+                "format_date": "Mar. 22, 2026, 16:34:46 PDT."
+              },
+              "trade_status": null
+            },
+            {
+              "trade_id": "29***49",
+              "create_date": {
+                "timestamp": 1773840784000,
+                "format_date": "Mar. 18, 2026, 06:33:04 PDT."
+              },
+              "modify_date": {
+                "timestamp": 1773986290000,
+                "format_date": "Mar. 19, 2026, 22:58:10 PDT."
+              },
+              "trade_status": null
+            }
+          ]
+        },
+        "error_response": null,
+        "response_excerpt": {
+          "root_key": "alibaba_seller_order_list_response",
+          "payload": {
+            "result": {
+              "success": true,
+              "value": {
+                "total_count": 120,
+                "order_list": {
+                  "trade_ecology_order": [
+                    {
+                      "trade_id": "21***54",
+                      "create_date": {
+                        "timestamp": 1775004580000,
+                        "format_date": "Mar. 31, 2026, 17:49:40 PDT."
+                      },
+                      "modify_date": {
+                        "timestamp": 1775004787000,
+                        "format_date": "Mar. 31, 2026, 17:53:07 PDT."
+                      }
+                    },
+                    {
+                      "trade_id": "29***76",
+                      "create_date": {
+                        "timestamp": 1775004052000,
+                        "format_date": "Mar. 31, 2026, 17:40:52 PDT."
+                      },
+                      "modify_date": {
+                        "timestamp": 1775030525000,
+                        "format_date": "Apr. 1, 2026, 01:02:05 PDT."
+                      }
+                    },
+                    {
+                      "trade_id": "29***56",
+                      "create_date": {
+                        "timestamp": 1774850246000,
+                        "format_date": "Mar. 29, 2026, 22:57:26 PDT."
+                      },
+                      "modify_date": {
+                        "timestamp": 1775009466000,
+                        "format_date": "Mar. 31, 2026, 19:11:06 PDT."
+                      }
+                    },
+                    {
+                      "trade_id": "29***16",
+                      "create_date": {
+                        "timestamp": 1774836159000,
+                        "format_date": "Mar. 29, 2026, 19:02:39 PDT."
+                      },
+                      "modify_date": {
+                        "timestamp": 1774838053000,
+                        "format_date": "Mar. 29, 2026, 19:34:13 PDT."
+                      }
+                    },
+                    {
+                      "trade_id": "21***16",
+                      "create_date": {
+                        "timestamp": 1774319792000,
+                        "format_date": "Mar. 23, 2026, 19:36:32 PDT."
+                      },
+                      "modify_date": {
+                        "timestamp": 1774319832000,
+                        "format_date": "Mar. 23, 2026, 19:37:12 PDT."
+                      }
+                    },
+                    {
+                      "trade_id": "29***58",
+                      "create_date": {
+                        "timestamp": 1774228174000,
+                        "format_date": "Mar. 22, 2026, 18:09:34 PDT."
+                      },
+                      "modify_date": {
+                        "timestamp": 1774228807000,
+                        "format_date": "Mar. 22, 2026, 18:20:07 PDT."
+                      }
+                    },
+                    {
+                      "trade_id": "25***56",
+                      "create_date": {
+                        "timestamp": 1773966603000,
+                        "format_date": "Mar. 19, 2026, 17:30:03 PDT."
+                      },
+                      "modify_date": {
+                        "timestamp": 1774222486000,
+                        "format_date": "Mar. 22, 2026, 16:34:46 PDT."
+                      }
+                    },
+                    {
+                      "trade_id": "29***49",
+                      "create_date": {
+                        "timestamp": 1773840784000,
+                        "format_date": "Mar. 18, 2026, 06:33:04 PDT."
+                      },
+                      "modify_date": {
+                        "timestamp": 1773986290000,
+                        "format_date": "Mar. 19, 2026, 22:58:10 PDT."
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            "request_id": "212c6fc617753776974375374",
+            "_trace_id_": "212cf75117753776974347500e0f29"
+          }
+        }
+      },
+      "attempts": [
+        {
+          "attempt_name": "recent_window",
+          "classification": "PARAMETER_REJECTED",
+          "http_status": 200,
+          "request_params": {
+            "param_trade_ecology_order_list_query": {
+              "role": "seller",
+              "start_page": 0,
+              "page_size": 10,
+              "create_date_start": "20***06",
+              "create_date_end": "20***04"
+            }
+          },
+          "root_key": "alibaba_seller_order_list_response",
+          "payload_keys": [
+            "_trace_id_",
+            "code",
+            "error_response",
+            "msg",
+            "request_id",
+            "type"
+          ],
+          "extracted": null,
+          "error_response": {
+            "type": "ISV",
+            "code": "InvalidParameter",
+            "msg": "The specified parameter “null#create_date_end” is not valid",
+            "request_id": "210829b717753776973884594",
+            "_trace_id_": "212cf75117753776973857496e0f29"
+          },
+          "response_excerpt": {
+            "root_key": "alibaba_seller_order_list_response",
+            "payload": {
+              "error_response": {
+                "type": "ISV",
+                "code": "InvalidParameter",
+                "msg": "The specified parameter “null#create_date_end” is not valid",
+                "request_id": "210829b717753776973884594",
+                "_trace_id_": "212cf75117753776973857496e0f29"
+              }
+            }
+          }
+        },
+        {
+          "attempt_name": "fallback_minimal_windowless",
+          "classification": "REAL_DATA_RETURNED",
+          "http_status": 200,
+          "request_params": {
+            "param_trade_ecology_order_list_query": {
+              "role": "seller",
+              "start_page": 0,
+              "page_size": 10
+            }
+          },
+          "root_key": "alibaba_seller_order_list_response",
+          "payload_keys": [
+            "_trace_id_",
+            "create_date",
+            "format_date",
+            "modify_date",
+            "order_list",
+            "request_id",
+            "result",
+            "success"
+          ],
+          "extracted": {
+            "total_count": 120,
+            "returned_item_count": 10,
+            "items": [
+              {
+                "trade_id": "21***54",
+                "create_date": {
+                  "timestamp": 1775004580000,
+                  "format_date": "Mar. 31, 2026, 17:49:40 PDT."
+                },
+                "modify_date": {
+                  "timestamp": 1775004787000,
+                  "format_date": "Mar. 31, 2026, 17:53:07 PDT."
+                },
+                "trade_status": null
+              },
+              {
+                "trade_id": "29***76",
+                "create_date": {
+                  "timestamp": 1775004052000,
+                  "format_date": "Mar. 31, 2026, 17:40:52 PDT."
+                },
+                "modify_date": {
+                  "timestamp": 1775030525000,
+                  "format_date": "Apr. 1, 2026, 01:02:05 PDT."
+                },
+                "trade_status": null
+              },
+              {
+                "trade_id": "29***56",
+                "create_date": {
+                  "timestamp": 1774850246000,
+                  "format_date": "Mar. 29, 2026, 22:57:26 PDT."
+                },
+                "modify_date": {
+                  "timestamp": 1775009466000,
+                  "format_date": "Mar. 31, 2026, 19:11:06 PDT."
+                },
+                "trade_status": null
+              },
+              {
+                "trade_id": "29***16",
+                "create_date": {
+                  "timestamp": 1774836159000,
+                  "format_date": "Mar. 29, 2026, 19:02:39 PDT."
+                },
+                "modify_date": {
+                  "timestamp": 1774838053000,
+                  "format_date": "Mar. 29, 2026, 19:34:13 PDT."
+                },
+                "trade_status": null
+              },
+              {
+                "trade_id": "21***16",
+                "create_date": {
+                  "timestamp": 1774319792000,
+                  "format_date": "Mar. 23, 2026, 19:36:32 PDT."
+                },
+                "modify_date": {
+                  "timestamp": 1774319832000,
+                  "format_date": "Mar. 23, 2026, 19:37:12 PDT."
+                },
+                "trade_status": null
+              },
+              {
+                "trade_id": "29***58",
+                "create_date": {
+                  "timestamp": 1774228174000,
+                  "format_date": "Mar. 22, 2026, 18:09:34 PDT."
+                },
+                "modify_date": {
+                  "timestamp": 1774228807000,
+                  "format_date": "Mar. 22, 2026, 18:20:07 PDT."
+                },
+                "trade_status": null
+              },
+              {
+                "trade_id": "25***56",
+                "create_date": {
+                  "timestamp": 1773966603000,
+                  "format_date": "Mar. 19, 2026, 17:30:03 PDT."
+                },
+                "modify_date": {
+                  "timestamp": 1774222486000,
+                  "format_date": "Mar. 22, 2026, 16:34:46 PDT."
+                },
+                "trade_status": null
+              },
+              {
+                "trade_id": "29***49",
+                "create_date": {
+                  "timestamp": 1773840784000,
+                  "format_date": "Mar. 18, 2026, 06:33:04 PDT."
+                },
+                "modify_date": {
+                  "timestamp": 1773986290000,
+                  "format_date": "Mar. 19, 2026, 22:58:10 PDT."
+                },
+                "trade_status": null
+              }
+            ]
+          },
+          "error_response": null,
+          "response_excerpt": {
+            "root_key": "alibaba_seller_order_list_response",
+            "payload": {
+              "result": {
+                "success": true,
+                "value": {
+                  "total_count": 120,
+                  "order_list": {
+                    "trade_ecology_order": [
+                      {
+                        "trade_id": "21***54",
+                        "create_date": {
+                          "timestamp": 1775004580000,
+                          "format_date": "Mar. 31, 2026, 17:49:40 PDT."
+                        },
+                        "modify_date": {
+                          "timestamp": 1775004787000,
+                          "format_date": "Mar. 31, 2026, 17:53:07 PDT."
+                        }
+                      },
+                      {
+                        "trade_id": "29***76",
+                        "create_date": {
+                          "timestamp": 1775004052000,
+                          "format_date": "Mar. 31, 2026, 17:40:52 PDT."
+                        },
+                        "modify_date": {
+                          "timestamp": 1775030525000,
+                          "format_date": "Apr. 1, 2026, 01:02:05 PDT."
+                        }
+                      },
+                      {
+                        "trade_id": "29***56",
+                        "create_date": {
+                          "timestamp": 1774850246000,
+                          "format_date": "Mar. 29, 2026, 22:57:26 PDT."
+                        },
+                        "modify_date": {
+                          "timestamp": 1775009466000,
+                          "format_date": "Mar. 31, 2026, 19:11:06 PDT."
+                        }
+                      },
+                      {
+                        "trade_id": "29***16",
+                        "create_date": {
+                          "timestamp": 1774836159000,
+                          "format_date": "Mar. 29, 2026, 19:02:39 PDT."
+                        },
+                        "modify_date": {
+                          "timestamp": 1774838053000,
+                          "format_date": "Mar. 29, 2026, 19:34:13 PDT."
+                        }
+                      },
+                      {
+                        "trade_id": "21***16",
+                        "create_date": {
+                          "timestamp": 1774319792000,
+                          "format_date": "Mar. 23, 2026, 19:36:32 PDT."
+                        },
+                        "modify_date": {
+                          "timestamp": 1774319832000,
+                          "format_date": "Mar. 23, 2026, 19:37:12 PDT."
+                        }
+                      },
+                      {
+                        "trade_id": "29***58",
+                        "create_date": {
+                          "timestamp": 1774228174000,
+                          "format_date": "Mar. 22, 2026, 18:09:34 PDT."
+                        },
+                        "modify_date": {
+                          "timestamp": 1774228807000,
+                          "format_date": "Mar. 22, 2026, 18:20:07 PDT."
+                        }
+                      },
+                      {
+                        "trade_id": "25***56",
+                        "create_date": {
+                          "timestamp": 1773966603000,
+                          "format_date": "Mar. 19, 2026, 17:30:03 PDT."
+                        },
+                        "modify_date": {
+                          "timestamp": 1774222486000,
+                          "format_date": "Mar. 22, 2026, 16:34:46 PDT."
+                        }
+                      },
+                      {
+                        "trade_id": "29***49",
+                        "create_date": {
+                          "timestamp": 1773840784000,
+                          "format_date": "Mar. 18, 2026, 06:33:04 PDT."
+                        },
+                        "modify_date": {
+                          "timestamp": 1773986290000,
+                          "format_date": "Mar. 19, 2026, 22:58:10 PDT."
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              "request_id": "212c6fc617753776974375374",
+              "_trace_id_": "212cf75117753776974347500e0f29"
+            }
+          }
+        }
+      ],
+      "real_extracted": [
+        {
+          "total_count": 120,
+          "returned_item_count": 10,
+          "items": [
+            {
+              "trade_id": "21***54",
+              "create_date": {
+                "timestamp": 1775004580000,
+                "format_date": "Mar. 31, 2026, 17:49:40 PDT."
+              },
+              "modify_date": {
+                "timestamp": 1775004787000,
+                "format_date": "Mar. 31, 2026, 17:53:07 PDT."
+              },
+              "trade_status": null
+            },
+            {
+              "trade_id": "29***76",
+              "create_date": {
+                "timestamp": 1775004052000,
+                "format_date": "Mar. 31, 2026, 17:40:52 PDT."
+              },
+              "modify_date": {
+                "timestamp": 1775030525000,
+                "format_date": "Apr. 1, 2026, 01:02:05 PDT."
+              },
+              "trade_status": null
+            },
+            {
+              "trade_id": "29***56",
+              "create_date": {
+                "timestamp": 1774850246000,
+                "format_date": "Mar. 29, 2026, 22:57:26 PDT."
+              },
+              "modify_date": {
+                "timestamp": 1775009466000,
+                "format_date": "Mar. 31, 2026, 19:11:06 PDT."
+              },
+              "trade_status": null
+            },
+            {
+              "trade_id": "29***16",
+              "create_date": {
+                "timestamp": 1774836159000,
+                "format_date": "Mar. 29, 2026, 19:02:39 PDT."
+              },
+              "modify_date": {
+                "timestamp": 1774838053000,
+                "format_date": "Mar. 29, 2026, 19:34:13 PDT."
+              },
+              "trade_status": null
+            },
+            {
+              "trade_id": "21***16",
+              "create_date": {
+                "timestamp": 1774319792000,
+                "format_date": "Mar. 23, 2026, 19:36:32 PDT."
+              },
+              "modify_date": {
+                "timestamp": 1774319832000,
+                "format_date": "Mar. 23, 2026, 19:37:12 PDT."
+              },
+              "trade_status": null
+            },
+            {
+              "trade_id": "29***58",
+              "create_date": {
+                "timestamp": 1774228174000,
+                "format_date": "Mar. 22, 2026, 18:09:34 PDT."
+              },
+              "modify_date": {
+                "timestamp": 1774228807000,
+                "format_date": "Mar. 22, 2026, 18:20:07 PDT."
+              },
+              "trade_status": null
+            },
+            {
+              "trade_id": "25***56",
+              "create_date": {
+                "timestamp": 1773966603000,
+                "format_date": "Mar. 19, 2026, 17:30:03 PDT."
+              },
+              "modify_date": {
+                "timestamp": 1774222486000,
+                "format_date": "Mar. 22, 2026, 16:34:46 PDT."
+              },
+              "trade_status": null
+            },
+            {
+              "trade_id": "29***49",
+              "create_date": {
+                "timestamp": 1773840784000,
+                "format_date": "Mar. 18, 2026, 06:33:04 PDT."
+              },
+              "modify_date": {
+                "timestamp": 1773986290000,
+                "format_date": "Mar. 19, 2026, 22:58:10 PDT."
+              },
+              "trade_status": null
+            }
+          ]
+        }
+      ],
+      "scope": "order",
+      "evidence_file": "D:\\Code\\阿里国际站\\docs\\framework\\evidence\\alibaba_seller_order_list.json",
+      "evidence_file_name": "alibaba_seller_order_list.json"
+    },
+    {
+      "api_name": "alibaba.seller.order.get",
+      "doc_status": "DOC_FOUND",
+      "final_category": "PARAMETER_REJECTED",
+      "best_attempt": {
+        "attempt_name": "trade_1",
+        "classification": "PARAMETER_REJECTED",
+        "http_status": 200,
+        "request_params": {
+          "e_trade_id": "21***54"
+        },
+        "root_key": "alibaba_seller_order_get_response",
+        "payload_keys": [
+          "_trace_id_",
+          "code",
+          "error_response",
+          "msg",
+          "request_id",
+          "sub_code",
+          "sub_msg",
+          "type"
+        ],
+        "extracted": null,
+        "error_response": {
+          "code": "15",
+          "type": "ISP",
+          "sub_code": "isv.402",
+          "sub_msg": "invalidate request",
+          "msg": "Remote service error",
+          "request_id": "213f5a2117753776977567425",
+          "_trace_id_": "212cf75117753776977537511e0f29"
+        },
+        "response_excerpt": {
+          "root_key": "alibaba_seller_order_get_response",
+          "payload": {
+            "error_response": {
+              "code": "15",
+              "type": "ISP",
+              "sub_code": "isv.402",
+              "sub_msg": "invalidate request",
+              "msg": "Remote service error",
+              "request_id": "213f5a2117753776977567425",
+              "_trace_id_": "212cf75117753776977537511e0f29"
+            }
+          }
+        }
+      },
+      "attempts": [
+        {
+          "attempt_name": "trade_1",
+          "classification": "PARAMETER_REJECTED",
+          "http_status": 200,
+          "request_params": {
+            "e_trade_id": "21***54"
+          },
+          "root_key": "alibaba_seller_order_get_response",
+          "payload_keys": [
+            "_trace_id_",
+            "code",
+            "error_response",
+            "msg",
+            "request_id",
+            "sub_code",
+            "sub_msg",
+            "type"
+          ],
+          "extracted": null,
+          "error_response": {
+            "code": "15",
+            "type": "ISP",
+            "sub_code": "isv.402",
+            "sub_msg": "invalidate request",
+            "msg": "Remote service error",
+            "request_id": "213f5a2117753776977567425",
+            "_trace_id_": "212cf75117753776977537511e0f29"
+          },
+          "response_excerpt": {
+            "root_key": "alibaba_seller_order_get_response",
+            "payload": {
+              "error_response": {
+                "code": "15",
+                "type": "ISP",
+                "sub_code": "isv.402",
+                "sub_msg": "invalidate request",
+                "msg": "Remote service error",
+                "request_id": "213f5a2117753776977567425",
+                "_trace_id_": "212cf75117753776977537511e0f29"
+              }
+            }
+          }
+        },
+        {
+          "attempt_name": "trade_2",
+          "classification": "PARAMETER_REJECTED",
+          "http_status": 200,
+          "request_params": {
+            "e_trade_id": "29***76"
+          },
+          "root_key": "alibaba_seller_order_get_response",
+          "payload_keys": [
+            "_trace_id_",
+            "code",
+            "error_response",
+            "msg",
+            "request_id",
+            "sub_code",
+            "sub_msg",
+            "type"
+          ],
+          "extracted": null,
+          "error_response": {
+            "code": "15",
+            "type": "ISP",
+            "sub_code": "isv.402",
+            "sub_msg": "invalidate request",
+            "msg": "Remote service error",
+            "request_id": "212cbf3217753776980378774",
+            "_trace_id_": "212cf75117753776980357516e0f29"
+          },
+          "response_excerpt": {
+            "root_key": "alibaba_seller_order_get_response",
+            "payload": {
+              "error_response": {
+                "code": "15",
+                "type": "ISP",
+                "sub_code": "isv.402",
+                "sub_msg": "invalidate request",
+                "msg": "Remote service error",
+                "request_id": "212cbf3217753776980378774",
+                "_trace_id_": "212cf75117753776980357516e0f29"
+              }
+            }
+          }
+        },
+        {
+          "attempt_name": "trade_3",
+          "classification": "PARAMETER_REJECTED",
+          "http_status": 200,
+          "request_params": {
+            "e_trade_id": "29***56"
+          },
+          "root_key": "alibaba_seller_order_get_response",
+          "payload_keys": [
+            "_trace_id_",
+            "code",
+            "error_response",
+            "msg",
+            "request_id",
+            "sub_code",
+            "sub_msg",
+            "type"
+          ],
+          "extracted": null,
+          "error_response": {
+            "code": "15",
+            "type": "ISP",
+            "sub_code": "isv.402",
+            "sub_msg": "invalidate request",
+            "msg": "Remote service error",
+            "request_id": "0b51f69917753776983545350",
+            "_trace_id_": "212cf75117753776983517521e0f29"
+          },
+          "response_excerpt": {
+            "root_key": "alibaba_seller_order_get_response",
+            "payload": {
+              "error_response": {
+                "code": "15",
+                "type": "ISP",
+                "sub_code": "isv.402",
+                "sub_msg": "invalidate request",
+                "msg": "Remote service error",
+                "request_id": "0b51f69917753776983545350",
+                "_trace_id_": "212cf75117753776983517521e0f29"
+              }
+            }
+          }
+        }
+      ],
+      "real_extracted": [],
+      "scope": "order",
+      "evidence_file": "D:\\Code\\阿里国际站\\docs\\framework\\evidence\\alibaba_seller_order_get.json",
+      "evidence_file_name": "alibaba_seller_order_get.json"
+    },
+    {
+      "api_name": "alibaba.seller.order.fund.get",
+      "doc_status": "DOC_FOUND",
+      "final_category": "PARAMETER_REJECTED",
+      "best_attempt": {
+        "attempt_name": "trade_1",
+        "classification": "PARAMETER_REJECTED",
+        "http_status": 200,
+        "request_params": {
+          "e_trade_id": "21***54",
+          "data_select": "fund_serviceFee,fund_fundPay,fund_refund"
+        },
+        "root_key": "alibaba_seller_order_fund_get_response",
+        "payload_keys": [
+          "_trace_id_",
+          "code",
+          "error_response",
+          "msg",
+          "request_id",
+          "sub_code",
+          "sub_msg",
+          "type"
+        ],
+        "extracted": null,
+        "error_response": {
+          "code": "15",
+          "type": "ISP",
+          "sub_code": "isv.402",
+          "sub_msg": "tradeId is invalid",
+          "msg": "Remote service error",
+          "request_id": "0b51f6a417753776986487822",
+          "_trace_id_": "212cf75117753776986457527e0f29"
+        },
+        "response_excerpt": {
+          "root_key": "alibaba_seller_order_fund_get_response",
+          "payload": {
+            "error_response": {
+              "code": "15",
+              "type": "ISP",
+              "sub_code": "isv.402",
+              "sub_msg": "tradeId is invalid",
+              "msg": "Remote service error",
+              "request_id": "0b51f6a417753776986487822",
+              "_trace_id_": "212cf75117753776986457527e0f29"
+            }
+          }
+        }
+      },
+      "attempts": [
+        {
+          "attempt_name": "trade_1",
+          "classification": "PARAMETER_REJECTED",
+          "http_status": 200,
+          "request_params": {
+            "e_trade_id": "21***54",
+            "data_select": "fund_serviceFee,fund_fundPay,fund_refund"
+          },
+          "root_key": "alibaba_seller_order_fund_get_response",
+          "payload_keys": [
+            "_trace_id_",
+            "code",
+            "error_response",
+            "msg",
+            "request_id",
+            "sub_code",
+            "sub_msg",
+            "type"
+          ],
+          "extracted": null,
+          "error_response": {
+            "code": "15",
+            "type": "ISP",
+            "sub_code": "isv.402",
+            "sub_msg": "tradeId is invalid",
+            "msg": "Remote service error",
+            "request_id": "0b51f6a417753776986487822",
+            "_trace_id_": "212cf75117753776986457527e0f29"
+          },
+          "response_excerpt": {
+            "root_key": "alibaba_seller_order_fund_get_response",
+            "payload": {
+              "error_response": {
+                "code": "15",
+                "type": "ISP",
+                "sub_code": "isv.402",
+                "sub_msg": "tradeId is invalid",
+                "msg": "Remote service error",
+                "request_id": "0b51f6a417753776986487822",
+                "_trace_id_": "212cf75117753776986457527e0f29"
+              }
+            }
+          }
+        },
+        {
+          "attempt_name": "trade_2",
+          "classification": "PARAMETER_REJECTED",
+          "http_status": 200,
+          "request_params": {
+            "e_trade_id": "29***76",
+            "data_select": "fund_serviceFee,fund_fundPay,fund_refund"
+          },
+          "root_key": "alibaba_seller_order_fund_get_response",
+          "payload_keys": [
+            "_trace_id_",
+            "code",
+            "error_response",
+            "msg",
+            "request_id",
+            "sub_code",
+            "sub_msg",
+            "type"
+          ],
+          "extracted": null,
+          "error_response": {
+            "code": "15",
+            "type": "ISP",
+            "sub_code": "isv.402",
+            "sub_msg": "tradeId is invalid",
+            "msg": "Remote service error",
+            "request_id": "212c8daf17753776989413379",
+            "_trace_id_": "212cf75117753776989397532e0f29"
+          },
+          "response_excerpt": {
+            "root_key": "alibaba_seller_order_fund_get_response",
+            "payload": {
+              "error_response": {
+                "code": "15",
+                "type": "ISP",
+                "sub_code": "isv.402",
+                "sub_msg": "tradeId is invalid",
+                "msg": "Remote service error",
+                "request_id": "212c8daf17753776989413379",
+                "_trace_id_": "212cf75117753776989397532e0f29"
+              }
+            }
+          }
+        },
+        {
+          "attempt_name": "trade_3",
+          "classification": "PARAMETER_REJECTED",
+          "http_status": 200,
+          "request_params": {
+            "e_trade_id": "29***56",
+            "data_select": "fund_serviceFee,fund_fundPay,fund_refund"
+          },
+          "root_key": "alibaba_seller_order_fund_get_response",
+          "payload_keys": [
+            "_trace_id_",
+            "code",
+            "error_response",
+            "msg",
+            "request_id",
+            "sub_code",
+            "sub_msg",
+            "type"
+          ],
+          "extracted": null,
+          "error_response": {
+            "code": "15",
+            "type": "ISP",
+            "sub_code": "isv.402",
+            "sub_msg": "tradeId is invalid",
+            "msg": "Remote service error",
+            "request_id": "210829b717753776992364631",
+            "_trace_id_": "212cf75117753776992337541e0f29"
+          },
+          "response_excerpt": {
+            "root_key": "alibaba_seller_order_fund_get_response",
+            "payload": {
+              "error_response": {
+                "code": "15",
+                "type": "ISP",
+                "sub_code": "isv.402",
+                "sub_msg": "tradeId is invalid",
+                "msg": "Remote service error",
+                "request_id": "210829b717753776992364631",
+                "_trace_id_": "212cf75117753776992337541e0f29"
+              }
+            }
+          }
+        }
+      ],
+      "real_extracted": [],
+      "scope": "order",
+      "evidence_file": "D:\\Code\\阿里国际站\\docs\\framework\\evidence\\alibaba_seller_order_fund_get.json",
+      "evidence_file_name": "alibaba_seller_order_fund_get.json"
+    }
+  ],
+  "field_matrix": [
+    {
+      "dimension": "店铺级",
+      "field": "UV",
+      "status": "auth/capability blocked",
+      "source": null,
+      "note": "当前只把 visitor 视为 UV，不把 imps 视为 PV。"
+    },
+    {
+      "dimension": "店铺级",
+      "field": "PV",
+      "status": "auth/capability blocked",
+      "source": null,
+      "note": "当前响应里可见 imps，但未确认其等同 PV。"
+    },
+    {
+      "dimension": "店铺级",
+      "field": "流量来源",
+      "status": "auth/capability blocked",
+      "source": null,
+      "note": "当前未见公开 source/traffic 字段时不脑补。"
+    },
+    {
+      "dimension": "店铺级",
+      "field": "国家来源",
+      "status": "auth/capability blocked",
+      "source": null,
+      "note": "当前未把任意 country 字段脑补为访客国家来源。"
+    },
+    {
+      "dimension": "店铺级",
+      "field": "询盘表现",
+      "status": "auth/capability blocked",
+      "source": null,
+      "note": "当前只确认 fb 可用，不外推为完整询盘漏斗。"
+    },
+    {
+      "dimension": "店铺级",
+      "field": "响应率",
+      "status": "auth/capability blocked",
+      "source": null,
+      "note": "当前 reply 更像回复相关计数，不等同公开响应率字段。"
+    },
+    {
+      "dimension": "店铺级",
+      "field": "快速回复率",
+      "status": "auth/capability blocked",
+      "source": null,
+      "note": "当前真实返回未见 quick reply 相关公开字段。"
+    },
+    {
+      "dimension": "产品级",
+      "field": "曝光",
+      "status": "auth/capability blocked",
+      "source": null,
+      "note": null
+    }
+  ]
+}

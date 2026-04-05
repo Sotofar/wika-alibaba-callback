@@ -4,7 +4,7 @@
 阶段 17：任务 1/2 的经营数据候选接口只读验证
 
 ## 本阶段唯一目标
-只验证官方明确存在的经营数据候选接口，在当前 WIKA production 闭环下判断：
+只验证官方明确存在的经营数据候选接口，在当前 `WIKA` production 闭环下判断：
 
 - 哪些方法能返回真实数据
 - 哪些只到参数层
@@ -14,12 +14,12 @@
 本阶段不新增任何平台内写动作，不回到本地旁路，不把候选验证误报成能力已打通。
 
 ## 起始基线
-- 当前实际起始仓库状态以本阶段开始时的 `HEAD` 为准：`2aa82d4`
+- 当前实际起始仓库状态以本阶段开始时的 `HEAD` 为准：`c26ef19`
 - 当前只推进 `WIKA`
 - 一律复用 Railway production 闭环与 `/sync + access_token + sha256`
 - 当前禁止任何本地 `.env` / callback / token 旁路
 - 当前禁止任何平台内写动作
-- 当前已稳定存在：
+- 当前稳定可复用读侧包括：
   - `products/list`
   - `products/detail`
   - `products/score`
@@ -29,7 +29,7 @@
   - `orders/fund`
   - `orders/logistics`
   - `products/management-summary`
-  - `products/orders/operations minimal-diagnostic`
+  - `operations / products / orders minimal-diagnostic`
 
 ## 本阶段分解
 ### A. 复用基础盘点
@@ -66,7 +66,7 @@
 ### D. 派生证明
 基于真实订单数据，给出最小派生样例，判断能否派生：
 - 正式汇总
-- 趋势（按日/周）
+- 趋势（按日 / 周）
 - 国家结构
 - 产品贡献
 
@@ -101,11 +101,25 @@
 - `REAL_DATA_RETURNED`
 - `DERIVABLE_FROM_EXISTING_ORDER_APIS`
 
+## 当前收口结果
+- `alibaba.mydata.overview.date.get` -> `AUTH_BLOCKED`
+- `alibaba.mydata.overview.industry.get` -> `AUTH_BLOCKED`
+- `alibaba.mydata.overview.indicator.basic.get` -> `AUTH_BLOCKED`
+- `alibaba.mydata.self.product.date.get` -> `AUTH_BLOCKED`
+- `alibaba.mydata.self.product.get` -> `AUTH_BLOCKED`
+- `alibaba.seller.order.list` -> `REAL_DATA_RETURNED`
+- `alibaba.seller.order.get` -> `PARAMETER_REJECTED`
+- `alibaba.seller.order.fund.get` -> `PARAMETER_REJECTED`
+- `alibaba.seller.order.logistics.get` -> `PARAMETER_REJECTED`
+- 订单级派生结论：
+  - `趋势` -> 可由现有 `order.list.create_date` 派生
+  - `正式汇总 / 国家结构 / 产品贡献` -> 当前未证明成立
+
 ## 完成标准
 - 已完成店铺级、产品级、订单级候选方法的真实生产分类
 - 已形成字段覆盖矩阵
 - 已落盘脱敏证据
-- 已判断哪些字段可直接取、哪些只能派生、哪些仍缺公开入口
+- 已判断哪些字段可直接取、哪些字段只能派生、哪些字段仍缺公开入口
 - 已更新基线、计划、缺口矩阵、候选池、自治推进日志
 - 本阶段完成后停止，不自动进入下一阶段
 

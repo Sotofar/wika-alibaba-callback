@@ -586,3 +586,39 @@
 - 阶段收口：
   - 当前已经形成可评估、可回归、可审计、可交接的外部草稿工作流质量层
   - 当前仍不能误写成平台内已回复、平台内已创单、真实通知已送达
+
+### 阶段 17：任务 1/2 的经营数据候选接口只读验证
+
+- 实际起始 commit：`c26ef19bb6c4454928f3844ed66164add38cf86d`
+- 本轮没有做任何新的平台内写动作
+- 本轮没有走本地 `.env` / callback / token 旁路
+- 本轮只复用 Railway production + 官方 `/sync + access_token + sha256` 主线
+- 新增验证脚本：
+  - `scripts/validate-wika-metrics-candidates.js`
+- 新增沉淀：
+  - `docs/framework/WIKA_经营数据候选接口验证.md`
+  - `docs/framework/WIKA_经营数据字段覆盖矩阵.md`
+  - `docs/framework/evidence/`
+- 候选方法真实生产分类结果：
+  - `alibaba.mydata.overview.date.get` -> `AUTH_BLOCKED`
+  - `alibaba.mydata.overview.industry.get` -> `AUTH_BLOCKED`
+  - `alibaba.mydata.overview.indicator.basic.get` -> `AUTH_BLOCKED`
+  - `alibaba.mydata.self.product.date.get` -> `AUTH_BLOCKED`
+  - `alibaba.mydata.self.product.get` -> `AUTH_BLOCKED`
+  - `alibaba.seller.order.list` -> `REAL_DATA_RETURNED`
+  - `alibaba.seller.order.get` -> `PARAMETER_REJECTED`
+  - `alibaba.seller.order.fund.get` -> `PARAMETER_REJECTED`
+  - `alibaba.seller.order.logistics.get` -> `PARAMETER_REJECTED`
+- 真实证据摘要：
+  - `mydata / overview / self.product` 在当前租户下统一返回 `InsufficientPermission`
+  - `order.list` 可稳定返回真实订单样本、分页能力和 `create_date / modify_date`
+  - `order.list` 返回的 `trade_id` 在真实响应里已是遮罩值，因此继续喂给 `order.get / fund.get / logistics.get` 时统一落到参数拒绝
+- 派生证明：
+  - `趋势` -> 可由 `order.list.create_date` 派生
+  - `正式汇总` -> 当前未证明成立
+  - `国家结构` -> 当前未证明成立
+  - `产品贡献` -> 当前未证明成立
+- 阶段收口：
+  - 当前不建议正式重开 `mydata` 主线
+  - 若继续任务 2，订单级经营汇总只能先写成“基于现有交易 API 的部分派生”
+  - 本轮只是候选接口验证，不等于任务 1 / 2 已完成

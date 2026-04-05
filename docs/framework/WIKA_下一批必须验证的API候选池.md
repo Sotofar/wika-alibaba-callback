@@ -12,6 +12,7 @@
 4. 再补任务 4：只继续验证官方明确存在的 customers / inquiries / messages 读侧入口
 5. 任务 5 当前已完成正式入口边界摸底；在出现新的官方低风险候选前，不再继续深挖 `order.create`
 6. 任务 4 / 5 当前已经形成“模板化的外部草稿工作流 SOP 层”，后续若继续，应优先增强输入模板版本、人工补单 SOP、handoff checklist 和 blocker taxonomy，而不是回到平台内写动作
+7. 阶段 17 已再次完成经营数据候选接口只读验证；`mydata / overview / self.product` 仍统一停在权限/能力阻塞，当前不建议重开这条循环
 
 ## 当前已成立，不再进入候选池主线的能力
 
@@ -87,9 +88,20 @@
 
 统一结论：`官方存在，但权限/能力阻塞`
 
+以下结论同样已在阶段 17 完成，不再重复消耗主线资源：
+- `alibaba.seller.order.list` -> `REAL_DATA_RETURNED`
+- `alibaba.seller.order.get` -> `PARAMETER_REJECTED`
+- `alibaba.seller.order.fund.get` -> `PARAMETER_REJECTED`
+- `alibaba.seller.order.logistics.get` -> `PARAMETER_REJECTED`
+
+补充说明：
+- 当前 `order.list` 已证明可直接取到真实订单样本与创建时间窗口
+- 当前订单级经营汇总只证明到“趋势可由现有交易 API 派生”
+- `正式汇总 / 国家结构 / 产品贡献` 还不能写成已由现有交易 API 稳定派生
+
 ## 当前一句话结论
 
-当前最优先的下一批验证对象仍然是“真实 provider 外发验证”与“写侧可回滚证据”；而任务 4 / 5 当前已经有可直接使用、并且更适合人机协同的外部草稿工作流 SOP 层，不应再把它们误写成平台内自动执行闭环。
+当前最优先的下一批验证对象仍然是“真实 provider 外发验证”与“写侧可回滚证据”；而任务 4 / 5 当前已经有可直接使用、并且更适合人机协同的外部草稿工作流 SOP 层，不应再把它们误写成平台内自动执行闭环。任务 1 / 2 当前不建议因为本轮候选验证就正式重开 `mydata` 主线；若必须继续任务 2，应优先写成“订单趋势由现有交易 API 部分派生”，而不是追新报表入口。
 
 补充说明：
 - 本轮没有做任何新的 Alibaba API 验证。

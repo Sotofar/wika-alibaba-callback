@@ -1,0 +1,184 @@
+{
+  "api_name": "alibaba.seller.order.fund.get",
+  "doc_status": "DOC_FOUND",
+  "final_category": "PARAMETER_REJECTED",
+  "best_attempt": {
+    "attempt_name": "trade_1",
+    "classification": "PARAMETER_REJECTED",
+    "http_status": 200,
+    "request_params": {
+      "e_trade_id": "21***54",
+      "data_select": "fund_serviceFee,fund_fundPay,fund_refund"
+    },
+    "root_key": "alibaba_seller_order_fund_get_response",
+    "payload_keys": [
+      "_trace_id_",
+      "code",
+      "error_response",
+      "msg",
+      "request_id",
+      "sub_code",
+      "sub_msg",
+      "type"
+    ],
+    "extracted": null,
+    "error_response": {
+      "code": "15",
+      "type": "ISP",
+      "sub_code": "isv.402",
+      "sub_msg": "tradeId is invalid",
+      "msg": "Remote service error",
+      "request_id": "0b51f6a417753776986487822",
+      "_trace_id_": "212cf75117753776986457527e0f29"
+    },
+    "response_excerpt": {
+      "root_key": "alibaba_seller_order_fund_get_response",
+      "payload": {
+        "error_response": {
+          "code": "15",
+          "type": "ISP",
+          "sub_code": "isv.402",
+          "sub_msg": "tradeId is invalid",
+          "msg": "Remote service error",
+          "request_id": "0b51f6a417753776986487822",
+          "_trace_id_": "212cf75117753776986457527e0f29"
+        }
+      }
+    }
+  },
+  "attempts": [
+    {
+      "attempt_name": "trade_1",
+      "classification": "PARAMETER_REJECTED",
+      "http_status": 200,
+      "request_params": {
+        "e_trade_id": "21***54",
+        "data_select": "fund_serviceFee,fund_fundPay,fund_refund"
+      },
+      "root_key": "alibaba_seller_order_fund_get_response",
+      "payload_keys": [
+        "_trace_id_",
+        "code",
+        "error_response",
+        "msg",
+        "request_id",
+        "sub_code",
+        "sub_msg",
+        "type"
+      ],
+      "extracted": null,
+      "error_response": {
+        "code": "15",
+        "type": "ISP",
+        "sub_code": "isv.402",
+        "sub_msg": "tradeId is invalid",
+        "msg": "Remote service error",
+        "request_id": "0b51f6a417753776986487822",
+        "_trace_id_": "212cf75117753776986457527e0f29"
+      },
+      "response_excerpt": {
+        "root_key": "alibaba_seller_order_fund_get_response",
+        "payload": {
+          "error_response": {
+            "code": "15",
+            "type": "ISP",
+            "sub_code": "isv.402",
+            "sub_msg": "tradeId is invalid",
+            "msg": "Remote service error",
+            "request_id": "0b51f6a417753776986487822",
+            "_trace_id_": "212cf75117753776986457527e0f29"
+          }
+        }
+      }
+    },
+    {
+      "attempt_name": "trade_2",
+      "classification": "PARAMETER_REJECTED",
+      "http_status": 200,
+      "request_params": {
+        "e_trade_id": "29***76",
+        "data_select": "fund_serviceFee,fund_fundPay,fund_refund"
+      },
+      "root_key": "alibaba_seller_order_fund_get_response",
+      "payload_keys": [
+        "_trace_id_",
+        "code",
+        "error_response",
+        "msg",
+        "request_id",
+        "sub_code",
+        "sub_msg",
+        "type"
+      ],
+      "extracted": null,
+      "error_response": {
+        "code": "15",
+        "type": "ISP",
+        "sub_code": "isv.402",
+        "sub_msg": "tradeId is invalid",
+        "msg": "Remote service error",
+        "request_id": "212c8daf17753776989413379",
+        "_trace_id_": "212cf75117753776989397532e0f29"
+      },
+      "response_excerpt": {
+        "root_key": "alibaba_seller_order_fund_get_response",
+        "payload": {
+          "error_response": {
+            "code": "15",
+            "type": "ISP",
+            "sub_code": "isv.402",
+            "sub_msg": "tradeId is invalid",
+            "msg": "Remote service error",
+            "request_id": "212c8daf17753776989413379",
+            "_trace_id_": "212cf75117753776989397532e0f29"
+          }
+        }
+      }
+    },
+    {
+      "attempt_name": "trade_3",
+      "classification": "PARAMETER_REJECTED",
+      "http_status": 200,
+      "request_params": {
+        "e_trade_id": "29***56",
+        "data_select": "fund_serviceFee,fund_fundPay,fund_refund"
+      },
+      "root_key": "alibaba_seller_order_fund_get_response",
+      "payload_keys": [
+        "_trace_id_",
+        "code",
+        "error_response",
+        "msg",
+        "request_id",
+        "sub_code",
+        "sub_msg",
+        "type"
+      ],
+      "extracted": null,
+      "error_response": {
+        "code": "15",
+        "type": "ISP",
+        "sub_code": "isv.402",
+        "sub_msg": "tradeId is invalid",
+        "msg": "Remote service error",
+        "request_id": "210829b717753776992364631",
+        "_trace_id_": "212cf75117753776992337541e0f29"
+      },
+      "response_excerpt": {
+        "root_key": "alibaba_seller_order_fund_get_response",
+        "payload": {
+          "error_response": {
+            "code": "15",
+            "type": "ISP",
+            "sub_code": "isv.402",
+            "sub_msg": "tradeId is invalid",
+            "msg": "Remote service error",
+            "request_id": "210829b717753776992364631",
+            "_trace_id_": "212cf75117753776992337541e0f29"
+          }
+        }
+      }
+    }
+  ],
+  "real_extracted": []
+}

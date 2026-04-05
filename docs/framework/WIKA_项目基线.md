@@ -1,25 +1,36 @@
 # WIKA_项目基线
 
 ## 一句话总基线
-只推进 `WIKA`。当前主线已经形成“真实读侧原始路由 + 最小经营诊断层 + provider-agnostic 正式通知闭环 + 模板化外部草稿工作流 SOP 层”，但仍未形成完整经营驾驶舱，也未证明平台内安全写入边界。
+只推进 `WIKA`；当前主线已经形成“真实读侧原始路由 + 最小经营诊断层 + provider-agnostic 正式通知闭环 + 模板化外部草稿工作流 SOP 层”，并补充完成一轮“经营数据候选接口只读验证”；但 `mydata / overview / self.product` 仍停在权限/能力阻塞，订单级经营汇总当前只证明到“可由现有交易 API 部分派生”，还没有形成完整经营驾驶舱，也没有证明平台内安全写入边界。
 
 ## 当前已完成阶段
 - 产品 / 订单 / 物流基础读侧原始路由已上线并线上验证
 - 类目 / 属性原始路由已上线并线上验证
 - schema / schema.render 原始路由已上线并线上验证
-- media/list、media/groups、products/schema/render/draft 原始路由已上线并线上验证
-- customers 家族已完成生产分类，`customers/list` 作为权限探针型只读路由已上线
+- `media/list`、`media/groups`、`products/schema/render/draft` 原始路由已上线并线上验证
+- `customers` 家族已完成生产分类，`customers/list` 作为权限探针型只读路由已上线
 - provider-agnostic 正式通知闭环已成立
 - webhook / resend provider 预接线与 dry-run 已成立
 - phase13 已确认真实 provider 外发当前缺配置 / 缺可控目标
 - operations / products / orders minimal-diagnostic 已上线并线上验证
 - 外部回复草稿工具路由已上线并线上验证
 - 外部订单草稿工具路由已上线并线上验证
-- 外部回复 / 外部订单工作流输入模板、blocker taxonomy、follow-up questions、handoff_fields 已成立
-- 外部回复 / 外部订单的人机协同模板、人工补单模板、handoff checklist 与 manual completion SOP 已成立
-- mydata / overview / self.product 路线已收口为权限 / 能力阻塞
-- photobank.upload 已过授权层，但当前无法证明低风险上传边界
-- product.add.draft 已过授权层，但当前无法证明安全草稿边界
+- 外部回复 / 外部订单工作流输入模板、blocker taxonomy、follow-up questions、handoff_fields、handoff checklist、manual completion SOP 已成立
+- 外部草稿工作流质量评估层、可失败回归闸门、交接包导出已成立
+- `mydata / overview / self.product` 路线已多轮收口为权限 / 能力阻塞
+- `photobank.upload` 已过授权层，但当前无法证明低风险上传边界
+- `product.add.draft` 已过授权层，但当前无法证明安全草稿边界
+- 阶段 17 已完成经营数据候选接口只读验证：
+  - `alibaba.mydata.overview.date.get` -> `AUTH_BLOCKED`
+  - `alibaba.mydata.overview.industry.get` -> `AUTH_BLOCKED`
+  - `alibaba.mydata.overview.indicator.basic.get` -> `AUTH_BLOCKED`
+  - `alibaba.mydata.self.product.date.get` -> `AUTH_BLOCKED`
+  - `alibaba.mydata.self.product.get` -> `AUTH_BLOCKED`
+  - `alibaba.seller.order.list` -> `REAL_DATA_RETURNED`
+  - `alibaba.seller.order.get` -> `PARAMETER_REJECTED`
+  - `alibaba.seller.order.fund.get` -> `PARAMETER_REJECTED`
+  - `alibaba.seller.order.logistics.get` -> `PARAMETER_REJECTED`
+  - 订单经营汇总当前只证明到 `DERIVABLE_FROM_EXISTING_ORDER_APIS` 的“部分成立”
 
 ## 已上线可复用路由
 - /integrations/alibaba/wika/data/products/list
@@ -75,7 +86,6 @@
 - 平台内订单创建
 
 ## 当前还缺的核心能力
-
 ### 任务 1
 - 店铺经营指标入口
 - 产品表现入口
@@ -83,6 +93,7 @@
 ### 任务 2
 - 更完整的经营聚合层
 - 店铺经营指标接入后的增强诊断层
+- 订单经营汇总里除“趋势”之外的稳定派生能力
 
 ### 任务 3
 - media 写入的低风险边界证明
@@ -105,7 +116,7 @@
 - 把正式通知闭环挂到更多真实 blocker 触发点
 
 ## 当前唯一推荐下一步
-如果继续，只建议在“模板化的外部草稿工作流 SOP 层”上继续做更稳的输入模板版本、人工补单模板、handoff checklist 和 blocker 文案，不回到新 API 验证循环，除非出现新的官方明确入口或新的 provider 配置。
+如果继续，只建议在当前“外部草稿工作流 SOP 层 + 质量评估与回归闸门层”之上继续增强人机协同模板；不要重开 `mydata / overview / self.product` 循环。若任务 2 需要继续推进，优先把订单级经营汇总写成“基于现有交易 API 的部分派生”，而不是误报为新报表入口已打通。
 
 ## 当前真实数据结论
 - media 可观测：已成立
@@ -114,12 +125,20 @@
 - draft 渲染通道存在且与 live product 可区分：已成立
 - customers 家族可走 production 认证闭环：已成立
 - 当前最小正式通知闭环已成立：已成立
-- 当前真实 provider 预接线 dry-run 已成立：已成立
+- 当前真实 provider 预接线 + dry-run 已成立：已成立
 - 当前真实 provider 最小外发验证前置条件不足：已成立
 - 当前总诊断层、产品子诊断、订单子诊断都已成立：已成立
 - 当前外部回复草稿与外部订单草稿工作流层都已成立：已成立
-- 当前外部草稿工作流的 blocker taxonomy、workflow profile、template version、handoff checklist 都已成立：已成立
-- 当前 reply/order 已具备面向人工接手的 manual completion SOP 与字段级 missing reason：已成立
+- 当前外部草稿工作流的 blocker taxonomy、workflow profile、template version、handoff checklist、manual completion SOP 都已成立：已成立
+- 当前 reply/order 已具备面向人工接手的字段级 missing reason：已成立
+- 当前 `mydata / overview / self.product` 在当前租户下仍统一 `AUTH_BLOCKED`：已成立
+- 当前 `order.list` 能稳定返回真实数据：已成立
+- 当前 `order.get / fund.get / logistics.get` 在使用 `order.list` 返回的遮罩 `trade_id` 时统一落到 `PARAMETER_REJECTED`：已成立
+- 当前订单级经营汇总只能部分派生：
+  - 趋势：已成立（来自 `order.list.create_date`）
+  - 正式汇总：未成立
+  - 国家结构：未成立
+  - 产品贡献：未成立
 - 当前仍不能诊断 UV / PV / 曝光 / 点击 / CTR / 来源 / 国家 / 询盘表现：已成立
 - 当前只能生成外部草稿，不得误写为平台内已回复或已创单：已成立
 
@@ -129,17 +148,3 @@
 - inquiry / message 是否会出现官方明确的读侧 list/detail 方法
 - media / draft 边界证据补齐后，是否才可进入最小真实写入验证
 - 后续是否会出现官方明确的 order `precheck / cancel / status / draft` 低风险接口
-
-## 阶段16补充（2026-04-05）
-- 本轮没有做任何新的 Alibaba API 验证。
-- 本轮没有推进平台内自动回复、平台内订单创建、真实通知外发。
-- 本轮只增强任务 4/5 的外部草稿工作流质量层：
-  - 统一 review / gate 结构
-  - 可失败的回归闸门
-  - reply / order handoff pack 导出
-  - workflow profile / template version / blocker taxonomy 治理
-- 当前边界不变：
-  - 仍然只是外部草稿工作流层
-  - 不是平台内已回复
-  - 不是平台内已创单
-  - 不是真实通知已送达
