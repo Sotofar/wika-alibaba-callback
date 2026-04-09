@@ -1,6 +1,6 @@
 ﻿# WIKA 下一批必须验证的 API 候选池
 
-更新时间：2026-04-05
+更新时间：2026-04-09
 
 本文只保留围绕最终 6 项任务、且在当前主线里最值得继续推进的下一批候选。已经明确权限阻塞或边界未证明的接口，不再回到当前主线里循环验证。
 
@@ -14,6 +14,7 @@
 6. 任务 4 / 5 当前已经形成“模板化的外部草稿工作流 SOP 层”，后续若继续，应优先增强输入模板版本、人工补单 SOP、handoff checklist 和 blocker taxonomy，而不是回到平台内写动作
 7. 阶段 17 已再次完成经营数据候选接口只读验证；阶段 18 已进一步把 `mydata / overview / self.product` 收口成权限清障包，当前不建议重开这条循环
 8. 阶段 18 已进一步确认 `order.detail / fund / logistics` 的 public chaining 契约未闭合；在拿到可复用未遮罩订单 identifier 之前，不建议重开这条链的 runtime 验证
+9. 阶段 19 已完整归类 `ICBU－商品 (cid=20966)` 左侧栏 47 页官方文档；新增“文档已确认存在，但尚未生产验证”的方法，只允许进入 doc-found 候选池，不能误报为主线已重开
 
 ## 当前已成立，不再进入候选池主线的能力
 
@@ -50,6 +51,24 @@
 | T3-P0 | draft 查询 / 读取 / 删除 / 管理同家族接口 | 当前未识别到可用入口 | 当前公开官方文档中，除已验证的 `schema.render.draft` 外，没有再识别到明确的新接口 | 不再围绕 draft 管理接口循环，除非官方出现新的明确方法名 |
 | T3-P1 | `alibaba.icbu.photobank.upload` | 已验证但不进入路由化 | 已过授权层；media 可观测能力已成立，但当前仍无法证明低风险写入边界 | 暂不继续真实上传 |
 | T3-P1 | `alibaba.icbu.product.add.draft` | 已验证但不进入路由化 | 已过授权层；draft 可区分证据已成立，但当前仍无法证明安全草稿边界 | 暂不继续真实 draft create |
+
+## 文档已确认存在，但尚未进入验证主线
+
+以下对象来自阶段 19 的 `ICBU－商品` 全类目文档归类结果。它们当前只能写成 `official doc found only`，不能写成已打通或已适合立即重开主线。
+
+| 优先级 | API / 能力 | 当前状态 | 当前结论 | 下一步 |
+| --- | --- | --- | --- | --- |
+| T3-DOC0 | `alibaba.icbu.product.type.available.get` | 官方文档已确认存在，未验证 | 可能成为任务 3 的更低风险发品权限 precheck 候选 | 只有在明确重开任务 3、且仍坚持低风险 precheck 优先时，才进入 production 验证 |
+| T3-DOC1 | `alibaba.icbu.product.schema.add.draft` | 官方文档已确认存在，未验证 | 文档上明确返回“商品草稿明文id”，可能是 `schema.render.draft` 的上游候选；但它本身仍是写侧草稿创建入口 | 只有在重开写侧边界验证时才考虑，不得误写成安全 draft 已成立 |
+| T3-DOC2 | `alibaba.icbu.product.id.encrypt / decrypt` | 官方文档已确认存在，未验证 | 说明商品侧存在 ID 契约层，可用于未来商品 ID 契约对账 | 只有在重开 product ID 契约问题时才考虑 |
+| T3-DOC3 | `alibaba.icbu.category.id.mapping / category.predict / property.predict` | 官方文档已确认存在，未验证 | 只对类目映射、属性补全、外部草稿准备层增强有帮助，不直接解决当前主线阻塞 | 保留为低优先级文档候选 |
+
+## 阶段 19 已固定的关键负结论
+
+- 当前没有在 `ICBU－商品` 类目里读到明确的 draft query / delete / manage 接口
+- 当前没有在 `ICBU－商品` 类目里读到明确的 media delete / cleanup 接口
+- 这批商品类目文档不能直接解决 `mydata` 的 `AUTH_BLOCKED`
+- 这批商品类目文档不能直接解决订单 detail / fund / logistics 的参数契约问题
 
 ## 第三梯队：任务 4（询盘 / 消息 / 客户）
 
@@ -108,3 +127,4 @@
 - 本轮没有做任何新的 Alibaba API 验证。
 - 阶段 18 没有推进平台内自动回复、平台内订单创建、真实通知外发。
 - 阶段 18 只是在收口 `mydata` 权限清障和订单参数契约对账。
+- 阶段 19 只是在收口 `ICBU－商品` 官方文档阅读结果与候选池，不代表任何新方法已经在 `WIKA` 当前租户下验证通过。

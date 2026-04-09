@@ -1,76 +1,64 @@
 # WIKA_执行计划
 
 ## 当前阶段
-阶段 18：经营数据清障与订单参数契约对账
+阶段 19：ICBU 商品类目官方文档归类与候选池收口
 
 ## 本阶段唯一目标
-不新增任何 Alibaba API 验证，只围绕阶段 17 已有结果做两类收口：
+不新增任何 Alibaba API 验证，只把已经完整读取过的 `ICBU－商品 (cid=20966)` 左侧栏 47 个官方页面收口成：
 
-- `mydata` 5 个方法的权限清障包
-- `orders/detail/fund/logistics` 的参数契约对账包
-
-如果存在纯只读、纯参数映射层面的安全修正，则允许小范围纠偏并复测；如果不能证明是只读参数层问题，就明确写成阻塞并停止。
+- 一份可复用的官方文档归类文档
+- 一组“文档已确认存在，但尚未生产验证”的候选清单
+- 一组明确的负结论：
+  - 当前没有读到 draft 查询 / 删除 / 管理接口
+  - 当前没有读到 media 删除 / 清理接口
+  - 这批商品类目文档不能直接解决 `mydata` 权限阻塞
+  - 这批商品类目文档不能直接解决订单 detail / fund / logistics 契约
 
 ## 起始基线
-- 当前实际起始仓库状态以本阶段开始时的 `HEAD` 为准：`218d073`
+- 当前实际起始仓库状态以本阶段开始时的 `HEAD` 为准：`2b202e5`
+- 本阶段开始 checkpoint：`e125612`
 - 当前只推进 `WIKA`
 - 一律复用 Railway production 闭环与 `/sync + access_token + sha256`
 - 当前禁止任何本地 `.env` / callback / token 旁路
 - 当前禁止任何平台内写动作
-- 阶段 17 已收口：
-  - `alibaba.mydata.overview.date.get` -> `AUTH_BLOCKED`
-  - `alibaba.mydata.overview.industry.get` -> `AUTH_BLOCKED`
-  - `alibaba.mydata.overview.indicator.basic.get` -> `AUTH_BLOCKED`
-  - `alibaba.mydata.self.product.date.get` -> `AUTH_BLOCKED`
-  - `alibaba.mydata.self.product.get` -> `AUTH_BLOCKED`
-  - `alibaba.seller.order.list` -> `REAL_DATA_RETURNED`
-  - `alibaba.seller.order.get` -> `PARAMETER_REJECTED`
-  - `alibaba.seller.order.fund.get` -> `PARAMETER_REJECTED`
-  - `alibaba.seller.order.logistics.get` -> `PARAMETER_REJECTED`
-- 当前仅部分成立的订单派生信号：
-  - `趋势` -> 仅可由 `order.list.create_date` 做 partial derived signal
+- 阶段 18 已收口：
+  - `mydata` 5 个方法 -> `AUTH_BLOCKED` + `ACCESS_REOPEN_READY`
+  - `/orders/list` -> `READ_ONLY_ROUTE_CONFIRMED_WORKING`
+  - `/orders/detail` -> `MASKED_TRADE_ID_NOT_REUSABLE`
+  - `/orders/fund` -> `MASKED_TRADE_ID_NOT_REUSABLE`
+  - `/orders/logistics` -> `MASKED_TRADE_ID_NOT_REUSABLE`
+- 当前已完成 `ICBU－商品 (cid=20966)` 全类目 47 页官方文档阅读
 
 ## 本阶段分解
-### A. `mydata` 权限清障包
-- 复用阶段 17 现有 evidence
-- 对 5 个 `mydata` 官方方法逐一整理：
-  - method name
-  - intended use
-  - target fields
-  - observed result / error
-  - affected tasks
-  - minimal permission ask wording
-  - access grant 后可重开的 route/report
+### A. 全量文档阅读结果归类
+- 按 47 个方法整理成 6 个桶：
+  - 类目 / 属性 / 预测 / 映射
+  - 商品读取 / 质量 / ID / 库存 / 权限
+  - schema / draft / 写侧
+  - 分组 / 主题 / 定招
+  - 图片 / 素材
+  - 其他
 
-### B. 订单参数契约对账
-- 对齐现有正式只读链路：
-  - `/orders/list`
-  - `/orders/detail`
-  - `/orders/fund`
-  - `/orders/logistics`
-- 明确：
-  - downstream Alibaba method
-  - expected params
-  - identifier shape
-  - identifier source
-  - stage-17 validation input
-  - mismatch finding
-  - current conclusion
-  - next action
+### B. 直接有文档价值的关键契约
+- 固定以下高价值结论：
+  - `alibaba.icbu.product.schema.render.draft` 的 `product_id` 是“草稿商品明文id”
+  - `alibaba.icbu.product.schema.add.draft` 返回“商品草稿明文id”
+  - `alibaba.icbu.product.type.available.get` 是低风险 precheck 候选
+  - `alibaba.icbu.product.id.encrypt / decrypt` 说明商品侧存在 ID 契约层
 
-### C. 只读参数层安全纠偏
-- 只有在能证明问题只是：
-  - 参数名映射错误
-  - ID 来源使用错误
-  - helper 少传只读必要参数
-  - 路由文档与实际契约不一致
-  才允许最小只读修正并复测
-- 若无法证明，仅收口，不硬修
+### C. 关键负结论收口
+- 明确写清：
+  - 当前没有读到 draft query / delete / manage 公开接口
+  - 当前没有读到 media delete / cleanup 公开接口
+  - 当前商品类目文档不能解决 `mydata` 权限阻塞
+  - 当前商品类目文档不能解决订单 detail / fund / logistics 契约
 
-### D. Partial derived signal 固化
-- 基于现有 `order.list.create_date`
-- 固化一份最小“订单趋势派生证明”
-- 明确它只是 `partial derived signal`，不能扩写成完整订单经营汇总
+### D. 候选池与缺口矩阵同步
+- 仅把“文档已确认存在，但未验证”的方法放入候选池
+- 不把它们误写成：
+  - 已打通
+  - 已形成正式路由
+  - 已形成平台内闭环
 
 ## 本阶段明确排除
 - XD
@@ -87,74 +75,60 @@
 - 自动进入下一阶段
 
 ## 推进规则
-1. 只允许围绕阶段 17 已验证方法做复核、对账、证据收口
+1. 只允许做官方文档归类与候选池收口
 2. 不新增 undocumented method，不穷举新接口名
 3. 不直连 `router/rest`
-4. 不把 `AUTH_BLOCKED` 写成“接口不存在”
-5. 不把“参数通过”写成“经营汇总已成立”
-6. 不能证明是只读参数层问题时，不做代码硬修
+4. 不做任何 production API 实测
+5. 不把“文档存在”写成“已打通”
+6. 不把“文档里有 product_id”写成“安全 draft 链路已成立”
 
 ## 分类标准
-### `mydata`
-- `AUTH_BLOCKED`
-- `ACCESS_REOPEN_READY`
-
-### 订单 detail / fund / logistics 契约
-- `SCRIPT_PARAM_NAME_MISMATCH`
-- `SCRIPT_ID_SOURCE_MISMATCH`
-- `MASKED_TRADE_ID_NOT_REUSABLE`
-- `ROUTE_USES_DIFFERENT_INTERNAL_ID_SOURCE`
-- `EXTRA_REQUIRED_PARAM_MISSING`
-- `READ_ONLY_ROUTE_CONFIRMED_WORKING`
-- `PARAM_CONTRACT_STILL_UNRESOLVED`
+### 文档归类候选
+- `OFFICIAL_DOC_FOUND_NOT_VALIDATED`
+- `HIGH_RISK_WRITE_SIDE_DOC_FOUND`
+- `NO_EXPLICIT_PUBLIC_ENTRY_FOUND`
+- `DOC_CLARIFIES_CONTRACT_ONLY`
 
 ## 当前收口结果
-- `mydata` 5 个方法本轮不再重复实测，只复用阶段 17 已有 evidence 形成权限清障包：
-  - 当前分类保持 `AUTH_BLOCKED`
-  - 当前清障状态固化为 `ACCESS_REOPEN_READY`
-- 订单链路契约对账结论：
-  - `/orders/list` -> `READ_ONLY_ROUTE_CONFIRMED_WORKING`
-  - `/orders/detail` -> `MASKED_TRADE_ID_NOT_REUSABLE`
-  - `/orders/fund` -> `MASKED_TRADE_ID_NOT_REUSABLE`
-  - `/orders/logistics` -> `MASKED_TRADE_ID_NOT_REUSABLE`
-- 阶段 17 验证脚本与现有只读 route 的关键差异已固定：
-  - stage-17 用的是 `/orders/list` 返回的遮罩 `trade_id`
-  - 现有 detail / fund / logistics 都要求外部传入 `e_trade_id`
-  - 当前 public 只读链路里没有证据证明遮罩 `trade_id` 可以直接复用
-- 当前没有发现可证明成立的“纯参数层安全修正”，因此本轮不做 runtime 代码硬修
-- 当前仅有一个 partial derived signal 成立：
-  - `订单趋势` -> 仅可由 `order.list.create_date` 派生
-  - `正式汇总 / 国家结构 / 产品贡献` -> 当前仍未证明成立
+- 当前已把 `ICBU－商品 (cid=20966)` 左侧栏 47 页完整归类
+- 当前最有价值的文档级结论已固定：
+  - `schema.render.draft` 只适用于草稿商品编辑，且依赖“草稿商品明文id”
+  - `schema.add.draft` 文档上明确返回“商品草稿明文id”
+  - `product.type.available.get` 值得保留为以后可能的低风险 precheck 候选
+  - `product.id.encrypt / decrypt` 说明商品侧存在单独的 ID 契约层
+- 当前关键负结论已固定：
+  - 没有读到 draft query / delete / manage 公开接口
+  - 没有读到 media delete / cleanup 公开接口
+  - 这批商品类目文档不能解决 `mydata` 的 `AUTH_BLOCKED`
+  - 这批商品类目文档不能解决订单 detail / fund / logistics 契约
 
 ## 当前预期交付
-- `docs/framework/WIKA_经营数据权限清障包.md`
-- `docs/framework/WIKA_订单参数契约对账.md`
-- `scripts/validate-wika-metrics-clearance-and-order-contract.js`
-- `docs/framework/evidence/wika-metrics-clearance-and-order-contract-summary.json`
-
-## 完成标准
-- 已形成 `mydata` 权限清障包
-- 已形成订单参数契约对账矩阵
-- 如有纯参数层安全修正，已完成只读复测；如无，已明确阻塞
-- 已固化最小订单趋势派生证明
-- 已更新基线、计划、候选验证文档、字段矩阵、缺口矩阵、候选池、自治推进日志
-- 本阶段完成后停止，不自动进入下一阶段
-
-## 停止条件
-- `mydata` 清障包与订单契约对账包都已形成
-- 或者无法证明存在纯只读参数层修正空间
-- 或继续推进只会回到新 API 验证 / 写动作方向
-
-## 交付物
-- `scripts/validate-wika-metrics-clearance-and-order-contract.js`
-- `docs/framework/evidence/wika-metrics-clearance-and-order-contract-summary.json`
-- `docs/framework/WIKA_经营数据权限清障包.md`
-- `docs/framework/WIKA_订单参数契约对账.md`
-- `docs/framework/WIKA_经营数据候选接口验证.md`
-- `docs/framework/WIKA_经营数据字段覆盖矩阵.md`
+- `docs/framework/WIKA_ICBU商品类目官方文档归类.md`
 - `docs/framework/WIKA_项目基线.md`
 - `docs/framework/WIKA_执行计划.md`
 - `docs/framework/WIKA_面向6项任务_API缺口矩阵.md`
+- `docs/framework/WIKA_已上线能力复用清单.md`
+- `docs/framework/WIKA_下一批必须验证的API候选池.md`
+- `docs/framework/WIKA_自治推进日志.md`
+
+## 完成标准
+- 已形成 `ICBU－商品` 47 页官方文档归类文档
+- 已把文档已确认但未验证的方法同步进候选池
+- 已把关键负结论同步进基线、缺口矩阵与推进日志
+- 已明确写清本轮没有做任何新的 Alibaba API 验证
+- 本阶段完成后停止，不自动进入下一阶段
+
+## 停止条件
+- 文档归类已完成
+- 候选池和基线已同步
+- 或继续推进只会回到新 API 验证 / 写动作方向
+
+## 交付物
+- `docs/framework/WIKA_ICBU商品类目官方文档归类.md`
+- `docs/framework/WIKA_项目基线.md`
+- `docs/framework/WIKA_执行计划.md`
+- `docs/framework/WIKA_面向6项任务_API缺口矩阵.md`
+- `docs/framework/WIKA_已上线能力复用清单.md`
 - `docs/framework/WIKA_下一批必须验证的API候选池.md`
 - `docs/framework/WIKA_自治推进日志.md`
 

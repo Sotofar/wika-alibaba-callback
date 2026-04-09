@@ -1,6 +1,6 @@
 ﻿# WIKA 面向 6 项任务 API 缺口矩阵
 
-更新时间：2026-04-05
+更新时间：2026-04-09
 
 本文只面向 `WIKA` 主线，按最终 6 项任务记录当前能力状态。状态口径固定为：
 1. 已上线并可直接复用
@@ -62,8 +62,12 @@
 | 标题 / 卖点 / 描述 / 关键词生成 | 7 | 已集成到草稿 helper | `buildWikaProductDraft()` | 否 |
 | 图片 / 媒体上传 | 5 | 已过授权层，但当前缺少可隔离、可清理、可回滚证据 | `alibaba.icbu.photobank.upload` | 否 |
 | 图片银行分组管理 / 清理证据 | 2 | `photobank.group.operate` 已过授权层，但成功路径属于真实分组写操作；当前仍不证明可回滚 | `alibaba.icbu.photobank.group.operate` | 否 |
+| 发品权限 precheck | 3 | 阶段 19 已在 `ICBU－商品` 官方文档里确认方法存在，可能成为更低风险发品权限探针，但尚未做 production 验证 | `alibaba.icbu.product.type.available.get` | 否 |
 | draft 渲染可观测能力 | 1 | 已上线正式原始路由；已证明存在 draft 独立渲染通道 | `/integrations/alibaba/wika/data/products/schema/render/draft` | 否 |
-| draft 查询 / 删除 / 管理接口 | 6 | 当前公开官方文档中，除 `schema.render.draft` 外未识别到明确的新入口 | 待识别 | 否 |
+| 草稿上游明文 ID 入口 | 3 | 阶段 19 已在 `ICBU－商品` 官方文档里确认 `schema.add.draft` 明确返回“商品草稿明文id”，但当前仍未做生产验证，且它属于写侧草稿入口 | `alibaba.icbu.product.schema.add.draft` | 否 |
+| 商品 ID 明文 / 密文契约辅助 | 3 | 阶段 19 已在 `ICBU－商品` 官方文档里确认 `product.id.encrypt / decrypt` 存在，可用于未来商品侧 ID 契约对账 | `alibaba.icbu.product.id.encrypt` / `alibaba.icbu.product.id.decrypt` | 否 |
+| draft 查询 / 删除 / 管理接口 | 6 | 阶段 19 完整阅读 `ICBU－商品` 左侧栏 47 页后，仍未识别到明确公开入口 | 待识别 | 否 |
+| 图片 / 素材删除 / 清理接口 | 6 | 阶段 19 完整阅读 `ICBU－商品` 左侧栏 47 页后，仍未识别到明确公开入口 | 待识别 | 否 |
 | 安全 draft 创建 | 5 | 已过授权层，但当前缺少非发布、可清理、可回滚证据 | `alibaba.icbu.product.add.draft` | 否 |
 | 产品创建（正式 add） | 5 | 已过授权层，但属于真实发布高风险入口 | `alibaba.icbu.product.add` | 否 |
 | 产品创建（schema add） | 5 | 已过授权层，但属于真实发布高风险入口 | `alibaba.icbu.product.schema.add` | 否 |
@@ -120,4 +124,5 @@
 5. 当前已经形成“外部回复草稿 + 外部订单草稿”这一层可直接使用的中间层，并且已经补齐模板化输入、workflow profile、blocker taxonomy、handoff checklist 和人工接手字段；但它们都不等于平台内回复或平台内创单。
 6. 当前最缺的仍然是：经营指标入口、最小经营聚合、询盘/消息读侧、可真正读出的 customers 数据、平台内安全写入边界，以及通知闭环的真实 provider 配置与真实外发送达证据。
 7. 阶段 18 没有新增任何 Alibaba API 验证；本轮只是在收口 `mydata` 权限清障和订单参数契约对账。
-8. 当前边界依旧不是 task 1 complete，不是 task 2 complete，也不是平台内闭环。
+8. 阶段 19 没有新增任何 Alibaba API 验证；本轮只是在收口 `ICBU－商品` 官方文档阅读结果与候选池。
+9. 当前边界依旧不是 task 1 complete，不是 task 2 complete，也不是平台内闭环。

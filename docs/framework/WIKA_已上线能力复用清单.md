@@ -1,6 +1,6 @@
 ﻿# WIKA 已上线能力复用清单
 
-更新时间：2026-04-05
+更新时间：2026-04-09
 
 本文只登记当前已经上线、已经过线上验收、可直接复用的 `WIKA` 能力，以及已沉淀但不能误报为平台写回闭环的辅助能力。
 
@@ -66,6 +66,7 @@
 | 外部回复草稿 helper | 已实现可复用 | 可输出 reply subject/opening/body/closing、workflow_profile、template_version、price blocker、lead time blocker、follow-up questions、mockup requirement pack、handoff checklist 和 escalation recommendation，但不等于平台内已回复 |
 | 外部草稿工作流模板 | 已实现可复用 | 已沉淀回复输入模板、订单输入模板、blocker taxonomy 和人工补单模板，适合直接进入人工接手流程 |
 | 经营数据候选验证脚本与证据包 | 已沉淀可复用 | 已有 `scripts/validate-wika-metrics-candidates.js`、字段覆盖矩阵、脱敏 evidence，可直接复用于后续只读候选验证；但它们只是验证资产，不是已打通能力 |
+| ICBU 商品类目官方文档归类 | 已落盘可复用 | 已把 `ICBU－商品 (cid=20966)` 左侧栏 47 个官方页面按当前 `WIKA` 主线相关性归类，并固定关键负结论；它只属于文档资产，不等于任何 API 已通过 production 验证 |
 | 人工补单模板 | 已实现可复用 | 已把 hard_blockers / soft_blockers / assumptions / handoff_fields / required_manual_fields 的人工补齐顺序与 section 映射固定下来，适合接手回复草稿和订单草稿 |
 | 订单入口候选清单 | 已落盘可复用 | 已明确 `order.create` 与 `drafttype` 的边界、参数层级与收口方式 |
 | media 管理侧证据 | 已沉淀可复用 | `photobank.group.operate` 已在 production 闭环下过授权层，但当前仍不能证明低风险管理/清理边界 |

@@ -662,3 +662,28 @@
   - 当前不是 task 2 complete
   - 当前没有任何写侧动作
   - 当前不是平台内闭环
+
+### 阶段 19：ICBU 商品类目官方文档归类与候选池收口
+
+- 实际起始 commit：`2b202e5e5d97e9d17c2ce37f57dd51912af26cf3`
+- 起始 checkpoint：`e125612`
+- 本轮没有做任何新的 Alibaba API 验证
+- 本轮没有推进平台内自动回复、平台内订单创建、真实通知外发
+- 本轮只做一件事：
+  - 把 `ICBU－商品 (cid=20966)` 左侧栏 47 个官方页面的阅读结果，收口成可复用的官方文档归类与候选池
+- 新增沉淀：
+  - `docs/framework/WIKA_ICBU商品类目官方文档归类.md`
+- 当前最有价值的文档级结论：
+  - `alibaba.icbu.product.schema.add.draft` 文档上明确返回“商品草稿明文id”
+  - `alibaba.icbu.product.schema.render.draft` 文档上明确要求“草稿商品明文id”
+  - `alibaba.icbu.product.type.available.get` 已被识别为更低风险的发品权限 precheck 候选
+  - `alibaba.icbu.product.id.encrypt / decrypt` 已被识别为商品侧 ID 契约辅助能力
+- 当前关键负结论：
+  - 该类目中没有明确的 draft query / delete / manage 公开接口
+  - 该类目中没有明确的 media delete / cleanup 公开接口
+  - 该类目文档不能直接解决 `mydata` 的 `AUTH_BLOCKED`
+  - 该类目文档不能直接解决订单 detail / fund / logistics 的参数契约
+- 阶段收口：
+  - 当前只把“文档已确认存在”的对象补充进候选池
+  - 当前不能把这些方法误写成“已验证通过”或“已适合立即重开主线”
+  - 当前边界仍然不是 task 1 complete，不是 task 2 complete，也不是平台内闭环
