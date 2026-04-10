@@ -1,0 +1,79 @@
+{
+  "stage": "stage21_post_deploy_lock",
+  "generated_at": "2026-04-10T12:04:34.917Z",
+  "base_url": "https://api.wikapacking.com",
+  "push_commit": "4814b97fa3dbd32b81d603eaf063a9f19dfaf76b",
+  "routes": {
+    "operations_management_summary": {
+      "route": "/integrations/alibaba/wika/reports/operations/management-summary",
+      "http_status": 200,
+      "is_json": true,
+      "checks": {
+        "report_name": true,
+        "source_methods": true,
+        "official_fields": true,
+        "derived_fields": true,
+        "interpretation": true,
+        "unavailable_dimensions": true,
+        "boundary_statement": true
+      }
+    },
+    "products_management_summary": {
+      "route": "/integrations/alibaba/wika/reports/products/management-summary",
+      "http_status": 200,
+      "is_json": true,
+      "checks": {
+        "report_name": true,
+        "statistics_type": true,
+        "stat_date": true,
+        "sample_boundary": true,
+        "aggregate_official_metrics": true,
+        "ranking_sections": true,
+        "keyword_signal_summary": true,
+        "unavailable_dimensions": true,
+        "boundary_statement": true
+      },
+      "sample_boundary": {
+        "product_scope_basis": "sample_from_products_list",
+        "product_scope_limit": 5,
+        "product_scope_truncated": true,
+        "product_ids_used_count": 5
+      }
+    },
+    "operations_minimal_diagnostic": {
+      "route": "/integrations/alibaba/wika/reports/operations/minimal-diagnostic",
+      "http_status": 200,
+      "is_json": true,
+      "checks": {
+        "traffic_performance_section": true,
+        "signal_interpretation": true,
+        "recommendation_block": true,
+        "unavailable_dimensions_echo": true,
+        "confidence_hints": true,
+        "official_derived_unavailable_layers": true
+      }
+    },
+    "products_minimal_diagnostic": {
+      "route": "/integrations/alibaba/wika/reports/products/minimal-diagnostic",
+      "http_status": 200,
+      "is_json": true,
+      "checks": {
+        "performance_section": true,
+        "ranking_interpretation": true,
+        "keyword_signal_takeaways": true,
+        "recommendation_block": true,
+        "unavailable_dimensions_echo": true,
+        "confidence_hints": true,
+        "official_derived_unavailable_layers": true
+      }
+    }
+  },
+  "boundary_statement": {
+    "not_task_1_complete": true,
+    "not_task_2_complete": true,
+    "no_write_action_attempted": true,
+    "wika_only_thread": true,
+    "xd_untouched_in_this_round": true,
+    "not_full_business_cockpit": true
+  }
+}

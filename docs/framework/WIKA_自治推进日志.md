@@ -1,5 +1,40 @@
 ﻿# WIKA 自治推进日志
 
+### 阶段 21 收口二：隔离工作树部署验证与正式基线锁定
+
+- 原始工作区 `HEAD`：`4814b97fa3dbd32b81d603eaf063a9f19dfaf76b`
+- 原始工作区存在大量未跟踪污染项，因此本阶段没有在原始工作区执行 push 或开发
+- 已创建隔离工作树：
+  - `D:\Code\阿里国际站__stage21_deploy`
+- 已在隔离工作树中执行：
+  - `git push origin 4814b97fa3dbd32b81d603eaf063a9f19dfaf76b:refs/heads/main`
+- production HTTP smoke 结果：
+  - `/integrations/alibaba/wika/reports/operations/management-summary` -> `200 + JSON`
+  - `/integrations/alibaba/wika/reports/products/management-summary` -> `200 + JSON`
+  - `/integrations/alibaba/wika/reports/operations/minimal-diagnostic` -> `200 + JSON`
+  - `/integrations/alibaba/wika/reports/products/minimal-diagnostic` -> `200 + JSON`
+- 已在线确认：
+  - management summary 层已部署生效
+  - minimal diagnostic 的解释/消费层已部署生效
+  - `products management summary` 继续显式暴露 sample-based 边界：
+    - `product_scope_basis=sample_from_products_list`
+    - `product_scope_limit=5`
+    - `product_scope_truncated=true`
+    - `product_ids_used_count=5`
+- 本阶段新增沉淀：
+  - `scripts/validate-wika-stage21-post-deploy.js`
+  - `docs/framework/evidence/wika-stage21-post-deploy-summary.json`
+  - `docs/framework/evidence/wika_operations_management_summary_post_deploy.json`
+  - `docs/framework/evidence/wika_products_management_summary_post_deploy.json`
+  - `docs/framework/evidence/wika_operations_minimal_diagnostic_post_deploy.json`
+  - `docs/framework/evidence/wika_products_minimal_diagnostic_post_deploy.json`
+- 本阶段收口：
+  - stage21 已部署并 smoke 通过
+  - 当前仍不是 task 1 complete
+  - 当前仍不是 task 2 complete
+  - 当前仍不是完整经营驾驶舱
+  - 本阶段没有任何写动作
+
 ## 2026-04-10
 
 ### 阶段 21：WIKA 经营管理摘要层与诊断消费层
@@ -947,3 +982,5 @@
   - not task 1 complete
   - not task 2 complete
   - not full business cockpit
+
+

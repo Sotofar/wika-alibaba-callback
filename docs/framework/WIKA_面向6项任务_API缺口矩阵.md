@@ -1,4 +1,28 @@
-# WIKA 面向 6 项任务 API 缺口矩阵
+﻿# WIKA 面向 6 项任务 API 缺口矩阵
+
+## 2026-04-10 Stage 21 Deploy Lock Delta
+
+### 任务 1：读取平台数据
+- `management-summary` 层已部署并 smoke 通过：
+  - `/integrations/alibaba/wika/reports/operations/management-summary`
+  - `/integrations/alibaba/wika/reports/products/management-summary`
+- 当前继续保持“局部重开”状态：
+  - 店铺级 official fields 已可在线聚合与解释
+  - 产品级 official fields 已可在线聚合与解释
+- 仍未完成：
+  - `traffic_source / country_source / quick_reply_rate`
+  - `access_source / inquiry_source / country_source / period_over_period_change`
+
+### 任务 2：经营诊断扩展
+- `minimal-diagnostic` 扩展层已部署并 smoke 通过：
+  - `/integrations/alibaba/wika/reports/operations/minimal-diagnostic`
+  - `/integrations/alibaba/wika/reports/products/minimal-diagnostic`
+- 当前诊断消费层已经在线具备：
+  - `signal_interpretation / recommendation_block / unavailable_dimensions_echo / confidence_hints`
+  - `ranking_interpretation / keyword_signal_takeaways / recommendation_block / unavailable_dimensions_echo / confidence_hints`
+- 仍未完成：
+  - 当前仍不是完整经营驾驶舱
+  - 订单级正式汇总、国家结构、产品贡献仍未补齐
 
 更新时间：2026-04-10
 
@@ -103,3 +127,5 @@
 - 本轮没有新增 Alibaba API 探索
 - 本轮没有任何写动作
 - 本轮只处理 WIKA
+
+

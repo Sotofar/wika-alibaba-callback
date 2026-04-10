@@ -1,5 +1,18 @@
 ﻿# WIKA 已上线能力复用清单
 
+## 2026-04-10 Stage 21 Deploy Lock Additions
+- 已部署并通过 production HTTP smoke 的 management summary route：
+  - `/integrations/alibaba/wika/reports/operations/management-summary`
+  - `/integrations/alibaba/wika/reports/products/management-summary`
+- 已部署并通过 production HTTP smoke 的 diagnostic route：
+  - `/integrations/alibaba/wika/reports/operations/minimal-diagnostic`
+  - `/integrations/alibaba/wika/reports/products/minimal-diagnostic`
+- 当前正式复用边界：
+  - store summary 只暴露已确认的 `visitor / imps / clk / clk_rate / fb / reply`
+  - product summary 只暴露已确认的 `click / impression / visitor / fb / order / bookmark / compare / share / keyword_effects`
+  - derived fields 与 unavailable dimensions 保持显式暴露
+  - `products management summary` 继续明确 sample-based cap，不伪装成全店全量
+
 更新时间：2026-04-10
 
 ## 2026-04-10 Stage 21 Additions
@@ -64,3 +77,5 @@
   - do not assert PV confirmed from `imps`
   - do not assert broad response-rate confirmed from `reply`
   - not full business cockpit
+
+

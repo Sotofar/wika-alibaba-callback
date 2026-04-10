@@ -1,0 +1,500 @@
+{
+  "ok": true,
+  "module": "products",
+  "account": "wika",
+  "read_only": true,
+  "source": {
+    "type": "official_api",
+    "api_name": "alibaba.icbu.product.list",
+    "endpoint_url": "https://open-api.alibaba.com/sync",
+    "request_method": "POST",
+    "depends_on_current_token": "***",
+    "requires_browser_session": false,
+    "auth_parameter": "access_token",
+    "sign_method": "sha256"
+  },
+  "data_validation": {
+    "verification_status": "已验证可读",
+    "evidence_level": "L1",
+    "verified_fields": [
+      "current_page",
+      "page_size",
+      "total_item",
+      "products.group_id",
+      "products.group_name",
+      "products.id",
+      "products.keywords",
+      "products.main_image.images",
+      "products.status",
+      "products.subject",
+      "products.product_type",
+      "products.language",
+      "products.display",
+      "products.owner_member_display_name",
+      "products.category_id",
+      "products.is_specific",
+      "products.is_rts",
+      "products.pc_detail_url",
+      "products.gmt_create",
+      "products.gmt_modified"
+    ]
+  },
+  "report_name": "products_management_summary",
+  "generated_at": "2026-04-10T12:04:16.179Z",
+  "statistics_type": "day",
+  "stat_date": "2026-04-08",
+  "report_scope": {
+    "type": "sampled_product_mydata_subset",
+    "sample_based": true
+  },
+  "source_methods": [
+    "alibaba.mydata.self.product.date.get",
+    "alibaba.mydata.self.product.get"
+  ],
+  "product_scope_basis": "sample_from_products_list",
+  "product_scope_limit": 5,
+  "product_scope_truncated": true,
+  "product_ids_used": [
+    "1601740791024",
+    "1601740600810",
+    "1601739528585",
+    "1601700588198",
+    "1601592243227"
+  ],
+  "product_ids_used_count": 5,
+  "item_count": 3,
+  "aggregate_official_metrics": {
+    "click": 0,
+    "impression": 4,
+    "visitor": 1,
+    "fb": 0,
+    "order": 0,
+    "bookmark": 0,
+    "compare": 0,
+    "share": 0
+  },
+  "aggregate_derived_metrics": {
+    "ctr_from_click_over_impression": {
+      "value": 0,
+      "derived": true,
+      "formula": "click / impression",
+      "note": "由 official fields click 与 impression 保守派生。"
+    }
+  },
+  "ranking_sections": {
+    "top_products_by_impression": [
+      {
+        "product_id": 1601592243227,
+        "product_name": "Colorful Glasses Packaging Bags 18*9cm Soft Sunglasses case Microfiber Pouch Eyeglass Bag with logo Custom",
+        "metric_name": "impression",
+        "metric_value": 2,
+        "official_metrics": {
+          "impression": 2,
+          "click": 0,
+          "visitor": 0,
+          "fb": 0,
+          "order": 0
+        },
+        "derived_metrics": {
+          "ctr_from_click_over_impression": {
+            "value": 0,
+            "derived": true,
+            "formula": "click / impression",
+            "note": "Derived from official fields click and impression"
+          }
+        }
+      },
+      {
+        "product_id": 1601700588198,
+        "product_name": "Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case",
+        "metric_name": "impression",
+        "metric_value": 2,
+        "official_metrics": {
+          "impression": 2,
+          "click": 0,
+          "visitor": 0,
+          "fb": 0,
+          "order": 0
+        },
+        "derived_metrics": {
+          "ctr_from_click_over_impression": {
+            "value": 0,
+            "derived": true,
+            "formula": "click / impression",
+            "note": "Derived from official fields click and impression"
+          }
+        }
+      }
+    ],
+    "top_products_by_click": [],
+    "top_products_by_fb": [],
+    "top_products_by_order": []
+  },
+  "keyword_signal_summary": {
+    "products_with_keyword_effects": 3,
+    "top_keyword_effect_keys": [],
+    "sample_products": [
+      {
+        "product_id": 1601592243227,
+        "product_name": "Colorful Glasses Packaging Bags 18*9cm Soft Sunglasses case Microfiber Pouch Eyeglass Bag with logo Custom",
+        "keyword_effect_keys": []
+      },
+      {
+        "product_id": 1601700588198,
+        "product_name": "Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case",
+        "keyword_effect_keys": []
+      },
+      {
+        "product_id": 1601739528585,
+        "product_name": "Customized White Gift Bags With Handles Medium Paper Gags Bulk for Optic Shop Birthday Wedding Party Shopping",
+        "keyword_effect_keys": []
+      }
+    ]
+  },
+  "unavailable_dimensions": [
+    "access_source",
+    "inquiry_source",
+    "country_source",
+    "period_over_period_change"
+  ],
+  "boundary_statement": {
+    "official_mydata_subset_only": true,
+    "not_full_product_cockpit": true,
+    "conservative_mapping_rules": [
+      "保留 official field names：click / impression / visitor / fb / order / bookmark / compare / share / keyword_effects",
+      "CTR 仅作为 derived field 暴露，不冒充官方直接字段",
+      "当前 product scope 可能是样本聚合，不默认代表全店全量统计"
+    ]
+  },
+  "management_recommendations": [
+    "样本内已有 impression 但 click 为 0，优先检查头部样本的主图与标题吸引力。",
+    "样本内已有 visitor 但 fb 为 0，优先检查详情页询盘承接与报价入口。",
+    "当前产品经营摘要是带上限的样本聚合，业务使用时必须同时查看 product_scope_limit 与 product_ids_used_count。"
+  ],
+  "summary": {
+    "module": "products",
+    "account": "wika",
+    "report_type": "management_summary",
+    "reporting_basis": "Official product list snapshot",
+    "snapshot": {
+      "total_item": 536,
+      "returned_item_count": 30,
+      "current_page": 1,
+      "page_size": 30,
+      "online_count": 30,
+      "offline_count": 0,
+      "approved_count": 30,
+      "ungrouped_count": 1,
+      "stale_over_90_days_count": 0
+    },
+    "focus_products": [
+      {
+        "id": 1601740791024,
+        "subject": "Customizable New Fashion Portable Eyeglasses Accessories Leather Big Glasses case Oversize Sunglasses Holder",
+        "group_name": "Soft Case",
+        "status": "approved",
+        "display": "Y",
+        "gmt_modified": "2026-04-09 15:04:02"
+      },
+      {
+        "id": 1601740600810,
+        "subject": "Customized High End Paper Bag Women's Handbags Clothing Stores Printing Logos Protection for Glasses/Gifts Packaging",
+        "group_name": "Accessories",
+        "status": "approved",
+        "display": "Y",
+        "gmt_modified": "2026-04-09 14:37:25"
+      },
+      {
+        "id": 1601739528585,
+        "subject": "Customized White Gift Bags With Handles Medium Paper Gags Bulk for Optic Shop Birthday Wedding Party Shopping",
+        "group_name": "Accessories",
+        "status": "approved",
+        "display": "Y",
+        "gmt_modified": "2026-04-08 16:37:17"
+      },
+      {
+        "id": 1601700588198,
+        "subject": "Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case",
+        "group_name": null,
+        "status": "approved",
+        "display": "Y",
+        "gmt_modified": "2026-03-26 15:51:53"
+      },
+      {
+        "id": 1601592243227,
+        "subject": "Colorful Glasses Packaging Bags 18*9cm Soft Sunglasses case Microfiber Pouch Eyeglass Bag with logo Custom",
+        "group_name": "Pouch",
+        "status": "approved",
+        "display": "Y",
+        "gmt_modified": "2026-03-26 15:45:17"
+      }
+    ],
+    "limitations": [
+      "This summary is based on alibaba.icbu.product.list and does not include performance fields such as impressions or clicks.",
+      "If total_item is larger than returned_item_count, you still need pagination to cover the full catalog."
+    ]
+  },
+  "recommendations": [
+    {
+      "type": "coverage_limit",
+      "priority": "medium",
+      "action": "当前产品表现接口只验证到单页 20 条样本池，适合做重点产品运营，不适合直接当成全店全量产品报表。",
+      "evidence": {
+        "coverage_status": null,
+        "effective_page_size": null
+      }
+    }
+  ],
+  "management_summary": {
+    "report_name": "products_management_summary",
+    "generated_at": "2026-04-10T12:04:16.179Z",
+    "report_scope": {
+      "type": "sampled_product_mydata_subset",
+      "sample_based": true
+    },
+    "source_methods": [
+      "alibaba.mydata.self.product.date.get",
+      "alibaba.mydata.self.product.get"
+    ],
+    "statistics_type": "day",
+    "stat_date": "2026-04-08",
+    "product_scope_basis": "sample_from_products_list",
+    "product_scope_limit": 5,
+    "product_scope_truncated": true,
+    "product_ids_used": [
+      "1601740791024",
+      "1601740600810",
+      "1601739528585",
+      "1601700588198",
+      "1601592243227"
+    ],
+    "product_ids_used_count": 5,
+    "item_count": 3,
+    "aggregate_official_metrics": {
+      "click": 0,
+      "impression": 4,
+      "visitor": 1,
+      "fb": 0,
+      "order": 0,
+      "bookmark": 0,
+      "compare": 0,
+      "share": 0
+    },
+    "aggregate_derived_metrics": {
+      "ctr_from_click_over_impression": {
+        "value": 0,
+        "derived": true,
+        "formula": "click / impression",
+        "note": "由 official fields click 与 impression 保守派生。"
+      }
+    },
+    "keyword_signal_summary": {
+      "products_with_keyword_effects": 3,
+      "top_keyword_effect_keys": [],
+      "sample_products": [
+        {
+          "product_id": 1601592243227,
+          "product_name": "Colorful Glasses Packaging Bags 18*9cm Soft Sunglasses case Microfiber Pouch Eyeglass Bag with logo Custom",
+          "keyword_effect_keys": []
+        },
+        {
+          "product_id": 1601700588198,
+          "product_name": "Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case",
+          "keyword_effect_keys": []
+        },
+        {
+          "product_id": 1601739528585,
+          "product_name": "Customized White Gift Bags With Handles Medium Paper Gags Bulk for Optic Shop Birthday Wedding Party Shopping",
+          "keyword_effect_keys": []
+        }
+      ]
+    },
+    "ranking_sections": {
+      "top_products_by_impression": [
+        {
+          "product_id": 1601592243227,
+          "product_name": "Colorful Glasses Packaging Bags 18*9cm Soft Sunglasses case Microfiber Pouch Eyeglass Bag with logo Custom",
+          "metric_name": "impression",
+          "metric_value": 2,
+          "official_metrics": {
+            "impression": 2,
+            "click": 0,
+            "visitor": 0,
+            "fb": 0,
+            "order": 0
+          },
+          "derived_metrics": {
+            "ctr_from_click_over_impression": {
+              "value": 0,
+              "derived": true,
+              "formula": "click / impression",
+              "note": "Derived from official fields click and impression"
+            }
+          }
+        },
+        {
+          "product_id": 1601700588198,
+          "product_name": "Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case",
+          "metric_name": "impression",
+          "metric_value": 2,
+          "official_metrics": {
+            "impression": 2,
+            "click": 0,
+            "visitor": 0,
+            "fb": 0,
+            "order": 0
+          },
+          "derived_metrics": {
+            "ctr_from_click_over_impression": {
+              "value": 0,
+              "derived": true,
+              "formula": "click / impression",
+              "note": "Derived from official fields click and impression"
+            }
+          }
+        }
+      ],
+      "top_products_by_click": [],
+      "top_products_by_fb": [],
+      "top_products_by_order": []
+    },
+    "top_products_by_impression": [
+      {
+        "product_id": 1601592243227,
+        "product_name": "Colorful Glasses Packaging Bags 18*9cm Soft Sunglasses case Microfiber Pouch Eyeglass Bag with logo Custom",
+        "metric_name": "impression",
+        "metric_value": 2,
+        "official_metrics": {
+          "impression": 2,
+          "click": 0,
+          "visitor": 0,
+          "fb": 0,
+          "order": 0
+        },
+        "derived_metrics": {
+          "ctr_from_click_over_impression": {
+            "value": 0,
+            "derived": true,
+            "formula": "click / impression",
+            "note": "Derived from official fields click and impression"
+          }
+        }
+      },
+      {
+        "product_id": 1601700588198,
+        "product_name": "Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case",
+        "metric_name": "impression",
+        "metric_value": 2,
+        "official_metrics": {
+          "impression": 2,
+          "click": 0,
+          "visitor": 0,
+          "fb": 0,
+          "order": 0
+        },
+        "derived_metrics": {
+          "ctr_from_click_over_impression": {
+            "value": 0,
+            "derived": true,
+            "formula": "click / impression",
+            "note": "Derived from official fields click and impression"
+          }
+        }
+      }
+    ],
+    "top_products_by_click": [],
+    "top_products_by_fb": [],
+    "top_products_by_order": [],
+    "items": [
+      {
+        "product_id": 1601592243227,
+        "product_name": "Colorful Glasses Packaging Bags 18*9cm Soft Sunglasses case Microfiber Pouch Eyeglass Bag with logo Custom",
+        "official_metrics": {
+          "click": 0,
+          "impression": 2,
+          "visitor": 0,
+          "fb": 0,
+          "order": 0,
+          "bookmark": 0,
+          "compare": 0,
+          "share": 0,
+          "keyword_effects": {}
+        },
+        "derived_metrics": {
+          "ctr_from_click_over_impression": {
+            "value": 0,
+            "derived": true,
+            "formula": "click / impression",
+            "note": "Derived from official fields click and impression"
+          }
+        }
+      },
+      {
+        "product_id": 1601700588198,
+        "product_name": "Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case",
+        "official_metrics": {
+          "click": 0,
+          "impression": 2,
+          "visitor": 0,
+          "fb": 0,
+          "order": 0,
+          "bookmark": 0,
+          "compare": 0,
+          "share": 0,
+          "keyword_effects": {}
+        },
+        "derived_metrics": {
+          "ctr_from_click_over_impression": {
+            "value": 0,
+            "derived": true,
+            "formula": "click / impression",
+            "note": "Derived from official fields click and impression"
+          }
+        }
+      },
+      {
+        "product_id": 1601739528585,
+        "product_name": "Customized White Gift Bags With Handles Medium Paper Gags Bulk for Optic Shop Birthday Wedding Party Shopping",
+        "official_metrics": {
+          "click": 0,
+          "impression": 0,
+          "visitor": 1,
+          "fb": 0,
+          "order": 0,
+          "bookmark": 0,
+          "compare": 0,
+          "share": 0,
+          "keyword_effects": {}
+        },
+        "derived_metrics": {
+          "ctr_from_click_over_impression": {
+            "value": null,
+            "derived": true,
+            "formula": "click / impression",
+            "note": "Unavailable because click or impression is missing, non-numeric, or impression <= 0"
+          }
+        }
+      }
+    ],
+    "unavailable_dimensions": [
+      "access_source",
+      "inquiry_source",
+      "country_source",
+      "period_over_period_change"
+    ],
+    "boundary_statement": {
+      "official_mydata_subset_only": true,
+      "not_full_product_cockpit": true,
+      "conservative_mapping_rules": [
+        "保留 official field names：click / impression / visitor / fb / order / bookmark / compare / share / keyword_effects",
+        "CTR 仅作为 derived field 暴露，不冒充官方直接字段",
+        "当前 product scope 可能是样本聚合，不默认代表全店全量统计"
+      ]
+    },
+    "recommendations": [
+      "样本内已有 impression 但 click 为 0，优先检查头部样本的主图与标题吸引力。",
+      "样本内已有 visitor 但 fb 为 0，优先检查详情页询盘承接与报价入口。",
+      "当前产品经营摘要是带上限的样本聚合，业务使用时必须同时查看 product_scope_limit 与 product_ids_used_count。"
+    ]
+  }
+}

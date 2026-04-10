@@ -1,4 +1,37 @@
-# WIKA_执行计划
+﻿# WIKA_执行计划
+
+## 2026-04-10 Stage 21 Deploy Lock Update
+
+### 当前阶段
+- 阶段 21 收口二：隔离工作树部署验证与正式基线锁定
+
+### 本轮唯一目标
+- 在隔离工作树中完成 stage21 commit 的 `push origin/main`
+- 等部署完成后，对 4 个 route 做 production HTTP smoke
+- 把 smoke 通过结果写回正式基线文档与 evidence
+
+### 已完成
+- 已在隔离工作树中 push `4814b97fa3dbd32b81d603eaf063a9f19dfaf76b -> origin/main`
+- 以下 route 已通过 production HTTP smoke：
+  - `/integrations/alibaba/wika/reports/operations/management-summary`
+  - `/integrations/alibaba/wika/reports/products/management-summary`
+  - `/integrations/alibaba/wika/reports/operations/minimal-diagnostic`
+  - `/integrations/alibaba/wika/reports/products/minimal-diagnostic`
+- 已新增 post-deploy evidence：
+  - `wika-stage21-post-deploy-summary.json`
+  - `wika_operations_management_summary_post_deploy.json`
+  - `wika_products_management_summary_post_deploy.json`
+  - `wika_operations_minimal_diagnostic_post_deploy.json`
+  - `wika_products_minimal_diagnostic_post_deploy.json`
+
+### 本轮明确边界
+- 不新增 Alibaba API 探索
+- 不推进 XD
+- 不做任何写动作
+- `products management summary` 仍是 sample-based
+- not task 1 complete
+- not task 2 complete
+- not full business cockpit
 
 ## 2026-04-10 Stage 21 Update
 
@@ -135,3 +168,5 @@
 - 当前没有任何写侧动作
 - 当前线程只处理 WIKA
 - 当前没有更新或推进任何 XD 结果
+
+

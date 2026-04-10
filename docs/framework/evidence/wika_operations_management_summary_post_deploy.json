@@ -1,0 +1,92 @@
+{
+  "ok": true,
+  "module": "operations",
+  "account": "wika",
+  "read_only": true,
+  "report_name": "operations_management_summary",
+  "generated_at": "2026-04-10T12:04:10.745Z",
+  "report_scope": {
+    "type": "store_level_mydata_subset",
+    "sample_based": false
+  },
+  "source_methods": [
+    "alibaba.mydata.overview.date.get",
+    "alibaba.mydata.overview.industry.get",
+    "alibaba.mydata.overview.indicator.basic.get"
+  ],
+  "date_range": {
+    "start_date": "2026-03-29",
+    "end_date": "2026-04-04"
+  },
+  "industry": {
+    "industry_id": 127726042,
+    "industry_desc": "All",
+    "main_category": true
+  },
+  "official_metrics": {
+    "visitor": 260,
+    "imps": 6769,
+    "clk": 143,
+    "clk_rate": "0.0211",
+    "fb": 8,
+    "reply": "0.9927"
+  },
+  "derived_metrics": {
+    "uv_candidate_from_visitor": {
+      "value": 260,
+      "derived_or_mapped": true,
+      "note": "UV ~= visitor (business-mapping pending)"
+    },
+    "exposure_from_imps": {
+      "value": 6769,
+      "derived_or_mapped": true,
+      "note": "Use exposure/imps wording; do not assert PV confirmed"
+    },
+    "ctr_candidate_from_clk_rate": {
+      "value": "0.0211",
+      "derived_or_mapped": true,
+      "note": "Official clk_rate is preserved; downstream CTR interpretation remains conservative"
+    },
+    "reply_related_metric_from_reply": {
+      "value": "0.9927",
+      "derived_or_mapped": true,
+      "note": "Use reply-related metric / recent first-reply-rate wording instead of broad response-rate"
+    }
+  },
+  "interpretation": {
+    "traffic_signal_summary": {
+      "summary": "当前 management summary 只覆盖已确认的 store-level mydata official fields，可用于观察 visitor / imps / clk / clk_rate 的基本流量信号。",
+      "highlights": {
+        "visitor": 260,
+        "imps": 6769,
+        "clk": 143,
+        "clk_rate": 0.0211
+      }
+    },
+    "inquiry_reply_signal_summary": {
+      "summary": "当前 management summary 只覆盖 fb 与 reply 相关信号，可用于询盘与首响相关判断，不等于完整客服响应驾驶舱。",
+      "highlights": {
+        "fb": 8,
+        "reply": 0.9927
+      }
+    }
+  },
+  "unavailable_dimensions": [
+    "traffic_source",
+    "country_source",
+    "quick_reply_rate"
+  ],
+  "recommendations": [
+    "当前店铺级 mydata 子集没有明显异常，建议继续按周跟踪 visitor / imps / clk / fb / reply。"
+  ],
+  "boundary_statement": {
+    "official_mydata_subset_only": true,
+    "not_full_store_dashboard": true,
+    "conservative_mapping_rules": [
+      "保留 official field names：visitor / imps / clk / clk_rate / fb / reply",
+      "UV ~= visitor（business-mapping pending）",
+      "使用 exposure / imps 表述，不直接写 PV confirmed",
+      "reply 仅按 reply-related metric / recent first-reply-rate 语境使用，不扩写成广义 response rate confirmed"
+    ]
+  }
+}

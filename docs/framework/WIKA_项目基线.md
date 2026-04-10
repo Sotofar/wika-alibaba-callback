@@ -1,4 +1,52 @@
-# WIKA_项目基线
+﻿# WIKA_项目基线
+
+## 2026-04-10 Stage 21 Deploy Lock Update
+
+### 已部署并 smoke 通过的经营管理摘要层
+- 已部署并通过 production HTTP smoke：
+  - `/integrations/alibaba/wika/reports/operations/management-summary`
+  - `/integrations/alibaba/wika/reports/products/management-summary`
+  - `/integrations/alibaba/wika/reports/operations/minimal-diagnostic`
+  - `/integrations/alibaba/wika/reports/products/minimal-diagnostic`
+
+### 已在线上确认的 management summary 边界
+- 店铺级 management summary 线上已确认暴露：
+  - `visitor`
+  - `imps`
+  - `clk`
+  - `clk_rate`
+  - `fb`
+  - `reply`
+- 产品级 management summary 线上已确认暴露：
+  - `click`
+  - `impression`
+  - `visitor`
+  - `fb`
+  - `order`
+  - `bookmark`
+  - `compare`
+  - `share`
+  - `keyword_effects`
+- 线上继续显式暴露 unavailable dimensions：
+  - store: `traffic_source / country_source / quick_reply_rate`
+  - product: `access_source / inquiry_source / country_source / period_over_period_change`
+
+### 已在线上确认的 sample-based 边界
+- `products management summary` 当前仍是 sample-based 聚合，不是默认全量全店统计
+- 当前线上样本边界：
+  - `product_scope_basis=sample_from_products_list`
+  - `product_scope_limit=5`
+  - `product_scope_truncated=true`
+  - `product_ids_used_count=5`
+
+### 当前固定边界
+- 本轮没有新增 Alibaba API 探索
+- 本轮没有推进 XD
+- 本轮没有任何写动作
+- 本轮只是 task 1 / task 2 的局部实现继续推进
+- not task 1 complete
+- not task 2 complete
+- not full business cockpit
 
 ## 2026-04-10 Stage 21 Baseline Update
 
@@ -221,3 +269,5 @@
 - 当前没有任何写侧动作
 - 当前线程只处理 WIKA
 - 当前轮次没有更新或推进任何 XD 结果
+
+

@@ -1,4 +1,38 @@
-# WIKA_经营数据字段覆盖矩阵
+﻿# WIKA_经营数据字段覆盖矩阵
+
+## 2026-04-10 Stage 21 Post-Deploy Delta
+
+### 已在线上通过 management summary / diagnostic smoke 的店铺级字段
+- `visitor` -> confirmed official field
+- `imps` -> confirmed official field
+- `clk` -> confirmed official field
+- `clk_rate` -> confirmed official field
+- `fb` -> confirmed official field
+- `reply` -> confirmed official field
+- `UV` -> conservative business mapping candidate
+- `exposure` -> conservative business mapping candidate
+- `traffic_source` -> not found in current response
+- `country_source` -> not found in current response
+- `quick_reply_rate` -> not found in current response
+
+### 已在线上通过 management summary / diagnostic smoke 的产品级字段
+- `click` -> confirmed official field
+- `impression` -> confirmed official field
+- `visitor` -> confirmed official field
+- `fb` -> confirmed official field
+- `order` -> confirmed official field
+- `bookmark` -> confirmed official field
+- `compare` -> confirmed official field
+- `share` -> confirmed official field
+- `keyword_effects` -> confirmed official field
+- `CTR` -> derived field
+- `access_source` -> not found in current response
+- `inquiry_source` -> not found in current response
+- `country_source` -> not found in current response
+- `period_over_period_change` -> not found in current response
+
+### 已在线上确认的产品采样边界
+- `product_scope_basis / product_scope_limit / product_scope_truncated / product_ids_used_count` -> sampling boundary surfaced on deployed route
 
 ## 2026-04-10 Stage 21 Matrix Delta
 
@@ -128,3 +162,5 @@
 - 真实字段已返回，不等于 task 2 complete
 - 当前线程只处理 WIKA
 - 当前轮次没有更新或推进任何 XD 结果
+
+

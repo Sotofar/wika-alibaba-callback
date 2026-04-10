@@ -1,4 +1,32 @@
-# WIKA_mydata_经营管理摘要层
+﻿# WIKA_mydata_经营管理摘要层
+
+## 2026-04-10 Stage 21 Post-Deploy Status
+
+### production HTTP smoke
+- `operations_management_summary` -> `200 + JSON`
+- `products_management_summary` -> `200 + JSON`
+- `operations_minimal_diagnostic` stage21 extension -> `200 + JSON`
+- `products_minimal_diagnostic` stage21 extension -> `200 + JSON`
+
+### 已在线确认的经营管理摘要层
+- `/integrations/alibaba/wika/reports/operations/management-summary`
+  - official fields、derived fields、unavailable dimensions、boundary statement 已在线生效
+- `/integrations/alibaba/wika/reports/products/management-summary`
+  - aggregate_official_metrics、ranking_sections、keyword_signal_summary、sample boundary 已在线生效
+- `/integrations/alibaba/wika/reports/operations/minimal-diagnostic`
+  - `signal_interpretation / recommendation_block / unavailable_dimensions_echo / confidence_hints` 已在线生效
+- `/integrations/alibaba/wika/reports/products/minimal-diagnostic`
+  - `ranking_interpretation / keyword_signal_takeaways / recommendation_block / unavailable_dimensions_echo / confidence_hints` 已在线生效
+
+### 当前固定边界
+- `products management summary` 当前仍是 sample-based，不是默认全量全店
+- 当前仍缺：
+  - store: `traffic_source / country_source / quick_reply_rate`
+  - product: `access_source / inquiry_source / country_source / period_over_period_change`
+  - order: 正式汇总 / 国家结构 / 产品贡献
+- not task 1 complete
+- not task 2 complete
+- not full business cockpit
 
 更新时间：2026-04-10
 
@@ -137,3 +165,5 @@
 - 本轮没有任何写动作
 - 本轮只是 task 1 / task 2 的局部实现继续推进
 - 当前仍然不是完整经营驾驶舱
+
+
