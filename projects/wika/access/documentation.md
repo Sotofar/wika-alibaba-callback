@@ -39,3 +39,35 @@
 
 - 先恢复 Railway production 基础可用性，再进入 WIKA 全量 route replay。
 - 在 production 未恢复前，不适合用 XD 做任何标准权限或高权限补测。
+
+# 阶段 21：环境解阻记录
+
+## 本轮做了什么
+- 复读了 stage20 产物、`shared/access` 与 `app.js` 启动/路由代码
+- 对 `/health`、WIKA/XD `auth/debug`、representative `products/list` / `orders/list` 做了 production base smoke
+- 用 local no-secret reproducer 证明旧代码会在 `listen()` 前等待 token bootstrap
+- 做了最小 repo 修复：改成先监听，再后台初始化 token runtime
+
+## 发现了什么
+- stage20 的统一 `BLOCKED_ENV` 不是 route handler 本身太重
+- `/health` 与 `auth/debug` 的 handler 本身很轻
+- 真正的问题在于旧代码把 startup token bootstrap 放在 `app.listen()` 前等待
+- 这会让 token refresh 一旦慢/卡，就把整站 health/debug 一起拖死
+- 当前 production 已恢复：
+  - `/health` -> `200`
+  - `auth/debug` -> `200`
+  - representative WIKA/XD list route -> `200`
+
+## 哪些是证据，哪些是推断
+- 证据：
+  - production base smoke 结果
+  - local no-secret pre-fix / post-fix reproducer
+  - `auth/debug` 当前显示 `startup_init_status=refresh:startup_bootstrap`
+- 推断：
+  - stage20 那一轮的最可能主因是 startup bootstrap 被下游 refresh 链路拖住
+  - 不能回溯证明当时是否还叠加了 Railway 短时不可达
+
+## 下一步为什么这样做
+- 当前只把 stage21 收口到“环境已恢复 + repo 级阻塞已消除 + replay gate reopened”
+- 不在同一轮里把它扩成全量 WIKA replay，避免重新落回 stage20 的大范围 replay
+- 下一步应先单独重开 WIKA replay，再决定 XD 8 项是否进入接口级确认

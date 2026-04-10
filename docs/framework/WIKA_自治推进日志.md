@@ -726,3 +726,26 @@
   - 当前没有发现任何可证明成立的安全参数纠偏
   - 当前最先要恢复的不是接口参数，而是 Railway production 基础可用性
   - 当前边界仍然不是 task 1 complete，不是 task 2 complete，也不是平台内闭环
+
+### 阶段 21：Railway production 环境解阻与基础路由恢复
+
+- 实际起始 commit：`03fdea6cf0598db3542b8bc91feccbed2292228d`
+- 本轮没有新增任何 Alibaba API 验证
+- 本轮没有推进平台内回复、平台内订单创建、真实通知外发
+- 本轮只做两件事：
+  - 诊断 stage20 的统一 `BLOCKED_ENV`
+  - 在 repo 内做最小可逆修复，避免 startup token bootstrap 拖住 `/health` 与 `auth/debug`
+- 真实证据：
+  - production `/health` -> `200`
+  - production WIKA/XD `auth/debug` -> `200`
+  - representative WIKA/XD `products/list`、`orders/list` -> `200`
+  - local no-secret reproducer 已证明旧代码会在 `listen()` 前被 startup bootstrap 卡住
+- repo 修复：
+  - `app.js` 由“启动前等待 WIKA/XD token runtime 初始化”改为“先 listen，再后台 bootstrap”
+- 当前闸门：
+  - `WIKA replay` -> 可重开
+  - `XD 8 项` -> 仍需先等 WIKA replay 回到接口级验证层
+- 当前边界：
+  - 当前不是 task 1 complete
+  - 当前不是 task 2 complete
+  - 当前不是平台内闭环

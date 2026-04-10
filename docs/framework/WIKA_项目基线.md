@@ -182,3 +182,20 @@
 - 后续是否能在当前官方只读链路里拿到可复用的未遮罩订单 identifier，补齐 detail / fund / logistics 契约
 - 如果任务 3 重开，`product.type.available.get` 是否能成为更低风险的发品权限 precheck
 - `schema.add.draft` 是否会在未来成为 `schema.render.draft` 上游草稿明文 ID 的可证明来源
+
+## 阶段 21 增量结论
+- stage21 没有新增任何 Alibaba API 验证
+- stage21 没有推进平台内回复、平台内订单创建、真实通知外发
+- stage21 只做了一件事：收口 Railway production 基础路由环境解阻
+- 当前新证据：
+  - `/health` -> `200`
+  - `/integrations/alibaba/auth/debug` -> `200`
+  - `/integrations/alibaba/xd/auth/debug` -> `200`
+  - representative WIKA/XD `products/list`、`orders/list` -> `200`
+- 当前新增 repo 级修复：
+  - `app.js` 已改成先 `listen()`，再后台 bootstrap WIKA/XD token runtime
+  - 这避免了 startup token bootstrap 把 `/health` 与 `auth/debug` 一起拖死
+- 当前闸门状态：
+  - `WIKA replay` -> 可重开
+  - `XD 8 项` -> 仍需先等 WIKA replay 回到接口级验证层
+- 当前边界仍然不是 task 1 complete，不是 task 2 complete，也不是平台内闭环

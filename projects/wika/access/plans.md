@@ -45,3 +45,20 @@
 
 - 当前已满足“缺少运行期必需环境 -> 停到安全边界”的停止条件
 - 当前受影响接口数：27
+
+# 阶段 21：Railway production 环境解阻与基础路由恢复
+
+- 本轮目标：只定位并尽可能解除 production 基础路由不可达 / 超时，不重复 stage20 的全量 replay
+- 当前进度：已完成
+- 已完成：
+  - 读取 stage20 产物与 `app.js` 启动链
+  - 拆出 `/health`、`auth/debug`、代表性 WIKA/XD list route 依赖图
+  - 通过 production smoke 证明基础路由当前已恢复
+  - 通过 local no-secret reproducer 证明旧代码会把 `/health` 绑定到 startup token bootstrap
+  - 完成 repo 内可逆修复：先 `listen()`，再后台 bootstrap token runtime
+- 阻塞：
+  - 本轮没有新的环境阻塞
+  - 但按闸门顺序，XD 8 项仍要等 WIKA replay 重开后再推进
+- 取消：
+  - 本轮没有重跑 stage20 式的 27 条 route replay
+  - 本轮没有推进 XD 8 项标准权限确认

@@ -127,3 +127,9 @@
 8. 阶段 19 没有新增任何 Alibaba API 验证；本轮只是在收口 `ICBU－商品` 官方文档阅读结果与候选池。
 9. 阶段 20 没有新增任何 Alibaba API 验证；本轮只是在收口 WIKA access 多轮稳定化复跑、未决队列导出与 XD 标准权限预检。当前最关键的新结论不是接口回归，而是 Railway production 基础路由连续超时/不可达，导致 WIKA/XD access replay 统一 `BLOCKED_ENV`。
 10. 当前边界依旧不是 task 1 complete，不是 task 2 complete，也不是平台内闭环。
+
+## 阶段 21 增量说明
+- 本轮没有新增任何 Alibaba API 验证
+- 本轮没有推进平台内自动回复、平台内订单创建、真实通知外发
+- 本轮只是在收口 production 基础路由环境解阻
+- 当前基础路由已恢复，但这不等于任务 1 / 2 已完成

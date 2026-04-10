@@ -108,3 +108,8 @@
 ## 当前一句话结论
 
 WIKA 当前已经有一套稳定可复用的读侧原始路由底座，以及更扎实的 schema-aware 产品草稿、外部回复草稿、外部订单草稿、blocker taxonomy 与人工补单模板工作流；阶段 17 也补齐了经营数据候选验证证据包。但写侧仍停留在“草稿准备 + 风险边界判断”，经营指标主线也仍未打通。
+
+## 阶段 21 增量说明
+- production 基础路由 `/health`、WIKA/XD `auth/debug` 与 representative `products/list` / `orders/list` 已恢复到 `200`
+- repo 已增加“先 listen、再后台 bootstrap token runtime”的可复用修正
+- 这只代表 access replay 闸门已恢复，不代表任务 1 / 2 已打通

@@ -1277,6 +1277,26 @@ async function initializeXdTokenRuntime() {
   await initializeAccountTokenRuntime("xd");
 }
 
+function startTokenRuntimeBootstrap() {
+  void Promise.allSettled([
+    initializeWikaTokenRuntime(),
+    initializeXdTokenRuntime()
+  ]).then((results) => {
+    logInfo("Alibaba token runtime bootstrap settled", {
+      wika: {
+        status: results[0]?.status ?? "unknown",
+        startup_status: getAccountRuntime("wika").startupInitStatus,
+        startup_error: getAccountRuntime("wika").startupInitError
+      },
+      xd: {
+        status: results[1]?.status ?? "unknown",
+        startup_status: getAccountRuntime("xd").startupInitStatus,
+        startup_error: getAccountRuntime("xd").startupInitError
+      }
+    });
+  });
+}
+
 function buildStartupWarnings() {
   const missingKeys = [
     "ALIBABA_CLIENT_ID",
@@ -3251,11 +3271,10 @@ setInterval(cleanupExpiredStates, CLEANUP_INTERVAL_MS).unref?.();
 const port = getPort();
 const startupWarnings = buildStartupWarnings();
 
-await initializeWikaTokenRuntime();
-await initializeXdTokenRuntime();
-
 app.listen(port, () => {
   console.log(`Alibaba callback service listening on port ${port}`);
+
+  startTokenRuntimeBootstrap();
 
   if (startupWarnings.length > 0) {
     console.warn(

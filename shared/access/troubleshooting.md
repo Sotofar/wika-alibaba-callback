@@ -69,3 +69,18 @@
 - `ALIBABA_REFRESH_TOKEN_URL` 是否正确
 - token 文件是否在重部署后丢失
 - 自动刷新调度是否还在运行
+
+### 症状 0.1：`/health` 与 `auth/debug` 被 startup token bootstrap 一起拖死
+
+优先排查：
+- `app.listen()` 之前是否 `await` 了 token runtime 初始化
+- startup bootstrap 是否会访问外部 token / refresh endpoint
+- `auth/debug` 是否其实只需要 env + runtime state，不应该依赖 bootstrap 完成
+
+处理原则：
+- `/health` 必须保持轻量，不得在“能否响应”这一层依赖外部 refresh 成功
+- 若 auth/debug 只是诊断入口，应允许“先可诊断、后后台 bootstrap”
+- 可复用修正方式：
+  - 先 `listen()`
+  - 再后台 `initialize*TokenRuntime()`
+  - 用 local no-secret reproducer 验证：即使 token URL 不可达，`/health` 也能先返回 `200`

@@ -122,3 +122,11 @@
 - 当前还缺哪些经营关键数据
 - 当前离“完成 6 项任务”还差哪些能力缺口
 - 当前诊断里哪些是真实数据结论，哪些只是待验证判断
+
+## 阶段 21 增量说明
+- 当前阶段：Railway production 环境解阻与基础路由恢复
+- 本轮唯一目标：只恢复 base-route 可服务性与 replay readiness，不扩成全量 replay
+- 当前结论：
+  - `/health` 与至少一个 `auth/debug` 已恢复
+  - 当前允许重开 WIKA replay
+  - 当前仍不直接推进 XD 8 项，需先等 WIKA replay 回到接口级验证层
