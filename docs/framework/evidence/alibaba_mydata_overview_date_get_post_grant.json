@@ -1,0 +1,102 @@
+{
+  "api_name": "alibaba.mydata.overview.date.get",
+  "final_classification": "REAL_DATA_RETURNED",
+  "best_attempt": {
+    "attempt_name": "empty_params",
+    "classification": "REAL_DATA_RETURNED",
+    "http_status": 200,
+    "elapsed_ms": 33,
+    "request_params": {},
+    "error_summary": null,
+    "response_shape_summary": {
+      "root_key": "alibaba_mydata_overview_date_get_response",
+      "payload_keys": [
+        "_trace_id_",
+        "date_range",
+        "end_date",
+        "request_id",
+        "result_list",
+        "start_date"
+      ],
+      "top_level_keys": [
+        "alibaba_mydata_overview_date_get_response"
+      ]
+    },
+    "confirmed_fields": [
+      "start_date",
+      "end_date"
+    ],
+    "extracted_data": {
+      "date_ranges": [
+        {
+          "start_date": "2026-03-29",
+          "end_date": "2026-04-04"
+        },
+        {
+          "start_date": "2026-03-22",
+          "end_date": "2026-03-28"
+        },
+        {
+          "start_date": "2026-03-15",
+          "end_date": "2026-03-21"
+        },
+        {
+          "start_date": "2026-03-08",
+          "end_date": "2026-03-14"
+        }
+      ]
+    }
+  },
+  "attempts": [
+    {
+      "attempt_name": "empty_params",
+      "classification": "REAL_DATA_RETURNED",
+      "http_status": 200,
+      "elapsed_ms": 33,
+      "request_params": {},
+      "error_summary": null,
+      "response_shape_summary": {
+        "root_key": "alibaba_mydata_overview_date_get_response",
+        "payload_keys": [
+          "_trace_id_",
+          "date_range",
+          "end_date",
+          "request_id",
+          "result_list",
+          "start_date"
+        ],
+        "top_level_keys": [
+          "alibaba_mydata_overview_date_get_response"
+        ]
+      },
+      "confirmed_fields": [
+        "start_date",
+        "end_date"
+      ],
+      "extracted_data": {
+        "date_ranges": [
+          {
+            "start_date": "2026-03-29",
+            "end_date": "2026-04-04"
+          },
+          {
+            "start_date": "2026-03-22",
+            "end_date": "2026-03-28"
+          },
+          {
+            "start_date": "2026-03-15",
+            "end_date": "2026-03-21"
+          },
+          {
+            "start_date": "2026-03-08",
+            "end_date": "2026-03-14"
+          }
+        ]
+      }
+    }
+  ],
+  "confirmed_fields": [
+    "start_date",
+    "end_date"
+  ]
+}

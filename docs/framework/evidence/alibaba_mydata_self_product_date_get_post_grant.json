@@ -1,0 +1,146 @@
+{
+  "api_name": "alibaba.mydata.self.product.date.get",
+  "final_classification": "REAL_DATA_RETURNED",
+  "best_attempt": {
+    "attempt_name": "day",
+    "classification": "REAL_DATA_RETURNED",
+    "http_status": 200,
+    "elapsed_ms": 40,
+    "request_params": {
+      "statistics_type": "day"
+    },
+    "error_summary": null,
+    "response_shape_summary": {
+      "root_key": "alibaba_mydata_self_product_date_get_response",
+      "payload_keys": [
+        "_trace_id_",
+        "end_date",
+        "request_id",
+        "start_date"
+      ],
+      "top_level_keys": [
+        "alibaba_mydata_self_product_date_get_response"
+      ]
+    },
+    "confirmed_fields": [
+      "start_date",
+      "end_date"
+    ],
+    "extracted_data": {
+      "date_ranges": [
+        {
+          "start_date": "2026-03-10",
+          "end_date": "2026-04-08"
+        }
+      ]
+    }
+  },
+  "attempts": [
+    {
+      "attempt_name": "day",
+      "classification": "REAL_DATA_RETURNED",
+      "http_status": 200,
+      "elapsed_ms": 40,
+      "request_params": {
+        "statistics_type": "day"
+      },
+      "error_summary": null,
+      "response_shape_summary": {
+        "root_key": "alibaba_mydata_self_product_date_get_response",
+        "payload_keys": [
+          "_trace_id_",
+          "end_date",
+          "request_id",
+          "start_date"
+        ],
+        "top_level_keys": [
+          "alibaba_mydata_self_product_date_get_response"
+        ]
+      },
+      "confirmed_fields": [
+        "start_date",
+        "end_date"
+      ],
+      "extracted_data": {
+        "date_ranges": [
+          {
+            "start_date": "2026-03-10",
+            "end_date": "2026-04-08"
+          }
+        ]
+      }
+    },
+    {
+      "attempt_name": "week",
+      "classification": "REAL_DATA_RETURNED",
+      "http_status": 200,
+      "elapsed_ms": 35,
+      "request_params": {
+        "statistics_type": "week"
+      },
+      "error_summary": null,
+      "response_shape_summary": {
+        "root_key": "alibaba_mydata_self_product_date_get_response",
+        "payload_keys": [
+          "_trace_id_",
+          "end_date",
+          "request_id",
+          "start_date"
+        ],
+        "top_level_keys": [
+          "alibaba_mydata_self_product_date_get_response"
+        ]
+      },
+      "confirmed_fields": [
+        "start_date",
+        "end_date"
+      ],
+      "extracted_data": {
+        "date_ranges": [
+          {
+            "start_date": "2026-03-08",
+            "end_date": "2026-04-04"
+          }
+        ]
+      }
+    },
+    {
+      "attempt_name": "month",
+      "classification": "REAL_DATA_RETURNED",
+      "http_status": 200,
+      "elapsed_ms": 33,
+      "request_params": {
+        "statistics_type": "month"
+      },
+      "error_summary": null,
+      "response_shape_summary": {
+        "root_key": "alibaba_mydata_self_product_date_get_response",
+        "payload_keys": [
+          "_trace_id_",
+          "end_date",
+          "request_id",
+          "start_date"
+        ],
+        "top_level_keys": [
+          "alibaba_mydata_self_product_date_get_response"
+        ]
+      },
+      "confirmed_fields": [
+        "start_date",
+        "end_date"
+      ],
+      "extracted_data": {
+        "date_ranges": [
+          {
+            "start_date": "2026-03-01",
+            "end_date": "2026-03-31"
+          }
+        ]
+      }
+    }
+  ],
+  "confirmed_fields": [
+    "start_date",
+    "end_date"
+  ]
+}

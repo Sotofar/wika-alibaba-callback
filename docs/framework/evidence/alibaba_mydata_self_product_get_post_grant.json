@@ -1,0 +1,203 @@
+{
+  "api_name": "alibaba.mydata.self.product.get",
+  "final_classification": "REAL_DATA_RETURNED",
+  "best_attempt": {
+    "attempt_name": "day",
+    "classification": "REAL_DATA_RETURNED",
+    "http_status": 200,
+    "elapsed_ms": 73,
+    "request_params": {
+      "statistics_type": "day",
+      "stat_date": "2026-04-08",
+      "product_ids": [
+        "1601740791024",
+        "1601740600810",
+        "1601739528585",
+        "1601700588198",
+        "1601592243227"
+      ]
+    },
+    "error_summary": null,
+    "response_shape_summary": {
+      "root_key": "alibaba_mydata_self_product_get_response",
+      "payload_keys": [
+        "_trace_id_",
+        "bookmark",
+        "click",
+        "compare",
+        "effect_entity",
+        "effects",
+        "fb",
+        "impression",
+        "keyword_effects",
+        "order"
+      ],
+      "top_level_keys": [
+        "alibaba_mydata_self_product_get_response"
+      ]
+    },
+    "confirmed_fields": [
+      "click",
+      "impression",
+      "visitor",
+      "fb",
+      "order",
+      "bookmark",
+      "compare",
+      "share",
+      "keyword_effects"
+    ],
+    "extracted_data": {
+      "record_count": 3,
+      "sample_records": [
+        {
+          "product_id": 1601592243227,
+          "click": 0,
+          "impression": 2,
+          "visitor": 0,
+          "fb": 0,
+          "order": 0,
+          "bookmark": 0,
+          "compare": 0,
+          "share": 0,
+          "keyword_effects": {}
+        },
+        {
+          "product_id": 1601700588198,
+          "click": 0,
+          "impression": 2,
+          "visitor": 0,
+          "fb": 0,
+          "order": 0,
+          "bookmark": 0,
+          "compare": 0,
+          "share": 0,
+          "keyword_effects": {}
+        },
+        {
+          "product_id": 1601739528585,
+          "click": 0,
+          "impression": 0,
+          "visitor": 1,
+          "fb": 0,
+          "order": 0,
+          "bookmark": 0,
+          "compare": 0,
+          "share": 0,
+          "keyword_effects": {}
+        }
+      ],
+      "extra_fields": {
+        "source_related": [],
+        "country_related": [],
+        "trend_related": []
+      }
+    }
+  },
+  "attempts": [
+    {
+      "attempt_name": "day",
+      "classification": "REAL_DATA_RETURNED",
+      "http_status": 200,
+      "elapsed_ms": 73,
+      "request_params": {
+        "statistics_type": "day",
+        "stat_date": "2026-04-08",
+        "product_ids": [
+          "1601740791024",
+          "1601740600810",
+          "1601739528585",
+          "1601700588198",
+          "1601592243227"
+        ]
+      },
+      "error_summary": null,
+      "response_shape_summary": {
+        "root_key": "alibaba_mydata_self_product_get_response",
+        "payload_keys": [
+          "_trace_id_",
+          "bookmark",
+          "click",
+          "compare",
+          "effect_entity",
+          "effects",
+          "fb",
+          "impression",
+          "keyword_effects",
+          "order"
+        ],
+        "top_level_keys": [
+          "alibaba_mydata_self_product_get_response"
+        ]
+      },
+      "confirmed_fields": [
+        "click",
+        "impression",
+        "visitor",
+        "fb",
+        "order",
+        "bookmark",
+        "compare",
+        "share",
+        "keyword_effects"
+      ],
+      "extracted_data": {
+        "record_count": 3,
+        "sample_records": [
+          {
+            "product_id": 1601592243227,
+            "click": 0,
+            "impression": 2,
+            "visitor": 0,
+            "fb": 0,
+            "order": 0,
+            "bookmark": 0,
+            "compare": 0,
+            "share": 0,
+            "keyword_effects": {}
+          },
+          {
+            "product_id": 1601700588198,
+            "click": 0,
+            "impression": 2,
+            "visitor": 0,
+            "fb": 0,
+            "order": 0,
+            "bookmark": 0,
+            "compare": 0,
+            "share": 0,
+            "keyword_effects": {}
+          },
+          {
+            "product_id": 1601739528585,
+            "click": 0,
+            "impression": 0,
+            "visitor": 1,
+            "fb": 0,
+            "order": 0,
+            "bookmark": 0,
+            "compare": 0,
+            "share": 0,
+            "keyword_effects": {}
+          }
+        ],
+        "extra_fields": {
+          "source_related": [],
+          "country_related": [],
+          "trend_related": []
+        }
+      }
+    }
+  ],
+  "confirmed_fields": [
+    "click",
+    "impression",
+    "visitor",
+    "fb",
+    "order",
+    "bookmark",
+    "compare",
+    "share",
+    "keyword_effects"
+  ]
+}

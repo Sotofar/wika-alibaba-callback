@@ -1,0 +1,105 @@
+{
+  "api_name": "alibaba.mydata.overview.industry.get",
+  "final_classification": "REAL_DATA_RETURNED",
+  "best_attempt": {
+    "attempt_name": "real_date_range",
+    "classification": "REAL_DATA_RETURNED",
+    "http_status": 200,
+    "elapsed_ms": 61,
+    "request_params": {
+      "date_range": {
+        "start_date": "2026-03-29",
+        "end_date": "2026-04-04"
+      }
+    },
+    "error_summary": null,
+    "response_shape_summary": {
+      "root_key": "alibaba_mydata_overview_industry_get_response",
+      "payload_keys": [
+        "_trace_id_",
+        "industry",
+        "industry_desc",
+        "industry_id",
+        "main_category",
+        "request_id",
+        "result_list"
+      ],
+      "top_level_keys": [
+        "alibaba_mydata_overview_industry_get_response"
+      ]
+    },
+    "confirmed_fields": [
+      "industry_id",
+      "industry_desc",
+      "main_category"
+    ],
+    "extracted_data": {
+      "industries": [
+        {
+          "industry_id": 127726042,
+          "industry_desc": "All",
+          "main_category": true
+        },
+        {
+          "industry_id": 127726042,
+          "industry_desc": "Eyewear Accessories",
+          "main_category": false
+        }
+      ]
+    }
+  },
+  "attempts": [
+    {
+      "attempt_name": "real_date_range",
+      "classification": "REAL_DATA_RETURNED",
+      "http_status": 200,
+      "elapsed_ms": 61,
+      "request_params": {
+        "date_range": {
+          "start_date": "2026-03-29",
+          "end_date": "2026-04-04"
+        }
+      },
+      "error_summary": null,
+      "response_shape_summary": {
+        "root_key": "alibaba_mydata_overview_industry_get_response",
+        "payload_keys": [
+          "_trace_id_",
+          "industry",
+          "industry_desc",
+          "industry_id",
+          "main_category",
+          "request_id",
+          "result_list"
+        ],
+        "top_level_keys": [
+          "alibaba_mydata_overview_industry_get_response"
+        ]
+      },
+      "confirmed_fields": [
+        "industry_id",
+        "industry_desc",
+        "main_category"
+      ],
+      "extracted_data": {
+        "industries": [
+          {
+            "industry_id": 127726042,
+            "industry_desc": "All",
+            "main_category": true
+          },
+          {
+            "industry_id": 127726042,
+            "industry_desc": "Eyewear Accessories",
+            "main_category": false
+          }
+        ]
+      }
+    }
+  ],
+  "confirmed_fields": [
+    "industry_id",
+    "industry_desc",
+    "main_category"
+  ]
+}

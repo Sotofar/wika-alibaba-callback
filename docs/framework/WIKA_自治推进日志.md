@@ -835,5 +835,50 @@
   - 当前 repo / debug 可见信息里未发现新的外部权限变化证据
 - 阶段收口：
   - 当前分类：`AWAITING_EXTERNAL_PERMISSION_ACTION`
-  - 不是代码问题，不是环境问题，也不是继续试参数的问题
-  - 当前需要先发生外部权限动作，再进入下一轮最小权限激活确认
+- 不是代码问题，不是环境问题，也不是继续试参数的问题
+- 当前需要先发生外部权限动作，再进入下一轮最小权限激活确认
+
+### 阶段 19：WIKA 数据管家权限开通后复测
+
+- 实际起始 commit：`74bfb9faec070c45ac012057c2d646b475f56682`
+- 本轮线程范围：`WIKA-only`
+- 本轮没有读取、复测、更新或推进任何 XD 结果
+- 本轮没有新增任何 Alibaba API 验证范围
+- 本轮没有推进平台内回复、平台内创单、真实通知外发
+- 本轮只做一件事：
+  - 在 WIKA production 主线下复测 `mydata` 5 个已加包官方方法
+- 当前 appkey 结论：
+  - `wika_appkey_confirmed=false`
+  - `assumption_wika_appkey=true`
+- base sentinel：
+  - `/health` -> `200`
+  - `/integrations/alibaba/auth/debug` -> `200 JSON`
+  - representative WIKA `products/list` -> `200 JSON`
+- 当前 WIKA auth/session state：
+  - `wika_token_loaded=true`
+  - `wika_token_file_exists=true`
+  - `wika_has_refresh_token=true`
+  - `wika_startup_init_status=refresh:startup_bootstrap`
+- 5 个方法复测结果：
+  - `alibaba.mydata.overview.date.get` -> `REAL_DATA_RETURNED`
+  - `alibaba.mydata.overview.industry.get` -> `REAL_DATA_RETURNED`
+  - `alibaba.mydata.overview.indicator.basic.get` -> `REAL_DATA_RETURNED`
+  - `alibaba.mydata.self.product.date.get` -> `REAL_DATA_RETURNED`
+  - `alibaba.mydata.self.product.get` -> `REAL_DATA_RETURNED`
+- 已确认真实字段：
+  - 店铺级：`visitor / imps / clk / clk_rate / fb / reply`
+  - 产品级：`click / impression / visitor / fb / order / bookmark / compare / share / keyword_effects`
+- 已确认真实窗口：
+  - `overview.date.get` -> 可用 `date_range`
+  - `self.product.date.get` -> `day / week / month` 全部返回真实窗口
+- 当前未在真实响应里看到：
+  - 店铺级 `流量来源 / 国家来源 / 快速回复率`
+  - 产品级 `访问来源 / 询盘来源 / 国家来源 / 近周期变化`
+- 本轮建议：
+  - 可局部重开任务 1 的只读取数部分
+  - 可局部重开任务 2 的经营诊断扩展部分
+- 本轮边界：
+  - 当前不是 task 1 complete
+  - 当前不是 task 2 complete
+  - 当前没有任何写侧动作
+  - 当前不是平台内闭环

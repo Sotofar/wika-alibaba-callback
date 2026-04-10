@@ -2,6 +2,8 @@
 
 更新时间：2026-04-05
 
+> 历史说明：本文件记录的是阶段 18 “权限加包前”的清障口径。当前最新状态请以阶段 19 的 [WIKA_经营数据候选接口验证.md](/D:/Code/阿里国际站/docs/framework/WIKA_经营数据候选接口验证.md) 与 [WIKA_mydata_权限开通后复测.md](/D:/Code/阿里国际站/docs/framework/WIKA_mydata_权限开通后复测.md) 为准；5 个 `mydata` 方法在 WIKA production 下已经从旧的 `AUTH_BLOCKED` 前进到 `REAL_DATA_RETURNED`。
+
 本包只用于对外说明当前 `mydata` 权限阻塞现状、最小权限申请口径，以及 access grant 之后应如何复验。
 
 ## 当前总论

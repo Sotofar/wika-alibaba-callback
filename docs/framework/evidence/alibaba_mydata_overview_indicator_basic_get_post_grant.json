@@ -1,0 +1,130 @@
+{
+  "api_name": "alibaba.mydata.overview.indicator.basic.get",
+  "final_classification": "REAL_DATA_RETURNED",
+  "best_attempt": {
+    "attempt_name": "date_range_with_real_industry",
+    "classification": "REAL_DATA_RETURNED",
+    "http_status": 200,
+    "elapsed_ms": 65,
+    "request_params": {
+      "date_range": {
+        "start_date": "2026-03-29",
+        "end_date": "2026-04-04"
+      },
+      "industry": {
+        "industry_id": 127726042,
+        "industry_desc": "All",
+        "main_category": true
+      }
+    },
+    "error_summary": null,
+    "response_shape_summary": {
+      "root_key": "alibaba_mydata_overview_indicator_basic_get_response",
+      "payload_keys": [
+        "_trace_id_",
+        "clk",
+        "clk_rate",
+        "fb",
+        "imps",
+        "reply",
+        "request_id",
+        "result",
+        "visitor"
+      ],
+      "top_level_keys": [
+        "alibaba_mydata_overview_indicator_basic_get_response"
+      ]
+    },
+    "confirmed_fields": [
+      "visitor",
+      "imps",
+      "clk",
+      "clk_rate",
+      "fb",
+      "reply"
+    ],
+    "extracted_data": {
+      "fields": {
+        "visitor": 260,
+        "imps": 6769,
+        "clk": 143,
+        "clk_rate": "0.0211",
+        "fb": 8,
+        "reply": "0.9927"
+      },
+      "extra_fields": {
+        "source_related": [],
+        "country_related": [],
+        "quick_reply_related": []
+      }
+    }
+  },
+  "attempts": [
+    {
+      "attempt_name": "date_range_with_real_industry",
+      "classification": "REAL_DATA_RETURNED",
+      "http_status": 200,
+      "elapsed_ms": 65,
+      "request_params": {
+        "date_range": {
+          "start_date": "2026-03-29",
+          "end_date": "2026-04-04"
+        },
+        "industry": {
+          "industry_id": 127726042,
+          "industry_desc": "All",
+          "main_category": true
+        }
+      },
+      "error_summary": null,
+      "response_shape_summary": {
+        "root_key": "alibaba_mydata_overview_indicator_basic_get_response",
+        "payload_keys": [
+          "_trace_id_",
+          "clk",
+          "clk_rate",
+          "fb",
+          "imps",
+          "reply",
+          "request_id",
+          "result",
+          "visitor"
+        ],
+        "top_level_keys": [
+          "alibaba_mydata_overview_indicator_basic_get_response"
+        ]
+      },
+      "confirmed_fields": [
+        "visitor",
+        "imps",
+        "clk",
+        "clk_rate",
+        "fb",
+        "reply"
+      ],
+      "extracted_data": {
+        "fields": {
+          "visitor": 260,
+          "imps": 6769,
+          "clk": 143,
+          "clk_rate": "0.0211",
+          "fb": 8,
+          "reply": "0.9927"
+        },
+        "extra_fields": {
+          "source_related": [],
+          "country_related": [],
+          "quick_reply_related": []
+        }
+      }
+    }
+  ],
+  "confirmed_fields": [
+    "visitor",
+    "imps",
+    "clk",
+    "clk_rate",
+    "fb",
+    "reply"
+  ]
+}

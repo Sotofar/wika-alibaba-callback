@@ -1,41 +1,122 @@
 # WIKA_经营数据候选接口验证
 
-- evaluated_at: 2026-04-05T10:32:52.556Z
+- evaluated_at: 2026-04-10T09:11:04.489Z
 - route_line: Railway production -> /sync + access_token + sha256
-- scope: candidate validation + clearance packaging only
+- scope: WIKA-only post-grant retest
 
-## 阶段 17 原始分类结果
+## 阶段 19：WIKA 数据管家权限开通后复测
 
-| 方法 | 范围 | 最终分类 | 最佳尝试 | 证据文件 |
+### appkey 与线程边界
+- 当前线程：`WIKA-only`
+- `wika_appkey_confirmed=false`
+- `assumption_wika_appkey=true`
+- 说明：
+  - 当前可以确认本轮走的是 WIKA production auth profile
+  - 当前无法在仓内或 debug 输出中，把权限后台截图里的 appkey 文本与运行时 appkey 做一一比对
+  - 因此本轮最终结论显式依赖 `ASSUMPTION_WIKA_APPKEY`
+
+### base sentinel
+- `/health` -> `200`
+- `/integrations/alibaba/auth/debug` -> `200 JSON`
+- `/integrations/alibaba/wika/data/products/list?page_size=1` -> `200 JSON`
+- current auth/session state:
+  - `wika_client_id_present=true`
+  - `wika_client_secret_present=true`
+  - `wika_token_loaded=true`
+  - `wika_token_file_exists=true`
+  - `wika_has_refresh_token=true`
+  - `wika_startup_init_status=refresh:startup_bootstrap`
+  - `wika_last_refresh_reason=startup_bootstrap`
+
+## 5 个 mydata 方法复测结果
+
+| 方法 | 最终分类 | 最佳尝试 | 真实上游参数 | 证据文件 |
 | --- | --- | --- | --- | --- |
-| alibaba.mydata.overview.date.get | store | AUTH_BLOCKED | empty_params | alibaba_mydata_overview_date_get.json |
-| alibaba.mydata.overview.industry.get | store | AUTH_BLOCKED | fallback_recent_window | alibaba_mydata_overview_industry_get.json |
-| alibaba.mydata.overview.indicator.basic.get | store | AUTH_BLOCKED | fallback_recent_window_fallback_all_industry | alibaba_mydata_overview_indicator_basic_get.json |
-| alibaba.mydata.self.product.date.get | product | AUTH_BLOCKED | day | alibaba_mydata_self_product_date_get.json |
-| alibaba.mydata.self.product.get | product | AUTH_BLOCKED | day | alibaba_mydata_self_product_get.json |
-| alibaba.seller.order.list | order | REAL_DATA_RETURNED | fallback_minimal_windowless | alibaba_seller_order_list.json |
-| alibaba.seller.order.get | order | PARAMETER_REJECTED | trade_1 | alibaba_seller_order_get.json |
-| alibaba.seller.order.fund.get | order | PARAMETER_REJECTED | trade_1 | alibaba_seller_order_fund_get.json |
-| alibaba.seller.order.logistics.get | order | PARAMETER_REJECTED | trade_1 | - |
+| `alibaba.mydata.overview.date.get` | `REAL_DATA_RETURNED` | `empty_params` | 无 | `alibaba_mydata_overview_date_get_post_grant.json` |
+| `alibaba.mydata.overview.industry.get` | `REAL_DATA_RETURNED` | `real_date_range` | `date_range` 来自 `overview.date.get` | `alibaba_mydata_overview_industry_get_post_grant.json` |
+| `alibaba.mydata.overview.indicator.basic.get` | `REAL_DATA_RETURNED` | `date_range_with_real_industry` | `date_range + industry` 都来自真实上游返回 | `alibaba_mydata_overview_indicator_basic_get_post_grant.json` |
+| `alibaba.mydata.self.product.date.get` | `REAL_DATA_RETURNED` | `day / week / month` 全部成功 | `statistics_type`=`day/week/month` | `alibaba_mydata_self_product_date_get_post_grant.json` |
+| `alibaba.mydata.self.product.get` | `REAL_DATA_RETURNED` | `day` | `stat_date` 来自真实 `self.product.date.get`，`product_ids` 来自真实 `products/list` | `alibaba_mydata_self_product_get_post_grant.json` |
 
-## 阶段 18 收口结论
+## 已确认的真实字段
 
-### `mydata` 权限清障
-- `alibaba.mydata.overview.date.get` -> `AUTH_BLOCKED`，当前清障包状态 `ACCESS_REOPEN_READY`
-- `alibaba.mydata.overview.industry.get` -> `AUTH_BLOCKED`，当前清障包状态 `ACCESS_REOPEN_READY`
-- `alibaba.mydata.overview.indicator.basic.get` -> `AUTH_BLOCKED`，当前清障包状态 `ACCESS_REOPEN_READY`
-- `alibaba.mydata.self.product.date.get` -> `AUTH_BLOCKED`，当前清障包状态 `ACCESS_REOPEN_READY`
-- `alibaba.mydata.self.product.get` -> `AUTH_BLOCKED`，当前清障包状态 `ACCESS_REOPEN_READY`
+### 店铺级（overview.indicator.basic.get）
+- `visitor`
+- `imps`
+- `clk`
+- `clk_rate`
+- `fb`
+- `reply`
 
-### 订单参数契约
-- `/integrations/alibaba/wika/data/orders/list` -> mismatch=`SCRIPT_PARAM_NAME_MISMATCH` / conclusion=`READ_ONLY_ROUTE_CONFIRMED_WORKING`
-- `/integrations/alibaba/wika/data/orders/detail` -> mismatch=`SCRIPT_ID_SOURCE_MISMATCH` / conclusion=`MASKED_TRADE_ID_NOT_REUSABLE`
-- `/integrations/alibaba/wika/data/orders/fund` -> mismatch=`SCRIPT_ID_SOURCE_MISMATCH` / conclusion=`MASKED_TRADE_ID_NOT_REUSABLE`
-- `/integrations/alibaba/wika/data/orders/logistics` -> mismatch=`SCRIPT_ID_SOURCE_MISMATCH` / conclusion=`MASKED_TRADE_ID_NOT_REUSABLE`
+本轮真实样例值：
+- `visitor=260`
+- `imps=6769`
+- `clk=143`
+- `clk_rate=0.0211`
+- `fb=8`
+- `reply=0.9927`
+
+额外检查结果：
+- `source_related=[]`
+- `country_related=[]`
+- `quick_reply_related=[]`
+
+结论：
+- 当前不能脑补 `流量来源 / 国家来源 / 快速回复率` 已经存在
+
+### 产品级（self.product.get）
+- `click`
+- `impression`
+- `visitor`
+- `fb`
+- `order`
+- `bookmark`
+- `compare`
+- `share`
+- `keyword_effects`
+
+额外检查结果：
+- `source_related=[]`
+- `country_related=[]`
+- `trend_related=[]`
+
+结论：
+- 当前不能脑补 `访问来源 / 询盘来源 / 国家来源 / 近周期变化` 已经存在
+
+## 已确认的真实参数窗口
+
+### overview.date.get
+- `2026-03-29 -> 2026-04-04`
+- `2026-03-22 -> 2026-03-28`
+- `2026-03-15 -> 2026-03-21`
+- `2026-03-08 -> 2026-03-14`
+
+### self.product.date.get
+- `day`: `2026-03-10 -> 2026-04-08`
+- `week`: `2026-03-08 -> 2026-04-04`
+- `month`: `2026-03-01 -> 2026-03-31`
+
+## 当前阻塞层收口
+- 本轮 5 / 5 方法都不再是：
+  - `STILL_AUTH_BLOCKED`
+  - `ILLEGAL_ACCESS_TOKEN`
+  - `MISSING_ACCESS_TOKEN`
+  - `PARAMETER_REJECTED`
+  - `ENVIRONMENT_BLOCKED`
+- 本轮没有失败方法，因此当前没有剩余阻塞层需要继续下钻
+
+## 建议
+- `task1_partially_reopen=true`
+- `task2_partially_reopen=true`
+
+说明：
+- 这是“局部重开只读取数与诊断扩展”的建议
+- 不是 task 1 complete
+- 不是 task 2 complete
+- 不是完整经营驾驶舱已成立
 
 ## 边界说明
-
-- 本轮没有新增任何 Alibaba API 验证。
-- 本轮没有推进平台内回复、平台内创单、真实通知外发。
-- 本轮只是在收口 `mydata` 权限清障与订单参数契约对账。
-- 当前边界仍然不是 task 1 complete，不是 task 2 complete，不是平台内闭环。
+- 本轮没有验证任何新的 Alibaba API
+- 本轮没有做任何写侧动作
+- 本轮只处理 WIKA
+- 本轮没有更新或推进任何 XD 结果

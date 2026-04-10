@@ -1,36 +1,56 @@
 # WIKA_经营数据字段覆盖矩阵
 
-| 分类桶 | 维度 | 目标字段 |
-| --- | --- | --- |
-| public official entry exists but AUTH_BLOCKED in current tenant | 店铺级 | UV(visitor) |
-| public official entry exists but AUTH_BLOCKED in current tenant | 店铺级 | PV/imps |
-| public official entry exists but AUTH_BLOCKED in current tenant | 店铺级 | 点击(clk) |
-| public official entry exists but AUTH_BLOCKED in current tenant | 店铺级 | CTR(clk_rate) |
-| public official entry exists but AUTH_BLOCKED in current tenant | 店铺级 | 询盘表现(fb) |
-| public official entry exists but AUTH_BLOCKED in current tenant | 店铺级 | 响应相关(reply) |
-| public official entry exists but AUTH_BLOCKED in current tenant | 产品级 | 曝光(impression) |
-| public official entry exists but AUTH_BLOCKED in current tenant | 产品级 | 点击(click) |
-| public official entry exists but AUTH_BLOCKED in current tenant | 产品级 | 访客(visitor) |
-| public official entry exists but AUTH_BLOCKED in current tenant | 产品级 | 询盘(fb) |
-| public official entry exists but AUTH_BLOCKED in current tenant | 产品级 | 订单(order) |
-| public official entry exists but AUTH_BLOCKED in current tenant | 产品级 | bookmark |
-| public official entry exists but AUTH_BLOCKED in current tenant | 产品级 | compare |
-| public official entry exists but AUTH_BLOCKED in current tenant | 产品级 | share |
-| public official entry exists but AUTH_BLOCKED in current tenant | 产品级 | 关键词来源(keyword_effects) |
-| not found in current response / not yet evidenced | 店铺级 | 流量来源 |
-| not found in current response / not yet evidenced | 店铺级 | 国家来源 |
-| not found in current response / not yet evidenced | 店铺级 | 快速回复率 |
-| not found in current response / not yet evidenced | 产品级 | 访问来源 |
-| not found in current response / not yet evidenced | 产品级 | 询盘来源 |
-| not found in current response / not yet evidenced | 产品级 | 国家来源 |
-| not found in current response / not yet evidenced | 产品级 | 近周期变化 |
-| not found in current response / not yet evidenced | 订单级 | 正式汇总 |
-| not found in current response / not yet evidenced | 订单级 | 国家结构 |
-| not found in current response / not yet evidenced | 订单级 | 产品贡献 |
-| only derivable from existing order APIs | 订单级 | 订单趋势（仅基于 order.list.create_date） |
+更新时间：2026-04-10
+
+本矩阵已从旧的“以 `AUTH_BLOCKED` 为主”切换到阶段 19 的 post-grant 真实结果。
+
+| 维度 | 目标字段 | 当前标注 | 证据来源 |
+| --- | --- | --- | --- |
+| 店铺级 | UV | confirmed but blocked no longer | `overview.indicator.basic.get -> visitor` |
+| 店铺级 | PV | confirmed but blocked no longer | `overview.indicator.basic.get -> imps` |
+| 店铺级 | 点击 | confirmed but blocked no longer | `overview.indicator.basic.get -> clk` |
+| 店铺级 | CTR | confirmed but blocked no longer | `overview.indicator.basic.get -> clk_rate` |
+| 店铺级 | 询盘表现 | confirmed but blocked no longer | `overview.indicator.basic.get -> fb` |
+| 店铺级 | 响应率 | confirmed but blocked no longer | `overview.indicator.basic.get -> reply` |
+| 店铺级 | 流量来源 | not found in current response | `overview.indicator.basic.get extra_fields.source_related=[]` |
+| 店铺级 | 国家来源 | not found in current response | `overview.indicator.basic.get extra_fields.country_related=[]` |
+| 店铺级 | 快速回复率 | not found in current response | `overview.indicator.basic.get extra_fields.quick_reply_related=[]` |
+| 产品级 | 曝光 | confirmed but blocked no longer | `self.product.get -> impression` |
+| 产品级 | 点击 | confirmed but blocked no longer | `self.product.get -> click` |
+| 产品级 | CTR | derived field | `click + impression` 可派生 |
+| 产品级 | 访客 | confirmed but blocked no longer | `self.product.get -> visitor` |
+| 产品级 | 询盘 | confirmed but blocked no longer | `self.product.get -> fb` |
+| 产品级 | 订单 | confirmed but blocked no longer | `self.product.get -> order` |
+| 产品级 | bookmark | confirmed but blocked no longer | `self.product.get -> bookmark` |
+| 产品级 | compare | confirmed but blocked no longer | `self.product.get -> compare` |
+| 产品级 | share | confirmed but blocked no longer | `self.product.get -> share` |
+| 产品级 | 关键词来源 | confirmed but blocked no longer | `self.product.get -> keyword_effects` |
+| 产品级 | 访问来源 | not found in current response | `self.product.get extra_fields.source_related=[]` |
+| 产品级 | 询盘来源 | not found in current response | 当前响应未见公开字段覆盖 |
+| 产品级 | 国家来源 | not found in current response | `self.product.get extra_fields.country_related=[]` |
+| 产品级 | 近周期变化 | not found in current response | `self.product.get extra_fields.trend_related=[]` |
+| 订单级 | 正式汇总 | not yet evidenced | 本轮未涉及订单经营汇总补齐 |
+| 订单级 | 趋势 | derived field | 仍仅基于 `order.list.create_date` |
+| 订单级 | 国家结构 | not yet evidenced | 本轮未新增订单国家结构证据 |
+| 订单级 | 产品贡献 | not yet evidenced | 本轮未新增订单产品贡献证据 |
+
+## 真实窗口补充
+
+### 店铺级 overview 可用窗口
+- `2026-03-29 -> 2026-04-04`
+- `2026-03-22 -> 2026-03-28`
+- `2026-03-15 -> 2026-03-21`
+- `2026-03-08 -> 2026-03-14`
+
+### 产品级 self.product 可用窗口
+- `day`: `2026-03-10 -> 2026-04-08`
+- `week`: `2026-03-08 -> 2026-04-04`
+- `month`: `2026-03-01 -> 2026-03-31`
 
 ## 边界说明
-
-- 本轮没有新增任何 Alibaba API 验证。
-- `AUTH_BLOCKED` 只表示公开官方入口存在，但当前 tenant 没有权限。
-- `only derivable from existing order APIs` 当前只证明到订单趋势，不等于完整订单经营汇总。
+- 本轮没有新增任何 Alibaba API 验证范围
+- 本轮没有推进任何写侧动作
+- 真实字段已返回，不等于 task 1 complete
+- 真实字段已返回，不等于 task 2 complete
+- 当前线程只处理 WIKA
+- 当前轮次没有更新或推进任何 XD 结果
