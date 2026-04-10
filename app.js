@@ -42,6 +42,10 @@ import {
 } from "./shared/data/modules/wika-minimal-diagnostic.js";
 import { fetchWikaOperationsTrafficSummary } from "./shared/data/modules/alibaba-mydata-overview.js";
 import { fetchWikaProductPerformanceSummary } from "./shared/data/modules/alibaba-mydata-product-performance.js";
+import {
+  buildOperationsManagementSummary,
+  buildProductsManagementSummary
+} from "./shared/data/modules/wika-mydata-management-summary.js";
 import { buildWikaExternalReplyDraftPackage } from "./shared/data/modules/alibaba-external-reply-drafts.js";
 import { buildWikaExternalOrderDraftPackage } from "./shared/data/modules/alibaba-order-drafts.js";
 
@@ -2259,6 +2263,45 @@ function createWikaOperationsTrafficSummaryHandler() {
   };
 }
 
+function createWikaOperationsManagementSummaryHandler() {
+  return async (req, res) => {
+    try {
+      const result = await buildOperationsManagementSummary(
+        await getWikaReadOnlyClientConfig(),
+        req.query
+      );
+
+      logInfo("Wika operations management summary completed", {
+        startDate: result.date_range?.start_date ?? null,
+        endDate: result.date_range?.end_date ?? null,
+        industryId: result.industry?.industry_id ?? null
+      });
+
+      res.status(200).json({
+        ok: true,
+        module: "operations",
+        account: "wika",
+        read_only: true,
+        ...result
+      });
+    } catch (error) {
+      logError("Wika operations management summary failed", {
+        error: error instanceof Error ? error.message : String(error),
+        details:
+          error instanceof AlibabaApiError || error?.details
+            ? error.details
+            : undefined,
+        top_error: extractTopErrorResponse(error),
+        query: req.query
+      });
+
+      res
+        .status(error instanceof ConfigurationError ? 500 : 502)
+        .json(buildReadOnlyErrorResponse(error));
+    }
+  };
+}
+
 function createWikaProductPerformanceSummaryHandler() {
   return async (req, res) => {
     try {
@@ -2291,6 +2334,76 @@ function createWikaProductPerformanceSummaryHandler() {
 
       res
         .status(error instanceof ConfigurationError ? 500 : hasMissingKeys ? 400 : 502)
+        .json(buildReadOnlyErrorResponse(error));
+    }
+  };
+}
+
+function createWikaProductManagementSummaryHandler() {
+  return async (req, res) => {
+    try {
+      const config = await getWikaReadOnlyClientConfig();
+      const listResult = await fetchWikaProductList(config, {
+        ...req.query,
+        page_size: req.query.page_size ?? 30
+      });
+      const legacySummary = buildProductManagementSummary(listResult);
+      const legacyRecommendations = buildProductRecommendations(listResult);
+      const managementSummary = await buildProductsManagementSummary(config, req.query);
+
+      logInfo("Wika product management summary completed", {
+        statisticsType: managementSummary.statistics_type,
+        statDate: managementSummary.stat_date,
+        productIdsUsedCount: managementSummary.product_ids_used_count
+      });
+
+      res.status(200).json({
+        ok: true,
+        module: "products",
+        account: "wika",
+        read_only: true,
+        source: listResult.source,
+        data_validation: {
+          verification_status: listResult.verification_status,
+          evidence_level: listResult.evidence_level,
+          verified_fields: listResult.verified_fields
+        },
+        report_name: managementSummary.report_name,
+        generated_at: managementSummary.generated_at,
+        statistics_type: managementSummary.statistics_type,
+        stat_date: managementSummary.stat_date,
+        report_scope: managementSummary.report_scope,
+        source_methods: managementSummary.source_methods,
+        product_scope_basis: managementSummary.product_scope_basis,
+        product_scope_limit: managementSummary.product_scope_limit,
+        product_scope_truncated: managementSummary.product_scope_truncated,
+        product_ids_used: managementSummary.product_ids_used,
+        product_ids_used_count: managementSummary.product_ids_used_count,
+        item_count: managementSummary.item_count,
+        aggregate_official_metrics: managementSummary.aggregate_official_metrics,
+        aggregate_derived_metrics: managementSummary.aggregate_derived_metrics,
+        ranking_sections: managementSummary.ranking_sections,
+        keyword_signal_summary: managementSummary.keyword_signal_summary,
+        unavailable_dimensions: managementSummary.unavailable_dimensions,
+        boundary_statement: managementSummary.boundary_statement,
+        management_recommendations: managementSummary.recommendations,
+        summary: legacySummary,
+        recommendations: legacyRecommendations,
+        management_summary: managementSummary
+      });
+    } catch (error) {
+      logError("Wika product management summary failed", {
+        error: error instanceof Error ? error.message : String(error),
+        details:
+          error instanceof AlibabaApiError || error?.details
+            ? error.details
+            : undefined,
+        top_error: extractTopErrorResponse(error),
+        query: req.query
+      });
+
+      res
+        .status(error instanceof ConfigurationError ? 500 : 502)
         .json(buildReadOnlyErrorResponse(error));
     }
   };
@@ -3222,48 +3335,12 @@ app.get(
 
 app.get(
   "/integrations/alibaba/wika/reports/products/management-summary",
-  async (req, res) => {
-    try {
-      const result = await fetchWikaProductList(
-        await getWikaReadOnlyClientConfig(),
-        {
-          ...req.query,
-          page_size: req.query.page_size ?? 30
-        }
-      );
-      const summary = buildProductManagementSummary(result);
-      const recommendations = buildProductRecommendations(result);
+  createWikaProductManagementSummaryHandler()
+);
 
-      res.status(200).json({
-        ok: true,
-        module: "products",
-        account: "wika",
-        read_only: true,
-        source: result.source,
-        data_validation: {
-          verification_status: result.verification_status,
-          evidence_level: result.evidence_level,
-          verified_fields: result.verified_fields
-        },
-        summary,
-        recommendations
-      });
-    } catch (error) {
-      logError("Wika product management summary failed", {
-        error: error instanceof Error ? error.message : String(error),
-        details:
-          error instanceof AlibabaApiError || error?.details
-            ? error.details
-            : undefined,
-        top_error: extractTopErrorResponse(error),
-        query: req.query
-      });
-
-      res
-        .status(error instanceof ConfigurationError ? 500 : 502)
-        .json(buildReadOnlyErrorResponse(error));
-    }
-  }
+app.get(
+  "/integrations/alibaba/wika/reports/operations/management-summary",
+  createWikaOperationsManagementSummaryHandler()
 );
 
 app.get(

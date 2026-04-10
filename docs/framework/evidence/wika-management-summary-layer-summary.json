@@ -1,0 +1,246 @@
+{
+  "stage": "stage21_wika_management_summary_layer",
+  "generated_at": "2026-04-10T11:16:10.478Z",
+  "production_http_smoke": {
+    "new_routes_deployed_pre_push": false,
+    "reason": "当前轮次尚未 push，新路由与扩展后的诊断路由只验证 live helper contract，production HTTP smoke 待部署后执行。"
+  },
+  "base_sentinel": {
+    "health": {
+      "status": 200,
+      "elapsed_ms": 981,
+      "body": "ok"
+    },
+    "auth_debug": {
+      "status": 200,
+      "elapsed_ms": 857,
+      "body": {
+        "app_base_url": "https://api.wikapacking.com",
+        "session_secret_present": true,
+        "state_ttl_seconds": 600,
+        "wika_client_id_present": true,
+        "wika_client_secret_present": true,
+        "wika_redirect_uri": "https://api.wikapacking.com/integrations/alibaba/callback",
+        "wika_auth_url": "https://open-api.alibaba.com/oauth/authorize",
+        "wika_token_url": "***",
+        "wika_refresh_token_url": "***",
+        "wika_partner_id_present": false,
+        "wika_auto_refresh_enabled": true,
+        "wika_refresh_buffer_seconds": 600,
+        "wika_bootstrap_refresh_token_present": true,
+        "wika_token_storage_path": "***",
+        "wika_token_file_exists": true,
+        "wika_token_loaded": true,
+        "wika_runtime_loaded_from": "refresh:startup_bootstrap",
+        "wika_startup_init_attempted_at": "2026-04-10T10:44:36.675Z",
+        "wika_startup_init_status": "refresh:startup_bootstrap",
+        "wika_startup_init_error": null,
+        "wika_has_refresh_token": true,
+        "wika_next_refresh_at": "2026-05-10T10:34:38.881Z",
+        "wika_last_refresh_at": "2026-04-10T10:44:38.881Z",
+        "wika_last_refresh_reason": "startup_bootstrap",
+        "wika_last_refresh_error": null
+      }
+    },
+    "representative_route": {
+      "status": 200,
+      "elapsed_ms": 1280,
+      "body": {
+        "ok": true,
+        "module": "products",
+        "account": "wika",
+        "read_only": true,
+        "verification_status": "已验证可读",
+        "evidence_level": "L1",
+        "source": {
+          "type": "official_api",
+          "api_name": "alibaba.icbu.product.list",
+          "endpoint_url": "https://open-api.alibaba.com/sync",
+          "request_method": "POST",
+          "depends_on_current_token": true,
+          "requires_browser_session": false,
+          "auth_parameter": "access_token",
+          "sign_method": "***"
+        },
+        "request": {
+          "current_page": 1,
+          "page_size": 1,
+          "language": "ENGLISH"
+        },
+        "response_meta": {
+          "current_page": 1,
+          "page_size": 1,
+          "total_item": 536
+        },
+        "verified_fields": [
+          "current_page",
+          "page_size",
+          "total_item",
+          "products.group_id",
+          "products.group_name",
+          "products.id",
+          "products.keywords",
+          "products.main_image.images",
+          "products.status",
+          "products.subject",
+          "products.product_type",
+          "products.language",
+          "products.display",
+          "products.owner_member_display_name",
+          "products.category_id",
+          "products.is_specific",
+          "products.is_rts",
+          "products.pc_detail_url",
+          "products.gmt_create",
+          "products.gmt_modified"
+        ],
+        "items": [
+          {
+            "group_id": 957658239,
+            "group_name": "Soft Case",
+            "id": 1601740791024,
+            "keywords": [],
+            "main_image_urls": [],
+            "status": "approved",
+            "subject": "Customizable New Fashion Portable Eyeglasses Accessories Leather Big Glasses case Oversize Sunglasses Holder",
+            "product_type": "sourcing",
+            "language": "ENGLISH",
+            "display": "Y",
+            "owner_member_display_name": "Ell*** Ma",
+            "category_id": 36127040,
+            "is_specific": true,
+            "is_rts": false,
+            "pc_detail_url": "https://www.alibaba.com/product-detail/Customizable-New-Fashion-Portable-Eyeglasses-Accessories_1601740791024.html",
+            "smart_edit": false,
+            "gmt_create": "2026-04-09 15:04:02",
+            "gmt_modified": "2026-04-09 15:04:02",
+            "red_model": "S030",
+            "product_id": "AAFwxslEAOVqtWWP0tWvJG1K"
+          }
+        ],
+        "raw_root_key": "alibaba_icbu_product_list_response"
+      }
+    }
+  },
+  "route_validation": {
+    "operations_management_summary": {
+      "status": "PASS_LIVE_HELPER_CONTRACT",
+      "official_fields": [
+        "visitor",
+        "imps",
+        "clk",
+        "clk_rate",
+        "fb",
+        "reply"
+      ],
+      "derived_fields": [
+        "uv_candidate_from_visitor",
+        "exposure_from_imps",
+        "ctr_candidate_from_clk_rate",
+        "reply_related_metric_from_reply"
+      ],
+      "unavailable_dimensions": [
+        "traffic_source",
+        "country_source",
+        "quick_reply_rate"
+      ]
+    },
+    "products_management_summary": {
+      "status": "PASS_LIVE_HELPER_CONTRACT",
+      "official_fields": [
+        "click",
+        "impression",
+        "visitor",
+        "fb",
+        "order",
+        "bookmark",
+        "compare",
+        "share",
+        "keyword_effects"
+      ],
+      "derived_fields": [
+        "ctr_from_click_over_impression"
+      ],
+      "unavailable_dimensions": [
+        "access_source",
+        "inquiry_source",
+        "country_source",
+        "period_over_period_change"
+      ],
+      "product_scope_limit": 5,
+      "product_scope_truncated": true,
+      "product_ids_used_count": 5
+    },
+    "operations_minimal_diagnostic": {
+      "status": "PASS_LIVE_HELPER_CONTRACT",
+      "section_present": true,
+      "signal_interpretation_present": true,
+      "recommendation_block_present": true
+    },
+    "products_minimal_diagnostic": {
+      "status": "PASS_LIVE_HELPER_CONTRACT",
+      "section_present": true,
+      "ranking_interpretation_present": true,
+      "recommendation_block_present": true
+    }
+  },
+  "confirmed_official_fields": {
+    "operations": [
+      "visitor",
+      "imps",
+      "clk",
+      "clk_rate",
+      "fb",
+      "reply"
+    ],
+    "products": [
+      "click",
+      "impression",
+      "visitor",
+      "fb",
+      "order",
+      "bookmark",
+      "compare",
+      "share",
+      "keyword_effects"
+    ]
+  },
+  "derived_fields": {
+    "operations": [
+      "uv_candidate_from_visitor",
+      "exposure_from_imps",
+      "ctr_candidate_from_clk_rate",
+      "reply_related_metric_from_reply"
+    ],
+    "products": [
+      "ctr_from_click_over_impression"
+    ]
+  },
+  "unavailable_dimensions": {
+    "operations": [
+      "traffic_source",
+      "country_source",
+      "quick_reply_rate"
+    ],
+    "products": [
+      "access_source",
+      "inquiry_source",
+      "country_source",
+      "period_over_period_change"
+    ]
+  },
+  "product_scope_boundary": {
+    "basis": "sample_from_products_list",
+    "limit": 5,
+    "truncated": true,
+    "product_ids_used_count": 5
+  },
+  "boundary_statement": {
+    "not_task_1_complete": true,
+    "not_task_2_complete": true,
+    "no_write_action_attempted": true,
+    "wika_only_thread": true,
+    "xd_untouched_in_this_round": true,
+    "not_full_business_cockpit": true
+  }
+}

@@ -1,5 +1,52 @@
 # WIKA_项目基线
 
+## 2026-04-10 Stage 21 Baseline Update
+
+### 新增经营管理摘要层
+- 新增 WIKA 经营管理摘要共享 helper：
+  - `shared/data/modules/wika-mydata-management-summary.js`
+  - `shared/data/modules/wika-mydata-product-ranking.js`
+
+### 新增或更新的正式报告路由
+- 新增：
+  - `/integrations/alibaba/wika/reports/operations/management-summary`
+- 扩展：
+  - `/integrations/alibaba/wika/reports/products/management-summary`
+  - `/integrations/alibaba/wika/reports/operations/minimal-diagnostic`
+  - `/integrations/alibaba/wika/reports/products/minimal-diagnostic`
+
+### 当前已确认的管理摘要层边界
+- 店铺级 management summary 仍只覆盖：
+  - `visitor`
+  - `imps`
+  - `clk`
+  - `clk_rate`
+  - `fb`
+  - `reply`
+- 产品级 management summary 仍只覆盖：
+  - `click`
+  - `impression`
+  - `visitor`
+  - `fb`
+  - `order`
+  - `bookmark`
+  - `compare`
+  - `share`
+  - `keyword_effects`
+- 当前仍显式列出 unavailable dimensions：
+  - store: `traffic_source / country_source / quick_reply_rate`
+  - product: `access_source / inquiry_source / country_source / period_over_period_change`
+- 当前产品经营摘要默认是带 cap 的样本聚合，不伪装成全店全量统计
+
+### 当前固定边界
+- 本轮没有新增 Alibaba API 探索
+- 本轮没有推进 XD
+- 本轮没有任何写动作
+- 本轮只是 task 1 / task 2 的局部实现继续推进
+- not task 1 complete
+- not task 2 complete
+- not full business cockpit
+
 ## 2026-04-10 Stage 20 Baseline Update
 
 ### 新增只读层

@@ -1,5 +1,38 @@
 # WIKA_经营数据字段覆盖矩阵
 
+## 2026-04-10 Stage 21 Matrix Delta
+
+### 已进入 management summary 层的店铺级 official fields
+- `visitor` -> confirmed official field
+- `imps` -> confirmed official field
+- `clk` -> confirmed official field
+- `clk_rate` -> confirmed official field
+- `fb` -> confirmed official field
+- `reply` -> confirmed official field
+
+### 已进入 management summary 层的产品级 official fields
+- `click` -> confirmed official field
+- `impression` -> confirmed official field
+- `visitor` -> confirmed official field
+- `fb` -> confirmed official field
+- `order` -> confirmed official field
+- `bookmark` -> confirmed official field
+- `compare` -> confirmed official field
+- `share` -> confirmed official field
+- `keyword_effects` -> confirmed official field
+
+### Stage 21 新增的边界表达
+- `UV` -> conservative business mapping candidate
+- `exposure` -> conservative business mapping candidate
+- `CTR` -> derived field
+- `traffic_source` -> not found in current response
+- `country_source` -> not found in current response
+- `quick_reply_rate` -> not found in current response
+- `access_source` -> not found in current response
+- `inquiry_source` -> not found in current response
+- `period_over_period_change` -> not found in current response
+- `product_scope_limit / product_scope_truncated / product_ids_used_count` -> sampling boundary surfaced
+
 ## 2026-04-10 Stage 20 Matrix Delta
 
 ### Store-level official fields

@@ -4,6 +4,27 @@
 
 本文只记录当前最关键的能力状态，不把权限加包后的真实取数误写成任务完成。
 
+## 2026-04-10 Stage 21 Delta
+
+### 任务 1：读取平台数据
+- 已新增可消费的 management summary 层：
+  - `/integrations/alibaba/wika/reports/operations/management-summary`
+  - `/integrations/alibaba/wika/reports/products/management-summary`
+- 当前前进到“局部持续重开”状态：
+  - 店铺级 official fields 已可读、可聚合、可解释
+  - 产品级 official fields 已可读、可聚合、可解释
+- 仍未完成：
+  - `traffic_source / country_source / quick_reply_rate`
+  - `access_source / inquiry_source / country_source / period_over_period_change`
+
+### 任务 2：经营诊断扩展
+- 已新增诊断消费层解释：
+  - operations minimal diagnostic 新增 `signal_interpretation / recommendation_block / unavailable_dimensions_echo / confidence_hints`
+  - products minimal diagnostic 新增 `ranking_interpretation / keyword_signal_takeaways / recommendation_block / unavailable_dimensions_echo / confidence_hints`
+- 仍未完成：
+  - 当前仍不是完整经营驾驶舱
+  - 订单级正式汇总、国家结构、产品贡献仍未补齐
+
 ## 任务 1：店铺经营指标入口
 
 | 能力项 | 当前状态 | 当前结论 |

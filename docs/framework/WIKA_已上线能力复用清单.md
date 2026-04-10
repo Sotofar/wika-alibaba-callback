@@ -2,6 +2,22 @@
 
 更新时间：2026-04-10
 
+## 2026-04-10 Stage 21 Additions
+- 新增正式可复用的 management summary helper：
+  - `shared/data/modules/wika-mydata-management-summary.js`
+  - `shared/data/modules/wika-mydata-product-ranking.js`
+- 新增正式可复用的 management summary route：
+  - `/integrations/alibaba/wika/reports/operations/management-summary`
+- 已扩展并继续兼容的 route：
+  - `/integrations/alibaba/wika/reports/products/management-summary`
+  - `/integrations/alibaba/wika/reports/operations/minimal-diagnostic`
+  - `/integrations/alibaba/wika/reports/products/minimal-diagnostic`
+- 当前复用边界：
+  - management summary 只暴露 confirmed official fields、derived fields、unavailable dimensions 与样本边界
+  - 不把 `imps` 写成 PV confirmed
+  - 不把 `reply` 写成广义 response rate confirmed
+  - 产品经营摘要默认带 cap，不伪装成全店全量
+
 ## 当前可直接复用的核心能力
 - Railway production 认证闭环
 - 官方 `/sync + access_token + sha256` 调用层

@@ -12,13 +12,15 @@ import {
   fetchWikaProductList
 } from "../../../projects/wika/data/products/module.js";
 import {
-  fetchWikaOperationsTrafficSummary,
   MYDATA_OVERVIEW_UNAVAILABLE_DIMENSIONS
 } from "./alibaba-mydata-overview.js";
 import {
-  fetchWikaProductPerformanceSummary,
   MYDATA_PRODUCT_UNAVAILABLE_DIMENSIONS
 } from "./alibaba-mydata-product-performance.js";
+import {
+  buildOperationsManagementSummary,
+  buildProductsManagementSummary
+} from "./wika-mydata-management-summary.js";
 
 function toPositiveInteger(value, fallbackValue, maxValue = Number.POSITIVE_INFINITY) {
   const parsed = Number.parseInt(String(value ?? ""), 10);
@@ -431,8 +433,8 @@ function normalizeArrayValue(value) {
   return Array.isArray(value) ? value : [];
 }
 
-function buildTrafficPerformanceSection(trafficSummary) {
-  if (!trafficSummary) {
+function buildTrafficPerformanceSection(managementSummary) {
+  if (!managementSummary) {
     return {
       status: "unavailable",
       unavailable_dimensions: [...MYDATA_OVERVIEW_UNAVAILABLE_DIMENSIONS],
@@ -443,7 +445,7 @@ function buildTrafficPerformanceSection(trafficSummary) {
     };
   }
 
-  const metrics = trafficSummary.official_metrics ?? {};
+  const metrics = managementSummary.official_metrics ?? {};
   const visitor = toNumber(metrics.visitor);
   const imps = toNumber(metrics.imps);
   const clk = toNumber(metrics.clk);
@@ -475,11 +477,11 @@ function buildTrafficPerformanceSection(trafficSummary) {
 
   return {
     status: "real_data_returned",
-    source_route: "/integrations/alibaba/wika/reports/operations/traffic-summary",
-    date_range: trafficSummary.date_range ?? null,
-    industry: trafficSummary.industry ?? null,
+    source_route: "/integrations/alibaba/wika/reports/operations/management-summary",
+    date_range: managementSummary.date_range ?? null,
+    industry: managementSummary.industry ?? null,
     official_metrics: metrics,
-    derived_metrics: trafficSummary.derived_metrics ?? {},
+    derived_metrics: managementSummary.derived_metrics ?? {},
     traffic_signal_summary: {
       visitor,
       imps,
@@ -492,16 +494,24 @@ function buildTrafficPerformanceSection(trafficSummary) {
     },
     basic_recommendations: recommendations,
     obvious_anomaly_warnings: warnings,
-    unavailable_dimensions: normalizeArrayValue(trafficSummary.unavailable_dimensions),
-    boundary_statement: trafficSummary.boundary_statement ?? {
+    signal_interpretation: managementSummary.interpretation ?? null,
+    recommendation_block: managementSummary.recommendations ?? recommendations,
+    unavailable_dimensions: normalizeArrayValue(managementSummary.unavailable_dimensions),
+    unavailable_dimensions_echo: normalizeArrayValue(managementSummary.unavailable_dimensions),
+    confidence_hints: {
+      source_methods: managementSummary.source_methods ?? [],
+      report_scope: managementSummary.report_scope ?? null,
+      note: "当前只基于已确认的 store-level mydata subset，不能扩写成完整店铺经营驾驶舱。"
+    },
+    boundary_statement: managementSummary.boundary_statement ?? {
       not_full_store_dashboard: true,
       official_mydata_subset_only: true
     }
   };
 }
 
-function buildProductPerformanceSection(performanceSummary) {
-  if (!performanceSummary) {
+function buildProductPerformanceSection(managementSummary) {
+  if (!managementSummary) {
     return {
       status: "unavailable",
       unavailable_dimensions: [...MYDATA_PRODUCT_UNAVAILABLE_DIMENSIONS],
@@ -512,7 +522,7 @@ function buildProductPerformanceSection(performanceSummary) {
     };
   }
 
-  const items = safeArray(performanceSummary.items);
+  const items = safeArray(managementSummary.items);
   const engagementSummary = {
     products_with_impression: items.filter(
       (item) => toNumber(item?.official_metrics?.impression) > 0
@@ -593,10 +603,10 @@ function buildProductPerformanceSection(performanceSummary) {
 
   return {
     status: "real_data_returned",
-    source_route: "/integrations/alibaba/wika/reports/products/performance-summary",
-    statistics_type: performanceSummary.statistics_type ?? null,
-    stat_date: performanceSummary.stat_date ?? null,
-    item_count: performanceSummary.item_count ?? items.length,
+    source_route: "/integrations/alibaba/wika/reports/products/management-summary",
+    statistics_type: managementSummary.statistics_type ?? null,
+    stat_date: managementSummary.stat_date ?? null,
+    item_count: managementSummary.item_count ?? items.length,
     engagement_summary: engagementSummary,
     ranking_preview: rankingPreview,
     keyword_signal_hints: {
@@ -605,8 +615,29 @@ function buildProductPerformanceSection(performanceSummary) {
     },
     basic_recommendations: recommendations,
     obvious_gap_warnings: warnings,
-    unavailable_dimensions: normalizeArrayValue(performanceSummary.unavailable_dimensions),
-    boundary_statement: performanceSummary.boundary_statement ?? {
+    ranking_interpretation: {
+      summary: "当前 ranking 只基于受控样本 product_ids 聚合，不默认代表全店全量商品排名。",
+      top_products_by_impression:
+        managementSummary.ranking_sections?.top_products_by_impression ?? [],
+      top_products_by_click:
+        managementSummary.ranking_sections?.top_products_by_click ?? [],
+      top_products_by_fb:
+        managementSummary.ranking_sections?.top_products_by_fb ?? [],
+      top_products_by_order:
+        managementSummary.ranking_sections?.top_products_by_order ?? []
+    },
+    keyword_signal_takeaways: managementSummary.keyword_signal_summary ?? null,
+    recommendation_block: managementSummary.recommendations ?? recommendations,
+    unavailable_dimensions: normalizeArrayValue(managementSummary.unavailable_dimensions),
+    unavailable_dimensions_echo: normalizeArrayValue(managementSummary.unavailable_dimensions),
+    confidence_hints: {
+      report_scope: managementSummary.report_scope ?? null,
+      product_scope_basis: managementSummary.product_scope_basis ?? null,
+      product_scope_limit: managementSummary.product_scope_limit ?? null,
+      product_scope_truncated: managementSummary.product_scope_truncated ?? null,
+      note: "当前产品经营诊断只覆盖 mydata 已确认子集，且可能是样本聚合，不是完整商品驾驶舱。"
+    },
+    boundary_statement: managementSummary.boundary_statement ?? {
       not_full_product_performance_cockpit: true,
       official_mydata_subset_only: true
     }
@@ -1311,18 +1342,18 @@ export async function fetchWikaProductMinimalDiagnostic(clientConfig, query = {}
     query
   );
 
-  let performanceSummary = null;
+  let managementSummary = null;
   try {
-    performanceSummary = await fetchWikaProductPerformanceSummary(clientConfig, query);
+    managementSummary = await buildProductsManagementSummary(clientConfig, query);
   } catch {
-    performanceSummary = null;
+    managementSummary = null;
   }
 
   return buildWikaProductMinimalDiagnosticReport(
     productSignals,
     sampleConfig,
     generatedAt,
-    performanceSummary
+    managementSummary
   );
 }
 
@@ -1347,33 +1378,36 @@ export async function fetchWikaMinimalDiagnostic(clientConfig, query = {}) {
   const { sampleConfig: orderSampleConfig, orderSignals } =
     await collectWikaOrderDiagnosticData(clientConfig, query);
 
-  let performanceSummary = null;
-  let trafficSummary = null;
+  let managementSummary = null;
+  let operationsManagementSummary = null;
 
   try {
-    performanceSummary = await fetchWikaProductPerformanceSummary(clientConfig, query);
+    managementSummary = await buildProductsManagementSummary(clientConfig, query);
   } catch {
-    performanceSummary = null;
+    managementSummary = null;
   }
 
   try {
-    trafficSummary = await fetchWikaOperationsTrafficSummary(clientConfig, query);
+    operationsManagementSummary = await buildOperationsManagementSummary(
+      clientConfig,
+      query
+    );
   } catch {
-    trafficSummary = null;
+    operationsManagementSummary = null;
   }
 
   const productReport = buildWikaProductMinimalDiagnosticReport(
     productSignals,
     productSampleConfig,
     generatedAt,
-    performanceSummary
+    managementSummary
   );
   const orderReport = buildWikaOrderMinimalDiagnosticReport(
     orderSignals,
     orderSampleConfig,
     generatedAt
   );
-  const trafficSection = buildTrafficPerformanceSection(trafficSummary);
+  const trafficSection = buildTrafficPerformanceSection(operationsManagementSummary);
   const baseRecommendations = buildOperationsRecommendations(productSignals, orderSignals);
   const sampleConfig = {
     ...productSampleConfig,
@@ -1384,10 +1418,10 @@ export async function fetchWikaMinimalDiagnostic(clientConfig, query = {}) {
     ...orderReport.available_signals
   ];
 
-  if (trafficSummary) {
+  if (operationsManagementSummary) {
     availableSignals.push({
       module: "operations",
-      source_route: "/integrations/alibaba/wika/reports/operations/traffic-summary",
+      source_route: "/integrations/alibaba/wika/reports/operations/management-summary",
       fields: ["visitor", "imps", "clk", "clk_rate", "fb", "reply"],
       sample_size: 1,
       notes:
@@ -1425,7 +1459,7 @@ export async function fetchWikaMinimalDiagnostic(clientConfig, query = {}) {
     diagnostic_findings: [
       ...productReport.diagnostic_findings,
       ...orderReport.diagnostic_findings,
-      ...buildOperationsTrafficFindings(trafficSummary)
+      ...buildOperationsTrafficFindings(operationsManagementSummary)
     ],
     recommendations: {
       immediate_actions: [
@@ -1435,7 +1469,7 @@ export async function fetchWikaMinimalDiagnostic(clientConfig, query = {}) {
           theme: "traffic_followup",
           reason: item,
           evidence: {
-            official_metrics: trafficSummary?.official_metrics ?? null
+            official_metrics: operationsManagementSummary?.official_metrics ?? null
           }
         }))
       ],

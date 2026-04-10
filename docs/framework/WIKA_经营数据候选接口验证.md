@@ -1,5 +1,39 @@
 # WIKA_经营数据候选接口验证
 
+## 2026-04-10 Stage 21 Management Summary Layer Update
+
+### 当前状态
+- 本轮没有新增 Alibaba API 探索
+- 本轮只在已证实可用的 5 个 mydata 方法之上建立经营管理摘要层
+- 本轮没有推进 XD
+- 本轮没有任何写动作
+
+### 新增或更新的业务消费路由
+- `operations_management_summary`
+  - route: `/integrations/alibaba/wika/reports/operations/management-summary`
+  - source methods:
+    - `alibaba.mydata.overview.date.get`
+    - `alibaba.mydata.overview.industry.get`
+    - `alibaba.mydata.overview.indicator.basic.get`
+- `products_management_summary`
+  - route: `/integrations/alibaba/wika/reports/products/management-summary`
+  - source methods:
+    - `alibaba.mydata.self.product.date.get`
+    - `alibaba.mydata.self.product.get`
+    - `/integrations/alibaba/wika/data/products/list`（仅作为受控样本 product_ids 辅助来源）
+
+### 当前 route-level 验证结论
+- `operations_management_summary` -> `PASS_LIVE_HELPER_CONTRACT`
+- `products_management_summary` -> `PASS_LIVE_HELPER_CONTRACT`
+- `operations_minimal_diagnostic` stage21 extension -> `PASS_LIVE_HELPER_CONTRACT`
+- `products_minimal_diagnostic` stage21 extension -> `PASS_LIVE_HELPER_CONTRACT`
+
+### 明确边界
+- 当前是“经营管理摘要层 + 诊断消费层”建设
+- 不是 task 1 complete
+- 不是 task 2 complete
+- 不是完整经营驾驶舱
+
 ## 2026-04-10 Stage 20 Route Layer Update
 
 ### 当前状态

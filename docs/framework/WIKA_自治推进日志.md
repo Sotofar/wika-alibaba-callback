@@ -1,5 +1,36 @@
 ﻿# WIKA 自治推进日志
 
+## 2026-04-10
+
+### 阶段 21：WIKA 经营管理摘要层与诊断消费层
+
+- 起始 commit：`6239d2a81203ebbe86a7cc111f2ee4db3dd0213e`
+- 本阶段目标：
+  - 先固化 `AGENTS.md` 中文输出规则
+  - 在 stage20 已落地的 mydata 正式只读层之上，新增经营管理摘要共享层
+  - 新增 operations management summary route
+  - 扩展既有 products management summary route 与 minimal diagnostic 消费解释层
+- 新增共享 helper：
+  - `shared/data/modules/wika-mydata-management-summary.js`
+  - `shared/data/modules/wika-mydata-product-ranking.js`
+- 新增或更新正式路由：
+  - `/integrations/alibaba/wika/reports/operations/management-summary`
+  - `/integrations/alibaba/wika/reports/products/management-summary`
+  - `/integrations/alibaba/wika/reports/operations/minimal-diagnostic`
+  - `/integrations/alibaba/wika/reports/products/minimal-diagnostic`
+- 验证结果：
+  - `operations_management_summary` -> `PASS_LIVE_HELPER_CONTRACT`
+  - `products_management_summary` -> `PASS_LIVE_HELPER_CONTRACT`
+  - `operations_minimal_diagnostic` stage21 extension -> `PASS_LIVE_HELPER_CONTRACT`
+  - `products_minimal_diagnostic` stage21 extension -> `PASS_LIVE_HELPER_CONTRACT`
+- 本阶段关键收口：
+  - 当前已把 official fields / derived fields / unavailable dimensions 固定进业务可消费层
+  - 当前已把产品范围 / 采样边界显式暴露为 `product_scope_limit / product_scope_truncated / product_ids_used_count`
+  - 当前仍然不是完整经营驾驶舱
+  - 本阶段没有新增 Alibaba API 探索
+  - 本阶段没有推进 XD
+  - 本阶段没有任何写动作
+
 ## 2026-04-04
 
 ### 阶段 1：任务 1/2 的数据入口验证与最小原始路由化

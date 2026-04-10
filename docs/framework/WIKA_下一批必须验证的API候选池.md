@@ -2,6 +2,32 @@
 
 更新时间：2026-04-10
 
+## 2026-04-10 Stage 21 Delta
+
+### 本轮不再作为候选验证对象的内容
+- `management-summary` 相关工作本轮已收口为“已落地的业务消费层”，不是新的 API 候选验证
+- 当前不应再把以下 5 个方法重新放回候选池头部：
+  - `alibaba.mydata.overview.date.get`
+  - `alibaba.mydata.overview.industry.get`
+  - `alibaba.mydata.overview.indicator.basic.get`
+  - `alibaba.mydata.self.product.date.get`
+  - `alibaba.mydata.self.product.get`
+
+### Stage 21 之后真正剩余的方向
+- 店铺级仍缺：
+  - `traffic_source`
+  - `country_source`
+  - `quick_reply_rate`
+- 产品级仍缺：
+  - `access_source`
+  - `inquiry_source`
+  - `country_source`
+  - `period_over_period_change`
+- 订单级仍缺：
+  - 正式汇总
+  - 国家结构
+  - 产品贡献
+
 ## 当前总论
 - 阶段 19 已完成 WIKA `mydata` 权限开通后复测
 - 以下 5 个方法不再属于“最高优先级未决候选”，因为它们已经在 WIKA production 下返回真实数据：

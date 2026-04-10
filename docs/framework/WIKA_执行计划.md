@@ -1,5 +1,41 @@
 # WIKA_执行计划
 
+## 2026-04-10 Stage 21 Update
+
+### 当前阶段
+- 阶段 21：WIKA 经营管理摘要层与诊断消费层
+
+### 本轮唯一目标
+- 在 stage20 已落地的 mydata 正式只读层之上，新增面向业务消费的 management summary 共享层
+- 新增 operations management summary route，并扩展既有 products management summary route
+- 扩展 operations / products minimal diagnostic 的解释层、建议块与 unavailable 回显
+- 固定产品范围 / 采样边界表达
+
+### 已完成
+- `AGENTS.md` 已新增稳定输出规则：
+  - `所有中间进度、最终总结、验收结果、提交说明，一律使用简体中文输出。`
+- 新增 management summary helper：
+  - `shared/data/modules/wika-mydata-management-summary.js`
+  - `shared/data/modules/wika-mydata-product-ranking.js`
+- 新增或更新正式路由：
+  - `/integrations/alibaba/wika/reports/operations/management-summary`
+  - `/integrations/alibaba/wika/reports/products/management-summary`
+  - `/integrations/alibaba/wika/reports/operations/minimal-diagnostic`
+  - `/integrations/alibaba/wika/reports/products/minimal-diagnostic`
+- 已通过 live helper contract 验证：
+  - operations management summary
+  - products management summary
+  - operations minimal diagnostic stage21 extension
+  - products minimal diagnostic stage21 extension
+
+### 本轮明确边界
+- 不新增 Alibaba API 探索
+- 不推进 XD
+- 不做任何写动作
+- 当前仍然不是完整经营驾驶舱
+- not task 1 complete
+- not task 2 complete
+
 ## 2026-04-10 Stage 20 Update
 
 ### 当前阶段
