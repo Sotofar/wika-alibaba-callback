@@ -819,6 +819,21 @@
   - `projects/xd/access/mydata_permission_gap_stage23.md`
   - `projects/xd/access/indicator_basic_contract_stage23.md`
 - 本轮收口：
-  - 当前最大阻塞已明确是 XD mydata 权限缺口
-  - `indicator.basic` 不再只是参数歧义
-  - 当前不能误写成 task 1 complete、task 2 complete 或平台内闭环
+- 当前最大阻塞已明确是 XD mydata 权限缺口
+- `indicator.basic` 不再只是参数歧义
+- 当前不能误写成 task 1 complete、task 2 complete 或平台内闭环
+
+### 阶段 24：XD 权限激活确认早停
+
+- 起始 checkpoint：`37331d4`
+- 本阶段目标：
+  - 只确认外部权限动作是否已生效
+  - 在没有变化时安全早停，不重复 stage23 的 5 个 direct-method 调用
+- 极小预检结果：
+  - production base 继续 `PASS_BASE`
+  - `XD_ELEVATED_ALLOWED` 未设置为 `1`
+  - 当前 repo / debug 可见信息里未发现新的外部权限变化证据
+- 阶段收口：
+  - 当前分类：`AWAITING_EXTERNAL_PERMISSION_ACTION`
+  - 不是代码问题，不是环境问题，也不是继续试参数的问题
+  - 当前需要先发生外部权限动作，再进入下一轮最小权限激活确认

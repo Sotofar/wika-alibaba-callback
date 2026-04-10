@@ -41,3 +41,9 @@
 - 未做 elevated confirm。
 - 未做任何写动作。
 - 未扫描未知接口。
+
+## stage24
+- 目标：只确认外部权限动作是否已生效。
+- 结果：未检测到外部权限变化，且 `XD_ELEVATED_ALLOWED` 未设置为 `1`。
+- 当前分类：`AWAITING_EXTERNAL_PERMISSION_ACTION`
+- 本轮不重复 stage23 的 5 个 direct-method 调用。

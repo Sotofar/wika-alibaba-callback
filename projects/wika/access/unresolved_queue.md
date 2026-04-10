@@ -6,6 +6,7 @@
 - WIKA route 层 27 条已验证/已上线 access route 继续保持 frozen baseline，不需要本轮重复 replay。
 - 当前未决主干只剩 direct-method 层：XD mydata 权限缺口，以及是否需要后续人工权限动作。
 - 本文档不代表任务 1 完成，不代表任务 2 完成，也不代表平台内闭环。
+- stage24 已确认：在没有新的外部权限变化前，不应继续重复 stage23 的 direct-method 调用。
 
 ## A. WIKA route 层
 - 当前无新的 WIKA route replay 未决项。
@@ -55,7 +56,14 @@
   - 是否适合继续交给 XD：本轮已完成标准权限与参数契约闭环
   - 是否绝对不适合用 XD 确认：否
 
-### 3. 已从未决主干移出的对象
+### 3. stage24 统一闸门
+- 当前结论：`AWAITING_EXTERNAL_PERMISSION_ACTION`
+- 触发条件：
+  - 未发现新的外部权限变化证据
+  - `XD_ELEVATED_ALLOWED` 未设置为 `1`
+- 因此当前不应继续让 Codex 重复 5 个 direct-method 的同构验证。
+
+### 4. 已从未决主干移出的对象
 - `alibaba.seller.order.get`
   - 当前结论：`PASSED`
   - 当前定位：sanity control 与已确认通过 direct-method

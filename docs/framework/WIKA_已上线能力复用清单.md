@@ -32,3 +32,4 @@
 - stage22 route replay 全部 `RECONFIRMED`，不等于 task 2 完成。
 - XD 8 项已有接口级结论，不等于平台内闭环已完成。
 - stage23 direct-method 收口完成，也不等于 mydata 权限已解决。
+- stage24 的早停证据，也不等于权限已激活。

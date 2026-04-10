@@ -77,3 +77,4 @@
 ## 当前待验证判断
 - `mydata` 放权后，任务 1 / 2 是否值得正式重开
 - 在没有 `XD_ELEVATED_ALLOWED=1` 的前提下，是否还需要继续做 direct-method 实测
+- 在没有新的外部权限变化前，stage24 之后是否应继续空转 direct-method 验证（当前答案：否）

@@ -21,3 +21,12 @@
 
 - 只有拿到真实权限错误证据，才把 indicator.basic 从参数问题改写为权限问题。
 - 本轮没有做任何写动作，也没有扩大到其他未知接口。
+
+## stage24 延续说明
+
+- stage24 未检测到新的外部权限变化证据。
+- `XD_ELEVATED_ALLOWED` 仍未设置为 `1`。
+- 因此 stage24 不重复 `indicator.basic` 的同构 direct-method 调用。
+- 当前仍以本文件中的最强结论为准：
+  - `date_range + industry` 已进入 `InsufficientPermission`
+  - 当前不是继续缺参数，而是等待外部权限动作

@@ -14,8 +14,10 @@
 - `WIKA replay`：保持 frozen baseline，本轮不重跑全量 27 条。
 - `XD direct-method`：标准权限闭环已完成。
 - `elevated confirm`：当前不满足执行条件。
+- `stage24 permission activation`：当前不满足继续执行条件，应安全早停并等待外部权限动作。
 
 ## 下一步建议
 - 若业务仍需要 task 1 / task 2 相关 mydata 能力，先决定是否申请权限。
 - 若后续明确允许受控 elevated confirm，只对这 4 个 mydata 方法单次验证，不扩大到其他接口。
 - 在没有权限动作前，不要继续重跑同一批 direct-method。
+- 若没有新的权限变化证据，也没有 `XD_ELEVATED_ALLOWED=1`，则 stage24 之后继续空转没有意义。

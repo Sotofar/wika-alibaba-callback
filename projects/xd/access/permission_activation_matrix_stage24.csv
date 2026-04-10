@@ -1,0 +1,6 @@
+"method","stage23_baseline","external_change_detected","elevated_allowed","stage24_decision","current_conclusion","next_action"
+"alibaba.mydata.overview.date.get","PERMISSION_GAP_CONFIRMED","no","no","AWAITING_EXTERNAL_PERMISSION_ACTION","等待外部权限动作","确认或申请 mydata 权限；如允许，再做单次 elevated confirm"
+"alibaba.mydata.overview.industry.get","PERMISSION_GAP_CONFIRMED","no","no","AWAITING_EXTERNAL_PERMISSION_ACTION","等待外部权限动作","确认或申请 mydata 权限；如允许，再做单次 elevated confirm"
+"alibaba.mydata.self.product.date.get","PERMISSION_GAP_CONFIRMED","no","no","AWAITING_EXTERNAL_PERMISSION_ACTION","等待外部权限动作","确认或申请 mydata 权限；如允许，再做单次 elevated confirm"
+"alibaba.mydata.self.product.get","PERMISSION_GAP_CONFIRMED","no","no","AWAITING_EXTERNAL_PERMISSION_ACTION","等待外部权限动作","确认或申请 mydata 权限；如允许，再做单次 elevated confirm"
+"alibaba.mydata.overview.indicator.basic.get","PERMISSION_DENIED","no","no","AWAITING_EXTERNAL_PERMISSION_ACTION","参数已闭环到权限层，等待外部权限动作","确认或申请 mydata 权限；如允许，再做单次 elevated confirm"

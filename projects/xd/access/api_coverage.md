@@ -38,3 +38,9 @@
 - 这轮只是 XD direct-method 收口，不代表任务 1 / 2 已完成。
 - 这轮不是平台内闭环。
 - 这轮没有任何写动作。
+
+## stage24
+- 本轮只确认“是否已发生外部权限变化”，没有重复 stage23 的 5 个 direct-method 调用。
+- 当前未检测到新的外部权限变化证据。
+- `XD_ELEVATED_ALLOWED` 未设置为 `1`。
+- 因此本轮统一早停为：`AWAITING_EXTERNAL_PERMISSION_ACTION`。

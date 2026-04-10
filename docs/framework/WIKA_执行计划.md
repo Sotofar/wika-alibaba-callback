@@ -28,6 +28,7 @@
 - 不再重复 stage22 route replay
 - 若业务仍需要 task 1 / 2 的 mydata 能力，先申请权限
 - 只有在明确允许条件下，才对 4 个 mydata 方法做单次受控 elevated confirm
+- 若没有新的权限变化证据，也没有 `XD_ELEVATED_ALLOWED=1`，则 stage24 直接安全早停
 
 ## 固定边界
 - 这只是 access replay 与 direct-method 标准权限确认

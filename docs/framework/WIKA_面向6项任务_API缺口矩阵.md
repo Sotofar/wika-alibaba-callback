@@ -47,4 +47,5 @@
 
 ## 当前总论
 - stage22 最大增量不是“新 API 打通”，而是 WIKA route replay 全部稳定复现，且 XD 8 项已有接口级标准权限结论。
+- stage24 未检测到新的外部权限变化，因此当前不再重复 5 个 XD direct-method 调用。
 - 当前仍不是 task 1 complete，不是 task 2 complete，也不是平台内闭环。

@@ -65,3 +65,11 @@
 - 本轮只是在收口 XD mydata 权限证据，不代表任务 1 / 2 已完成。
 - 本轮不是平台内闭环。
 - 本轮没有任何写动作。
+
+## stage24 延续说明
+
+- stage24 未检测到新的外部权限变化证据。
+- `XD_ELEVATED_ALLOWED` 仍未设置为 `1`。
+- 因此 stage24 不重复这 4 个方法的同构 direct-method 调用，统一收口为：
+  - `AWAITING_EXTERNAL_PERMISSION_ACTION`
+- 当前仍应以本文件中的 stage23 证据作为最强标准权限结论。

@@ -2,6 +2,18 @@
 
 更新时间：2026-04-10
 
+## stage24
+1. 复读 stage23 证据与 XD/WIKA 当前矩阵。
+2. 用 `/health`、`/integrations/alibaba/auth/debug` 和 representative WIKA route 确认 production base 继续 PASS_BASE。
+3. 检查 `XD_ELEVATED_ALLOWED`，结果仍未设置为 `1`。
+4. 检查 repo / debug 可见信息，未发现新的外部权限变化证据。
+5. 按 stage24 规则安全早停，不重复 stage23 的 5 个 direct-method 调用。
+
+## stage24 结论
+- 本轮分类：`AWAITING_EXTERNAL_PERMISSION_ACTION`
+- 当前不是代码问题、不是环境问题、不是继续试参数的问题。
+- 当前必须先发生外部权限动作，再进入下一轮权限激活确认。
+
 ## 本轮做了什么
 1. 复读 stage22 产物，确认 WIKA 27 条 route 已全部 `RECONFIRMED`，因此本轮只做极小 sentinel smoke。
 2. 用 `/health`、`/integrations/alibaba/auth/debug` 和一个 representative WIKA route 确认 production base 继续 PASS_BASE。

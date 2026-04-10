@@ -80,3 +80,14 @@
 - 在没有 `industry` 的情况下，只能先记为参数问题，不能直接写成权限不足
 - 若补齐文档支持的 `date_range + industry` 后进入 `InsufficientPermission`，则应改写为权限问题
 - 不要为确认这一步继续扩大到未知参数枚举或未知接口扫描
+
+### 症状 9：stage23 已完成权限证据闭环，但 stage24 没有检测到任何外部权限变化
+优先排查：
+- `XD_ELEVATED_ALLOWED` 是否已设置为 `1`
+- 是否存在新的权限组调整说明、应用配置更新说明或人工权限动作记录
+- 当前 debug/metadata 是否出现新的权限相关可见字段
+
+处理原则：
+- 若没有新的外部权限变化证据，且 `XD_ELEVATED_ALLOWED` 不为 `1`，则应早停
+- 不要重复 stage23 的同构 direct-method 调用
+- 当前最强结论应写为 `AWAITING_EXTERNAL_PERMISSION_ACTION`

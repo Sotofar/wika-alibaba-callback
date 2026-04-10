@@ -49,3 +49,11 @@
 - 未执行 elevated confirm
 - 原因：`XD_ELEVATED_ALLOWED` 未设置为 `1`
 - 当前不能把“未做 elevated”误写成“权限已解决”
+
+## stage24 早停补充
+- 当前未检测到新的外部权限变化证据。
+- 因此 stage24 不再重复 stage23 的 5 个 direct-method 调用。
+- 当前最强结论仍然是：
+  - 4 个 mydata 方法：`PERMISSION_GAP_CONFIRMED`
+  - `indicator.basic`：固定参数契约下已进入权限错误层
+- 下一步不是继续试代码，而是先发生外部权限动作。
