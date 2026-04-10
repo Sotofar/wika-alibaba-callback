@@ -56,3 +56,32 @@
 - 本文档不等于平台内闭环
 - 当前线程只处理 WIKA
 - 当前轮次没有更新或推进任何 XD 结果
+## 2026-04-10 Stage 20 Delta
+
+### 不再重复验证的对象
+- 以下 5 个 mydata 方法已经完成 post-grant retest，并已被 stage20 正式路由化：
+  - `alibaba.mydata.overview.date.get`
+  - `alibaba.mydata.overview.industry.get`
+  - `alibaba.mydata.overview.indicator.basic.get`
+  - `alibaba.mydata.self.product.date.get`
+  - `alibaba.mydata.self.product.get`
+
+### 下一批真正剩余的候选方向
+- store-level missing dimensions:
+  - `traffic_source`
+  - `country_source`
+  - `quick_reply_rate`
+- product-level missing dimensions:
+  - `access_source`
+  - `inquiry_source`
+  - `country_source`
+  - `period_over_period_change`
+- order-level analytics still missing:
+  - `formal summary`
+  - `country structure`
+  - `product contribution`
+
+### 本轮边界
+- 本轮没有新增 Alibaba API 探索
+- 本轮只把已证实字段并入正式只读 route / diagnostic layer
+- not full business cockpit

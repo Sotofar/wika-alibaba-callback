@@ -882,3 +882,37 @@
   - 当前不是 task 2 complete
   - 当前没有任何写侧动作
   - 当前不是平台内闭环
+## 2026-04-10
+
+### 阶段 20：WIKA mydata 正式只读路由化与经营诊断扩展
+
+- 实际起始 commit：`12f9694458140c0deeac09cfd7f0eba52f3bb0cb`
+- 本轮只处理 WIKA，不碰 XD，不做任何写动作
+- 新增共享只读 helper：
+  - `shared/data/modules/alibaba-mydata-overview.js`
+  - `shared/data/modules/alibaba-mydata-product-performance.js`
+- 新增正式 summary routes：
+  - `/integrations/alibaba/wika/reports/operations/traffic-summary`
+  - `/integrations/alibaba/wika/reports/products/performance-summary`
+- 扩展正式诊断 routes：
+  - `/integrations/alibaba/wika/reports/operations/minimal-diagnostic`
+  - `/integrations/alibaba/wika/reports/products/minimal-diagnostic`
+- route-level validation 结果：
+  - `operations_traffic_summary` -> `PASS_LIVE_HELPER_CONTRACT`
+  - `products_performance_summary` -> `PASS_LIVE_HELPER_CONTRACT`
+  - `operations_minimal_diagnostic` -> `PASS_LIVE_HELPER_CONTRACT`
+  - `products_minimal_diagnostic` -> `PASS_LIVE_HELPER_CONTRACT`
+- confirmed official fields:
+  - store: `visitor / imps / clk / clk_rate / fb / reply`
+  - product: `click / impression / visitor / fb / order / bookmark / compare / share / keyword_effects`
+- derived fields:
+  - store: `uv_candidate_from_visitor / exposure_from_imps / ctr_candidate_from_clk_rate / reply_related_metric_from_reply`
+  - product: `ctr_from_click_over_impression`
+- unavailable dimensions:
+  - store: `traffic_source / country_source / quick_reply_rate`
+  - product: `access_source / inquiry_source / country_source / period_over_period_change`
+- 阶段收口：
+  - task 1 / task 2 仍只是局部重开条件成立
+  - not task 1 complete
+  - not task 2 complete
+  - not full business cockpit

@@ -40,6 +40,8 @@ import {
   fetchWikaOrderMinimalDiagnostic,
   fetchWikaProductMinimalDiagnostic
 } from "./shared/data/modules/wika-minimal-diagnostic.js";
+import { fetchWikaOperationsTrafficSummary } from "./shared/data/modules/alibaba-mydata-overview.js";
+import { fetchWikaProductPerformanceSummary } from "./shared/data/modules/alibaba-mydata-product-performance.js";
 import { buildWikaExternalReplyDraftPackage } from "./shared/data/modules/alibaba-external-reply-drafts.js";
 import { buildWikaExternalOrderDraftPackage } from "./shared/data/modules/alibaba-order-drafts.js";
 
@@ -1423,7 +1425,12 @@ function classifyReadOnlyError(error, topError, missingKeys = undefined) {
       "page_size",
       "start_time",
       "end_time",
-      "last_sync_end_time"
+      "last_sync_end_time",
+      "start_date",
+      "industry_id",
+      "statistics_type",
+      "stat_date",
+      "product_ids"
     ]);
 
     if (missingKeys.some((key) => requestParameterKeys.has(String(key)))) {
@@ -2195,6 +2202,80 @@ function createWikaMinimalDiagnosticHandler() {
       res.status(200).json(result);
     } catch (error) {
       logError("Wika minimal operations diagnostic failed", {
+        error: error instanceof Error ? error.message : String(error),
+        details:
+          error instanceof AlibabaApiError || error?.details
+            ? error.details
+            : undefined,
+        top_error: extractTopErrorResponse(error),
+        query: req.query
+      });
+
+      const hasMissingKeys =
+        error instanceof ConfigurationError ||
+        Array.isArray(error?.missingKeys);
+
+      res
+        .status(error instanceof ConfigurationError ? 500 : hasMissingKeys ? 400 : 502)
+        .json(buildReadOnlyErrorResponse(error));
+    }
+  };
+}
+
+function createWikaOperationsTrafficSummaryHandler() {
+  return async (req, res) => {
+    try {
+      const result = await fetchWikaOperationsTrafficSummary(
+        await getWikaReadOnlyClientConfig(),
+        req.query
+      );
+
+      logInfo("Wika operations traffic summary completed", {
+        startDate: result.date_range?.start_date ?? null,
+        endDate: result.date_range?.end_date ?? null,
+        industryId: result.industry?.industry_id ?? null
+      });
+
+      res.status(200).json(result);
+    } catch (error) {
+      logError("Wika operations traffic summary failed", {
+        error: error instanceof Error ? error.message : String(error),
+        details:
+          error instanceof AlibabaApiError || error?.details
+            ? error.details
+            : undefined,
+        top_error: extractTopErrorResponse(error),
+        query: req.query
+      });
+
+      const hasMissingKeys =
+        error instanceof ConfigurationError ||
+        Array.isArray(error?.missingKeys);
+
+      res
+        .status(error instanceof ConfigurationError ? 500 : hasMissingKeys ? 400 : 502)
+        .json(buildReadOnlyErrorResponse(error));
+    }
+  };
+}
+
+function createWikaProductPerformanceSummaryHandler() {
+  return async (req, res) => {
+    try {
+      const result = await fetchWikaProductPerformanceSummary(
+        await getWikaReadOnlyClientConfig(),
+        req.query
+      );
+
+      logInfo("Wika product performance summary completed", {
+        statisticsType: result.statistics_type,
+        statDate: result.stat_date,
+        itemCount: result.item_count
+      });
+
+      res.status(200).json(result);
+    } catch (error) {
+      logError("Wika product performance summary failed", {
         error: error instanceof Error ? error.message : String(error),
         details:
           error instanceof AlibabaApiError || error?.details
@@ -3183,6 +3264,16 @@ app.get(
         .json(buildReadOnlyErrorResponse(error));
     }
   }
+);
+
+app.get(
+  "/integrations/alibaba/wika/reports/operations/traffic-summary",
+  createWikaOperationsTrafficSummaryHandler()
+);
+
+app.get(
+  "/integrations/alibaba/wika/reports/products/performance-summary",
+  createWikaProductPerformanceSummaryHandler()
 );
 
 app.get(

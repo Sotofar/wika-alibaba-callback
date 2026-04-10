@@ -33,3 +33,18 @@
 - XD 8 项已有接口级结论，不等于平台内闭环已完成。
 - stage23 direct-method 收口完成，也不等于 mydata 权限已解决。
 - stage24 的早停证据，也不等于权限已激活。
+## 2026-04-10 Stage 20 Additions
+- 正式可复用的 mydata 共享只读层：
+  - `shared/data/modules/alibaba-mydata-overview.js`
+  - `shared/data/modules/alibaba-mydata-product-performance.js`
+- 正式可复用的 summary routes：
+  - `/integrations/alibaba/wika/reports/operations/traffic-summary`
+  - `/integrations/alibaba/wika/reports/products/performance-summary`
+- 已扩展但保持兼容的诊断 routes：
+  - `/integrations/alibaba/wika/reports/operations/minimal-diagnostic`
+  - `/integrations/alibaba/wika/reports/products/minimal-diagnostic`
+- 当前复用边界：
+  - summary routes only expose confirmed official fields, derived fields, and unavailable dimensions
+  - do not assert PV confirmed from `imps`
+  - do not assert broad response-rate confirmed from `reply`
+  - not full business cockpit

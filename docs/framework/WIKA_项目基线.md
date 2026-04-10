@@ -1,5 +1,61 @@
 # WIKA_项目基线
 
+## 2026-04-10 Stage 20 Baseline Update
+
+### 新增只读层
+- 已把 5 个已证实可用的 mydata 方法沉淀为 WIKA 共享只读 helper：
+  - `alibaba.mydata.overview.date.get`
+  - `alibaba.mydata.overview.industry.get`
+  - `alibaba.mydata.overview.indicator.basic.get`
+  - `alibaba.mydata.self.product.date.get`
+  - `alibaba.mydata.self.product.get`
+
+### 新增正式报告路由
+- `/integrations/alibaba/wika/reports/operations/traffic-summary`
+- `/integrations/alibaba/wika/reports/products/performance-summary`
+
+### 已扩展的正式诊断路由
+- `/integrations/alibaba/wika/reports/operations/minimal-diagnostic`
+- `/integrations/alibaba/wika/reports/products/minimal-diagnostic`
+
+### 当前已确认 official fields
+- Store-level official fields:
+  - `visitor`
+  - `imps`
+  - `clk`
+  - `clk_rate`
+  - `fb`
+  - `reply`
+- Product-level official fields:
+  - `click`
+  - `impression`
+  - `visitor`
+  - `fb`
+  - `order`
+  - `bookmark`
+  - `compare`
+  - `share`
+  - `keyword_effects`
+
+### 当前已确认 derived / unavailable 边界
+- derived:
+  - `UV ~= visitor (business-mapping pending)`
+  - `exposure_from_imps`
+  - `ctr_candidate_from_clk_rate`
+  - `reply_related_metric_from_reply`
+  - `ctr_from_click_over_impression`
+- unavailable:
+  - store: `traffic_source / country_source / quick_reply_rate`
+  - product: `access_source / inquiry_source / country_source / period_over_period_change`
+
+### 固定边界
+- 本轮没有新增 Alibaba API 探索
+- 本轮没有任何写动作
+- 本轮只处理 WIKA
+- not task 1 complete
+- not task 2 complete
+- not full business cockpit
+
 ## 一句话总基线
 只推进 WIKA；当前主线已经形成“稳定的只读 route 底座 + 最小经营诊断层 + 外部草稿工作流 SOP + 通知 fallback”，并且阶段 19 已确认 WIKA `mydata` 权限加包后，5 个核心经营数据方法都能在 production 下返回真实字段；但这仍不等于 task 1 complete，不等于 task 2 complete，也不等于平台内闭环。
 

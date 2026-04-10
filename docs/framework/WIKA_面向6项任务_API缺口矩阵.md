@@ -58,3 +58,27 @@
 - 阶段 19 的增量是：WIKA `mydata` 5 个核心方法已从旧的 `AUTH_BLOCKED` 前进到 `REAL_DATA_RETURNED`
 - 当前可以建议局部重开任务 1 / 任务 2 的读数部分
 - 当前仍不是 task 1 complete，不是 task 2 complete，也不是平台内闭环
+## 2026-04-10 Stage 20 Delta
+
+### Task 1: 读取平台数据
+- 已前进到局部重开条件：
+  - `overview.date.get` -> real data confirmed
+  - `overview.industry.get` -> real data confirmed
+  - `overview.indicator.basic.get` -> official store-level metrics confirmed
+  - `self.product.get` -> official product-level metrics confirmed
+- 仍未完成：
+  - store-level `traffic_source / country_source / quick_reply_rate`
+  - product-level `access_source / inquiry_source / country_source / period_over_period_change`
+
+### Task 2: 经营诊断扩展
+- 已前进到局部重开条件：
+  - store-level traffic/performance section can now use real official mydata fields
+  - product performance section can now use real official mydata fields
+- 仍未完成：
+  - not full business cockpit
+  - no order-level formal summary / country structure / product contribution
+
+### 本轮边界
+- 本轮没有新增 Alibaba API 探索
+- 本轮没有任何写动作
+- 本轮只处理 WIKA

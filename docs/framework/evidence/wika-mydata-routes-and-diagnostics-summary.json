@@ -1,0 +1,196 @@
+{
+  "stage": "stage20_wika_mydata_routes_and_diagnostics",
+  "generated_at": "2026-04-10T10:27:31.307Z",
+  "production_http_smoke": {
+    "new_routes_deployed_pre_push": false,
+    "reason": "Current round validates live helper contracts before push. Production HTTP smoke for newly added routes is deferred until deployment."
+  },
+  "base_sentinel": {
+    "health": {
+      "status": 200,
+      "elapsed_ms": 825,
+      "body": "ok"
+    },
+    "auth_debug": {
+      "status": 200,
+      "elapsed_ms": 730,
+      "body": {
+        "app_base_url": "https://api.wikapacking.com",
+        "session_secret_present": true,
+        "state_ttl_seconds": 600,
+        "active_state_count": 0,
+        "wika_client_id_present": true,
+        "wika_client_secret_present": true,
+        "wika_redirect_uri": "https://api.wikapacking.com/integrations/alibaba/callback",
+        "wika_auth_url": "https://open-api.alibaba.com/oauth/authorize",
+        "wika_token_url": "***",
+        "wika_refresh_token_url": "***",
+        "wika_partner_id_present": false,
+        "wika_auto_refresh_enabled": true,
+        "wika_refresh_buffer_seconds": 600,
+        "wika_bootstrap_refresh_token_present": true,
+        "wika_token_storage_path": "***",
+        "wika_token_file_exists": true,
+        "wika_token_loaded": true,
+        "wika_runtime_loaded_from": "refresh:startup_bootstrap",
+        "wika_startup_init_attempted_at": "2026-04-10T09:26:38.820Z",
+        "wika_startup_init_status": "refresh:startup_bootstrap",
+        "wika_startup_init_error": null,
+        "wika_has_refresh_token": true,
+        "wika_next_refresh_at": "2026-05-10T09:16:40.298Z",
+        "wika_last_refresh_at": "2026-04-10T09:26:40.298Z",
+        "wika_last_refresh_reason": "startup_bootstrap",
+        "wika_last_refresh_error": null,
+        "xd_client_id_present": true,
+        "xd_client_secret_present": true,
+        "xd_redirect_uri": "https://api.wikapacking.com/integrations/alibaba/xd/auth/callback",
+        "xd_auth_url": "https://open-api.alibaba.com/oauth/authorize",
+        "xd_token_url": "***",
+        "xd_refresh_token_url": "***",
+        "xd_partner_id_present": false,
+        "xd_auto_refresh_enabled": true,
+        "xd_refresh_buffer_seconds": 600,
+        "xd_bootstrap_refresh_token_present": true,
+        "xd_token_storage_path": "***",
+        "xd_token_file_exists": true,
+        "xd_token_loaded": true,
+        "xd_runtime_loaded_from": "refresh:startup_bootstrap",
+        "xd_startup_init_attempted_at": "2026-04-10T09:26:38.835Z",
+        "xd_startup_init_status": "refresh:startup_bootstrap",
+        "xd_startup_init_error": null,
+        "xd_has_refresh_token": true,
+        "xd_next_refresh_at": "2026-05-10T09:16:40.149Z",
+        "xd_last_refresh_at": "2026-04-10T09:26:40.154Z",
+        "xd_last_refresh_reason": "startup_bootstrap",
+        "xd_last_refresh_error": null
+      }
+    }
+  },
+  "route_validation": {
+    "operations_traffic_summary": {
+      "status": "PASS_LIVE_HELPER_CONTRACT",
+      "official_fields": [
+        "visitor",
+        "imps",
+        "clk",
+        "clk_rate",
+        "fb",
+        "reply"
+      ],
+      "derived_fields": [
+        "uv_candidate_from_visitor",
+        "exposure_from_imps",
+        "ctr_candidate_from_clk_rate",
+        "reply_related_metric_from_reply"
+      ],
+      "unavailable_dimensions": [
+        "traffic_source",
+        "country_source",
+        "quick_reply_rate"
+      ]
+    },
+    "products_performance_summary": {
+      "status": "PASS_LIVE_HELPER_CONTRACT",
+      "official_fields": [
+        "click",
+        "impression",
+        "visitor",
+        "fb",
+        "order",
+        "bookmark",
+        "compare",
+        "share",
+        "keyword_effects"
+      ],
+      "derived_fields": [
+        "ctr_from_click_over_impression"
+      ],
+      "unavailable_dimensions": [
+        "access_source",
+        "inquiry_source",
+        "country_source",
+        "period_over_period_change"
+      ]
+    },
+    "operations_minimal_diagnostic": {
+      "status": "PASS_LIVE_HELPER_CONTRACT",
+      "section_present": true,
+      "boundary_statement": {
+        "not_full_store_dashboard": true,
+        "official_mydata_subset_only": true,
+        "conservative_mapping_rules": [
+          "Keep official field names: visitor / imps / clk / clk_rate / fb / reply",
+          "UV ~= visitor (business-mapping pending)",
+          "Use exposure/imps wording instead of asserting PV confirmed",
+          "Use reply-related metric / recent first-reply-rate wording instead of broad response-rate"
+        ]
+      }
+    },
+    "products_minimal_diagnostic": {
+      "status": "PASS_LIVE_HELPER_CONTRACT",
+      "section_present": true,
+      "boundary_statement": {
+        "not_full_product_performance_cockpit": true,
+        "official_mydata_subset_only": true,
+        "conservative_mapping_rules": [
+          "Keep official field names: click / impression / visitor / fb / order / bookmark / compare / share / keyword_effects",
+          "CTR is exposed only as a derived field from click and impression",
+          "Unavailable dimensions remain explicit instead of inferred"
+        ]
+      }
+    }
+  },
+  "confirmed_official_fields": {
+    "operations": [
+      "visitor",
+      "imps",
+      "clk",
+      "clk_rate",
+      "fb",
+      "reply"
+    ],
+    "products": [
+      "click",
+      "impression",
+      "visitor",
+      "fb",
+      "order",
+      "bookmark",
+      "compare",
+      "share",
+      "keyword_effects"
+    ]
+  },
+  "derived_fields": {
+    "operations": [
+      "uv_candidate_from_visitor",
+      "exposure_from_imps",
+      "ctr_candidate_from_clk_rate",
+      "reply_related_metric_from_reply"
+    ],
+    "products": [
+      "ctr_from_click_over_impression"
+    ]
+  },
+  "unavailable_dimensions": {
+    "operations": [
+      "traffic_source",
+      "country_source",
+      "quick_reply_rate"
+    ],
+    "products": [
+      "access_source",
+      "inquiry_source",
+      "country_source",
+      "period_over_period_change"
+    ]
+  },
+  "boundary_statement": {
+    "not_task_1_complete": true,
+    "not_task_2_complete": true,
+    "no_write_action_attempted": true,
+    "wika_only_thread": true,
+    "xd_untouched_in_this_round": true,
+    "not_full_business_cockpit": true
+  }
+}

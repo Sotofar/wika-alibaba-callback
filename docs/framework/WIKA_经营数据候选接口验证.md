@@ -1,5 +1,35 @@
 # WIKA_经营数据候选接口验证
 
+## 2026-04-10 Stage 20 Route Layer Update
+
+### 当前状态
+- 5 个 mydata 方法已在 stage19 post-grant retest 中进入 `REAL_DATA_RETURNED`
+- stage20 没有新增 Alibaba API 探索
+- stage20 只把已确认字段路由化为正式只读层与诊断层
+
+### 正式只读路由承接关系
+- operations traffic summary:
+  - source methods:
+    - `alibaba.mydata.overview.date.get`
+    - `alibaba.mydata.overview.industry.get`
+    - `alibaba.mydata.overview.indicator.basic.get`
+- products performance summary:
+  - source methods:
+    - `alibaba.mydata.self.product.date.get`
+    - `alibaba.mydata.self.product.get`
+
+### 当前 route-level 验证结论
+- `operations_traffic_summary` -> `PASS_LIVE_HELPER_CONTRACT`
+- `products_performance_summary` -> `PASS_LIVE_HELPER_CONTRACT`
+- `operations_minimal_diagnostic` (extended) -> `PASS_LIVE_HELPER_CONTRACT`
+- `products_minimal_diagnostic` (extended) -> `PASS_LIVE_HELPER_CONTRACT`
+
+### 明确边界
+- 当前是正式只读路由化 + 诊断扩展
+- 不是 task 1 complete
+- 不是 task 2 complete
+- 不是完整经营驾驶舱
+
 - evaluated_at: 2026-04-10T09:11:04.489Z
 - route_line: Railway production -> /sync + access_token + sha256
 - scope: WIKA-only post-grant retest

@@ -1,0 +1,650 @@
+{
+  "ok": true,
+  "account": "wika",
+  "module": "operations",
+  "report_type": "minimal_diagnostic",
+  "read_only": true,
+  "generated_at": "2026-04-10T10:27:34.333Z",
+  "data_scope": {
+    "mode": "sampled_snapshot",
+    "product_page_size": 20,
+    "product_score_limit": 8,
+    "product_detail_limit": 8,
+    "order_page_size": 8,
+    "order_sample_limit": 5
+  },
+  "sample_size": {
+    "product_snapshot_count": 20,
+    "product_score_count": 8,
+    "product_detail_count": 8,
+    "order_snapshot_count": 8,
+    "order_fund_count": 5,
+    "order_logistics_count": 5
+  },
+  "time_window": {
+    "type": "snapshot",
+    "products_modified_date_range": {
+      "start": "2026-03-05T09:15:10.000Z",
+      "end": "2026-04-09T07:04:02.000Z"
+    },
+    "orders_create_date_range": {
+      "start": "2026-03-24T02:36:32.000Z",
+      "end": "2026-04-10T09:21:18.000Z"
+    }
+  },
+  "available_signals": "***",
+  "traffic_performance_section": {
+    "status": "real_data_returned",
+    "source_route": "/integrations/alibaba/wika/reports/operations/traffic-summary",
+    "date_range": {
+      "start_date": "2026-03-29",
+      "end_date": "2026-04-04"
+    },
+    "industry": {
+      "industry_id": 127726042,
+      "industry_desc": "All",
+      "main_category": true
+    },
+    "official_metrics": {
+      "visitor": 260,
+      "imps": 6769,
+      "clk": 143,
+      "clk_rate": "0.0211",
+      "fb": 8,
+      "reply": "0.9927"
+    },
+    "derived_metrics": {
+      "uv_candidate_from_visitor": {
+        "value": 260,
+        "derived_or_mapped": true,
+        "note": "UV ~= visitor (business-mapping pending)"
+      },
+      "exposure_from_imps": {
+        "value": 6769,
+        "derived_or_mapped": true,
+        "note": "Use exposure/imps wording; do not assert PV confirmed"
+      },
+      "ctr_candidate_from_clk_rate": {
+        "value": "0.0211",
+        "derived_or_mapped": true,
+        "note": "Official clk_rate is preserved; downstream CTR interpretation remains conservative"
+      },
+      "reply_related_metric_from_reply": {
+        "value": "0.9927",
+        "derived_or_mapped": true,
+        "note": "Use reply-related metric / recent first-reply-rate wording instead of broad response-rate"
+      }
+    },
+    "traffic_signal_summary": "***",
+    "inquiry_reply_signal_summary": "***",
+    "basic_recommendations": [],
+    "obvious_anomaly_warnings": [],
+    "unavailable_dimensions": [
+      "traffic_source",
+      "country_source",
+      "quick_reply_rate"
+    ],
+    "boundary_statement": {
+      "not_full_store_dashboard": true,
+      "official_mydata_subset_only": true,
+      "conservative_mapping_rules": [
+        "Keep official field names: visitor / imps / clk / clk_rate / fb / reply",
+        "UV ~= visitor (business-mapping pending)",
+        "Use exposure/imps wording instead of asserting PV confirmed",
+        "Use reply-related metric / recent first-reply-rate wording instead of broad response-rate"
+      ]
+    }
+  },
+  "diagnostic_findings": [
+    {
+      "area": "products",
+      "strength": "strong",
+      "finding": "problem_map identifies concrete quality gaps in the sampled products.",
+      "basis_fields": [
+        "result.final_score",
+        "result.problem_map",
+        "result.boutique_tag"
+      ],
+      "evidence": {
+        "quality_score": {
+          "available_count": 8,
+          "average": 4.84,
+          "min": 3.9,
+          "max": 5,
+          "scale": "five_point",
+          "low_score_threshold": 4.8,
+          "low_score_count": 1
+        },
+        "boutique_tag": {
+          "tagged_count": 8,
+          "untagged_count": 0
+        },
+        "problem_map_top": [
+          {
+            "key": "category",
+            "count": 1
+          },
+          {
+            "key": "en",
+            "count": 1
+          }
+        ]
+      }
+    },
+    {
+      "area": "products",
+      "strength": "strong",
+      "finding": "Product detail sampling exposes content completeness and recency signals.",
+      "basis_fields": [
+        "product.subject",
+        "product.description",
+        "product.keywords",
+        "product.gmt_modified"
+      ],
+      "evidence": {
+        "content_completeness": {
+          "missing_subject_count": 0,
+          "missing_description_count": 5,
+          "missing_keywords_count": 8
+        },
+        "recency_hints": {
+          "modified_time_window": {
+            "start": "2026-03-05T09:15:10.000Z",
+            "end": "2026-04-09T07:04:02.000Z"
+          },
+          "updated_within_30_days_count": 6,
+          "stale_over_90_days": []
+        }
+      }
+    },
+    {
+      "area": "products",
+      "strength": "strong",
+      "finding": "Group/category sampling exposes structure coverage and ungrouped items.",
+      "basis_fields": [
+        "group_name",
+        "category_id",
+        "display",
+        "status"
+      ],
+      "evidence": {
+        "group_coverage_top": [
+          {
+            "key": "Packaging Set",
+            "count": 5
+          },
+          {
+            "key": "Soft Case",
+            "count": 5
+          },
+          {
+            "key": "Folding Case",
+            "count": 4
+          },
+          {
+            "key": "Accessories",
+            "count": 2
+          },
+          {
+            "key": "Hard Glasses Case",
+            "count": 1
+          },
+          {
+            "key": "Lens Cleaner",
+            "count": 1
+          },
+          {
+            "key": "Pouch",
+            "count": 1
+          },
+          {
+            "key": "UNKNOWN",
+            "count": 1
+          }
+        ],
+        "category_coverage_top": [
+          {
+            "key": "36127040",
+            "count": 19
+          },
+          {
+            "key": "36127030",
+            "count": 1
+          }
+        ],
+        "ungrouped_count": 1
+      }
+    },
+    {
+      "area": "products",
+      "strength": "strong",
+      "finding": "Confirmed mydata product-performance subset exposes click / impression / visitor / fb / order / bookmark / compare / share / keyword_effects.",
+      "basis_fields": [
+        "click",
+        "impression",
+        "visitor",
+        "fb",
+        "order",
+        "bookmark",
+        "compare",
+        "share",
+        "keyword_effects"
+      ],
+      "evidence": {
+        "statistics_type": "day",
+        "stat_date": "2026-04-08",
+        "item_count": 3
+      }
+    },
+    {
+      "area": "products",
+      "strength": "strong",
+      "finding": "Current performance section still lacks access_source / inquiry_source / country_source / period_over_period_change.",
+      "basis_fields": [
+        "unavailable_dimensions"
+      ],
+      "evidence": {
+        "unavailable_dimensions": [
+          "access_source",
+          "inquiry_source",
+          "country_source",
+          "period_over_period_change"
+        ]
+      }
+    },
+    {
+      "area": "orders",
+      "strength": "strong",
+      "finding": "Order logistics and fund sampling expose execution-stage operational risks.",
+      "basis_fields": [
+        "value.logistic_status",
+        "value.shipping_order_list",
+        "value.service_fee"
+      ],
+      "evidence": {
+        "logistics_status_distribution": [
+          {
+            "key": "UNDELIVERED",
+            "count": 5
+          }
+        ],
+        "fund_visibility": {
+          "fund_value_visible_count": 5,
+          "service_fee_visible_count": 5,
+          "fund_pay_list_visible_count": 5
+        },
+        "execution_risks": []
+      }
+    },
+    {
+      "area": "operations",
+      "strength": "strong",
+      "finding": "Confirmed mydata store-level subset exposes visitor / imps / clk / clk_rate / fb / reply.",
+      "basis_fields": [
+        "visitor",
+        "imps",
+        "clk",
+        "clk_rate",
+        "fb",
+        "reply"
+      ],
+      "evidence": {
+        "date_range": {
+          "start_date": "2026-03-29",
+          "end_date": "2026-04-04"
+        },
+        "industry": {
+          "industry_id": 127726042,
+          "industry_desc": "All",
+          "main_category": true
+        },
+        "official_metrics": {
+          "visitor": 260,
+          "imps": 6769,
+          "clk": 143,
+          "clk_rate": "0.0211",
+          "fb": 8,
+          "reply": "0.9927"
+        }
+      }
+    },
+    {
+      "area": "operations",
+      "strength": "strong",
+      "finding": "Current traffic summary still lacks traffic_source / country_source / quick_reply_rate.",
+      "basis_fields": [
+        "unavailable_dimensions"
+      ],
+      "evidence": {
+        "unavailable_dimensions": [
+          "traffic_source",
+          "country_source",
+          "quick_reply_rate"
+        ]
+      }
+    }
+  ],
+  "recommendations": {
+    "immediate_actions": [
+      {
+        "strength": "strong",
+        "theme": "content_completeness",
+        "reason": "Several sampled products are missing description, which weakens detail-page conversion.",
+        "evidence": {
+          "missing_description_count": 5
+        }
+      },
+      {
+        "strength": "strong",
+        "theme": "keyword_gap",
+        "reason": "Several sampled products are missing keywords, which limits discoverability.",
+        "evidence": {
+          "missing_keywords_count": 8
+        }
+      },
+      {
+        "strength": "strong",
+        "theme": "quality_gap",
+        "reason": "problem_map and low-score samples indicate structured quality issues that need cleanup.",
+        "evidence": {
+          "low_score_count": 1,
+          "top_problem_map": [
+            {
+              "key": "category",
+              "count": 1
+            },
+            {
+              "key": "en",
+              "count": 1
+            }
+          ]
+        }
+      },
+      {
+        "strength": "strong",
+        "theme": "grouping_gap",
+        "reason": "Ungrouped products are still present and should be assigned to clearer catalog groups.",
+        "evidence": {
+          "ungrouped_count": 1
+        }
+      },
+      {
+        "strength": "strong",
+        "theme": "undelivered_risk",
+        "reason": "Undelivered logistics status is visible and needs manual follow-up.",
+        "evidence": {
+          "undelivered_count": 5,
+          "logistics_status_distribution": [
+            {
+              "key": "UNDELIVERED",
+              "count": 5
+            }
+          ]
+        }
+      }
+    ],
+    "needs_more_data_actions": [
+      {
+        "strength": "weak",
+        "theme": "mydata_subset_missing",
+        "reason": "Current product diagnostic does not yet include the mydata performance subset.",
+        "blocker_keys": [
+          "click",
+          "impression",
+          "visitor",
+          "fb",
+          "order",
+          "keyword_effects"
+        ]
+      },
+      {
+        "strength": "weak",
+        "theme": "order_analytics_gap",
+        "reason": "Order trend, country structure, product contribution, and full amount series are still unavailable.",
+        "blocker_keys": [
+          "order_trend",
+          "country_structure",
+          "product_contribution",
+          "full_amount_series"
+        ]
+      },
+      {
+        "strength": "weak",
+        "theme": "operations_dimensions_missing",
+        "reason": "Current traffic summary uses a mydata store subset and still lacks traffic_source / country_source / quick_reply_rate; full operations diagnostics remains partial.",
+        "blocker_keys": [
+          "traffic_source",
+          "country_source",
+          "quick_reply_rate",
+          "order_summary"
+        ]
+      }
+    ]
+  },
+  "missing_data_blockers": [
+    {
+      "blocker": "operations_dimensions_missing",
+      "missing_metrics": [
+        "traffic_source",
+        "country_source",
+        "quick_reply_rate",
+        "order_summary"
+      ],
+      "impact": "Current operations summary uses a store-level mydata subset and still cannot answer full traffic source, country source, quick reply, or full order summary questions."
+    },
+    {
+      "blocker": "order_analytics_dimensions_missing",
+      "missing_metrics": [
+        "order_trend",
+        "country_structure",
+        "product_contribution"
+      ],
+      "impact": "Current order snapshot cannot support full trend, country-structure, or product-contribution analysis."
+    }
+  ],
+  "scope_definition": {
+    "can_answer": [
+      "Store-level mydata subset: visitor / imps / clk / clk_rate / fb / reply.",
+      "Product-level mydata subset: click / impression / visitor / fb / order / bookmark / compare / share / keyword_effects.",
+      "Quality signals from product score problem_map and boutique_tag.",
+      "Content completeness, recency, and grouping signals from sampled product detail/list data.",
+      "Derived CTR from click / impression when both values exist."
+    ],
+    "cannot_answer": [
+      "traffic_source / country_source / quick_reply_rate",
+      "access_source / inquiry_source / country_source / period_over_period_change",
+      "Full order trend and country structure.",
+      "Traffic source, inquiry source, and country source drill-down."
+    ],
+    "sampling_boundary": {
+      "product_page_size": 20,
+      "product_score_limit": 8,
+      "product_detail_limit": 8,
+      "order_page_size": 8,
+      "order_sample_limit": 5
+    }
+  },
+  "product_diagnostic": {
+    "summary": {
+      "module": "products",
+      "account": "wika",
+      "report_type": "management_summary",
+      "reporting_basis": "Official product list snapshot",
+      "snapshot": {
+        "total_item": 536,
+        "returned_item_count": 20,
+        "current_page": 1,
+        "page_size": 20,
+        "online_count": 20,
+        "offline_count": 0,
+        "approved_count": 20,
+        "ungrouped_count": 1,
+        "stale_over_90_days_count": 0
+      },
+      "focus_products": [
+        {
+          "id": 1601740791024,
+          "subject": "Customizable New Fashion Portable Eyeglasses Accessories Leather Big Glasses case Oversize Sunglasses Holder",
+          "group_name": "Soft Case",
+          "status": "approved",
+          "display": "Y",
+          "gmt_modified": "2026-04-09 15:04:02"
+        },
+        {
+          "id": 1601740600810,
+          "subject": "Customized High End Paper Bag Women's Handbags Clothing Stores Printing Logos Protection for Glasses/Gifts Packaging",
+          "group_name": "Accessories",
+          "status": "approved",
+          "display": "Y",
+          "gmt_modified": "2026-04-09 14:37:25"
+        },
+        {
+          "id": 1601739528585,
+          "subject": "Customized White Gift Bags With Handles Medium Paper Gags Bulk for Optic Shop Birthday Wedding Party Shopping",
+          "group_name": "Accessories",
+          "status": "approved",
+          "display": "Y",
+          "gmt_modified": "2026-04-08 16:37:17"
+        },
+        {
+          "id": 1601700588198,
+          "subject": "Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case",
+          "group_name": null,
+          "status": "approved",
+          "display": "Y",
+          "gmt_modified": "2026-03-26 15:51:53"
+        },
+        {
+          "id": 1601592243227,
+          "subject": "Colorful Glasses Packaging Bags 18*9cm Soft Sunglasses case Microfiber Pouch Eyeglass Bag with logo Custom",
+          "group_name": "Pouch",
+          "status": "approved",
+          "display": "Y",
+          "gmt_modified": "2026-03-26 15:45:17"
+        }
+      ],
+      "limitations": [
+        "This summary is based on alibaba.icbu.product.list and does not include performance fields such as impressions or clicks.",
+        "If total_item is larger than returned_item_count, you still need pagination to cover the full catalog."
+      ]
+    },
+    "sample_size": {
+      "list_count": 20,
+      "detail_count": 8,
+      "score_count": 8,
+      "total_item": 536,
+      "completeness_evaluated_count": 8
+    },
+    "quality_score": {
+      "available_count": 8,
+      "average": 4.84,
+      "min": 3.9,
+      "max": 5,
+      "scale": "five_point",
+      "low_score_threshold": 4.8,
+      "low_score_count": 1
+    },
+    "boutique_tag": {
+      "tagged_count": 8,
+      "untagged_count": 0
+    },
+    "problem_map_top": [
+      {
+        "key": "category",
+        "count": 1
+      },
+      {
+        "key": "en",
+        "count": 1
+      }
+    ],
+    "content_completeness": {
+      "missing_subject_count": 0,
+      "missing_description_count": 5,
+      "missing_keywords_count": 8
+    },
+    "recency_hints": {
+      "modified_time_window": {
+        "start": "2026-03-05T09:15:10.000Z",
+        "end": "2026-04-09T07:04:02.000Z"
+      },
+      "updated_within_30_days_count": 6,
+      "stale_over_90_days": []
+    },
+    "structure_hints": {
+      "ungrouped_count": 1,
+      "group_coverage_top": [
+        {
+          "key": "Packaging Set",
+          "count": 5
+        },
+        {
+          "key": "Soft Case",
+          "count": 5
+        },
+        {
+          "key": "Folding Case",
+          "count": 4
+        },
+        {
+          "key": "Accessories",
+          "count": 2
+        },
+        {
+          "key": "Hard Glasses Case",
+          "count": 1
+        },
+        {
+          "key": "Lens Cleaner",
+          "count": 1
+        },
+        {
+          "key": "Pouch",
+          "count": 1
+        },
+        {
+          "key": "UNKNOWN",
+          "count": 1
+        }
+      ],
+      "category_coverage_top": [
+        {
+          "key": "36127040",
+          "count": 19
+        },
+        {
+          "key": "36127030",
+          "count": 1
+        }
+      ]
+    }
+  },
+  "order_diagnostic": {
+    "sample_size": {
+      "order_list_count": 8,
+      "fund_count": 5,
+      "logistics_count": 5,
+      "total_count": 123
+    },
+    "time_window": {
+      "start": "2026-03-24T02:36:32.000Z",
+      "end": "2026-04-10T09:21:18.000Z"
+    },
+    "logistics_status_distribution": [
+      {
+        "key": "UNDELIVERED",
+        "count": 5
+      }
+    ],
+    "fund_visibility": {
+      "fund_value_visible_count": 5,
+      "service_fee_visible_count": 5,
+      "fund_pay_list_visible_count": 5
+    },
+    "execution_risks": []
+  },
+  "limitations": [
+    "Current operations diagnostic only includes the confirmed mydata store subset; traffic_source / country_source / quick_reply_rate remain unavailable.",
+    "This is not a full business cockpit."
+  ]
+}

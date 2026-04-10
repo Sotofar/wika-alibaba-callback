@@ -1,5 +1,43 @@
 # WIKA_经营数据字段覆盖矩阵
 
+## 2026-04-10 Stage 20 Matrix Delta
+
+### Store-level official fields
+- `visitor` -> confirmed official field
+- `imps` -> confirmed official field
+- `clk` -> confirmed official field
+- `clk_rate` -> confirmed official field
+- `fb` -> confirmed official field
+- `reply` -> confirmed official field
+
+### Store-level unavailable dimensions
+- `traffic_source` -> not found in current response
+- `country_source` -> not found in current response
+- `quick_reply_rate` -> not found in current response
+
+### Conservative business mapping
+- `UV ~= visitor` -> business mapping pending
+- `imps` -> use exposure/imps wording; do not assert PV confirmed
+- `reply` -> use reply-related metric / recent first-reply-rate wording; do not assert broad response-rate confirmed
+
+### Product-level official fields
+- `click` -> confirmed official field
+- `impression` -> confirmed official field
+- `visitor` -> confirmed official field
+- `fb` -> confirmed official field
+- `order` -> confirmed official field
+- `bookmark` -> confirmed official field
+- `compare` -> confirmed official field
+- `share` -> confirmed official field
+- `keyword_effects` -> confirmed official field
+
+### Product-level derived / unavailable dimensions
+- `CTR` -> derived field
+- `access_source` -> not found in current response
+- `inquiry_source` -> not found in current response
+- `country_source` -> not found in current response
+- `period_over_period_change` -> not found in current response
+
 更新时间：2026-04-10
 
 本矩阵已从旧的“以 `AUTH_BLOCKED` 为主”切换到阶段 19 的 post-grant 真实结果。

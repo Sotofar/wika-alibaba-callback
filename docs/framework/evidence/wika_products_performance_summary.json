@@ -1,0 +1,133 @@
+{
+  "ok": true,
+  "account": "wika",
+  "module": "products",
+  "report_name": "performance_summary",
+  "read_only": true,
+  "generated_at": "2026-04-10T10:27:33.661Z",
+  "source_methods": [
+    "alibaba.mydata.self.product.date.get",
+    "alibaba.mydata.self.product.get"
+  ],
+  "statistics_type": "day",
+  "stat_date": "2026-04-08",
+  "product_ids": [
+    "1601740791024",
+    "1601740600810",
+    "1601739528585",
+    "1601700588198",
+    "1601592243227"
+  ],
+  "item_count": 3,
+  "items": [
+    {
+      "product_id": 1601592243227,
+      "official_metrics": {
+        "click": 0,
+        "impression": 2,
+        "visitor": 0,
+        "fb": 0,
+        "order": 0,
+        "bookmark": 0,
+        "compare": 0,
+        "share": 0,
+        "keyword_effects": {}
+      },
+      "derived_metrics": {
+        "ctr_from_click_over_impression": {
+          "value": 0,
+          "derived": true,
+          "formula": "click / impression",
+          "note": "Derived from official fields click and impression"
+        }
+      }
+    },
+    {
+      "product_id": 1601700588198,
+      "official_metrics": {
+        "click": 0,
+        "impression": 2,
+        "visitor": 0,
+        "fb": 0,
+        "order": 0,
+        "bookmark": 0,
+        "compare": 0,
+        "share": 0,
+        "keyword_effects": {}
+      },
+      "derived_metrics": {
+        "ctr_from_click_over_impression": {
+          "value": 0,
+          "derived": true,
+          "formula": "click / impression",
+          "note": "Derived from official fields click and impression"
+        }
+      }
+    },
+    {
+      "product_id": 1601739528585,
+      "official_metrics": {
+        "click": 0,
+        "impression": 0,
+        "visitor": 1,
+        "fb": 0,
+        "order": 0,
+        "bookmark": 0,
+        "compare": 0,
+        "share": 0,
+        "keyword_effects": {}
+      },
+      "derived_metrics": {
+        "ctr_from_click_over_impression": {
+          "value": null,
+          "derived": true,
+          "formula": "click / impression",
+          "note": "Unavailable because click or impression is missing, non-numeric, or impression <= 0"
+        }
+      }
+    }
+  ],
+  "unavailable_dimensions": [
+    "access_source",
+    "inquiry_source",
+    "country_source",
+    "period_over_period_change"
+  ],
+  "boundary_statement": {
+    "not_full_product_performance_cockpit": true,
+    "official_mydata_subset_only": true,
+    "conservative_mapping_rules": [
+      "Keep official field names: click / impression / visitor / fb / order / bookmark / compare / share / keyword_effects",
+      "CTR is exposed only as a derived field from click and impression",
+      "Unavailable dimensions remain explicit instead of inferred"
+    ]
+  },
+  "data_validation": {
+    "confirmed_official_fields": [
+      "click",
+      "impression",
+      "visitor",
+      "fb",
+      "order",
+      "bookmark",
+      "compare",
+      "share",
+      "keyword_effects"
+    ],
+    "unavailable_dimensions": [
+      "access_source",
+      "inquiry_source",
+      "country_source",
+      "period_over_period_change"
+    ]
+  },
+  "upstream_context": {
+    "date_window": {
+      "start_date": "2026-03-10",
+      "end_date": "2026-04-08"
+    },
+    "product_ids_source": "/integrations/alibaba/wika/data/products/list",
+    "upstream_page_size": 20,
+    "upstream_total_item": 536
+  }
+}

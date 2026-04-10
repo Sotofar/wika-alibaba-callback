@@ -11,6 +11,14 @@ import {
   buildProductManagementSummary,
   fetchWikaProductList
 } from "../../../projects/wika/data/products/module.js";
+import {
+  fetchWikaOperationsTrafficSummary,
+  MYDATA_OVERVIEW_UNAVAILABLE_DIMENSIONS
+} from "./alibaba-mydata-overview.js";
+import {
+  fetchWikaProductPerformanceSummary,
+  MYDATA_PRODUCT_UNAVAILABLE_DIMENSIONS
+} from "./alibaba-mydata-product-performance.js";
 
 function toPositiveInteger(value, fallbackValue, maxValue = Number.POSITIVE_INFINITY) {
   const parsed = Number.parseInt(String(value ?? ""), 10);
@@ -419,8 +427,266 @@ function buildOrderSignals(orderListResult, fundResults, logisticsResults) {
   };
 }
 
-function buildProductAvailableSignals(productSignals, sampleConfig) {
+function normalizeArrayValue(value) {
+  return Array.isArray(value) ? value : [];
+}
+
+function buildTrafficPerformanceSection(trafficSummary) {
+  if (!trafficSummary) {
+    return {
+      status: "unavailable",
+      unavailable_dimensions: [...MYDATA_OVERVIEW_UNAVAILABLE_DIMENSIONS],
+      boundary_statement: {
+        not_full_store_dashboard: true,
+        official_mydata_subset_only: true
+      }
+    };
+  }
+
+  const metrics = trafficSummary.official_metrics ?? {};
+  const visitor = toNumber(metrics.visitor);
+  const imps = toNumber(metrics.imps);
+  const clk = toNumber(metrics.clk);
+  const fb = toNumber(metrics.fb);
+  const reply = toNumber(metrics.reply);
+  const recommendations = [];
+  const warnings = [];
+
+  if (Number.isFinite(imps) && imps > 0 && Number.isFinite(clk) && clk === 0) {
+    warnings.push("Exposure/imps is present while click stays at 0.");
+    recommendations.push(
+      "Review main image, title, and keyword relevance before scaling traffic."
+    );
+  }
+
+  if (Number.isFinite(visitor) && visitor > 0 && Number.isFinite(fb) && fb === 0) {
+    recommendations.push(
+      "Visitor is present while fb stays at 0; review inquiry CTA and lead capture path."
+    );
+  }
+
+  if (Number.isFinite(reply) && reply < 0.9) {
+    warnings.push("Reply-related metric is below the recent baseline.");
+  }
+
+  if (Number.isFinite(imps) && Number.isFinite(clk) && imps < clk) {
+    warnings.push("clk is greater than imps; review upstream metric consistency.");
+  }
+
+  return {
+    status: "real_data_returned",
+    source_route: "/integrations/alibaba/wika/reports/operations/traffic-summary",
+    date_range: trafficSummary.date_range ?? null,
+    industry: trafficSummary.industry ?? null,
+    official_metrics: metrics,
+    derived_metrics: trafficSummary.derived_metrics ?? {},
+    traffic_signal_summary: {
+      visitor,
+      imps,
+      clk,
+      clk_rate: metrics.clk_rate ?? null
+    },
+    inquiry_reply_signal_summary: {
+      fb,
+      reply
+    },
+    basic_recommendations: recommendations,
+    obvious_anomaly_warnings: warnings,
+    unavailable_dimensions: normalizeArrayValue(trafficSummary.unavailable_dimensions),
+    boundary_statement: trafficSummary.boundary_statement ?? {
+      not_full_store_dashboard: true,
+      official_mydata_subset_only: true
+    }
+  };
+}
+
+function buildProductPerformanceSection(performanceSummary) {
+  if (!performanceSummary) {
+    return {
+      status: "unavailable",
+      unavailable_dimensions: [...MYDATA_PRODUCT_UNAVAILABLE_DIMENSIONS],
+      boundary_statement: {
+        not_full_product_performance_cockpit: true,
+        official_mydata_subset_only: true
+      }
+    };
+  }
+
+  const items = safeArray(performanceSummary.items);
+  const engagementSummary = {
+    products_with_impression: items.filter(
+      (item) => toNumber(item?.official_metrics?.impression) > 0
+    ).length,
+    products_with_click: items.filter(
+      (item) => toNumber(item?.official_metrics?.click) > 0
+    ).length,
+    products_with_visitor: items.filter(
+      (item) => toNumber(item?.official_metrics?.visitor) > 0
+    ).length,
+    products_with_fb: items.filter(
+      (item) => toNumber(item?.official_metrics?.fb) > 0
+    ).length,
+    products_with_order: items.filter(
+      (item) => toNumber(item?.official_metrics?.order) > 0
+    ).length,
+    products_with_keyword_effects: items.filter((item) => {
+      const keywordEffects = item?.official_metrics?.keyword_effects;
+      return keywordEffects && Object.keys(keywordEffects).length > 0;
+    }).length
+  };
+
+  const rankingPreview = [...items]
+    .sort((left, right) => {
+      const impressionDelta =
+        (toNumber(right?.official_metrics?.impression) ?? -1) -
+        (toNumber(left?.official_metrics?.impression) ?? -1);
+      if (impressionDelta !== 0) {
+        return impressionDelta;
+      }
+
+      return (
+        (toNumber(right?.official_metrics?.click) ?? -1) -
+        (toNumber(left?.official_metrics?.click) ?? -1)
+      );
+    })
+    .slice(0, 5)
+    .map((item) => ({
+      product_id: item.product_id ?? null,
+      impression: item?.official_metrics?.impression ?? null,
+      click: item?.official_metrics?.click ?? null,
+      visitor: item?.official_metrics?.visitor ?? null,
+      fb: item?.official_metrics?.fb ?? null,
+      order: item?.official_metrics?.order ?? null,
+      ctr_from_click_over_impression:
+        item?.derived_metrics?.ctr_from_click_over_impression ?? null
+    }));
+
+  const keywordSignalHints = items
+    .filter((item) => {
+      const keywordEffects = item?.official_metrics?.keyword_effects;
+      return keywordEffects && Object.keys(keywordEffects).length > 0;
+    })
+    .slice(0, 5)
+    .map((item) => ({
+      product_id: item.product_id ?? null,
+      keyword_effect_keys: Object.keys(item?.official_metrics?.keyword_effects ?? {})
+    }));
+
+  const warnings = [];
+  if (engagementSummary.products_with_impression > 0 && engagementSummary.products_with_click === 0) {
+    warnings.push("Impression is present while click stays at 0.");
+  }
+  if (engagementSummary.products_with_visitor > 0 && engagementSummary.products_with_fb === 0) {
+    warnings.push("Visitor is present while fb stays at 0.");
+  }
+  if (engagementSummary.products_with_keyword_effects === 0) {
+    warnings.push("No keyword_effects payload is visible in the current sample.");
+  }
+
+  const recommendations = [];
+  if (engagementSummary.products_with_impression > 0 && engagementSummary.products_with_click === 0) {
+    recommendations.push("Review top products with impression but no click.");
+  }
+  if (engagementSummary.products_with_visitor > 0 && engagementSummary.products_with_fb === 0) {
+    recommendations.push("Review products with visitor but no fb for inquiry friction.");
+  }
+
+  return {
+    status: "real_data_returned",
+    source_route: "/integrations/alibaba/wika/reports/products/performance-summary",
+    statistics_type: performanceSummary.statistics_type ?? null,
+    stat_date: performanceSummary.stat_date ?? null,
+    item_count: performanceSummary.item_count ?? items.length,
+    engagement_summary: engagementSummary,
+    ranking_preview: rankingPreview,
+    keyword_signal_hints: {
+      products_with_keyword_effects: engagementSummary.products_with_keyword_effects,
+      sample_products: keywordSignalHints
+    },
+    basic_recommendations: recommendations,
+    obvious_gap_warnings: warnings,
+    unavailable_dimensions: normalizeArrayValue(performanceSummary.unavailable_dimensions),
+    boundary_statement: performanceSummary.boundary_statement ?? {
+      not_full_product_performance_cockpit: true,
+      official_mydata_subset_only: true
+    }
+  };
+}
+
+function buildProductPerformanceFindings(performanceSummary) {
+  if (!performanceSummary) {
+    return [];
+  }
+
   return [
+    {
+      area: "products",
+      strength: "strong",
+      finding:
+        "Confirmed mydata product-performance subset exposes click / impression / visitor / fb / order / bookmark / compare / share / keyword_effects.",
+      basis_fields: [
+        "click",
+        "impression",
+        "visitor",
+        "fb",
+        "order",
+        "bookmark",
+        "compare",
+        "share",
+        "keyword_effects"
+      ],
+      evidence: {
+        statistics_type: performanceSummary.statistics_type,
+        stat_date: performanceSummary.stat_date,
+        item_count: performanceSummary.item_count
+      }
+    },
+    {
+      area: "products",
+      strength: "strong",
+      finding:
+        "Current performance section still lacks access_source / inquiry_source / country_source / period_over_period_change.",
+      basis_fields: ["unavailable_dimensions"],
+      evidence: {
+        unavailable_dimensions: performanceSummary.unavailable_dimensions
+      }
+    }
+  ];
+}
+
+function buildOperationsTrafficFindings(trafficSummary) {
+  if (!trafficSummary) {
+    return [];
+  }
+
+  return [
+    {
+      area: "operations",
+      strength: "strong",
+      finding:
+        "Confirmed mydata store-level subset exposes visitor / imps / clk / clk_rate / fb / reply.",
+      basis_fields: ["visitor", "imps", "clk", "clk_rate", "fb", "reply"],
+      evidence: {
+        date_range: trafficSummary.date_range,
+        industry: trafficSummary.industry,
+        official_metrics: trafficSummary.official_metrics
+      }
+    },
+    {
+      area: "operations",
+      strength: "strong",
+      finding:
+        "Current traffic summary still lacks traffic_source / country_source / quick_reply_rate.",
+      basis_fields: ["unavailable_dimensions"],
+      evidence: {
+        unavailable_dimensions: trafficSummary.unavailable_dimensions
+      }
+    }
+  ];
+}
+
+function buildProductAvailableSignals(productSignals, sampleConfig, performanceSummary = null) {
+  const signals = [
     {
       module: "products",
       source_route: "/integrations/alibaba/wika/data/products/list",
@@ -434,14 +700,14 @@ function buildProductAvailableSignals(productSignals, sampleConfig) {
         "gmt_modified"
       ],
       sample_size: productSignals.sample_size.list_count,
-      notes: `当前产品快照按 page_size=${sampleConfig.product_page_size} 采样。`
+      notes: "Sampled from products/list with page_size=" + sampleConfig.product_page_size + "."
     },
     {
       module: "products",
       source_route: "/integrations/alibaba/wika/data/products/score",
       fields: ["result.final_score", "result.boutique_tag", "result.problem_map"],
       sample_size: productSignals.sample_size.score_count,
-      notes: `质量分与问题分布按前 ${sampleConfig.product_score_limit} 个产品采样。`
+      notes: "Sampled from products/score with limit " + sampleConfig.product_score_limit + "."
     },
     {
       module: "products",
@@ -453,9 +719,32 @@ function buildProductAvailableSignals(productSignals, sampleConfig) {
         "product.gmt_modified"
       ],
       sample_size: productSignals.sample_size.detail_count,
-      notes: `内容完整度按前 ${sampleConfig.product_detail_limit} 个产品采样。`
+      notes: "Sampled from products/detail with limit " + sampleConfig.product_detail_limit + "."
     }
   ];
+
+  if (performanceSummary) {
+    signals.push({
+      module: "products",
+      source_route: "/integrations/alibaba/wika/reports/products/performance-summary",
+      fields: [
+        "click",
+        "impression",
+        "visitor",
+        "fb",
+        "order",
+        "bookmark",
+        "compare",
+        "share",
+        "keyword_effects"
+      ],
+      sample_size: performanceSummary.item_count ?? 0,
+      notes:
+        "Live mydata subset with official field names preserved and derived/unavailable fields separated."
+    });
+  }
+
+  return signals;
 }
 
 function buildOrderAvailableSignals(orderSignals, sampleConfig) {
@@ -465,34 +754,34 @@ function buildOrderAvailableSignals(orderSignals, sampleConfig) {
       source_route: "/integrations/alibaba/wika/data/orders/list",
       fields: ["items.trade_id", "items.create_date", "items.modify_date"],
       sample_size: orderSignals.sample_size.order_list_count,
-      notes: `订单执行信号按前 ${sampleConfig.order_page_size} 条订单采样。`
+      notes: `Sampled from the first ${sampleConfig.order_page_size} orders in orders/list.`
     },
     {
       module: "orders",
       source_route: "/integrations/alibaba/wika/data/orders/fund",
       fields: ["value.fund_pay_list", "value.service_fee"],
       sample_size: orderSignals.sample_size.fund_count,
-      notes: `资金可见信号按前 ${sampleConfig.order_sample_limit} 条订单采样。`
+      notes: `Sampled from the first ${sampleConfig.order_sample_limit} orders in orders/fund.`
     },
     {
       module: "orders",
       source_route: "/integrations/alibaba/wika/data/orders/logistics",
       fields: ["value.logistic_status", "value.shipping_order_list"],
       sample_size: orderSignals.sample_size.logistics_count,
-      notes: `物流状态按前 ${sampleConfig.order_sample_limit} 条订单采样。`
+      notes: `Sampled from the first ${sampleConfig.order_sample_limit} orders in orders/logistics.`
     }
   ];
 }
 
-function buildProductDiagnosticFindings(productSignals) {
-  return [
+function buildProductDiagnosticFindings(productSignals, performanceSummary = null) {
+  const findings = [
     {
       area: "products",
       strength: "strong",
       finding:
         productSignals.problem_map_top.length > 0
-          ? "样本产品的质量分与问题映射可直接支持质量修复优先级判断。"
-          : "样本产品质量分可读，但当前采样里没有稳定浮出的高频 problem_map 问题。",
+          ? "problem_map identifies concrete quality gaps in the sampled products."
+          : "Current sampled products show stable scores without top problem_map concentration.",
       basis_fields: ["result.final_score", "result.problem_map", "result.boutique_tag"],
       evidence: {
         quality_score: productSignals.quality_score,
@@ -503,7 +792,7 @@ function buildProductDiagnosticFindings(productSignals) {
     {
       area: "products",
       strength: "strong",
-      finding: "样本产品的详情完整度与修改时间信号可直接从 detail 字段判断。",
+      finding: "Product detail sampling exposes content completeness and recency signals.",
       basis_fields: [
         "product.subject",
         "product.description",
@@ -518,7 +807,7 @@ function buildProductDiagnosticFindings(productSignals) {
     {
       area: "products",
       strength: "strong",
-      finding: "样本产品的分组与类目结构分布可直接从主数据快照判断。",
+      finding: "Group/category sampling exposes structure coverage and ungrouped items.",
       basis_fields: ["group_name", "category_id", "display", "status"],
       evidence: {
         group_coverage_top: productSignals.structure_hints.group_coverage_top,
@@ -527,6 +816,8 @@ function buildProductDiagnosticFindings(productSignals) {
       }
     }
   ];
+
+  return findings.concat(buildProductPerformanceFindings(performanceSummary));
 }
 
 function buildOrderDiagnosticFindings(orderSignals) {
@@ -534,7 +825,7 @@ function buildOrderDiagnosticFindings(orderSignals) {
     {
       area: "orders",
       strength: "strong",
-      finding: "当前订单层可以做执行状态观察，但不能替代完整经营趋势分析。",
+      finding: "Order logistics and fund sampling expose execution-stage operational risks.",
       basis_fields: ["value.logistic_status", "value.shipping_order_list", "value.service_fee"],
       evidence: {
         logistics_status_distribution: orderSignals.logistics_status_distribution,
@@ -545,15 +836,15 @@ function buildOrderDiagnosticFindings(orderSignals) {
   ];
 }
 
-function buildProductRecommendations(productSignals) {
+function buildProductRecommendations(productSignals, performanceSummary = null) {
   const immediateActions = [];
   const needsMoreDataActions = [];
 
   if (productSignals.content_completeness.missing_description_count > 0) {
     immediateActions.push({
       strength: "strong",
-      theme: "补详情",
-      reason: "样本产品存在 description 缺失，当前可直接从真实 detail 字段确认。",
+      theme: "content_completeness",
+      reason: "Several sampled products are missing description, which weakens detail-page conversion.",
       evidence: {
         missing_description_count:
           productSignals.content_completeness.missing_description_count
@@ -564,8 +855,8 @@ function buildProductRecommendations(productSignals) {
   if (productSignals.content_completeness.missing_keywords_count > 0) {
     immediateActions.push({
       strength: "strong",
-      theme: "补关键词",
-      reason: "样本产品存在 keywords 缺失，说明搜索承接基础信息不完整。",
+      theme: "keyword_gap",
+      reason: "Several sampled products are missing keywords, which limits discoverability.",
       evidence: {
         missing_keywords_count:
           productSignals.content_completeness.missing_keywords_count
@@ -579,9 +870,9 @@ function buildProductRecommendations(productSignals) {
   ) {
     immediateActions.push({
       strength: "strong",
-      theme: "优先修复低质量分产品",
+      theme: "quality_gap",
       reason:
-        "样本产品质量分与 problem_map 已可直读，应优先处理低分或高频问题项对应的内容/结构缺口。",
+        "problem_map and low-score samples indicate structured quality issues that need cleanup.",
       evidence: {
         low_score_count: productSignals.quality_score.low_score_count,
         top_problem_map: productSignals.problem_map_top.slice(0, 5)
@@ -592,8 +883,8 @@ function buildProductRecommendations(productSignals) {
   if (productSignals.structure_hints.ungrouped_count > 0) {
     immediateActions.push({
       strength: "strong",
-      theme: "补分组结构",
-      reason: "样本产品存在未分组项，当前可直接从主数据快照判断结构管理存在缺口。",
+      theme: "grouping_gap",
+      reason: "Ungrouped products are still present and should be assigned to clearer catalog groups.",
       evidence: {
         ungrouped_count: productSignals.structure_hints.ungrouped_count
       }
@@ -603,28 +894,59 @@ function buildProductRecommendations(productSignals) {
   if (safeArray(productSignals.recency_hints.stale_over_90_days).length > 0) {
     immediateActions.push({
       strength: "strong",
-      theme: "优先更新长期未改产品",
-      reason: "样本产品里已能看见超过 90 天未更新的条目，当前可直接从 gmt_modified 判断。",
+      theme: "stale_content",
+      reason: "Some sampled products have not been updated for more than 90 days based on gmt_modified.",
       evidence: {
-        stale_over_90_days: safeArray(productSignals.recency_hints.stale_over_90_days).slice(0, 5)
+        stale_over_90_days: safeArray(productSignals.recency_hints.stale_over_90_days).slice(
+          0,
+          5
+        )
       }
     });
   }
 
-  needsMoreDataActions.push({
-    strength: "weak",
-    theme: "等待产品表现数据后再做增长判断",
-    reason:
-      "当前没有曝光、点击、CTR、关键词来源、询盘来源、国家来源，因此不能对产品流量效率下完整结论。",
-    blocker_keys: [
-      "exposure",
-      "click",
-      "ctr",
-      "keyword_source",
-      "inquiry_source",
-      "country_source"
-    ]
-  });
+  if (performanceSummary) {
+    const performanceSection = buildProductPerformanceSection(performanceSummary);
+    for (const recommendation of performanceSection.basic_recommendations ?? []) {
+      immediateActions.push({
+        strength: "strong",
+        theme: "performance_followup",
+        reason: recommendation,
+        evidence: {
+          statistics_type: performanceSummary.statistics_type,
+          stat_date: performanceSummary.stat_date
+        }
+      });
+    }
+
+    needsMoreDataActions.push({
+      strength: "weak",
+      theme: "missing_dimensions",
+      reason:
+        "Current mydata performance subset still lacks access_source / inquiry_source / country_source / period_over_period_change.",
+      blocker_keys: [
+        "access_source",
+        "inquiry_source",
+        "country_source",
+        "period_over_period_change"
+      ]
+    });
+  } else {
+    needsMoreDataActions.push({
+      strength: "weak",
+      theme: "mydata_subset_missing",
+      reason:
+        "Current product diagnostic does not yet include the mydata performance subset.",
+      blocker_keys: [
+        "click",
+        "impression",
+        "visitor",
+        "fb",
+        "order",
+        "keyword_effects"
+      ]
+    });
+  }
 
   return {
     immediate_actions: immediateActions,
@@ -641,8 +963,8 @@ function buildOrderRecommendations(orderSignals) {
   if ((undelivered?.count ?? 0) > 0) {
     immediateActions.push({
       strength: "strong",
-      theme: "持续跟进未发货订单",
-      reason: "当前样本订单的主要物流状态仍是未发货，应优先人工推进履约节点。",
+      theme: "undelivered_risk",
+      reason: "Undelivered logistics status is visible and needs manual follow-up.",
       evidence: {
         undelivered_count: undelivered.count,
         logistics_status_distribution: logisticsStatuses.slice(0, 5)
@@ -653,8 +975,8 @@ function buildOrderRecommendations(orderSignals) {
   if (orderSignals.execution_risks.length > 0) {
     immediateActions.push({
       strength: "strong",
-      theme: "人工关注订单执行风险",
-      reason: "部分订单在物流状态或运单信息上存在缺失信号，应优先人工跟进。",
+      theme: "execution_risk",
+      reason: "Order execution risks are visible in the sampled logistics/fund signals.",
       evidence: {
         execution_risks: orderSignals.execution_risks.slice(0, 5)
       }
@@ -663,9 +985,9 @@ function buildOrderRecommendations(orderSignals) {
 
   needsMoreDataActions.push({
     strength: "weak",
-    theme: "等待更多订单数据后再做经营趋势判断",
+    theme: "order_analytics_gap",
     reason:
-      "当前订单层只覆盖执行信号与可见费用字段，不足以支撑完整的金额趋势、国家结构和产品贡献分析。",
+      "Order trend, country structure, product contribution, and full amount series are still unavailable.",
     blocker_keys: [
       "order_trend",
       "country_structure",
@@ -683,9 +1005,15 @@ function buildOrderRecommendations(orderSignals) {
 function buildProductMissingDataBlockers() {
   return [
     {
-      blocker: "产品表现指标缺失",
-      missing_metrics: ["曝光", "点击", "CTR", "关键词来源", "询盘来源", "国家来源"],
-      impact: "当前产品子诊断只能覆盖质量、内容完整度与结构问题，不能完成流量效率分析。"
+      blocker: "product_performance_dimensions_missing",
+      missing_metrics: [
+        "access_source",
+        "inquiry_source",
+        "country_source",
+        "period_over_period_change"
+      ],
+      impact:
+        "Current mydata performance subset does not expose access/inquiry/country source or period-over-period change."
     }
   ];
 }
@@ -693,9 +1021,9 @@ function buildProductMissingDataBlockers() {
 function buildOrderMissingDataBlockers() {
   return [
     {
-      blocker: "订单经营层趋势缺失",
-      missing_metrics: ["金额趋势", "国家结构", "产品贡献"],
-      impact: "当前订单子诊断更适合做执行风险提示，不适合下完整经营趋势结论。"
+      blocker: "order_analytics_dimensions_missing",
+      missing_metrics: ["order_trend", "country_structure", "product_contribution"],
+      impact: "Current order snapshot cannot support full trend, country-structure, or product-contribution analysis."
     }
   ];
 }
@@ -703,19 +1031,10 @@ function buildOrderMissingDataBlockers() {
 function buildOperationsMissingDataBlockers() {
   return [
     {
-      blocker: "店铺经营指标缺失",
-      missing_metrics: [
-        "UV",
-        "PV",
-        "曝光",
-        "点击",
-        "CTR",
-        "流量来源",
-        "国家来源",
-        "询盘表现"
-      ],
+      blocker: "operations_dimensions_missing",
+      missing_metrics: ["traffic_source", "country_source", "quick_reply_rate"],
       impact:
-        "当前不能完成完整经营分析，只能形成产品质量与订单执行层的最小诊断。"
+        "Current operations summary uses a store-level mydata subset and still lacks traffic/country/quick-reply dimensions."
     },
     ...buildOrderMissingDataBlockers()
   ];
@@ -862,7 +1181,14 @@ async function collectWikaOrderDiagnosticData(clientConfig, query = {}) {
   };
 }
 
-function buildWikaProductMinimalDiagnosticReport(productSignals, sampleConfig, generatedAt) {
+function buildWikaProductMinimalDiagnosticReport(
+  productSignals,
+  sampleConfig,
+  generatedAt,
+  performanceSummary = null
+) {
+  const performanceSection = buildProductPerformanceSection(performanceSummary);
+
   return {
     ok: true,
     account: "wika",
@@ -884,7 +1210,11 @@ function buildWikaProductMinimalDiagnosticReport(productSignals, sampleConfig, g
       type: "snapshot",
       product_modified_date_range: productSignals.recency_hints.modified_time_window
     },
-    available_signals: buildProductAvailableSignals(productSignals, sampleConfig),
+    available_signals: buildProductAvailableSignals(
+      productSignals,
+      sampleConfig,
+      performanceSummary
+    ),
     score_summary: {
       quality_score: productSignals.quality_score,
       boutique_tag: productSignals.boutique_tag,
@@ -895,13 +1225,17 @@ function buildWikaProductMinimalDiagnosticReport(productSignals, sampleConfig, g
       ...productSignals.recency_hints
     },
     structure_findings: productSignals.structure_hints,
-    diagnostic_findings: buildProductDiagnosticFindings(productSignals),
-    recommendations: buildProductRecommendations(productSignals),
+    performance_section: performanceSection,
+    diagnostic_findings: buildProductDiagnosticFindings(
+      productSignals,
+      performanceSummary
+    ),
+    recommendations: buildProductRecommendations(productSignals, performanceSummary),
     missing_data_blockers: buildProductMissingDataBlockers(),
     management_summary: productSignals.summary,
     limitations: [
-      "当前产品子诊断严格基于已上线真实读侧，不包含曝光、点击、CTR、来源和询盘表现。",
-      "当前输出属于最小产品诊断层，不等于完整经营驾驶舱。"
+      "Current product diagnostic only includes the confirmed mydata performance subset; access_source / inquiry_source / country_source / period_over_period_change remain unavailable.",
+      "This is not a full product performance cockpit."
     ]
   };
 }
@@ -939,8 +1273,8 @@ function buildWikaOrderMinimalDiagnosticReport(orderSignals, sampleConfig, gener
     recommendations: buildOrderRecommendations(orderSignals),
     missing_data_blockers: buildOrderMissingDataBlockers(),
     limitations: [
-      "当前订单子诊断只覆盖执行信号与可见资金字段，不包含完整金额趋势、国家结构和产品贡献。",
-      "当前输出属于最小订单诊断层，不等于完整经营驾驶舱。"
+      "Current order diagnostic is built from sampled order / fund / logistics reads and is not a full order dashboard.",
+      "Trend, country structure, and product contribution remain unavailable."
     ]
   };
 }
@@ -948,19 +1282,17 @@ function buildWikaOrderMinimalDiagnosticReport(orderSignals, sampleConfig, gener
 export function buildWikaMinimalDiagnosticScope(sampleConfig = {}) {
   return {
     can_answer: [
-      "当前样本产品的质量分分布、精品标签覆盖与高频问题项",
-      "当前样本产品的标题/详情/关键词完整度与更新时间老化情况",
-      "当前样本产品的分组与类目结构提示",
-      "当前样本订单的物流状态摘要与可见资金字段信号",
-      "哪些产品需要优先补详情、补关键词、补结构",
-      "哪些订单执行环节需要人工重点关注"
+      "Store-level mydata subset: visitor / imps / clk / clk_rate / fb / reply.",
+      "Product-level mydata subset: click / impression / visitor / fb / order / bookmark / compare / share / keyword_effects.",
+      "Quality signals from product score problem_map and boutique_tag.",
+      "Content completeness, recency, and grouping signals from sampled product detail/list data.",
+      "Derived CTR from click / impression when both values exist."
     ],
     cannot_answer: [
-      "全店 UV / PV / 曝光 / 点击 / CTR",
-      "流量来源、关键词来源、国家来源",
-      "询盘表现、响应率、快速回复率",
-      "完整订单经营趋势、国家结构、产品贡献",
-      "完整经营驾驶舱级别的增长判断"
+      "traffic_source / country_source / quick_reply_rate",
+      "access_source / inquiry_source / country_source / period_over_period_change",
+      "Full order trend and country structure.",
+      "Traffic source, inquiry source, and country source drill-down."
     ],
     sampling_boundary: {
       product_page_size: sampleConfig.product_page_size ?? null,
@@ -979,10 +1311,18 @@ export async function fetchWikaProductMinimalDiagnostic(clientConfig, query = {}
     query
   );
 
+  let performanceSummary = null;
+  try {
+    performanceSummary = await fetchWikaProductPerformanceSummary(clientConfig, query);
+  } catch {
+    performanceSummary = null;
+  }
+
   return buildWikaProductMinimalDiagnosticReport(
     productSignals,
     sampleConfig,
-    generatedAt
+    generatedAt,
+    performanceSummary
   );
 }
 
@@ -1007,20 +1347,53 @@ export async function fetchWikaMinimalDiagnostic(clientConfig, query = {}) {
   const { sampleConfig: orderSampleConfig, orderSignals } =
     await collectWikaOrderDiagnosticData(clientConfig, query);
 
+  let performanceSummary = null;
+  let trafficSummary = null;
+
+  try {
+    performanceSummary = await fetchWikaProductPerformanceSummary(clientConfig, query);
+  } catch {
+    performanceSummary = null;
+  }
+
+  try {
+    trafficSummary = await fetchWikaOperationsTrafficSummary(clientConfig, query);
+  } catch {
+    trafficSummary = null;
+  }
+
   const productReport = buildWikaProductMinimalDiagnosticReport(
     productSignals,
     productSampleConfig,
-    generatedAt
+    generatedAt,
+    performanceSummary
   );
   const orderReport = buildWikaOrderMinimalDiagnosticReport(
     orderSignals,
     orderSampleConfig,
     generatedAt
   );
+  const trafficSection = buildTrafficPerformanceSection(trafficSummary);
+  const baseRecommendations = buildOperationsRecommendations(productSignals, orderSignals);
   const sampleConfig = {
     ...productSampleConfig,
     ...orderSampleConfig
   };
+  const availableSignals = [
+    ...productReport.available_signals,
+    ...orderReport.available_signals
+  ];
+
+  if (trafficSummary) {
+    availableSignals.push({
+      module: "operations",
+      source_route: "/integrations/alibaba/wika/reports/operations/traffic-summary",
+      fields: ["visitor", "imps", "clk", "clk_rate", "fb", "reply"],
+      sample_size: 1,
+      notes:
+        "Live mydata store subset with official field names preserved and derived/unavailable fields separated."
+    });
+  }
 
   return {
     ok: true,
@@ -1047,22 +1420,61 @@ export async function fetchWikaMinimalDiagnostic(clientConfig, query = {}) {
         productReport.time_window.product_modified_date_range,
       orders_create_date_range: orderReport.time_window.orders_create_date_range
     },
-    available_signals: [
-      ...productReport.available_signals,
-      ...orderReport.available_signals
-    ],
+    available_signals: availableSignals,
+    traffic_performance_section: trafficSection,
     diagnostic_findings: [
       ...productReport.diagnostic_findings,
-      ...orderReport.diagnostic_findings
+      ...orderReport.diagnostic_findings,
+      ...buildOperationsTrafficFindings(trafficSummary)
     ],
-    recommendations: buildOperationsRecommendations(productSignals, orderSignals),
-    missing_data_blockers: buildOperationsMissingDataBlockers(),
+    recommendations: {
+      immediate_actions: [
+        ...baseRecommendations.immediate_actions,
+        ...(trafficSection.basic_recommendations ?? []).map((item) => ({
+          strength: "strong",
+          theme: "traffic_followup",
+          reason: item,
+          evidence: {
+            official_metrics: trafficSummary?.official_metrics ?? null
+          }
+        }))
+      ],
+      needs_more_data_actions: [
+        ...baseRecommendations.needs_more_data_actions,
+        {
+          strength: "weak",
+          theme: "operations_dimensions_missing",
+          reason:
+            "Current traffic summary uses a mydata store subset and still lacks traffic_source / country_source / quick_reply_rate; full operations diagnostics remains partial.",
+          blocker_keys: [
+            "traffic_source",
+            "country_source",
+            "quick_reply_rate",
+            "order_summary"
+          ]
+        }
+      ]
+    },
+    missing_data_blockers: [
+      {
+        blocker: "operations_dimensions_missing",
+        missing_metrics: [
+          "traffic_source",
+          "country_source",
+          "quick_reply_rate",
+          "order_summary"
+        ],
+        impact:
+          "Current operations summary uses a store-level mydata subset and still cannot answer full traffic source, country source, quick reply, or full order summary questions."
+      },
+      ...buildOrderMissingDataBlockers()
+    ],
     scope_definition: buildWikaMinimalDiagnosticScope(sampleConfig),
     product_diagnostic: productSignals,
     order_diagnostic: orderSignals,
     limitations: [
-      "当前诊断严格基于已上线真实读侧能力，不包含 mydata / overview / self.product 指标。",
-      "当前输出属于最小经营诊断层，不等于完整经营驾驶舱。"
+      "Current operations diagnostic only includes the confirmed mydata store subset; traffic_source / country_source / quick_reply_rate remain unavailable.",
+      "This is not a full business cockpit."
     ]
   };
 }

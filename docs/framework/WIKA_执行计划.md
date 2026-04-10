@@ -1,5 +1,39 @@
 # WIKA_执行计划
 
+## 2026-04-10 Stage 20 Update
+
+### 当前阶段
+- 阶段 20：WIKA mydata 正式只读路由化与经营诊断扩展
+
+### 本轮唯一目标
+- 把 5 个已证实可用的 mydata 方法沉淀为正式只读共享层与 summary routes
+- 扩展 operations / products minimal diagnostic
+- 固定 official / derived / unavailable 三层边界
+
+### 已完成
+- 新增只读共享 helper：
+  - `shared/data/modules/alibaba-mydata-overview.js`
+  - `shared/data/modules/alibaba-mydata-product-performance.js`
+- 新增正式 summary routes：
+  - `/integrations/alibaba/wika/reports/operations/traffic-summary`
+  - `/integrations/alibaba/wika/reports/products/performance-summary`
+- 扩展正式诊断 routes：
+  - `/integrations/alibaba/wika/reports/operations/minimal-diagnostic`
+  - `/integrations/alibaba/wika/reports/products/minimal-diagnostic`
+- 已通过 live helper contract 验证：
+  - operations traffic summary
+  - products performance summary
+  - operations minimal diagnostic extension
+  - products minimal diagnostic extension
+
+### 本轮明确边界
+- 不新增 Alibaba API 探索
+- 不推进 XD
+- 不做任何写动作
+- not task 1 complete
+- not task 2 complete
+- not full business cockpit
+
 ## 当前阶段
 阶段 19：WIKA 数据管家权限开通后复测
 

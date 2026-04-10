@@ -1,0 +1,86 @@
+{
+  "ok": true,
+  "account": "wika",
+  "module": "operations",
+  "report_name": "traffic_summary",
+  "read_only": true,
+  "generated_at": "2026-04-10T10:27:33.467Z",
+  "source_methods": [
+    "alibaba.mydata.overview.date.get",
+    "alibaba.mydata.overview.industry.get",
+    "alibaba.mydata.overview.indicator.basic.get"
+  ],
+  "date_range": {
+    "start_date": "2026-03-29",
+    "end_date": "2026-04-04"
+  },
+  "industry": {
+    "industry_id": 127726042,
+    "industry_desc": "All",
+    "main_category": true
+  },
+  "official_metrics": {
+    "visitor": 260,
+    "imps": 6769,
+    "clk": 143,
+    "clk_rate": "0.0211",
+    "fb": 8,
+    "reply": "0.9927"
+  },
+  "derived_metrics": {
+    "uv_candidate_from_visitor": {
+      "value": 260,
+      "derived_or_mapped": true,
+      "note": "UV ~= visitor (business-mapping pending)"
+    },
+    "exposure_from_imps": {
+      "value": 6769,
+      "derived_or_mapped": true,
+      "note": "Use exposure/imps wording; do not assert PV confirmed"
+    },
+    "ctr_candidate_from_clk_rate": {
+      "value": "0.0211",
+      "derived_or_mapped": true,
+      "note": "Official clk_rate is preserved; downstream CTR interpretation remains conservative"
+    },
+    "reply_related_metric_from_reply": {
+      "value": "0.9927",
+      "derived_or_mapped": true,
+      "note": "Use reply-related metric / recent first-reply-rate wording instead of broad response-rate"
+    }
+  },
+  "unavailable_dimensions": [
+    "traffic_source",
+    "country_source",
+    "quick_reply_rate"
+  ],
+  "boundary_statement": {
+    "not_full_store_dashboard": true,
+    "official_mydata_subset_only": true,
+    "conservative_mapping_rules": [
+      "Keep official field names: visitor / imps / clk / clk_rate / fb / reply",
+      "UV ~= visitor (business-mapping pending)",
+      "Use exposure/imps wording instead of asserting PV confirmed",
+      "Use reply-related metric / recent first-reply-rate wording instead of broad response-rate"
+    ]
+  },
+  "data_validation": {
+    "confirmed_official_fields": [
+      "visitor",
+      "imps",
+      "clk",
+      "clk_rate",
+      "fb",
+      "reply"
+    ],
+    "unavailable_dimensions": [
+      "traffic_source",
+      "country_source",
+      "quick_reply_rate"
+    ]
+  },
+  "upstream_context": {
+    "available_date_range_count": 4,
+    "available_industry_count": 1
+  }
+}
