@@ -60,3 +60,8 @@
 3. 若基础路由再次不可达，再检查 Alibaba token/refresh endpoint 是否整体超时
    - 理由：确认是否为下游 refresh 端点慢导致
    - 风险：只读诊断，不做 token 旋转
+
+## 补充边界说明
+- push 后再次 smoke 时，production 仍返回 `200`
+- 但 `auth/debug` 中的 startup 时间戳未变化，因此当前只能确认“线上基础服务健康”，不能仅凭这一次 smoke 证明 Railway 已切换到 stage21 新构建
+- 本轮对 repo 修复的直接自证仍以 local no-secret reproducer 为主

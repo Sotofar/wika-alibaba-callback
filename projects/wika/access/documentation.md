@@ -71,3 +71,8 @@
 - 当前只把 stage21 收口到“环境已恢复 + repo 级阻塞已消除 + replay gate reopened”
 - 不在同一轮里把它扩成全量 WIKA replay，避免重新落回 stage20 的大范围 replay
 - 下一步应先单独重开 WIKA replay，再决定 XD 8 项是否进入接口级确认
+
+## 补充边界说明
+- push 后再次 smoke 时，production 仍返回 `200`
+- 但 `auth/debug` 中的 startup 时间戳未变化，因此当前只能确认“线上基础服务健康”，不能仅凭这一次 smoke 证明 Railway 已切换到 stage21 新构建
+- 本轮对 repo 修复的直接自证仍以 local no-secret reproducer 为主
