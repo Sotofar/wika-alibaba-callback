@@ -1,0 +1,9 @@
+platform,phase,module,endpoint_or_method,auth_profile,expected_scope,wika_signal,current_status,root_cause_hypothesis,next_action,high_priv_candidate,elevated_allowed_present
+XD,stage20_phase3,metrics,alibaba.mydata.overview.date.get,standard,xd_mydata_read,AUTH_BLOCKED,BLOCKED_ENV,railway_production_unavailable,"Restore production first, then replay under XD standard auth.",conditional,no
+XD,stage20_phase3,metrics,alibaba.mydata.overview.industry.get,standard,xd_mydata_read,AUTH_BLOCKED,BLOCKED_ENV,railway_production_unavailable,"Restore production first, then replay under XD standard auth.",conditional,no
+XD,stage20_phase3,metrics,alibaba.mydata.overview.indicator.basic.get,standard,xd_mydata_read,AUTH_BLOCKED,BLOCKED_ENV,railway_production_unavailable,"Restore production first, then replay under XD standard auth.",conditional,no
+XD,stage20_phase3,metrics,alibaba.mydata.self.product.date.get,standard,xd_mydata_read,AUTH_BLOCKED,BLOCKED_ENV,railway_production_unavailable,"Restore production first, then replay under XD standard auth.",conditional,no
+XD,stage20_phase3,metrics,alibaba.mydata.self.product.get,standard,xd_mydata_read,AUTH_BLOCKED,BLOCKED_ENV,railway_production_unavailable,"Restore production first, then replay under XD standard auth.",conditional,no
+XD,stage20_phase3,orders,alibaba.seller.order.get,standard,xd_orders_read,MASKED_TRADE_ID_NOT_REUSABLE,BLOCKED_ENV,railway_production_unavailable,"Restore production first, then replay under XD standard auth.",no,no
+XD,stage20_phase3,orders,alibaba.seller.order.fund.get,standard,xd_orders_read,MASKED_TRADE_ID_NOT_REUSABLE,BLOCKED_ENV,railway_production_unavailable,"Restore production first, then replay under XD standard auth.",no,no
+XD,stage20_phase3,orders,alibaba.seller.order.logistics.get,standard,xd_orders_read,MASKED_TRADE_ID_NOT_REUSABLE,BLOCKED_ENV,railway_production_unavailable,"Restore production first, then replay under XD standard auth.",no,no

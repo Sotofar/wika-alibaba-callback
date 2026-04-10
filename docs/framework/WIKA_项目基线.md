@@ -1,7 +1,7 @@
 # WIKA_项目基线
 
 ## 一句话总基线
-只推进 `WIKA`；当前主线已经形成“真实读侧原始路由 + 最小经营诊断层 + provider-agnostic 正式通知闭环 + 模板化外部草稿工作流 SOP 层”，并补充完成“经营数据候选接口只读验证 + mydata 权限清障包 + 订单参数契约对账包 + ICBU 商品类目 47 页官方文档归类”；但 `mydata / overview / self.product` 仍停在权限/能力阻塞，订单级经营汇总当前只证明到“可由现有交易 API 部分派生”，还没有形成完整经营驾驶舱，也没有证明平台内安全写入边界。
+只推进 `WIKA`；当前主线已经形成“真实读侧原始路由 + 最小经营诊断层 + provider-agnostic 正式通知闭环 + 模板化外部草稿工作流 SOP 层”，并补充完成“经营数据候选接口只读验证 + mydata 权限清障包 + 订单参数契约对账包 + ICBU 商品类目 47 页官方文档归类 + access 稳定化复跑与 XD 标准权限预检收口”；但 `mydata / overview / self.product` 仍停在权限/能力阻塞，订单级经营汇总当前只证明到“可由现有交易 API 部分派生”，并且阶段 20 已确认当前 Railway production 基础路由连续超时/不可达，暂时阻塞 WIKA/XD access replay。
 
 ## 当前已完成阶段
 - 产品 / 订单 / 物流基础读侧原始路由已上线并线上验证
@@ -17,6 +17,7 @@
 - 阶段 17 已完成经营数据候选接口只读验证
 - 阶段 18 已完成 `mydata` 权限清障与订单参数契约对账
 - 阶段 19 已完成 `ICBU－商品 (cid=20966)` 47 页官方文档归类
+- 阶段 20 已完成 WIKA access 多轮稳定化预检、未决队列导出与 XD 标准权限预检收口
 
 ## 已上线可复用路由
 - /integrations/alibaba/wika/data/products/list
@@ -165,10 +166,14 @@
 - 当前 `ICBU－商品` 类目 47 页官方文档已经完整归类：已成立
 - 当前 `schema.add.draft -> 草稿商品明文id` 与 `schema.render.draft -> 需要草稿商品明文id` 的文档级契约已经明确：已成立
 - 当前该类目里未读到 draft query/delete/manage 与 media delete/cleanup 公开接口：已成立
+- 当前 `/health + WIKA/XD auth debug + representative list routes` 在阶段 20 多轮 precheck 下连续超时/不可达：已成立
+- 当前阶段 20 不是接口回归结论，而是运行环境 `BLOCKED_ENV` 结论：已成立
 - 当前仍不能诊断 `UV / PV / 曝光 / 点击 / CTR / 来源 / 国家 / 询盘表现`：已成立
 - 当前只能够生成外部草稿，不得误写为平台内已回复或已创单：已成立
 
 ## 当前待验证判断
+- Railway production 基础路由恢复后，WIKA 已验证 access route 是否仍能全部稳定复现
+- Railway production 基础路由恢复后，XD 是否能按未决队列完成标准权限逐项确认
 - webhook 或 Resend 在 production 配置完成后，是否能完成低风险真实外发
 - customers 详情 / note 是否能在拿到真实 id 后返回真实 JSON
 - inquiry / message 是否会出现官方明确的读侧 list/detail 方法

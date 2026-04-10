@@ -687,3 +687,42 @@
   - 当前只把“文档已确认存在”的对象补充进候选池
   - 当前不能把这些方法误写成“已验证通过”或“已适合立即重开主线”
   - 当前边界仍然不是 task 1 complete，不是 task 2 complete，也不是平台内闭环
+
+### 阶段 20：WIKA 多轮稳定化复跑与 XD 标准权限逐项确认
+
+- 实际起始 commit：`2d804cbd177aeca787eee9b8d6357ab31b607f10`
+- 起始 checkpoint：`33206af`
+- 本轮没有新增任何 Alibaba API 验证
+- 本轮没有推进平台内自动回复、平台内订单创建、真实通知外发
+- 本轮只做四件事：
+  - 读取并收口 `shared/access`、`projects/wika/access`、`projects/xd/access` 的现有流程资产
+  - 对 WIKA 已验证 access 路由做多轮 precheck/replay 判定
+  - 导出 WIKA 未决队列
+  - 按同一方法对 XD 做标准权限预检
+- 新增 / 更新沉淀：
+  - `projects/wika/AGENTS.md`
+  - `projects/xd/AGENTS.md`
+  - `projects/wika/access/plans.md`
+  - `projects/wika/access/documentation.md`
+  - `projects/wika/access/replay_matrix.csv`
+  - `projects/wika/access/replay_summary.md`
+  - `projects/wika/access/unresolved_queue.md`
+  - `projects/xd/access/api_matrix.csv`
+  - `projects/xd/access/api_coverage.md`
+  - `projects/xd/access/permission_gap.md`
+  - `scripts/validate-access-stability-stage20.js`
+  - `docs/framework/evidence/stage20-access-stabilization-summary.json`
+  - `shared/access/troubleshooting.md`
+  - `shared/access/data-validation-checklist.md`
+- 真实 precheck 结论：
+  - `/health` -> `BLOCKED_ENV`
+  - `/integrations/alibaba/auth/debug` -> `BLOCKED_ENV`
+  - `/integrations/alibaba/xd/auth/debug` -> `BLOCKED_ENV`
+  - representative `products/list` / `orders/list` -> `BLOCKED_ENV`
+  - 当前 Node 运行环境下统一表现为超时，不继续扩写成接口级回归
+- 阶段收口：
+  - WIKA 已验证 access route 本轮统一按 `BLOCKED_ENV` 收口
+  - XD 标准权限逐项确认在进入业务接口前即被统一 `BLOCKED_ENV` 阻塞
+  - 当前没有发现任何可证明成立的安全参数纠偏
+  - 当前最先要恢复的不是接口参数，而是 Railway production 基础可用性
+  - 当前边界仍然不是 task 1 complete，不是 task 2 complete，也不是平台内闭环
