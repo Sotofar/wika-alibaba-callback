@@ -7,16 +7,16 @@
 ## 任务 1：店铺经营指标入口
 | 能力项 | 当前状态 | 当前结论 |
 | --- | --- | --- |
-| `alibaba.mydata.overview.date.get` | 官方存在，XD 标准权限 `PERMISSION_DENIED` | 仍缺权限，不可写成已打通 |
-| `alibaba.mydata.overview.industry.get` | 官方存在，XD 标准权限 `PERMISSION_DENIED` | 仍缺权限，不可写成已打通 |
-| `alibaba.mydata.overview.indicator.basic.get` | 官方存在，XD 标准权限 `PARAM_MISSING` | 仍需参数契约对账，不可写成权限已确认 |
+| `alibaba.mydata.overview.date.get` | 官方存在，XD 标准权限已收口为 `PERMISSION_GAP_CONFIRMED` | 仍缺权限，不可写成已打通 |
+| `alibaba.mydata.overview.industry.get` | 官方存在，XD 标准权限已收口为 `PERMISSION_GAP_CONFIRMED` | 仍缺权限，不可写成已打通 |
+| `alibaba.mydata.overview.indicator.basic.get` | 官方存在，补齐 `date_range + industry` 后进入 `PERMISSION_DENIED` | 参数契约已过，当前也更像权限缺口 |
 
 ## 任务 2：经营聚合层
 | 能力项 | 当前状态 | 当前结论 |
 | --- | --- | --- |
 | WIKA route 底座 | 已上线并在 stage22 全部 `RECONFIRMED` | 只代表 route 层稳定，不代表经营指标已完整 |
 | minimal-diagnostic / products / orders 子诊断 | 已上线 | 仍只基于现有真实只读字段 |
-| 店铺 / 产品经营指标 | 仍受 `mydata` 权限或参数契约限制 | 任务 2 不能正式重开 |
+| 店铺 / 产品经营指标 | 仍受 `mydata` 权限限制 | 任务 2 不能正式重开 |
 
 ## 任务 3：产品上新与详情编写
 | 能力项 | 当前状态 | 当前结论 |

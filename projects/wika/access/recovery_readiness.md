@@ -1,23 +1,21 @@
-﻿# Stage22 replay readiness
+﻿# Stage23 replay readiness
 
 更新时间：2026-04-10
 
 ## 当前 readiness
 | 条件 | 当前状态 | 证据 |
 | --- | --- | --- |
-| `/health` 可响应 | 是 | `200 ok` |
-| 至少一个 `auth/debug` 可响应 | 是 | `/integrations/alibaba/auth/debug -> 200 JSON` |
-| representative WIKA list route 可响应 | 是 | `products/list`、`orders/list` 均为 `200 JSON` |
-| WIKA Round 1 已完成 | 是 | 27 条 route 已进入 replay matrix |
-| WIKA route 已回到接口级验证层 | 是 | 最终 `RECONFIRMED=27` |
-| XD 闸门是否满足 | 是 | WIKA 已完成 Round 1~3，且本轮 base 始终 PASS_BASE |
+| production base 继续 PASS_BASE | 是 | `/health`、`/integrations/alibaba/auth/debug`、representative WIKA route 均为 200 / JSON |
+| WIKA 27 条 route 是否需要再 replay | 否 | stage22 已全部 `RECONFIRMED`，本轮只做 frozen baseline sentinel |
+| XD direct-method 收口是否已完成标准权限闭环 | 是 | 4 个 mydata 已到 `PERMISSION_GAP_CONFIRMED`，indicator.basic 已到权限错误层 |
+| 是否满足继续做 elevated confirm | 否 | `XD_ELEVATED_ALLOWED` 未设置为 `1` |
 
 ## 结论
-- `WIKA replay`：已完成并稳定收口
-- `XD 8 项标准权限确认`：本轮已推进并完成
+- `WIKA replay`：保持 frozen baseline，本轮不重跑全量 27 条。
+- `XD direct-method`：标准权限闭环已完成。
+- `elevated confirm`：当前不满足执行条件。
 
 ## 下一步建议
-- 不要再重复 stage22 的 27 条 route replay
-- 如果继续，聚焦 direct-method 剩余问题：
-  - XD `mydata` 权限差距
-  - `overview.indicator.basic.get` 参数契约
+- 若业务仍需要 task 1 / task 2 相关 mydata 能力，先决定是否申请权限。
+- 若后续明确允许受控 elevated confirm，只对这 4 个 mydata 方法单次验证，不扩大到其他接口。
+- 在没有权限动作前，不要继续重跑同一批 direct-method。

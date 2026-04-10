@@ -1,0 +1,443 @@
+{
+  "generated_at": "2026-04-10T05:35:31.179Z",
+  "start_commit": "771337b2fb0cabb3f34f57778f1fd234fcb4d39f",
+  "sentinel": [
+    {
+      "route": "/health",
+      "status": "PASS_BASE",
+      "evidence": 200
+    },
+    {
+      "route": "/integrations/alibaba/auth/debug",
+      "status": "PASS_BASE",
+      "evidence": 200
+    },
+    {
+      "route": "/integrations/alibaba/wika/data/products/list?page_size=1",
+      "status": "PASS_BASE",
+      "evidence": 200
+    }
+  ],
+  "pass_base": true,
+  "elevated": {
+    "allowed": false,
+    "executed": false,
+    "reason": "XD_ELEVATED_ALLOWED 未设置为 1，按约束不做 elevated confirm"
+  },
+  "mydata_methods": [
+    {
+      "api_name": "alibaba.mydata.overview.date.get",
+      "intended_use": "店铺级日期窗口发现",
+      "target_fields": [
+        "start_date",
+        "end_date"
+      ],
+      "standard": {
+        "platform": "XD",
+        "method": "alibaba.mydata.overview.date.get",
+        "auth_profile": "standard",
+        "expected_scope": "xd_mydata_read",
+        "param_summary": {},
+        "status_code": 200,
+        "error_code": "InsufficientPermission",
+        "error_message_summary": "App does not have permission to access this api",
+        "response_shape_summary": {
+          "top_keys": [
+            "error_response"
+          ],
+          "error_response": {
+            "code": "InsufficientPermission",
+            "sub_code": null,
+            "msg": "App does not have permission to access this api",
+            "sub_msg": null
+          }
+        },
+        "elapsed_ms": 34,
+        "final_classification": "PERMISSION_GAP_CONFIRMED",
+        "root_cause_hypothesis": "标准权限下已到接口层且稳定返回 InsufficientPermission",
+        "next_action": "保留在 permission gap，等待人工申请或后续受控 elevated"
+      },
+      "regression": {
+        "platform": "XD",
+        "method": "alibaba.mydata.overview.date.get",
+        "auth_profile": "standard",
+        "expected_scope": "xd_mydata_read",
+        "param_summary": {},
+        "status_code": 200,
+        "error_code": "InsufficientPermission",
+        "error_message_summary": "App does not have permission to access this api",
+        "response_shape_summary": {
+          "top_keys": [
+            "error_response"
+          ],
+          "error_response": {
+            "code": "InsufficientPermission",
+            "sub_code": null,
+            "msg": "App does not have permission to access this api",
+            "sub_msg": null
+          }
+        },
+        "elapsed_ms": 25,
+        "final_classification": "PERMISSION_GAP_CONFIRMED",
+        "root_cause_hypothesis": "最小回归确认",
+        "next_action": "keep_stage23_closure"
+      },
+      "root_cause": "PERMISSION_GAP_CONFIRMED",
+      "strongest_conclusion": "标准权限接口层已确认权限缺口，但未做 elevated confirm",
+      "doc_scope_note": "方法名与历史文档都指向 mydata/overview 能力，当前请求已满足最小日期窗口或空参入口。",
+      "tenant_or_product_note": "当前未见 tenant/product 特有错误文案；显式错误仍是 InsufficientPermission。",
+      "next_action": "如业务仍需要，申请对应 mydata 权限或在明确允许时做单次 elevated confirm"
+    },
+    {
+      "api_name": "alibaba.mydata.overview.industry.get",
+      "intended_use": "店铺级行业上下文发现",
+      "target_fields": [
+        "industry_id",
+        "industry_desc",
+        "main_category"
+      ],
+      "standard": {
+        "platform": "XD",
+        "method": "alibaba.mydata.overview.industry.get",
+        "auth_profile": "standard",
+        "expected_scope": "xd_mydata_read",
+        "param_summary": {
+          "date_range": {
+            "start_date": "2026-03-11",
+            "end_date": "2026-04-09"
+          }
+        },
+        "status_code": 200,
+        "error_code": "InsufficientPermission",
+        "error_message_summary": "App does not have permission to access this api",
+        "response_shape_summary": {
+          "top_keys": [
+            "error_response"
+          ],
+          "error_response": {
+            "code": "InsufficientPermission",
+            "sub_code": null,
+            "msg": "App does not have permission to access this api",
+            "sub_msg": null
+          }
+        },
+        "elapsed_ms": 48,
+        "final_classification": "PERMISSION_GAP_CONFIRMED",
+        "root_cause_hypothesis": "标准权限下已到接口层且稳定返回 InsufficientPermission",
+        "next_action": "保留在 permission gap，等待人工申请或后续受控 elevated"
+      },
+      "regression": {
+        "platform": "XD",
+        "method": "alibaba.mydata.overview.industry.get",
+        "auth_profile": "standard",
+        "expected_scope": "xd_mydata_read",
+        "param_summary": {
+          "date_range": {
+            "start_date": "2026-03-11",
+            "end_date": "2026-04-09"
+          }
+        },
+        "status_code": 200,
+        "error_code": "InsufficientPermission",
+        "error_message_summary": "App does not have permission to access this api",
+        "response_shape_summary": {
+          "top_keys": [
+            "error_response"
+          ],
+          "error_response": {
+            "code": "InsufficientPermission",
+            "sub_code": null,
+            "msg": "App does not have permission to access this api",
+            "sub_msg": null
+          }
+        },
+        "elapsed_ms": 28,
+        "final_classification": "PERMISSION_GAP_CONFIRMED",
+        "root_cause_hypothesis": "最小回归确认",
+        "next_action": "keep_stage23_closure"
+      },
+      "root_cause": "PERMISSION_GAP_CONFIRMED",
+      "strongest_conclusion": "标准权限接口层已确认权限缺口，但未做 elevated confirm",
+      "doc_scope_note": "方法名与历史文档都指向 mydata/overview 能力，当前请求已满足最小日期窗口或空参入口。",
+      "tenant_or_product_note": "当前未见 tenant/product 特有错误文案；显式错误仍是 InsufficientPermission。",
+      "next_action": "如业务仍需要，申请对应 mydata 权限或在明确允许时做单次 elevated confirm"
+    },
+    {
+      "api_name": "alibaba.mydata.self.product.date.get",
+      "intended_use": "产品级表现日期窗口发现",
+      "target_fields": [
+        "start_date",
+        "end_date"
+      ],
+      "standard": {
+        "platform": "XD",
+        "method": "alibaba.mydata.self.product.date.get",
+        "auth_profile": "standard",
+        "expected_scope": "xd_mydata_read",
+        "param_summary": {
+          "statistics_type": "day"
+        },
+        "status_code": 200,
+        "error_code": "InsufficientPermission",
+        "error_message_summary": "App does not have permission to access this api",
+        "response_shape_summary": {
+          "top_keys": [
+            "error_response"
+          ],
+          "error_response": {
+            "code": "InsufficientPermission",
+            "sub_code": null,
+            "msg": "App does not have permission to access this api",
+            "sub_msg": null
+          }
+        },
+        "elapsed_ms": 26,
+        "final_classification": "PERMISSION_GAP_CONFIRMED",
+        "root_cause_hypothesis": "标准权限下已到接口层且稳定返回 InsufficientPermission",
+        "next_action": "保留在 permission gap，等待人工申请或后续受控 elevated"
+      },
+      "regression": {
+        "platform": "XD",
+        "method": "alibaba.mydata.self.product.date.get",
+        "auth_profile": "standard",
+        "expected_scope": "xd_mydata_read",
+        "param_summary": {
+          "statistics_type": "day"
+        },
+        "status_code": 200,
+        "error_code": "InsufficientPermission",
+        "error_message_summary": "App does not have permission to access this api",
+        "response_shape_summary": {
+          "top_keys": [
+            "error_response"
+          ],
+          "error_response": {
+            "code": "InsufficientPermission",
+            "sub_code": null,
+            "msg": "App does not have permission to access this api",
+            "sub_msg": null
+          }
+        },
+        "elapsed_ms": 27,
+        "final_classification": "PERMISSION_GAP_CONFIRMED",
+        "root_cause_hypothesis": "最小回归确认",
+        "next_action": "keep_stage23_closure"
+      },
+      "root_cause": "PERMISSION_GAP_CONFIRMED",
+      "strongest_conclusion": "标准权限接口层已确认权限缺口，但未做 elevated confirm",
+      "doc_scope_note": "方法名与历史文档都指向 mydata/self.product 能力，当前请求已满足最小产品样本与统计周期。",
+      "tenant_or_product_note": "当前已提供真实 XD 产品样本 ID；若仍是 InsufficientPermission，更像权限缺口而非 product_id 缺失。",
+      "next_action": "如业务仍需要，申请对应 mydata 权限或在明确允许时做单次 elevated confirm"
+    },
+    {
+      "api_name": "alibaba.mydata.self.product.get",
+      "intended_use": "产品级表现指标读取",
+      "target_fields": [
+        "click",
+        "impression",
+        "visitor",
+        "fb",
+        "order",
+        "bookmark",
+        "compare",
+        "share",
+        "keyword_effects"
+      ],
+      "standard": {
+        "platform": "XD",
+        "method": "alibaba.mydata.self.product.get",
+        "auth_profile": "standard",
+        "expected_scope": "xd_mydata_read",
+        "param_summary": {
+          "statistics_type": "day",
+          "stat_date": "2026-04-09",
+          "product_ids": 1601740545697
+        },
+        "status_code": 200,
+        "error_code": "InsufficientPermission",
+        "error_message_summary": "App does not have permission to access this api",
+        "response_shape_summary": {
+          "top_keys": [
+            "error_response"
+          ],
+          "error_response": {
+            "code": "InsufficientPermission",
+            "sub_code": null,
+            "msg": "App does not have permission to access this api",
+            "sub_msg": null
+          }
+        },
+        "elapsed_ms": 46,
+        "final_classification": "PERMISSION_GAP_CONFIRMED",
+        "root_cause_hypothesis": "标准权限下已到接口层且稳定返回 InsufficientPermission",
+        "next_action": "保留在 permission gap，等待人工申请或后续受控 elevated"
+      },
+      "regression": {
+        "platform": "XD",
+        "method": "alibaba.mydata.self.product.get",
+        "auth_profile": "standard",
+        "expected_scope": "xd_mydata_read",
+        "param_summary": {
+          "statistics_type": "day",
+          "stat_date": "2026-04-09",
+          "product_ids": 1601740545697
+        },
+        "status_code": 200,
+        "error_code": "InsufficientPermission",
+        "error_message_summary": "App does not have permission to access this api",
+        "response_shape_summary": {
+          "top_keys": [
+            "error_response"
+          ],
+          "error_response": {
+            "code": "InsufficientPermission",
+            "sub_code": null,
+            "msg": "App does not have permission to access this api",
+            "sub_msg": null
+          }
+        },
+        "elapsed_ms": 26,
+        "final_classification": "PERMISSION_GAP_CONFIRMED",
+        "root_cause_hypothesis": "最小回归确认",
+        "next_action": "keep_stage23_closure"
+      },
+      "root_cause": "PERMISSION_GAP_CONFIRMED",
+      "strongest_conclusion": "标准权限接口层已确认权限缺口，但未做 elevated confirm",
+      "doc_scope_note": "方法名与历史文档都指向 mydata/self.product 能力，当前请求已满足最小产品样本与统计周期。",
+      "tenant_or_product_note": "当前已提供真实 XD 产品样本 ID；若仍是 InsufficientPermission，更像权限缺口而非 product_id 缺失。",
+      "next_action": "如业务仍需要，申请对应 mydata 权限或在明确允许时做单次 elevated confirm"
+    }
+  ],
+  "indicator": {
+    "attempts": [
+      {
+        "attempt_name": "date_range_only",
+        "platform": "XD",
+        "method": "alibaba.mydata.overview.indicator.basic.get",
+        "auth_profile": "standard",
+        "expected_scope": "xd_mydata_read",
+        "param_summary": {
+          "date_range": {
+            "start_date": "2026-03-11",
+            "end_date": "2026-04-09"
+          }
+        },
+        "status_code": 200,
+        "error_code": "MissingParameter",
+        "error_message_summary": "The input parameter “industry” that is mandatory for processing this request is not supplied",
+        "response_shape_summary": {
+          "top_keys": [
+            "error_response"
+          ],
+          "error_response": {
+            "code": "MissingParameter",
+            "sub_code": null,
+            "msg": "The input parameter “industry” that is mandatory for processing this request is not supplied",
+            "sub_msg": null
+          }
+        },
+        "elapsed_ms": 38,
+        "final_classification": "STILL_PARAM_MISSING",
+        "root_cause_hypothesis": "补齐 documented industry 后仍停在缺参层级",
+        "next_action": "保持参数问题，不写成权限问题"
+      },
+      {
+        "attempt_name": "date_range_with_all_industry",
+        "platform": "XD",
+        "method": "alibaba.mydata.overview.indicator.basic.get",
+        "auth_profile": "standard",
+        "expected_scope": "xd_mydata_read",
+        "param_summary": {
+          "date_range": {
+            "start_date": "2026-03-11",
+            "end_date": "2026-04-09"
+          },
+          "industry": {
+            "industry_id": 111,
+            "industry_desc": "All",
+            "main_category": true
+          }
+        },
+        "status_code": 200,
+        "error_code": "InsufficientPermission",
+        "error_message_summary": "App does not have permission to access this api",
+        "response_shape_summary": {
+          "top_keys": [
+            "error_response"
+          ],
+          "error_response": {
+            "code": "InsufficientPermission",
+            "sub_code": null,
+            "msg": "App does not have permission to access this api",
+            "sub_msg": null
+          }
+        },
+        "elapsed_ms": 30,
+        "final_classification": "PERMISSION_DENIED",
+        "root_cause_hypothesis": "补齐文档支持的 industry 后进入权限错误层级",
+        "next_action": "保留为权限问题，不再写成纯参数问题"
+      }
+    ],
+    "final_classification": "PERMISSION_DENIED",
+    "root_cause_hypothesis": "补齐文档支持的 industry 后进入权限错误层级",
+    "next_action": "保留为权限问题，不再写成纯参数问题",
+    "notes": "说明 date_range + industry 已经过参数层，当前卡在权限层。",
+    "regression": {
+      "platform": "XD",
+      "method": "alibaba.mydata.overview.indicator.basic.get",
+      "auth_profile": "standard",
+      "expected_scope": "xd_mydata_read",
+      "param_summary": {
+        "date_range": {
+          "start_date": "2026-03-11",
+          "end_date": "2026-04-09"
+        },
+        "industry": {
+          "industry_id": 111,
+          "industry_desc": "All",
+          "main_category": true
+        }
+      },
+      "status_code": 200,
+      "error_code": "InsufficientPermission",
+      "error_message_summary": "App does not have permission to access this api",
+      "response_shape_summary": {
+        "top_keys": [
+          "error_response"
+        ],
+        "error_response": {
+          "code": "InsufficientPermission",
+          "sub_code": null,
+          "msg": "App does not have permission to access this api",
+          "sub_msg": null
+        }
+      },
+      "elapsed_ms": 27,
+      "final_classification": "PERMISSION_DENIED",
+      "root_cause_hypothesis": "最小回归确认",
+      "next_action": "keep_stage23_closure"
+    }
+  },
+  "sanity_control": {
+    "platform": "XD",
+    "method": "alibaba.seller.order.get",
+    "auth_profile": "standard",
+    "expected_scope": "xd_orders_read",
+    "param_summary": {
+      "e_trade_id": "298***191"
+    },
+    "status_code": 200,
+    "error_code": null,
+    "error_message_summary": null,
+    "response_shape_summary": {
+      "top_keys": [
+        "alibaba_seller_order_get_response"
+      ],
+      "error_response": null
+    },
+    "elapsed_ms": 325,
+    "final_classification": "PASSED",
+    "root_cause_hypothesis": "已通过的 seller.order 方法仍可作为 sanity control",
+    "next_action": "keep_as_control"
+  }
+}

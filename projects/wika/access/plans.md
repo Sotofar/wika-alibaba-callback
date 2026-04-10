@@ -1,51 +1,43 @@
-﻿# Stage22：WIKA replay 执行计划
+﻿# Stage23：XD direct-method closure 执行计划
 
 更新时间：2026-04-10
 
 ## 目标
-- 在 production base 继续保持 PASS_BASE 的前提下，完成 WIKA 27 条已验证/已上线 access route 的多轮最小 replay。
-- 只有在 WIKA replay 回到接口级验证层后，才推进 XD 历史未决 8 项的标准权限确认。
-- 本轮不做任何写侧动作，不新增任何 Alibaba API 猜测或 undocumented method。
+- 冻结 WIKA 基线，不再重跑 WIKA 27 条已验证/已上线 route。
+- 只收口 XD 剩余 5 个 direct-method gap：4 个 mydata 权限证据 + 1 个 indicator.basic 参数契约。
+- 只有在明确允许时才做单次 elevated confirm；本轮未满足该条件。
+- 本轮不做任何写动作，不扫描未知接口。
 
 ## 阶段拆分
-1. 阶段 0：续跑预检与 base smoke 闸门确认
-2. 阶段 0.5：轻量 deployment provenance 记录
-3. 阶段 1：WIKA replay 闸门 precheck
-4. 阶段 2：整理 WIKA 27 条 route 清单
-5. 阶段 3：WIKA Round 1 baseline replay
-6. 阶段 4：WIKA Round 2 targeted stabilization
-7. 阶段 5：WIKA Round 3 confirm recovered / flaky
-8. 阶段 6：更新 WIKA unresolved queue
-9. 阶段 7：XD 闸门判断
-10. 阶段 8：XD 历史未决 8 项标准权限确认
+1. 阶段 0：极小预检与 production base sentinel
+2. 阶段 1：冻结 WIKA 基线
+3. 阶段 2：4 个 mydata 方法标准权限证据闭环
+4. 阶段 3：受控 elevated confirm 判断
+5. 阶段 4：indicator.basic 参数契约闭环
+6. 阶段 5：最小回归确认
+7. 阶段 6：更新 XD / WIKA 未决队列与决策文档
 
 ## 当前进度
 - 阶段 0：已完成
-- 阶段 0.5：已完成
 - 阶段 1：已完成
 - 阶段 2：已完成
-- 阶段 3：已完成
+- 阶段 3：已完成（未执行 elevated）
 - 阶段 4：已完成
 - 阶段 5：已完成
 - 阶段 6：已完成
-- 阶段 7：已完成
-- 阶段 8：已完成
 
 ## 已完成
-- production base 继续维持 PASS_BASE：`/health`、`/integrations/alibaba/auth/debug`、代表性 WIKA `products/list` / `orders/list` 都返回 200 / JSON。
-- 轻量 provenance 已记录为 `not_proven_but_service_healthy`。
-- WIKA 27 条 route 已完成多轮最小 replay，最终全部 `RECONFIRMED`。
-- XD 8 项已在标准权限下完成逐项确认。
-- 所有结构化证据已写入矩阵和 JSON 摘要。
+- production base 继续维持 PASS_BASE。
+- WIKA 基线已冻结，本轮未重跑 WIKA 27 条全量 replay。
+- 4 个 XD mydata 方法都已完成标准权限证据闭环，当前最强结论为 `PERMISSION_GAP_CONFIRMED`。
+- `alibaba.mydata.overview.indicator.basic.get` 已完成参数契约闭环：补齐 `date_range + industry` 后进入权限错误层。
+- 1 个已通过的 `alibaba.seller.order.get` 已完成最小 sanity control。
 
 ## 阻塞
-- 当前没有阻止 replay 的 app-level 环境阻塞。
-- 当前剩余阻塞转为接口级：XD `mydata` 仍有权限/参数契约问题。
+- `XD_ELEVATED_ALLOWED` 未设置为 `1`，因此本轮不做 elevated confirm。
+- 当前剩余阻塞不再是参数缺失，而是 XD mydata 读权限缺口。
 
 ## 取消
-- 未做 XD 高权限补测。
+- 未做 elevated confirm。
 - 未做任何写动作。
-- 未新增任何新的 Alibaba API 验证。
-
-## 停止条件
-- 本轮完成后停止，不继续扩展到新的 API 候选或新的平台内动作。
+- 未扫描未知接口。

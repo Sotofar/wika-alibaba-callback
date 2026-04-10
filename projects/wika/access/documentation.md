@@ -3,42 +3,40 @@
 更新时间：2026-04-10
 
 ## 本轮做了什么
-1. 复读 stage20 / stage21 产物，确认 stage21 修复已在当前 HEAD 中。
-2. 只做极短 production base smoke，确认 `/health`、`/integrations/alibaba/auth/debug`、代表性 WIKA `products/list` / `orders/list` 继续 PASS_BASE。
-3. 从当前生产可读 route 中提取真实样本参数：`product_id`、数值 `id`、`cat_id`、`group_id`、`trade_id`。
-4. 对 WIKA 27 条已验证/已上线 access route 做多轮最小 replay。
-5. 只对 `customers/list` 做必要的参数补齐与权限探针化稳定确认。
-6. 在 WIKA 闸门满足后，对 XD 历史未决 8 项做标准权限逐项确认。
+1. 复读 stage22 产物，确认 WIKA 27 条 route 已全部 `RECONFIRMED`，因此本轮只做极小 sentinel smoke。
+2. 用 `/health`、`/integrations/alibaba/auth/debug` 和一个 representative WIKA route 确认 production base 继续 PASS_BASE。
+3. 冻结 WIKA 基线，不再重复 WIKA 27 条全量 replay。
+4. 只围绕 4 个 XD mydata 方法做标准权限证据闭环。
+5. 只围绕 `alibaba.mydata.overview.indicator.basic.get` 做有限、文档支持的参数组对账。
+6. 用一个已通过的 `alibaba.seller.order.get` 做 sanity control。
 
-## 发现了什么
-### 已确认的证据
-- production base 继续健康，当前不是 app-level `BLOCKED_ENV`。
-- WIKA 27 条 route 全部回到接口级验证层，最终分类全部为 `RECONFIRMED`。
-- `customers/list` 不是稳定客户数据入口，而是稳定的参数/权限探针 route：
-  - 缺 `last_sync_end_time` 时落到参数错误
-  - 补齐 sync window 后稳定落到 `InsufficientPermission`
-- WIKA route 级 `orders/list` 返回的 `trade_id` 当前可直接支撑 route 级 `orders/detail` / `orders/fund` / `orders/logistics` replay，说明 stage18 的“public direct method chaining 未闭合”不再阻塞 WIKA route 层复核。
-- XD 历史未决 8 项的标准权限确认结果：
-  - `PASSED`：3
-  - `PERMISSION_DENIED`：4
-  - `PARAM_MISSING`：1
+## 已确认的证据
+- WIKA frozen baseline 仍然有效；当前没有新的 app-level 阻塞。
+- 以下 4 个方法在 XD 标准权限下都稳定返回 `InsufficientPermission`：
+  - `alibaba.mydata.overview.date.get`
+  - `alibaba.mydata.overview.industry.get`
+  - `alibaba.mydata.self.product.date.get`
+  - `alibaba.mydata.self.product.get`
+- 对这 4 个方法，当前最强结论是：`PERMISSION_GAP_CONFIRMED`。
+- `alibaba.mydata.overview.indicator.basic.get`：
+  - `date_range` alone -> `MissingParameter(industry)`
+  - `date_range + industry` -> `InsufficientPermission`
+  - 因此当前已不再只是参数缺失，而是“补齐文档支持参数后进入权限错误层”。
+- `alibaba.seller.order.get` 作为 sanity control 继续 `PASSED`，说明本轮 direct-method 收口没有重新跌回 app-level blocking。
 
-### 推断与边界
-- `overview.indicator.basic.get` 在 XD 当前只得到 `PARAM_MISSING`，不能直接写成权限不足。
-- XD 的 4 个 `PERMISSION_DENIED` 只适用于本轮标准权限接口级证据，不得扩写成“任务 1 / 2 已可继续推进”。
-- WIKA 27 条 route 全部 `RECONFIRMED` 只代表 route 层稳定可复现，不代表任务 1 / 2 已完成。
+## 推断与边界
+- 本轮没有 elevated confirm，因此“更高权限是否一定能解”仍未实证；但标准权限缺口已经拿到接口级证据。
+- 对 4 个 mydata 方法，当前没有 tenant / product 特有错误文案，最合理的主因仍是权限缺口，而不是样本 product_id 缺失。
+- 本轮仍然不是 task 1 complete，不是 task 2 complete，也不是平台内闭环。
+- 本轮没有任何写动作。
 
 ## 证据与产物
-- 结构化摘要：
-  - `docs/framework/evidence/stage22-wika-replay-summary.json`
-- WIKA replay 矩阵：
-  - `projects/wika/access/replay_matrix.csv`
-- XD 8 项矩阵：
-  - `projects/xd/access/api_matrix.csv`
+- `docs/framework/evidence/stage23-xd-direct-method-closure.json`
+- `projects/xd/access/mydata_permission_matrix.csv`
+- `projects/xd/access/mydata_permission_gap_stage23.md`
+- `projects/xd/access/indicator_basic_contract_stage23.md`
 
 ## 下一步为什么这样做
-- 下一轮不应再重复 stage22 的 27 条 route replay。
-- 如果继续，应把精力集中到剩余的 direct-method 问题：
-  - XD `mydata` 权限差距
-  - `overview.indicator.basic.get` 的参数契约
-- 在没有新证据前，不要回到新 API 猜测或任何平台内写动作。
+- 如果继续，不要再重跑 WIKA 27 条 route replay。
+- 如果业务确实要推进 task 1 / task 2，下一步应先决定是否申请 XD / WIKA 对应 mydata 权限，或是否在明确允许条件下做单次受控 elevated confirm。
+- 若没有权限动作，就不应继续把 direct-method 问题误写成“可继续开发实现”。

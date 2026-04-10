@@ -782,5 +782,43 @@
 - 本轮收口：
   - route replay 已稳定回到接口级验证层
   - 不再重复 stage22 的 27 条 route replay
-  - 当前剩余问题应转向 `mydata` 权限差距与 `indicator.basic.get` 参数契约
+- 当前剩余问题应转向 `mydata` 权限差距与 `indicator.basic.get` 参数契约
 - 结束 checkpoint：`待本轮提交后补记`
+
+### 阶段 23：冻结 WIKA 基线，只收口 XD 剩余 5 个 direct-method gap
+
+- 续跑基线：`771337b2fb0cabb3f34f57778f1fd234fcb4d39f`
+- 本轮没有新增任何 Alibaba API 验证范围
+- 本轮没有推进平台内回复、平台内订单创建、真实通知外发
+- 本轮只做三件事：
+  - 用极小 sentinel 确认 production base 继续 `PASS_BASE`
+  - 冻结 WIKA 27 条 route 为已确认基线，不再全量 replay
+  - 只收口 XD 4 个 mydata 方法与 1 个 `indicator.basic` direct-method gap
+- 极小 sentinel 结果：
+  - `/health` -> `PASS_BASE`
+  - `/integrations/alibaba/auth/debug` -> `PASS_BASE`
+  - representative WIKA `products/list` -> `PASS_BASE`
+- 4 个 mydata 方法标准权限证据闭环结果：
+  - `alibaba.mydata.overview.date.get` -> `PERMISSION_GAP_CONFIRMED`
+  - `alibaba.mydata.overview.industry.get` -> `PERMISSION_GAP_CONFIRMED`
+  - `alibaba.mydata.self.product.date.get` -> `PERMISSION_GAP_CONFIRMED`
+  - `alibaba.mydata.self.product.get` -> `PERMISSION_GAP_CONFIRMED`
+- `indicator.basic` 参数契约闭环结果：
+  - `date_range` alone -> `MissingParameter(industry)`
+  - `date_range + industry` -> `InsufficientPermission`
+  - 最终收口：`PERMISSION_DENIED`
+- sanity control：
+  - `alibaba.seller.order.get` -> `PASSED`
+- elevated confirm：
+  - 本轮未执行
+  - 原因：`XD_ELEVATED_ALLOWED` 未设置为 `1`
+- 本轮新增 / 更新沉淀：
+  - `scripts/validate-xd-direct-method-closure-stage23.js`
+  - `docs/framework/evidence/stage23-xd-direct-method-closure.json`
+  - `projects/xd/access/mydata_permission_matrix.csv`
+  - `projects/xd/access/mydata_permission_gap_stage23.md`
+  - `projects/xd/access/indicator_basic_contract_stage23.md`
+- 本轮收口：
+  - 当前最大阻塞已明确是 XD mydata 权限缺口
+  - `indicator.basic` 不再只是参数歧义
+  - 当前不能误写成 task 1 complete、task 2 complete 或平台内闭环

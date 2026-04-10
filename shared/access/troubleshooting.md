@@ -69,3 +69,14 @@
 - 对 WIKA route replay，优先使用 route-level `orders/list` 真实返回的 `trade_id` 作为下游样本
 - 不要把 stage17 的 direct-method 遮罩 `trade_id` 结论直接套到 stage22 的 route replay
 - route replay 成功只代表 route 层可复现，不等于 direct method 契约完全闭合
+
+### 症状 8：`overview.indicator.basic.get` 先报缺 `industry`，补参后才报权限错误
+优先排查：
+- 是否只停在 `date_range` 单参尝试，导致把对象误写成纯参数问题
+- 是否补了文档支持的 `industry` 对象，而不是盲试额外参数
+- 是否在补齐 `date_range + industry` 后已经进入 `InsufficientPermission`
+
+处理原则：
+- 在没有 `industry` 的情况下，只能先记为参数问题，不能直接写成权限不足
+- 若补齐文档支持的 `date_range + industry` 后进入 `InsufficientPermission`，则应改写为权限问题
+- 不要为确认这一步继续扩大到未知参数枚举或未知接口扫描
