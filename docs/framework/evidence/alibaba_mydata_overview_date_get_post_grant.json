@@ -5,7 +5,7 @@
     "attempt_name": "empty_params",
     "classification": "REAL_DATA_RETURNED",
     "http_status": 200,
-    "elapsed_ms": 33,
+    "elapsed_ms": 32,
     "request_params": {},
     "error_summary": null,
     "response_shape_summary": {
@@ -52,7 +52,7 @@
       "attempt_name": "empty_params",
       "classification": "REAL_DATA_RETURNED",
       "http_status": 200,
-      "elapsed_ms": 33,
+      "elapsed_ms": 32,
       "request_params": {},
       "error_summary": null,
       "response_shape_summary": {

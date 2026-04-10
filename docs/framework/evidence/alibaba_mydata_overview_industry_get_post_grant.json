@@ -5,7 +5,7 @@
     "attempt_name": "real_date_range",
     "classification": "REAL_DATA_RETURNED",
     "http_status": 200,
-    "elapsed_ms": 61,
+    "elapsed_ms": 65,
     "request_params": {
       "date_range": {
         "start_date": "2026-03-29",
@@ -53,7 +53,7 @@
       "attempt_name": "real_date_range",
       "classification": "REAL_DATA_RETURNED",
       "http_status": 200,
-      "elapsed_ms": 61,
+      "elapsed_ms": 65,
       "request_params": {
         "date_range": {
           "start_date": "2026-03-29",

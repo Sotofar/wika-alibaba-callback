@@ -5,7 +5,7 @@
     "attempt_name": "day",
     "classification": "REAL_DATA_RETURNED",
     "http_status": 200,
-    "elapsed_ms": 73,
+    "elapsed_ms": 76,
     "request_params": {
       "statistics_type": "day",
       "stat_date": "2026-04-08",
@@ -99,7 +99,7 @@
       "attempt_name": "day",
       "classification": "REAL_DATA_RETURNED",
       "http_status": 200,
-      "elapsed_ms": 73,
+      "elapsed_ms": 76,
       "request_params": {
         "statistics_type": "day",
         "stat_date": "2026-04-08",

@@ -5,7 +5,7 @@
     "attempt_name": "day",
     "classification": "REAL_DATA_RETURNED",
     "http_status": 200,
-    "elapsed_ms": 40,
+    "elapsed_ms": 33,
     "request_params": {
       "statistics_type": "day"
     },
@@ -40,7 +40,7 @@
       "attempt_name": "day",
       "classification": "REAL_DATA_RETURNED",
       "http_status": 200,
-      "elapsed_ms": 40,
+      "elapsed_ms": 33,
       "request_params": {
         "statistics_type": "day"
       },
@@ -74,7 +74,7 @@
       "attempt_name": "week",
       "classification": "REAL_DATA_RETURNED",
       "http_status": 200,
-      "elapsed_ms": 35,
+      "elapsed_ms": 33,
       "request_params": {
         "statistics_type": "week"
       },
@@ -108,7 +108,7 @@
       "attempt_name": "month",
       "classification": "REAL_DATA_RETURNED",
       "http_status": 200,
-      "elapsed_ms": 33,
+      "elapsed_ms": 35,
       "request_params": {
         "statistics_type": "month"
       },
