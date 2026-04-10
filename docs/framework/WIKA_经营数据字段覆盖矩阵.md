@@ -6,12 +6,15 @@
 
 | 维度 | 目标字段 | 当前标注 | 证据来源 |
 | --- | --- | --- | --- |
-| 店铺级 | UV | confirmed but blocked no longer | `overview.indicator.basic.get -> visitor` |
-| 店铺级 | PV | confirmed but blocked no longer | `overview.indicator.basic.get -> imps` |
-| 店铺级 | 点击 | confirmed but blocked no longer | `overview.indicator.basic.get -> clk` |
-| 店铺级 | CTR | confirmed but blocked no longer | `overview.indicator.basic.get -> clk_rate` |
-| 店铺级 | 询盘表现 | confirmed but blocked no longer | `overview.indicator.basic.get -> fb` |
-| 店铺级 | 响应率 | confirmed but blocked no longer | `overview.indicator.basic.get -> reply` |
+| 店铺级（官方字段） | visitor | confirmed but blocked no longer | `overview.indicator.basic.get -> visitor` |
+| 店铺级（官方字段） | imps | confirmed but blocked no longer | `overview.indicator.basic.get -> imps` |
+| 店铺级（官方字段） | clk | confirmed but blocked no longer | `overview.indicator.basic.get -> clk` |
+| 店铺级（官方字段） | clk_rate | confirmed but blocked no longer | `overview.indicator.basic.get -> clk_rate` |
+| 店铺级（官方字段） | fb | confirmed but blocked no longer | `overview.indicator.basic.get -> fb` |
+| 店铺级（官方字段） | reply | confirmed but blocked no longer | `overview.indicator.basic.get -> reply` |
+| 店铺级（业务映射） | UV ~= visitor | business mapping pending | 官方返回 `visitor`，但当前不直接断言业务 UV 已完全等价 |
+| 店铺级（业务映射） | PV | not yet evidenced | 当前只确认 `imps/exposure`，不直接断言 PV |
+| 店铺级（业务映射） | broad response-rate | not yet evidenced | 当前只确认 `reply` 相关指标，建议使用 `reply-related metric / recent first-reply-rate` 表述 |
 | 店铺级 | 流量来源 | not found in current response | `overview.indicator.basic.get extra_fields.source_related=[]` |
 | 店铺级 | 国家来源 | not found in current response | `overview.indicator.basic.get extra_fields.country_related=[]` |
 | 店铺级 | 快速回复率 | not found in current response | `overview.indicator.basic.get extra_fields.quick_reply_related=[]` |

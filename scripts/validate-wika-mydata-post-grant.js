@@ -934,9 +934,37 @@ function buildFieldCoverageMatrixDelta(results) {
   };
 
   return {
-    store: {
-      UV: statusForMethod(METHOD_NAMES.OVERVIEW_BASIC, "visitor", overviewBasicFields),
-      PV: statusForMethod(METHOD_NAMES.OVERVIEW_BASIC, "imps", overviewBasicFields),
+    store_official: {
+      visitor: statusForMethod(METHOD_NAMES.OVERVIEW_BASIC, "visitor", overviewBasicFields),
+      imps: statusForMethod(METHOD_NAMES.OVERVIEW_BASIC, "imps", overviewBasicFields),
+      clk: statusForMethod(METHOD_NAMES.OVERVIEW_BASIC, "clk", overviewBasicFields),
+      clk_rate: statusForMethod(
+        METHOD_NAMES.OVERVIEW_BASIC,
+        "clk_rate",
+        overviewBasicFields
+      ),
+      fb: statusForMethod(METHOD_NAMES.OVERVIEW_BASIC, "fb", overviewBasicFields),
+      reply: statusForMethod(METHOD_NAMES.OVERVIEW_BASIC, "reply", overviewBasicFields)
+    },
+    store_business_mapping: {
+      "UV ~= visitor (business-mapping pending)": hasField(
+        overviewBasicFields,
+        "visitor"
+      )
+        ? "business mapping pending"
+        : "not yet evidenced",
+      "use exposure/imps instead of asserting PV": hasField(
+        overviewBasicFields,
+        "imps"
+      )
+        ? "official field imps returned"
+        : "not yet evidenced",
+      "use reply-related metric / recent first-reply-rate wording instead of broad response-rate":
+        hasField(overviewBasicFields, "reply")
+          ? "official field reply returned"
+          : "not yet evidenced"
+    },
+    store_missing: {
       "流量来源":
         (overviewBasicExtra.source_related || []).length > 0
           ? "confirmed field"
@@ -945,8 +973,6 @@ function buildFieldCoverageMatrixDelta(results) {
         (overviewBasicExtra.country_related || []).length > 0
           ? "confirmed field"
           : statusForMethod(METHOD_NAMES.OVERVIEW_BASIC, "__country__", []),
-      "询盘表现": statusForMethod(METHOD_NAMES.OVERVIEW_BASIC, "fb", overviewBasicFields),
-      "响应率": statusForMethod(METHOD_NAMES.OVERVIEW_BASIC, "reply", overviewBasicFields),
       "快速回复率":
         (overviewBasicExtra.quick_reply_related || []).length > 0
           ? "confirmed field"
