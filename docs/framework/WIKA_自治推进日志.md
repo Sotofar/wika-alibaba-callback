@@ -749,3 +749,38 @@
   - 当前不是 task 1 complete
   - 当前不是 task 2 complete
   - 当前不是平台内闭环
+
+### 阶段 22：WIKA access route replay 与 XD 历史未决 8 项标准权限确认
+
+- 续跑基线 commit：`6bd61031f70e41017432fa5737f8376f37975f5f`
+- 当前实际起始 HEAD：`6bd61035ce4e774050670c9ea5e7496e0a568814`
+- 本轮先做极短 production base smoke：
+  - `/health` -> `200 ok`
+  - `/integrations/alibaba/auth/debug` -> `200 JSON`
+  - representative WIKA `products/list` / `orders/list` -> `200 JSON`
+- 轻量 provenance：`not_proven_but_service_healthy`
+- WIKA 27 条已验证/已上线 access route 多轮 replay 结果：
+  - `RECONFIRMED`：27
+  - `FLAKY`：0
+  - `REGRESSED`：0
+  - `BLOCKED_ENV`：0
+- 关键 route 级结论：
+  - `customers/list` 当前稳定表现为权限探针 route
+  - `orders/detail / fund / logistics` 已能使用 route-level `trade_id` 在 WIKA route 层复现
+- XD 历史未决 8 项标准权限确认结果：
+  - `PERMISSION_DENIED`：4
+    - `alibaba.mydata.overview.date.get`
+    - `alibaba.mydata.overview.industry.get`
+    - `alibaba.mydata.self.product.date.get`
+    - `alibaba.mydata.self.product.get`
+  - `PARAM_MISSING`：1
+    - `alibaba.mydata.overview.indicator.basic.get`
+  - `PASSED`：3
+    - `alibaba.seller.order.get`
+    - `alibaba.seller.order.fund.get`
+    - `alibaba.seller.order.logistics.get`
+- 本轮收口：
+  - route replay 已稳定回到接口级验证层
+  - 不再重复 stage22 的 27 条 route replay
+  - 当前剩余问题应转向 `mydata` 权限差距与 `indicator.basic.get` 参数契约
+- 结束 checkpoint：`待本轮提交后补记`

@@ -1,32 +1,31 @@
-# WIKA 多轮复跑摘要
+﻿# WIKA replay 摘要
 
 更新时间：2026-04-10
 
-## Round 1：基线复跑
+## 当前结果
+- production base：`PASS_BASE`
+- deployment provenance：`not_proven_but_service_healthy`
+- WIKA 27 条已验证/已上线 access route：全部 `RECONFIRMED`
 
-- 执行对象：`/health`、`/integrations/alibaba/auth/debug`、`/integrations/alibaba/wika/data/products/list?page_size=1`
-- 结果：全部在当前 Node 运行环境下超时
+## 分类计数
+- `RECONFIRMED`：27
+- `FLAKY`：0
+- `REGRESSED`：0
+- `BLOCKED_ENV`：0
+- `AUTH_SCOPE_CHANGED`：0
+- `DOC_MISMATCH`：0
+- `PARAM_MISSING`：0
+- `RATE_LIMITED`：0
+- `NO_DATA`：0
+- `DEPRECATED`：0
+- `UNKNOWN`：0
 
-## Round 2：稳定化修正
+## 关键说明
+- 当前 route 层已经恢复到可复现状态。
+- `customers/list` 当前应被视为稳定的权限探针 route，而不是客户数据已稳定可读。
+- `orders/detail` / `fund` / `logistics` 在 WIKA route 层已可复现，不代表 direct method 契约问题已经彻底消失。
 
-- 允许的修正项检查：token 刷新 / 参数补齐 / 分页修正 / 时间窗口修正 / backoff
-- 本轮结论：由于基础 health/debug 已失败，当前没有安全且有意义的参数级修正入口
-- 结果：继续命中同类超时/不可达
-
-## Round 3：可复现性确认
-
-- 执行对象：`/integrations/alibaba/wika/data/orders/list?page_size=1`
-- 结果：继续命中同类超时/不可达
-
-## 总结
-
-- 已稳定确认通过：0
-- 统一收口为 `BLOCKED_ENV` 的接口：27
-- 当前是否可继续扩大 replay：no
-
-## 结论
-
-- 本轮没有新增通过接口
-- 本轮没有新增明确参数修正项
-- 本轮没有新增写动作
-- 当前应先恢复 Railway production 基础可用性，再重开全量 replay
+## 本轮未做的事
+- 没有新增任何 Alibaba API 验证。
+- 没有新增任何写动作。
+- 没有做 XD 高权限补测。

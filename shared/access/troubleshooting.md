@@ -1,7 +1,6 @@
-# 接入排查 SOP
+﻿# 接入排查 SOP
 
 ## 排查总顺序
-
 1. 服务是否在线
 2. callback / redirect_uri 是否一致
 3. 环境变量是否齐全
@@ -12,75 +11,61 @@
 8. 权限范围是否足够
 
 ## 症状与排查路径
-
 ### 症状 1：`/auth/start` 返回 500
-
 优先排查：
-
 - `ALIBABA_CLIENT_ID`
 - `ALIBABA_REDIRECT_URI`
 - `ALIBABA_AUTH_URL`
 
-### 症状 0：`/health`、`/auth/debug`、代表性业务只读接口同时返回 502
-
+### 症状 2：callback 命中，但换 token 失败
 优先排查：
-
-- Railway production 服务是否可响应
-- 是否是统一的 `Application failed to respond`
-- 是否需要先恢复基础运行态，再停止所有下游 replay
-
-处理原则：
-
-- 当 `/health` 与至少一个 `auth/debug` 连续两轮都返回同类 502 时，当前轮次统一收口为 `BLOCKED_ENV`
-- 不再继续盲打下游业务接口
-- 先修复环境，再重开 route-by-route 验证
-
-### 症状 2：授权页正常，但 callback 没回来
-
-优先排查：
-
-- callback URL 与 redirect_uri 是否一致
-- 域名是否可访问
-- HTTPS 是否可用
-- 是否使用了旧授权链接
-
-### 症状 3：callback 命中，但换 token 失败
-
-优先排查：
-
 - `ALIBABA_CLIENT_SECRET`
 - `ALIBABA_TOKEN_URL`
 - 签名是否按官方规则
 - code 是否已过期
 
-### 症状 4：token 已获取，但后续读取数据失败
-
+### 症状 3：token 已获取，但后续读数失败
 优先排查：
-
 - API 权限是否已开通
 - 当前 token 是否属于正确账号
 - 是否误用了其他账号的 token
 
-### 症状 5：refresh 失效
-
+### 症状 4：refresh 失败
 优先排查：
-
 - refresh token 是否仍有效
 - `ALIBABA_REFRESH_TOKEN_URL` 是否正确
 - token 文件是否在重部署后丢失
 - 自动刷新调度是否还在运行
 
-### 症状 0.1：`/health` 与 `auth/debug` 被 startup token bootstrap 一起拖死
-
+### 症状 5：`/health`、`/auth/debug` 与代表性只读接口同时 502 / timeout
 优先排查：
-- `app.listen()` 之前是否 `await` 了 token runtime 初始化
-- startup bootstrap 是否会访问外部 token / refresh endpoint
-- `auth/debug` 是否其实只需要 env + runtime state，不应该依赖 bootstrap 完成
+- Railway production 是否整体不可服务
+- 是否是统一的 `Application failed to respond`
+- 是否先命中 app 启动阻塞，而不是业务接口回归
 
 处理原则：
-- `/health` 必须保持轻量，不得在“能否响应”这一层依赖外部 refresh 成功
-- 若 auth/debug 只是诊断入口，应允许“先可诊断、后后台 bootstrap”
-- 可复用修正方式：
-  - 先 `listen()`
-  - 再后台 `initialize*TokenRuntime()`
-  - 用 local no-secret reproducer 验证：即使 token URL 不可达，`/health` 也能先返回 `200`
+- 当 `/health` 与至少一个 `auth/debug` 连续两轮都失败时，当前轮统一按 `BLOCKED_ENV` 收口
+- 不继续扩大到下游 route-by-route replay
+- 先恢复基础可服务性，再回到业务接口验证
+
+### 症状 6：startup token bootstrap 拖住 `/health`
+优先排查：
+- `app.listen()` 之前是否 `await initialize*TokenRuntime()`
+- startup bootstrap 是否访问外部 refresh endpoint
+- `auth/debug` 是否只是诊断入口，却被 bootstrap 阻塞
+
+处理原则：
+- `/health` 必须保持轻量，不依赖外部 refresh 成功
+- `auth/debug` 应允许先可诊断、后后台 bootstrap
+- 已确认可复用修复：先 `listen()`，再后台启动 WIKA/XD token runtime bootstrap
+
+### 症状 7：WIKA route replay 里 `orders/list` 可读，但 `detail/fund/logistics` 仍失败
+优先排查：
+- 是否错误使用了 direct method 验证阶段的遮罩 `trade_id`
+- 是否没有沿用当前 production `/integrations/alibaba/wika/data/orders/list` 返回的 route-level `trade_id`
+- 是否遗漏了 `e_trade_id` / `data_select` 这些文档必填参数
+
+处理原则：
+- 对 WIKA route replay，优先使用 route-level `orders/list` 真实返回的 `trade_id` 作为下游样本
+- 不要把 stage17 的 direct-method 遮罩 `trade_id` 结论直接套到 stage22 的 route replay
+- route replay 成功只代表 route 层可复现，不等于 direct method 契约完全闭合

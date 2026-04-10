@@ -1,0 +1,806 @@
+{
+  "generated_at": "2026-04-10T05:04:26.546Z",
+  "base_pass": true,
+  "deployment_provenance": "not_proven_but_service_healthy",
+  "wika": {
+    "base_smoke": [
+      {
+        "route": "/health",
+        "route_type": "runtime",
+        "current_status": "PASS_BASE",
+        "evidence": "text=ok"
+      },
+      {
+        "route": "/integrations/alibaba/auth/debug",
+        "route_type": "runtime",
+        "current_status": "PASS_BASE",
+        "evidence": "json_keys=app_base_url|session_secret_present|state_ttl_seconds|active_state_count|wika_client_id_present|wika_client_secret_present|wika_redirect_uri|wika_auth_url|wika_token_url|wika_refresh_token_url|wika_partner_id_present|wika_auto_refresh_enabled"
+      },
+      {
+        "route": "/integrations/alibaba/wika/data/products/list?page_size=1",
+        "route_type": "business",
+        "current_status": "PASS_BASE",
+        "evidence": "json_keys=ok|module|account|read_only|verification_status|evidence_level|source|request|response_meta|verified_fields|items|raw_root_key; ok=true"
+      },
+      {
+        "route": "/integrations/alibaba/wika/data/orders/list?page_size=1",
+        "route_type": "business",
+        "current_status": "PASS_BASE",
+        "evidence": "json_keys=ok|account|module|read_only|verification_status|evidence_level|data_scope|source|request_meta|response_meta|verified_fields|warnings; ok=true"
+      }
+    ],
+    "samples": {
+      "product_string_id": "AAFwxslEAOVqtWWP0tWvJG1K",
+      "product_numeric_id": 1601740791024,
+      "group_id": 957658239,
+      "category_id": 36127040,
+      "trade_id": "224***599"
+    },
+    "round1": [
+      {
+        "route": "/health",
+        "round": 1,
+        "request_param_summary": {},
+        "status_code": 200,
+        "error_code": null,
+        "response_shape_summary": "text=ok",
+        "elapsed_ms": 473,
+        "retry_count": 0,
+        "final_classification": "RECONFIRMED",
+        "root_cause_hypothesis": null,
+        "next_action": "none"
+      },
+      {
+        "route": "/integrations/alibaba/auth/debug",
+        "round": 1,
+        "request_param_summary": {},
+        "status_code": 200,
+        "error_code": null,
+        "response_shape_summary": "json_keys=app_base_url|session_secret_present|state_ttl_seconds|active_state_count|wika_client_id_present|wika_client_secret_present|wika_redirect_uri|wika_auth_url|wika_token_url|wika_refresh_token_url|wika_partner_id_present|wika_auto_refresh_enabled",
+        "elapsed_ms": 488,
+        "retry_count": 0,
+        "final_classification": "RECONFIRMED",
+        "root_cause_hypothesis": null,
+        "next_action": "none"
+      },
+      {
+        "route": "/integrations/alibaba/auth/start",
+        "round": 1,
+        "request_param_summary": {},
+        "status_code": 302,
+        "error_code": null,
+        "response_shape_summary": "text=Found. Redirecting to https://open-api.alibaba.com/oauth/authorize?response_type=code&force_auth=true&redirect_uri=https",
+        "elapsed_ms": 304,
+        "retry_count": 0,
+        "final_classification": "RECONFIRMED",
+        "root_cause_hypothesis": null,
+        "next_action": "none"
+      },
+      {
+        "route": "/integrations/alibaba/callback",
+        "round": 1,
+        "request_param_summary": {},
+        "status_code": 400,
+        "error_code": null,
+        "response_shape_summary": "text=Missing code",
+        "elapsed_ms": 318,
+        "retry_count": 0,
+        "final_classification": "RECONFIRMED",
+        "root_cause_hypothesis": null,
+        "next_action": "none"
+      },
+      {
+        "route": "/integrations/alibaba/wika/data/products/list",
+        "round": 1,
+        "request_param_summary": {
+          "page_size": 2
+        },
+        "status_code": 200,
+        "error_code": null,
+        "response_shape_summary": "json_keys=ok|module|account|read_only|verification_status|evidence_level|source|request|response_meta|verified_fields|items|raw_root_key; ok=true",
+        "elapsed_ms": 992,
+        "retry_count": 0,
+        "final_classification": "RECONFIRMED",
+        "root_cause_hypothesis": null,
+        "next_action": "none"
+      },
+      {
+        "route": "/integrations/alibaba/wika/data/products/score",
+        "round": 1,
+        "request_param_summary": {
+          "product_id": "sample_product_string_id"
+        },
+        "status_code": 200,
+        "error_code": null,
+        "response_shape_summary": "json_keys=ok|account|module|read_only|verification_status|evidence_level|data_scope|source|request_meta|response_meta|verified_fields|warnings; ok=true",
+        "elapsed_ms": 1030,
+        "retry_count": 0,
+        "final_classification": "RECONFIRMED",
+        "root_cause_hypothesis": null,
+        "next_action": "none"
+      },
+      {
+        "route": "/integrations/alibaba/wika/data/products/detail",
+        "round": 1,
+        "request_param_summary": {
+          "product_id": "sample_product_string_id"
+        },
+        "status_code": 200,
+        "error_code": null,
+        "response_shape_summary": "json_keys=ok|account|module|read_only|verification_status|evidence_level|data_scope|source|request_meta|response_meta|verified_fields|warnings; ok=true",
+        "elapsed_ms": 939,
+        "retry_count": 0,
+        "final_classification": "RECONFIRMED",
+        "root_cause_hypothesis": null,
+        "next_action": "none"
+      },
+      {
+        "route": "/integrations/alibaba/wika/data/products/groups",
+        "round": 1,
+        "request_param_summary": {
+          "group_id": "sample_group_id"
+        },
+        "status_code": 200,
+        "error_code": null,
+        "response_shape_summary": "json_keys=ok|account|module|read_only|verification_status|evidence_level|data_scope|source|request_meta|response_meta|verified_fields|warnings; ok=true",
+        "elapsed_ms": 855,
+        "retry_count": 0,
+        "final_classification": "RECONFIRMED",
+        "root_cause_hypothesis": null,
+        "next_action": "none"
+      },
+      {
+        "route": "/integrations/alibaba/wika/data/categories/tree",
+        "round": 1,
+        "request_param_summary": {
+          "cat_id": 0
+        },
+        "status_code": 200,
+        "error_code": null,
+        "response_shape_summary": "json_keys=ok|account|module|read_only|verification_status|evidence_level|data_scope|source|request_meta|response_meta|verified_fields|warnings; ok=true",
+        "elapsed_ms": 938,
+        "retry_count": 0,
+        "final_classification": "RECONFIRMED",
+        "root_cause_hypothesis": null,
+        "next_action": "none"
+      },
+      {
+        "route": "/integrations/alibaba/wika/data/categories/attributes",
+        "round": 1,
+        "request_param_summary": {
+          "cat_id": "sample_category_id"
+        },
+        "status_code": 200,
+        "error_code": null,
+        "response_shape_summary": "json_keys=ok|account|module|read_only|verification_status|evidence_level|data_scope|source|request_meta|response_meta|verified_fields|warnings; ok=true",
+        "elapsed_ms": 1499,
+        "retry_count": 0,
+        "final_classification": "RECONFIRMED",
+        "root_cause_hypothesis": null,
+        "next_action": "none"
+      }
+    ],
+    "round2": [
+      {
+        "route": "/integrations/alibaba/wika/data/customers/list",
+        "round": 2,
+        "request_param_summary": {
+          "customer_id_begin": 0,
+          "page_size": 1,
+          "start_time": "sample_sync_window_start",
+          "end_time": "sample_sync_window_end",
+          "last_sync_end_time": "sample_sync_window_end"
+        },
+        "status_code": 502,
+        "error_code": "InsufficientPermission",
+        "response_shape_summary": "json_keys=ok|error|error_category|top_error; ok=false; error_category=permission_error",
+        "elapsed_ms": 1152,
+        "retry_count": 0,
+        "final_classification": "RECONFIRMED",
+        "root_cause_hypothesis": "customer_scope_not_granted_probe_route_working",
+        "next_action": "keep_as_probe_route"
+      }
+    ],
+    "round3": [
+      {
+        "route": "/integrations/alibaba/wika/data/customers/list",
+        "round": 3,
+        "request_param_summary": {
+          "customer_id_begin": 0,
+          "page_size": 1,
+          "start_time": "sample_sync_window_start",
+          "end_time": "sample_sync_window_end",
+          "last_sync_end_time": "sample_sync_window_end"
+        },
+        "status_code": 502,
+        "error_code": "InsufficientPermission",
+        "response_shape_summary": "json_keys=ok|error|error_category|top_error; ok=false; error_category=permission_error",
+        "elapsed_ms": 912,
+        "retry_count": 0,
+        "final_classification": "RECONFIRMED",
+        "root_cause_hypothesis": "customer_scope_not_granted_probe_route_working",
+        "next_action": "keep_as_probe_route"
+      }
+    ],
+    "final_rows": [
+      {
+        "platform": "WIKA",
+        "phase": "stage22",
+        "module": "runtime",
+        "endpoint": "/health",
+        "method": "GET",
+        "auth_profile": "standard",
+        "expected_scope": "service_health",
+        "known_required_params": "",
+        "pagination_rule": "n/a",
+        "date_window_rule": "n/a",
+        "prior_status": "validated_route",
+        "source_of_truth": "app.js + stage21 PASS_BASE",
+        "execution_mode": "production_replay",
+        "round1_status_code": 200,
+        "round1_error_code": null,
+        "round1_response_shape_summary": "text=ok",
+        "round1_elapsed_ms": 473,
+        "round1_final_classification": "RECONFIRMED",
+        "round2_status_code": null,
+        "round2_error_code": null,
+        "round2_response_shape_summary": null,
+        "round2_elapsed_ms": null,
+        "round2_final_classification": null,
+        "round3_status_code": null,
+        "round3_error_code": null,
+        "round3_response_shape_summary": null,
+        "round3_elapsed_ms": null,
+        "round3_final_classification": null,
+        "final_classification": "RECONFIRMED",
+        "root_cause_hypothesis": null,
+        "next_action": "none"
+      },
+      {
+        "platform": "WIKA",
+        "phase": "stage22",
+        "module": "runtime",
+        "endpoint": "/integrations/alibaba/auth/debug",
+        "method": "GET",
+        "auth_profile": "standard",
+        "expected_scope": "wika_oauth_runtime",
+        "known_required_params": "",
+        "pagination_rule": "n/a",
+        "date_window_rule": "n/a",
+        "prior_status": "validated_route",
+        "source_of_truth": "app.js + stage21 PASS_BASE",
+        "execution_mode": "production_replay",
+        "round1_status_code": 200,
+        "round1_error_code": null,
+        "round1_response_shape_summary": "json_keys=app_base_url|session_secret_present|state_ttl_seconds|active_state_count|wika_client_id_present|wika_client_secret_present|wika_redirect_uri|wika_auth_url|wika_token_url|wika_refresh_token_url|wika_partner_id_present|wika_auto_refresh_enabled",
+        "round1_elapsed_ms": 488,
+        "round1_final_classification": "RECONFIRMED",
+        "round2_status_code": null,
+        "round2_error_code": null,
+        "round2_response_shape_summary": null,
+        "round2_elapsed_ms": null,
+        "round2_final_classification": null,
+        "round3_status_code": null,
+        "round3_error_code": null,
+        "round3_response_shape_summary": null,
+        "round3_elapsed_ms": null,
+        "round3_final_classification": null,
+        "final_classification": "RECONFIRMED",
+        "root_cause_hypothesis": null,
+        "next_action": "none"
+      },
+      {
+        "platform": "WIKA",
+        "phase": "stage22",
+        "module": "runtime",
+        "endpoint": "/integrations/alibaba/auth/start",
+        "method": "GET",
+        "auth_profile": "standard",
+        "expected_scope": "wika_oauth_entry",
+        "known_required_params": "",
+        "pagination_rule": "n/a",
+        "date_window_rule": "n/a",
+        "prior_status": "validated_route",
+        "source_of_truth": "validated-flow.md + app.js",
+        "execution_mode": "production_replay",
+        "round1_status_code": 302,
+        "round1_error_code": null,
+        "round1_response_shape_summary": "text=Found. Redirecting to https://open-api.alibaba.com/oauth/authorize?response_type=code&force_auth=true&redirect_uri=https",
+        "round1_elapsed_ms": 304,
+        "round1_final_classification": "RECONFIRMED",
+        "round2_status_code": null,
+        "round2_error_code": null,
+        "round2_response_shape_summary": null,
+        "round2_elapsed_ms": null,
+        "round2_final_classification": null,
+        "round3_status_code": null,
+        "round3_error_code": null,
+        "round3_response_shape_summary": null,
+        "round3_elapsed_ms": null,
+        "round3_final_classification": null,
+        "final_classification": "RECONFIRMED",
+        "root_cause_hypothesis": null,
+        "next_action": "none"
+      },
+      {
+        "platform": "WIKA",
+        "phase": "stage22",
+        "module": "runtime",
+        "endpoint": "/integrations/alibaba/callback",
+        "method": "GET",
+        "auth_profile": "standard",
+        "expected_scope": "wika_oauth_callback",
+        "known_required_params": "code,state",
+        "pagination_rule": "n/a",
+        "date_window_rule": "n/a",
+        "prior_status": "validated_route",
+        "source_of_truth": "validated-flow.md + app.js",
+        "execution_mode": "production_replay",
+        "round1_status_code": 400,
+        "round1_error_code": null,
+        "round1_response_shape_summary": "text=Missing code",
+        "round1_elapsed_ms": 318,
+        "round1_final_classification": "RECONFIRMED",
+        "round2_status_code": null,
+        "round2_error_code": null,
+        "round2_response_shape_summary": null,
+        "round2_elapsed_ms": null,
+        "round2_final_classification": null,
+        "round3_status_code": null,
+        "round3_error_code": null,
+        "round3_response_shape_summary": null,
+        "round3_elapsed_ms": null,
+        "round3_final_classification": null,
+        "final_classification": "RECONFIRMED",
+        "root_cause_hypothesis": null,
+        "next_action": "none"
+      },
+      {
+        "platform": "WIKA",
+        "phase": "stage22",
+        "module": "products",
+        "endpoint": "/integrations/alibaba/wika/data/products/list",
+        "method": "GET",
+        "auth_profile": "standard",
+        "expected_scope": "wika_products_read",
+        "known_required_params": "",
+        "pagination_rule": "page_size optional",
+        "date_window_rule": "n/a",
+        "prior_status": "validated_route",
+        "source_of_truth": "已上线能力复用清单 + app.js",
+        "execution_mode": "production_replay",
+        "round1_status_code": 200,
+        "round1_error_code": null,
+        "round1_response_shape_summary": "json_keys=ok|module|account|read_only|verification_status|evidence_level|source|request|response_meta|verified_fields|items|raw_root_key; ok=true",
+        "round1_elapsed_ms": 992,
+        "round1_final_classification": "RECONFIRMED",
+        "round2_status_code": null,
+        "round2_error_code": null,
+        "round2_response_shape_summary": null,
+        "round2_elapsed_ms": null,
+        "round2_final_classification": null,
+        "round3_status_code": null,
+        "round3_error_code": null,
+        "round3_response_shape_summary": null,
+        "round3_elapsed_ms": null,
+        "round3_final_classification": null,
+        "final_classification": "RECONFIRMED",
+        "root_cause_hypothesis": null,
+        "next_action": "none"
+      },
+      {
+        "platform": "WIKA",
+        "phase": "stage22",
+        "module": "products",
+        "endpoint": "/integrations/alibaba/wika/data/products/score",
+        "method": "GET",
+        "auth_profile": "standard",
+        "expected_scope": "wika_products_read",
+        "known_required_params": "product_id",
+        "pagination_rule": "n/a",
+        "date_window_rule": "n/a",
+        "prior_status": "validated_route",
+        "source_of_truth": "已上线能力复用清单 + app.js",
+        "execution_mode": "production_replay",
+        "round1_status_code": 200,
+        "round1_error_code": null,
+        "round1_response_shape_summary": "json_keys=ok|account|module|read_only|verification_status|evidence_level|data_scope|source|request_meta|response_meta|verified_fields|warnings; ok=true",
+        "round1_elapsed_ms": 1030,
+        "round1_final_classification": "RECONFIRMED",
+        "round2_status_code": null,
+        "round2_error_code": null,
+        "round2_response_shape_summary": null,
+        "round2_elapsed_ms": null,
+        "round2_final_classification": null,
+        "round3_status_code": null,
+        "round3_error_code": null,
+        "round3_response_shape_summary": null,
+        "round3_elapsed_ms": null,
+        "round3_final_classification": null,
+        "final_classification": "RECONFIRMED",
+        "root_cause_hypothesis": null,
+        "next_action": "none"
+      },
+      {
+        "platform": "WIKA",
+        "phase": "stage22",
+        "module": "products",
+        "endpoint": "/integrations/alibaba/wika/data/products/detail",
+        "method": "GET",
+        "auth_profile": "standard",
+        "expected_scope": "wika_products_read",
+        "known_required_params": "product_id",
+        "pagination_rule": "n/a",
+        "date_window_rule": "n/a",
+        "prior_status": "validated_route",
+        "source_of_truth": "已上线能力复用清单 + app.js",
+        "execution_mode": "production_replay",
+        "round1_status_code": 200,
+        "round1_error_code": null,
+        "round1_response_shape_summary": "json_keys=ok|account|module|read_only|verification_status|evidence_level|data_scope|source|request_meta|response_meta|verified_fields|warnings; ok=true",
+        "round1_elapsed_ms": 939,
+        "round1_final_classification": "RECONFIRMED",
+        "round2_status_code": null,
+        "round2_error_code": null,
+        "round2_response_shape_summary": null,
+        "round2_elapsed_ms": null,
+        "round2_final_classification": null,
+        "round3_status_code": null,
+        "round3_error_code": null,
+        "round3_response_shape_summary": null,
+        "round3_elapsed_ms": null,
+        "round3_final_classification": null,
+        "final_classification": "RECONFIRMED",
+        "root_cause_hypothesis": null,
+        "next_action": "none"
+      },
+      {
+        "platform": "WIKA",
+        "phase": "stage22",
+        "module": "products",
+        "endpoint": "/integrations/alibaba/wika/data/products/groups",
+        "method": "GET",
+        "auth_profile": "standard",
+        "expected_scope": "wika_products_read",
+        "known_required_params": "group_id",
+        "pagination_rule": "n/a",
+        "date_window_rule": "n/a",
+        "prior_status": "validated_route",
+        "source_of_truth": "已上线能力复用清单 + app.js",
+        "execution_mode": "production_replay",
+        "round1_status_code": 200,
+        "round1_error_code": null,
+        "round1_response_shape_summary": "json_keys=ok|account|module|read_only|verification_status|evidence_level|data_scope|source|request_meta|response_meta|verified_fields|warnings; ok=true",
+        "round1_elapsed_ms": 855,
+        "round1_final_classification": "RECONFIRMED",
+        "round2_status_code": null,
+        "round2_error_code": null,
+        "round2_response_shape_summary": null,
+        "round2_elapsed_ms": null,
+        "round2_final_classification": null,
+        "round3_status_code": null,
+        "round3_error_code": null,
+        "round3_response_shape_summary": null,
+        "round3_elapsed_ms": null,
+        "round3_final_classification": null,
+        "final_classification": "RECONFIRMED",
+        "root_cause_hypothesis": null,
+        "next_action": "none"
+      },
+      {
+        "platform": "WIKA",
+        "phase": "stage22",
+        "module": "categories",
+        "endpoint": "/integrations/alibaba/wika/data/categories/tree",
+        "method": "GET",
+        "auth_profile": "standard",
+        "expected_scope": "wika_categories_read",
+        "known_required_params": "",
+        "pagination_rule": "n/a",
+        "date_window_rule": "n/a",
+        "prior_status": "validated_route",
+        "source_of_truth": "已上线能力复用清单 + app.js",
+        "execution_mode": "production_replay",
+        "round1_status_code": 200,
+        "round1_error_code": null,
+        "round1_response_shape_summary": "json_keys=ok|account|module|read_only|verification_status|evidence_level|data_scope|source|request_meta|response_meta|verified_fields|warnings; ok=true",
+        "round1_elapsed_ms": 938,
+        "round1_final_classification": "RECONFIRMED",
+        "round2_status_code": null,
+        "round2_error_code": null,
+        "round2_response_shape_summary": null,
+        "round2_elapsed_ms": null,
+        "round2_final_classification": null,
+        "round3_status_code": null,
+        "round3_error_code": null,
+        "round3_response_shape_summary": null,
+        "round3_elapsed_ms": null,
+        "round3_final_classification": null,
+        "final_classification": "RECONFIRMED",
+        "root_cause_hypothesis": null,
+        "next_action": "none"
+      },
+      {
+        "platform": "WIKA",
+        "phase": "stage22",
+        "module": "categories",
+        "endpoint": "/integrations/alibaba/wika/data/categories/attributes",
+        "method": "GET",
+        "auth_profile": "standard",
+        "expected_scope": "wika_categories_read",
+        "known_required_params": "cat_id",
+        "pagination_rule": "n/a",
+        "date_window_rule": "n/a",
+        "prior_status": "validated_route",
+        "source_of_truth": "已上线能力复用清单 + app.js",
+        "execution_mode": "production_replay",
+        "round1_status_code": 200,
+        "round1_error_code": null,
+        "round1_response_shape_summary": "json_keys=ok|account|module|read_only|verification_status|evidence_level|data_scope|source|request_meta|response_meta|verified_fields|warnings; ok=true",
+        "round1_elapsed_ms": 1499,
+        "round1_final_classification": "RECONFIRMED",
+        "round2_status_code": null,
+        "round2_error_code": null,
+        "round2_response_shape_summary": null,
+        "round2_elapsed_ms": null,
+        "round2_final_classification": null,
+        "round3_status_code": null,
+        "round3_error_code": null,
+        "round3_response_shape_summary": null,
+        "round3_elapsed_ms": null,
+        "round3_final_classification": null,
+        "final_classification": "RECONFIRMED",
+        "root_cause_hypothesis": null,
+        "next_action": "none"
+      }
+    ]
+  },
+  "xd": {
+    "gateSatisfied": true,
+    "notRunReason": null,
+    "sampleIds": {
+      "product_id_numeric": 1601740545697,
+      "trade_id": "298***191"
+    },
+    "results": [
+      {
+        "platform": "XD",
+        "phase": "stage22",
+        "module": "metrics",
+        "endpoint_or_method": "alibaba.mydata.overview.date.get",
+        "auth_profile": "standard",
+        "expected_scope": "xd_mydata_read",
+        "request_param_summary": {},
+        "status_code": 200,
+        "error_code": "InsufficientPermission",
+        "response_shape_summary": {
+          "content_type": "application/json",
+          "top_keys": [
+            "error_response"
+          ],
+          "error_response": {
+            "type": "ISV",
+            "code": "InsufficientPermission",
+            "msg": "App does not have permission to access this api",
+            "request_id": "213cf19c17757975287313264",
+            "_trace_id_": "2131137617757975287291281e0e31"
+          }
+        },
+        "elapsed_ms": null,
+        "retry_count": 0,
+        "final_classification": "PERMISSION_DENIED",
+        "root_cause_hypothesis": "standard_scope_denied_at_interface_level",
+        "next_action": "record_permission_gap"
+      },
+      {
+        "platform": "XD",
+        "phase": "stage22",
+        "module": "metrics",
+        "endpoint_or_method": "alibaba.mydata.overview.industry.get",
+        "auth_profile": "standard",
+        "expected_scope": "xd_mydata_read",
+        "request_param_summary": {
+          "date_range": {
+            "start_date": "2026-03-11",
+            "end_date": "2026-04-09"
+          }
+        },
+        "status_code": 200,
+        "error_code": "InsufficientPermission",
+        "response_shape_summary": {
+          "content_type": "application/json",
+          "top_keys": [
+            "error_response"
+          ],
+          "error_response": {
+            "type": "ISV",
+            "code": "InsufficientPermission",
+            "msg": "App does not have permission to access this api",
+            "request_id": "213c4daa17757975287883197",
+            "_trace_id_": "2131137617757975287851283e0e31"
+          }
+        },
+        "elapsed_ms": null,
+        "retry_count": 0,
+        "final_classification": "PERMISSION_DENIED",
+        "root_cause_hypothesis": "standard_scope_denied_at_interface_level",
+        "next_action": "record_permission_gap"
+      },
+      {
+        "platform": "XD",
+        "phase": "stage22",
+        "module": "metrics",
+        "endpoint_or_method": "alibaba.mydata.overview.indicator.basic.get",
+        "auth_profile": "standard",
+        "expected_scope": "xd_mydata_read",
+        "request_param_summary": {
+          "date_range": {
+            "start_date": "2026-03-11",
+            "end_date": "2026-04-09"
+          }
+        },
+        "status_code": 200,
+        "error_code": "MissingParameter",
+        "response_shape_summary": {
+          "content_type": "application/json",
+          "top_keys": [
+            "error_response"
+          ],
+          "error_response": {
+            "type": "ISV",
+            "code": "MissingParameter",
+            "msg": "The input parameter “industry” that is mandatory for processing this request is not supplied",
+            "request_id": "213cf6b617757975288152119",
+            "_trace_id_": "2131137617757975288131284e0e31"
+          }
+        },
+        "elapsed_ms": null,
+        "retry_count": 0,
+        "final_classification": "PARAM_MISSING",
+        "root_cause_hypothesis": "documented_parameters_still_insufficient_or_invalid",
+        "next_action": "inspect_documented_param_contract"
+      },
+      {
+        "platform": "XD",
+        "phase": "stage22",
+        "module": "metrics",
+        "endpoint_or_method": "alibaba.mydata.self.product.date.get",
+        "auth_profile": "standard",
+        "expected_scope": "xd_mydata_read",
+        "request_param_summary": {
+          "statistics_type": "day"
+        },
+        "status_code": 200,
+        "error_code": "InsufficientPermission",
+        "response_shape_summary": {
+          "content_type": "application/json",
+          "top_keys": [
+            "error_response"
+          ],
+          "error_response": {
+            "type": "ISV",
+            "code": "InsufficientPermission",
+            "msg": "App does not have permission to access this api",
+            "request_id": "0bb2a0f317757975288486963",
+            "_trace_id_": "2131137617757975288461285e0e31"
+          }
+        },
+        "elapsed_ms": null,
+        "retry_count": 0,
+        "final_classification": "PERMISSION_DENIED",
+        "root_cause_hypothesis": "standard_scope_denied_at_interface_level",
+        "next_action": "record_permission_gap"
+      },
+      {
+        "platform": "XD",
+        "phase": "stage22",
+        "module": "metrics",
+        "endpoint_or_method": "alibaba.mydata.self.product.get",
+        "auth_profile": "standard",
+        "expected_scope": "xd_mydata_read",
+        "request_param_summary": {
+          "statistics_type": "day",
+          "stat_date": "2026-04-09",
+          "product_ids": 1601740545697
+        },
+        "status_code": 200,
+        "error_code": "InsufficientPermission",
+        "response_shape_summary": {
+          "content_type": "application/json",
+          "top_keys": [
+            "error_response"
+          ],
+          "error_response": {
+            "type": "ISV",
+            "code": "InsufficientPermission",
+            "msg": "App does not have permission to access this api",
+            "request_id": "0b51802d17757975288825695",
+            "_trace_id_": "2131137617757975288791286e0e31"
+          }
+        },
+        "elapsed_ms": null,
+        "retry_count": 0,
+        "final_classification": "PERMISSION_DENIED",
+        "root_cause_hypothesis": "standard_scope_denied_at_interface_level",
+        "next_action": "record_permission_gap"
+      },
+      {
+        "platform": "XD",
+        "phase": "stage22",
+        "module": "orders",
+        "endpoint_or_method": "alibaba.seller.order.get",
+        "auth_profile": "standard",
+        "expected_scope": "xd_orders_read",
+        "request_param_summary": {
+          "e_trade_id": "298***191"
+        },
+        "status_code": 200,
+        "error_code": null,
+        "response_shape_summary": {
+          "content_type": "application/json",
+          "top_keys": [
+            "alibaba_seller_order_get_response"
+          ],
+          "error_response": null
+        },
+        "elapsed_ms": null,
+        "retry_count": 0,
+        "final_classification": "PASSED",
+        "root_cause_hypothesis": null,
+        "next_action": "keep_standard_validation_record"
+      },
+      {
+        "platform": "XD",
+        "phase": "stage22",
+        "module": "orders",
+        "endpoint_or_method": "alibaba.seller.order.fund.get",
+        "auth_profile": "standard",
+        "expected_scope": "xd_orders_read",
+        "request_param_summary": {
+          "e_trade_id": "298***191",
+          "data_select": "fund_serviceFee,fund_fundPay"
+        },
+        "status_code": 200,
+        "error_code": null,
+        "response_shape_summary": {
+          "content_type": "application/json",
+          "top_keys": [
+            "alibaba_seller_order_fund_get_response"
+          ],
+          "error_response": null
+        },
+        "elapsed_ms": null,
+        "retry_count": 0,
+        "final_classification": "PASSED",
+        "root_cause_hypothesis": null,
+        "next_action": "keep_standard_validation_record"
+      },
+      {
+        "platform": "XD",
+        "phase": "stage22",
+        "module": "orders",
+        "endpoint_or_method": "alibaba.seller.order.logistics.get",
+        "auth_profile": "standard",
+        "expected_scope": "xd_orders_read",
+        "request_param_summary": {
+          "e_trade_id": "298***191",
+          "data_select": "logistic_order"
+        },
+        "status_code": 200,
+        "error_code": null,
+        "response_shape_summary": {
+          "content_type": "application/json",
+          "top_keys": [
+            "alibaba_seller_order_logistics_get_response"
+          ],
+          "error_response": null
+        },
+        "elapsed_ms": null,
+        "retry_count": 0,
+        "final_classification": "PASSED",
+        "root_cause_hypothesis": null,
+        "next_action": "keep_standard_validation_record"
+      }
+    ]
+  }
+}
