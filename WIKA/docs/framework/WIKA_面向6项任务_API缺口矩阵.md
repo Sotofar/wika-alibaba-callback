@@ -175,3 +175,27 @@
 - not task 2 complete
 - not full business cockpit
 
+## 2026-04-11 Stage 25 Gap Compression Round 2 Delta
+
+### 任务 1：读取平台数据
+- 当前继续保持“局部重开”
+- 本轮没有新增 store/product 真实字段
+- 仍未补齐：
+  - `traffic_source / country_source / quick_reply_rate`
+  - `access_source / inquiry_source / country_source / period_over_period_change`
+
+### 任务 2：经营诊断扩展
+- 本轮没有新增可接入 `management-summary` / `minimal-diagnostic` 的真实字段
+- store/product/order live routes 本轮不扩容
+- 订单级仍保持：
+  - `formal_summary` -> 已成立的 derived 层
+  - `product_contribution` -> 已成立的 derived 层
+  - `trend_signal` -> 已成立的 derived 层
+  - `country_structure` -> 仍 unavailable
+
+### 当前边界
+- legacy page-request 证据存在，不等于 current official mainline 已成立
+- not task 1 complete
+- not task 2 complete
+- not full business cockpit
+

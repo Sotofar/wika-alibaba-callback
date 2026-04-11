@@ -118,4 +118,17 @@
   - store/product management summary 保持 stage21 结构
   - not full business cockpit
 
+## 2026-04-11 Stage 25 Additions
+- 已新增可复用的 stage25 缺口压缩脚本：
+  - `WIKA/scripts/validate-wika-stage25-gap-compression.js`
+- 当前可以直接复用的 stage25 审计产物：
+  - `WIKA/docs/framework/WIKA_剩余经营维度现有字段穷尽审计_第二轮.md`
+  - `WIKA/docs/framework/evidence/wika-stage25-gap-compression-summary.json`
+  - `WIKA/docs/framework/evidence/wika-stage25-existing-field-exhaustion.json`
+  - `WIKA/docs/framework/evidence/wika-stage25-candidate-method-matrix.json`
+- 本轮复用边界：
+  - 只收口缺口，不扩 live routes
+  - 不把 legacy seller page 证据误报成 current official mainline 已成立
+  - `country_structure` 继续保持 unavailable
+
 

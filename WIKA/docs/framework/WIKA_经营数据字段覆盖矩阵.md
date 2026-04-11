@@ -200,3 +200,29 @@
 - `product_contribution` 当前只证明现有 `orders/detail.order_products` 可做样本级贡献聚合
 - `country_structure` 当前仍缺 route-level country 实值，不得误写成已确认
 
+## 2026-04-11 Stage 25 Gap Compression Round 2 Delta
+
+### 店铺级剩余维度
+- `traffic_source` -> current official mainline not found in current response
+- `country_source` -> current official mainline not found in current response
+- `quick_reply_rate` -> current official mainline not found in current response
+
+补充说明：
+- 仓内 legacy page-request 报告里能看到上述 3 个维度
+- 但这些字段不属于当前 Railway production + official `/sync` 主线
+- 因此本轮仍不能从 unavailable 改成 confirmed
+
+### 产品级剩余维度
+- `access_source` -> current official mainline not found in current response
+- `inquiry_source` -> current official mainline not found in current response
+- `country_source` -> current official mainline not found in current response
+- `period_over_period_change` -> current official mainline not found in current response
+
+### 订单级剩余维度
+- `country_structure` -> not derivable currently
+
+补充说明：
+- current public `orders/detail` 只在 `available_field_keys` 中提示 `shipping_address`
+- public body 仍未暴露 `shipping_address.country` 或 `buyer.country` 实值
+- 因此 `country_structure` 继续保持 unavailable
+

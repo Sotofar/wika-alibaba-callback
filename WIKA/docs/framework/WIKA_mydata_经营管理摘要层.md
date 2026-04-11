@@ -210,4 +210,22 @@
   - no new live route fields in this round
   - not full business cockpit
 
+## 2026-04-11 Stage 25 Gap Compression Round 2 Delta
+
+### 本轮没有扩容 mydata live routes
+- `operations/management-summary` 保持当前 official 字段：
+  - `visitor / imps / clk / clk_rate / fb / reply`
+- `products/management-summary` 保持当前 official 字段：
+  - `click / impression / visitor / fb / order / bookmark / compare / share / keyword_effects`
+- `operations/products minimal-diagnostic` 保持现有解释层，不新增剩余维度字段
+
+### 剩余维度当前结论
+- `traffic_source / country_source / quick_reply_rate`：
+  - 仓内 legacy page-request 报告里见过
+  - 但 current official mainline 未出现
+  - 本轮不接入 live routes
+- `access_source / inquiry_source / country_source / period_over_period_change`：
+  - current official mainline 未出现
+  - 本轮不接入 live routes
+
 

@@ -1,0 +1,340 @@
+{
+  "stage": "stage25_gap_compression_round2",
+  "generated_at": "2026-04-11T11:02:40.740Z",
+  "base_url": "https://api.wikapacking.com",
+  "baseline": {
+    "routes": {
+      "health": {
+        "route": "/health",
+        "status": 200
+      },
+      "auth_debug": {
+        "route": "/integrations/alibaba/auth/debug",
+        "status": 200
+      },
+      "operations_management_summary": {
+        "route": "/integrations/alibaba/wika/reports/operations/management-summary",
+        "status": 200
+      },
+      "products_management_summary": {
+        "route": "/integrations/alibaba/wika/reports/products/management-summary",
+        "status": 200
+      },
+      "orders_management_summary": {
+        "route": "/integrations/alibaba/wika/reports/orders/management-summary",
+        "status": 200
+      }
+    },
+    "checks": {
+      "health": true,
+      "auth_debug": true,
+      "operations_management_summary": true,
+      "products_management_summary": true,
+      "orders_management_summary": true
+    }
+  },
+  "existing_field_exhaustion": {
+    "store": [
+      {
+        "dimension": "traffic_source",
+        "layer": "store",
+        "raw_response_present": false,
+        "helper_hidden": false,
+        "route_exposed": false,
+        "derivable_from_existing_routes": false,
+        "legacy_page_request_present": true,
+        "classification": "NOT_DERIVABLE_CURRENTLY",
+        "evidence": [
+          "official mainline: overview indicator extra_fields.source_related=[]",
+          "live routes: unavailable_dimensions 保持 traffic_source",
+          "legacy page_request: overview.traffic_sources 有 21 条"
+        ],
+        "unavailable_in_live_routes": true
+      },
+      {
+        "dimension": "country_source",
+        "layer": "store",
+        "raw_response_present": false,
+        "helper_hidden": false,
+        "route_exposed": false,
+        "derivable_from_existing_routes": false,
+        "legacy_page_request_present": true,
+        "classification": "NOT_DERIVABLE_CURRENTLY",
+        "evidence": [
+          "official mainline: overview indicator extra_fields.country_related=[]",
+          "live routes: unavailable_dimensions 保持 country_source",
+          "legacy page_request: visitor_country_distribution=20, key_market_distribution=10"
+        ],
+        "unavailable_in_live_routes": true
+      },
+      {
+        "dimension": "quick_reply_rate",
+        "layer": "store",
+        "raw_response_present": false,
+        "helper_hidden": false,
+        "route_exposed": false,
+        "derivable_from_existing_routes": false,
+        "legacy_page_request_present": true,
+        "classification": "NOT_DERIVABLE_CURRENTLY",
+        "evidence": [
+          "official mainline: overview indicator extra_fields.quick_reply_related=[]",
+          "live routes: unavailable_dimensions 保持 quick_reply_rate",
+          "legacy page_request: snapshot.reply_within_5min_rate_30d=0.472"
+        ],
+        "unavailable_in_live_routes": true
+      }
+    ],
+    "product": [
+      {
+        "dimension": "access_source",
+        "layer": "product",
+        "raw_response_present": false,
+        "helper_hidden": false,
+        "route_exposed": false,
+        "derivable_from_existing_routes": false,
+        "legacy_page_request_present": false,
+        "classification": "NOT_DERIVABLE_CURRENTLY",
+        "evidence": [
+          "official mainline: self.product extra_fields.source_related=[]",
+          "live routes: unavailable_dimensions 保持 access_source"
+        ],
+        "unavailable_in_live_routes": true
+      },
+      {
+        "dimension": "inquiry_source",
+        "layer": "product",
+        "raw_response_present": false,
+        "helper_hidden": false,
+        "route_exposed": false,
+        "derivable_from_existing_routes": false,
+        "legacy_page_request_present": false,
+        "classification": "NOT_DERIVABLE_CURRENTLY",
+        "evidence": [
+          "official mainline: 当前 product raw evidence 未见 inquiry 同义字段",
+          "live routes: unavailable_dimensions 保持 inquiry_source"
+        ],
+        "unavailable_in_live_routes": true
+      },
+      {
+        "dimension": "country_source",
+        "layer": "product",
+        "raw_response_present": false,
+        "helper_hidden": false,
+        "route_exposed": false,
+        "derivable_from_existing_routes": false,
+        "legacy_page_request_present": false,
+        "classification": "NOT_DERIVABLE_CURRENTLY",
+        "evidence": [
+          "official mainline: self.product extra_fields.country_related=[]",
+          "live routes: unavailable_dimensions 保持 country_source"
+        ],
+        "unavailable_in_live_routes": true
+      },
+      {
+        "dimension": "period_over_period_change",
+        "layer": "product",
+        "raw_response_present": false,
+        "helper_hidden": false,
+        "route_exposed": false,
+        "derivable_from_existing_routes": false,
+        "legacy_page_request_present": false,
+        "classification": "NOT_DERIVABLE_CURRENTLY",
+        "evidence": [
+          "official mainline: self.product extra_fields.trend_related=[]",
+          "live routes: unavailable_dimensions 保持 period_over_period_change"
+        ],
+        "unavailable_in_live_routes": true
+      }
+    ],
+    "order": [
+      {
+        "dimension": "formal_summary",
+        "layer": "order",
+        "raw_response_present": true,
+        "helper_hidden": false,
+        "route_exposed": true,
+        "derivable_from_existing_routes": true,
+        "legacy_page_request_present": false,
+        "classification": "DERIVABLE_FROM_EXISTING_APIS",
+        "evidence": [
+          "orders/list 提供可复用 trade_id + create_date",
+          "orders/detail 暴露 amount / product_total_amount / shipment_fee / trade_status",
+          "orders/fund 暴露 service_fee 与 fund_pay_list"
+        ]
+      },
+      {
+        "dimension": "country_structure",
+        "layer": "order",
+        "raw_response_present": false,
+        "helper_hidden": true,
+        "route_exposed": false,
+        "derivable_from_existing_routes": false,
+        "legacy_page_request_present": true,
+        "classification": "NOT_DERIVABLE_CURRENTLY",
+        "evidence": [
+          "official current route: orders/detail.available_field_keys 出现 shipping_address，但 public body 未返回 shipping_address.country / buyer.country",
+          "legacy page_request: buyerCountryDistribution=5, shippingCountryDistribution=5"
+        ]
+      },
+      {
+        "dimension": "product_contribution",
+        "layer": "order",
+        "raw_response_present": true,
+        "helper_hidden": false,
+        "route_exposed": true,
+        "derivable_from_existing_routes": true,
+        "legacy_page_request_present": false,
+        "classification": "DERIVABLE_FROM_EXISTING_APIS",
+        "evidence": [
+          "orders/detail 暴露 order_products[].product_id / quantity / unit_price",
+          "可在现有只读链上按 trade_id 聚合产品贡献"
+        ]
+      }
+    ]
+  },
+  "legacy_page_request_evidence": {
+    "store": {
+      "traffic_source": {
+        "present": true,
+        "count": 21,
+        "source": "legacy_page_request.generated_report"
+      },
+      "country_source": {
+        "present": true,
+        "visitor_country_count": 20,
+        "key_market_count": 10,
+        "source": "legacy_page_request.generated_report"
+      },
+      "quick_reply_rate": {
+        "present": true,
+        "value": 0.472,
+        "source": "legacy_page_request.generated_report"
+      }
+    },
+    "order": {
+      "country_structure": {
+        "present": true,
+        "buyer_country_distribution_count": 5,
+        "shipping_country_distribution_count": 5,
+        "source": "legacy_page_request.generated_report"
+      }
+    }
+  },
+  "route_audit_scope": {
+    "management_summary_routes": [
+      "/integrations/alibaba/wika/reports/operations/management-summary",
+      "/integrations/alibaba/wika/reports/products/management-summary",
+      "/integrations/alibaba/wika/reports/orders/management-summary"
+    ],
+    "minimal_diagnostic_routes": [
+      "/integrations/alibaba/wika/reports/operations/minimal-diagnostic",
+      "/integrations/alibaba/wika/reports/products/minimal-diagnostic",
+      "/integrations/alibaba/wika/reports/orders/minimal-diagnostic"
+    ],
+    "order_routes": [
+      "/integrations/alibaba/wika/data/orders/list?page_size=3",
+      "/integrations/alibaba/wika/data/orders/detail",
+      "/integrations/alibaba/wika/data/orders/fund"
+    ]
+  },
+  "reviewed_existing_candidates": [
+    {
+      "method": "alibaba.seller.trade.decode",
+      "target_dimensions": [
+        "country_structure",
+        "order_identifier_contract"
+      ],
+      "doc_reference_path": "WIKA/docs/framework/WIKA_下一批必须验证的API候选池.md",
+      "doc_url": null,
+      "parameter_contract": null,
+      "classification": "DOC_FOUND_NOT_TESTED",
+      "note": "仓内仅保留 doc-found 记录；本轮没有足够 doc URL 与参数契约落盘，不进入 runtime 验证。"
+    },
+    {
+      "method": "alibaba.mydata.self.keyword.date.get",
+      "target_dimensions": [
+        "access_source",
+        "keyword_window"
+      ],
+      "doc_reference_path": "WIKA/docs/framework/WIKA_下一批必须验证的API候选池.md",
+      "doc_url": null,
+      "parameter_contract": null,
+      "classification": "DOC_FOUND_NOT_TESTED",
+      "note": "仓内只有 method 名记录，当前没有稳定参数契约，不能把它当成剩余产品维度的当前官方入口。"
+    },
+    {
+      "method": "alibaba.mydata.self.keyword.effect.week.get",
+      "target_dimensions": [
+        "keyword_effects",
+        "period_over_period_change"
+      ],
+      "doc_reference_path": "WIKA/docs/framework/WIKA_下一批必须验证的API候选池.md",
+      "doc_url": null,
+      "parameter_contract": null,
+      "classification": "DOC_FOUND_NOT_TESTED",
+      "note": "仓内已有 doc-found 记录，但没有可复核的 doc URL 与安全参数契约，本轮不测。"
+    },
+    {
+      "method": "alibaba.mydata.self.keyword.effect.month.get",
+      "target_dimensions": [
+        "keyword_effects",
+        "period_over_period_change"
+      ],
+      "doc_reference_path": "WIKA/docs/framework/WIKA_下一批必须验证的API候选池.md",
+      "doc_url": null,
+      "parameter_contract": null,
+      "classification": "DOC_FOUND_NOT_TESTED",
+      "note": "仓内已有 doc-found 记录，但没有可复核的 doc URL 与安全参数契约，本轮不测。"
+    },
+    {
+      "method": "alibaba.mydata.industry.keyword.get",
+      "target_dimensions": [
+        "industry_keyword_signal"
+      ],
+      "doc_reference_path": "WIKA/docs/framework/WIKA_下一批必须验证的API候选池.md",
+      "doc_url": null,
+      "parameter_contract": null,
+      "classification": "DOC_FOUND_NOT_TESTED",
+      "note": "当前更像关键词补充方向，不是本轮 store/product/order 剩余维度的直接 route-level 证据入口。"
+    },
+    {
+      "method": "alibaba.mydata.seller.opendata.getconkeyword",
+      "target_dimensions": [
+        "seller_keyword_signal"
+      ],
+      "doc_reference_path": "WIKA/docs/framework/WIKA_下一批必须验证的API候选池.md",
+      "doc_url": null,
+      "parameter_contract": null,
+      "classification": "DOC_FOUND_NOT_TESTED",
+      "note": "当前更像关键词侧补充，不是本轮剩余 source/country/change 缺口的直接 current official mainline 入口。"
+    }
+  ],
+  "new_candidate_methods": [],
+  "new_confirmed_fields": [],
+  "newly_derivable_fields": [],
+  "current_derived_fields_still_valid": [
+    {
+      "dimension": "formal_summary",
+      "classification": "DERIVABLE_FROM_EXISTING_APIS"
+    },
+    {
+      "dimension": "product_contribution",
+      "classification": "DERIVABLE_FROM_EXISTING_APIS"
+    },
+    {
+      "dimension": "trend_signal",
+      "classification": "DERIVABLE_FROM_EXISTING_APIS"
+    }
+  ],
+  "live_routes_expanded": false,
+  "stage2_runtime_validation_performed": false,
+  "stage2_runtime_validation_skip_reason": "本轮新增候选方法为空；既有 doc-found only 候选仍缺 doc URL 与稳定参数契约，不满足安全 runtime 验证前置条件。",
+  "boundary_statement": {
+    "not_task_1_complete": true,
+    "not_task_2_complete": true,
+    "no_write_action_attempted": true,
+    "wika_only_thread_for_business_work": true,
+    "xd_untouched_in_this_round": true,
+    "not_full_business_cockpit": true
+  }
+}

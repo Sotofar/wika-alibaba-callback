@@ -389,3 +389,40 @@
 - not task 2 complete
 - not full business cockpit
 
+## 2026-04-11 Stage 25 Gap Compression Round 2 Update
+
+### stage24 线上基线回归
+- 以下 route 本轮再次确认通过：
+  - `/health`
+  - `/integrations/alibaba/auth/debug`
+  - `/integrations/alibaba/wika/reports/operations/management-summary`
+  - `/integrations/alibaba/wika/reports/products/management-summary`
+  - `/integrations/alibaba/wika/reports/orders/management-summary`
+
+### 本轮没有新增真实字段
+- 店铺级剩余维度仍未在 current official mainline 中出现：
+  - `traffic_source`
+  - `country_source`
+  - `quick_reply_rate`
+- 产品级剩余维度仍未在 current official mainline 中出现：
+  - `access_source`
+  - `inquiry_source`
+  - `country_source`
+  - `period_over_period_change`
+- 订单级剩余维度仍未成立：
+  - `country_structure`
+
+### legacy page-request 证据边界
+- 仓内 legacy seller page 报告里仍能看到：
+  - `traffic_source`
+  - `country_source`
+  - `quick_reply_rate`
+  - `country_structure`
+- 但这些字段不属于当前 Railway production + official `/sync + access_token + sha256` 主线。
+- 因此本轮不能把它们接入 live routes，也不能写成当前官方主线已确认。
+
+### 本轮处理结果
+- 本轮没有新增候选方法 runtime 验证
+- 本轮没有扩 live routes
+- 本轮只更新审计文档、候选池、矩阵与 evidence
+

@@ -286,5 +286,44 @@
 - not task 2 complete
 - not full business cockpit
 
+## 2026-04-11 Stage 25 Gap Compression Round 2
+
+### 当前阶段
+- 阶段 25：WIKA 剩余经营维度缺口压缩第二轮
+
+### 本轮唯一目标
+- 先确认 stage24 远端基线没有回退
+- 优先复核现有 route / helper / evidence / raw response 是否已覆盖剩余维度
+- 只有在 current official mainline 明确没有覆盖时，才继续保留既有 doc-found only 候选
+- 如果没有新真实字段，就只更新矩阵、候选池、evidence 与文档，不扩 live routes
+
+### 已完成
+- stage24 线上基线回归通过：
+  - `/health`
+  - `/integrations/alibaba/auth/debug`
+  - `/integrations/alibaba/wika/reports/operations/management-summary`
+  - `/integrations/alibaba/wika/reports/products/management-summary`
+  - `/integrations/alibaba/wika/reports/orders/management-summary`
+- 已完成“现有字段穷尽审计第二轮”：
+  - store: `traffic_source / country_source / quick_reply_rate` 仍未在 current official mainline 中出现
+  - product: `access_source / inquiry_source / country_source / period_over_period_change` 仍未在 current official mainline 中出现
+  - order: `country_structure` 仍未在 current public route 层成立
+- 已把 legacy seller page 证据与 current official mainline 边界拆开落盘
+- 本轮新增沉淀：
+  - `WIKA/scripts/validate-wika-stage25-gap-compression.js`
+  - `WIKA/docs/framework/WIKA_剩余经营维度现有字段穷尽审计_第二轮.md`
+  - `WIKA/docs/framework/evidence/wika-stage25-gap-compression-summary.json`
+  - `WIKA/docs/framework/evidence/wika-stage25-existing-field-exhaustion.json`
+  - `WIKA/docs/framework/evidence/wika-stage25-candidate-method-matrix.json`
+
+### 本轮明确边界
+- 不新增 Alibaba API 探索
+- 不推进 XD
+- 不做任何写动作
+- 不扩 live routes
+- not task 1 complete
+- not task 2 complete
+- not full business cockpit
+
 
 

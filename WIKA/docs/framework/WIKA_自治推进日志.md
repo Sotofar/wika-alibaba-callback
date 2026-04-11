@@ -1090,6 +1090,35 @@
 - 当前仍不是 task 2 complete
 - 当前仍不是完整经营驾驶舱
 
+### 阶段 25：WIKA 剩余经营维度缺口压缩第二轮
+
+- 实际起始 commit：`01ae3fd966f75a1f43894ee73aac433d158708a7`
+- 本轮只处理 WIKA，不碰 XD，不做任何写动作
+- stage24 远端基线回归通过：
+  - `/health`
+  - `/integrations/alibaba/auth/debug`
+  - `/integrations/alibaba/wika/reports/operations/management-summary`
+  - `/integrations/alibaba/wika/reports/products/management-summary`
+  - `/integrations/alibaba/wika/reports/orders/management-summary`
+- 本轮新增沉淀：
+  - `WIKA/scripts/validate-wika-stage25-gap-compression.js`
+  - `WIKA/docs/framework/WIKA_剩余经营维度现有字段穷尽审计_第二轮.md`
+  - `WIKA/docs/framework/evidence/wika-stage25-gap-compression-summary.json`
+  - `WIKA/docs/framework/evidence/wika-stage25-existing-field-exhaustion.json`
+  - `WIKA/docs/framework/evidence/wika-stage25-candidate-method-matrix.json`
+- 本轮现有字段穷尽审计结论：
+  - store: `traffic_source / country_source / quick_reply_rate` 仍未在 current official mainline 中出现
+  - product: `access_source / inquiry_source / country_source / period_over_period_change` 仍未在 current official mainline 中出现
+  - order: `country_structure` 仍未在 current public route 中成立
+- legacy seller page 报告补充证据：
+  - 仓内仍可看到 `traffic_source / country_source / quick_reply_rate / country_structure`
+  - 但这不属于当前 official `/sync` 主线，因此本轮不接入 live routes
+- 本轮没有新增候选方法 runtime 验证
+- 本轮没有扩 live routes
+- 当前仍不是 task 1 complete
+- 当前仍不是 task 2 complete
+- 当前仍不是完整经营驾驶舱
+
 
 
 

@@ -222,3 +222,29 @@
 - 不是 task 1 complete
 - 不是 task 2 complete
 - 不是完整经营驾驶舱
+
+## 2026-04-11 Stage 25 Gap Compression Round 2 Update
+
+### 本轮没有新增候选方法
+- 本轮新增候选方法：无
+- 原因：
+  - 现有 current official mainline 审计后，没有出现必须立即新增 runtime 验证的官方入口
+  - 仓内既有 doc-found only 候选仍缺 doc URL 与稳定参数契约
+
+### 既有 doc-found only 候选保持不变
+- `alibaba.seller.trade.decode`
+- `alibaba.mydata.self.keyword.date.get`
+- `alibaba.mydata.self.keyword.effect.week.get`
+- `alibaba.mydata.self.keyword.effect.month.get`
+- `alibaba.mydata.industry.keyword.get`
+- `alibaba.mydata.seller.opendata.getconkeyword`
+
+### 本轮 runtime 结论
+- 本轮没有新增 runtime 候选验证
+- 上述既有候选统一继续保持：
+  - `DOC_FOUND_NOT_TESTED`
+
+### 重要边界
+- 仓内 legacy seller page / page-request 报告里虽然见到 `traffic_source / country_source / quick_reply_rate / country_structure`
+- 但这不等于当前 official `/sync` 主线已覆盖
+- 因此本轮不把这些 legacy 字段写成“当前官方入口已确认”

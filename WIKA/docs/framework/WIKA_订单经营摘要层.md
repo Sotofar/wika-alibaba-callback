@@ -64,3 +64,17 @@
 - WIKA-only thread
 - XD untouched in this round
 - not full business cockpit
+
+## 2026-04-11 Stage 25 Gap Compression Round 2 Delta
+
+### 本轮订单级结论
+- `formal_summary`：继续保持 `DERIVABLE_FROM_EXISTING_APIS`
+- `product_contribution`：继续保持 `DERIVABLE_FROM_EXISTING_APIS`
+- `trend_signal`：继续保持现有 derived 结论
+- `country_structure`：继续保持 unavailable
+
+### 为什么 `country_structure` 仍不能成立
+- current public `orders/detail` 只在 `available_field_keys` 中提示 `shipping_address`
+- public body 仍未直接暴露 `shipping_address.country` 或 `buyer.country` 实值
+- 仓内 legacy page-request 报告虽然见过国家分布，但不属于当前 official `/sync` 主线
+- 因此本轮不扩 `orders/management-summary` 与 `orders/minimal-diagnostic`

@@ -155,3 +155,21 @@
 - 当前没有足够的 doc URL + 参数契约落盘
 - 且它们不是本轮 store/product 剩余缺口的直接 route-level 证据入口
 
+## 2026-04-11 Stage 25 Gap Compression Round 2 Delta
+
+### 本轮新增候选
+- 无
+
+### 既有候选保持不变
+- `alibaba.seller.trade.decode`
+- `alibaba.icbu.product.type.available.get`
+- `alibaba.mydata.self.keyword.date.get`
+- `alibaba.mydata.self.keyword.effect.week.get`
+- `alibaba.mydata.self.keyword.effect.month.get`
+- `alibaba.mydata.industry.keyword.get`
+- `alibaba.mydata.seller.opendata.getconkeyword`
+
+### 本轮处理原则
+- 只要仓内仍缺 doc URL + 稳定参数契约，就继续保持 `DOC_FOUND_NOT_TESTED`
+- 不因为 legacy page-request 里见过同义字段，就绕回去做 undocumented runtime 探测
+
