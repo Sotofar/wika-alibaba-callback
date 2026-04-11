@@ -984,3 +984,36 @@
   - not full business cockpit
 
 
+### 阶段 22：WIKA 剩余经营维度缺口压缩（只读）
+
+- 隔离工作树：`D:\Code\阿里国际站__stage21_deploy`
+- 起始 commit：`01f229cd368d2ee51f2f41c3c3edcf5320a6a9d0`
+- 本阶段先复核 stage21 在线基线：
+  - `/health` -> `200`
+  - `/integrations/alibaba/auth/debug` -> `200 JSON`
+  - `/integrations/alibaba/wika/reports/operations/management-summary` -> `200 JSON`
+  - `/integrations/alibaba/wika/reports/products/management-summary` -> `200 JSON`
+- 本阶段字段穷尽审计结论：
+  - store: `traffic_source / country_source / quick_reply_rate` 仍未在现有 raw response 中出现
+  - product: `access_source / inquiry_source / country_source / period_over_period_change` 仍未在现有 raw response 中出现
+  - order:
+    - `formal_summary` -> `DERIVABLE_FROM_EXISTING_APIS`
+    - `product_contribution` -> `DERIVABLE_FROM_EXISTING_APIS`
+    - `country_structure` -> `NOT_DERIVABLE_CURRENTLY`
+- 订单级最小派生证明：
+  - 样本 `trade_id` 数：`3`
+  - `sampled_total_amount_sum=2445.2`
+  - `sampled_service_fee_sum=73.36`
+  - 已可做样本级产品贡献聚合
+- 本阶段新增沉淀：
+  - `scripts/validate-wika-stage22-gap-compression.js`
+  - `docs/framework/evidence/wika-stage22-gap-compression-summary.json`
+  - `docs/framework/evidence/wika-stage22-existing-field-exhaustion.json`
+  - `docs/framework/evidence/wika-stage22-candidate-method-matrix.json`
+  - `docs/framework/WIKA_剩余经营维度现有字段穷尽审计.md`
+- 本阶段没有新增候选方法 runtime 验证成功对象
+- 本阶段没有扩 live routes
+- 本阶段没有任何写动作
+- 当前仍不是 task 1 complete
+- 当前仍不是 task 2 complete
+- 当前仍不是完整经营驾驶舱

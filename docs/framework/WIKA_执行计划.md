@@ -170,3 +170,41 @@
 - 当前没有更新或推进任何 XD 结果
 
 
+## 2026-04-11 Stage 22 Gap Compression Update
+
+### 当前阶段
+- 阶段 22：WIKA 剩余经营维度缺口压缩（只读）
+
+### 本轮唯一目标
+- 先确认 stage21 在线基线没有回退
+- 先把现有 raw response / helper / route 输出做字段穷尽审计
+- 只在现有响应确实没有覆盖时，才继续保留候选方法
+- 如果没有新真实字段，就只更新矩阵、候选池、evidence 与文档，不扩 live routes
+
+### 已完成
+- stage21 在线基线回归通过：
+  - `/health`
+  - `/integrations/alibaba/auth/debug`
+  - `/integrations/alibaba/wika/reports/operations/management-summary`
+  - `/integrations/alibaba/wika/reports/products/management-summary`
+- 已完成现有字段穷尽审计：
+  - store: `traffic_source / country_source / quick_reply_rate` 仍未在 current response 中出现
+  - product: `access_source / inquiry_source / country_source / period_over_period_change` 仍未在 current response 中出现
+- 订单级缺口压缩：
+  - `formal_summary` -> `DERIVABLE_FROM_EXISTING_APIS`
+  - `product_contribution` -> `DERIVABLE_FROM_EXISTING_APIS`
+  - `country_structure` -> `NOT_DERIVABLE_CURRENTLY`
+- 已新增 stage22 evidence：
+  - `wika-stage22-gap-compression-summary.json`
+  - `wika-stage22-existing-field-exhaustion.json`
+  - `wika-stage22-candidate-method-matrix.json`
+  - `WIKA_剩余经营维度现有字段穷尽审计.md`
+
+### 本轮明确边界
+- 不新增 Alibaba API 探索
+- 不推进 XD
+- 不做任何写动作
+- 不扩 live routes
+- not task 1 complete
+- not task 2 complete
+- not full business cockpit

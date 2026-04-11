@@ -111,3 +111,34 @@
 - 本轮没有新增 Alibaba API 探索
 - 本轮只把已证实字段并入正式只读 route / diagnostic layer
 - not full business cockpit
+更新时间：2026-04-11
+
+## 2026-04-11 Stage 22 Gap Compression Delta
+
+### 本轮没有新增候选方法
+- 本轮优先完成“现有字段穷尽审计”
+- 因此没有把新的 method name 加入候选池
+- 只复核了仓内既有 doc-found only 候选
+
+### 订单级缺口收口后，候选池优先级变化
+- 不再把以下两个方向继续放在“高优先级需要新 API”的位置：
+  - 正式汇总
+  - 产品贡献
+- 原因：
+  - 这两个方向当前已可由现有 `orders/list + orders/detail + orders/fund` / `orders/detail.order_products` 保守派生
+- 当前订单级真正剩余的高优先级缺口只剩：
+  - 国家结构
+
+### 既有 doc-found only 候选保持不变
+- `alibaba.seller.trade.decode`
+- `alibaba.icbu.product.type.available.get`
+- `alibaba.mydata.self.keyword.date.get`
+- `alibaba.mydata.self.keyword.effect.week.get`
+- `alibaba.mydata.self.keyword.effect.month.get`
+- `alibaba.mydata.industry.keyword.get`
+- `alibaba.mydata.seller.opendata.getconkeyword`
+
+### 本轮不做 runtime 验证的原因
+- 仓内当前只有 doc-found 记录
+- 当前没有足够的 doc URL + 参数契约落盘
+- 且它们不是本轮 store/product 剩余缺口的直接 route-level 证据入口

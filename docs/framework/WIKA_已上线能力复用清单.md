@@ -79,3 +79,16 @@
   - not full business cockpit
 
 
+## 2026-04-11 Stage 22 Additions
+- 已新增可复用的 stage22 缺口压缩脚本：
+  - `scripts/validate-wika-stage22-gap-compression.js`
+- 当前已确认可以直接复用的订单派生链：
+  - `orders/list + orders/detail + orders/fund` -> 可做保守的 `formal_summary` 聚合
+  - `orders/detail.order_products` -> 可做样本级 `product_contribution` 聚合
+- 当前仍不能直接复用为国家结构的部分：
+  - `orders/detail.available_field_keys` 虽然出现 `shipping_address`
+  - 但 current public route 仍未暴露 `shipping_address.country` / `buyer.country` 实值
+- 本轮复用边界：
+  - 只收口缺口，不扩 live routes
+  - store/product management summary 保持 stage21 结构
+  - not full business cockpit

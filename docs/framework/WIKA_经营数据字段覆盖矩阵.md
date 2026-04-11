@@ -164,3 +164,25 @@
 - 当前轮次没有更新或推进任何 XD 结果
 
 
+## 2026-04-11 Stage 22 Gap Compression Delta
+
+### 店铺级剩余维度保持不变
+- `traffic_source` -> not found in current response
+- `country_source` -> not found in current response
+- `quick_reply_rate` -> not found in current response
+
+### 产品级剩余维度保持不变
+- `access_source` -> not found in current response
+- `inquiry_source` -> not found in current response
+- `country_source` -> not found in current response
+- `period_over_period_change` -> not found in current response
+
+### 订单级缺口压缩增量
+- `formal_summary` -> derived field from existing order APIs
+- `country_structure` -> not derivable currently
+- `product_contribution` -> derived field from existing order APIs
+
+### 订单级派生边界
+- `formal_summary` 当前只证明现有 `orders/list + orders/detail + orders/fund` 可做保守聚合
+- `product_contribution` 当前只证明现有 `orders/detail.order_products` 可做样本级贡献聚合
+- `country_structure` 当前仍缺 route-level country 实值，不得误写成已确认

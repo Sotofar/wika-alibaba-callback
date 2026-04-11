@@ -129,3 +129,28 @@
 - 本轮只处理 WIKA
 
 
+## 2026-04-11 Stage 22 Gap Compression Delta
+
+### 任务 1：读取平台数据
+- 当前保持“局部重开”状态，不新增 store/product live route 扩容
+- 店铺级 / 产品级仍未补齐：
+  - `traffic_source / country_source / quick_reply_rate`
+  - `access_source / inquiry_source / country_source / period_over_period_change`
+
+### 任务 2：经营诊断扩展
+- 本轮没有新增 store/product 真实字段，因此 `management-summary` 与 `minimal-diagnostic` 保持不扩容
+- 订单级缺口出现收口增量：
+  - `formal_summary` -> 已可由现有 `orders/list + orders/detail + orders/fund` 保守派生
+  - `product_contribution` -> 已可由现有 `orders/detail.order_products` 保守派生
+  - `country_structure` -> 仍未成立
+
+### 任务 5：订单草稿 / 交易创建
+- 当前 WIKA route-level 证据表明：
+  - `orders/list` 已能返回可复用 `trade_id`
+  - `orders/detail / fund / logistics` 已可在 current public route 层正常读取
+- 但这不等于平台内创单已成立，也不等于完整订单经营驾驶舱已成立
+
+### 当前边界
+- not task 1 complete
+- not task 2 complete
+- not full business cockpit

@@ -167,3 +167,30 @@
 - 当前仍然不是完整经营驾驶舱
 
 
+## 2026-04-11 Stage 22 Gap Compression Status
+
+### 本轮没有扩 live routes
+- `operations_management_summary` 保持 stage21 已部署结构，不新增字段
+- `products_management_summary` 保持 stage21 已部署结构，不新增字段
+- 原因：
+  - 本轮没有新增 store/product 真实字段
+  - 只完成了现有字段穷尽审计与订单级缺口压缩
+
+### stage22 之后的固定边界
+- store-level 仍缺：
+  - `traffic_source`
+  - `country_source`
+  - `quick_reply_rate`
+- product-level 仍缺：
+  - `access_source`
+  - `inquiry_source`
+  - `country_source`
+  - `period_over_period_change`
+- order-level 新增收口：
+  - `formal_summary` -> 可由现有只读订单链保守派生
+  - `product_contribution` -> 可由现有只读订单链保守派生
+  - `country_structure` -> 当前仍未暴露 route-level country 实值
+- 因此当前 management summary 层继续保持：
+  - store/product only
+  - no new live route fields in this round
+  - not full business cockpit

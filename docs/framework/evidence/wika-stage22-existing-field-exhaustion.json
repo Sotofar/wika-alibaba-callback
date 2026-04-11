@@ -1,0 +1,1215 @@
+{
+  "store_audit": [
+    {
+      "dimension": "traffic_source",
+      "layer": "store",
+      "raw_response_present": false,
+      "helper_hidden": false,
+      "route_exposed": false,
+      "derivable_from_existing_routes": false,
+      "classification": "NOT_DERIVABLE_CURRENTLY",
+      "evidence": [
+        "alibaba_mydata_overview_indicator_basic_get_post_grant.json extra_fields.source_related=[]",
+        "operations_management_summary.unavailable_dimensions 包含 traffic_source",
+        "operations_minimal_diagnostic.unavailable_dimensions_echo 继续标记 traffic_source"
+      ],
+      "unavailable_in_live_routes": true
+    },
+    {
+      "dimension": "country_source",
+      "layer": "store",
+      "raw_response_present": false,
+      "helper_hidden": false,
+      "route_exposed": false,
+      "derivable_from_existing_routes": false,
+      "classification": "NOT_DERIVABLE_CURRENTLY",
+      "evidence": [
+        "alibaba_mydata_overview_indicator_basic_get_post_grant.json extra_fields.country_related=[]",
+        "operations_management_summary.unavailable_dimensions 包含 country_source",
+        "operations_minimal_diagnostic.unavailable_dimensions_echo 继续标记 country_source"
+      ],
+      "unavailable_in_live_routes": true
+    },
+    {
+      "dimension": "quick_reply_rate",
+      "layer": "store",
+      "raw_response_present": false,
+      "helper_hidden": false,
+      "route_exposed": false,
+      "derivable_from_existing_routes": false,
+      "classification": "NOT_DERIVABLE_CURRENTLY",
+      "evidence": [
+        "alibaba_mydata_overview_indicator_basic_get_post_grant.json extra_fields.quick_reply_related=[]",
+        "operations_management_summary.unavailable_dimensions 包含 quick_reply_rate",
+        "operations_minimal_diagnostic.unavailable_dimensions_echo 继续标记 quick_reply_rate"
+      ],
+      "unavailable_in_live_routes": true
+    }
+  ],
+  "product_audit": [
+    {
+      "dimension": "access_source",
+      "layer": "product",
+      "raw_response_present": false,
+      "helper_hidden": false,
+      "route_exposed": false,
+      "derivable_from_existing_routes": false,
+      "classification": "NOT_DERIVABLE_CURRENTLY",
+      "evidence": [
+        "alibaba_mydata_self_product_get_post_grant.json extra_fields.source_related=[]",
+        "products_management_summary.unavailable_dimensions 包含 access_source",
+        "products_minimal_diagnostic.unavailable_dimensions_echo 继续标记 access_source"
+      ],
+      "unavailable_in_live_routes": true
+    },
+    {
+      "dimension": "inquiry_source",
+      "layer": "product",
+      "raw_response_present": false,
+      "helper_hidden": false,
+      "route_exposed": false,
+      "derivable_from_existing_routes": false,
+      "classification": "NOT_DERIVABLE_CURRENTLY",
+      "evidence": [
+        "当前 mydata product raw evidence 未出现 inquiry 同义字段",
+        "products_management_summary.unavailable_dimensions 包含 inquiry_source",
+        "products_minimal_diagnostic.unavailable_dimensions_echo 继续标记 inquiry_source"
+      ],
+      "unavailable_in_live_routes": true
+    },
+    {
+      "dimension": "country_source",
+      "layer": "product",
+      "raw_response_present": false,
+      "helper_hidden": false,
+      "route_exposed": false,
+      "derivable_from_existing_routes": false,
+      "classification": "NOT_DERIVABLE_CURRENTLY",
+      "evidence": [
+        "alibaba_mydata_self_product_get_post_grant.json extra_fields.country_related=[]",
+        "products_management_summary.unavailable_dimensions 包含 country_source",
+        "products_minimal_diagnostic.unavailable_dimensions_echo 继续标记 country_source"
+      ],
+      "unavailable_in_live_routes": true
+    },
+    {
+      "dimension": "period_over_period_change",
+      "layer": "product",
+      "raw_response_present": false,
+      "helper_hidden": false,
+      "route_exposed": false,
+      "derivable_from_existing_routes": false,
+      "classification": "NOT_DERIVABLE_CURRENTLY",
+      "evidence": [
+        "alibaba_mydata_self_product_get_post_grant.json extra_fields.trend_related=[]",
+        "products_management_summary.unavailable_dimensions 包含 period_over_period_change",
+        "products_minimal_diagnostic.unavailable_dimensions_echo 继续标记 period_over_period_change"
+      ],
+      "unavailable_in_live_routes": true
+    }
+  ],
+  "order_audit": [
+    {
+      "dimension": "formal_summary",
+      "layer": "order",
+      "raw_response_present": true,
+      "helper_hidden": false,
+      "route_exposed": true,
+      "derivable_from_existing_routes": true,
+      "classification": "DERIVABLE_FROM_EXISTING_APIS",
+      "evidence": [
+        "orders/list 提供可复用 trade_id + create_date",
+        "orders/detail 暴露 amount / product_total_amount / shipment_fee / trade_status",
+        "orders/fund 暴露 service_fee 与 fund_pay_list"
+      ]
+    },
+    {
+      "dimension": "country_structure",
+      "layer": "order",
+      "raw_response_present": false,
+      "helper_hidden": true,
+      "route_exposed": false,
+      "derivable_from_existing_routes": false,
+      "classification": "NOT_DERIVABLE_CURRENTLY",
+      "evidence": [
+        "orders/detail.available_field_keys 出现 shipping_address",
+        "当前 public route 未暴露 shipping_address.country 或 buyer.country 实值",
+        "因此现阶段不能把国家结构写成已可派生"
+      ]
+    },
+    {
+      "dimension": "product_contribution",
+      "layer": "order",
+      "raw_response_present": true,
+      "helper_hidden": false,
+      "route_exposed": true,
+      "derivable_from_existing_routes": true,
+      "classification": "DERIVABLE_FROM_EXISTING_APIS",
+      "evidence": [
+        "orders/detail 暴露 order_products[].product_id / quantity / unit_price",
+        "可在现有只读链上按 trade_id 聚合产品贡献"
+      ]
+    }
+  ],
+  "sampled_order_routes": {
+    "list": {
+      "ok": true,
+      "account": "wika",
+      "module": "orders",
+      "read_only": true,
+      "verification_status": "已验证可读",
+      "evidence_level": "L1",
+      "data_scope": "minimal_list",
+      "source": {
+        "type": "official_api",
+        "api_name": "alibaba.seller.order.list",
+        "endpoint_url": "https://open-api.alibaba.com/sync",
+        "auth_parameter": "access_token",
+        "sign_method": "sha256"
+      },
+      "request_meta": {
+        "role": "seller",
+        "start_page": 0,
+        "page_size": 5,
+        "status": null,
+        "sales_man_login_id": null
+      },
+      "response_meta": {
+        "total_count": 120,
+        "returned_item_count": 5,
+        "start_page": 0,
+        "page_size": 5,
+        "request_id": "0bb2a0f317758831583723509",
+        "trace_id": "2101d86517758831580112169e0df4",
+        "success": true
+      },
+      "verified_fields": [
+        "response_meta.total_count",
+        "response_meta.returned_item_count",
+        "response_meta.start_page",
+        "response_meta.page_size",
+        "items.trade_id",
+        "items.create_date.timestamp",
+        "items.create_date.format_date",
+        "items.modify_date.timestamp",
+        "items.modify_date.format_date"
+      ],
+      "warnings": [],
+      "raw_root_key": "alibaba_seller_order_list_response",
+      "items": [
+        {
+          "trade_id": "224***414",
+          "create_date": {
+            "timestamp": 1775812878000,
+            "format_date": "Apr. 10, 2026, 02:21:18 PDT."
+          },
+          "modify_date": {
+            "timestamp": 1775813767000,
+            "format_date": "Apr. 10, 2026, 02:36:07 PDT."
+          }
+        },
+        {
+          "trade_id": "224***599",
+          "create_date": {
+            "timestamp": 1775723623000,
+            "format_date": "Apr. 9, 2026, 01:33:43 PDT."
+          },
+          "modify_date": {
+            "timestamp": 1775723706000,
+            "format_date": "Apr. 9, 2026, 01:35:06 PDT."
+          }
+        },
+        {
+          "trade_id": "297***837",
+          "create_date": {
+            "timestamp": 1775543989000,
+            "format_date": "Apr. 6, 2026, 23:39:49 PDT."
+          },
+          "modify_date": {
+            "timestamp": 1775544129000,
+            "format_date": "Apr. 6, 2026, 23:42:09 PDT."
+          }
+        },
+        {
+          "trade_id": "218***554",
+          "create_date": {
+            "timestamp": 1775004580000,
+            "format_date": "Mar. 31, 2026, 17:49:40 PDT."
+          },
+          "modify_date": {
+            "timestamp": 1775405645000,
+            "format_date": "Apr. 5, 2026, 09:14:05 PDT."
+          }
+        },
+        {
+          "trade_id": "296***376",
+          "create_date": {
+            "timestamp": 1775004052000,
+            "format_date": "Mar. 31, 2026, 17:40:52 PDT."
+          },
+          "modify_date": {
+            "timestamp": 1775030525000,
+            "format_date": "Apr. 1, 2026, 01:02:05 PDT."
+          }
+        }
+      ]
+    },
+    "detail": [
+      {
+        "ok": true,
+        "account": "wika",
+        "module": "orders",
+        "read_only": true,
+        "verification_status": "已验证可读",
+        "evidence_level": "L1",
+        "data_scope": "minimal_detail",
+        "source": {
+          "type": "official_api",
+          "api_name": "alibaba.seller.order.get",
+          "endpoint_url": "https://open-api.alibaba.com/sync",
+          "auth_parameter": "access_token",
+          "sign_method": "sha256"
+        },
+        "request_meta": {
+          "e_trade_id": "224***414"
+        },
+        "response_meta": {
+          "request_id": "213f5a2117758831596576810",
+          "trace_id": "2101d86517758831593192196e0df4",
+          "e_trade_id": "224***414"
+        },
+        "verified_fields": [
+          "item.trade_id",
+          "item.create_date.timestamp",
+          "item.create_date.format_date",
+          "item.modify_date.timestamp",
+          "item.modify_date.format_date",
+          "item.trade_status",
+          "item.fulfillment_channel",
+          "item.shipment_method",
+          "item.shipment_date",
+          "item.buyer.full_name",
+          "item.buyer.immutable_eid",
+          "item.buyer.e_account_id",
+          "item.export_service_type",
+          "item.amount.amount",
+          "item.amount.currency",
+          "item.shipment_fee.amount",
+          "item.product_total_amount.amount",
+          "item.order_products"
+        ],
+        "warnings": [],
+        "raw_root_key": "alibaba_seller_order_get_response",
+        "item": {
+          "trade_id": "224***414",
+          "create_date": {
+            "timestamp": 1775812878000,
+            "format_date": "Apr. 10, 2026, 02:21:18 PDT."
+          },
+          "modify_date": {
+            "timestamp": 1775813767000,
+            "format_date": "Apr. 10, 2026, 02:36:07 PDT."
+          },
+          "trade_status": "undeliver",
+          "fulfillment_channel": "TAD",
+          "shipment_method": "multimodal_transport",
+          "shipment_date": {
+            "timestamp": null,
+            "format_date": null
+          },
+          "export_service_type": "self_run_service",
+          "buyer": {
+            "full_name": "Mir***ukh",
+            "immutable_eid": "1dO***Q==",
+            "e_account_id": "ID1***ho*"
+          },
+          "amount": {
+            "amount": "1293.7000",
+            "currency": "USD"
+          },
+          "product_total_amount": {
+            "amount": "897.50",
+            "currency": "USD"
+          },
+          "shipment_fee": {
+            "amount": "396.2000",
+            "currency": "USD"
+          },
+          "advance_amount": {
+            "amount": "1293.7000",
+            "currency": "USD"
+          },
+          "discount_amount": {
+            "amount": "0.0000",
+            "currency": "USD"
+          },
+          "product_count": 4,
+          "order_products": [
+            {
+              "product_id": "AAHPxslEAOVqtWWP0tWlIbrp",
+              "name": "Screen Printing 2oz 60ml Liquid Lens Spray Cleaner for Glasses Custom Print Microfiber Eyeglass Cloth Cleaning Kit",
+              "quantity": "1000.0000",
+              "unit": "Pieces",
+              "unit_price": {
+                "amount": "0.2700",
+                "currency": "USD"
+              },
+              "product_image": "***"
+            },
+            {
+              "product_id": "AAH7xslEAOVqtWWP0tWlM17f",
+              "name": "Custom 1oz 2oz Glasses Cleaner Eyewear Lens Spray Liquid Cleaning Cleaner Kit Eyeglass Lenses Cloth",
+              "quantity": "1000.0000",
+              "unit": "Pieces",
+              "unit_price": {
+                "amount": "0.4800",
+                "currency": "USD"
+              },
+              "product_image": "***"
+            },
+            {
+              "product_id": "AAHLxslEAOVqtWWP0tWl-_fO",
+              "name": "Custom Triangle Eyeglass Packaging Sunglasses Paper Box Folding Spectacle Cases for Glasses Packaging Set",
+              "quantity": "1000.0000",
+              "unit": "Pieces",
+              "unit_price": {
+                "amount": "0.1200",
+                "currency": "USD"
+              },
+              "product_image": "***"
+            },
+            {
+              "product_id": "AAHGxslEAOVqtWWP0tWrITjc",
+              "name": "Custom Logo Luxury Sunglasses Box Set Rigid Paper Box for Glasses Premium Spectacle Case Box 18*9cm Bag",
+              "quantity": "50.0000",
+              "unit": "Pieces",
+              "unit_price": {
+                "amount": "0.5500",
+                "currency": "USD"
+              },
+              "product_image": "***"
+            }
+          ],
+          "available_field_keys": [
+            "adjust_amount",
+            "advance_amount",
+            "balance_amount",
+            "biz_code",
+            "buyer",
+            "contract_version",
+            "create_date",
+            "discount_amount",
+            "dropshipping",
+            "export_service_type",
+            "fulfillment_channel",
+            "item_status",
+            "modify_date",
+            "order_products",
+            "product_total_amount",
+            "seller",
+            "semi_manage",
+            "shipment_date",
+            "shipment_fee",
+            "shipment_method"
+          ]
+        }
+      },
+      {
+        "ok": true,
+        "account": "wika",
+        "module": "orders",
+        "read_only": true,
+        "verification_status": "已验证可读",
+        "evidence_level": "L1",
+        "data_scope": "minimal_detail",
+        "source": {
+          "type": "official_api",
+          "api_name": "alibaba.seller.order.get",
+          "endpoint_url": "https://open-api.alibaba.com/sync",
+          "auth_parameter": "access_token",
+          "sign_method": "sha256"
+        },
+        "request_meta": {
+          "e_trade_id": "224***599"
+        },
+        "response_meta": {
+          "request_id": "213d4e4917758831648754017",
+          "trace_id": "2101d86517758831645212271e0df4",
+          "e_trade_id": "224***599"
+        },
+        "verified_fields": [
+          "item.trade_id",
+          "item.create_date.timestamp",
+          "item.create_date.format_date",
+          "item.modify_date.timestamp",
+          "item.modify_date.format_date",
+          "item.trade_status",
+          "item.fulfillment_channel",
+          "item.shipment_method",
+          "item.shipment_date",
+          "item.buyer.full_name",
+          "item.buyer.immutable_eid",
+          "item.buyer.e_account_id",
+          "item.export_service_type",
+          "item.amount.amount",
+          "item.amount.currency",
+          "item.shipment_fee.amount",
+          "item.product_total_amount.amount",
+          "item.order_products"
+        ],
+        "warnings": [],
+        "raw_root_key": "alibaba_seller_order_get_response",
+        "item": {
+          "trade_id": "224***599",
+          "create_date": {
+            "timestamp": 1775723623000,
+            "format_date": "Apr. 9, 2026, 01:33:43 PDT."
+          },
+          "modify_date": {
+            "timestamp": 1775723706000,
+            "format_date": "Apr. 9, 2026, 01:35:06 PDT."
+          },
+          "trade_status": "unpay",
+          "fulfillment_channel": "TAD",
+          "shipment_method": "express",
+          "shipment_date": {
+            "timestamp": null,
+            "format_date": null
+          },
+          "export_service_type": "self_run_service",
+          "buyer": {
+            "full_name": "Roi***tan",
+            "immutable_eid": "uJs***g==",
+            "e_account_id": "ID1***RA*"
+          },
+          "amount": {
+            "amount": "905.0000",
+            "currency": "USD"
+          },
+          "product_total_amount": {
+            "amount": "860.00",
+            "currency": "USD"
+          },
+          "shipment_fee": {
+            "amount": "45.0000",
+            "currency": "USD"
+          },
+          "advance_amount": {
+            "amount": "905.0000",
+            "currency": "USD"
+          },
+          "discount_amount": {
+            "amount": "0.0000",
+            "currency": "USD"
+          },
+          "product_count": 6,
+          "order_products": [
+            {
+              "product_id": "AAH-xslEAOVqtWWP0tWlnJBH",
+              "name": "Luxury Portable Soft Sunglasses case Storage Drawstring Custom Logo Sunglasses Pouch Bag Pu Bags",
+              "quantity": "400.0000",
+              "unit": "Pieces",
+              "unit_price": {
+                "amount": "0.4300",
+                "currency": "USD"
+              },
+              "product_image": "***"
+            },
+            {
+              "product_id": "AAESxslEAOVqtWWP0tWmSSUY",
+              "name": "Luxury Fashionable Portable Soft Sunglasses Case Storage Drawstring Custom Logo Protection Sunglasses Pouch Bag PU Bags",
+              "quantity": "400.0000",
+              "unit": "Pieces",
+              "unit_price": {
+                "amount": "0.4300",
+                "currency": "USD"
+              },
+              "product_image": "***"
+            },
+            {
+              "product_id": "AAHnxslEAOVqtWWP0tWmMUHp",
+              "name": "Custom Logo PU Leather Soft Sunglasses case Large Glasses Case Holder Eyeglass Pouch Squeeze Top Glasses Pouch",
+              "quantity": "300.0000",
+              "unit": "Pieces",
+              "unit_price": {
+                "amount": "0.4300",
+                "currency": "USD"
+              },
+              "product_image": "***"
+            },
+            {
+              "product_id": "AAHlxslEAOVqtWWP0tWlPCf3",
+              "name": "Lens Spray Cleaning Kit Cleaner Glasses Custom Logo Lens Cleaner Solution Sunglasses Liquid Cleaner With MSDS",
+              "quantity": "300.0000",
+              "unit": "Pieces",
+              "unit_price": {
+                "amount": "0.4300",
+                "currency": "USD"
+              },
+              "product_image": "***"
+            },
+            {
+              "product_id": "AAHJxslEAOVqtWWP0tWmDnC_",
+              "name": "PU Leather Glasses Pouch and Eyeglass Case Bag for Eyewear Protection Sunglasses Pouches  Protective Storage Packaging",
+              "quantity": "300.0000",
+              "unit": "Pieces",
+              "unit_price": {
+                "amount": "0.4300",
+                "currency": "USD"
+              },
+              "product_image": "***"
+            },
+            {
+              "product_id": "AAGxxslEAOVqtWWP0tWlZQ20",
+              "name": "Soft Eyewear Bag Leather Sunglasses Case With Top Squeeze Closure Travel Sun Glasses Pouch Portable Pu Soft Bag With Cloth",
+              "quantity": "300.0000",
+              "unit": "Pieces",
+              "unit_price": {
+                "amount": "0.4300",
+                "currency": "USD"
+              },
+              "product_image": "***"
+            }
+          ],
+          "available_field_keys": [
+            "adjust_amount",
+            "advance_amount",
+            "balance_amount",
+            "biz_code",
+            "buyer",
+            "contract_version",
+            "create_date",
+            "discount_amount",
+            "dropshipping",
+            "export_service_type",
+            "fulfillment_channel",
+            "item_status",
+            "modify_date",
+            "order_products",
+            "pay_step",
+            "product_total_amount",
+            "seller",
+            "semi_manage",
+            "shipment_date",
+            "shipment_fee"
+          ]
+        }
+      },
+      {
+        "ok": true,
+        "account": "wika",
+        "module": "orders",
+        "read_only": true,
+        "verification_status": "已验证可读",
+        "evidence_level": "L1",
+        "data_scope": "minimal_detail",
+        "source": {
+          "type": "official_api",
+          "api_name": "alibaba.seller.order.get",
+          "endpoint_url": "https://open-api.alibaba.com/sync",
+          "auth_parameter": "access_token",
+          "sign_method": "sha256"
+        },
+        "request_meta": {
+          "e_trade_id": "297***837"
+        },
+        "response_meta": {
+          "request_id": "213cf19c17758831698987863",
+          "trace_id": "2101d86517758831695472366e0df4",
+          "e_trade_id": "297***837"
+        },
+        "verified_fields": [
+          "item.trade_id",
+          "item.create_date.timestamp",
+          "item.create_date.format_date",
+          "item.modify_date.timestamp",
+          "item.modify_date.format_date",
+          "item.trade_status",
+          "item.fulfillment_channel",
+          "item.shipment_method",
+          "item.shipment_date",
+          "item.buyer.full_name",
+          "item.buyer.immutable_eid",
+          "item.buyer.e_account_id",
+          "item.export_service_type",
+          "item.amount.amount",
+          "item.amount.currency",
+          "item.shipment_fee.amount",
+          "item.product_total_amount.amount",
+          "item.order_products"
+        ],
+        "warnings": [],
+        "raw_root_key": "alibaba_seller_order_get_response",
+        "item": {
+          "trade_id": "297***837",
+          "create_date": {
+            "timestamp": 1775543989000,
+            "format_date": "Apr. 6, 2026, 23:39:49 PDT."
+          },
+          "modify_date": {
+            "timestamp": 1775544129000,
+            "format_date": "Apr. 6, 2026, 23:42:09 PDT."
+          },
+          "trade_status": "undeliver",
+          "fulfillment_channel": "TAD",
+          "shipment_method": "multimodal_transport",
+          "shipment_date": {
+            "timestamp": null,
+            "format_date": null
+          },
+          "export_service_type": "self_run_service",
+          "buyer": {
+            "full_name": "***",
+            "immutable_eid": "7dT***g==",
+            "e_account_id": "ID1***e4*"
+          },
+          "amount": {
+            "amount": "246.5000",
+            "currency": "USD"
+          },
+          "product_total_amount": {
+            "amount": "100.00",
+            "currency": "USD"
+          },
+          "shipment_fee": {
+            "amount": "146.5000",
+            "currency": "USD"
+          },
+          "advance_amount": {
+            "amount": "246.5000",
+            "currency": "USD"
+          },
+          "discount_amount": {
+            "amount": "0.0000",
+            "currency": "USD"
+          },
+          "product_count": 3,
+          "order_products": [
+            {
+              "product_id": "AAGIxslEAOVqtWWP0tWlICC9",
+              "name": "Beautiful Pu Leather Eyeglass Case Custom Logo Sunglasses Organizer Paper Packaging Box With Custom Logo for Glasses",
+              "quantity": "100.0000",
+              "unit": "Pieces",
+              "unit_price": {
+                "amount": "0.2000",
+                "currency": "USD"
+              },
+              "product_image": "***"
+            },
+            {
+              "product_id": "AAG4xslEAOVqtWWP0tWl_8_f",
+              "name": "Custom Travel Packaging Set Glasses Case Paper Box Sunglasses Custom Embossed Logo Eyeglasses With Pouch and Cloth",
+              "quantity": "100.0000",
+              "unit": "Pieces",
+              "unit_price": {
+                "amount": "0.5000",
+                "currency": "USD"
+              },
+              "product_image": "***"
+            },
+            {
+              "product_id": "AAEYxslEAOVqtWWP0tWl5Ttt",
+              "name": "Colorful Glasses Packaging Bags 18*9cm Soft Sunglasses case Microfiber Pouch Eyeglass Bag with logo Custom",
+              "quantity": "100.0000",
+              "unit": "Pieces",
+              "unit_price": {
+                "amount": "0.3000",
+                "currency": "USD"
+              },
+              "product_image": "***"
+            }
+          ],
+          "available_field_keys": [
+            "adjust_amount",
+            "advance_amount",
+            "balance_amount",
+            "biz_code",
+            "buyer",
+            "contract_version",
+            "create_date",
+            "discount_amount",
+            "dropshipping",
+            "export_service_type",
+            "fulfillment_channel",
+            "item_status",
+            "modify_date",
+            "order_products",
+            "product_total_amount",
+            "seller",
+            "semi_manage",
+            "shipment_date",
+            "shipment_fee",
+            "shipment_method"
+          ]
+        }
+      }
+    ],
+    "fund": [
+      {
+        "ok": true,
+        "account": "wika",
+        "module": "orders",
+        "read_only": true,
+        "verification_status": "已验证可读",
+        "evidence_level": "L1",
+        "data_scope": "raw_fund",
+        "source": {
+          "type": "official_api",
+          "api_name": "alibaba.seller.order.fund.get",
+          "endpoint_url": "https://open-api.alibaba.com/sync",
+          "auth_parameter": "access_token",
+          "sign_method": "sha256"
+        },
+        "request_meta": {
+          "e_trade_id": "224***414",
+          "data_select": "fund_serviceFee,fund_fundPay,fund_refund"
+        },
+        "response_meta": {
+          "request_id": "0b51802d17758831610012127",
+          "trace_id": "2101d86517758831606512219e0df4",
+          "value_field_keys": [
+            "fund_pay_list",
+            "service_fee"
+          ]
+        },
+        "verified_fields": [
+          "value.fund_pay_list",
+          "value.service_fee"
+        ],
+        "warnings": [
+          "原始路由，仅做最小清洗；不等于经营层 summary 聚合。"
+        ],
+        "raw_root_key": "alibaba_seller_order_fund_get_response",
+        "value": {
+          "fund_pay_list": {
+            "fund_pay": [
+              {
+                "pay_status": "FULFILLED",
+                "pay_amount": {
+                  "amount": "1293.70",
+                  "currency": "USD"
+                },
+                "pay_step": "ADVANCE",
+                "receive_time": {
+                  "timestamp": 1775813706000,
+                  "format_date": "Apr. 10, 2026, 02:35:06 PDT."
+                },
+                "fund_pay_detail_list": {
+                  "fund_pay_detail": [
+                    {
+                      "pay_status": "FULFILLED",
+                      "pay_amount": {
+                        "amount": "1117.57",
+                        "currency": "EUR"
+                      },
+                      "receive_time": {
+                        "timestamp": 1775813706000,
+                        "format_date": "Apr. 10, 2026, 02:35:06 PDT."
+                      },
+                      "receive_amount": {
+                        "amount": "1293.70",
+                        "currency": "USD"
+                      },
+                      "pay_method": "PAYPAL",
+                      "id": 1002654928626,
+                      "pay_time": {
+                        "timestamp": 1775813706000,
+                        "format_date": "Apr. 10, 2026, 02:35:06 PDT."
+                      }
+                    },
+                    {
+                      "pay_status": "CAPTURED",
+                      "receive_time": {
+                        "timestamp": 1775813705000,
+                        "format_date": "Apr. 10, 2026, 02:35:05 PDT."
+                      },
+                      "receive_amount": {
+                        "amount": "1293.70",
+                        "currency": "USD"
+                      },
+                      "pay_method": "PAYPAL",
+                      "id": 1002654928625,
+                      "pay_time": {
+                        "timestamp": 1775813705000,
+                        "format_date": "Apr. 10, 2026, 02:35:05 PDT."
+                      }
+                    },
+                    {
+                      "pay_status": "PAID",
+                      "receive_time": {
+                        "timestamp": 1775813700000,
+                        "format_date": "Apr. 10, 2026, 02:35:00 PDT."
+                      },
+                      "receive_amount": {
+                        "amount": "1293.70",
+                        "currency": "USD"
+                      },
+                      "pay_method": "PAYPAL",
+                      "id": 1002654942493,
+                      "pay_time": {
+                        "timestamp": 1775813700000,
+                        "format_date": "Apr. 10, 2026, 02:35:00 PDT."
+                      }
+                    }
+                  ]
+                },
+                "should_pay_amount": {
+                  "amount": "1293.70",
+                  "currency": "USD"
+                },
+                "receive_amount": {
+                  "amount": "1293.70",
+                  "currency": "USD"
+                },
+                "pay_method": "PAYPAL",
+                "pay_time": {
+                  "format_date": "Apr. 10, 2026, 02:35:05 PDT.",
+                  "timestamp": 1775813705000
+                }
+              }
+            ]
+          },
+          "service_fee": {
+            "amount": "38.81",
+            "currency": "USD"
+          }
+        }
+      },
+      {
+        "ok": true,
+        "account": "wika",
+        "module": "orders",
+        "read_only": true,
+        "verification_status": "已验证可读",
+        "evidence_level": "L1",
+        "data_scope": "raw_fund",
+        "source": {
+          "type": "official_api",
+          "api_name": "alibaba.seller.order.fund.get",
+          "endpoint_url": "https://open-api.alibaba.com/sync",
+          "auth_parameter": "access_token",
+          "sign_method": "sha256"
+        },
+        "request_meta": {
+          "e_trade_id": "224***599",
+          "data_select": "fund_serviceFee,fund_fundPay,fund_refund"
+        },
+        "response_meta": {
+          "request_id": "2105016d17758831663018033",
+          "trace_id": "2101d86517758831659212290e0df4",
+          "value_field_keys": [
+            "fund_pay_list",
+            "service_fee"
+          ]
+        },
+        "verified_fields": [
+          "value.fund_pay_list",
+          "value.service_fee"
+        ],
+        "warnings": [
+          "原始路由，仅做最小清洗；不等于经营层 summary 聚合。"
+        ],
+        "raw_root_key": "alibaba_seller_order_fund_get_response",
+        "value": {
+          "fund_pay_list": {
+            "fund_pay": [
+              {
+                "pay_status": "UNPAY",
+                "pay_step": "ADVANCE",
+                "fund_pay_detail_list": {},
+                "should_pay_amount": {
+                  "amount": "905.00",
+                  "currency": "USD"
+                }
+              }
+            ]
+          },
+          "service_fee": {
+            "amount": "27.15",
+            "currency": "USD"
+          }
+        }
+      },
+      {
+        "ok": true,
+        "account": "wika",
+        "module": "orders",
+        "read_only": true,
+        "verification_status": "已验证可读",
+        "evidence_level": "L1",
+        "data_scope": "raw_fund",
+        "source": {
+          "type": "official_api",
+          "api_name": "alibaba.seller.order.fund.get",
+          "endpoint_url": "https://open-api.alibaba.com/sync",
+          "auth_parameter": "access_token",
+          "sign_method": "sha256"
+        },
+        "request_meta": {
+          "e_trade_id": "297***837",
+          "data_select": "fund_serviceFee,fund_fundPay,fund_refund"
+        },
+        "response_meta": {
+          "request_id": "0b51f6a417758831712335665",
+          "trace_id": "2101d86517758831708792408e0df4",
+          "value_field_keys": [
+            "fund_pay_list",
+            "service_fee"
+          ]
+        },
+        "verified_fields": [
+          "value.fund_pay_list",
+          "value.service_fee"
+        ],
+        "warnings": [
+          "原始路由，仅做最小清洗；不等于经营层 summary 聚合。"
+        ],
+        "raw_root_key": "alibaba_seller_order_fund_get_response",
+        "value": {
+          "fund_pay_list": {
+            "fund_pay": [
+              {
+                "pay_status": "FULFILLED",
+                "pay_amount": {
+                  "amount": "246.50",
+                  "currency": "USD"
+                },
+                "pay_step": "ADVANCE",
+                "receive_time": {
+                  "timestamp": 1775544093000,
+                  "format_date": "Apr. 6, 2026, 23:41:33 PDT."
+                },
+                "fund_pay_detail_list": {
+                  "fund_pay_detail": [
+                    {
+                      "pay_status": "FULFILLED",
+                      "pay_amount": {
+                        "amount": "246.50",
+                        "currency": "USD"
+                      },
+                      "receive_time": {
+                        "timestamp": 1775544093000,
+                        "format_date": "Apr. 6, 2026, 23:41:33 PDT."
+                      },
+                      "receive_amount": {
+                        "amount": "246.50",
+                        "currency": "USD"
+                      },
+                      "pay_method": "PAYPAL_BNPL",
+                      "id": 100395070068,
+                      "pay_time": {
+                        "timestamp": 1775544093000,
+                        "format_date": "Apr. 6, 2026, 23:41:33 PDT."
+                      }
+                    },
+                    {
+                      "pay_status": "CAPTURED",
+                      "receive_time": {
+                        "timestamp": 1775544092000,
+                        "format_date": "Apr. 6, 2026, 23:41:32 PDT."
+                      },
+                      "receive_amount": {
+                        "amount": "246.50",
+                        "currency": "USD"
+                      },
+                      "pay_method": "PAYPAL_BNPL",
+                      "id": 100394968345,
+                      "pay_time": {
+                        "timestamp": 1775544092000,
+                        "format_date": "Apr. 6, 2026, 23:41:32 PDT."
+                      }
+                    },
+                    {
+                      "pay_status": "PAID",
+                      "receive_time": {
+                        "timestamp": 1775544089000,
+                        "format_date": "Apr. 6, 2026, 23:41:29 PDT."
+                      },
+                      "receive_amount": {
+                        "amount": "246.50",
+                        "currency": "USD"
+                      },
+                      "pay_method": "PAYPAL_BNPL",
+                      "id": 100395012092,
+                      "pay_time": {
+                        "timestamp": 1775544089000,
+                        "format_date": "Apr. 6, 2026, 23:41:29 PDT."
+                      }
+                    }
+                  ]
+                },
+                "should_pay_amount": {
+                  "amount": "246.50",
+                  "currency": "USD"
+                },
+                "receive_amount": {
+                  "amount": "246.50",
+                  "currency": "USD"
+                },
+                "pay_method": "PAYPAL_BNPL",
+                "pay_time": {
+                  "format_date": "Apr. 6, 2026, 23:41:32 PDT.",
+                  "timestamp": 1775544092000
+                }
+              }
+            ]
+          },
+          "service_fee": {
+            "amount": "7.40",
+            "currency": "USD"
+          }
+        }
+      }
+    ],
+    "logistics": [
+      {
+        "ok": true,
+        "account": "wika",
+        "module": "orders",
+        "read_only": true,
+        "verification_status": "已验证可读",
+        "evidence_level": "L1",
+        "data_scope": "raw_logistics",
+        "source": {
+          "type": "official_api",
+          "api_name": "alibaba.seller.order.logistics.get",
+          "endpoint_url": "https://open-api.alibaba.com/sync",
+          "auth_parameter": "access_token",
+          "sign_method": "sha256"
+        },
+        "request_meta": {
+          "e_trade_id": "224***414",
+          "data_select": "logistic_order"
+        },
+        "response_meta": {
+          "request_id": "212cbf3217758831628457696",
+          "trace_id": "2101d86517758831624662246e0df4",
+          "value_field_keys": [
+            "agreed_shipment_date",
+            "logistic_status",
+            "shipping_order_list"
+          ]
+        },
+        "verified_fields": [
+          "value.logistic_status",
+          "value.shipping_order_list"
+        ],
+        "warnings": [
+          "原始路由，仅做最小清洗；不等于经营层 summary 聚合。"
+        ],
+        "raw_root_key": "alibaba_seller_order_logistics_get_response",
+        "value": {
+          "logistic_status": "UNDELIVERED",
+          "shipping_order_list": {
+            "shippingorderlist": [
+              {
+                "goods": {}
+              }
+            ]
+          },
+          "agreed_shipment_date": {
+            "format_date": "May. 30, 2026, 23:59:59 PDT.",
+            "timestamp": 1780210799000
+          }
+        }
+      },
+      {
+        "ok": true,
+        "account": "wika",
+        "module": "orders",
+        "read_only": true,
+        "verification_status": "已验证可读",
+        "evidence_level": "L1",
+        "data_scope": "raw_logistics",
+        "source": {
+          "type": "official_api",
+          "api_name": "alibaba.seller.order.logistics.get",
+          "endpoint_url": "https://open-api.alibaba.com/sync",
+          "auth_parameter": "access_token",
+          "sign_method": "sha256"
+        },
+        "request_meta": {
+          "e_trade_id": "224***599",
+          "data_select": "logistic_order"
+        },
+        "response_meta": {
+          "request_id": "0b51f69917758831679834338",
+          "trace_id": "2101d86517758831676102322e0df4",
+          "value_field_keys": [
+            "logistic_status",
+            "shipping_order_list"
+          ]
+        },
+        "verified_fields": [
+          "value.logistic_status",
+          "value.shipping_order_list"
+        ],
+        "warnings": [
+          "原始路由，仅做最小清洗；不等于经营层 summary 聚合。"
+        ],
+        "raw_root_key": "alibaba_seller_order_logistics_get_response",
+        "value": {
+          "logistic_status": "UNDELIVERED",
+          "shipping_order_list": {
+            "shippingorderlist": [
+              {
+                "goods": {}
+              }
+            ]
+          }
+        }
+      },
+      {
+        "ok": true,
+        "account": "wika",
+        "module": "orders",
+        "read_only": true,
+        "verification_status": "已验证可读",
+        "evidence_level": "L1",
+        "data_scope": "raw_logistics",
+        "source": {
+          "type": "official_api",
+          "api_name": "alibaba.seller.order.logistics.get",
+          "endpoint_url": "https://open-api.alibaba.com/sync",
+          "auth_parameter": "access_token",
+          "sign_method": "sha256"
+        },
+        "request_meta": {
+          "e_trade_id": "297***837",
+          "data_select": "logistic_order"
+        },
+        "response_meta": {
+          "request_id": "213c4daa17758831728837954",
+          "trace_id": "2101d86517758831725292439e0df4",
+          "value_field_keys": [
+            "agreed_shipment_date",
+            "logistic_status",
+            "shipping_order_list"
+          ]
+        },
+        "verified_fields": [
+          "value.logistic_status",
+          "value.shipping_order_list"
+        ],
+        "warnings": [
+          "原始路由，仅做最小清洗；不等于经营层 summary 聚合。"
+        ],
+        "raw_root_key": "alibaba_seller_order_logistics_get_response",
+        "value": {
+          "logistic_status": "UNDELIVERED",
+          "shipping_order_list": {
+            "shippingorderlist": [
+              {
+                "goods": {}
+              }
+            ]
+          },
+          "agreed_shipment_date": {
+            "format_date": "May. 26, 2026, 23:59:59 PDT.",
+            "timestamp": 1779865199000
+          }
+        }
+      }
+    ]
+  }
+}

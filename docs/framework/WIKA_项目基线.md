@@ -271,3 +271,41 @@
 - 当前轮次没有更新或推进任何 XD 结果
 
 
+## 2026-04-11 Stage 22 Gap Compression Update
+
+### stage21 在线基线复核
+- 以下线上基线本轮再次确认通过：
+  - `/health`
+  - `/integrations/alibaba/auth/debug`
+  - `/integrations/alibaba/wika/reports/operations/management-summary`
+  - `/integrations/alibaba/wika/reports/products/management-summary`
+
+### 本轮没有新增店铺级 / 产品级真实字段
+- 店铺级剩余维度仍未在现有 raw response 中出现：
+  - `traffic_source`
+  - `country_source`
+  - `quick_reply_rate`
+- 产品级剩余维度仍未在现有 raw response 中出现：
+  - `access_source`
+  - `inquiry_source`
+  - `country_source`
+  - `period_over_period_change`
+- 因此本轮不扩 `operations / products management-summary` live routes
+
+### 订单级缺口压缩增量
+- `formal_summary`：
+  - 已可由现有 `orders/list + orders/detail + orders/fund` 只读链保守派生
+- `product_contribution`：
+  - 已可由现有 `orders/detail.order_products` 只读链保守派生
+- `country_structure`：
+  - 仍未成立
+  - 当前只看到 `orders/detail.available_field_keys` 中出现 `shipping_address`
+  - 但 current public route 没有暴露 `shipping_address.country` 或 `buyer.country` 实值
+
+### 当前固定边界
+- 本轮没有新增 Alibaba API 探索
+- 本轮没有任何写动作
+- 本轮只做 WIKA
+- not task 1 complete
+- not task 2 complete
+- not full business cockpit

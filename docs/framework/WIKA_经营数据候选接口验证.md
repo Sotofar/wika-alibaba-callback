@@ -184,3 +184,41 @@
 - 本轮没有做任何写侧动作
 - 本轮只处理 WIKA
 - 本轮没有更新或推进任何 XD 结果
+## 2026-04-11 Stage 22 Gap Compression Update
+
+### 当前状态
+- 本轮没有新增 Alibaba API runtime 验证成功对象
+- 本轮优先完成现有字段穷尽审计，而不是继续扩大候选方法测试面
+- 本轮没有推进 XD
+- 本轮没有任何写动作
+
+### 现有字段穷尽审计结论
+- store-level：
+  - `traffic_source / country_source / quick_reply_rate` 继续是 `NOT_DERIVABLE_CURRENTLY`
+  - 依据：`overview.indicator.basic.get` post-grant evidence 的 `extra_fields` 仍为空，live routes 继续显式列为 unavailable
+- product-level：
+  - `access_source / inquiry_source / country_source / period_over_period_change` 继续是 `NOT_DERIVABLE_CURRENTLY`
+  - 依据：`self.product.get` post-grant evidence 的 `extra_fields` 仍为空，live routes 继续显式列为 unavailable
+- order-level：
+  - `formal_summary` -> `DERIVABLE_FROM_EXISTING_APIS`
+  - `product_contribution` -> `DERIVABLE_FROM_EXISTING_APIS`
+  - `country_structure` -> `NOT_DERIVABLE_CURRENTLY`
+
+### 既有 doc-found 候选复核
+- 本轮没有新增候选方法
+- 仅复核仓内既有 doc-found 候选：
+  - `alibaba.seller.trade.decode`
+  - `alibaba.mydata.self.keyword.date.get`
+  - `alibaba.mydata.self.keyword.effect.week.get`
+  - `alibaba.mydata.self.keyword.effect.month.get`
+  - `alibaba.mydata.industry.keyword.get`
+  - `alibaba.mydata.seller.opendata.getconkeyword`
+- 上述对象当前统一保持：
+  - `DOC_FOUND_NOT_TESTED`
+  - 原因：仓内只有 doc-found 记录，当前没有足够的 doc URL + 参数契约落盘，不满足本轮安全 runtime 验证条件
+
+### 明确边界
+- 本轮主要是缺口收口，不扩 live routes
+- 不是 task 1 complete
+- 不是 task 2 complete
+- 不是完整经营驾驶舱

@@ -1,0 +1,113 @@
+{
+  "reviewed_existing_candidates": [
+    {
+      "method": "alibaba.seller.trade.decode",
+      "target_dimensions": [
+        "order_country_structure",
+        "order_identifier_contract"
+      ],
+      "doc_reference_path": "docs/framework/WIKA_下一批必须验证的API候选池.md",
+      "doc_url": null,
+      "parameter_contract": null,
+      "classification": "DOC_FOUND_NOT_TESTED",
+      "note": "仓内仅保留 doc-found 记录；当前 WIKA orders/list 已返回可复用 trade_id，本轮无需为剩余维度重开该方法。"
+    },
+    {
+      "method": "alibaba.mydata.self.keyword.date.get",
+      "target_dimensions": [
+        "product_keyword_window"
+      ],
+      "doc_reference_path": "docs/framework/WIKA_下一批必须验证的API候选池.md",
+      "doc_url": null,
+      "parameter_contract": null,
+      "classification": "DOC_FOUND_NOT_TESTED",
+      "note": "当前只在仓内保留 doc-found 记录，尚未形成可直接覆盖 access_source / inquiry_source / country_source / period_over_period_change 的参数契约。"
+    },
+    {
+      "method": "alibaba.mydata.self.keyword.effect.week.get",
+      "target_dimensions": [
+        "product_keyword_trend"
+      ],
+      "doc_reference_path": "docs/framework/WIKA_下一批必须验证的API候选池.md",
+      "doc_url": null,
+      "parameter_contract": null,
+      "classification": "DOC_FOUND_NOT_TESTED",
+      "note": "仓内已有 method 名记录，但当前没有落盘 doc URL 与稳定参数契约，本轮不做 runtime 验证。"
+    },
+    {
+      "method": "alibaba.mydata.self.keyword.effect.month.get",
+      "target_dimensions": [
+        "product_keyword_trend"
+      ],
+      "doc_reference_path": "docs/framework/WIKA_下一批必须验证的API候选池.md",
+      "doc_url": null,
+      "parameter_contract": null,
+      "classification": "DOC_FOUND_NOT_TESTED",
+      "note": "仓内已有 method 名记录，但当前没有落盘 doc URL 与稳定参数契约，本轮不做 runtime 验证。"
+    },
+    {
+      "method": "alibaba.mydata.industry.keyword.get",
+      "target_dimensions": [
+        "industry_keyword_signal"
+      ],
+      "doc_reference_path": "docs/framework/WIKA_下一批必须验证的API候选池.md",
+      "doc_url": null,
+      "parameter_contract": null,
+      "classification": "DOC_FOUND_NOT_TESTED",
+      "note": "当前更像关键词/行业词补充方向，不是本轮剩余 store/product 缺口的直接证据入口。"
+    },
+    {
+      "method": "alibaba.mydata.seller.opendata.getconkeyword",
+      "target_dimensions": [
+        "seller_keyword_signal"
+      ],
+      "doc_reference_path": "docs/framework/WIKA_下一批必须验证的API候选池.md",
+      "doc_url": null,
+      "parameter_contract": null,
+      "classification": "DOC_FOUND_NOT_TESTED",
+      "note": "当前更像关键词补充方向，尚未形成覆盖剩余 source/country/change 维度的直接读取契约。"
+    }
+  ],
+  "dimension_outcomes": [
+    {
+      "dimension": "traffic_source",
+      "classification": "NOT_DERIVABLE_CURRENTLY"
+    },
+    {
+      "dimension": "country_source",
+      "classification": "NOT_DERIVABLE_CURRENTLY"
+    },
+    {
+      "dimension": "quick_reply_rate",
+      "classification": "NOT_DERIVABLE_CURRENTLY"
+    },
+    {
+      "dimension": "access_source",
+      "classification": "NOT_DERIVABLE_CURRENTLY"
+    },
+    {
+      "dimension": "inquiry_source",
+      "classification": "NOT_DERIVABLE_CURRENTLY"
+    },
+    {
+      "dimension": "country_source",
+      "classification": "NOT_DERIVABLE_CURRENTLY"
+    },
+    {
+      "dimension": "period_over_period_change",
+      "classification": "NOT_DERIVABLE_CURRENTLY"
+    },
+    {
+      "dimension": "formal_summary",
+      "classification": "DERIVABLE_FROM_EXISTING_APIS"
+    },
+    {
+      "dimension": "country_structure",
+      "classification": "NOT_DERIVABLE_CURRENTLY"
+    },
+    {
+      "dimension": "product_contribution",
+      "classification": "DERIVABLE_FROM_EXISTING_APIS"
+    }
+  ]
+}
