@@ -1,5 +1,32 @@
 # WIKA_经营数据候选接口验证
 
+## 2026-04-11 Stage 26 Doc Anchoring Update
+
+### 当前状态
+- 本轮先完成 stage25 push 与最小线上基线确认
+- 本轮没有新增 Alibaba API runtime 验证
+- 本轮没有推进 XD
+- 本轮没有任何写动作
+
+### direct candidate 收口
+- 本轮 direct candidate：无
+- 原因：当前没有候选同时满足：
+  - 官方文档 URL 明确
+  - 目标字段说明明确
+  - 参数契约明确
+  - 与当前剩余缺口直接相关
+
+### 已补官方 URL、但仍不进入 runtime 的背景候选
+- `alibaba.seller.trade.decode`
+- `alibaba.mydata.self.keyword.date.get`
+- `alibaba.mydata.self.keyword.effect.week.get`
+- `alibaba.mydata.self.keyword.effect.month.get`
+
+### 本轮结论
+- 当前只完成“官方文档定锚与验证前置包”
+- 本轮不扩 live routes
+- 本轮不新增真实字段
+
 ## 2026-04-10 Stage 21 Management Summary Layer Update
 
 ### 当前状态

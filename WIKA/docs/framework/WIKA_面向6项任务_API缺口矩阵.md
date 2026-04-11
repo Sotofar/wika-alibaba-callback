@@ -1,5 +1,25 @@
 ﻿# WIKA 面向 6 项任务 API 缺口矩阵
 
+## 2026-04-11 Stage 26 Doc Anchoring Delta
+
+### 任务 1：读取平台数据
+- 当前继续保持“局部重开”
+- 本轮没有新增 store / product / order 真实字段
+- 当前继续缺：
+  - `traffic_source / country_source / quick_reply_rate`
+  - `access_source / inquiry_source / country_source / period_over_period_change`
+  - `country_structure`
+
+### 任务 2：经营诊断扩展
+- 本轮没有新增可进入 `management-summary` / `minimal-diagnostic` 的真实字段
+- 因此 store / product / order live routes 本轮不扩容
+
+### 本轮边界
+- 本轮主要完成官方文档定锚与验证前置包
+- not task 1 complete
+- not task 2 complete
+- not full business cockpit
+
 ## 2026-04-11 Stage 23 Orders Derived Summary Delta
 
 ### 任务 2：经营诊断扩展

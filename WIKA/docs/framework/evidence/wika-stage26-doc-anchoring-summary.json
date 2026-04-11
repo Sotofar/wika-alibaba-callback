@@ -1,0 +1,66 @@
+{
+  "stage": "stage26_doc_anchoring_and_validation_preflight",
+  "generated_at": "2026-04-11T11:25:58.863Z",
+  "base_url": "https://api.wikapacking.com",
+  "stage25_pushed_commit": "c4e8848b89eeb71dad04899342c63b1ccf0436ed",
+  "baseline_routes": [
+    {
+      "route": "/health",
+      "status": 200,
+      "is_json": false
+    },
+    {
+      "route": "/integrations/alibaba/auth/debug",
+      "status": 200,
+      "is_json": true
+    },
+    {
+      "route": "/integrations/alibaba/wika/reports/operations/management-summary",
+      "status": 200,
+      "is_json": true
+    },
+    {
+      "route": "/integrations/alibaba/wika/reports/products/management-summary",
+      "status": 200,
+      "is_json": true
+    },
+    {
+      "route": "/integrations/alibaba/wika/reports/orders/management-summary",
+      "status": 200,
+      "is_json": true
+    }
+  ],
+  "remaining_gap_summary": {
+    "store": [
+      "traffic_source",
+      "country_source",
+      "quick_reply_rate"
+    ],
+    "product": [
+      "access_source",
+      "inquiry_source",
+      "country_source",
+      "period_over_period_change"
+    ],
+    "order": [
+      "country_structure"
+    ]
+  },
+  "direct_candidates": [],
+  "runtime_candidates_ready": [],
+  "runtime_performed": false,
+  "runtime_skip_reason": "当前 direct candidate 为空；现有 doc-found 候选虽可补到 doc_url，但仍缺目标字段说明与稳定参数契约，不满足 runtime 前置条件。",
+  "live_routes_expanded": false,
+  "stage25_existing_summary_reference": {
+    "summary_file": "WIKA/docs/framework/evidence/wika-stage25-gap-compression-summary.json",
+    "audit_file": "WIKA/docs/framework/evidence/wika-stage25-existing-field-exhaustion.json"
+  },
+  "boundary_statement": {
+    "not_task_1_complete": true,
+    "not_task_2_complete": true,
+    "no_write_action_attempted": true,
+    "wika_only_thread_for_business_work": true,
+    "xd_untouched_in_business_execution": true,
+    "not_full_business_cockpit": true
+  }
+}

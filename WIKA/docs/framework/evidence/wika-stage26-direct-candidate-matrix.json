@@ -1,0 +1,160 @@
+{
+  "dimension_matrix": [
+    {
+      "target_dimension": "traffic_source",
+      "current_status": "NOT_DERIVABLE_CURRENTLY",
+      "existing_route_coverage": "现有 live route 显式列为 unavailable",
+      "existing_helper_coverage": "当前 helper 未持有可安全暴露字段",
+      "existing_raw_response_coverage": "current official raw response 未出现相关字段",
+      "official_doc_candidate_methods": [],
+      "candidate_strength": "none",
+      "why_directly_relevant": "当前仓内没有官方 direct candidate 能直接指向店铺 traffic_source",
+      "runtime_test_ready": "no",
+      "why_not_ready": "未找到同时满足 doc URL、目标字段说明和参数契约的 direct candidate"
+    },
+    {
+      "target_dimension": "country_source",
+      "current_status": "NOT_DERIVABLE_CURRENTLY",
+      "existing_route_coverage": "现有 live route 显式列为 unavailable",
+      "existing_helper_coverage": "当前 helper 未持有可安全暴露字段",
+      "existing_raw_response_coverage": "current official raw response 未出现相关字段",
+      "official_doc_candidate_methods": [],
+      "candidate_strength": "none",
+      "why_directly_relevant": "当前仓内没有官方 direct candidate 能直接指向店铺 country_source",
+      "runtime_test_ready": "no",
+      "why_not_ready": "未找到同时满足 doc URL、目标字段说明和参数契约的 direct candidate"
+    },
+    {
+      "target_dimension": "quick_reply_rate",
+      "current_status": "NOT_DERIVABLE_CURRENTLY",
+      "existing_route_coverage": "现有 live route 显式列为 unavailable",
+      "existing_helper_coverage": "当前 helper 未持有可安全暴露字段",
+      "existing_raw_response_coverage": "current official raw response 未出现相关字段",
+      "official_doc_candidate_methods": [],
+      "candidate_strength": "none",
+      "why_directly_relevant": "当前仓内没有官方 direct candidate 能直接指向店铺 quick_reply_rate",
+      "runtime_test_ready": "no",
+      "why_not_ready": "未找到同时满足 doc URL、目标字段说明和参数契约的 direct candidate"
+    },
+    {
+      "target_dimension": "access_source",
+      "current_status": "NOT_DERIVABLE_CURRENTLY",
+      "existing_route_coverage": "现有 live route 显式列为 unavailable",
+      "existing_helper_coverage": "当前 helper 未持有可安全暴露字段",
+      "existing_raw_response_coverage": "current official raw response 未出现相关字段",
+      "official_doc_candidate_methods": [
+        "alibaba.mydata.self.keyword.date.get"
+      ],
+      "candidate_strength": "weak",
+      "why_directly_relevant": "现有 doc-found 里只有关键词时间窗口与 access_source 边界勉强相邻，但并不直达当前产品访问来源",
+      "runtime_test_ready": "no",
+      "why_not_ready": "候选更偏关键词窗口，不具备当前产品 access_source 的直接字段说明和稳定参数契约"
+    },
+    {
+      "target_dimension": "inquiry_source",
+      "current_status": "NOT_DERIVABLE_CURRENTLY",
+      "existing_route_coverage": "现有 live route 显式列为 unavailable",
+      "existing_helper_coverage": "当前 helper 未持有可安全暴露字段",
+      "existing_raw_response_coverage": "current official raw response 未出现相关字段",
+      "official_doc_candidate_methods": [],
+      "candidate_strength": "none",
+      "why_directly_relevant": "当前仓内没有官方 direct candidate 能直接指向产品 inquiry_source",
+      "runtime_test_ready": "no",
+      "why_not_ready": "未找到直接相关的官方文档方法"
+    },
+    {
+      "target_dimension": "country_source",
+      "current_status": "NOT_DERIVABLE_CURRENTLY",
+      "existing_route_coverage": "现有 live route 显式列为 unavailable",
+      "existing_helper_coverage": "当前 helper 未持有可安全暴露字段",
+      "existing_raw_response_coverage": "current official raw response 未出现相关字段",
+      "official_doc_candidate_methods": [],
+      "candidate_strength": "none",
+      "why_directly_relevant": "当前仓内没有官方 direct candidate 能直接指向产品 country_source",
+      "runtime_test_ready": "no",
+      "why_not_ready": "未找到直接相关的官方文档方法"
+    },
+    {
+      "target_dimension": "period_over_period_change",
+      "current_status": "NOT_DERIVABLE_CURRENTLY",
+      "existing_route_coverage": "现有 live route 显式列为 unavailable",
+      "existing_helper_coverage": "当前 helper 未持有可安全暴露字段",
+      "existing_raw_response_coverage": "current official raw response 未出现相关字段",
+      "official_doc_candidate_methods": [
+        "alibaba.mydata.self.keyword.effect.week.get",
+        "alibaba.mydata.self.keyword.effect.month.get"
+      ],
+      "candidate_strength": "weak",
+      "why_directly_relevant": "关键词周/月效果方法与“变化”语义接近，但不是当前产品 period_over_period_change 的直接字段入口",
+      "runtime_test_ready": "no",
+      "why_not_ready": "当前只有关键词效果方向的 doc-found 记录，缺少产品级变化字段的直接说明与稳定参数契约"
+    },
+    {
+      "target_dimension": "country_structure",
+      "current_status": "NOT_DERIVABLE_CURRENTLY",
+      "existing_route_coverage": "现有 live route 未暴露",
+      "existing_helper_coverage": "helper 或 route 内部提示存在相关字段，但 public 输出未暴露",
+      "existing_raw_response_coverage": "current official raw response 未出现相关字段",
+      "official_doc_candidate_methods": [
+        "alibaba.seller.trade.decode"
+      ],
+      "candidate_strength": "weak",
+      "why_directly_relevant": "trade.decode 只可能帮助 identifier contract，对国家结构不是直接报表入口",
+      "runtime_test_ready": "no",
+      "why_not_ready": "当前只拿到文档页面 URL，可证明候选存在，但不能证明它直接返回国家结构或具有安全可测契约"
+    }
+  ],
+  "direct_candidates": [],
+  "background_candidates": [
+    {
+      "method": "alibaba.seller.trade.decode",
+      "doc_url": "https://open.alibaba.com/doc/api.htm#/api?path=alibaba.seller.trade.decode&methodType=GET/POST",
+      "intended_dimensions": [
+        "country_structure"
+      ],
+      "direct_relevance": "weak",
+      "target_field_status": "文档页面 URL 可达，但当前仓内没有稳定字段说明摘录可证明直接返回国家结构",
+      "parameter_contract_status": "当前仓内没有稳定参数契约摘录，不能安全进入 runtime",
+      "doc_page_http_status": 200,
+      "reachable": true
+    },
+    {
+      "method": "alibaba.mydata.self.keyword.date.get",
+      "doc_url": "https://open.alibaba.com/doc/api.htm#/api?path=alibaba.mydata.self.keyword.date.get&methodType=GET/POST",
+      "intended_dimensions": [
+        "access_source"
+      ],
+      "direct_relevance": "weak",
+      "target_field_status": "更接近关键词时间窗口，不等于当前产品访问来源入口",
+      "parameter_contract_status": "当前仓内没有稳定参数契约摘录，不能安全进入 runtime",
+      "doc_page_http_status": 200,
+      "reachable": true
+    },
+    {
+      "method": "alibaba.mydata.self.keyword.effect.week.get",
+      "doc_url": "https://open.alibaba.com/doc/api.htm#/api?path=alibaba.mydata.self.keyword.effect.week.get&methodType=GET/POST",
+      "intended_dimensions": [
+        "period_over_period_change"
+      ],
+      "direct_relevance": "weak",
+      "target_field_status": "更接近关键词周效果，不等于当前产品近周期变化的直接官方字段",
+      "parameter_contract_status": "当前仓内没有稳定参数契约摘录，不能安全进入 runtime",
+      "doc_page_http_status": 200,
+      "reachable": true
+    },
+    {
+      "method": "alibaba.mydata.self.keyword.effect.month.get",
+      "doc_url": "https://open.alibaba.com/doc/api.htm#/api?path=alibaba.mydata.self.keyword.effect.month.get&methodType=GET/POST",
+      "intended_dimensions": [
+        "period_over_period_change"
+      ],
+      "direct_relevance": "weak",
+      "target_field_status": "更接近关键词月效果，不等于当前产品近周期变化的直接官方字段",
+      "parameter_contract_status": "当前仓内没有稳定参数契约摘录，不能安全进入 runtime",
+      "doc_page_http_status": 200,
+      "reachable": true
+    }
+  ],
+  "official_doc_anchor_complete_for_runtime": false,
+  "runtime_candidates_ready": []
+}

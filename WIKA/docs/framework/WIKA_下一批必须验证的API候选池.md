@@ -1,5 +1,34 @@
 ﻿# WIKA 下一批必须验证的 API 候选池
 
+## 2026-04-11 Stage 26 Doc Anchoring Delta
+
+### stage25 远端状态
+- `c4e8848b89eeb71dad04899342c63b1ccf0436ed` 已 push 到 `origin/main`
+
+### 本轮 direct candidate 结论
+- 当前 direct candidate：无
+- 原因：当前剩余缺口对应的候选里，没有对象同时满足：
+  - 官方文档 URL
+  - 目标字段说明
+  - 稳定参数契约
+  - 与当前缺口直接相关
+
+### 已补到官方 URL 的背景候选
+- `alibaba.seller.trade.decode`
+- `alibaba.mydata.self.keyword.date.get`
+- `alibaba.mydata.self.keyword.effect.week.get`
+- `alibaba.mydata.self.keyword.effect.month.get`
+
+### 当前继续排除为 direct candidate 的对象
+- `alibaba.icbu.product.type.available.get`
+  - 仍是官方存在的发品权限 / 配置类候选
+  - 但不直接对应当前 store/product/order 剩余维度
+  - 因此本轮不进入 direct candidate 清单
+
+### 本轮处理规则
+- 没有 direct candidate 满足 runtime 前置条件，因此本轮不做 runtime
+- 继续保留“高质量候选少量化”，不扩大候选数量
+
 ## 2026-04-11 Stage 23 Order Candidate Delta
 
 ### 本轮不再作为高优先级新 API 候选的方向

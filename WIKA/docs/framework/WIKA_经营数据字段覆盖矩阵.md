@@ -1,5 +1,24 @@
 ﻿# WIKA_经营数据字段覆盖矩阵
 
+## 2026-04-11 Stage 26 Doc Anchoring Delta
+
+### 本轮没有新增 confirmed 字段
+- 店铺级没有新增 confirmed official field：
+  - `traffic_source` 仍未成立
+  - `country_source` 仍未成立
+  - `quick_reply_rate` 仍未成立
+- 产品级没有新增 confirmed official field：
+  - `access_source` 仍未成立
+  - `inquiry_source` 仍未成立
+  - `country_source` 仍未成立
+  - `period_over_period_change` 仍未成立
+- 订单级没有新增 confirmed field：
+  - `country_structure` 仍 unavailable
+
+### 本轮结论
+- 本轮只完成官方文档定锚与验证前置包，不扩 live routes
+- 既有 `official / derived / unavailable` 三层边界保持不变
+
 ## 2026-04-11 Stage 23 Order Summary Deploy Delta
 
 ### 订单级新增 derived 字段暴露

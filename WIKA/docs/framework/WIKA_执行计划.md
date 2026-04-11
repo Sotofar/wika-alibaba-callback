@@ -1,5 +1,43 @@
 ﻿# WIKA_执行计划
 
+## 2026-04-11 Stage 26 官方文档定锚与验证前置包
+
+### 当前阶段
+- 阶段 26：官方文档定锚与验证前置包
+
+### 本轮唯一目标
+- 先把 stage25 本地结论 push 到 `origin/main`
+- 用最小线上基线确认 stage24 没有回退
+- 只围绕剩余缺口建立官方文档定锚、候选映射与 runtime 前置判断
+- 若 direct candidate 不完整，则停在文档定锚，不进入 runtime
+
+### 已完成
+- 已 push：
+  - `c4e8848b89eeb71dad04899342c63b1ccf0436ed -> origin/main`
+- 已完成最小线上基线确认：
+  - `/health`
+  - `/integrations/alibaba/auth/debug`
+  - `/integrations/alibaba/wika/reports/operations/management-summary`
+  - `/integrations/alibaba/wika/reports/products/management-summary`
+  - `/integrations/alibaba/wika/reports/orders/management-summary`
+- 已新增 stage26 沉淀：
+  - `WIKA/scripts/validate-wika-stage26-doc-anchoring.js`
+  - `WIKA/docs/framework/WIKA_阶段26_剩余缺口官方文档定锚.md`
+  - `WIKA/docs/framework/evidence/wika-stage26-doc-anchoring-summary.json`
+  - `WIKA/docs/framework/evidence/wika-stage26-direct-candidate-matrix.json`
+- 已确认：
+  - 当前 direct candidate 为空
+  - 背景 doc-found 候选虽已有 `doc_url`，但仍缺稳定字段说明与参数契约，不进入 runtime
+  - 本轮不扩 live routes
+
+### 本轮明确边界
+- 不新增 Alibaba API 探索
+- 不推进 XD
+- 不做任何写动作
+- not task 1 complete
+- not task 2 complete
+- not full business cockpit
+
 ## 2026-04-11 Stage 24 Final Lock Update
 
 ### 当前阶段

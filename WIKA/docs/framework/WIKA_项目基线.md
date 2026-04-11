@@ -1,5 +1,38 @@
 ﻿# WIKA_项目基线
 
+## 2026-04-11 Stage 26 Doc Anchoring Update
+
+### stage25 远端锁定
+- `c4e8848b89eeb71dad04899342c63b1ccf0436ed` 已 push 到 `origin/main`，stage25 第二轮缺口压缩结论已进入远端基线。
+
+### stage24 最小线上基线再次确认
+- `/health` -> `200`
+- `/integrations/alibaba/auth/debug` -> `200 + JSON`
+- `/integrations/alibaba/wika/reports/operations/management-summary` -> `200 + JSON`
+- `/integrations/alibaba/wika/reports/products/management-summary` -> `200 + JSON`
+- `/integrations/alibaba/wika/reports/orders/management-summary` -> `200 + JSON`
+
+### stage26 官方文档定锚结论
+- 本轮没有新增真实字段。
+- 本轮没有扩 live routes。
+- 当前 direct candidate：无。
+- 已补到官方文档 URL、但仍不满足 runtime 前置条件的背景候选：
+  - `alibaba.seller.trade.decode`
+  - `alibaba.mydata.self.keyword.date.get`
+  - `alibaba.mydata.self.keyword.effect.week.get`
+  - `alibaba.mydata.self.keyword.effect.month.get`
+- 当前收口：
+  - 继续停在“官方文档定锚与验证前置包完成”
+  - 不进入弱相关 runtime 验证
+
+### 当前固定边界
+- 店铺级仍缺：`traffic_source / country_source / quick_reply_rate`
+- 产品级仍缺：`access_source / inquiry_source / country_source / period_over_period_change`
+- 订单级仍缺：`country_structure`
+- not task 1 complete
+- not task 2 complete
+- not full business cockpit
+
 ## 2026-04-11 Stage 24 Deploy Lock Update
 
 ### stage24 远端锁定
