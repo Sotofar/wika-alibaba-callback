@@ -1,5 +1,44 @@
 ﻿# WIKA_项目基线
 
+## 2026-04-11 Stage 24 Deploy Lock Update
+
+### stage24 远端锁定
+- `a2f1f8f9ced7afafc12d1accaf67dcc59e88ca25` 已 push 到 `origin/main`，当前远端 main 已锁定 stage24 的目录重整、编码修复、路径修复与资产治理结果。
+- stage24 本轮没有新增业务功能、没有新增 Alibaba API 验证、没有任何写动作。
+
+### stage24 最小 production 回归
+- 基础健康：
+  - `/health` -> `200`
+  - `/integrations/alibaba/auth/debug` -> `200 + JSON`
+- WIKA 核心 summary / diagnostic：
+  - `/integrations/alibaba/wika/reports/operations/management-summary` -> `200 + JSON + PASS`
+  - `/integrations/alibaba/wika/reports/products/management-summary` -> `200 + JSON + PASS`
+  - `/integrations/alibaba/wika/reports/orders/management-summary` -> `200 + JSON + PASS`
+  - `/integrations/alibaba/wika/reports/operations/minimal-diagnostic` -> `200 + JSON + PASS`
+  - `/integrations/alibaba/wika/reports/products/minimal-diagnostic` -> `200 + JSON + PASS`
+  - `/integrations/alibaba/wika/reports/orders/minimal-diagnostic` -> `200 + JSON + PASS`
+- 可选 tools smoke：
+  - `/integrations/alibaba/wika/tools/reply-draft` -> `200 + JSON + PASS`
+  - `/integrations/alibaba/wika/tools/order-draft` -> `200 + JSON + PASS`
+
+### stage24 唯一运行时修正
+- stage24 首次 push 后出现统一 `502`
+- 根因已收口为目录迁移后 `WIKA/projects/wika/data/**` 指向 root `shared/` 的相对 import 少了一层
+- 已做最小只读安全修正：
+  - `WIKA/projects/wika/data/products/module.js`
+  - `WIKA/projects/wika/data/orders/module.js`
+  - `WIKA/projects/wika/data/overview/module.js`
+  - `WIKA/projects/wika/data/reports/management-summary.js`
+- 修正后 production route 已恢复，不涉及业务语义变化
+
+### 当前固定边界
+- WIKA 业务工作、文档、脚本、证据、规划材料继续只进入 `WIKA/`
+- XD 业务工作、文档、脚本、证据、规划材料继续只进入 `XD/`
+- truly shared / common 内容继续保留在根目录或 `shared/` / `src/` / `common/`
+- not task 1 complete
+- not task 2 complete
+- not full business cockpit
+
 ## 2026-04-11 Stage 23 Deploy Lock Update
 
 ### stage22 远端锁定

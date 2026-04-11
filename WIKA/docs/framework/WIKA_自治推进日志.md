@@ -1,5 +1,39 @@
 ﻿# WIKA 自治推进日志
 
+### 阶段 24：stage24 远端基线锁定
+
+- 起始 commit：`a41c044797e27b48dc132edbe63b0849b5b6ea57`
+- 本阶段目标：
+  - push stage24 本地候选提交链
+  - 以最小 production smoke 验证目录重整、编码修复、路径修复没有破坏现有 WIKA 线上能力
+- push：
+  - `a41c044797e27b48dc132edbe63b0849b5b6ea57 -> origin/main` 成功
+  - `a2f1f8f9ced7afafc12d1accaf67dcc59e88ca25 -> origin/main` 成功
+- 本阶段唯一运行时修正：
+  - stage24 首次 push 后出现统一 `502`
+  - 根因收口为 `WIKA/projects/wika/data/**` 指向 root `shared/` 的相对 import 少一层
+  - 已做最小只读安全修正并重新部署
+- production smoke 结果：
+  - `/health` -> `200`
+  - `/integrations/alibaba/auth/debug` -> `200 + JSON`
+  - `/integrations/alibaba/wika/reports/operations/management-summary` -> `200 + JSON + PASS`
+  - `/integrations/alibaba/wika/reports/products/management-summary` -> `200 + JSON + PASS`
+  - `/integrations/alibaba/wika/reports/orders/management-summary` -> `200 + JSON + PASS`
+  - `/integrations/alibaba/wika/reports/operations/minimal-diagnostic` -> `200 + JSON + PASS`
+  - `/integrations/alibaba/wika/reports/products/minimal-diagnostic` -> `200 + JSON + PASS`
+  - `/integrations/alibaba/wika/reports/orders/minimal-diagnostic` -> `200 + JSON + PASS`
+  - `/integrations/alibaba/wika/tools/reply-draft` -> `200 + JSON + PASS`
+  - `/integrations/alibaba/wika/tools/order-draft` -> `200 + JSON + PASS`
+- 本阶段新增沉淀：
+  - `WIKA/docs/framework/evidence/wika-stage24-post-deploy-summary.json`
+- 本阶段收口：
+  - stage24 已 push 并完成最小 post-deploy 验证
+  - WIKA/XD 目录边界已作为远端基线固定
+  - 当前仍不是 task 1 complete
+  - 当前仍不是 task 2 complete
+  - 当前仍不是完整经营驾驶舱
+  - 本阶段没有任何写动作
+
 ### 阶段 23：WIKA 订单经营摘要层与订单诊断扩展
 
 - 起始 commit：`19f55e9e99a5fa5b9383c8375c86c16b7fb14b05`

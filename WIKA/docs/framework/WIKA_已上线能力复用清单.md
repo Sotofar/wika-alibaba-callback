@@ -1,5 +1,20 @@
 ﻿# WIKA 已上线能力复用清单
 
+## 2026-04-11 Stage 24 Deploy Lock Additions
+- stage24 已 push 到 `origin/main`，目录重整、编码修复、路径修复与资产治理结果已锁定为远端基线。
+- stage24 首次 push 后的统一 `502` 已收口为目录迁移导致的 runtime import 层级问题，并已完成最小只读修正。
+- 经最小 production smoke 再确认，以下已上线 route 未因 stage24 回退：
+  - `/health`
+  - `/integrations/alibaba/auth/debug`
+  - `/integrations/alibaba/wika/reports/operations/management-summary`
+  - `/integrations/alibaba/wika/reports/products/management-summary`
+  - `/integrations/alibaba/wika/reports/orders/management-summary`
+  - `/integrations/alibaba/wika/reports/operations/minimal-diagnostic`
+  - `/integrations/alibaba/wika/reports/products/minimal-diagnostic`
+  - `/integrations/alibaba/wika/reports/orders/minimal-diagnostic`
+  - `/integrations/alibaba/wika/tools/reply-draft`
+  - `/integrations/alibaba/wika/tools/order-draft`
+
 ## 2026-04-11 Stage 23 Deploy Lock Additions
 - stage22 已正式 push 到 `origin/main`，当前远端 main 已锁定缺口压缩结论。
 - 已部署并可复用的订单 derived summary 资产：

@@ -1,5 +1,11 @@
 # WIKA 目录说明
 
+## 当前状态
+
+- stage24 已 push 并完成最小 post-deploy 验证。
+- WIKA 当前线上 summary / diagnostic / tools 路由未因目录重整而回退。
+- 今后 WIKA 的业务工作、文档、脚本、证据、规划材料继续只在 `WIKA/` 对应目录内推进。
+
 ## 目录用途
 
 - `WIKA/docs/framework/`

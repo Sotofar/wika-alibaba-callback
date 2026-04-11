@@ -1,0 +1,245 @@
+{
+  "stage": "stage24_post_deploy_lock",
+  "generated_at": "2026-04-11T10:33:56.339Z",
+  "deployed_commit": "a2f1f8f9ced7afafc12d1accaf67dcc59e88ca25",
+  "base_url": "https://api.wikapacking.com",
+  "routes": {
+    "health": {
+      "route": "/health",
+      "status": 200,
+      "is_json": false,
+      "elapsed_ms": 877,
+      "checks": {
+        "status_ok": true,
+        "text_ok": true
+      },
+      "sample": {
+        "text": "ok"
+      }
+    },
+    "auth_debug": {
+      "route": "/integrations/alibaba/auth/debug",
+      "status": 200,
+      "is_json": true,
+      "elapsed_ms": 622,
+      "checks": {
+        "wika_token_loaded": true,
+        "wika_startup_status": true
+      },
+      "sample": {
+        "wika_token_loaded": true,
+        "wika_startup_init_status": "refresh:startup_bootstrap"
+      }
+    },
+    "operations_management_summary": {
+      "route": "/integrations/alibaba/wika/reports/operations/management-summary",
+      "status": 200,
+      "is_json": true,
+      "elapsed_ms": 2561,
+      "checks": {
+        "report_name": true,
+        "official_metrics": true,
+        "derived_metrics": true,
+        "unavailable_dimensions": true,
+        "boundary_statement": true
+      },
+      "sample": {
+        "report_name": "operations_management_summary",
+        "unavailable_dimensions": [
+          "traffic_source",
+          "country_source",
+          "quick_reply_rate"
+        ],
+        "boundary_statement": {
+          "official_mydata_subset_only": true,
+          "not_full_store_dashboard": true,
+          "conservative_mapping_rules": [
+            "保留 official field names：visitor / imps / clk / clk_rate / fb / reply",
+            "UV ~= visitor（business-mapping pending）",
+            "使用 exposure / imps 表述，不直接写 PV confirmed",
+            "reply 仅按 reply-related metric / recent first-reply-rate 语境使用，不扩写成广义 response rate confirmed"
+          ]
+        }
+      }
+    },
+    "products_management_summary": {
+      "route": "/integrations/alibaba/wika/reports/products/management-summary",
+      "status": 200,
+      "is_json": true,
+      "elapsed_ms": 4876,
+      "checks": {
+        "report_name": true,
+        "sample_boundary": true,
+        "aggregate_official_metrics": true,
+        "unavailable_dimensions": true,
+        "boundary_statement": true
+      },
+      "sample": {
+        "report_name": "products_management_summary",
+        "product_scope_basis": "sample_from_products_list",
+        "product_scope_limit": 5,
+        "product_scope_truncated": true,
+        "product_ids_used_count": 5,
+        "unavailable_dimensions": [
+          "access_source",
+          "inquiry_source",
+          "country_source",
+          "period_over_period_change"
+        ]
+      }
+    },
+    "orders_management_summary": {
+      "route": "/integrations/alibaba/wika/reports/orders/management-summary",
+      "status": 200,
+      "is_json": true,
+      "elapsed_ms": 5587,
+      "checks": {
+        "report_name": true,
+        "formal_summary": true,
+        "product_contribution": true,
+        "trend_signal": true,
+        "unavailable_dimensions": true,
+        "boundary_statement": true
+      },
+      "sample": {
+        "report_name": "orders_management_summary",
+        "unavailable_dimensions": [
+          "country_structure"
+        ],
+        "boundary_statement": {
+          "derived_from_existing_order_apis_only": true,
+          "not_full_order_cockpit": true,
+          "country_structure_unavailable_currently": true,
+          "sample_or_window_based": true
+        }
+      }
+    },
+    "operations_minimal_diagnostic": {
+      "route": "/integrations/alibaba/wika/reports/operations/minimal-diagnostic",
+      "status": 200,
+      "is_json": true,
+      "elapsed_ms": 12909,
+      "checks": {
+        "traffic_performance_section": true,
+        "signal_interpretation": true,
+        "recommendation_block": true,
+        "unavailable_dimensions_echo": true,
+        "confidence_hints": true,
+        "layering": true
+      },
+      "sample": {
+        "keys": [
+          "status",
+          "source_route",
+          "date_range",
+          "industry",
+          "official_metrics",
+          "derived_metrics",
+          "traffic_signal_summary",
+          "inquiry_reply_signal_summary",
+          "basic_recommendations",
+          "obvious_anomaly_warnings",
+          "signal_interpretation",
+          "recommendation_block",
+          "unavailable_dimensions",
+          "unavailable_dimensions_echo",
+          "confidence_hints",
+          "boundary_statement"
+        ]
+      }
+    },
+    "products_minimal_diagnostic": {
+      "route": "/integrations/alibaba/wika/reports/products/minimal-diagnostic",
+      "status": 200,
+      "is_json": true,
+      "elapsed_ms": 6962,
+      "checks": {
+        "performance_section": true,
+        "ranking_interpretation": true,
+        "keyword_signal_takeaways": true,
+        "recommendation_block": true,
+        "unavailable_dimensions_echo": true,
+        "confidence_hints": true,
+        "layering": true
+      },
+      "sample": {
+        "keys": [
+          "status",
+          "source_route",
+          "statistics_type",
+          "stat_date",
+          "item_count",
+          "engagement_summary",
+          "ranking_preview",
+          "keyword_signal_hints",
+          "basic_recommendations",
+          "obvious_gap_warnings",
+          "ranking_interpretation",
+          "keyword_signal_takeaways",
+          "recommendation_block",
+          "unavailable_dimensions",
+          "unavailable_dimensions_echo",
+          "confidence_hints",
+          "boundary_statement"
+        ]
+      }
+    },
+    "orders_minimal_diagnostic": {
+      "route": "/integrations/alibaba/wika/reports/orders/minimal-diagnostic",
+      "status": 200,
+      "is_json": true,
+      "elapsed_ms": 9405,
+      "checks": {
+        "formal_summary_section": true,
+        "product_contribution_section": true,
+        "trend_signal_section": true,
+        "unavailable_dimensions_echo": true,
+        "recommendation_block": true,
+        "confidence_hints": true
+      },
+      "sample": {
+        "keys": [
+          "formal_summary_section",
+          "product_contribution_section",
+          "trend_signal_section",
+          "unavailable_dimensions_echo",
+          "recommendation_block",
+          "confidence_hints"
+        ]
+      }
+    }
+  },
+  "optional_tools": {
+    "executed": true,
+    "reply_draft": {
+      "route": "/integrations/alibaba/wika/tools/reply-draft",
+      "status": 200,
+      "is_json": true,
+      "checks": {
+        "workflow_profile": true,
+        "template_version": true,
+        "hard_blockers": true,
+        "reply_draft": true
+      },
+      "sample": {
+        "workflow_profile": "reply_minimal_handoff",
+        "template_version": "2026-04-05.sop-v1"
+      }
+    },
+    "order_draft": {
+      "route": "/integrations/alibaba/wika/tools/order-draft",
+      "status": 200,
+      "is_json": true,
+      "checks": {
+        "workflow_profile": true,
+        "template_version": true,
+        "required_manual_fields": true,
+        "order_draft_package": true
+      },
+      "sample": {
+        "workflow_profile": "order_minimal_handoff",
+        "template_version": "2026-04-05.sop-v1"
+      }
+    }
+  }
+}

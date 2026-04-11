@@ -1,5 +1,44 @@
 ﻿# WIKA_执行计划
 
+## 2026-04-11 Stage 24 Final Lock Update
+
+### 当前阶段
+- 阶段 24：stage24 远端基线锁定
+
+### 本轮唯一目标
+- 将 stage24 本地提交链 push 到 `origin/main`
+- 用最小 production smoke 确认目录重整、编码修复、路径修复没有破坏现有 WIKA 线上能力
+- 把 stage24 锁定为新的远端基线
+
+### 已完成
+- 已 push：
+  - `a41c044797e27b48dc132edbe63b0849b5b6ea57 -> origin/main`
+  - `a2f1f8f9ced7afafc12d1accaf67dcc59e88ca25 -> origin/main`
+- 已完成最小 production smoke：
+  - `/health`
+  - `/integrations/alibaba/auth/debug`
+  - `/integrations/alibaba/wika/reports/operations/management-summary`
+  - `/integrations/alibaba/wika/reports/products/management-summary`
+  - `/integrations/alibaba/wika/reports/orders/management-summary`
+  - `/integrations/alibaba/wika/reports/operations/minimal-diagnostic`
+  - `/integrations/alibaba/wika/reports/products/minimal-diagnostic`
+  - `/integrations/alibaba/wika/reports/orders/minimal-diagnostic`
+  - `/integrations/alibaba/wika/tools/reply-draft`
+  - `/integrations/alibaba/wika/tools/order-draft`
+- 已完成最小只读安全修正：
+  - 修正 `WIKA/projects/wika/data/**` 到 root `shared/` 的相对 import 层级
+- 已新增 stage24 post-deploy evidence：
+  - `WIKA/docs/framework/evidence/wika-stage24-post-deploy-summary.json`
+
+### 本轮明确边界
+- 不新增 Alibaba API 探索
+- 不推进 XD 业务功能
+- 不做任何写动作
+- 不改业务语义
+- not task 1 complete
+- not task 2 complete
+- not full business cockpit
+
 ## 2026-04-11 Stage 23 Orders Summary Update
 
 ### 当前阶段
