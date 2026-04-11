@@ -92,6 +92,7 @@ export async function buildOrderWorkbench(
     boundary_statement: {
       external_order_draft_only: true,
       not_platform_order_create: true,
+      not_platform_internal_create: true,
       no_real_order_creation_attempted: true,
       task6_excluded: true
     }

@@ -35,6 +35,8 @@ export async function buildTaskWorkbench(clientConfig, query = {}, preloaded = {
       task3_safe_draft_only: true,
       task4_external_reply_only: true,
       task5_external_order_only: true,
+      task3_task4_task5_workbench_only: true,
+      not_platform_internal_execution: true,
       task6_excluded: true,
       no_write_action_attempted: true
     }

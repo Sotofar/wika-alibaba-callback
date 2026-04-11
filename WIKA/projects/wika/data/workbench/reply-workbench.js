@@ -85,6 +85,7 @@ export async function buildReplyWorkbench(
     boundary_statement: {
       external_reply_draft_only: true,
       not_platform_reply: true,
+      not_platform_internal_send: true,
       no_real_send_attempted: true,
       task6_excluded: true
     }
