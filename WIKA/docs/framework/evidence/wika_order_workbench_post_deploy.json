@@ -1,0 +1,228 @@
+{
+  "key": "order_workbench",
+  "path": "/integrations/alibaba/wika/workbench/order-workbench",
+  "method": "GET",
+  "status": 200,
+  "elapsed_ms": 10108,
+  "is_json": true,
+  "body_summary": {
+    "type": "object",
+    "keys": [
+      "ok",
+      "module",
+      "account",
+      "read_only",
+      "report_name",
+      "generated_at",
+      "workflow_capability",
+      "input_requirements",
+      "current_order_profiles",
+      "required_manual_field_system",
+      "handoff_pack_capability",
+      "quality_gate_summary",
+      "sample_availability",
+      "blocker_taxonomy_summary",
+      "boundary_statement"
+    ]
+  },
+  "sections": {
+    "workflow_capability": true,
+    "input_requirements": true,
+    "current_order_profiles": true,
+    "required_manual_field_system": true,
+    "handoff_pack_capability": true,
+    "quality_gate_summary": true,
+    "sample_availability": true,
+    "boundary_statement": true
+  },
+  "boundary": {
+    "present": true,
+    "external_order_draft_only": true,
+    "not_platform_internal_create": true
+  },
+  "sample": {
+    "ok": true,
+    "module": "task5_order_workbench",
+    "account": "***",
+    "read_only": true,
+    "report_name": "order_workbench",
+    "generated_at": "2026-04-11T15:41:11.832Z",
+    "workflow_capability": {
+      "workflow_type": "external_order_draft_package",
+      "external_only": true,
+      "platform_order_available": false,
+      "preview_route": "/integrations/alibaba/wika/tools/order-draft",
+      "template_version": "2026-04-05.sop-v1"
+    },
+    "input_requirements": {
+      "required_minimum_fields": [
+        "buyer.company_name",
+        "buyer.contact_name",
+        "buyer.email",
+        "line_items",
+        "shipment_plan.destination_country"
+      ],
+      "optional_fields": [
+        "payment_terms.total_amount",
+        "payment_terms.advance_amount",
+        "shipment_plan.lead_time_text",
+        "shipment_plan.trade_term",
+        "shipment_plan.shipment_method"
+      ],
+      "preview_mode": "POST body to /integrations/alibaba/wika/tools/order-draft"
+    },
+    "current_order_profiles": [
+      {
+        "code": "order_minimal_handoff",
+        "label": "Minimal order handoff",
+        "note": "Use when only the basic buyer data and a small amount of line-item context are available for an external order draft."
+      },
+      {
+        "code": "order_quote_confirmation_needed",
+        "label": "Quote confirmation order draft",
+        "note": "Use when line items are available, but price, total amount, and lead time still need human confirmation."
+      },
+      {
+        "code": "order_commercial_review",
+        "label": "Commercial review order draft",
+        "note": "Use when the main commercial fields are present, but manual review is still required before any downstream handoff."
+      }
+    ],
+    "required_manual_field_system": {
+      "required_manual_fields": [
+        "buyer.company_name",
+        "buyer.contact_name",
+        "buyer.email",
+        "line_items[].quantity",
+        "line_items[].unit_price",
+        "payment_terms.total_amount",
+        "payment_terms.advance_amount",
+        "shipment_plan.lead_time_text"
+      ],
+      "required_manual_field_details": [
+        {
+          "field": "buyer.company_name",
+          "template_section": "buyer_identity",
+          "why_required": "缺少买家公司主体，订单草稿无法交接给人工继续推进。",
+          "example_value": "ABC Trading LLC",
+          "collection_hint": "从客户签名、名片、邮箱域名或聊天记录中确认。",
+          "who_should_fill": "sales"
+        },
+        {
+          "field": "buyer.contact_name",
+          "template_section": "buyer_identity",
+          "why_required": "缺少联系人，人工回复和报价回传对象不明确。",
+          "example_value": "John Smith",
+          "collection_hint": "优先从询盘落款、邮箱签名或聊天记录获取。",
+          "who_should_fill": "sales"
+        },
+        {
+          "field": "buyer.email",
+          "template_section": "buyer_identity",
+          "why_required": "缺少正式联系邮箱，无法发送外部报价或订单草稿。",
+          "example_value": "***",
+          "collection_hint": "优先收集可正式回传文件的邮箱地址。",
+          "who_should_fill": "sales"
+        },
+        {
+          "field": "line_items[].quantity",
+          "template_section": "commercial_terms",
+          "why_required": "数量决定价格、交期和包装方案。",
+          "example_value": "1000",
+          "collection_hint": "确认正式采购量、MOQ 或打样数量。",
+          "who_should_fill": "sales"
+        },
+        {
+          "field": "line_items[].unit_price",
+          "template_section": "commercial_terms",
+          "why_required": "单价缺失会导致订单草稿无法形成有效报价包。",
+          "example_value": "0.65",
+          "collection_hint": "结合数量、材质、工艺和运费方案人工确认。",
+          "who_should_fill": "sales"
+        },
+        {
+          "field": "payment_terms.total_amount",
+          "template_section": "commercial_terms",
+          "why_required": "缺少总价，无法形成完整订单草稿包。",
+          "example_value": "650",
+          "collection_hint": "按行项目汇总或人工确认总报价。",
+          "who_should_fill": "sales"
+        },
+        {
+          "field": "payment_terms.advance_amount",
+          "template_section": "commercial_terms",
+          "why_required": "预付款安排影响付款条件和订单执行节奏。",
+          "example_value": "195",
+          "collection_hint": "确认定金比例或预付款金额。",
+          "who_should_fill": "sales"
+        },
+        {
+          "field": "shipment_plan.lead_time_text",
+          "template_section": "delivery_terms",
+          "why_required": "缺少交期会导致订单草稿无法形成明确承诺。",
+          "example_value": "25-30 days after artwork approval",
+          "collection_hint": "按打样、排产、出货阶段向业务或生产确认。",
+          "who_should_fill": "sales / production"
+        }
+      ]
+    },
+    "handoff_pack_capability": {
+      "handoff_checklist_available": true,
+      "handoff_fields_available": true,
+      "manual_completion_sop_available": true,
+      "export_formats": [
+        "json",
+        "markdown"
+      ]
+    },
+    "quality_gate_summary": {
+      "handoff_required": true,
+      "draft_usable_externally": false,
+      "alert_payload_available": true,
+      "follow_up_question_count": 10
+    },
+    "sample_availability": {
+      "order_diagnostic_snapshot_available": true,
+      "line_item_count": 0,
+      "draft_types": [
+        "TA"
+      ]
+    },
+    "blocker_taxonomy_summary": {
+      "preview_profile": "order_minimal_handoff",
+      "hard_blocker_codes": [
+        "missing_buyer_company",
+        "missing_buyer_contact",
+        "missing_buyer_email",
+        "missing_line_items",
+        "missing_total_amount",
+        "missing_lead_time"
+      ],
+      "soft_blocker_codes": [
+        "missing_advance_amount",
+        "missing_destination_country",
+        "missing_trade_term",
+        "missing_shipment_method"
+      ],
+      "missing_context": [
+        "buyer.company_name",
+        "buyer.contact_name",
+        "buyer.email",
+        "line_items",
+        "payment_terms.total_amount",
+        "shipment_plan.lead_time_text",
+        "payment_terms.advance_amount",
+        "shipment_plan.destination_country",
+        "shipment_plan.trade_term",
+        "shipment_plan.shipment_method"
+      ]
+    },
+    "boundary_statement": {
+      "external_order_draft_only": true,
+      "not_platform_order_create": true,
+      "not_platform_internal_create": true,
+      "no_real_order_creation_attempted": true,
+      "task6_excluded": true
+    }
+  }
+}

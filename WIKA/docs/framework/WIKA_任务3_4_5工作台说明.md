@@ -79,3 +79,21 @@
 - not task 5 complete
 - task 6 excluded
 - no write action attempted
+
+## 2026-04-11 Stage 28 Deploy Lock
+
+### deployed routes
+- `/integrations/alibaba/wika/workbench/product-draft-workbench`
+- `/integrations/alibaba/wika/workbench/reply-workbench`
+- `/integrations/alibaba/wika/workbench/order-workbench`
+- `/integrations/alibaba/wika/workbench/task-workbench`
+
+### production status
+- all four workbench routes passed production smoke with `200 + JSON`
+
+### fixed boundary
+- task3 stays safe draft preparation only
+- task4 stays external reply draft only
+- task5 stays external order draft only
+- task3/4/5 workbench is not platform-internal execution
+- task6 stays excluded

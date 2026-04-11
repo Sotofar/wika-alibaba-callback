@@ -1257,6 +1257,39 @@
   - `WIKA/docs/framework/evidence/wika_products_comparison_summary_post_deploy.json`
   - `WIKA/docs/framework/evidence/wika_orders_comparison_summary_post_deploy.json`
 
+## 2026-04-11 阶段 28 收口：统一经营驾驶舱与任务 3/4/5 工作台远端基线锁定
+
+### push
+- `d1dc79a04f29f0e682198c2a63f5974a7d678492 -> origin/main` 成功
+- `02e42c196c44e6ec57f8bf9f246ea7a284ecc1e5 -> origin/main` 成功
+
+### production smoke
+- `/health` -> `200`
+- `/integrations/alibaba/auth/debug` -> `200 + JSON`
+- `operations/products/orders management-summary` -> `200 + JSON`
+- `operations/products/orders minimal-diagnostic` -> `200 + JSON`
+- `operations/products/orders comparison-summary` -> `200 + JSON`
+- `/integrations/alibaba/wika/tools/reply-draft` -> `200 + JSON`
+- `/integrations/alibaba/wika/tools/order-draft` -> `200 + JSON`
+- `/integrations/alibaba/wika/reports/business-cockpit` -> `200 + JSON`
+- `/integrations/alibaba/wika/workbench/product-draft-workbench` -> `200 + JSON`
+- `/integrations/alibaba/wika/workbench/reply-workbench` -> `200 + JSON`
+- `/integrations/alibaba/wika/workbench/order-workbench` -> `200 + JSON`
+- `/integrations/alibaba/wika/workbench/task-workbench` -> `200 + JSON`
+
+### 结果
+- 本轮没有发生 runtime 回退
+- 本轮只补了 stage28 workbench boundary statement 的显式布尔位
+- `business-cockpit` 和 4 个 workbench route 均已在线可读
+- 继续保持：
+  - not task 1 complete
+  - not task 2 complete
+  - not task 3 complete
+  - not task 4 complete
+  - not task 5 complete
+  - task 6 excluded
+  - not full business cockpit
+
 
 
 

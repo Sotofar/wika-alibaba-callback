@@ -293,3 +293,23 @@
 - 它们当前可以增强“近周期变化 / 对比变化”的 derived 消费能力
 - 但这仍不等于补齐 official gap，也不等于完整经营驾驶舱
 
+## 2026-04-11 Stage 28 Deploy Delta
+
+### 任务 1 / 任务 2
+- `business-cockpit` 已部署，可统一消费 store/product/order 的 management summary、comparison、minimal diagnostic
+- 这提高了任务 1 / 2 的消费完整度，但不补 official gap
+- 因此 task 1 / task 2 继续保持“局部重开”，不写成 complete
+
+### 任务 3 / 任务 4 / 任务 5
+- 已部署 workbench routes：
+  - `/integrations/alibaba/wika/workbench/product-draft-workbench`
+  - `/integrations/alibaba/wika/workbench/reply-workbench`
+  - `/integrations/alibaba/wika/workbench/order-workbench`
+  - `/integrations/alibaba/wika/workbench/task-workbench`
+- 它们当前只属于 safe draft / external draft / handoff pack 的消费层
+- 因此 task 3 / task 4 / task 5 继续保持“局部重开”，不写成 complete
+
+### 任务 6
+- 本轮继续排除 task 6
+- 未推进 provider、真实送达、真实通知外发能力
+

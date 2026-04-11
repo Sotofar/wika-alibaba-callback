@@ -349,3 +349,16 @@
 - `period_over_period_change` 仍不能从 unavailable 改写为 confirmed official field
 - `country_structure` 仍 unavailable
 
+## 2026-04-11 Stage 28 Deploy Delta
+
+### 本轮矩阵变化
+- 本轮新增的是 cockpit/workbench consumption layer，不是新的 official field coverage
+- store/product/order 当前 confirmed official / derived coverage 不变
+- `business-cockpit` 只是把既有 `overview + comparison + diagnostic` 聚合到同一消费层
+- `task3/4/5 workbench` 只是把既有 safe draft / external draft workflow 聚合为工作台消费层
+
+### 本轮仍未改写的 unavailable 维度
+- 店铺级：`traffic_source / country_source / quick_reply_rate`
+- 产品级：`access_source / inquiry_source / country_source / period_over_period_change`
+- 订单级：`country_structure`
+

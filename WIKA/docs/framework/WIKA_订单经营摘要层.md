@@ -137,3 +137,21 @@
 - `country_structure` 继续在 `unavailable_dimensions` 中显式保留
 - `product_contribution_delta` 当前仍保留 `available=false`
 - 当前 route 继续只属于 derived / conservative / partial comparison
+
+## 2026-04-11 Stage 28 Cockpit Consumption Delta
+
+### cockpit 对订单层的复用
+- `/integrations/alibaba/wika/reports/business-cockpit` 已上线复用：
+  - `orders management-summary`
+  - `orders comparison-summary`
+  - `orders minimal-diagnostic`
+- 订单层在 cockpit 中仍继续按：
+  - existing official inputs
+  - existing derived order summary
+  - existing derived comparison
+  的消费口径整合
+
+### 订单层边界保持不变
+- `formal_summary / product_contribution / trend_signal` 继续是 derived
+- `country_structure` 继续 unavailable
+- cockpit 不把订单层包装成完整官方成交驾驶舱

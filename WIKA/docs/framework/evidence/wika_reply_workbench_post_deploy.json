@@ -1,0 +1,43 @@
+{
+  "key": "reply_workbench",
+  "path": "/integrations/alibaba/wika/workbench/reply-workbench",
+  "method": "GET",
+  "status": 502,
+  "elapsed_ms": 2682,
+  "is_json": true,
+  "body_summary": {
+    "type": "object",
+    "keys": [
+      "ok",
+      "error",
+      "error_category",
+      "top_error"
+    ]
+  },
+  "sections": {
+    "workflow_capability": false,
+    "input_requirements": false,
+    "current_reply_profiles": false,
+    "blocker_taxonomy_summary": false,
+    "handoff_pack_capability": false,
+    "quality_gate_summary": false,
+    "sample_availability": false,
+    "boundary_statement": false
+  },
+  "boundary": {
+    "present": true,
+    "external_reply_draft_only": false,
+    "not_platform_internal_send": false
+  },
+  "sample": {
+    "ok": false,
+    "error": "TOP API returned error_response",
+    "error_category": "platform_api_error",
+    "top_error": {
+      "code": "ApiCallLimit",
+      "sub_code": null,
+      "msg": "Api access frequency exceeds the limit. this ban will last 1 seconds",
+      "sub_msg": null
+    }
+  }
+}

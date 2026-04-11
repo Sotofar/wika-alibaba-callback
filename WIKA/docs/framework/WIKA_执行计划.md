@@ -450,5 +450,34 @@
   - 继续保持 `derived comparison layer`
   - 不写成 official new fields
 
+## 2026-04-11 Stage 28 Deploy Lock Delta
+
+### 本轮目标
+- 将 unified cockpit/workbench candidate push 到 `origin/main`
+- 做 stage28 production smoke
+- 将 stage28 锁定为新的远端正式基线
+
+### 已完成闸门
+- `stage28 wika cockpit and workbench layer` 已 push
+- `stage28 boundary statement followup` 已 push
+- 已完成 stage28 production smoke：
+  - `/health`
+  - `/integrations/alibaba/auth/debug`
+  - `operations/products/orders management-summary`
+  - `operations/products/orders minimal-diagnostic`
+  - `operations/products/orders comparison-summary`
+  - `/integrations/alibaba/wika/tools/reply-draft`
+  - `/integrations/alibaba/wika/tools/order-draft`
+  - `/integrations/alibaba/wika/reports/business-cockpit`
+  - `/integrations/alibaba/wika/workbench/product-draft-workbench`
+  - `/integrations/alibaba/wika/workbench/reply-workbench`
+  - `/integrations/alibaba/wika/workbench/order-workbench`
+  - `/integrations/alibaba/wika/workbench/task-workbench`
+
+### 当前状态
+- unified cockpit/workbench layer 已部署并 smoke 通过
+- task1/2/3/4/5 继续保持“局部重开 / 可消费层增强”，不写成完成
+- task6 继续排除，不推进真实通知 provider / delivery 能力
+
 
 

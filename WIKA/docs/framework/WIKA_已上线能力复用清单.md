@@ -142,4 +142,28 @@
   - 不把 legacy seller page 证据误报成 current official mainline 已成立
   - `country_structure` 继续保持 unavailable
 
+## 2026-04-11 Stage 28 Additions
+- 已新增可复用的 unified cockpit/workbench route：
+  - `/integrations/alibaba/wika/reports/business-cockpit`
+  - `/integrations/alibaba/wika/workbench/product-draft-workbench`
+  - `/integrations/alibaba/wika/workbench/reply-workbench`
+  - `/integrations/alibaba/wika/workbench/order-workbench`
+  - `/integrations/alibaba/wika/workbench/task-workbench`
+- 已新增可复用的 cockpit helper：
+  - `WIKA/projects/wika/data/cockpit/business-cockpit.js`
+  - `WIKA/projects/wika/data/cockpit/business-cockpit-normalizers.js`
+  - `WIKA/projects/wika/data/cockpit/cockpit-gaps.js`
+- 已新增可复用的 workbench helper：
+  - `WIKA/projects/wika/data/workbench/product-draft-workbench.js`
+  - `WIKA/projects/wika/data/workbench/reply-workbench.js`
+  - `WIKA/projects/wika/data/workbench/order-workbench.js`
+  - `WIKA/projects/wika/data/workbench/task-workbench.js`
+- 已新增可复用的 stage28 evidence：
+  - `WIKA/docs/framework/evidence/wika-stage28-post-deploy-summary.json`
+  - `WIKA/docs/framework/evidence/wika_business_cockpit_post_deploy.json`
+  - `WIKA/docs/framework/evidence/wika_product_draft_workbench_post_deploy.json`
+  - `WIKA/docs/framework/evidence/wika_reply_workbench_post_deploy.json`
+  - `WIKA/docs/framework/evidence/wika_order_workbench_post_deploy.json`
+  - `WIKA/docs/framework/evidence/wika_task_workbench_post_deploy.json`
+
 

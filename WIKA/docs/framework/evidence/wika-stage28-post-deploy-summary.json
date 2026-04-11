@@ -1,0 +1,265 @@
+{
+  "stage": "stage28_post_deploy",
+  "generated_at": "2026-04-11T15:41:22.687Z",
+  "base_url": "https://api.wikapacking.com",
+  "pushed_head": "02e42c196c44e6ec57f8bf9f246ea7a284ecc1e5",
+  "route_status": [
+    {
+      "key": "health",
+      "path": "/health",
+      "method": "GET",
+      "status": 200,
+      "is_json": false,
+      "elapsed_ms": 844
+    },
+    {
+      "key": "auth_debug",
+      "path": "/integrations/alibaba/auth/debug",
+      "method": "GET",
+      "status": 200,
+      "is_json": true,
+      "elapsed_ms": 671
+    },
+    {
+      "key": "operations_management_summary",
+      "path": "/integrations/alibaba/wika/reports/operations/management-summary",
+      "method": "GET",
+      "status": 200,
+      "is_json": true,
+      "elapsed_ms": 2279
+    },
+    {
+      "key": "products_management_summary",
+      "path": "/integrations/alibaba/wika/reports/products/management-summary",
+      "method": "GET",
+      "status": 200,
+      "is_json": true,
+      "elapsed_ms": 4712
+    },
+    {
+      "key": "orders_management_summary",
+      "path": "/integrations/alibaba/wika/reports/orders/management-summary",
+      "method": "GET",
+      "status": 200,
+      "is_json": true,
+      "elapsed_ms": 6181
+    },
+    {
+      "key": "operations_minimal_diagnostic",
+      "path": "/integrations/alibaba/wika/reports/operations/minimal-diagnostic",
+      "method": "GET",
+      "status": 200,
+      "is_json": true,
+      "elapsed_ms": 12088
+    },
+    {
+      "key": "products_minimal_diagnostic",
+      "path": "/integrations/alibaba/wika/reports/products/minimal-diagnostic",
+      "method": "GET",
+      "status": 200,
+      "is_json": true,
+      "elapsed_ms": 6482
+    },
+    {
+      "key": "orders_minimal_diagnostic",
+      "path": "/integrations/alibaba/wika/reports/orders/minimal-diagnostic",
+      "method": "GET",
+      "status": 200,
+      "is_json": true,
+      "elapsed_ms": 9359
+    },
+    {
+      "key": "operations_comparison_summary",
+      "path": "/integrations/alibaba/wika/reports/operations/comparison-summary",
+      "method": "GET",
+      "status": 200,
+      "is_json": true,
+      "elapsed_ms": 4055
+    },
+    {
+      "key": "products_comparison_summary",
+      "path": "/integrations/alibaba/wika/reports/products/comparison-summary",
+      "method": "GET",
+      "status": 200,
+      "is_json": true,
+      "elapsed_ms": 6484
+    },
+    {
+      "key": "orders_comparison_summary",
+      "path": "/integrations/alibaba/wika/reports/orders/comparison-summary",
+      "method": "GET",
+      "status": 200,
+      "is_json": true,
+      "elapsed_ms": 5583
+    },
+    {
+      "key": "reply_draft",
+      "path": "/integrations/alibaba/wika/tools/reply-draft",
+      "method": "POST",
+      "status": 200,
+      "is_json": true,
+      "elapsed_ms": 8438
+    },
+    {
+      "key": "order_draft",
+      "path": "/integrations/alibaba/wika/tools/order-draft",
+      "method": "POST",
+      "status": 200,
+      "is_json": true,
+      "elapsed_ms": 11501
+    },
+    {
+      "key": "business_cockpit",
+      "path": "/integrations/alibaba/wika/reports/business-cockpit",
+      "method": "GET",
+      "status": 200,
+      "is_json": true,
+      "elapsed_ms": 12144
+    },
+    {
+      "key": "product_draft_workbench",
+      "path": "/integrations/alibaba/wika/workbench/product-draft-workbench",
+      "method": "GET",
+      "status": 200,
+      "is_json": true,
+      "elapsed_ms": 4127
+    },
+    {
+      "key": "reply_workbench",
+      "path": "/integrations/alibaba/wika/workbench/reply-workbench",
+      "method": "GET",
+      "status": 502,
+      "is_json": true,
+      "elapsed_ms": 2682
+    },
+    {
+      "key": "order_workbench",
+      "path": "/integrations/alibaba/wika/workbench/order-workbench",
+      "method": "GET",
+      "status": 200,
+      "is_json": true,
+      "elapsed_ms": 10108
+    },
+    {
+      "key": "task_workbench",
+      "path": "/integrations/alibaba/wika/workbench/task-workbench",
+      "method": "GET",
+      "status": 200,
+      "is_json": true,
+      "elapsed_ms": 10036
+    }
+  ],
+  "business_cockpit": {
+    "status": 200,
+    "section_checks": {
+      "report_name": true,
+      "generated_at": true,
+      "store_overview": true,
+      "product_overview": true,
+      "order_overview": true,
+      "store_comparison": true,
+      "product_comparison": true,
+      "order_comparison": true,
+      "store_diagnostic": true,
+      "product_diagnostic": true,
+      "order_diagnostic": true,
+      "cross_section_gaps": true,
+      "task_coverage_summary": true,
+      "boundary_statement": true
+    },
+    "boundary_checks": {
+      "present": true,
+      "task6_excluded": true,
+      "not_full_business_cockpit": true,
+      "unavailable_count": 7
+    }
+  },
+  "workbench_routes": {
+    "product_draft_workbench": {
+      "status": 200,
+      "section_checks": {
+        "product_context": true,
+        "schema_context": true,
+        "media_context": true,
+        "draft_readiness": true,
+        "required_manual_fields": true,
+        "blocking_risks": true,
+        "recommended_next_action": true,
+        "boundary_statement": true
+      },
+      "boundary_checks": {
+        "present": true,
+        "safe_draft_preparation_only": true,
+        "not_platform_publish": true
+      }
+    },
+    "reply_workbench": {
+      "status": 502,
+      "section_checks": {
+        "workflow_capability": false,
+        "input_requirements": false,
+        "current_reply_profiles": false,
+        "blocker_taxonomy_summary": false,
+        "handoff_pack_capability": false,
+        "quality_gate_summary": false,
+        "sample_availability": false,
+        "boundary_statement": false
+      },
+      "boundary_checks": {
+        "present": true,
+        "external_reply_draft_only": false,
+        "not_platform_internal_send": false
+      }
+    },
+    "order_workbench": {
+      "status": 200,
+      "section_checks": {
+        "workflow_capability": true,
+        "input_requirements": true,
+        "current_order_profiles": true,
+        "required_manual_field_system": true,
+        "handoff_pack_capability": true,
+        "quality_gate_summary": true,
+        "sample_availability": true,
+        "boundary_statement": true
+      },
+      "boundary_checks": {
+        "present": true,
+        "external_order_draft_only": true,
+        "not_platform_internal_create": true
+      }
+    },
+    "task_workbench": {
+      "status": 200,
+      "section_checks": {
+        "task3_summary": true,
+        "task4_summary": true,
+        "task5_summary": true,
+        "shared_blockers": true,
+        "shared_handoff_rules": true,
+        "boundary_statement": true
+      },
+      "boundary_checks": {
+        "present": true,
+        "task3_task4_task5_workbench_only": true,
+        "not_platform_internal_execution": true
+      }
+    }
+  },
+  "baseline_regression_check": {
+    "management_summary_routes_200": true,
+    "minimal_diagnostic_routes_200": true,
+    "comparison_routes_200": true,
+    "tools_routes_200": true
+  },
+  "boundary_statement": {
+    "not_task_1_complete": true,
+    "not_task_2_complete": true,
+    "not_task_3_complete": true,
+    "not_task_4_complete": true,
+    "not_task_5_complete": true,
+    "task_6_excluded": true,
+    "no_write_action_attempted": true,
+    "not_full_business_cockpit": true
+  }
+}

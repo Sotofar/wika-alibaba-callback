@@ -296,4 +296,25 @@
   - `period_over_period_change`
 - comparison 继续只按 derived comparison 口径使用，不改写官方字段定义
 
+## 2026-04-11 Stage 28 Cockpit Consumption Delta
+
+### cockpit 对 mydata 层的复用
+- `/integrations/alibaba/wika/reports/business-cockpit` 已上线复用：
+  - `operations management-summary`
+  - `products management-summary`
+  - `operations comparison-summary`
+  - `products comparison-summary`
+  - `operations minimal-diagnostic`
+  - `products minimal-diagnostic`
+
+### 本轮没有新增 mydata official fields
+- cockpit 只统一消费现有 official inputs 与既有 derived comparison / diagnostic outputs
+- 本轮不改写：
+  - `traffic_source`
+  - `country_source`
+  - `quick_reply_rate`
+  - `access_source`
+  - `inquiry_source`
+  - `period_over_period_change`
+
 

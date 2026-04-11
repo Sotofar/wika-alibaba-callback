@@ -80,3 +80,18 @@
 - task 6 excluded
 - no write action attempted
 - not full business cockpit
+
+## 2026-04-11 Stage 28 Deploy Lock
+
+### deployed route
+- `/integrations/alibaba/wika/reports/business-cockpit`
+
+### production status
+- deployed to `origin/main`
+- production smoke: `200 + JSON + PASS`
+
+### fixed scope
+- unified cockpit/workbench consumption layer only
+- task coverage summary stays partial for task1~5
+- task6 stays excluded
+- no unavailable dimension is re-labeled as covered

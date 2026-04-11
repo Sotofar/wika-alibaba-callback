@@ -56,6 +56,46 @@
 - not task 2 complete
 - not full business cockpit
 
+## 2026-04-11 Stage 28 Deploy Lock Update
+
+### stage28 远端锁定
+- `d1dc79a04f29f0e682198c2a63f5974a7d678492` 已 push 到 `origin/main`
+- `02e42c196c44e6ec57f8bf9f246ea7a284ecc1e5` 已作为 stage28 边界修正 followup push 到 `origin/main`
+- stage28 当前已作为远端正式基线的一部分锁定
+
+### stage28 production smoke
+- 基础健康：
+  - `/health` -> `200`
+  - `/integrations/alibaba/auth/debug` -> `200 + JSON`
+- 既有基线 route：
+  - `operations/products/orders management-summary` -> `200 + JSON`
+  - `operations/products/orders minimal-diagnostic` -> `200 + JSON`
+  - `operations/products/orders comparison-summary` -> `200 + JSON`
+  - `/integrations/alibaba/wika/tools/reply-draft` -> `200 + JSON`
+  - `/integrations/alibaba/wika/tools/order-draft` -> `200 + JSON`
+- stage28 新增 route：
+  - `/integrations/alibaba/wika/reports/business-cockpit` -> `200 + JSON`
+  - `/integrations/alibaba/wika/workbench/product-draft-workbench` -> `200 + JSON`
+  - `/integrations/alibaba/wika/workbench/reply-workbench` -> `200 + JSON`
+  - `/integrations/alibaba/wika/workbench/order-workbench` -> `200 + JSON`
+  - `/integrations/alibaba/wika/workbench/task-workbench` -> `200 + JSON`
+
+### stage28 能力定位
+- `business-cockpit` 已部署，但只属于 unified cockpit/workbench consumption layer
+- task3/4/5 workbench 已部署，但仍停在 safe draft preparation / external draft workflow / handoff pack consumption
+- 本轮没有新增 official field
+- 本轮没有新增平台内写动作
+
+### stage28 固定边界
+- not task 1 complete
+- not task 2 complete
+- not task 3 complete
+- not task 4 complete
+- not task 5 complete
+- task 6 excluded
+- no write action attempted
+- not full business cockpit
+
 ## 2026-04-11 Stage 24 Deploy Lock Update
 
 ### stage24 远端锁定
