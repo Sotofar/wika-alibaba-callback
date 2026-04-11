@@ -1,273 +1,18 @@
-﻿{
+{
+  "evaluated_at": "2026-04-11T00:00:00.000Z",
   "stage": "stage22_gap_compression",
-  "generated_at": "2026-04-11T04:52:53.715Z",
-  "base_url": "https://api.wikapacking.com",
-  "baseline": {
-    "routes": {
-      "health": {
-        "route": "/health",
-        "status": 200
-      },
-      "auth_debug": {
-        "route": "/integrations/alibaba/auth/debug",
-        "status": 200
-      },
-      "operations_management_summary": {
-        "route": "/integrations/alibaba/wika/reports/operations/management-summary",
-        "status": 200
-      },
-      "products_management_summary": {
-        "route": "/integrations/alibaba/wika/reports/products/management-summary",
-        "status": 200
-      }
-    },
-    "checks": {
-      "health": true,
-      "auth_debug": true,
-      "operations_management_summary": true,
-      "products_management_summary": true
-    }
-  },
-  "existing_field_exhaustion": {
-    "store": [
-      {
-        "dimension": "traffic_source",
-        "layer": "store",
-        "raw_response_present": false,
-        "helper_hidden": false,
-        "route_exposed": false,
-        "derivable_from_existing_routes": false,
-        "classification": "NOT_DERIVABLE_CURRENTLY",
-        "evidence": [
-          "alibaba_mydata_overview_indicator_basic_get_post_grant.json extra_fields.source_related=[]",
-          "operations_management_summary.unavailable_dimensions 鍖呭惈 traffic_source",
-          "operations_minimal_diagnostic.unavailable_dimensions_echo 缁х画鏍囪 traffic_source"
-        ],
-        "unavailable_in_live_routes": true
-      },
-      {
-        "dimension": "country_source",
-        "layer": "store",
-        "raw_response_present": false,
-        "helper_hidden": false,
-        "route_exposed": false,
-        "derivable_from_existing_routes": false,
-        "classification": "NOT_DERIVABLE_CURRENTLY",
-        "evidence": [
-          "alibaba_mydata_overview_indicator_basic_get_post_grant.json extra_fields.country_related=[]",
-          "operations_management_summary.unavailable_dimensions 鍖呭惈 country_source",
-          "operations_minimal_diagnostic.unavailable_dimensions_echo 缁х画鏍囪 country_source"
-        ],
-        "unavailable_in_live_routes": true
-      },
-      {
-        "dimension": "quick_reply_rate",
-        "layer": "store",
-        "raw_response_present": false,
-        "helper_hidden": false,
-        "route_exposed": false,
-        "derivable_from_existing_routes": false,
-        "classification": "NOT_DERIVABLE_CURRENTLY",
-        "evidence": [
-          "alibaba_mydata_overview_indicator_basic_get_post_grant.json extra_fields.quick_reply_related=[]",
-          "operations_management_summary.unavailable_dimensions 鍖呭惈 quick_reply_rate",
-          "operations_minimal_diagnostic.unavailable_dimensions_echo 缁х画鏍囪 quick_reply_rate"
-        ],
-        "unavailable_in_live_routes": true
-      }
-    ],
-    "product": [
-      {
-        "dimension": "access_source",
-        "layer": "product",
-        "raw_response_present": false,
-        "helper_hidden": false,
-        "route_exposed": false,
-        "derivable_from_existing_routes": false,
-        "classification": "NOT_DERIVABLE_CURRENTLY",
-        "evidence": [
-          "alibaba_mydata_self_product_get_post_grant.json extra_fields.source_related=[]",
-          "products_management_summary.unavailable_dimensions 鍖呭惈 access_source",
-          "products_minimal_diagnostic.unavailable_dimensions_echo 缁х画鏍囪 access_source"
-        ],
-        "unavailable_in_live_routes": true
-      },
-      {
-        "dimension": "inquiry_source",
-        "layer": "product",
-        "raw_response_present": false,
-        "helper_hidden": false,
-        "route_exposed": false,
-        "derivable_from_existing_routes": false,
-        "classification": "NOT_DERIVABLE_CURRENTLY",
-        "evidence": [
-          "褰撳墠 mydata product raw evidence 鏈嚭鐜?inquiry 鍚屼箟瀛楁",
-          "products_management_summary.unavailable_dimensions 鍖呭惈 inquiry_source",
-          "products_minimal_diagnostic.unavailable_dimensions_echo 缁х画鏍囪 inquiry_source"
-        ],
-        "unavailable_in_live_routes": true
-      },
-      {
-        "dimension": "country_source",
-        "layer": "product",
-        "raw_response_present": false,
-        "helper_hidden": false,
-        "route_exposed": false,
-        "derivable_from_existing_routes": false,
-        "classification": "NOT_DERIVABLE_CURRENTLY",
-        "evidence": [
-          "alibaba_mydata_self_product_get_post_grant.json extra_fields.country_related=[]",
-          "products_management_summary.unavailable_dimensions 鍖呭惈 country_source",
-          "products_minimal_diagnostic.unavailable_dimensions_echo 缁х画鏍囪 country_source"
-        ],
-        "unavailable_in_live_routes": true
-      },
-      {
-        "dimension": "period_over_period_change",
-        "layer": "product",
-        "raw_response_present": false,
-        "helper_hidden": false,
-        "route_exposed": false,
-        "derivable_from_existing_routes": false,
-        "classification": "NOT_DERIVABLE_CURRENTLY",
-        "evidence": [
-          "alibaba_mydata_self_product_get_post_grant.json extra_fields.trend_related=[]",
-          "products_management_summary.unavailable_dimensions 鍖呭惈 period_over_period_change",
-          "products_minimal_diagnostic.unavailable_dimensions_echo 缁х画鏍囪 period_over_period_change"
-        ],
-        "unavailable_in_live_routes": true
-      }
-    ],
-    "order": [
-      {
-        "dimension": "formal_summary",
-        "layer": "order",
-        "raw_response_present": true,
-        "helper_hidden": false,
-        "route_exposed": true,
-        "derivable_from_existing_routes": true,
-        "classification": "DERIVABLE_FROM_EXISTING_APIS",
-        "evidence": [
-          "orders/list 鎻愪緵鍙鐢?trade_id + create_date",
-          "orders/detail 鏆撮湶 amount / product_total_amount / shipment_fee / trade_status",
-          "orders/fund 鏆撮湶 service_fee 涓?fund_pay_list"
-        ]
-      },
-      {
-        "dimension": "country_structure",
-        "layer": "order",
-        "raw_response_present": false,
-        "helper_hidden": true,
-        "route_exposed": false,
-        "derivable_from_existing_routes": false,
-        "classification": "NOT_DERIVABLE_CURRENTLY",
-        "evidence": [
-          "orders/detail.available_field_keys 鍑虹幇 shipping_address",
-          "褰撳墠 public route 鏈毚闇?shipping_address.country 鎴?buyer.country 瀹炲€?,
-          "鍥犳鐜伴樁娈典笉鑳芥妸鍥藉缁撴瀯鍐欐垚宸插彲娲剧敓"
-        ]
-      },
-      {
-        "dimension": "product_contribution",
-        "layer": "order",
-        "raw_response_present": true,
-        "helper_hidden": false,
-        "route_exposed": true,
-        "derivable_from_existing_routes": true,
-        "classification": "DERIVABLE_FROM_EXISTING_APIS",
-        "evidence": [
-          "orders/detail 鏆撮湶 order_products[].product_id / quantity / unit_price",
-          "鍙湪鐜版湁鍙閾句笂鎸?trade_id 鑱氬悎浜у搧璐＄尞"
-        ]
-      }
-    ]
-  },
-  "route_audit_scope": {
-    "operations_routes": [
-      "/integrations/alibaba/wika/reports/operations/traffic-summary",
-      "/integrations/alibaba/wika/reports/operations/management-summary",
-      "/integrations/alibaba/wika/reports/operations/minimal-diagnostic"
-    ],
-    "products_routes": [
-      "/integrations/alibaba/wika/reports/products/performance-summary",
-      "/integrations/alibaba/wika/reports/products/management-summary",
-      "/integrations/alibaba/wika/reports/products/minimal-diagnostic"
-    ],
-    "orders_routes": [
-      "/integrations/alibaba/wika/data/orders/list?page_size=5",
-      "/integrations/alibaba/wika/data/orders/detail",
-      "/integrations/alibaba/wika/data/orders/fund",
-      "/integrations/alibaba/wika/data/orders/logistics"
-    ]
-  },
+  "baseline_commit": "19f55e9e99a5fa5b9383c8375c86c16b7fb14b05",
+  "wika_only_thread": true,
+  "no_new_alibaba_api_exploration": true,
+  "no_write_action_attempted": true,
+  "existing_field_exhaustion_completed": true,
   "reviewed_existing_candidates": [
-    {
-      "method": "alibaba.seller.trade.decode",
-      "target_dimensions": [
-        "order_country_structure",
-        "order_identifier_contract"
-      ],
-      "doc_reference_path": "WIKA/docs/framework/WIKA_涓嬩竴鎵瑰繀椤婚獙璇佺殑API鍊欓€夋睜.md",
-      "doc_url": null,
-      "parameter_contract": null,
-      "classification": "DOC_FOUND_NOT_TESTED",
-      "note": "浠撳唴浠呬繚鐣?doc-found 璁板綍锛涘綋鍓?WIKA orders/list 宸茶繑鍥炲彲澶嶇敤 trade_id锛屾湰杞棤闇€涓哄墿浣欑淮搴﹂噸寮€璇ユ柟娉曘€?
-    },
-    {
-      "method": "alibaba.mydata.self.keyword.date.get",
-      "target_dimensions": [
-        "product_keyword_window"
-      ],
-      "doc_reference_path": "WIKA/docs/framework/WIKA_涓嬩竴鎵瑰繀椤婚獙璇佺殑API鍊欓€夋睜.md",
-      "doc_url": null,
-      "parameter_contract": null,
-      "classification": "DOC_FOUND_NOT_TESTED",
-      "note": "褰撳墠鍙湪浠撳唴淇濈暀 doc-found 璁板綍锛屽皻鏈舰鎴愬彲鐩存帴瑕嗙洊 access_source / inquiry_source / country_source / period_over_period_change 鐨勫弬鏁板绾︺€?
-    },
-    {
-      "method": "alibaba.mydata.self.keyword.effect.week.get",
-      "target_dimensions": [
-        "product_keyword_trend"
-      ],
-      "doc_reference_path": "WIKA/docs/framework/WIKA_涓嬩竴鎵瑰繀椤婚獙璇佺殑API鍊欓€夋睜.md",
-      "doc_url": null,
-      "parameter_contract": null,
-      "classification": "DOC_FOUND_NOT_TESTED",
-      "note": "浠撳唴宸叉湁 method 鍚嶈褰曪紝浣嗗綋鍓嶆病鏈夎惤鐩?doc URL 涓庣ǔ瀹氬弬鏁板绾︼紝鏈疆涓嶅仛 runtime 楠岃瘉銆?
-    },
-    {
-      "method": "alibaba.mydata.self.keyword.effect.month.get",
-      "target_dimensions": [
-        "product_keyword_trend"
-      ],
-      "doc_reference_path": "WIKA/docs/framework/WIKA_涓嬩竴鎵瑰繀椤婚獙璇佺殑API鍊欓€夋睜.md",
-      "doc_url": null,
-      "parameter_contract": null,
-      "classification": "DOC_FOUND_NOT_TESTED",
-      "note": "浠撳唴宸叉湁 method 鍚嶈褰曪紝浣嗗綋鍓嶆病鏈夎惤鐩?doc URL 涓庣ǔ瀹氬弬鏁板绾︼紝鏈疆涓嶅仛 runtime 楠岃瘉銆?
-    },
-    {
-      "method": "alibaba.mydata.industry.keyword.get",
-      "target_dimensions": [
-        "industry_keyword_signal"
-      ],
-      "doc_reference_path": "WIKA/docs/framework/WIKA_涓嬩竴鎵瑰繀椤婚獙璇佺殑API鍊欓€夋睜.md",
-      "doc_url": null,
-      "parameter_contract": null,
-      "classification": "DOC_FOUND_NOT_TESTED",
-      "note": "褰撳墠鏇村儚鍏抽敭璇?琛屼笟璇嶈ˉ鍏呮柟鍚戯紝涓嶆槸鏈疆鍓╀綑 store/product 缂哄彛鐨勭洿鎺ヨ瘉鎹叆鍙ｃ€?
-    },
-    {
-      "method": "alibaba.mydata.seller.opendata.getconkeyword",
-      "target_dimensions": [
-        "seller_keyword_signal"
-      ],
-      "doc_reference_path": "WIKA/docs/framework/WIKA_涓嬩竴鎵瑰繀椤婚獙璇佺殑API鍊欓€夋睜.md",
-      "doc_url": null,
-      "parameter_contract": null,
-      "classification": "DOC_FOUND_NOT_TESTED",
-      "note": "褰撳墠鏇村儚鍏抽敭璇嶈ˉ鍏呮柟鍚戯紝灏氭湭褰㈡垚瑕嗙洊鍓╀綑 source/country/change 缁村害鐨勭洿鎺ヨ鍙栧绾︺€?
-    }
+    "alibaba.seller.trade.decode",
+    "alibaba.mydata.self.keyword.date.get",
+    "alibaba.mydata.self.keyword.effect.week.get",
+    "alibaba.mydata.self.keyword.effect.month.get",
+    "alibaba.mydata.industry.keyword.get",
+    "alibaba.mydata.seller.opendata.getconkeyword"
   ],
   "new_candidate_methods": [],
   "new_confirmed_fields": [],
@@ -275,95 +20,41 @@
     {
       "dimension": "formal_summary",
       "classification": "DERIVABLE_FROM_EXISTING_APIS",
-      "proof": {
-        "sampled_trade_count": 5,
-        "sampled_trade_ids_count": 3,
-        "sampled_total_amount_sum": 2445.2,
-        "sampled_product_total_amount_sum": 1857.5,
-        "sampled_shipment_fee_sum": 587.7,
-        "sampled_service_fee_sum": 73.36,
-        "top_products_by_estimated_gmv": [
-          {
-            "product_id": "AAH7xslEAOVqtWWP0tWlM17f",
-            "product_name": "Custom 1oz 2oz Glasses Cleaner Eyewear Lens Spray Liquid Cleaning Cleaner Kit Eyeglass Lenses Cloth",
-            "quantity_sum": 1000,
-            "estimated_gmv_sum": 480
-          },
-          {
-            "product_id": "AAHPxslEAOVqtWWP0tWlIbrp",
-            "product_name": "Screen Printing 2oz 60ml Liquid Lens Spray Cleaner for Glasses Custom Print Microfiber Eyeglass Cloth Cleaning Kit",
-            "quantity_sum": 1000,
-            "estimated_gmv_sum": 270
-          },
-          {
-            "product_id": "AAH-xslEAOVqtWWP0tWlnJBH",
-            "product_name": "Luxury Portable Soft Sunglasses case Storage Drawstring Custom Logo Sunglasses Pouch Bag Pu Bags",
-            "quantity_sum": 400,
-            "estimated_gmv_sum": 172
-          },
-          {
-            "product_id": "AAESxslEAOVqtWWP0tWmSSUY",
-            "product_name": "Luxury Fashionable Portable Soft Sunglasses Case Storage Drawstring Custom Logo Protection Sunglasses Pouch Bag PU Bags",
-            "quantity_sum": 400,
-            "estimated_gmv_sum": 172
-          },
-          {
-            "product_id": "AAHnxslEAOVqtWWP0tWmMUHp",
-            "product_name": "Custom Logo PU Leather Soft Sunglasses case Large Glasses Case Holder Eyeglass Pouch Squeeze Top Glasses Pouch",
-            "quantity_sum": 300,
-            "estimated_gmv_sum": 129
-          }
-        ]
-      }
+      "basis": [
+        "/integrations/alibaba/wika/data/orders/list",
+        "/integrations/alibaba/wika/data/orders/detail",
+        "/integrations/alibaba/wika/data/orders/fund"
+      ]
     },
     {
       "dimension": "product_contribution",
       "classification": "DERIVABLE_FROM_EXISTING_APIS",
-      "proof": {
-        "sampled_trade_ids_count": 3,
-        "top_products_by_estimated_gmv": [
-          {
-            "product_id": "AAH7xslEAOVqtWWP0tWlM17f",
-            "product_name": "Custom 1oz 2oz Glasses Cleaner Eyewear Lens Spray Liquid Cleaning Cleaner Kit Eyeglass Lenses Cloth",
-            "quantity_sum": 1000,
-            "estimated_gmv_sum": 480
-          },
-          {
-            "product_id": "AAHPxslEAOVqtWWP0tWlIbrp",
-            "product_name": "Screen Printing 2oz 60ml Liquid Lens Spray Cleaner for Glasses Custom Print Microfiber Eyeglass Cloth Cleaning Kit",
-            "quantity_sum": 1000,
-            "estimated_gmv_sum": 270
-          },
-          {
-            "product_id": "AAH-xslEAOVqtWWP0tWlnJBH",
-            "product_name": "Luxury Portable Soft Sunglasses case Storage Drawstring Custom Logo Sunglasses Pouch Bag Pu Bags",
-            "quantity_sum": 400,
-            "estimated_gmv_sum": 172
-          },
-          {
-            "product_id": "AAESxslEAOVqtWWP0tWmSSUY",
-            "product_name": "Luxury Fashionable Portable Soft Sunglasses Case Storage Drawstring Custom Logo Protection Sunglasses Pouch Bag PU Bags",
-            "quantity_sum": 400,
-            "estimated_gmv_sum": 172
-          },
-          {
-            "product_id": "AAHnxslEAOVqtWWP0tWmMUHp",
-            "product_name": "Custom Logo PU Leather Soft Sunglasses case Large Glasses Case Holder Eyeglass Pouch Squeeze Top Glasses Pouch",
-            "quantity_sum": 300,
-            "estimated_gmv_sum": 129
-          }
-        ]
-      }
+      "basis": [
+        "/integrations/alibaba/wika/data/orders/detail"
+      ]
     }
   ],
+  "still_blocked_or_unavailable_dimensions": {
+    "store": [
+      "traffic_source",
+      "country_source",
+      "quick_reply_rate"
+    ],
+    "product": [
+      "access_source",
+      "inquiry_source",
+      "country_source",
+      "period_over_period_change"
+    ],
+    "order": [
+      "country_structure"
+    ]
+  },
   "live_routes_expanded": false,
   "boundary_statement": {
     "not_task_1_complete": true,
     "not_task_2_complete": true,
-    "no_write_action_attempted": true,
-    "wika_only_thread": true,
-    "xd_untouched_in_this_round": true,
-    "not_full_business_cockpit": true
+    "not_full_business_cockpit": true,
+    "wika_only_thread": true
   }
 }
-

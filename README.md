@@ -1,21 +1,42 @@
-﻿# 闃块噷鍥介檯绔欎粨搴撹鏄?
-## 褰撳墠浠撳簱缁撴瀯
+# 阿里国际站仓库说明
+
+## 结构总览
+
 - `WIKA/`
-  - WIKA 涓氬姟涓荤嚎鐩綍锛屽寘鍚枃妗ｃ€佽瘉鎹€佽剼鏈€侀」鐩潗鏂欍€?- `XD/`
-  - XD 涓氬姟璧勬枡鐩綍锛屽綋鍓嶅彧鍏佽鍋氱洰褰曞綊妗ｄ笌鍘嗗彶鏉愭枡缁存姢锛屼笉鎺ㄨ繘涓氬姟鍔熻兘銆?- `shared/`
-  - 鍏变韩妯℃澘銆佸叡浜?SOP銆佸叡浜暟鎹鍒欍€佸叡浜帴鍏ヨ鏄庛€?- `src/`
-  - 閫氱敤杩愯鏃跺叆鍙ｄ笌鍩虹鏈嶅姟浠ｇ爜銆?- `app.js`
-  - 褰撳墠 Express 鏈嶅姟涓诲叆鍙ｃ€?
-## 鐩綍杈圭晫瑙勫垯
-- 浠婂悗 WIKA 鐨勪笟鍔″伐浣溿€佹枃妗ｃ€佽剼鏈€佽瘉鎹€佽鍒掓潗鏂欙紝鍙繘鍏?`WIKA/` 瀵瑰簲鐩綍銆?- 浠婂悗 XD 鐨勪笟鍔″伐浣溿€佹枃妗ｃ€佽剼鏈€佽瘉鎹€佽鍒掓潗鏂欙紝鍙繘鍏?`XD/` 瀵瑰簲鐩綍銆?- truly shared / common 鍐呭淇濈暀鍦ㄦ牴鐩綍銆乣shared/`銆乣src/` 鎴栧繀瑕佺殑 `common/` 鍖哄煙锛屼笉娣锋斁鍒?WIKA 鎴?XD 涓氬姟鐩綍銆?
-## 涓昏鍏ュ彛
-- WIKA 鏂囨。鍏ュ彛锛歚WIKA/docs/framework/`
-- WIKA 鑴氭湰鍏ュ彛锛歚WIKA/scripts/`
-- WIKA 椤圭洰鏉愭枡锛歚WIKA/projects/wika/`
-- XD 鏂囨。鍏ュ彛锛歚XD/docs/framework/`
-- XD 鑴氭湰鍏ュ彛锛歚XD/scripts/`
-- XD 椤圭洰鏉愭枡锛歚XD/projects/xd/`
+- `XD/`
+- `shared/`
+- `src/`
+- `app.js`
 
-## 褰撳墠宸ヤ綔瑙勫垯
-- 褰撳墠涓氬姟涓荤嚎鍙帹杩?WIKA銆?- XD 褰撳墠涓嶅仛涓氬姟鎺ㄨ繘銆佷笉鍋氭柊 API 楠岃瘉锛屽彧淇濈暀鐩綍褰掓。涓庡巻鍙叉潗鏂欍€?- 涓€寰嬩紭鍏堝鐢?Railway production 闂幆涓?Alibaba 瀹樻柟 `/sync + access_token + sha256`銆?- 鎵€鏈変腑闂磋繘搴︺€佹渶缁堟€荤粨銆侀獙鏀剁粨鏋溿€佹彁浜よ鏄庯紝涓€寰嬩娇鐢ㄧ畝浣撲腑鏂囪緭鍑恒€?
+## 目录用途
 
+- `WIKA/`
+  - WIKA 业务主线的文档、脚本、证据、项目资料与阶段沉淀
+- `XD/`
+  - XD 历史资料、目录归档与只读对照材料
+- `shared/`
+  - 可复用的通用规则、模板、SOP、说明文档与共享模块
+- `src/`
+  - 公共运行时与基础服务代码
+- `app.js`
+  - 当前服务主入口
+
+## 当前目录边界
+
+- 今后 WIKA 的业务工作、文档、脚本、证据、规划材料，只进入 `WIKA/` 对应目录。
+- 今后 XD 的业务工作、文档、脚本、证据、规划材料，只进入 `XD/` 对应目录。
+- truly shared / common 内容单独保留在根目录或 `shared/`、`src/`、`common/`，不再混放到 WIKA 或 XD 业务目录。
+
+## 主要入口
+
+- [WIKA/README.md](./WIKA/README.md)
+- [XD/README.md](./XD/README.md)
+- [WIKA_项目基线.md](./WIKA/docs/framework/WIKA_项目基线.md)
+- [WIKA_执行计划.md](./WIKA/docs/framework/WIKA_执行计划.md)
+
+## 当前工作规则
+
+- 当前业务主线只推进 WIKA。
+- XD 不推进新业务功能，不做新的 XD API 验证。
+- 一律复用 Railway production 闭环与 Alibaba 官方 `/sync + access_token + sha256`。
+- 所有中间进度、最终总结、验收结果、提交说明，一律使用简体中文输出。

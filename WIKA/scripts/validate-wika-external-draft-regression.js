@@ -597,12 +597,12 @@ export async function main() {
   );
 
   const outputFiles = {
-    reply_samples: writeJson("WIKA_澶栭儴鍥炲鑽夌鏍蜂緥.json", replyDoc),
+    reply_samples: writeJson("WIKA_外部回复草稿样例.json", replyDoc),
     order_samples: writeJson("WIKA_澶栭儴璁㈠崟鑽夌鏍蜂緥.json", orderDoc),
-    reply_handoff_json: writeJson("WIKA_澶栭儴鍥炲浜ゆ帴鍖呮牱渚?json", replyPack),
+    reply_handoff_json: writeJson("WIKA_外部回复交接包样例.json", replyPack),
     order_handoff_json: writeJson("WIKA_澶栭儴璁㈠崟浜ゆ帴鍖呮牱渚?json", orderPack),
     reply_handoff_md: writeMarkdown(
-      "WIKA_澶栭儴鍥炲浜ゆ帴鍖呮牱渚?md",
+      "WIKA_外部回复交接包样例.md",
       renderWikaReplyHandoffPackMarkdown(replyPack)
     ),
     order_handoff_md: writeMarkdown(

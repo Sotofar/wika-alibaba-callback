@@ -14,7 +14,7 @@ const SAMPLE_OUTPUT_PATH = path.join(
   process.cwd(),
   "docs",
   "framework",
-  "WIKA_鏈€灏忕粡钀ヨ瘖鏂牱渚?json"
+  "WIKA_最小经营诊断样例.json"
 );
 
 function readRailwayToken() {

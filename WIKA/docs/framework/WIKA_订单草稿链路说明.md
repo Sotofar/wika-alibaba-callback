@@ -55,7 +55,7 @@
 
 当前 helper：
 
-- [alibaba-order-drafts.js](/D:/Code/阿里国际站/shared/data/modules/alibaba-order-drafts.js)
+- [alibaba-order-drafts.js](../../../shared/data/modules/alibaba-order-drafts.js)
 
 输出的是一份结构化外部草稿，至少包含：
 

@@ -17,13 +17,13 @@ const PRODUCT_SAMPLE_OUTPUT_PATH = path.join(
   process.cwd(),
   "docs",
   "framework",
-  "WIKA_浜у搧瀛愯瘖鏂牱渚?json"
+  "WIKA_产品子诊断样例.json"
 );
 const ORDER_SAMPLE_OUTPUT_PATH = path.join(
   process.cwd(),
   "docs",
   "framework",
-  "WIKA_璁㈠崟瀛愯瘖鏂牱渚?json"
+  "WIKA_订单子诊断样例.json"
 );
 
 function readRailwayToken() {
