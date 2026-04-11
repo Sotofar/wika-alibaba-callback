@@ -261,4 +261,23 @@
 - `traffic_source / country_source / quick_reply_rate / access_source / inquiry_source / country_source` 继续 unavailable
 - 本轮 comparison 只达到本地 contract，不写成已部署上线
 
+## 2026-04-11 Stage 27 Comparison Deploy Delta
+
+### 已部署 comparison routes
+- `/integrations/alibaba/wika/reports/operations/comparison-summary` -> `200 + JSON + PASS`
+- `/integrations/alibaba/wika/reports/products/comparison-summary` -> `200 + JSON + PASS`
+
+### 已部署 comparison 边界
+- `official_inputs / derived_comparison / unavailable_dimensions / boundary_statement` 均已在线返回
+- 店铺级仍显式保留：
+  - `traffic_source`
+  - `country_source`
+  - `quick_reply_rate`
+- 产品级仍显式保留：
+  - `access_source`
+  - `inquiry_source`
+  - `country_source`
+  - `period_over_period_change`
+- comparison 继续只按 derived comparison 口径使用，不改写官方字段定义
+
 

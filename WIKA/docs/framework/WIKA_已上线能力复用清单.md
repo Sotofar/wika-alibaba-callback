@@ -15,6 +15,17 @@
   - `/integrations/alibaba/wika/tools/reply-draft`
   - `/integrations/alibaba/wika/tools/order-draft`
 
+## 2026-04-11 Stage 27 Deploy Lock Additions
+- stage27 已 push 到 `origin/main`，comparison layer 已锁定到远端基线。
+- 已部署并通过 production smoke 的 comparison route：
+  - `/integrations/alibaba/wika/reports/operations/comparison-summary`
+  - `/integrations/alibaba/wika/reports/products/comparison-summary`
+  - `/integrations/alibaba/wika/reports/orders/comparison-summary`
+- 当前复用边界：
+  - comparison route 只消费既有 official inputs 与既有 derived 层
+  - comparison route 只输出 derived comparison，不新增 official fields
+  - unavailable dimensions 继续显式保留，不把缺口伪装成已补齐
+
 ## 2026-04-11 Stage 23 Deploy Lock Additions
 - stage22 已正式 push 到 `origin/main`，当前远端 main 已锁定缺口压缩结论。
 - 已部署并可复用的订单 derived summary 资产：

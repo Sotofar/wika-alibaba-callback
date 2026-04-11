@@ -507,3 +507,38 @@
 - not task 2 complete
 - not full business cockpit
 
+## 2026-04-11 Stage 27 Deploy Lock Update
+
+### stage27 远端锁定
+- `8b3c5dde936d956b5cafff8f57daf2aebae69386` 已 push 到 `origin/main`
+- stage27 当前已作为远端正式基线的一部分锁定
+
+### stage27 production smoke
+- 基础健康：
+  - `/health` -> `200`
+  - `/integrations/alibaba/auth/debug` -> `200 + JSON`
+- 既有基线 route：
+  - `/integrations/alibaba/wika/reports/operations/management-summary` -> `200 + JSON`
+  - `/integrations/alibaba/wika/reports/products/management-summary` -> `200 + JSON`
+  - `/integrations/alibaba/wika/reports/orders/management-summary` -> `200 + JSON`
+  - `/integrations/alibaba/wika/reports/operations/minimal-diagnostic` -> `200 + JSON`
+  - `/integrations/alibaba/wika/reports/products/minimal-diagnostic` -> `200 + JSON`
+  - `/integrations/alibaba/wika/reports/orders/minimal-diagnostic` -> `200 + JSON`
+- comparison routes：
+  - `/integrations/alibaba/wika/reports/operations/comparison-summary` -> `200 + JSON`
+  - `/integrations/alibaba/wika/reports/products/comparison-summary` -> `200 + JSON`
+  - `/integrations/alibaba/wika/reports/orders/comparison-summary` -> `200 + JSON`
+
+### stage27 已上线能力定位
+- comparison layer 已部署，但只属于 derived comparison layer
+- comparison layer 只复用当前 official mainline 与既有 derived 层
+- comparison layer 不新增 official field，不回写覆盖现有字段命名
+
+### 当前固定边界
+- 店铺级仍缺：`traffic_source / country_source / quick_reply_rate`
+- 产品级仍缺：`access_source / inquiry_source / country_source / period_over_period_change`
+- 订单级仍缺：`country_structure`
+- not task 1 complete
+- not task 2 complete
+- not full business cockpit
+

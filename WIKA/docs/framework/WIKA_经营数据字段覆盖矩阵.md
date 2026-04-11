@@ -286,3 +286,35 @@
 - `period_over_period_change` 本轮只形成自建 derived comparison，不等于官方字段已确认
 - comparison 输出不能回写覆盖 official fields
 
+## 2026-04-11 Stage 27 Post-Deploy Delta
+
+### 已部署的 comparison derived outputs
+- 店铺级：
+  - `visitor_delta`
+  - `imps_delta`
+  - `clk_delta`
+  - `clk_rate_delta`
+  - `fb_delta`
+  - `reply_delta`
+  - `trend_direction_summary`
+- 产品级：
+  - `click_delta`
+  - `impression_delta`
+  - `visitor_delta`
+  - `fb_delta`
+  - `order_delta`
+  - `bookmark_delta`
+  - `compare_delta`
+  - `share_delta`
+  - `ranking_delta`
+  - `top_risers / top_decliners`
+- 订单级：
+  - `observed_order_count_delta`
+  - `average_daily_order_count_delta`
+  - `current_segment / previous_segment`
+
+### 本轮没有新增 confirmed official fields
+- comparison 部署成功，不等于新增 official 字段成立
+- `period_over_period_change` 仍不能从 unavailable 改写为 confirmed official field
+- `country_structure` 仍 unavailable
+

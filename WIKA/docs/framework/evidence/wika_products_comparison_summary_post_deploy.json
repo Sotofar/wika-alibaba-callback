@@ -1,0 +1,52 @@
+{
+  "route": "/integrations/alibaba/wika/reports/products/comparison-summary",
+  "report_name": "products_comparison_summary",
+  "comparison_basis": {
+    "type": "sampled_product_period_comparison",
+    "derived": true,
+    "current_window_basis": "current live mydata product summary stat window",
+    "previous_window_basis": "previous comparable stat_date for the same statistics_type"
+  },
+  "current_window": {
+    "stat_date": "2026-04-09"
+  },
+  "previous_window": {
+    "stat_date": "2026-04-08",
+    "available": true
+  },
+  "official_input_keys": [
+    "field_names",
+    "current_aggregate_metrics",
+    "previous_aggregate_metrics",
+    "keyword_signal_current",
+    "keyword_signal_previous"
+  ],
+  "derived_comparison_keys": [
+    "comparison_ready",
+    "aggregate_metric_deltas",
+    "keyword_signal_delta",
+    "ranking_delta",
+    "top_risers_by_click_delta",
+    "top_decliners_by_click_delta",
+    "trend_direction_summary",
+    "item_level_deltas"
+  ],
+  "unavailable_dimensions": [
+    "access_source",
+    "inquiry_source",
+    "country_source",
+    "period_over_period_change"
+  ],
+  "boundary_statement": {
+    "derived_comparison_only": true,
+    "official_new_fields_added": false,
+    "not_full_product_cockpit": true,
+    "sample_scope_reused_for_previous_window": true,
+    "comparison_requires_same_product_sample": true,
+    "conservative_mapping_rules": [
+      "retain official field names: click / impression / visitor / fb / order / bookmark / compare / share / keyword_effects",
+      "derived comparison does not convert keyword_effects into a new official field",
+      "sample-based scope remains explicit and must not be read as full-shop full-history coverage"
+    ]
+  }
+}

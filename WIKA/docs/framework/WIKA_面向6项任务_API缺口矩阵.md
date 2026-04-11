@@ -253,3 +253,18 @@
 - not task 2 complete
 - not full business cockpit
 
+## 2026-04-11 Stage 27 Deploy Lock Delta
+
+### 任务 1：读取平台数据
+- stage27 comparison routes 已部署，但不新增 official data entrance
+- 当前仍只是在既有 official inputs 之上增加 comparison derived outputs
+- 因此 task 1 继续保持“局部重开”，不写成完成
+
+### 任务 2：经营诊断扩展
+- stage27 新增已部署 comparison route：
+  - `/integrations/alibaba/wika/reports/operations/comparison-summary`
+  - `/integrations/alibaba/wika/reports/products/comparison-summary`
+  - `/integrations/alibaba/wika/reports/orders/comparison-summary`
+- 它们当前可以增强“近周期变化 / 对比变化”的 derived 消费能力
+- 但这仍不等于补齐 official gap，也不等于完整经营驾驶舱
+

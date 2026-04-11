@@ -108,3 +108,14 @@
 - `country_structure` 继续 unavailable
 - comparison 是 derived / conservative / partial，不是完整官方订单经营报表
 - 本轮只达到本地 contract，不写成已部署上线
+
+## 2026-04-11 Stage 27 Orders Comparison Deploy Delta
+
+### 已部署 route
+- `/integrations/alibaba/wika/reports/orders/comparison-summary` -> `200 + JSON + PASS`
+
+### 已部署 comparison 边界
+- `official_inputs / derived_comparison / unavailable_dimensions / boundary_statement` 均已在线返回
+- `country_structure` 继续在 `unavailable_dimensions` 中显式保留
+- `product_contribution_delta` 当前仍保留 `available=false`
+- 当前 route 继续只属于 derived / conservative / partial comparison

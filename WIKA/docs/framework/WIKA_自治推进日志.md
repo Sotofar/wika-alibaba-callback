@@ -1197,6 +1197,34 @@
 - 当前仍不是 task 2 complete
 - 当前仍不是完整经营驾驶舱
 
+### 阶段 27 收口：comparison layer 远端基线锁定
+
+- 实际起始 commit：`1981a4d8725b0374afdbdd2378d88907801266bd`
+- 本轮先完成：
+  - `git push origin main`
+- push：
+  - `8b3c5dde936d956b5cafff8f57daf2aebae69386 -> origin/main` 成功
+- production smoke 结果：
+  - `/health` -> `200`
+  - `/integrations/alibaba/auth/debug` -> `200 + JSON`
+  - `/integrations/alibaba/wika/reports/operations/management-summary` -> `200 + JSON`
+  - `/integrations/alibaba/wika/reports/products/management-summary` -> `200 + JSON`
+  - `/integrations/alibaba/wika/reports/orders/management-summary` -> `200 + JSON`
+  - `/integrations/alibaba/wika/reports/operations/minimal-diagnostic` -> `200 + JSON`
+  - `/integrations/alibaba/wika/reports/products/minimal-diagnostic` -> `200 + JSON`
+  - `/integrations/alibaba/wika/reports/orders/minimal-diagnostic` -> `200 + JSON`
+  - `/integrations/alibaba/wika/reports/operations/comparison-summary` -> `200 + JSON`
+  - `/integrations/alibaba/wika/reports/products/comparison-summary` -> `200 + JSON`
+  - `/integrations/alibaba/wika/reports/orders/comparison-summary` -> `200 + JSON`
+- 本轮没有发生 runtime 回退
+- 本轮没有新增 official fields
+- comparison layer 已部署，但继续保持 derived comparison 定位
+- 本轮新增 post-deploy evidence：
+  - `WIKA/docs/framework/evidence/wika-stage27-post-deploy-summary.json`
+  - `WIKA/docs/framework/evidence/wika_operations_comparison_summary_post_deploy.json`
+  - `WIKA/docs/framework/evidence/wika_products_comparison_summary_post_deploy.json`
+  - `WIKA/docs/framework/evidence/wika_orders_comparison_summary_post_deploy.json`
+
 
 
 

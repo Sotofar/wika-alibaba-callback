@@ -411,5 +411,18 @@
 - not task 2 complete
 - not full business cockpit
 
+### 部署收口结果
+- `stage27 wika comparison layer` 已 push 到 `origin/main`
+- 已完成最小 production smoke：
+  - `/health`
+  - `/integrations/alibaba/auth/debug`
+  - `operations/products/orders management-summary`
+  - `operations/products/orders minimal-diagnostic`
+  - `operations/products/orders comparison-summary`
+- 当前 comparison 层状态：
+  - 已部署并 smoke 通过
+  - 继续保持 `derived comparison layer`
+  - 不写成 official new fields
+
 
 

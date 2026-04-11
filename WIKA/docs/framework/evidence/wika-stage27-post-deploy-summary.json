@@ -1,0 +1,165 @@
+{
+  "stage": "stage27_post_deploy",
+  "generated_at": "2026-04-11T13:44:42.873Z",
+  "base_url": "https://api.wikapacking.com",
+  "route_results": [
+    {
+      "route": "/health",
+      "status": 200,
+      "json": false,
+      "key_sections": [
+        "plain_health_ok"
+      ],
+      "boundary_ok": true
+    },
+    {
+      "route": "/integrations/alibaba/auth/debug",
+      "status": 200,
+      "json": true,
+      "key_sections": [
+        "auth_debug_json"
+      ],
+      "boundary_ok": true
+    },
+    {
+      "route": "/integrations/alibaba/wika/reports/operations/management-summary",
+      "status": 200,
+      "json": true,
+      "key_sections": [
+        "official_metrics",
+        "derived_metrics",
+        "unavailable_dimensions",
+        "boundary_statement"
+      ],
+      "boundary_ok": true
+    },
+    {
+      "route": "/integrations/alibaba/wika/reports/products/management-summary",
+      "status": 200,
+      "json": true,
+      "key_sections": [
+        "aggregate_official_metrics",
+        "aggregate_derived_metrics",
+        "unavailable_dimensions",
+        "boundary_statement",
+        "product_scope_basis",
+        "product_scope_limit",
+        "product_scope_truncated",
+        "product_ids_used_count"
+      ],
+      "boundary_ok": true
+    },
+    {
+      "route": "/integrations/alibaba/wika/reports/orders/management-summary",
+      "status": 200,
+      "json": true,
+      "key_sections": [
+        "formal_summary",
+        "product_contribution",
+        "trend_signal",
+        "unavailable_dimensions",
+        "boundary_statement"
+      ],
+      "boundary_ok": true
+    },
+    {
+      "route": "/integrations/alibaba/wika/reports/operations/minimal-diagnostic",
+      "status": 200,
+      "json": true,
+      "key_sections": [
+        "traffic_performance_section",
+        "signal_interpretation",
+        "recommendation_block",
+        "unavailable_dimensions_echo",
+        "confidence_hints",
+        "boundary_statement"
+      ],
+      "boundary_ok": true
+    },
+    {
+      "route": "/integrations/alibaba/wika/reports/products/minimal-diagnostic",
+      "status": 200,
+      "json": true,
+      "key_sections": [
+        "performance_section",
+        "ranking_interpretation",
+        "keyword_signal_takeaways",
+        "recommendation_block",
+        "unavailable_dimensions_echo",
+        "confidence_hints",
+        "boundary_statement"
+      ],
+      "boundary_ok": true
+    },
+    {
+      "route": "/integrations/alibaba/wika/reports/orders/minimal-diagnostic",
+      "status": 200,
+      "json": true,
+      "key_sections": [
+        "formal_summary_section",
+        "product_contribution_section",
+        "trend_signal_section",
+        "unavailable_dimensions_echo",
+        "recommendation_block",
+        "confidence_hints"
+      ],
+      "boundary_ok": true
+    },
+    {
+      "route": "/integrations/alibaba/wika/reports/operations/comparison-summary",
+      "status": 200,
+      "json": true,
+      "key_sections": [
+        "report_name",
+        "comparison_basis",
+        "current_window",
+        "previous_window",
+        "official_inputs",
+        "derived_comparison",
+        "unavailable_dimensions",
+        "boundary_statement"
+      ],
+      "boundary_ok": true
+    },
+    {
+      "route": "/integrations/alibaba/wika/reports/products/comparison-summary",
+      "status": 200,
+      "json": true,
+      "key_sections": [
+        "report_name",
+        "comparison_basis",
+        "current_window",
+        "previous_window",
+        "official_inputs",
+        "derived_comparison",
+        "unavailable_dimensions",
+        "boundary_statement"
+      ],
+      "boundary_ok": true
+    },
+    {
+      "route": "/integrations/alibaba/wika/reports/orders/comparison-summary",
+      "status": 200,
+      "json": true,
+      "key_sections": [
+        "report_name",
+        "comparison_basis",
+        "current_window",
+        "previous_window",
+        "official_inputs",
+        "derived_comparison",
+        "unavailable_dimensions",
+        "boundary_statement"
+      ],
+      "boundary_ok": true
+    }
+  ],
+  "boundary_statement": {
+    "not_task_1_complete": true,
+    "not_task_2_complete": true,
+    "no_write_action_attempted": true,
+    "wika_only_thread_for_business_work": true,
+    "xd_untouched_in_business_execution": true,
+    "not_full_business_cockpit": true
+  }
+}

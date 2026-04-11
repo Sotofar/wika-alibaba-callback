@@ -112,3 +112,19 @@
 - comparison 设计已完成。
 - comparison helper 与 comparison route 已形成本地候选实现。
 - 本轮尚未 push stage27，因此当前只属于可上线候选，不写成已部署上线。
+
+## post-deploy 状态
+- `stage27 wika comparison layer` 已 push 到 `origin/main`
+- 已通过 production smoke：
+  - `/integrations/alibaba/wika/reports/operations/comparison-summary`
+  - `/integrations/alibaba/wika/reports/products/comparison-summary`
+  - `/integrations/alibaba/wika/reports/orders/comparison-summary`
+- 已确认 comparison route 在线仍保持：
+  - `official_inputs`
+  - `derived_comparison`
+  - `unavailable_dimensions`
+  - `boundary_statement`
+- 当前结论：
+  - stage27 已部署并 smoke 通过
+  - comparison layer 仍只属于 derived comparison layer
+  - 不新增 official fields
