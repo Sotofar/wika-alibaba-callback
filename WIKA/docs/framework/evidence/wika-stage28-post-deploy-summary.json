@@ -1,8 +1,9 @@
 {
   "stage": "stage28_post_deploy",
-  "generated_at": "2026-04-11T15:41:22.687Z",
+  "validation_mode": "paced_production_smoke_with_single_retry_on_ApiCallLimit",
+  "generated_at": "2026-04-11T15:55:15.226Z",
   "base_url": "https://api.wikapacking.com",
-  "pushed_head": "02e42c196c44e6ec57f8bf9f246ea7a284ecc1e5",
+  "pushed_head": "718b358127b63fed80853cb34de9802a1708d627",
   "route_status": [
     {
       "key": "health",
@@ -10,7 +11,9 @@
       "method": "GET",
       "status": 200,
       "is_json": false,
-      "elapsed_ms": 844
+      "elapsed_ms": 860,
+      "retried": false,
+      "retry_reason": null
     },
     {
       "key": "auth_debug",
@@ -18,7 +21,9 @@
       "method": "GET",
       "status": 200,
       "is_json": true,
-      "elapsed_ms": 671
+      "elapsed_ms": 351,
+      "retried": false,
+      "retry_reason": null
     },
     {
       "key": "operations_management_summary",
@@ -26,7 +31,9 @@
       "method": "GET",
       "status": 200,
       "is_json": true,
-      "elapsed_ms": 2279
+      "elapsed_ms": 2449,
+      "retried": false,
+      "retry_reason": null
     },
     {
       "key": "products_management_summary",
@@ -34,7 +41,9 @@
       "method": "GET",
       "status": 200,
       "is_json": true,
-      "elapsed_ms": 4712
+      "elapsed_ms": 4818,
+      "retried": false,
+      "retry_reason": null
     },
     {
       "key": "orders_management_summary",
@@ -42,7 +51,9 @@
       "method": "GET",
       "status": 200,
       "is_json": true,
-      "elapsed_ms": 6181
+      "elapsed_ms": 5594,
+      "retried": false,
+      "retry_reason": null
     },
     {
       "key": "operations_minimal_diagnostic",
@@ -50,7 +61,9 @@
       "method": "GET",
       "status": 200,
       "is_json": true,
-      "elapsed_ms": 12088
+      "elapsed_ms": 11991,
+      "retried": false,
+      "retry_reason": null
     },
     {
       "key": "products_minimal_diagnostic",
@@ -58,7 +71,9 @@
       "method": "GET",
       "status": 200,
       "is_json": true,
-      "elapsed_ms": 6482
+      "elapsed_ms": 6302,
+      "retried": true,
+      "retry_reason": "ApiCallLimit"
     },
     {
       "key": "orders_minimal_diagnostic",
@@ -66,7 +81,9 @@
       "method": "GET",
       "status": 200,
       "is_json": true,
-      "elapsed_ms": 9359
+      "elapsed_ms": 10207,
+      "retried": false,
+      "retry_reason": null
     },
     {
       "key": "operations_comparison_summary",
@@ -74,7 +91,9 @@
       "method": "GET",
       "status": 200,
       "is_json": true,
-      "elapsed_ms": 4055
+      "elapsed_ms": 3780,
+      "retried": false,
+      "retry_reason": null
     },
     {
       "key": "products_comparison_summary",
@@ -82,7 +101,9 @@
       "method": "GET",
       "status": 200,
       "is_json": true,
-      "elapsed_ms": 6484
+      "elapsed_ms": 6582,
+      "retried": false,
+      "retry_reason": null
     },
     {
       "key": "orders_comparison_summary",
@@ -90,7 +111,9 @@
       "method": "GET",
       "status": 200,
       "is_json": true,
-      "elapsed_ms": 5583
+      "elapsed_ms": 5535,
+      "retried": false,
+      "retry_reason": null
     },
     {
       "key": "reply_draft",
@@ -98,7 +121,9 @@
       "method": "POST",
       "status": 200,
       "is_json": true,
-      "elapsed_ms": 8438
+      "elapsed_ms": 8589,
+      "retried": false,
+      "retry_reason": null
     },
     {
       "key": "order_draft",
@@ -106,7 +131,9 @@
       "method": "POST",
       "status": 200,
       "is_json": true,
-      "elapsed_ms": 11501
+      "elapsed_ms": 10897,
+      "retried": false,
+      "retry_reason": null
     },
     {
       "key": "business_cockpit",
@@ -114,7 +141,9 @@
       "method": "GET",
       "status": 200,
       "is_json": true,
-      "elapsed_ms": 12144
+      "elapsed_ms": 11791,
+      "retried": true,
+      "retry_reason": "ApiCallLimit"
     },
     {
       "key": "product_draft_workbench",
@@ -122,15 +151,19 @@
       "method": "GET",
       "status": 200,
       "is_json": true,
-      "elapsed_ms": 4127
+      "elapsed_ms": 3952,
+      "retried": false,
+      "retry_reason": null
     },
     {
       "key": "reply_workbench",
       "path": "/integrations/alibaba/wika/workbench/reply-workbench",
       "method": "GET",
-      "status": 502,
+      "status": 200,
       "is_json": true,
-      "elapsed_ms": 2682
+      "elapsed_ms": 5896,
+      "retried": false,
+      "retry_reason": null
     },
     {
       "key": "order_workbench",
@@ -138,7 +171,9 @@
       "method": "GET",
       "status": 200,
       "is_json": true,
-      "elapsed_ms": 10108
+      "elapsed_ms": 10859,
+      "retried": false,
+      "retry_reason": null
     },
     {
       "key": "task_workbench",
@@ -146,7 +181,9 @@
       "method": "GET",
       "status": 200,
       "is_json": true,
-      "elapsed_ms": 10036
+      "elapsed_ms": 20792,
+      "retried": true,
+      "retry_reason": "ApiCallLimit"
     }
   ],
   "business_cockpit": {
@@ -168,10 +205,8 @@
       "boundary_statement": true
     },
     "boundary_checks": {
-      "present": true,
       "task6_excluded": true,
-      "not_full_business_cockpit": true,
-      "unavailable_count": 7
+      "not_full_business_cockpit": true
     }
   },
   "workbench_routes": {
@@ -188,27 +223,25 @@
         "boundary_statement": true
       },
       "boundary_checks": {
-        "present": true,
         "safe_draft_preparation_only": true,
         "not_platform_publish": true
       }
     },
     "reply_workbench": {
-      "status": 502,
+      "status": 200,
       "section_checks": {
-        "workflow_capability": false,
-        "input_requirements": false,
-        "current_reply_profiles": false,
-        "blocker_taxonomy_summary": false,
-        "handoff_pack_capability": false,
-        "quality_gate_summary": false,
-        "sample_availability": false,
-        "boundary_statement": false
+        "workflow_capability": true,
+        "input_requirements": true,
+        "current_reply_profiles": true,
+        "blocker_taxonomy_summary": true,
+        "handoff_pack_capability": true,
+        "quality_gate_summary": true,
+        "sample_availability": true,
+        "boundary_statement": true
       },
       "boundary_checks": {
-        "present": true,
-        "external_reply_draft_only": false,
-        "not_platform_internal_send": false
+        "external_reply_draft_only": true,
+        "not_platform_internal_send": true
       }
     },
     "order_workbench": {
@@ -224,7 +257,6 @@
         "boundary_statement": true
       },
       "boundary_checks": {
-        "present": true,
         "external_order_draft_only": true,
         "not_platform_internal_create": true
       }
@@ -240,7 +272,6 @@
         "boundary_statement": true
       },
       "boundary_checks": {
-        "present": true,
         "task3_task4_task5_workbench_only": true,
         "not_platform_internal_execution": true
       }

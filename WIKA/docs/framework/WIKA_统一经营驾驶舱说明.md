@@ -89,6 +89,7 @@
 ### production status
 - deployed to `origin/main`
 - production smoke: `200 + JSON + PASS`
+- acceptance mode: paced production smoke + single retry on `ApiCallLimit`
 
 ### fixed scope
 - unified cockpit/workbench consumption layer only

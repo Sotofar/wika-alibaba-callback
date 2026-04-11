@@ -1,50 +1,16 @@
 {
-  "key": "task_workbench",
   "path": "/integrations/alibaba/wika/workbench/task-workbench",
-  "method": "GET",
   "status": 200,
-  "elapsed_ms": 10036,
-  "is_json": true,
-  "body_summary": {
-    "type": "object",
-    "keys": [
-      "ok",
-      "module",
-      "account",
-      "read_only",
-      "report_name",
-      "generated_at",
-      "task3_summary",
-      "task4_summary",
-      "task5_summary",
-      "shared_blockers",
-      "shared_handoff_rules",
-      "boundary_statement"
-    ]
-  },
-  "sections": {
-    "task3_summary": true,
-    "task4_summary": true,
-    "task5_summary": true,
-    "shared_blockers": true,
-    "shared_handoff_rules": true,
-    "boundary_statement": true
-  },
-  "boundary": {
-    "present": true,
-    "task3_task4_task5_workbench_only": true,
-    "not_platform_internal_execution": true
-  },
-  "sample": {
+  "body": {
     "ok": true,
     "module": "task_workbench",
     "account": "***",
     "read_only": true,
     "report_name": "task_workbench",
-    "generated_at": "2026-04-11T15:41:21.886Z",
+    "generated_at": "2026-04-11T15:58:19.746Z",
     "task3_summary": {
       "report_name": "product_draft_workbench",
-      "generated_at": "2026-04-11T15:41:15.679Z",
+      "generated_at": "2026-04-11T15:58:02.325Z",
       "product_context": {
         "sample_source": "/integrations/alibaba/wika/data/products/detail",
         "product_id": "1601740791024",
@@ -133,7 +99,7 @@
     },
     "task4_summary": {
       "report_name": "reply_workbench",
-      "generated_at": "2026-04-11T15:41:17.721Z",
+      "generated_at": "2026-04-11T15:58:08.644Z",
       "workflow_capability": {
         "workflow_type": "external_reply_draft",
         "external_only": true,
@@ -226,7 +192,7 @@
     },
     "task5_summary": {
       "report_name": "order_workbench",
-      "generated_at": "2026-04-11T15:41:21.886Z",
+      "generated_at": "2026-04-11T15:58:19.746Z",
       "workflow_capability": {
         "workflow_type": "external_order_draft_package",
         "external_only": true,

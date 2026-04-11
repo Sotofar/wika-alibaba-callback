@@ -64,6 +64,9 @@
 - stage28 当前已作为远端正式基线的一部分锁定
 
 ### stage28 production smoke
+- 验证策略：
+  - paced production smoke
+  - 当上游返回 `ApiCallLimit` 时，只做单次重试
 - 基础健康：
   - `/health` -> `200`
   - `/integrations/alibaba/auth/debug` -> `200 + JSON`
@@ -85,6 +88,7 @@
 - task3/4/5 workbench 已部署，但仍停在 safe draft preparation / external draft workflow / handoff pack consumption
 - 本轮没有新增 official field
 - 本轮没有新增平台内写动作
+- `task-workbench` 已增加 pacing fix，以降低聚合读取时触发上游 `ApiCallLimit` 的概率
 
 ### stage28 固定边界
 - not task 1 complete

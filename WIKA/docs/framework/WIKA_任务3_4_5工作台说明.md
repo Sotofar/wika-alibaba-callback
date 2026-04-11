@@ -90,6 +90,7 @@
 
 ### production status
 - all four workbench routes passed production smoke with `200 + JSON`
+- acceptance mode: paced production smoke + single retry on `ApiCallLimit`
 
 ### fixed boundary
 - task3 stays safe draft preparation only

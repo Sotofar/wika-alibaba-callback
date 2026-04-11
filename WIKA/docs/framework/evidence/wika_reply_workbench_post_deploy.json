@@ -1,43 +1,101 @@
 {
-  "key": "reply_workbench",
   "path": "/integrations/alibaba/wika/workbench/reply-workbench",
-  "method": "GET",
-  "status": 502,
-  "elapsed_ms": 2682,
-  "is_json": true,
-  "body_summary": {
-    "type": "object",
-    "keys": [
-      "ok",
-      "error",
-      "error_category",
-      "top_error"
-    ]
-  },
-  "sections": {
-    "workflow_capability": false,
-    "input_requirements": false,
-    "current_reply_profiles": false,
-    "blocker_taxonomy_summary": false,
-    "handoff_pack_capability": false,
-    "quality_gate_summary": false,
-    "sample_availability": false,
-    "boundary_statement": false
-  },
-  "boundary": {
-    "present": true,
-    "external_reply_draft_only": false,
-    "not_platform_internal_send": false
-  },
-  "sample": {
-    "ok": false,
-    "error": "TOP API returned error_response",
-    "error_category": "platform_api_error",
-    "top_error": {
-      "code": "ApiCallLimit",
-      "sub_code": null,
-      "msg": "Api access frequency exceeds the limit. this ban will last 1 seconds",
-      "sub_msg": null
+  "status": 200,
+  "body": {
+    "ok": true,
+    "module": "task4_reply_workbench",
+    "account": "***",
+    "read_only": true,
+    "report_name": "reply_workbench",
+    "generated_at": "2026-04-11T15:57:36.467Z",
+    "workflow_capability": {
+      "workflow_type": "external_reply_draft",
+      "external_only": true,
+      "platform_reply_available": false,
+      "preview_route": "/integrations/alibaba/wika/tools/reply-draft",
+      "template_version": "2026-04-05.sop-v1"
+    },
+    "input_requirements": {
+      "required_minimum_fields": [
+        "inquiry_text",
+        "product_id or product_ids",
+        "destination_country",
+        "quantity",
+        "customer_profile"
+      ],
+      "optional_fields": [
+        "target_price",
+        "expected_lead_time",
+        "mockup_request"
+      ],
+      "preview_mode": "POST body to /integrations/alibaba/wika/tools/reply-draft"
+    },
+    "current_reply_profiles": [
+      {
+        "code": "reply_minimal_handoff",
+        "label": "Minimal handoff",
+        "note": "Use when only the inquiry text or very limited context is available for an external draft."
+      },
+      {
+        "code": "reply_quote_confirmation_needed",
+        "label": "Quote confirmation draft",
+        "note": "Use when product and customer context already exist, but quote and lead time still need human confirmation."
+      },
+      {
+        "code": "reply_mockup_customization",
+        "label": "Mockup customization draft",
+        "note": "Use when the reply depends on mockup, logo, or customization follow-up material."
+      }
+    ],
+    "blocker_taxonomy_summary": {
+      "preview_profile": "reply_minimal_handoff",
+      "hard_blocker_codes": [
+        "missing_inquiry_text",
+        "missing_final_quote",
+        "missing_lead_time"
+      ],
+      "soft_blocker_codes": [
+        "missing_destination_country",
+        "missing_product_context",
+        "missing_quantity",
+        "missing_customer_profile"
+      ],
+      "missing_context": [
+        "inquiry_text",
+        "final_quote",
+        "lead_time",
+        "destination_country",
+        "product_context",
+        "quantity",
+        "customer_profile"
+      ]
+    },
+    "handoff_pack_capability": {
+      "handoff_checklist_available": true,
+      "handoff_fields_available": true,
+      "manual_completion_sop_available": true,
+      "export_formats": [
+        "json",
+        "markdown"
+      ]
+    },
+    "quality_gate_summary": {
+      "handoff_required": true,
+      "draft_usable_externally": false,
+      "alert_payload_available": true,
+      "follow_up_question_count": 7
+    },
+    "sample_availability": {
+      "preview_generated_without_platform_send": true,
+      "product_diagnostic_sample_size": 12,
+      "product_context_count": 0
+    },
+    "boundary_statement": {
+      "external_reply_draft_only": true,
+      "not_platform_reply": true,
+      "not_platform_internal_send": true,
+      "no_real_send_attempted": true,
+      "task6_excluded": true
     }
   }
 }

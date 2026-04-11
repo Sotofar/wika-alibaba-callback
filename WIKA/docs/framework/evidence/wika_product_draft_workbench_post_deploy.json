@@ -1,51 +1,13 @@
 {
-  "key": "product_draft_workbench",
   "path": "/integrations/alibaba/wika/workbench/product-draft-workbench",
-  "method": "GET",
   "status": 200,
-  "elapsed_ms": 4127,
-  "is_json": true,
-  "body_summary": {
-    "type": "object",
-    "keys": [
-      "ok",
-      "module",
-      "account",
-      "read_only",
-      "report_name",
-      "generated_at",
-      "product_context",
-      "schema_context",
-      "media_context",
-      "draft_readiness",
-      "required_manual_fields",
-      "blocking_risks",
-      "recommended_next_action",
-      "boundary_statement"
-    ]
-  },
-  "sections": {
-    "product_context": true,
-    "schema_context": true,
-    "media_context": true,
-    "draft_readiness": true,
-    "required_manual_fields": true,
-    "blocking_risks": true,
-    "recommended_next_action": true,
-    "boundary_statement": true
-  },
-  "boundary": {
-    "present": true,
-    "safe_draft_preparation_only": true,
-    "not_platform_publish": true
-  },
-  "sample": {
+  "body": {
     "ok": true,
     "module": "task3_product_draft_workbench",
     "account": "***",
     "read_only": true,
     "report_name": "product_draft_workbench",
-    "generated_at": "2026-04-11T15:40:59.081Z",
+    "generated_at": "2026-04-11T15:57:06.608Z",
     "product_context": {
       "sample_source": "/integrations/alibaba/wika/data/products/detail",
       "product_id": "1601740791024",

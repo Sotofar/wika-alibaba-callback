@@ -1281,6 +1281,8 @@
 - 本轮没有发生 runtime 回退
 - 本轮只补了 stage28 workbench boundary statement 的显式布尔位
 - `business-cockpit` 和 4 个 workbench route 均已在线可读
+- 随后补充 `stage28 task workbench pacing fix`，用于降低 task3/4/5 聚合读取时触发上游 `ApiCallLimit` 的概率
+- 最终验收按 paced production smoke + single retry on `ApiCallLimit` 执行，18 条 route 全部回到 `200`
 - 继续保持：
   - not task 1 complete
   - not task 2 complete

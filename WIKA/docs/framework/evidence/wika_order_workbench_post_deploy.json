@@ -1,52 +1,13 @@
 {
-  "key": "order_workbench",
   "path": "/integrations/alibaba/wika/workbench/order-workbench",
-  "method": "GET",
   "status": 200,
-  "elapsed_ms": 10108,
-  "is_json": true,
-  "body_summary": {
-    "type": "object",
-    "keys": [
-      "ok",
-      "module",
-      "account",
-      "read_only",
-      "report_name",
-      "generated_at",
-      "workflow_capability",
-      "input_requirements",
-      "current_order_profiles",
-      "required_manual_field_system",
-      "handoff_pack_capability",
-      "quality_gate_summary",
-      "sample_availability",
-      "blocker_taxonomy_summary",
-      "boundary_statement"
-    ]
-  },
-  "sections": {
-    "workflow_capability": true,
-    "input_requirements": true,
-    "current_order_profiles": true,
-    "required_manual_field_system": true,
-    "handoff_pack_capability": true,
-    "quality_gate_summary": true,
-    "sample_availability": true,
-    "boundary_statement": true
-  },
-  "boundary": {
-    "present": true,
-    "external_order_draft_only": true,
-    "not_platform_internal_create": true
-  },
-  "sample": {
+  "body": {
     "ok": true,
     "module": "task5_order_workbench",
     "account": "***",
     "read_only": true,
     "report_name": "order_workbench",
-    "generated_at": "2026-04-11T15:41:11.832Z",
+    "generated_at": "2026-04-11T15:57:49.849Z",
     "workflow_capability": {
       "workflow_type": "external_order_draft_package",
       "external_only": true,

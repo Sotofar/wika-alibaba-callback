@@ -460,7 +460,9 @@
 ### 已完成闸门
 - `stage28 wika cockpit and workbench layer` 已 push
 - `stage28 boundary statement followup` 已 push
+- `stage28 task workbench pacing fix` 已 push
 - 已完成 stage28 production smoke：
+  - 验证策略：paced production smoke + single retry on `ApiCallLimit`
   - `/health`
   - `/integrations/alibaba/auth/debug`
   - `operations/products/orders management-summary`
@@ -476,6 +478,7 @@
 
 ### 当前状态
 - unified cockpit/workbench layer 已部署并 smoke 通过
+- stage28 验收以 paced smoke 为准，不把 burst validation 里的短时 `ApiCallLimit` 误写成结构性回退
 - task1/2/3/4/5 继续保持“局部重开 / 可消费层增强”，不写成完成
 - task6 继续排除，不推进真实通知 provider / delivery 能力
 

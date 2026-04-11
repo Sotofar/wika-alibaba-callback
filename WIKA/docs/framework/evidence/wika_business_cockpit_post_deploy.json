@@ -1,66 +1,17 @@
 {
-  "key": "business_cockpit",
   "path": "/integrations/alibaba/wika/reports/business-cockpit",
-  "method": "GET",
   "status": 200,
-  "elapsed_ms": 12144,
-  "is_json": true,
-  "body_summary": {
-    "type": "object",
-    "keys": [
-      "ok",
-      "module",
-      "account",
-      "read_only",
-      "report_name",
-      "generated_at",
-      "store_overview",
-      "product_overview",
-      "order_overview",
-      "store_comparison",
-      "product_comparison",
-      "order_comparison",
-      "store_diagnostic",
-      "product_diagnostic",
-      "order_diagnostic",
-      "cross_section_gaps",
-      "task_coverage_summary",
-      "boundary_statement"
-    ]
-  },
-  "sections": {
-    "report_name": true,
-    "generated_at": true,
-    "store_overview": true,
-    "product_overview": true,
-    "order_overview": true,
-    "store_comparison": true,
-    "product_comparison": true,
-    "order_comparison": true,
-    "store_diagnostic": true,
-    "product_diagnostic": true,
-    "order_diagnostic": true,
-    "cross_section_gaps": true,
-    "task_coverage_summary": true,
-    "boundary_statement": true
-  },
-  "boundary": {
-    "present": true,
-    "task6_excluded": true,
-    "not_full_business_cockpit": true,
-    "unavailable_count": 7
-  },
-  "sample": {
+  "body": {
     "ok": true,
     "module": "business_cockpit",
     "account": "***",
     "read_only": true,
     "report_name": "business_cockpit",
-    "generated_at": "2026-04-11T15:40:54.613Z",
+    "generated_at": "2026-04-11T15:56:59.998Z",
     "store_overview": {
       "source_route": "/integrations/alibaba/wika/reports/operations/management-summary",
       "report_name": "operations_management_summary",
-      "generated_at": "2026-04-11T15:40:45.623Z",
+      "generated_at": "2026-04-11T15:56:50.539Z",
       "report_scope": {
         "type": "store_level_mydata_subset",
         "sample_based": false
@@ -135,7 +86,7 @@
     "product_overview": {
       "source_route": "/integrations/alibaba/wika/reports/products/management-summary",
       "report_name": "products_management_summary",
-      "generated_at": "2026-04-11T15:40:47.128Z",
+      "generated_at": "2026-04-11T15:56:52.092Z",
       "report_scope": {
         "type": "sampled_product_mydata_subset",
         "sample_based": true
@@ -303,7 +254,7 @@
     "order_overview": {
       "source_route": "/integrations/alibaba/wika/reports/orders/management-summary",
       "report_name": "orders_management_summary",
-      "generated_at": "2026-04-11T15:40:48.589Z",
+      "generated_at": "2026-04-11T15:56:53.500Z",
       "report_scope": {
         "type": "derived_order_summary",
         "derived": true,
@@ -386,6 +337,18 @@
         "observed_trade_ids_count": "***",
         "top_products_by_order_count": [
           {
+            "product_id": "AAHPxslEAOVqtWWP0tWlIbrp",
+            "product_name": "Screen Printing 2oz 60ml Liquid Lens Spray Cleaner for Glasses Custom Print Microfiber Eyeglass Cloth Cleaning Kit",
+            "order_count": 1,
+            "quantity_sum": 1000,
+            "estimated_amount_by_currency": [
+              {
+                "currency": "USD",
+                "amount": 270
+              }
+            ]
+          },
+          {
             "product_id": "AAH7xslEAOVqtWWP0tWlM17f",
             "product_name": "Custom 1oz 2oz Glasses Cleaner Eyewear Lens Spray Liquid Cleaning Cleaner Kit Eyeglass Lenses Cloth",
             "order_count": 1,
@@ -406,18 +369,6 @@
               {
                 "currency": "USD",
                 "amount": 120
-              }
-            ]
-          },
-          {
-            "product_id": "AAHPxslEAOVqtWWP0tWlIbrp",
-            "product_name": "Screen Printing 2oz 60ml Liquid Lens Spray Cleaner for Glasses Custom Print Microfiber Eyeglass Cloth Cleaning Kit",
-            "order_count": 1,
-            "quantity_sum": 1000,
-            "estimated_amount_by_currency": [
-              {
-                "currency": "USD",
-                "amount": 270
               }
             ]
           },
@@ -448,6 +399,18 @@
         ],
         "top_products_by_quantity": [
           {
+            "product_id": "AAHPxslEAOVqtWWP0tWlIbrp",
+            "product_name": "Screen Printing 2oz 60ml Liquid Lens Spray Cleaner for Glasses Custom Print Microfiber Eyeglass Cloth Cleaning Kit",
+            "order_count": 1,
+            "quantity_sum": 1000,
+            "estimated_amount_by_currency": [
+              {
+                "currency": "USD",
+                "amount": 270
+              }
+            ]
+          },
+          {
             "product_id": "AAH7xslEAOVqtWWP0tWlM17f",
             "product_name": "Custom 1oz 2oz Glasses Cleaner Eyewear Lens Spray Liquid Cleaning Cleaner Kit Eyeglass Lenses Cloth",
             "order_count": 1,
@@ -468,18 +431,6 @@
               {
                 "currency": "USD",
                 "amount": 120
-              }
-            ]
-          },
-          {
-            "product_id": "AAHPxslEAOVqtWWP0tWlIbrp",
-            "product_name": "Screen Printing 2oz 60ml Liquid Lens Spray Cleaner for Glasses Custom Print Microfiber Eyeglass Cloth Cleaning Kit",
-            "order_count": 1,
-            "quantity_sum": 1000,
-            "estimated_amount_by_currency": [
-              {
-                "currency": "USD",
-                "amount": 270
               }
             ]
           },
@@ -528,7 +479,7 @@
     "store_comparison": {
       "source_route": "/integrations/alibaba/wika/reports/operations/comparison-summary",
       "report_name": "operations_comparison_summary",
-      "generated_at": "2026-04-11T15:40:43.859Z",
+      "generated_at": "2026-04-11T15:56:48.534Z",
       "comparison_basis": {
         "type": "store_level_period_comparison",
         "derived": true,
@@ -664,7 +615,7 @@
     "product_comparison": {
       "source_route": "/integrations/alibaba/wika/reports/products/comparison-summary",
       "report_name": "products_comparison_summary",
-      "generated_at": "2026-04-11T15:40:43.859Z",
+      "generated_at": "2026-04-11T15:56:48.534Z",
       "comparison_basis": {
         "type": "sampled_product_period_comparison",
         "derived": true,
@@ -1058,7 +1009,7 @@
     "order_comparison": {
       "source_route": "/integrations/alibaba/wika/reports/orders/comparison-summary",
       "report_name": "orders_comparison_summary",
-      "generated_at": "2026-04-11T15:40:43.859Z",
+      "generated_at": "2026-04-11T15:56:48.534Z",
       "comparison_basis": {
         "type": "derived_order_window_comparison",
         "derived": true,
@@ -1136,6 +1087,18 @@
           "observed_trade_ids_count": "***",
           "top_products_by_order_count": [
             {
+              "product_id": "AAHPxslEAOVqtWWP0tWlIbrp",
+              "product_name": "Screen Printing 2oz 60ml Liquid Lens Spray Cleaner for Glasses Custom Print Microfiber Eyeglass Cloth Cleaning Kit",
+              "order_count": 1,
+              "quantity_sum": 1000,
+              "estimated_amount_by_currency": [
+                {
+                  "currency": "USD",
+                  "amount": 270
+                }
+              ]
+            },
+            {
               "product_id": "AAH7xslEAOVqtWWP0tWlM17f",
               "product_name": "Custom 1oz 2oz Glasses Cleaner Eyewear Lens Spray Liquid Cleaning Cleaner Kit Eyeglass Lenses Cloth",
               "order_count": 1,
@@ -1160,20 +1123,8 @@
               ]
             },
             {
-              "product_id": "AAHPxslEAOVqtWWP0tWlIbrp",
-              "product_name": "Screen Printing 2oz 60ml Liquid Lens Spray Cleaner for Glasses Custom Print Microfiber Eyeglass Cloth Cleaning Kit",
-              "order_count": 1,
-              "quantity_sum": 1000,
-              "estimated_amount_by_currency": [
-                {
-                  "currency": "USD",
-                  "amount": 270
-                }
-              ]
-            },
-            {
-              "product_id": "AAESxslEAOVqtWWP0tWmSSUY",
-              "product_name": "Luxury Fashionable Portable Soft Sunglasses Case Storage Drawstring Custom Logo Protection Sunglasses Pouch Bag PU Bags",
+              "product_id": "AAH-xslEAOVqtWWP0tWlnJBH",
+              "product_name": "Luxury Portable Soft Sunglasses case Storage Drawstring Custom Logo Sunglasses Pouch Bag Pu Bags",
               "order_count": 1,
               "quantity_sum": 400,
               "estimated_amount_by_currency": [
@@ -1184,8 +1135,8 @@
               ]
             },
             {
-              "product_id": "AAH-xslEAOVqtWWP0tWlnJBH",
-              "product_name": "Luxury Portable Soft Sunglasses case Storage Drawstring Custom Logo Sunglasses Pouch Bag Pu Bags",
+              "product_id": "AAESxslEAOVqtWWP0tWmSSUY",
+              "product_name": "Luxury Fashionable Portable Soft Sunglasses Case Storage Drawstring Custom Logo Protection Sunglasses Pouch Bag PU Bags",
               "order_count": 1,
               "quantity_sum": 400,
               "estimated_amount_by_currency": [
@@ -1198,6 +1149,18 @@
           ],
           "top_products_by_quantity": [
             {
+              "product_id": "AAHPxslEAOVqtWWP0tWlIbrp",
+              "product_name": "Screen Printing 2oz 60ml Liquid Lens Spray Cleaner for Glasses Custom Print Microfiber Eyeglass Cloth Cleaning Kit",
+              "order_count": 1,
+              "quantity_sum": 1000,
+              "estimated_amount_by_currency": [
+                {
+                  "currency": "USD",
+                  "amount": 270
+                }
+              ]
+            },
+            {
               "product_id": "AAH7xslEAOVqtWWP0tWlM17f",
               "product_name": "Custom 1oz 2oz Glasses Cleaner Eyewear Lens Spray Liquid Cleaning Cleaner Kit Eyeglass Lenses Cloth",
               "order_count": 1,
@@ -1222,20 +1185,8 @@
               ]
             },
             {
-              "product_id": "AAHPxslEAOVqtWWP0tWlIbrp",
-              "product_name": "Screen Printing 2oz 60ml Liquid Lens Spray Cleaner for Glasses Custom Print Microfiber Eyeglass Cloth Cleaning Kit",
-              "order_count": 1,
-              "quantity_sum": 1000,
-              "estimated_amount_by_currency": [
-                {
-                  "currency": "USD",
-                  "amount": 270
-                }
-              ]
-            },
-            {
-              "product_id": "AAESxslEAOVqtWWP0tWmSSUY",
-              "product_name": "Luxury Fashionable Portable Soft Sunglasses Case Storage Drawstring Custom Logo Protection Sunglasses Pouch Bag PU Bags",
+              "product_id": "AAH-xslEAOVqtWWP0tWlnJBH",
+              "product_name": "Luxury Portable Soft Sunglasses case Storage Drawstring Custom Logo Sunglasses Pouch Bag Pu Bags",
               "order_count": 1,
               "quantity_sum": 400,
               "estimated_amount_by_currency": [
@@ -1246,8 +1197,8 @@
               ]
             },
             {
-              "product_id": "AAH-xslEAOVqtWWP0tWlnJBH",
-              "product_name": "Luxury Portable Soft Sunglasses case Storage Drawstring Custom Logo Sunglasses Pouch Bag Pu Bags",
+              "product_id": "AAESxslEAOVqtWWP0tWmSSUY",
+              "product_name": "Luxury Fashionable Portable Soft Sunglasses Case Storage Drawstring Custom Logo Protection Sunglasses Pouch Bag PU Bags",
               "order_count": 1,
               "quantity_sum": 400,
               "estimated_amount_by_currency": [
@@ -1325,7 +1276,7 @@
     "store_diagnostic": {
       "source_route": "/integrations/alibaba/wika/reports/operations/minimal-diagnostic",
       "report_name": "minimal_diagnostic",
-      "generated_at": "2026-04-11T15:40:43.863Z",
+      "generated_at": "2026-04-11T15:56:48.534Z",
       "diagnostic_findings": [
         {
           "area": "products",
@@ -1765,7 +1716,7 @@
     "product_diagnostic": {
       "source_route": "/integrations/alibaba/wika/reports/products/minimal-diagnostic",
       "report_name": "minimal_diagnostic",
-      "generated_at": "2026-04-11T15:40:43.864Z",
+      "generated_at": "2026-04-11T15:56:48.534Z",
       "diagnostic_findings": [
         {
           "area": "products",
@@ -2143,7 +2094,7 @@
     "order_diagnostic": {
       "source_route": "/integrations/alibaba/wika/reports/orders/minimal-diagnostic",
       "report_name": "minimal_diagnostic",
-      "generated_at": "2026-04-11T15:40:43.869Z",
+      "generated_at": "2026-04-11T15:56:48.534Z",
       "diagnostic_findings": [
         {
           "area": "orders",
@@ -2287,8 +2238,8 @@
                   ]
                 },
                 {
-                  "product_id": "AAH-xslEAOVqtWWP0tWlnJBH",
-                  "product_name": "Luxury Portable Soft Sunglasses case Storage Drawstring Custom Logo Sunglasses Pouch Bag Pu Bags",
+                  "product_id": "AAESxslEAOVqtWWP0tWmSSUY",
+                  "product_name": "Luxury Fashionable Portable Soft Sunglasses Case Storage Drawstring Custom Logo Protection Sunglasses Pouch Bag PU Bags",
                   "order_count": 1,
                   "quantity_sum": 400,
                   "estimated_amount_by_currency": [
@@ -2299,8 +2250,8 @@
                   ]
                 },
                 {
-                  "product_id": "AAESxslEAOVqtWWP0tWmSSUY",
-                  "product_name": "Luxury Fashionable Portable Soft Sunglasses Case Storage Drawstring Custom Logo Protection Sunglasses Pouch Bag PU Bags",
+                  "product_id": "AAH-xslEAOVqtWWP0tWlnJBH",
+                  "product_name": "Luxury Portable Soft Sunglasses case Storage Drawstring Custom Logo Sunglasses Pouch Bag Pu Bags",
                   "order_count": 1,
                   "quantity_sum": 400,
                   "estimated_amount_by_currency": [
@@ -2349,8 +2300,8 @@
                   ]
                 },
                 {
-                  "product_id": "AAH-xslEAOVqtWWP0tWlnJBH",
-                  "product_name": "Luxury Portable Soft Sunglasses case Storage Drawstring Custom Logo Sunglasses Pouch Bag Pu Bags",
+                  "product_id": "AAESxslEAOVqtWWP0tWmSSUY",
+                  "product_name": "Luxury Fashionable Portable Soft Sunglasses Case Storage Drawstring Custom Logo Protection Sunglasses Pouch Bag PU Bags",
                   "order_count": 1,
                   "quantity_sum": 400,
                   "estimated_amount_by_currency": [
@@ -2361,8 +2312,8 @@
                   ]
                 },
                 {
-                  "product_id": "AAESxslEAOVqtWWP0tWmSSUY",
-                  "product_name": "Luxury Fashionable Portable Soft Sunglasses Case Storage Drawstring Custom Logo Protection Sunglasses Pouch Bag PU Bags",
+                  "product_id": "AAH-xslEAOVqtWWP0tWlnJBH",
+                  "product_name": "Luxury Portable Soft Sunglasses case Storage Drawstring Custom Logo Sunglasses Pouch Bag Pu Bags",
                   "order_count": 1,
                   "quantity_sum": 400,
                   "estimated_amount_by_currency": [
@@ -2565,8 +2516,8 @@
               ]
             },
             {
-              "product_id": "AAH-xslEAOVqtWWP0tWlnJBH",
-              "product_name": "Luxury Portable Soft Sunglasses case Storage Drawstring Custom Logo Sunglasses Pouch Bag Pu Bags",
+              "product_id": "AAESxslEAOVqtWWP0tWmSSUY",
+              "product_name": "Luxury Fashionable Portable Soft Sunglasses Case Storage Drawstring Custom Logo Protection Sunglasses Pouch Bag PU Bags",
               "order_count": 1,
               "quantity_sum": 400,
               "estimated_amount_by_currency": [
@@ -2577,8 +2528,8 @@
               ]
             },
             {
-              "product_id": "AAESxslEAOVqtWWP0tWmSSUY",
-              "product_name": "Luxury Fashionable Portable Soft Sunglasses Case Storage Drawstring Custom Logo Protection Sunglasses Pouch Bag PU Bags",
+              "product_id": "AAH-xslEAOVqtWWP0tWlnJBH",
+              "product_name": "Luxury Portable Soft Sunglasses case Storage Drawstring Custom Logo Sunglasses Pouch Bag Pu Bags",
               "order_count": 1,
               "quantity_sum": 400,
               "estimated_amount_by_currency": [
@@ -2627,8 +2578,8 @@
               ]
             },
             {
-              "product_id": "AAH-xslEAOVqtWWP0tWlnJBH",
-              "product_name": "Luxury Portable Soft Sunglasses case Storage Drawstring Custom Logo Sunglasses Pouch Bag Pu Bags",
+              "product_id": "AAESxslEAOVqtWWP0tWmSSUY",
+              "product_name": "Luxury Fashionable Portable Soft Sunglasses Case Storage Drawstring Custom Logo Protection Sunglasses Pouch Bag PU Bags",
               "order_count": 1,
               "quantity_sum": 400,
               "estimated_amount_by_currency": [
@@ -2639,8 +2590,8 @@
               ]
             },
             {
-              "product_id": "AAESxslEAOVqtWWP0tWmSSUY",
-              "product_name": "Luxury Fashionable Portable Soft Sunglasses Case Storage Drawstring Custom Logo Protection Sunglasses Pouch Bag PU Bags",
+              "product_id": "AAH-xslEAOVqtWWP0tWlnJBH",
+              "product_name": "Luxury Portable Soft Sunglasses case Storage Drawstring Custom Logo Sunglasses Pouch Bag Pu Bags",
               "order_count": 1,
               "quantity_sum": 400,
               "estimated_amount_by_currency": [
@@ -2692,8 +2643,8 @@
               ]
             },
             {
-              "product_id": "AAH-xslEAOVqtWWP0tWlnJBH",
-              "product_name": "Luxury Portable Soft Sunglasses case Storage Drawstring Custom Logo Sunglasses Pouch Bag Pu Bags",
+              "product_id": "AAESxslEAOVqtWWP0tWmSSUY",
+              "product_name": "Luxury Fashionable Portable Soft Sunglasses Case Storage Drawstring Custom Logo Protection Sunglasses Pouch Bag PU Bags",
               "order_count": 1,
               "quantity_sum": 400,
               "estimated_amount_by_currency": [
@@ -2704,8 +2655,8 @@
               ]
             },
             {
-              "product_id": "AAESxslEAOVqtWWP0tWmSSUY",
-              "product_name": "Luxury Fashionable Portable Soft Sunglasses Case Storage Drawstring Custom Logo Protection Sunglasses Pouch Bag PU Bags",
+              "product_id": "AAH-xslEAOVqtWWP0tWlnJBH",
+              "product_name": "Luxury Portable Soft Sunglasses case Storage Drawstring Custom Logo Sunglasses Pouch Bag Pu Bags",
               "order_count": 1,
               "quantity_sum": 400,
               "estimated_amount_by_currency": [
@@ -2754,8 +2705,8 @@
               ]
             },
             {
-              "product_id": "AAH-xslEAOVqtWWP0tWlnJBH",
-              "product_name": "Luxury Portable Soft Sunglasses case Storage Drawstring Custom Logo Sunglasses Pouch Bag Pu Bags",
+              "product_id": "AAESxslEAOVqtWWP0tWmSSUY",
+              "product_name": "Luxury Fashionable Portable Soft Sunglasses Case Storage Drawstring Custom Logo Protection Sunglasses Pouch Bag PU Bags",
               "order_count": 1,
               "quantity_sum": 400,
               "estimated_amount_by_currency": [
@@ -2766,8 +2717,8 @@
               ]
             },
             {
-              "product_id": "AAESxslEAOVqtWWP0tWmSSUY",
-              "product_name": "Luxury Fashionable Portable Soft Sunglasses Case Storage Drawstring Custom Logo Protection Sunglasses Pouch Bag PU Bags",
+              "product_id": "AAH-xslEAOVqtWWP0tWlnJBH",
+              "product_name": "Luxury Portable Soft Sunglasses case Storage Drawstring Custom Logo Sunglasses Pouch Bag Pu Bags",
               "order_count": 1,
               "quantity_sum": 400,
               "estimated_amount_by_currency": [
