@@ -1,0 +1,93 @@
+{
+  "stage": "stage23_order_management_summary",
+  "generated_at": "2026-04-11T07:43:59.534Z",
+  "baseline": {
+    "health": {
+      "status": 200,
+      "elapsed_ms": 938
+    },
+    "auth_debug": {
+      "status": 200,
+      "elapsed_ms": 971,
+      "body": {
+        "app_base_url": "https://api.wikapacking.com",
+        "session_secret_present": true,
+        "state_ttl_seconds": 600,
+        "wika_client_id_present": true,
+        "wika_client_secret_present": true,
+        "wika_redirect_uri": "https://api.wikapacking.com/integrations/alibaba/callback",
+        "wika_auth_url": "https://open-api.alibaba.com/oauth/authorize",
+        "wika_token_url": "***",
+        "wika_refresh_token_url": "***",
+        "wika_partner_id_present": false,
+        "wika_auto_refresh_enabled": true,
+        "wika_refresh_buffer_seconds": 600,
+        "wika_bootstrap_refresh_token_present": true,
+        "wika_token_storage_path": "***",
+        "wika_token_file_exists": true,
+        "wika_token_loaded": true,
+        "wika_runtime_loaded_from": "refresh:startup_bootstrap",
+        "wika_startup_init_attempted_at": "2026-04-11T07:25:57.765Z",
+        "wika_startup_init_status": "refresh:startup_bootstrap",
+        "wika_startup_init_error": null,
+        "wika_has_refresh_token": true,
+        "wika_next_refresh_at": "2026-05-11T07:16:00.123Z",
+        "wika_last_refresh_at": "2026-04-11T07:26:00.123Z",
+        "wika_last_refresh_reason": "startup_bootstrap",
+        "wika_last_refresh_error": null
+      }
+    },
+    "operations_management_summary": {
+      "status": 200,
+      "elapsed_ms": 2941
+    },
+    "products_management_summary": {
+      "status": 200,
+      "elapsed_ms": 4846
+    },
+    "orders_list": {
+      "status": 200,
+      "elapsed_ms": 1438
+    }
+  },
+  "validations": {
+    "orders_management_summary": {
+      "classification": "PASS_LOCAL_CONTRACT",
+      "observed_trade_count": 3,
+      "total_order_count": 120,
+      "top_products_by_order_count": 5,
+      "unavailable_dimensions": [
+        "country_structure"
+      ],
+      "boundary_statement": {
+        "derived_from_existing_order_apis_only": true,
+        "not_full_order_cockpit": true,
+        "country_structure_unavailable_currently": true,
+        "sample_or_window_based": true
+      }
+    },
+    "orders_minimal_diagnostic": {
+      "classification": "PASS_LOCAL_CONTRACT",
+      "formal_summary_section_status": "derived",
+      "product_contribution_section_status": "derived",
+      "trend_signal_section_status": "derived",
+      "unavailable_dimensions_echo": [
+        "country_structure"
+      ],
+      "boundary_statement": {
+        "derived_from_existing_order_apis_only": true,
+        "not_full_order_cockpit": true,
+        "country_structure_unavailable_currently": true,
+        "sample_or_window_based": true
+      }
+    }
+  },
+  "boundary_statement": {
+    "not_task_1_complete": true,
+    "not_task_2_complete": true,
+    "no_write_action_attempted": true,
+    "wika_only_thread": true,
+    "xd_untouched_in_this_round": true,
+    "not_full_business_cockpit": true
+  }
+}

@@ -1,4 +1,16 @@
-# WIKA 下一批必须验证的 API 候选池
+﻿# WIKA 下一批必须验证的 API 候选池
+
+## 2026-04-11 Stage 23 Order Candidate Delta
+
+### 本轮不再作为高优先级新 API 候选的方向
+- `formal_summary`
+- `product_contribution`
+- 原因：当前已可由现有 `orders/list + orders/detail + orders/fund / logistics` 保守派生，并已沉淀到本地 orders management summary contract。
+
+### 当前订单级真正剩余的高优先级缺口
+- `country_structure`
+- 当前结论：`NOT_DERIVABLE_CURRENTLY`
+- 当前不新增 runtime 候选验证，不回到新 API 探索
 
 更新时间：2026-04-10
 
@@ -142,3 +154,4 @@
 - 仓内当前只有 doc-found 记录
 - 当前没有足够的 doc URL + 参数契约落盘
 - 且它们不是本轮 store/product 剩余缺口的直接 route-level 证据入口
+

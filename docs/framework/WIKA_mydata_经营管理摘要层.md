@@ -1,5 +1,20 @@
 ﻿# WIKA_mydata_经营管理摘要层
 
+## 2026-04-11 Stage 23 Cross-Layer Note
+
+### store / product 管理摘要层保持不变
+- 本轮没有修改 `operations/management-summary`
+- 本轮没有修改 `products/management-summary`
+- 本轮没有新增 store/product 真实字段
+
+### 订单层已单独外提
+- stage23 新增订单 derived summary 层，详见：
+  - `docs/framework/WIKA_订单经营派生契约.md`
+  - `docs/framework/WIKA_订单经营摘要层.md`
+- 当前订单层结论：
+  - `formal_summary / product_contribution / trend_signal` 已在本地 contract 层成立
+  - `country_structure` 仍 unavailable
+
 ## 2026-04-10 Stage 21 Post-Deploy Status
 
 ### production HTTP smoke
@@ -194,3 +209,4 @@
   - store/product only
   - no new live route fields in this round
   - not full business cockpit
+

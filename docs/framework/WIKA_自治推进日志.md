@@ -1,5 +1,34 @@
 ﻿# WIKA 自治推进日志
 
+### 阶段 23：WIKA 订单经营摘要层与订单诊断扩展
+
+- 起始 commit：`19f55e9e99a5fa5b9383c8375c86c16b7fb14b05`
+- 本阶段先完成：
+  - `git push origin 19f55e9e99a5fa5b9383c8375c86c16b7fb14b05:refs/heads/main`
+- 本阶段只做两件事：
+  - 把 stage22 已确认可保守派生的 `formal_summary / product_contribution` 沉淀成订单经营摘要层
+  - 扩展 `/integrations/alibaba/wika/reports/orders/minimal-diagnostic` 正式消费这些 derived 结果
+- 新增 / 更新沉淀：
+  - `shared/data/modules/wika-order-management-summary.js`
+  - `shared/data/modules/wika-minimal-diagnostic.js`
+  - `app.js`
+  - `scripts/validate-wika-order-management-summary.js`
+  - `docs/framework/WIKA_订单经营派生契约.md`
+  - `docs/framework/WIKA_订单经营摘要层.md`
+  - `docs/framework/evidence/wika-order-management-summary-layer-summary.json`
+  - `docs/framework/evidence/wika_orders_management_summary.json`
+  - `docs/framework/evidence/wika_orders_minimal_diagnostic_extended.json`
+- 本地 contract 验证结果：
+  - `orders_management_summary -> PASS_LOCAL_CONTRACT`
+  - `orders_minimal_diagnostic -> PASS_LOCAL_CONTRACT`
+- 当前收口：
+  - `formal_summary` 已在本地 summary 层成立
+  - `product_contribution` 已在本地 summary 层成立
+  - `country_structure` 继续 unavailable
+  - 本阶段没有修改 store/product live routes
+  - 本阶段没有任何写动作
+  - 本阶段先不 push，待确认后再决定
+
 ### 阶段 21 收口二：隔离工作树部署验证与正式基线锁定
 
 - 原始工作区 `HEAD`：`4814b97fa3dbd32b81d603eaf063a9f19dfaf76b`
@@ -1017,3 +1046,4 @@
 - 当前仍不是 task 1 complete
 - 当前仍不是 task 2 complete
 - 当前仍不是完整经营驾驶舱
+

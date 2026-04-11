@@ -1,5 +1,24 @@
 ﻿# WIKA 面向 6 项任务 API 缺口矩阵
 
+## 2026-04-11 Stage 23 Orders Derived Summary Delta
+
+### 任务 2：经营诊断扩展
+- 本地已新增订单 derived summary 层：
+  - `/integrations/alibaba/wika/reports/orders/management-summary`
+- 本地已扩展订单诊断层：
+  - `/integrations/alibaba/wika/reports/orders/minimal-diagnostic`
+- 当前已能保守消费的 derived 订单维度：
+  - `formal_summary`
+  - `product_contribution`
+  - `trend_signal`（sample/window based）
+- 当前仍未完成：
+  - `country_structure`
+  - 完整官方订单经营报表
+
+### 任务 1：读取平台数据
+- store/product 读取层本轮无新增字段
+- 仍保持局部重开，不误写成 task 1 complete
+
 ## 2026-04-10 Stage 21 Deploy Lock Delta
 
 ### 任务 1：读取平台数据
@@ -154,3 +173,4 @@
 - not task 1 complete
 - not task 2 complete
 - not full business cockpit
+

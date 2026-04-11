@@ -1,5 +1,32 @@
 ﻿# WIKA_执行计划
 
+## 2026-04-11 Stage 23 Orders Summary Update
+
+### 当前阶段
+- 阶段 23：WIKA 订单经营摘要层与订单诊断扩展
+
+### 本轮唯一目标
+- 先把 stage22 commit `19f55e9e99a5fa5b9383c8375c86c16b7fb14b05` push 到 `origin/main`
+- 在不新增 API 探索的前提下，把 `formal_summary / product_contribution` 沉淀为正式只读订单经营摘要层
+- 扩展 `/integrations/alibaba/wika/reports/orders/minimal-diagnostic` 消费这些 derived 结果
+- 保持 `country_structure` unavailable
+
+### 已完成
+- stage22 已成功 push 到 `origin/main`
+- 已新增本地 helper：`shared/data/modules/wika-order-management-summary.js`
+- 已新增本地 route：`/integrations/alibaba/wika/reports/orders/management-summary`
+- 已扩展本地 route：`/integrations/alibaba/wika/reports/orders/minimal-diagnostic`
+- 已通过本地 contract 验证：
+  - `orders_management_summary -> PASS_LOCAL_CONTRACT`
+  - `orders_minimal_diagnostic -> PASS_LOCAL_CONTRACT`
+
+### 本轮明确边界
+- 不新增 Alibaba API 探索
+- 不推进 XD
+- 不做任何写动作
+- `country_structure` 继续 unavailable
+- stage23 本地改动先不 push，等确认后再决定
+
 ## 2026-04-10 Stage 21 Deploy Lock Update
 
 ### 当前阶段
@@ -208,3 +235,4 @@
 - not task 1 complete
 - not task 2 complete
 - not full business cockpit
+

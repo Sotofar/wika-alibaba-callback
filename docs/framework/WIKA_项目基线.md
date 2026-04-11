@@ -1,5 +1,39 @@
 ﻿# WIKA_项目基线
 
+## 2026-04-11 Stage 23 Local Contract Update
+
+### stage22 远端锁定
+- `19f55e9e99a5fa5b9383c8375c86c16b7fb14b05` 已 push 到 `origin/main`，当前远端 main 已锁定 stage22 缺口压缩结论。
+- 当前远端结论继续成立：
+  - store/product 剩余维度本轮没有新增真实字段
+  - order `formal_summary / product_contribution` 已确定可由现有 order 只读链保守派生
+  - `country_structure` 仍 unavailable
+
+### stage23 本地订单经营摘要层
+- 本地新增只读 helper：
+  - `shared/data/modules/wika-order-management-summary.js`
+- 本地新增只读 route：
+  - `/integrations/alibaba/wika/reports/orders/management-summary`
+- 本地扩展 route：
+  - `/integrations/alibaba/wika/reports/orders/minimal-diagnostic`
+- 本地 contract 验证结果：
+  - `orders_management_summary -> PASS_LOCAL_CONTRACT`
+  - `orders_minimal_diagnostic -> PASS_LOCAL_CONTRACT`
+
+### 当前已确认的 derived order dimensions
+- `formal_summary`：已在本地 orders management summary 中稳定产出
+- `product_contribution`：已在本地 orders management summary 中稳定产出
+- `trend_signal`：已在本地 summary / minimal diagnostic 中以 sample/window based 方式产出
+- `country_structure`：继续保持 unavailable，不脑补
+
+### 当前固定边界
+- stage23 尚未 push，尚未部署
+- 本轮没有修改 store/product live routes
+- `/integrations/alibaba/wika/reports/orders/management-summary` 是 derived / conservative / partial 的，不是官方完整订单经营报表
+- not task 1 complete
+- not task 2 complete
+- not full business cockpit
+
 ## 2026-04-10 Stage 21 Deploy Lock Update
 
 ### 已部署并 smoke 通过的经营管理摘要层
@@ -309,3 +343,4 @@
 - not task 1 complete
 - not task 2 complete
 - not full business cockpit
+

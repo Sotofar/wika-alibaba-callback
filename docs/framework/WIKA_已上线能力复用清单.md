@@ -1,5 +1,15 @@
 ﻿# WIKA 已上线能力复用清单
 
+## 2026-04-11 Stage 23 Local Pending Additions
+- stage22 已正式 push 到 `origin/main`，当前远端 main 已锁定缺口压缩结论。
+- 本地新增但尚未部署的订单 derived summary 资产：
+  - `shared/data/modules/wika-order-management-summary.js`
+  - `/integrations/alibaba/wika/reports/orders/management-summary`
+  - 已扩展 `/integrations/alibaba/wika/reports/orders/minimal-diagnostic`
+- 当前复用边界：
+  - 这些 stage23 订单摘要层资产当前仅通过本地 contract 验证，尚未纳入已上线 route 清单
+  - store/product 已上线 route 本轮未改动
+
 ## 2026-04-10 Stage 21 Deploy Lock Additions
 - 已部署并通过 production HTTP smoke 的 management summary route：
   - `/integrations/alibaba/wika/reports/operations/management-summary`
@@ -92,3 +102,4 @@
   - 只收口缺口，不扩 live routes
   - store/product management summary 保持 stage21 结构
   - not full business cockpit
+

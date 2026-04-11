@@ -21,6 +21,7 @@ import {
   buildOperationsManagementSummary,
   buildProductsManagementSummary
 } from "./wika-mydata-management-summary.js";
+import { buildOrdersManagementSummary } from "./wika-order-management-summary.js";
 
 function toPositiveInteger(value, fallbackValue, maxValue = Number.POSITIVE_INFINITY) {
   const parsed = Number.parseInt(String(value ?? ""), 10);
@@ -778,8 +779,8 @@ function buildProductAvailableSignals(productSignals, sampleConfig, performanceS
   return signals;
 }
 
-function buildOrderAvailableSignals(orderSignals, sampleConfig) {
-  return [
+function buildOrderAvailableSignals(orderSignals, sampleConfig, orderManagementSummary = null) {
+  const signals = [
     {
       module: "orders",
       source_route: "/integrations/alibaba/wika/data/orders/list",
@@ -802,6 +803,110 @@ function buildOrderAvailableSignals(orderSignals, sampleConfig) {
       notes: `Sampled from the first ${sampleConfig.order_sample_limit} orders in orders/logistics.`
     }
   ];
+
+  if (orderManagementSummary) {
+    signals.push({
+      module: "orders",
+      source_route: "/integrations/alibaba/wika/reports/orders/management-summary",
+      fields: ["formal_summary", "product_contribution", "trend_signal"],
+      sample_size: orderManagementSummary.formal_summary?.observed_trade_count ?? 0,
+      notes:
+        "Derived from existing order APIs only, with source limitations and unavailable country structure kept explicit."
+    });
+  }
+
+  return signals;
+}
+
+function buildOrderManagementSections(orderManagementSummary) {
+  if (!orderManagementSummary) {
+    return {
+      formal_summary_section: {
+        status: "unavailable",
+        unavailable_dimensions_echo: ["country_structure"],
+        boundary_statement: {
+          derived_from_existing_order_apis_only: true,
+          not_full_order_cockpit: true,
+          country_structure_unavailable_currently: true
+        }
+      },
+      product_contribution_section: {
+        status: "unavailable",
+        unavailable_dimensions_echo: ["country_structure"]
+      },
+      trend_signal_section: {
+        status: "unavailable",
+        note: "Trend signal is unavailable when the local order management summary contract is not built."
+      },
+      unavailable_dimensions_echo: ["country_structure"],
+      recommendation_block: [],
+      confidence_hints: {
+        note: "Order management summary has not been attached yet."
+      },
+      boundary_statement: {
+        derived_from_existing_order_apis_only: true,
+        not_full_order_cockpit: true,
+        country_structure_unavailable_currently: true
+      }
+    };
+  }
+
+  return {
+    formal_summary_section: {
+      status: "derived",
+      source_route: "/integrations/alibaba/wika/reports/orders/management-summary",
+      formal_summary: orderManagementSummary.formal_summary,
+      signal_interpretation: {
+        summary:
+          "Current formal summary is derived from sampled orders/list + detail + fund + logistics reads and should be read as a conservative windowed management view.",
+        observed_trade_count:
+          orderManagementSummary.formal_summary?.observed_trade_count ?? 0,
+        total_order_count:
+          orderManagementSummary.formal_summary?.total_order_count ?? null
+      }
+    },
+    product_contribution_section: {
+      status: "derived",
+      source_route: "/integrations/alibaba/wika/reports/orders/management-summary",
+      product_contribution: orderManagementSummary.product_contribution,
+      ranking_interpretation: {
+        summary:
+          "Current product contribution is aggregated from order_products within the sampled trade set and remains a conservative derived signal rather than a full order cockpit ranking.",
+        top_products_by_order_count:
+          orderManagementSummary.product_contribution?.top_products_by_order_count ?? [],
+        top_products_by_quantity:
+          orderManagementSummary.product_contribution?.top_products_by_quantity ?? []
+      }
+    },
+    trend_signal_section: orderManagementSummary.trend_signal
+      ? {
+          status: "derived",
+          source_route: "/integrations/alibaba/wika/reports/orders/management-summary",
+          trend_signal: orderManagementSummary.trend_signal,
+          signal_interpretation: {
+            summary:
+              "Current trend signal is derived from sampled orders/list.create_date values and should not be expanded into a full-history order trend claim."
+          }
+        }
+      : {
+          status: "unavailable",
+          note: "Trend signal is not stable enough to expose in the current local summary."
+        },
+    unavailable_dimensions_echo: orderManagementSummary.unavailable_dimensions ?? ["country_structure"],
+    recommendation_block: orderManagementSummary.recommendations ?? [],
+    confidence_hints: {
+      report_scope: orderManagementSummary.report_scope ?? null,
+      sample_or_window_basis: orderManagementSummary.sample_or_window_basis ?? null,
+      source_limitations: orderManagementSummary.source_limitations ?? null,
+      note:
+        "Derived order summary still depends on sampled/window-based reads; country_structure remains unavailable in the public route layer."
+    },
+    boundary_statement: orderManagementSummary.boundary_statement ?? {
+      derived_from_existing_order_apis_only: true,
+      not_full_order_cockpit: true,
+      country_structure_unavailable_currently: true
+    }
+  };
 }
 
 function buildProductDiagnosticFindings(productSignals, performanceSummary = null) {
@@ -851,8 +956,8 @@ function buildProductDiagnosticFindings(productSignals, performanceSummary = nul
   return findings.concat(buildProductPerformanceFindings(performanceSummary));
 }
 
-function buildOrderDiagnosticFindings(orderSignals) {
-  return [
+function buildOrderDiagnosticFindings(orderSignals, orderManagementSummary = null) {
+  const findings = [
     {
       area: "orders",
       strength: "strong",
@@ -865,6 +970,36 @@ function buildOrderDiagnosticFindings(orderSignals) {
       }
     }
   ];
+
+  if (orderManagementSummary) {
+    findings.push(
+      {
+        area: "orders",
+        strength: "strong",
+        finding:
+          "Current order management summary can conservatively derive formal_summary from orders/list + orders/detail + orders/fund.",
+        basis_fields: ["formal_summary", "source_routes", "source_limitations"],
+        evidence: {
+          formal_summary: orderManagementSummary.formal_summary,
+          source_routes: orderManagementSummary.source_routes,
+          source_limitations: orderManagementSummary.source_limitations
+        }
+      },
+      {
+        area: "orders",
+        strength: "strong",
+        finding:
+          "Current order management summary can conservatively derive product_contribution from order_products, while country_structure remains unavailable.",
+        basis_fields: ["product_contribution", "unavailable_dimensions"],
+        evidence: {
+          product_contribution: orderManagementSummary.product_contribution,
+          unavailable_dimensions: orderManagementSummary.unavailable_dimensions
+        }
+      }
+    );
+  }
+
+  return findings;
 }
 
 function buildProductRecommendations(productSignals, performanceSummary = null) {
@@ -985,7 +1120,7 @@ function buildProductRecommendations(productSignals, performanceSummary = null) 
   };
 }
 
-function buildOrderRecommendations(orderSignals) {
+function buildOrderRecommendations(orderSignals, orderManagementSummary = null) {
   const immediateActions = [];
   const needsMoreDataActions = [];
   const logisticsStatuses = orderSignals.logistics_status_distribution;
@@ -1014,18 +1149,47 @@ function buildOrderRecommendations(orderSignals) {
     });
   }
 
-  needsMoreDataActions.push({
-    strength: "weak",
-    theme: "order_analytics_gap",
-    reason:
-      "Order trend, country structure, product contribution, and full amount series are still unavailable.",
-    blocker_keys: [
-      "order_trend",
-      "country_structure",
-      "product_contribution",
-      "full_amount_series"
-    ]
-  });
+  if (orderManagementSummary) {
+    for (const recommendation of orderManagementSummary.recommendations ?? []) {
+      immediateActions.push({
+        strength: "strong",
+        theme: "order_management_summary",
+        reason: recommendation,
+        evidence: {
+          report_scope: orderManagementSummary.report_scope,
+          sample_or_window_basis: orderManagementSummary.sample_or_window_basis
+        }
+      });
+    }
+
+    needsMoreDataActions.push({
+      strength: "weak",
+      theme: "country_structure_gap",
+      reason:
+        "Current order management summary still cannot expose country_structure from the public route layer.",
+      blocker_keys: ["country_structure"]
+    });
+    needsMoreDataActions.push({
+      strength: "weak",
+      theme: "sampling_boundary",
+      reason:
+        "Current order management summary remains sampled/window-based and should not be read as an unrestricted historical order cockpit.",
+      blocker_keys: ["full_history_order_summary"]
+    });
+  } else {
+    needsMoreDataActions.push({
+      strength: "weak",
+      theme: "order_analytics_gap",
+      reason:
+        "Order trend, country structure, product contribution, and full amount series are still unavailable.",
+      blocker_keys: [
+        "order_trend",
+        "country_structure",
+        "product_contribution",
+        "full_amount_series"
+      ]
+    });
+  }
 
   return {
     immediate_actions: immediateActions,
@@ -1055,6 +1219,27 @@ function buildOrderMissingDataBlockers() {
       blocker: "order_analytics_dimensions_missing",
       missing_metrics: ["order_trend", "country_structure", "product_contribution"],
       impact: "Current order snapshot cannot support full trend, country-structure, or product-contribution analysis."
+    }
+  ];
+}
+
+function buildOrderManagementMissingDataBlockers(orderManagementSummary = null) {
+  if (!orderManagementSummary) {
+    return buildOrderMissingDataBlockers();
+  }
+
+  return [
+    {
+      blocker: "order_country_structure_unavailable",
+      missing_metrics: ["country_structure"],
+      impact:
+        "Current order management summary still cannot expose stable country_structure values from the public route layer."
+    },
+    {
+      blocker: "order_summary_sampling_boundary",
+      missing_metrics: ["full_history_order_summary"],
+      impact:
+        "Current order management summary is derived from sampled/window-based existing order APIs rather than an unrestricted official order cockpit."
     }
   ];
 }
@@ -1271,7 +1456,14 @@ function buildWikaProductMinimalDiagnosticReport(
   };
 }
 
-function buildWikaOrderMinimalDiagnosticReport(orderSignals, sampleConfig, generatedAt) {
+function buildWikaOrderMinimalDiagnosticReport(
+  orderSignals,
+  sampleConfig,
+  generatedAt,
+  orderManagementSummary = null
+) {
+  const managementSections = buildOrderManagementSections(orderManagementSummary);
+
   return {
     ok: true,
     account: "wika",
@@ -1293,19 +1485,38 @@ function buildWikaOrderMinimalDiagnosticReport(orderSignals, sampleConfig, gener
       type: "snapshot",
       orders_create_date_range: orderSignals.time_window
     },
-    available_signals: buildOrderAvailableSignals(orderSignals, sampleConfig),
+    available_signals: buildOrderAvailableSignals(
+      orderSignals,
+      sampleConfig,
+      orderManagementSummary
+    ),
     logistics_summary: {
       distribution: orderSignals.logistics_status_distribution,
       at_risk_count: orderSignals.execution_risks.length
     },
     fund_signal_summary: orderSignals.fund_visibility,
+    formal_summary_section: managementSections.formal_summary_section,
+    product_contribution_section: managementSections.product_contribution_section,
+    trend_signal_section: managementSections.trend_signal_section,
+    unavailable_dimensions_echo: managementSections.unavailable_dimensions_echo,
+    recommendation_block: managementSections.recommendation_block,
+    confidence_hints: managementSections.confidence_hints,
+    boundary_statement: managementSections.boundary_statement,
+    management_summary: orderManagementSummary,
     operational_risks: orderSignals.execution_risks,
-    diagnostic_findings: buildOrderDiagnosticFindings(orderSignals),
-    recommendations: buildOrderRecommendations(orderSignals),
-    missing_data_blockers: buildOrderMissingDataBlockers(),
+    diagnostic_findings: buildOrderDiagnosticFindings(
+      orderSignals,
+      orderManagementSummary
+    ),
+    recommendations: buildOrderRecommendations(orderSignals, orderManagementSummary),
+    missing_data_blockers: buildOrderManagementMissingDataBlockers(
+      orderManagementSummary
+    ),
     limitations: [
       "Current order diagnostic is built from sampled order / fund / logistics reads and is not a full order dashboard.",
-      "Trend, country structure, and product contribution remain unavailable."
+      orderManagementSummary
+        ? "Current formal_summary / product_contribution are derived and conservative; country_structure remains unavailable."
+        : "Trend, country structure, and product contribution remain unavailable."
     ]
   };
 }
@@ -1364,10 +1575,18 @@ export async function fetchWikaOrderMinimalDiagnostic(clientConfig, query = {}) 
     query
   );
 
+  let managementSummary = null;
+  try {
+    managementSummary = await buildOrdersManagementSummary(clientConfig, query);
+  } catch {
+    managementSummary = null;
+  }
+
   return buildWikaOrderMinimalDiagnosticReport(
     orderSignals,
     sampleConfig,
-    generatedAt
+    generatedAt,
+    managementSummary
   );
 }
 

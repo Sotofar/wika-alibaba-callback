@@ -46,6 +46,7 @@ import {
   buildOperationsManagementSummary,
   buildProductsManagementSummary
 } from "./shared/data/modules/wika-mydata-management-summary.js";
+import { buildOrdersManagementSummary } from "./shared/data/modules/wika-order-management-summary.js";
 import { buildWikaExternalReplyDraftPackage } from "./shared/data/modules/alibaba-external-reply-drafts.js";
 import { buildWikaExternalOrderDraftPackage } from "./shared/data/modules/alibaba-order-drafts.js";
 
@@ -2445,6 +2446,49 @@ function createWikaProductMinimalDiagnosticHandler() {
   };
 }
 
+function createWikaOrderManagementSummaryHandler() {
+  return async (req, res) => {
+    try {
+      const result = await buildOrdersManagementSummary(
+        await getWikaReadOnlyClientConfig(),
+        req.query
+      );
+
+      logInfo("Wika orders management summary completed", {
+        observedTradeCount: result.formal_summary?.observed_trade_count ?? 0,
+        topProductCount:
+          result.product_contribution?.top_products_by_order_count?.length ?? 0
+      });
+
+      res.status(200).json({
+        ok: true,
+        module: "orders",
+        account: "wika",
+        read_only: true,
+        ...result
+      });
+    } catch (error) {
+      logError("Wika orders management summary failed", {
+        error: error instanceof Error ? error.message : String(error),
+        details:
+          error instanceof AlibabaApiError || error?.details
+            ? error.details
+            : undefined,
+        top_error: extractTopErrorResponse(error),
+        query: req.query
+      });
+
+      const hasMissingKeys =
+        error instanceof ConfigurationError ||
+        Array.isArray(error?.missingKeys);
+
+      res
+        .status(error instanceof ConfigurationError ? 500 : hasMissingKeys ? 400 : 502)
+        .json(buildReadOnlyErrorResponse(error));
+    }
+  };
+}
+
 function createWikaOrderMinimalDiagnosticHandler() {
   return async (req, res) => {
     try {
@@ -3358,6 +3402,10 @@ app.get(
   createWikaProductMinimalDiagnosticHandler()
 );
 
+app.get(
+  "/integrations/alibaba/wika/reports/orders/management-summary",
+  createWikaOrderManagementSummaryHandler()
+);
 app.get(
   "/integrations/alibaba/wika/reports/orders/minimal-diagnostic",
   createWikaOrderMinimalDiagnosticHandler()

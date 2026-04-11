@@ -1,0 +1,299 @@
+{
+  "ok": true,
+  "module": "orders",
+  "account": "wika",
+  "read_only": true,
+  "report_name": "orders_management_summary",
+  "generated_at": "2026-04-11T07:43:54.930Z",
+  "report_scope": {
+    "type": "derived_order_summary",
+    "derived": true,
+    "sample_based": true,
+    "official_report": false
+  },
+  "source_routes": [
+    "/integrations/alibaba/wika/data/orders/list",
+    "/integrations/alibaba/wika/data/orders/detail",
+    "/integrations/alibaba/wika/data/orders/fund",
+    "/integrations/alibaba/wika/data/orders/logistics"
+  ],
+  "source_limitations": {
+    "sample_based": true,
+    "page_limit": 3,
+    "order_page_size": 5,
+    "requested_date_window": null,
+    "requested_date_window_applied": false,
+    "trade_ids_source": "orders_list_first_page",
+    "total_order_count_visible": 120,
+    "nested_route_errors": []
+  },
+  "date_window": {
+    "requested": null,
+    "observed_create_date_window": {
+      "start_date": "2026-04-07",
+      "end_date": "2026-04-10",
+      "observed_point_count": 3
+    },
+    "applied": false
+  },
+  "page_limit": 3,
+  "sample_or_window_basis": {
+    "mode": "orders_list_first_page_sample",
+    "observed_trade_ids_count": 3,
+    "total_count_visible": 120
+  },
+  "formal_summary": {
+    "derived": true,
+    "total_order_count": 120,
+    "observed_trade_count": 3,
+    "trade_status_distribution": [
+      {
+        "key": "undeliver",
+        "count": 2
+      },
+      {
+        "key": "unpay",
+        "count": 1
+      }
+    ],
+    "total_amount_by_currency": [
+      {
+        "currency": "USD",
+        "amount": 2445.2
+      }
+    ],
+    "product_total_amount_by_currency": [
+      {
+        "currency": "USD",
+        "amount": 1857.5
+      }
+    ],
+    "shipment_fee_by_currency": [
+      {
+        "currency": "USD",
+        "amount": 587.7
+      }
+    ],
+    "fund_signals_summary": {
+      "derived": true,
+      "observed_fund_trade_count": 3,
+      "service_fee_by_currency": [
+        {
+          "currency": "USD",
+          "amount": 73.36
+        }
+      ],
+      "pay_status_distribution": [
+        {
+          "key": "FULFILLED",
+          "count": 2
+        },
+        {
+          "key": "UNPAY",
+          "count": 1
+        }
+      ],
+      "pay_method_distribution": [
+        {
+          "key": "PAYPAL",
+          "count": 1
+        },
+        {
+          "key": "PAYPAL_BNPL",
+          "count": 1
+        },
+        {
+          "key": "UNKNOWN",
+          "count": 1
+        }
+      ]
+    },
+    "logistics_signal_summary": {
+      "derived": true,
+      "observed_logistics_trade_count": 3,
+      "logistic_status_distribution": [
+        {
+          "key": "UNDELIVERED",
+          "count": 3
+        }
+      ],
+      "agreed_shipment_date_window": {
+        "start_date": "2026-05-27",
+        "end_date": "2026-05-31",
+        "observed_point_count": 2
+      },
+      "missing_shipping_order_count": 0
+    }
+  },
+  "product_contribution": {
+    "derived": true,
+    "contribution_basis": {
+      "occurrence_based": true,
+      "quantity_based": true,
+      "amount_based_support": "estimated_from_quantity_times_unit_price_when_available"
+    },
+    "observed_trade_ids_count": 3,
+    "top_products_by_order_count": [
+      {
+        "product_id": "AAHPxslEAOVqtWWP0tWlIbrp",
+        "product_name": "Screen Printing 2oz 60ml Liquid Lens Spray Cleaner for Glasses Custom Print Microfiber Eyeglass Cloth Cleaning Kit",
+        "order_count": 1,
+        "quantity_sum": 1000,
+        "estimated_amount_by_currency": [
+          {
+            "currency": "USD",
+            "amount": 270
+          }
+        ]
+      },
+      {
+        "product_id": "AAH7xslEAOVqtWWP0tWlM17f",
+        "product_name": "Custom 1oz 2oz Glasses Cleaner Eyewear Lens Spray Liquid Cleaning Cleaner Kit Eyeglass Lenses Cloth",
+        "order_count": 1,
+        "quantity_sum": 1000,
+        "estimated_amount_by_currency": [
+          {
+            "currency": "USD",
+            "amount": 480
+          }
+        ]
+      },
+      {
+        "product_id": "AAHLxslEAOVqtWWP0tWl-_fO",
+        "product_name": "Custom Triangle Eyeglass Packaging Sunglasses Paper Box Folding Spectacle Cases for Glasses Packaging Set",
+        "order_count": 1,
+        "quantity_sum": 1000,
+        "estimated_amount_by_currency": [
+          {
+            "currency": "USD",
+            "amount": 120
+          }
+        ]
+      },
+      {
+        "product_id": "AAH-xslEAOVqtWWP0tWlnJBH",
+        "product_name": "Luxury Portable Soft Sunglasses case Storage Drawstring Custom Logo Sunglasses Pouch Bag Pu Bags",
+        "order_count": 1,
+        "quantity_sum": 400,
+        "estimated_amount_by_currency": [
+          {
+            "currency": "USD",
+            "amount": 172
+          }
+        ]
+      },
+      {
+        "product_id": "AAESxslEAOVqtWWP0tWmSSUY",
+        "product_name": "Luxury Fashionable Portable Soft Sunglasses Case Storage Drawstring Custom Logo Protection Sunglasses Pouch Bag PU Bags",
+        "order_count": 1,
+        "quantity_sum": 400,
+        "estimated_amount_by_currency": [
+          {
+            "currency": "USD",
+            "amount": 172
+          }
+        ]
+      }
+    ],
+    "top_products_by_quantity": [
+      {
+        "product_id": "AAHPxslEAOVqtWWP0tWlIbrp",
+        "product_name": "Screen Printing 2oz 60ml Liquid Lens Spray Cleaner for Glasses Custom Print Microfiber Eyeglass Cloth Cleaning Kit",
+        "order_count": 1,
+        "quantity_sum": 1000,
+        "estimated_amount_by_currency": [
+          {
+            "currency": "USD",
+            "amount": 270
+          }
+        ]
+      },
+      {
+        "product_id": "AAH7xslEAOVqtWWP0tWlM17f",
+        "product_name": "Custom 1oz 2oz Glasses Cleaner Eyewear Lens Spray Liquid Cleaning Cleaner Kit Eyeglass Lenses Cloth",
+        "order_count": 1,
+        "quantity_sum": 1000,
+        "estimated_amount_by_currency": [
+          {
+            "currency": "USD",
+            "amount": 480
+          }
+        ]
+      },
+      {
+        "product_id": "AAHLxslEAOVqtWWP0tWl-_fO",
+        "product_name": "Custom Triangle Eyeglass Packaging Sunglasses Paper Box Folding Spectacle Cases for Glasses Packaging Set",
+        "order_count": 1,
+        "quantity_sum": 1000,
+        "estimated_amount_by_currency": [
+          {
+            "currency": "USD",
+            "amount": 120
+          }
+        ]
+      },
+      {
+        "product_id": "AAH-xslEAOVqtWWP0tWlnJBH",
+        "product_name": "Luxury Portable Soft Sunglasses case Storage Drawstring Custom Logo Sunglasses Pouch Bag Pu Bags",
+        "order_count": 1,
+        "quantity_sum": 400,
+        "estimated_amount_by_currency": [
+          {
+            "currency": "USD",
+            "amount": 172
+          }
+        ]
+      },
+      {
+        "product_id": "AAESxslEAOVqtWWP0tWmSSUY",
+        "product_name": "Luxury Fashionable Portable Soft Sunglasses Case Storage Drawstring Custom Logo Protection Sunglasses Pouch Bag PU Bags",
+        "order_count": 1,
+        "quantity_sum": 400,
+        "estimated_amount_by_currency": [
+          {
+            "currency": "USD",
+            "amount": 172
+          }
+        ]
+      }
+    ]
+  },
+  "trend_signal": {
+    "derived": true,
+    "basis": "orders/list.create_date sampled window",
+    "observed_point_count": 4,
+    "by_day": [
+      {
+        "date": "2026-04-01",
+        "order_count": 2
+      },
+      {
+        "date": "2026-04-07",
+        "order_count": 1
+      },
+      {
+        "date": "2026-04-09",
+        "order_count": 1
+      },
+      {
+        "date": "2026-04-10",
+        "order_count": 1
+      }
+    ],
+    "note": "Current trend signal is derived from the sampled orders/list create_date window, not from an unrestricted full-history order report."
+  },
+  "unavailable_dimensions": [
+    "country_structure"
+  ],
+  "boundary_statement": {
+    "derived_from_existing_order_apis_only": true,
+    "not_full_order_cockpit": true,
+    "country_structure_unavailable_currently": true,
+    "sample_or_window_based": true
+  },
+  "recommendations": [
+    "Current sampled logistics statuses still include UNDELIVERED orders; follow up fulfillment timing before treating the window as closed.",
+    "Current sampled orders still include unpaid trades; separate paid vs unpaid signals when reading formal summary totals.",
+    "Current order management summary is sampled/window-based; check page_limit and observed_trade_count before using it as a management headline."
+  ]
+}
