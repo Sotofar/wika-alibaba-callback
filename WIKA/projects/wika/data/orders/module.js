@@ -1,13 +1,13 @@
 import {
   createSourceDescriptor,
   DATA_QUALITY_STATUS
-} from "../../../../shared/data/clients/source-status.js";
+} from "../../../../../shared/data/clients/source-status.js";
 import {
   DEFAULT_ALIBABA_SELLER_APP_LOG_PATH,
   DEFAULT_ALIBABA_SELLER_USER_AGENT,
   fetchAlibabaSellerPageJson,
   loadAlibabaSellerCookiesFromAppLog
-} from "../../../../shared/data/clients/alibaba-seller-page-client.js";
+} from "../../../../../shared/data/clients/alibaba-seller-page-client.js";
 
 const ORDER_URLS = Object.freeze({
   summary:

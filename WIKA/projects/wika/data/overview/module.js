@@ -1,8 +1,8 @@
 import {
   createSourceDescriptor,
   DATA_QUALITY_STATUS
-} from "../../../../shared/data/clients/source-status.js";
-import { fetchAlibabaSellerPageJson } from "../../../../shared/data/clients/alibaba-seller-page-client.js";
+} from "../../../../../shared/data/clients/source-status.js";
+import { fetchAlibabaSellerPageJson } from "../../../../../shared/data/clients/alibaba-seller-page-client.js";
 
 const OVERVIEW_URLS = Object.freeze({
   homepageCards: "https://i.alibaba.com/ajax/homepageAiModuleQuerySummary.do",

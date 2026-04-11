@@ -1,4 +1,4 @@
-import { createEmptyManagementReport } from "../../../../shared/data/report-templates/report-shapes.js";
+import { createEmptyManagementReport } from "../../../../../shared/data/report-templates/report-shapes.js";
 
 function formatPercent(value) {
   if (value === undefined || value === null || Number.isNaN(Number(value))) {

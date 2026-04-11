@@ -1,16 +1,16 @@
 import {
   AlibabaTopApiError,
   DEFAULT_ALIBABA_TOP_API_URL
-} from "../../../../shared/data/clients/alibaba-top-client.js";
+} from "../../../../../shared/data/clients/alibaba-top-client.js";
 import {
   callAlibabaSyncApi,
   resolveAlibabaSyncEndpoint
-} from "../../../../shared/data/clients/alibaba-sync-client.js";
+} from "../../../../../shared/data/clients/alibaba-sync-client.js";
 import {
   createSourceDescriptor,
   DATA_QUALITY_STATUS
-} from "../../../../shared/data/clients/source-status.js";
-import { fetchAlibabaSellerPageJson } from "../../../../shared/data/clients/alibaba-seller-page-client.js";
+} from "../../../../../shared/data/clients/source-status.js";
+import { fetchAlibabaSellerPageJson } from "../../../../../shared/data/clients/alibaba-seller-page-client.js";
 
 const PRODUCT_PERFORMANCE_URL =
   "https://mydata.alibaba.com/self/.json?action=OneAction&iName=customerAdviser/prodList";
