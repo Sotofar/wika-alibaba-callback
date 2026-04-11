@@ -6,7 +6,7 @@ import {
   fetchWikaProductPerformanceSummary,
   MYDATA_PRODUCT_UNAVAILABLE_DIMENSIONS
 } from "./alibaba-mydata-product-performance.js";
-import { fetchWikaProductList } from "../../../projects/wika/data/products/module.js";
+import { fetchWikaProductList } from "../../../WIKA/projects/wika/data/products/module.js";
 import {
   buildAggregateDerivedMetrics,
   buildAggregateOfficialMetrics,

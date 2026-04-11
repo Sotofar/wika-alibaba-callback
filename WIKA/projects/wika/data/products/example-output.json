@@ -1,0 +1,22 @@
+{
+  "module": "products",
+  "account": "wika",
+  "read_mode": "read_only",
+  "data_status": "pending_source_verification",
+  "verified_fields": [],
+  "missing_fields": [
+    "product_id",
+    "product_name",
+    "product_group",
+    "online_status",
+    "impressions",
+    "clicks",
+    "ctr",
+    "visitors",
+    "inquiries",
+    "inquiry_rate",
+    "trend_7d",
+    "trend_30d"
+  ],
+  "notes": "当前项目尚未实现 WIKA 产品表现业务数据读取。"
+}

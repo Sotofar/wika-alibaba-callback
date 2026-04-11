@@ -1,0 +1,21 @@
+{
+  "module": "overview",
+  "account": "wika",
+  "read_mode": "read_only",
+  "data_status": "pending_source_verification",
+  "verified_fields": [],
+  "missing_fields": [
+    "store_impressions",
+    "store_clicks",
+    "store_ctr",
+    "store_visitors",
+    "store_inquiries",
+    "store_inquiry_rate",
+    "traffic_sources",
+    "visitor_countries",
+    "trend_7d",
+    "trend_30d",
+    "trend_90d"
+  ],
+  "notes": "当前项目尚未实现 WIKA 店铺概览业务数据读取。"
+}

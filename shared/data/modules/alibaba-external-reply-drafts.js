@@ -19,7 +19,7 @@ import {
   buildWikaParameterMissingAlert
 } from "./wika-alerts.js";
 import { fetchWikaProductMinimalDiagnostic } from "./wika-minimal-diagnostic.js";
-import { fetchWikaProductList } from "../../../projects/wika/data/products/module.js";
+import { fetchWikaProductList } from "../../../WIKA/projects/wika/data/products/module.js";
 
 function normalizeString(value) {
   return String(value ?? "").trim();

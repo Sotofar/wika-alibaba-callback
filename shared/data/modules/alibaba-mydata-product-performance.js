@@ -1,9 +1,9 @@
-import { AlibabaTopApiError } from "../clients/alibaba-top-client.js";
+﻿import { AlibabaTopApiError } from "../clients/alibaba-top-client.js";
 import {
   callAlibabaSyncApi,
   resolveAlibabaSyncEndpoint
 } from "../clients/alibaba-sync-client.js";
-import { fetchWikaProductList } from "../../../projects/wika/data/products/module.js";
+import { fetchWikaProductList } from "../../../WIKA/projects/wika/data/products/module.js";
 
 export const MYDATA_PRODUCT_PERFORMANCE_METHODS = Object.freeze({
   date: "alibaba.mydata.self.product.date.get",
@@ -548,3 +548,4 @@ export async function fetchWikaProductPerformanceSummary(clientConfig, query = {
     }
   };
 }
+

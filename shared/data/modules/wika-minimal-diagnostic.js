@@ -10,7 +10,7 @@ import {
 import {
   buildProductManagementSummary,
   fetchWikaProductList
-} from "../../../projects/wika/data/products/module.js";
+} from "../../../WIKA/projects/wika/data/products/module.js";
 import {
   MYDATA_OVERVIEW_UNAVAILABLE_DIMENSIONS
 } from "./alibaba-mydata-overview.js";

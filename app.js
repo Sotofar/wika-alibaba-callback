@@ -34,7 +34,7 @@ import {
   buildProductManagementSummary,
   buildProductRecommendations,
   fetchWikaProductList
-} from "./projects/wika/data/products/module.js";
+} from "./WIKA/projects/wika/data/products/module.js";
 import {
   fetchWikaMinimalDiagnostic,
   fetchWikaOrderMinimalDiagnostic,

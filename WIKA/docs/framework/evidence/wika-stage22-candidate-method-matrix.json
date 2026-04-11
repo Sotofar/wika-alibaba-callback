@@ -1,0 +1,114 @@
+﻿{
+  "reviewed_existing_candidates": [
+    {
+      "method": "alibaba.seller.trade.decode",
+      "target_dimensions": [
+        "order_country_structure",
+        "order_identifier_contract"
+      ],
+      "doc_reference_path": "WIKA/docs/framework/WIKA_涓嬩竴鎵瑰繀椤婚獙璇佺殑API鍊欓€夋睜.md",
+      "doc_url": null,
+      "parameter_contract": null,
+      "classification": "DOC_FOUND_NOT_TESTED",
+      "note": "浠撳唴浠呬繚鐣?doc-found 璁板綍锛涘綋鍓?WIKA orders/list 宸茶繑鍥炲彲澶嶇敤 trade_id锛屾湰杞棤闇€涓哄墿浣欑淮搴﹂噸寮€璇ユ柟娉曘€?
+    },
+    {
+      "method": "alibaba.mydata.self.keyword.date.get",
+      "target_dimensions": [
+        "product_keyword_window"
+      ],
+      "doc_reference_path": "WIKA/docs/framework/WIKA_涓嬩竴鎵瑰繀椤婚獙璇佺殑API鍊欓€夋睜.md",
+      "doc_url": null,
+      "parameter_contract": null,
+      "classification": "DOC_FOUND_NOT_TESTED",
+      "note": "褰撳墠鍙湪浠撳唴淇濈暀 doc-found 璁板綍锛屽皻鏈舰鎴愬彲鐩存帴瑕嗙洊 access_source / inquiry_source / country_source / period_over_period_change 鐨勫弬鏁板绾︺€?
+    },
+    {
+      "method": "alibaba.mydata.self.keyword.effect.week.get",
+      "target_dimensions": [
+        "product_keyword_trend"
+      ],
+      "doc_reference_path": "WIKA/docs/framework/WIKA_涓嬩竴鎵瑰繀椤婚獙璇佺殑API鍊欓€夋睜.md",
+      "doc_url": null,
+      "parameter_contract": null,
+      "classification": "DOC_FOUND_NOT_TESTED",
+      "note": "浠撳唴宸叉湁 method 鍚嶈褰曪紝浣嗗綋鍓嶆病鏈夎惤鐩?doc URL 涓庣ǔ瀹氬弬鏁板绾︼紝鏈疆涓嶅仛 runtime 楠岃瘉銆?
+    },
+    {
+      "method": "alibaba.mydata.self.keyword.effect.month.get",
+      "target_dimensions": [
+        "product_keyword_trend"
+      ],
+      "doc_reference_path": "WIKA/docs/framework/WIKA_涓嬩竴鎵瑰繀椤婚獙璇佺殑API鍊欓€夋睜.md",
+      "doc_url": null,
+      "parameter_contract": null,
+      "classification": "DOC_FOUND_NOT_TESTED",
+      "note": "浠撳唴宸叉湁 method 鍚嶈褰曪紝浣嗗綋鍓嶆病鏈夎惤鐩?doc URL 涓庣ǔ瀹氬弬鏁板绾︼紝鏈疆涓嶅仛 runtime 楠岃瘉銆?
+    },
+    {
+      "method": "alibaba.mydata.industry.keyword.get",
+      "target_dimensions": [
+        "industry_keyword_signal"
+      ],
+      "doc_reference_path": "WIKA/docs/framework/WIKA_涓嬩竴鎵瑰繀椤婚獙璇佺殑API鍊欓€夋睜.md",
+      "doc_url": null,
+      "parameter_contract": null,
+      "classification": "DOC_FOUND_NOT_TESTED",
+      "note": "褰撳墠鏇村儚鍏抽敭璇?琛屼笟璇嶈ˉ鍏呮柟鍚戯紝涓嶆槸鏈疆鍓╀綑 store/product 缂哄彛鐨勭洿鎺ヨ瘉鎹叆鍙ｃ€?
+    },
+    {
+      "method": "alibaba.mydata.seller.opendata.getconkeyword",
+      "target_dimensions": [
+        "seller_keyword_signal"
+      ],
+      "doc_reference_path": "WIKA/docs/framework/WIKA_涓嬩竴鎵瑰繀椤婚獙璇佺殑API鍊欓€夋睜.md",
+      "doc_url": null,
+      "parameter_contract": null,
+      "classification": "DOC_FOUND_NOT_TESTED",
+      "note": "褰撳墠鏇村儚鍏抽敭璇嶈ˉ鍏呮柟鍚戯紝灏氭湭褰㈡垚瑕嗙洊鍓╀綑 source/country/change 缁村害鐨勭洿鎺ヨ鍙栧绾︺€?
+    }
+  ],
+  "dimension_outcomes": [
+    {
+      "dimension": "traffic_source",
+      "classification": "NOT_DERIVABLE_CURRENTLY"
+    },
+    {
+      "dimension": "country_source",
+      "classification": "NOT_DERIVABLE_CURRENTLY"
+    },
+    {
+      "dimension": "quick_reply_rate",
+      "classification": "NOT_DERIVABLE_CURRENTLY"
+    },
+    {
+      "dimension": "access_source",
+      "classification": "NOT_DERIVABLE_CURRENTLY"
+    },
+    {
+      "dimension": "inquiry_source",
+      "classification": "NOT_DERIVABLE_CURRENTLY"
+    },
+    {
+      "dimension": "country_source",
+      "classification": "NOT_DERIVABLE_CURRENTLY"
+    },
+    {
+      "dimension": "period_over_period_change",
+      "classification": "NOT_DERIVABLE_CURRENTLY"
+    },
+    {
+      "dimension": "formal_summary",
+      "classification": "DERIVABLE_FROM_EXISTING_APIS"
+    },
+    {
+      "dimension": "country_structure",
+      "classification": "NOT_DERIVABLE_CURRENTLY"
+    },
+    {
+      "dimension": "product_contribution",
+      "classification": "DERIVABLE_FROM_EXISTING_APIS"
+    }
+  ]
+}
+

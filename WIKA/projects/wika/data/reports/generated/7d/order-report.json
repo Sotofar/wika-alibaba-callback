@@ -1,0 +1,241 @@
+{
+  "reportType": "order_report",
+  "account": "wika",
+  "period": "7d",
+  "dataStatus": "verified_order_summary_trends_plus_paged_pool",
+  "summaryCurrent": {
+    "period": "7d",
+    "summary_scope": "current_snapshot",
+    "stat_date": "2026-04-01",
+    "stat_date_range": "2026-04-01",
+    "created_order_count": 56,
+    "successful_order_count": 48,
+    "received_order_amount": 39933.38,
+    "real_received_order_amount": 39933.380000000005,
+    "refund_order_rate": "0.00%",
+    "create_to_success_rate": "85.71%",
+    "successful_buyer_count": 38
+  },
+  "comparison": null,
+  "trend": {
+    "trend_points_count": 30,
+    "latest_trend_date": "2026-04-01",
+    "earliest_trend_date": "2026-03-03",
+    "peak_received_amount_day": {
+      "stat_date": "2026-03-31",
+      "received_order_amount": 43426.079999999994
+    }
+  },
+  "snapshotCoverage": {
+    "snapshot_scope": "paged_pool_full",
+    "current_page": 1,
+    "page_size": 50,
+    "returned_item_count": 1206,
+    "total_record": 1206,
+    "total_page": 25,
+    "pages_fetched": 25,
+    "fully_covered": true,
+    "amount_breakdown": {
+      "total_amount": 913371.75,
+      "advance_amount": 790878.76,
+      "shipping_fee_amount": 252730.53,
+      "item_subtotal_amount": 660054.82,
+      "shipping_fee_before_discount_amount": 252789.17,
+      "subtotal_amount": 913198.1,
+      "total_with_tax_amount": 921589.3,
+      "shipping_assurance_fee_amount": 1189.25,
+      "product_total_amount": 660054.82
+    },
+    "order_status_distribution": [
+      {
+        "code": "trade_success",
+        "label": "订单完成",
+        "order_count": 1096
+      },
+      {
+        "code": "undeliver",
+        "label": "待卖家发货",
+        "order_count": 44
+      },
+      {
+        "code": "unpay",
+        "label": "待买家付款",
+        "order_count": 31
+      },
+      {
+        "code": "wait_confirm_receipt",
+        "label": "待买家确认收货",
+        "order_count": 25
+      },
+      {
+        "code": "delivering",
+        "label": "发货中",
+        "order_count": 6
+      },
+      {
+        "code": "relating",
+        "label": "待买家付足款项",
+        "order_count": 2
+      },
+      {
+        "code": "wait_confirm_modify",
+        "label": "待买家确认已修改的合同",
+        "order_count": 1
+      },
+      {
+        "code": "wait_seller_confirmed",
+        "label": "待卖家接单",
+        "order_count": 1
+      }
+    ],
+    "shipping_type_distribution": [
+      {
+        "code": "express",
+        "label": "快递",
+        "order_count": 842
+      },
+      {
+        "code": "multimodal_transport",
+        "label": "多式联运",
+        "order_count": 296
+      },
+      {
+        "code": "sea",
+        "label": "海运",
+        "order_count": 47
+      },
+      {
+        "code": "land",
+        "label": "陆运",
+        "order_count": 16
+      },
+      {
+        "code": "MULTIMODAL_TRANSPORT",
+        "label": "多式联运",
+        "order_count": 5
+      }
+    ]
+  },
+  "buyerCountryDistribution": [
+    {
+      "country_code": "US",
+      "country_name": "United States",
+      "order_count": 214,
+      "total_amount": 149615.63,
+      "product_total_amount": 91797.79
+    },
+    {
+      "country_code": "FR",
+      "country_name": "France",
+      "order_count": 46,
+      "total_amount": 22623.81,
+      "product_total_amount": 13146.2
+    },
+    {
+      "country_code": "AU",
+      "country_name": "Australia",
+      "order_count": 45,
+      "total_amount": 19617.5,
+      "product_total_amount": 11960.5
+    },
+    {
+      "country_code": "KR",
+      "country_name": "South Korea",
+      "order_count": 43,
+      "total_amount": 33885.6,
+      "product_total_amount": 30687.4
+    },
+    {
+      "country_code": "CA",
+      "country_name": "Canada",
+      "order_count": 37,
+      "total_amount": 22849.3,
+      "product_total_amount": 13541
+    }
+  ],
+  "shippingCountryDistribution": [
+    {
+      "country_code": "CN",
+      "country_name": "China",
+      "order_count": 414,
+      "total_amount": 280353.32,
+      "product_total_amount": 236151.85
+    },
+    {
+      "country_code": "US",
+      "country_name": "United States",
+      "order_count": 303,
+      "total_amount": 188887.78,
+      "product_total_amount": 112615.02
+    },
+    {
+      "country_code": "AU",
+      "country_name": "Australia",
+      "order_count": 71,
+      "total_amount": 73625.38,
+      "product_total_amount": 48286.2
+    },
+    {
+      "country_code": "CA",
+      "country_name": "Canada",
+      "order_count": 47,
+      "total_amount": 22897.18,
+      "product_total_amount": 13262.4
+    },
+    {
+      "country_code": "GB",
+      "country_name": "United Kingdom",
+      "order_count": 42,
+      "total_amount": 21743.21,
+      "product_total_amount": 11531.01
+    }
+  ],
+  "productContributionTop": [
+    {
+      "product_id": 1601196260095,
+      "product_name": "Lens Spray Cleaning Kit Cleaner Glasses Custom Logo Lens Cleaner Solution Sunglasses Liquid Cleaner With  MSDS",
+      "order_count": 110,
+      "quantity_total": 137565.3,
+      "estimated_amount_total": 34158
+    },
+    {
+      "product_id": 62506257830,
+      "product_name": "black cheap custom hard hinge luxury  funda gafas eye glasses box sunglasses",
+      "order_count": 10,
+      "quantity_total": 53713,
+      "estimated_amount_total": 31196.82
+    },
+    {
+      "product_id": 1600144092784,
+      "product_name": "2020 wholesale hot-selling printed customized kids leather hard eyeglass glasses case",
+      "order_count": 1,
+      "quantity_total": 43008,
+      "estimated_amount_total": 20643.84
+    },
+    {
+      "product_id": 1600074708921,
+      "product_name": "bulk wholesale spectacle microfiber cleaner suede cloth with custom logo for eyeglasses lens cleaning eye glasses",
+      "order_count": 139,
+      "quantity_total": 152088.16,
+      "estimated_amount_total": 17467.98
+    },
+    {
+      "product_id": 1600588592760,
+      "product_name": "Wholesale Lens Cleaner Glasses Cleaning Liquid Spray for Optical and Sunglasses Eyeglass with Custom logo",
+      "order_count": 56,
+      "quantity_total": 63943.3,
+      "estimated_amount_total": 16682.75
+    }
+  ],
+  "actionsReady": [
+    "新建订单数高于成功订单数，优先排查报价、支付、确认环节的流失点。"
+  ],
+  "actionsNeedMoreData": [],
+  "limitations": [
+    "当前已验证订单 summary、trend 与订单列表首屏快照三条只读页面请求，可用于 P0 经营结果层分析。",
+    "订单 summary 当前更接近交易分析页的当前快照，不应直接当成完整 7d/30d 聚合汇总。",
+    "订单列表国家/产品贡献当前来自已分页读取的订单列表池，仍属于订单列表口径，不等同完整交易明细。",
+    "buyer.country 在部分订单记录中为空；当前报告会将 buyer_country 与 shipping_country 分开呈现，避免口径混用。",
+    "nd=7d 的趋势接口当前返回超过 7 条记录，周期语义已实读但仍需后续结合页面文案进一步确认。"
+  ]
+}
