@@ -1,5 +1,37 @@
 ﻿# WIKA 自治推进日志
 
+### 阶段 28：统一经营驾驶舱与任务 1-5 工作台（本地候选）
+
+- 实际起始 commit：`0c87585268b20231b1fb6b6724f499beaa278f67`
+- 本轮先完成线上基线回归：
+  - `/health` -> `200`
+  - `/integrations/alibaba/auth/debug` -> `200`
+  - `operations/products/orders management-summary` -> `200`
+  - `operations/products/orders comparison-summary` -> `200`
+- 本轮新增本地候选 route：
+  - `/integrations/alibaba/wika/reports/business-cockpit`
+  - `/integrations/alibaba/wika/workbench/product-draft-workbench`
+  - `/integrations/alibaba/wika/workbench/reply-workbench`
+  - `/integrations/alibaba/wika/workbench/order-workbench`
+  - `/integrations/alibaba/wika/workbench/task-workbench`
+- 本轮新增 helper：
+  - `WIKA/projects/wika/data/cockpit/business-cockpit.js`
+  - `WIKA/projects/wika/data/cockpit/business-cockpit-normalizers.js`
+  - `WIKA/projects/wika/data/cockpit/cockpit-gaps.js`
+  - `WIKA/projects/wika/data/workbench/product-draft-workbench.js`
+  - `WIKA/projects/wika/data/workbench/reply-workbench.js`
+  - `WIKA/projects/wika/data/workbench/order-workbench.js`
+  - `WIKA/projects/wika/data/workbench/task-workbench.js`
+- 本轮新增验证脚本：
+  - `WIKA/scripts/validate-wika-stage28-cockpit-and-workbench.js`
+- 验证结论：
+  - stage28 local contract -> `PASS`
+  - no new official fields
+  - no new API verification
+  - no write action attempted
+  - task 6 excluded
+- 本轮不写成已上线，不写成 task1~5 complete。
+
 ### 阶段 26：官方文档定锚与验证前置包
 
 - 实际起始 commit：`c4e8848b89eeb71dad04899342c63b1ccf0436ed`

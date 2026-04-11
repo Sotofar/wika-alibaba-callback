@@ -1,0 +1,93 @@
+{
+  "ok": true,
+  "module": "task3_product_draft_workbench",
+  "account": "***",
+  "read_only": true,
+  "report_name": "product_draft_workbench",
+  "generated_at": "2026-04-11T15:02:52.144Z",
+  "product_context": {
+    "sample_source": "/integrations/alibaba/wika/data/products/detail",
+    "product_id": "1601740791024",
+    "subject": "Customizable New Fashion Portable Eyeglasses Accessories Leather Big Glasses case Oversize Sunglasses Holder",
+    "category_id": 36127040,
+    "group_id": "957658239",
+    "group_name": "Soft Case",
+    "score": "5.00",
+    "boutique_tag": 1
+  },
+  "schema_context": {
+    "category_tree_available": true,
+    "category_name": "Eyeglasses Cases & Bags",
+    "attribute_definition_count": 17,
+    "required_attribute_count": 4,
+    "schema_field_count": 130,
+    "render_field_count": 132,
+    "schema_mode": "schema_aware",
+    "render_draft_observability": {
+      "attempted": true,
+      "observable": true,
+      "error_code": null,
+      "error_message": null
+    }
+  },
+  "media_context": {
+    "media_list_available": true,
+    "media_groups_available": true,
+    "media_candidate_count": 5,
+    "media_group_count": 1,
+    "asset_candidate_count": 5,
+    "main_image_available": false
+  },
+  "draft_readiness": {
+    "stage": "product_draft_only",
+    "schema_mode": "schema_aware",
+    "safe_draft_preparation_available": true,
+    "ready_for_publish": false,
+    "ready_for_safe_draft_candidate": false,
+    "missing_requirement_count": 2
+  },
+  "required_manual_fields": {
+    "missing_requirements": [
+      "required_attributes",
+      "schema_required_fields"
+    ],
+    "human_required_fields": [
+      "p-271270841",
+      "saleProp",
+      "p-191288010",
+      "p-200471263",
+      "skuStock",
+      "skuId",
+      "inventory",
+      "productKeywords_0",
+      "width",
+      "height",
+      "boxPackaging",
+      "day",
+      "ladderPeriod_1",
+      "ladderPeriod_2",
+      "priceUnit",
+      "platformLogisticsServices",
+      "shippingTemplateId",
+      "second_group_id",
+      "third_group_id",
+      "ladderPrice"
+    ],
+    "required_attribute_ids": [
+      1,
+      191284014,
+      200471263,
+      400035208
+    ]
+  },
+  "blocking_risks": [
+    "schema_required_fields_unfilled"
+  ],
+  "recommended_next_action": "Fill required category attributes, schema-required fields, and media candidates before handing the draft package to manual review. Do not enter platform publish.",
+  "boundary_statement": {
+    "safe_draft_preparation_only": true,
+    "not_platform_publish": true,
+    "not_write_side_closed_loop": true,
+    "render_draft_is_observability_only": true
+  }
+}

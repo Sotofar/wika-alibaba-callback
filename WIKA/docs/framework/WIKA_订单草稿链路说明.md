@@ -94,6 +94,30 @@
 - `payment_terms.advance_amount`
 - `shipment_plan.lead_time_text`
 
+## 2026-04-11 Stage 28 Order Workbench Addendum
+
+### New local candidate route
+- `/integrations/alibaba/wika/workbench/order-workbench`
+
+### Route scope
+- reuses the existing external order draft package only
+- exposes:
+  - `workflow_capability`
+  - `input_requirements`
+  - `current_order_profiles`
+  - `required_manual_field_system`
+  - `handoff_pack_capability`
+  - `quality_gate_summary`
+  - `sample_availability`
+  - `blocker_taxonomy_summary`
+  - `boundary_statement`
+
+### Boundary
+- external order draft only
+- not platform order create
+- no real order creation attempted
+- local contract only in stage28
+
 如果这些字段未经人工确认，就不能继续真实创单。
 
 ## 当前为什么不能直接提交平台订单

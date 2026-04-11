@@ -1,5 +1,36 @@
 ﻿# WIKA_经营数据字段覆盖矩阵
 
+## 2026-04-11 Stage 28 Cockpit Delta
+
+### No new confirmed fields
+- store official fields remain:
+  - `visitor`
+  - `imps`
+  - `clk`
+  - `clk_rate`
+  - `fb`
+  - `reply`
+- product official fields remain:
+  - `click`
+  - `impression`
+  - `visitor`
+  - `fb`
+  - `order`
+  - `bookmark`
+  - `compare`
+  - `share`
+  - `keyword_effects`
+- order layer remains:
+  - `formal_summary` -> derived
+  - `product_contribution` -> derived
+  - `trend_signal` -> derived
+  - `country_structure` -> unavailable
+
+### Stage28 packaging delta
+- `business-cockpit` only repackages existing official inputs, derived outputs, diagnostics, and unavailable dimensions.
+- task3/4/5 workbench routes only package safe draft preparation and external draft workflows.
+- No field should be reclassified from unavailable to confirmed in this round.
+
 ## 2026-04-11 Stage 26 Doc Anchoring Delta
 
 ### 本轮没有新增 confirmed 字段

@@ -1,0 +1,90 @@
+{
+  "ok": true,
+  "module": "task4_reply_workbench",
+  "account": "***",
+  "read_only": true,
+  "report_name": "reply_workbench",
+  "generated_at": "2026-04-11T15:02:52.144Z",
+  "workflow_capability": {
+    "workflow_type": "external_reply_draft",
+    "external_only": true,
+    "platform_reply_available": false,
+    "preview_route": "/integrations/alibaba/wika/tools/reply-draft",
+    "template_version": "2026-04-05.sop-v1"
+  },
+  "input_requirements": {
+    "required_minimum_fields": [
+      "inquiry_text",
+      "product_id or product_ids",
+      "destination_country",
+      "quantity",
+      "customer_profile"
+    ],
+    "optional_fields": [
+      "target_price",
+      "expected_lead_time",
+      "mockup_request"
+    ],
+    "preview_mode": "POST body to /integrations/alibaba/wika/tools/reply-draft"
+  },
+  "current_reply_profiles": [
+    {
+      "code": "reply_minimal_handoff",
+      "label": "Minimal handoff",
+      "note": "Use when only the inquiry text or very limited context is available for an external draft."
+    },
+    {
+      "code": "reply_quote_confirmation_needed",
+      "label": "Quote confirmation draft",
+      "note": "Use when product and customer context already exist, but quote and lead time still need human confirmation."
+    },
+    {
+      "code": "reply_mockup_customization",
+      "label": "Mockup customization draft",
+      "note": "Use when the reply depends on mockup, logo, or customization follow-up material."
+    }
+  ],
+  "blocker_taxonomy_summary": {
+    "preview_profile": "reply_mockup_customization",
+    "hard_blocker_codes": [
+      "missing_final_quote",
+      "missing_lead_time"
+    ],
+    "soft_blocker_codes": [
+      "missing_mockup_assets"
+    ],
+    "missing_context": [
+      "final_quote",
+      "lead_time",
+      "mockup_assets",
+      "mockup_assets",
+      "mockup_assets"
+    ]
+  },
+  "handoff_pack_capability": {
+    "handoff_checklist_available": true,
+    "handoff_fields_available": true,
+    "manual_completion_sop_available": true,
+    "export_formats": [
+      "json",
+      "markdown"
+    ]
+  },
+  "quality_gate_summary": {
+    "handoff_required": true,
+    "draft_usable_externally": true,
+    "alert_payload_available": true,
+    "follow_up_question_count": 5
+  },
+  "sample_availability": {
+    "preview_generated_without_platform_send": true,
+    "product_diagnostic_sample_size": 12,
+    "product_context_count": 1
+  },
+  "boundary_statement": {
+    "external_reply_draft_only": true,
+    "not_platform_reply": true,
+    "no_real_send_attempted": true,
+    "task6_excluded": true
+  }
+}

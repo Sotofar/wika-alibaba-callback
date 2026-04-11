@@ -135,6 +135,25 @@ order draft 继续保留：
 - JSON
 - Markdown
 
+## 2026-04-11 Stage 28 Workbench Addendum
+
+### New local workbench routes
+- `/integrations/alibaba/wika/workbench/reply-workbench`
+- `/integrations/alibaba/wika/workbench/order-workbench`
+- `/integrations/alibaba/wika/workbench/task-workbench`
+
+### What stage28 adds
+- one consumer-facing summary layer on top of existing `reply-draft` and `order-draft`
+- explicit `workflow_capability / input_requirements / blocker_taxonomy_summary / handoff_pack_capability / quality_gate_summary / boundary_statement`
+- one combined `task-workbench` route for task3/4/5 handoff view
+
+### Boundary
+- external drafts only
+- no platform reply send
+- no platform order create
+- task 6 excluded
+- local contract only in stage28
+
 ## 当前结论
 
 当前已经形成“外部草稿工作流层 + blocker taxonomy + 人工补单 SOP + 可失败回归闸门 + handoff pack 导出”的稳定中间层。

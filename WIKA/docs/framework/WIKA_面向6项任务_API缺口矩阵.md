@@ -1,5 +1,30 @@
 ﻿# WIKA 面向 6 项任务 API 缺口矩阵
 
+## 2026-04-11 Stage 28 Cockpit and Workbench Delta
+
+### Task 1
+- `business-cockpit` can aggregate the current store / product / order read-side outputs into one consumer-facing report candidate.
+- This does not add new official inputs and does not close the remaining field gaps.
+
+### Task 2
+- `business-cockpit` can aggregate management summary, comparison, and minimal diagnostic into one consumer-facing derived cockpit candidate.
+- Remaining unavailable dimensions stay unchanged.
+
+### Task 3
+- `product-draft-workbench` now exposes one local candidate route for safe draft preparation, schema context, media context, and manual blockers.
+- This does not publish products and does not create draft objects on platform.
+
+### Task 4
+- `reply-workbench` now exposes one local candidate route for external reply-draft workflow capability, blocker taxonomy, and handoff pack readiness.
+- This does not send platform replies.
+
+### Task 5
+- `order-workbench` now exposes one local candidate route for external order-draft workflow capability, manual field system, and handoff pack readiness.
+- This does not create platform orders.
+
+### Task 6
+- Explicitly excluded in stage28.
+
 ## 2026-04-11 Stage 26 Doc Anchoring Delta
 
 ### 任务 1：读取平台数据

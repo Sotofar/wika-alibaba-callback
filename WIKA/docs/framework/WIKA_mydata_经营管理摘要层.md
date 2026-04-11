@@ -1,5 +1,21 @@
 ﻿# WIKA_mydata_经营管理摘要层
 
+## 2026-04-11 Stage 28 Cockpit Consumption Note
+
+### Store / product reuse in cockpit
+- stage28 `business-cockpit` consumes:
+  - `/integrations/alibaba/wika/reports/operations/management-summary`
+  - `/integrations/alibaba/wika/reports/products/management-summary`
+  - `/integrations/alibaba/wika/reports/operations/comparison-summary`
+  - `/integrations/alibaba/wika/reports/products/comparison-summary`
+  - `/integrations/alibaba/wika/reports/operations/minimal-diagnostic`
+  - `/integrations/alibaba/wika/reports/products/minimal-diagnostic`
+
+### Stage28 boundary
+- `business-cockpit` does not add new mydata official fields.
+- `traffic_source / country_source / quick_reply_rate / access_source / inquiry_source / period_over_period_change` remain unavailable.
+- stage28 only provides one local consumer-facing cockpit candidate.
+
 ## 2026-04-11 Stage 23 Cross-Layer Note
 
 ### store / product 管理摘要层保持不变

@@ -2,6 +2,38 @@
 
 更新时间：2026-04-05
 
+## 2026-04-11 Stage 28 Product Draft Workbench Candidate
+
+### New local candidate route
+- `/integrations/alibaba/wika/workbench/product-draft-workbench`
+
+### Route scope
+- reuses:
+  - `products/detail`
+  - `products/score`
+  - `products/groups`
+  - `categories/tree`
+  - `categories/attributes`
+  - `products/schema`
+  - `products/schema/render`
+  - `products/schema/render/draft`
+  - `media/list`
+  - `media/groups`
+- exposes:
+  - `product_context`
+  - `schema_context`
+  - `media_context`
+  - `draft_readiness`
+  - `required_manual_fields`
+  - `blocking_risks`
+  - `recommended_next_action`
+
+### Boundary
+- safe draft preparation only
+- not platform publish
+- not write-side closed loop
+- local contract only in stage28
+
 ## 目标
 
 当前链路的目标不是发布真实商品，而是在 WIKA 已验证的 production 闭环下，形成一条更接近真实写入要求、但仍停留在低风险草稿层的产品准备链路。

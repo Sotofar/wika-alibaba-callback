@@ -1,5 +1,28 @@
 ﻿# WIKA_项目基线
 
+## 2026-04-11 Stage 28 Local Cockpit and Workbench Candidate
+
+### Local candidate only
+- stage28 currently stays at local candidate / local contract status.
+- New candidate report route:
+  - `/integrations/alibaba/wika/reports/business-cockpit`
+- New candidate workbench routes:
+  - `/integrations/alibaba/wika/workbench/product-draft-workbench`
+  - `/integrations/alibaba/wika/workbench/reply-workbench`
+  - `/integrations/alibaba/wika/workbench/order-workbench`
+  - `/integrations/alibaba/wika/workbench/task-workbench`
+- Validation status:
+  - `node --check` passed for stage28 helper / route / script files.
+  - `node WIKA/scripts/validate-wika-stage28-cockpit-and-workbench.js` passed.
+  - Local contract evidence has been written to `WIKA/docs/framework/evidence/`.
+
+### Stage28 boundary
+- This round does not add new official fields.
+- This round does not add new Alibaba API verification.
+- This round does not attempt any write action.
+- task 6 is explicitly excluded.
+- stage28 is not deployed yet, so it must not be described as an online capability.
+
 ## 2026-04-11 Stage 26 Doc Anchoring Update
 
 ### stage25 远端锁定

@@ -1,5 +1,23 @@
 ﻿# WIKA_订单经营摘要层
 
+## 2026-04-11 Stage 28 Cockpit Consumption Note
+
+### Order layer reuse in cockpit
+- stage28 `business-cockpit` consumes:
+  - `/integrations/alibaba/wika/reports/orders/management-summary`
+  - `/integrations/alibaba/wika/reports/orders/comparison-summary`
+  - `/integrations/alibaba/wika/reports/orders/minimal-diagnostic`
+- reused order outputs remain:
+  - `formal_summary` -> derived
+  - `product_contribution` -> derived
+  - `trend_signal` -> derived
+  - `country_structure` -> unavailable
+
+### Stage28 boundary
+- `business-cockpit` does not add new order official fields.
+- `business-cockpit` does not turn `country_structure` into covered capability.
+- stage28 is local contract only and is not yet deployed.
+
 更新时间：2026-04-11
 
 ## 本轮目标

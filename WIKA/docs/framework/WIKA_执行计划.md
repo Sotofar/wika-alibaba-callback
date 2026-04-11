@@ -1,5 +1,31 @@
 ﻿# WIKA_执行计划
 
+## 2026-04-11 Stage 28 Unified Cockpit and Workbench
+
+### Current stage
+- Build one local business cockpit candidate that aggregates:
+  - store / product / order management summary
+  - store / product / order comparison summary
+  - store / product / order minimal diagnostic
+- Build one local task 3/4/5 workbench layer that aggregates:
+  - safe product draft preparation
+  - external reply draft workflow
+  - external order draft workflow
+
+### Gate result
+- Online stage27 baseline regression passed before stage28 local development.
+- stage28 currently reaches local contract pass.
+- stage28 does not reach deployed / smoke-verified status in this round.
+
+### Fixed boundary
+- not task 1 complete
+- not task 2 complete
+- not task 3 complete
+- not task 4 complete
+- not task 5 complete
+- task 6 excluded
+- not full business cockpit
+
 ## 2026-04-11 Stage 26 官方文档定锚与验证前置包
 
 ### 当前阶段

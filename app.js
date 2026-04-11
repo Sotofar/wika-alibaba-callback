@@ -50,6 +50,11 @@ import { buildOrdersManagementSummary } from "./shared/data/modules/wika-order-m
 import { buildOperationsComparisonSummary } from "./WIKA/projects/wika/data/reports/operations-comparison.js";
 import { buildProductsComparisonSummary } from "./WIKA/projects/wika/data/reports/products-comparison.js";
 import { buildOrdersComparisonSummary } from "./WIKA/projects/wika/data/reports/orders-comparison.js";
+import { buildBusinessCockpit } from "./WIKA/projects/wika/data/cockpit/business-cockpit.js";
+import { buildProductDraftWorkbench } from "./WIKA/projects/wika/data/workbench/product-draft-workbench.js";
+import { buildReplyWorkbench } from "./WIKA/projects/wika/data/workbench/reply-workbench.js";
+import { buildOrderWorkbench } from "./WIKA/projects/wika/data/workbench/order-workbench.js";
+import { buildTaskWorkbench } from "./WIKA/projects/wika/data/workbench/task-workbench.js";
 import { buildWikaExternalReplyDraftPackage } from "./shared/data/modules/alibaba-external-reply-drafts.js";
 import { buildWikaExternalOrderDraftPackage } from "./shared/data/modules/alibaba-order-drafts.js";
 
@@ -2738,6 +2743,217 @@ function createWikaExternalOrderDraftHandler() {
   };
 }
 
+function createWikaBusinessCockpitHandler() {
+  return async (req, res) => {
+    try {
+      const result = await buildBusinessCockpit(
+        await getWikaReadOnlyClientConfig(),
+        req.query
+      );
+
+      logInfo("Wika business cockpit completed", {
+        generatedAt: result.generated_at,
+        combinedGapCount:
+          result.cross_section_gaps?.combined_unavailable_dimensions?.length ?? 0
+      });
+
+      res.status(200).json({
+        ok: true,
+        module: "business_cockpit",
+        account: "wika",
+        read_only: true,
+        ...result
+      });
+    } catch (error) {
+      logError("Wika business cockpit failed", {
+        error: error instanceof Error ? error.message : String(error),
+        details:
+          error instanceof AlibabaApiError || error?.details
+            ? error.details
+            : undefined,
+        top_error: extractTopErrorResponse(error),
+        query: req.query
+      });
+
+      const hasMissingKeys =
+        error instanceof ConfigurationError ||
+        Array.isArray(error?.missingKeys);
+
+      res
+        .status(error instanceof ConfigurationError ? 500 : hasMissingKeys ? 400 : 502)
+        .json(buildReadOnlyErrorResponse(error));
+    }
+  };
+}
+
+function createWikaProductDraftWorkbenchHandler() {
+  return async (req, res) => {
+    try {
+      const result = await buildProductDraftWorkbench(
+        await getWikaReadOnlyClientConfig(),
+        req.query
+      );
+
+      logInfo("Wika product draft workbench completed", {
+        productId: result.product_context?.product_id ?? null,
+        missingRequirementCount:
+          result.required_manual_fields?.missing_requirements?.length ?? 0
+      });
+
+      res.status(200).json({
+        ok: true,
+        module: "task3_product_draft_workbench",
+        account: "wika",
+        read_only: true,
+        ...result
+      });
+    } catch (error) {
+      logError("Wika product draft workbench failed", {
+        error: error instanceof Error ? error.message : String(error),
+        details:
+          error instanceof AlibabaApiError || error?.details
+            ? error.details
+            : undefined,
+        top_error: extractTopErrorResponse(error),
+        query: req.query
+      });
+
+      const hasMissingKeys =
+        error instanceof ConfigurationError ||
+        Array.isArray(error?.missingKeys);
+
+      res
+        .status(error instanceof ConfigurationError ? 500 : hasMissingKeys ? 400 : 502)
+        .json(buildReadOnlyErrorResponse(error));
+    }
+  };
+}
+
+function createWikaReplyWorkbenchHandler() {
+  return async (req, res) => {
+    try {
+      const result = await buildReplyWorkbench(
+        await getWikaReadOnlyClientConfig(),
+        req.query
+      );
+
+      logInfo("Wika reply workbench completed", {
+        workflowType: result.workflow_capability?.workflow_type ?? null,
+        previewProfile: result.blocker_taxonomy_summary?.preview_profile ?? null
+      });
+
+      res.status(200).json({
+        ok: true,
+        module: "task4_reply_workbench",
+        account: "wika",
+        read_only: true,
+        ...result
+      });
+    } catch (error) {
+      logError("Wika reply workbench failed", {
+        error: error instanceof Error ? error.message : String(error),
+        details:
+          error instanceof AlibabaApiError || error?.details
+            ? error.details
+            : undefined,
+        top_error: extractTopErrorResponse(error),
+        query: req.query
+      });
+
+      const hasMissingKeys =
+        error instanceof ConfigurationError ||
+        Array.isArray(error?.missingKeys);
+
+      res
+        .status(error instanceof ConfigurationError ? 500 : hasMissingKeys ? 400 : 502)
+        .json(buildReadOnlyErrorResponse(error));
+    }
+  };
+}
+
+function createWikaOrderWorkbenchHandler() {
+  return async (req, res) => {
+    try {
+      const result = await buildOrderWorkbench(
+        await getWikaReadOnlyClientConfig(),
+        req.query
+      );
+
+      logInfo("Wika order workbench completed", {
+        workflowType: result.workflow_capability?.workflow_type ?? null,
+        previewProfile: result.blocker_taxonomy_summary?.preview_profile ?? null
+      });
+
+      res.status(200).json({
+        ok: true,
+        module: "task5_order_workbench",
+        account: "wika",
+        read_only: true,
+        ...result
+      });
+    } catch (error) {
+      logError("Wika order workbench failed", {
+        error: error instanceof Error ? error.message : String(error),
+        details:
+          error instanceof AlibabaApiError || error?.details
+            ? error.details
+            : undefined,
+        top_error: extractTopErrorResponse(error),
+        query: req.query
+      });
+
+      const hasMissingKeys =
+        error instanceof ConfigurationError ||
+        Array.isArray(error?.missingKeys);
+
+      res
+        .status(error instanceof ConfigurationError ? 500 : hasMissingKeys ? 400 : 502)
+        .json(buildReadOnlyErrorResponse(error));
+    }
+  };
+}
+
+function createWikaTaskWorkbenchHandler() {
+  return async (req, res) => {
+    try {
+      const result = await buildTaskWorkbench(
+        await getWikaReadOnlyClientConfig(),
+        req.query
+      );
+
+      logInfo("Wika task workbench completed", {
+        sharedBlockerCount: result.shared_blockers?.length ?? 0
+      });
+
+      res.status(200).json({
+        ok: true,
+        module: "task_workbench",
+        account: "wika",
+        read_only: true,
+        ...result
+      });
+    } catch (error) {
+      logError("Wika task workbench failed", {
+        error: error instanceof Error ? error.message : String(error),
+        details:
+          error instanceof AlibabaApiError || error?.details
+            ? error.details
+            : undefined,
+        top_error: extractTopErrorResponse(error),
+        query: req.query
+      });
+
+      const hasMissingKeys =
+        error instanceof ConfigurationError ||
+        Array.isArray(error?.missingKeys);
+
+      res
+        .status(error instanceof ConfigurationError ? 500 : hasMissingKeys ? 400 : 502)
+        .json(buildReadOnlyErrorResponse(error));
+    }
+  };
+}
+
 const XD_ORDER_LIST_VERIFIED_FIELDS = Object.freeze([
   "response_meta.total_count",
   "response_meta.returned_item_count",
@@ -3549,10 +3765,30 @@ app.get(
   "/integrations/alibaba/wika/reports/orders/minimal-diagnostic",
   createWikaOrderMinimalDiagnosticHandler()
 );
+app.get(
+  "/integrations/alibaba/wika/reports/business-cockpit",
+  createWikaBusinessCockpitHandler()
+);
 
 app.get(
   "/integrations/alibaba/wika/reports/operations/minimal-diagnostic",
   createWikaMinimalDiagnosticHandler()
+);
+app.get(
+  "/integrations/alibaba/wika/workbench/product-draft-workbench",
+  createWikaProductDraftWorkbenchHandler()
+);
+app.get(
+  "/integrations/alibaba/wika/workbench/reply-workbench",
+  createWikaReplyWorkbenchHandler()
+);
+app.get(
+  "/integrations/alibaba/wika/workbench/order-workbench",
+  createWikaOrderWorkbenchHandler()
+);
+app.get(
+  "/integrations/alibaba/wika/workbench/task-workbench",
+  createWikaTaskWorkbenchHandler()
 );
 app.post(
   "/integrations/alibaba/wika/tools/reply-draft",
