@@ -78,3 +78,33 @@
 - public body 仍未直接暴露 `shipping_address.country` 或 `buyer.country` 实值
 - 仓内 legacy page-request 报告虽然见过国家分布，但不属于当前 official `/sync` 主线
 - 因此本轮不扩 `orders/management-summary` 与 `orders/minimal-diagnostic`
+
+## 2026-04-11 Stage 27 Orders Comparison Candidate
+
+### 本轮新增 comparison 能力
+- 新增本地 comparison helper：
+  - `WIKA/projects/wika/data/reports/orders-comparison.js`
+- 新增本地 comparison route 候选：
+  - `/integrations/alibaba/wika/reports/orders/comparison-summary`
+
+### comparison 输入基础
+- 只复用当前既有订单 derived 层：
+  - `formal_summary`
+  - `product_contribution`
+  - `trend_signal`
+- 当前 comparison basis：
+  - current observed segment vs previous observed segment
+  - 来源仍是当前 order summary 已可稳定使用的 window/sample
+
+### comparison 输出
+- `observed_order_count_delta`
+- `average_daily_order_count_delta`
+- `current_segment`
+- `previous_segment`
+- `comparison_boundary`
+
+### 本轮仍保守保留的边界
+- `product_contribution_delta` 当前仅保留 `available=false`
+- `country_structure` 继续 unavailable
+- comparison 是 derived / conservative / partial，不是完整官方订单经营报表
+- 本轮只达到本地 contract，不写成已部署上线

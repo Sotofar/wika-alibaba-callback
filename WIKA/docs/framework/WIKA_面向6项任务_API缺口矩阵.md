@@ -219,3 +219,37 @@
 - not task 2 complete
 - not full business cockpit
 
+## 2026-04-11 Stage 27 Comparison Layer Delta
+
+### 任务 1：读取平台数据
+- 本轮没有新增 official route source
+- store/product/order comparison 只复用现有 official mainline 与既有 derived layer
+- 因此本轮不新增“已补齐 official 缺口”的结论
+
+### 任务 2：经营诊断扩展
+- 新增一层本地 comparison candidate：
+  - store: current vs previous comparable date range
+  - product: current stat window vs previous comparable stat window
+  - order: current observed segment vs previous observed segment
+- 这层能力目前属于 derived comparison candidate，不是已部署官方报表
+
+### 当前缺口状态
+- 店铺级仍缺：
+  - `traffic_source`
+  - `country_source`
+  - `quick_reply_rate`
+- 产品级仍缺：
+  - `access_source`
+  - `inquiry_source`
+  - `country_source`
+  - `period_over_period_change` 的 official field 入口
+- 订单级仍缺：
+  - `country_structure`
+
+### 当前边界
+- comparison layer 可以增强 task 2 的本地候选能力，但不代表 task 2 complete
+- comparison layer 不改变 official gap 现状
+- not task 1 complete
+- not task 2 complete
+- not full business cockpit
+

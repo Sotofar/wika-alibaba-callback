@@ -47,6 +47,9 @@ import {
   buildProductsManagementSummary
 } from "./shared/data/modules/wika-mydata-management-summary.js";
 import { buildOrdersManagementSummary } from "./shared/data/modules/wika-order-management-summary.js";
+import { buildOperationsComparisonSummary } from "./WIKA/projects/wika/data/reports/operations-comparison.js";
+import { buildProductsComparisonSummary } from "./WIKA/projects/wika/data/reports/products-comparison.js";
+import { buildOrdersComparisonSummary } from "./WIKA/projects/wika/data/reports/orders-comparison.js";
 import { buildWikaExternalReplyDraftPackage } from "./shared/data/modules/alibaba-external-reply-drafts.js";
 import { buildWikaExternalOrderDraftPackage } from "./shared/data/modules/alibaba-order-drafts.js";
 
@@ -2303,6 +2306,46 @@ function createWikaOperationsManagementSummaryHandler() {
   };
 }
 
+function createWikaOperationsComparisonSummaryHandler() {
+  return async (req, res) => {
+    try {
+      const result = await buildOperationsComparisonSummary(
+        await getWikaReadOnlyClientConfig(),
+        req.query
+      );
+
+      logInfo("Wika operations comparison summary completed", {
+        currentStartDate: result.current_window?.start_date ?? null,
+        currentEndDate: result.current_window?.end_date ?? null,
+        previousStartDate: result.previous_window?.start_date ?? null,
+        previousEndDate: result.previous_window?.end_date ?? null
+      });
+
+      res.status(200).json({
+        ok: true,
+        module: "operations",
+        account: "wika",
+        read_only: true,
+        ...result
+      });
+    } catch (error) {
+      logError("Wika operations comparison summary failed", {
+        error: error instanceof Error ? error.message : String(error),
+        details:
+          error instanceof AlibabaApiError || error?.details
+            ? error.details
+            : undefined,
+        top_error: extractTopErrorResponse(error),
+        query: req.query
+      });
+
+      res
+        .status(error instanceof ConfigurationError ? 500 : 502)
+        .json(buildReadOnlyErrorResponse(error));
+    }
+  };
+}
+
 function createWikaProductPerformanceSummaryHandler() {
   return async (req, res) => {
     try {
@@ -2410,6 +2453,46 @@ function createWikaProductManagementSummaryHandler() {
   };
 }
 
+function createWikaProductComparisonSummaryHandler() {
+  return async (req, res) => {
+    try {
+      const result = await buildProductsComparisonSummary(
+        await getWikaReadOnlyClientConfig(),
+        req.query
+      );
+
+      logInfo("Wika products comparison summary completed", {
+        statisticsType: result.statistics_type ?? null,
+        currentStatDate: result.current_window?.stat_date ?? null,
+        previousStatDate: result.previous_window?.stat_date ?? null,
+        productIdsUsedCount: result.product_ids_used_count ?? 0
+      });
+
+      res.status(200).json({
+        ok: true,
+        module: "products",
+        account: "wika",
+        read_only: true,
+        ...result
+      });
+    } catch (error) {
+      logError("Wika products comparison summary failed", {
+        error: error instanceof Error ? error.message : String(error),
+        details:
+          error instanceof AlibabaApiError || error?.details
+            ? error.details
+            : undefined,
+        top_error: extractTopErrorResponse(error),
+        query: req.query
+      });
+
+      res
+        .status(error instanceof ConfigurationError ? 500 : 502)
+        .json(buildReadOnlyErrorResponse(error));
+    }
+  };
+}
+
 function createWikaProductMinimalDiagnosticHandler() {
   return async (req, res) => {
     try {
@@ -2469,6 +2552,50 @@ function createWikaOrderManagementSummaryHandler() {
       });
     } catch (error) {
       logError("Wika orders management summary failed", {
+        error: error instanceof Error ? error.message : String(error),
+        details:
+          error instanceof AlibabaApiError || error?.details
+            ? error.details
+            : undefined,
+        top_error: extractTopErrorResponse(error),
+        query: req.query
+      });
+
+      const hasMissingKeys =
+        error instanceof ConfigurationError ||
+        Array.isArray(error?.missingKeys);
+
+      res
+        .status(error instanceof ConfigurationError ? 500 : hasMissingKeys ? 400 : 502)
+        .json(buildReadOnlyErrorResponse(error));
+    }
+  };
+}
+
+function createWikaOrderComparisonSummaryHandler() {
+  return async (req, res) => {
+    try {
+      const result = await buildOrdersComparisonSummary(
+        await getWikaReadOnlyClientConfig(),
+        req.query
+      );
+
+      logInfo("Wika orders comparison summary completed", {
+        currentWindowStart: result.current_window?.start_date ?? null,
+        currentWindowEnd: result.current_window?.end_date ?? null,
+        previousWindowStart: result.previous_window?.start_date ?? null,
+        previousWindowEnd: result.previous_window?.end_date ?? null
+      });
+
+      res.status(200).json({
+        ok: true,
+        module: "orders",
+        account: "wika",
+        read_only: true,
+        ...result
+      });
+    } catch (error) {
+      logError("Wika orders comparison summary failed", {
         error: error instanceof Error ? error.message : String(error),
         details:
           error instanceof AlibabaApiError || error?.details
@@ -3381,10 +3508,18 @@ app.get(
   "/integrations/alibaba/wika/reports/products/management-summary",
   createWikaProductManagementSummaryHandler()
 );
+app.get(
+  "/integrations/alibaba/wika/reports/products/comparison-summary",
+  createWikaProductComparisonSummaryHandler()
+);
 
 app.get(
   "/integrations/alibaba/wika/reports/operations/management-summary",
   createWikaOperationsManagementSummaryHandler()
+);
+app.get(
+  "/integrations/alibaba/wika/reports/operations/comparison-summary",
+  createWikaOperationsComparisonSummaryHandler()
 );
 
 app.get(
@@ -3405,6 +3540,10 @@ app.get(
 app.get(
   "/integrations/alibaba/wika/reports/orders/management-summary",
   createWikaOrderManagementSummaryHandler()
+);
+app.get(
+  "/integrations/alibaba/wika/reports/orders/comparison-summary",
+  createWikaOrderComparisonSummaryHandler()
 );
 app.get(
   "/integrations/alibaba/wika/reports/orders/minimal-diagnostic",

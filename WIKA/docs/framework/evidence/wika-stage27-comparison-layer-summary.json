@@ -1,0 +1,213 @@
+{
+  "stage": "stage27_derived_comparison_layer",
+  "generated_at": "2026-04-11T11:59:27.308Z",
+  "base_url": "https://api.wikapacking.com",
+  "stage24_online_baseline": {
+    "health": {
+      "route": "/health",
+      "status": 200
+    },
+    "auth_debug": {
+      "route": "/integrations/alibaba/auth/debug",
+      "status": 200,
+      "body": {
+        "app_base_url": "https://api.wikapacking.com",
+        "session_secret_present": "***",
+        "state_ttl_seconds": 600,
+        "wika_client_id_present": "***",
+        "wika_client_secret_present": "***",
+        "wika_redirect_uri": "https://api.wikapacking.com/integrations/alibaba/callback",
+        "wika_auth_url": "https://open-api.alibaba.com/oauth/authorize",
+        "wika_token_url": "***",
+        "wika_refresh_token_url": "***",
+        "wika_partner_id_present": false,
+        "wika_auto_refresh_enabled": true,
+        "wika_refresh_buffer_seconds": 600,
+        "wika_bootstrap_refresh_token_present": "***",
+        "wika_token_storage_path": "***",
+        "wika_token_file_exists": "***",
+        "wika_token_loaded": "***",
+        "wika_runtime_loaded_from": "refresh:startup_bootstrap",
+        "wika_startup_init_attempted_at": "2026-04-11T11:42:12.531Z",
+        "wika_startup_init_status": "refresh:startup_bootstrap",
+        "wika_startup_init_error": null,
+        "wika_has_refresh_token": "***",
+        "wika_next_refresh_at": "2026-05-11T11:32:13.940Z",
+        "wika_last_refresh_at": "2026-04-11T11:42:13.940Z",
+        "wika_last_refresh_reason": "startup_bootstrap",
+        "wika_last_refresh_error": null
+      }
+    },
+    "operations_management_summary": {
+      "route": "/integrations/alibaba/wika/reports/operations/management-summary",
+      "status": 200
+    },
+    "products_management_summary": {
+      "route": "/integrations/alibaba/wika/reports/products/management-summary",
+      "status": 200
+    },
+    "orders_management_summary": {
+      "route": "/integrations/alibaba/wika/reports/orders/management-summary",
+      "status": 200
+    }
+  },
+  "comparison_route_contracts": {
+    "operations": {
+      "route": "/integrations/alibaba/wika/reports/operations/comparison-summary",
+      "status": "PASS_LOCAL_CONTRACT",
+      "previous_window_available": true,
+      "derived_metric_keys": [
+        "visitor",
+        "imps",
+        "clk",
+        "clk_rate",
+        "fb",
+        "reply"
+      ]
+    },
+    "products": {
+      "route": "/integrations/alibaba/wika/reports/products/comparison-summary",
+      "status": "PASS_LOCAL_CONTRACT",
+      "previous_window_available": true,
+      "derived_metric_keys": [
+        "click",
+        "impression",
+        "visitor",
+        "fb",
+        "order",
+        "bookmark",
+        "compare",
+        "share"
+      ]
+    },
+    "orders": {
+      "route": "/integrations/alibaba/wika/reports/orders/comparison-summary",
+      "status": "PASS_LOCAL_CONTRACT",
+      "previous_window_available": true,
+      "derived_metric_keys": [
+        "comparison_ready",
+        "observed_order_count_delta",
+        "average_daily_order_count_delta",
+        "current_segment",
+        "previous_segment",
+        "product_contribution_delta",
+        "comparison_boundary"
+      ]
+    }
+  },
+  "official_inputs": {
+    "operations": [
+      "visitor",
+      "imps",
+      "clk",
+      "clk_rate",
+      "fb",
+      "reply"
+    ],
+    "products": [
+      "click",
+      "impression",
+      "visitor",
+      "fb",
+      "order",
+      "bookmark",
+      "compare",
+      "share"
+    ],
+    "orders": {
+      "source_routes": [
+        "/integrations/alibaba/wika/data/orders/list",
+        "/integrations/alibaba/wika/data/orders/detail",
+        "/integrations/alibaba/wika/data/orders/fund",
+        "/integrations/alibaba/wika/data/orders/logistics"
+      ],
+      "observed_trade_count": 6,
+      "sampled_trend_point_count": 6,
+      "sample_or_window_basis": {
+        "mode": "orders_list_first_page_sample",
+        "observed_trade_ids_count": "***",
+        "total_count_visible": 120
+      }
+    }
+  },
+  "derived_outputs": {
+    "operations": {
+      "metric_deltas": [
+        "visitor",
+        "imps",
+        "clk",
+        "clk_rate",
+        "fb",
+        "reply"
+      ],
+      "trend_direction_summary": {
+        "up": 5,
+        "down": 1,
+        "flat": 0,
+        "unknown": 0
+      }
+    },
+    "products": {
+      "aggregate_metric_deltas": [
+        "click",
+        "impression",
+        "visitor",
+        "fb",
+        "order",
+        "bookmark",
+        "compare",
+        "share"
+      ],
+      "top_risers_by_click_delta_count": 1,
+      "top_decliners_by_click_delta_count": 1
+    },
+    "orders": {
+      "observed_order_count_delta": {
+        "derived": true,
+        "current_value": 3,
+        "previous_value": 5,
+        "delta_value": -2,
+        "delta_rate": -0.4,
+        "trend_direction": "down"
+      },
+      "average_daily_order_count_delta": {
+        "derived": true,
+        "current_value": 1,
+        "previous_value": 1.6667,
+        "delta_value": -0.6667,
+        "delta_rate": -0.4,
+        "trend_direction": "down"
+      },
+      "product_contribution_delta_available": false
+    }
+  },
+  "unavailable_dimensions": {
+    "operations": [
+      "traffic_source",
+      "country_source",
+      "quick_reply_rate"
+    ],
+    "products": [
+      "access_source",
+      "inquiry_source",
+      "country_source",
+      "period_over_period_change"
+    ],
+    "orders": [
+      "country_structure"
+    ]
+  },
+  "comparison_candidate_status": {
+    "local_contract_ready": true,
+    "production_deployed": false,
+    "live_route_expanded_in_production": false
+  },
+  "boundary_statement": {
+    "not_task_1_complete": true,
+    "not_task_2_complete": true,
+    "no_write_action_attempted": true,
+    "wika_only_thread_for_business_work": true,
+    "xd_untouched_in_business_execution": true,
+    "not_full_business_cockpit": true
+  }
+}

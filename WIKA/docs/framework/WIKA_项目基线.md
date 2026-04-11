@@ -459,3 +459,51 @@
 - 本轮没有扩 live routes
 - 本轮只更新审计文档、候选池、矩阵与 evidence
 
+## 2026-04-11 Stage 27 Derived Comparison Layer Delta
+
+### stage26 收口结果
+- `stage26 doc anchoring and validation preflight` 已 push 到 `origin/main`
+- 最小线上基线确认结果：
+  - `/health` -> `200`
+  - `/integrations/alibaba/auth/debug` -> `200`
+  - `/integrations/alibaba/wika/reports/operations/management-summary` -> `200`
+  - `/integrations/alibaba/wika/reports/products/management-summary` -> `200`
+  - `/integrations/alibaba/wika/reports/orders/management-summary` -> `200`
+
+### Stage 27 当前新增能力
+- 新增本地 derived comparison 候选层：
+  - `/integrations/alibaba/wika/reports/operations/comparison-summary`
+  - `/integrations/alibaba/wika/reports/products/comparison-summary`
+  - `/integrations/alibaba/wika/reports/orders/comparison-summary`
+- comparison 只使用当前已确认 official / derived 主线输入：
+  - store: `visitor / imps / clk / clk_rate / fb / reply`
+  - product: `click / impression / visitor / fb / order / bookmark / compare / share`
+  - order: `formal_summary / product_contribution / trend_signal`
+- comparison 只输出 derived 周期对比结果，不新增 official fields
+
+### Stage 27 当前状态
+- comparison helper 本地 contract 已通过
+- comparison route 本地 contract 已通过
+- 已新增 stage27 设计文档、验证脚本与脱敏 evidence
+- 本轮尚未 push stage27，因此不能写成已部署上线
+
+### 本轮仍未补齐的维度
+- 店铺级仍 unavailable：
+  - `traffic_source`
+  - `country_source`
+  - `quick_reply_rate`
+- 产品级仍 unavailable：
+  - `access_source`
+  - `inquiry_source`
+  - `country_source`
+  - `period_over_period_change`
+- 订单级仍 unavailable：
+  - `country_structure`
+
+### 当前边界
+- comparison layer 是 derived comparison，不是官方新增字段
+- comparison layer 不等于补齐 official gap
+- not task 1 complete
+- not task 2 complete
+- not full business cockpit
+

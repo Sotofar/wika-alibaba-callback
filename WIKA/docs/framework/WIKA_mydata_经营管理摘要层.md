@@ -228,4 +228,37 @@
   - current official mainline 未出现
   - 本轮不接入 live routes
 
+## 2026-04-11 Stage 27 Comparison Candidate Delta
+
+### 店铺级 comparison candidate
+- 新增本地 comparison helper：
+  - `WIKA/projects/wika/data/reports/operations-comparison.js`
+- 新增本地 comparison route 候选：
+  - `/integrations/alibaba/wika/reports/operations/comparison-summary`
+- 只复用当前 official inputs：
+  - `visitor / imps / clk / clk_rate / fb / reply`
+- 新增 derived outputs：
+  - `metric_deltas`
+  - `trend_direction_summary`
+  - `current_window vs previous_window`
+
+### 产品级 comparison candidate
+- 新增本地 comparison helper：
+  - `WIKA/projects/wika/data/reports/products-comparison.js`
+- 新增本地 comparison route 候选：
+  - `/integrations/alibaba/wika/reports/products/comparison-summary`
+- 只复用当前 official inputs：
+  - `click / impression / visitor / fb / order / bookmark / compare / share`
+- 新增 derived outputs：
+  - `aggregate_metric_deltas`
+  - `ranking_delta`
+  - `top_risers / top_decliners`
+  - `item_level_deltas`
+
+### 当前边界
+- comparison layer 是自建 derived comparison，不新增 official 字段
+- `period_over_period_change` 若在 comparison 中出现，只能写成 derived comparison output
+- `traffic_source / country_source / quick_reply_rate / access_source / inquiry_source / country_source` 继续 unavailable
+- 本轮 comparison 只达到本地 contract，不写成已部署上线
+
 

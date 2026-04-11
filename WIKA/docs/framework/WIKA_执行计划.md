@@ -363,5 +363,53 @@
 - not task 2 complete
 - not full business cockpit
 
+## 阶段 27：周期对比层（derived comparison layer）
+
+### 本轮目标
+- 先完成 stage26 push 与最小线上基线确认
+- 再只基于当前已确认 official mainline / existing derived layer 构建 comparison layer
+- 优先补齐 current window vs previous comparable window 的 derived comparison 能力
+- 若 comparison 只达到本地 contract，则停在本地候选，不提前上线
+
+### 已完成闸门
+- `stage26 doc anchoring and validation preflight` 已 push 到 `origin/main`
+- 最小线上基线确认通过：
+  - `/health`
+  - `/integrations/alibaba/auth/debug`
+  - `operations/products/orders management-summary`
+
+### 本轮新增沉淀
+- comparison helper：
+  - `WIKA/projects/wika/data/reports/comparison-utils.js`
+  - `WIKA/projects/wika/data/reports/operations-comparison.js`
+  - `WIKA/projects/wika/data/reports/products-comparison.js`
+  - `WIKA/projects/wika/data/reports/orders-comparison.js`
+- comparison route：
+  - `/integrations/alibaba/wika/reports/operations/comparison-summary`
+  - `/integrations/alibaba/wika/reports/products/comparison-summary`
+  - `/integrations/alibaba/wika/reports/orders/comparison-summary`
+- 验证脚本与证据：
+  - `WIKA/scripts/validate-wika-stage27-comparison-layer.js`
+  - `WIKA/docs/framework/WIKA_阶段27_周期对比层设计.md`
+  - `WIKA/docs/framework/evidence/wika-stage27-comparison-layer-summary.json`
+  - `WIKA/docs/framework/evidence/wika_operations_comparison_summary.json`
+  - `WIKA/docs/framework/evidence/wika_products_comparison_summary.json`
+  - `WIKA/docs/framework/evidence/wika_orders_comparison_summary.json`
+
+### 当前状态
+- comparison 层已达到本地 contract pass
+- comparison 层尚未 push，不写成已部署能力
+- 本轮没有新增 official 字段
+- 本轮没有新增 doc-found runtime 验证
+
+### 本轮明确边界
+- comparison 只是一层 derived comparison，不补 official gap
+- 不推进 XD
+- 不做任何写动作
+- 仍不把 `traffic_source / country_source / quick_reply_rate / access_source / inquiry_source / country_structure` 写成已成立
+- not task 1 complete
+- not task 2 complete
+- not full business cockpit
+
 
 

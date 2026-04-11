@@ -1,0 +1,139 @@
+{
+  "ok": true,
+  "module": "operations",
+  "account": "***",
+  "read_only": true,
+  "report_name": "operations_comparison_summary",
+  "generated_at": "2026-04-11T11:59:43.800Z",
+  "comparison_basis": {
+    "type": "store_level_period_comparison",
+    "derived": true,
+    "current_window_basis": "current live mydata overview window",
+    "previous_window_basis": "same inclusive day span immediately preceding the current window"
+  },
+  "source_methods": [
+    "alibaba.mydata.overview.date.get",
+    "alibaba.mydata.overview.industry.get",
+    "alibaba.mydata.overview.indicator.basic.get"
+  ],
+  "current_window": {
+    "start_date": "2026-03-29",
+    "end_date": "2026-04-04"
+  },
+  "previous_window": {
+    "start_date": "2026-03-22",
+    "end_date": "2026-03-28"
+  },
+  "industry": {
+    "industry_id": 127726042,
+    "industry_desc": "All",
+    "main_category": true
+  },
+  "official_inputs": {
+    "field_names": [
+      "visitor",
+      "imps",
+      "clk",
+      "clk_rate",
+      "fb",
+      "reply"
+    ],
+    "current_metrics": {
+      "visitor": 260,
+      "imps": 6769,
+      "clk": 143,
+      "clk_rate": "0.0211",
+      "fb": 8,
+      "reply": "0.9927"
+    },
+    "previous_metrics": {
+      "visitor": 218,
+      "imps": 6410,
+      "clk": 129,
+      "clk_rate": "0.0201",
+      "fb": 2,
+      "reply": "0.993"
+    }
+  },
+  "derived_comparison": {
+    "comparison_ready": true,
+    "metric_deltas": {
+      "visitor": {
+        "derived": true,
+        "current_value": 260,
+        "previous_value": 218,
+        "delta_value": 42,
+        "delta_rate": 0.1927,
+        "trend_direction": "up"
+      },
+      "imps": {
+        "derived": true,
+        "current_value": 6769,
+        "previous_value": 6410,
+        "delta_value": 359,
+        "delta_rate": 0.056,
+        "trend_direction": "up"
+      },
+      "clk": {
+        "derived": true,
+        "current_value": 143,
+        "previous_value": 129,
+        "delta_value": 14,
+        "delta_rate": 0.1085,
+        "trend_direction": "up"
+      },
+      "clk_rate": {
+        "derived": true,
+        "current_value": 0.0211,
+        "previous_value": 0.0201,
+        "delta_value": 0.001,
+        "delta_rate": 0.0498,
+        "trend_direction": "up"
+      },
+      "fb": {
+        "derived": true,
+        "current_value": 8,
+        "previous_value": 2,
+        "delta_value": 6,
+        "delta_rate": 3,
+        "trend_direction": "up"
+      },
+      "reply": {
+        "derived": true,
+        "current_value": 0.9927,
+        "previous_value": 0.993,
+        "delta_value": -0.0003,
+        "delta_rate": -0.0003,
+        "trend_direction": "down"
+      }
+    },
+    "trend_direction_summary": {
+      "up": 5,
+      "down": 1,
+      "flat": 0,
+      "unknown": 0
+    },
+    "comparison_boundary": {
+      "current_window_is_live_official_summary": true,
+      "previous_window_is_shifted_comparable_period": true,
+      "delta_rate_formula": "(current - previous) / previous when previous != 0"
+    }
+  },
+  "unavailable_dimensions": [
+    "traffic_source",
+    "country_source",
+    "quick_reply_rate"
+  ],
+  "boundary_statement": {
+    "derived_comparison_only": true,
+    "official_new_fields_added": false,
+    "not_full_store_dashboard": true,
+    "comparison_window_is_comparable_period_only": true,
+    "conservative_mapping_rules": [
+      "retain official field names: visitor / imps / clk / clk_rate / fb / reply",
+      "UV ~= visitor remains business-mapping pending",
+      "use exposure / imps wording, do not assert PV confirmed",
+      "reply remains a reply-related metric, not broad response-rate confirmation"
+    ]
+  }
+}

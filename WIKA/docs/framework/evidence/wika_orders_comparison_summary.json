@@ -1,0 +1,278 @@
+{
+  "ok": true,
+  "module": "orders",
+  "account": "***",
+  "read_only": true,
+  "report_name": "orders_comparison_summary",
+  "generated_at": "2026-04-11T11:59:45.946Z",
+  "comparison_basis": {
+    "type": "derived_order_window_comparison",
+    "derived": true,
+    "current_window_basis": "latest contiguous segment from sampled trend_signal.by_day",
+    "previous_window_basis": "immediately preceding contiguous segment of the same observed point count"
+  },
+  "current_window": {
+    "start_date": "2026-04-07",
+    "end_date": "2026-04-10",
+    "observed_point_count": 3
+  },
+  "previous_window": {
+    "start_date": "2026-03-24",
+    "end_date": "2026-04-01",
+    "observed_point_count": 3
+  },
+  "official_inputs": {
+    "source_routes": [
+      "/integrations/alibaba/wika/data/orders/list",
+      "/integrations/alibaba/wika/data/orders/detail",
+      "/integrations/alibaba/wika/data/orders/fund",
+      "/integrations/alibaba/wika/data/orders/logistics"
+    ],
+    "observed_trade_count": 6,
+    "sampled_trend_point_count": 6,
+    "sample_or_window_basis": {
+      "mode": "orders_list_first_page_sample",
+      "observed_trade_ids_count": "***",
+      "total_count_visible": 120
+    }
+  },
+  "derived_inputs": {
+    "formal_summary": {
+      "derived": true,
+      "total_order_count": 120,
+      "observed_trade_count": 6,
+      "trade_status_distribution": [
+        {
+          "key": "undeliver",
+          "count": 5
+        },
+        {
+          "key": "unpay",
+          "count": 1
+        }
+      ],
+      "total_amount_by_currency": [
+        {
+          "currency": "USD",
+          "amount": 3790
+        }
+      ],
+      "product_total_amount_by_currency": [
+        {
+          "currency": "USD",
+          "amount": 2775.5
+        }
+      ],
+      "shipment_fee_by_currency": [
+        {
+          "currency": "USD",
+          "amount": 1014.5
+        }
+      ],
+      "fund_signals_summary": "***",
+      "logistics_signal_summary": "***"
+    },
+    "product_contribution": {
+      "derived": true,
+      "contribution_basis": {
+        "occurrence_based": true,
+        "quantity_based": true,
+        "amount_based_support": "estimated_from_quantity_times_unit_price_when_available"
+      },
+      "observed_trade_ids_count": "***",
+      "top_products_by_order_count": [
+        {
+          "product_id": "AAEYxslEAOVqtWWP0tWl5Ttt",
+          "product_name": "Colorful Glasses Packaging Bags 18*9cm Soft Sunglasses case Microfiber Pouch Eyeglass Bag with logo Custom",
+          "order_count": 2,
+          "quantity_sum": 600,
+          "estimated_amount_by_currency": [
+            {
+              "currency": "USD",
+              "amount": 120
+            }
+          ]
+        },
+        {
+          "product_id": "AAH7xslEAOVqtWWP0tWlM17f",
+          "product_name": "Custom 1oz 2oz Glasses Cleaner Eyewear Lens Spray Liquid Cleaning Cleaner Kit Eyeglass Lenses Cloth",
+          "order_count": 1,
+          "quantity_sum": 1000,
+          "estimated_amount_by_currency": [
+            {
+              "currency": "USD",
+              "amount": 480
+            }
+          ]
+        },
+        {
+          "product_id": "AAHPxslEAOVqtWWP0tWlIbrp",
+          "product_name": "Screen Printing 2oz 60ml Liquid Lens Spray Cleaner for Glasses Custom Print Microfiber Eyeglass Cloth Cleaning Kit",
+          "order_count": 1,
+          "quantity_sum": 1000,
+          "estimated_amount_by_currency": [
+            {
+              "currency": "USD",
+              "amount": 270
+            }
+          ]
+        },
+        {
+          "product_id": "AAHLxslEAOVqtWWP0tWl-_fO",
+          "product_name": "Custom Triangle Eyeglass Packaging Sunglasses Paper Box Folding Spectacle Cases for Glasses Packaging Set",
+          "order_count": 1,
+          "quantity_sum": 1000,
+          "estimated_amount_by_currency": [
+            {
+              "currency": "USD",
+              "amount": 120
+            }
+          ]
+        },
+        {
+          "product_id": "AAGmxslEAOVqtWWP0tWlnE6x",
+          "product_name": "Lens Spray Cleaning Kit Cleaner Glasses Spray1 Oz/2 oz Eyeglasses Lens Spray Cleaner Kit Cleaning Solution",
+          "order_count": 1,
+          "quantity_sum": 1000,
+          "estimated_amount_by_currency": [
+            {
+              "currency": "USD",
+              "amount": 530
+            }
+          ]
+        }
+      ],
+      "top_products_by_quantity": [
+        {
+          "product_id": "AAH7xslEAOVqtWWP0tWlM17f",
+          "product_name": "Custom 1oz 2oz Glasses Cleaner Eyewear Lens Spray Liquid Cleaning Cleaner Kit Eyeglass Lenses Cloth",
+          "order_count": 1,
+          "quantity_sum": 1000,
+          "estimated_amount_by_currency": [
+            {
+              "currency": "USD",
+              "amount": 480
+            }
+          ]
+        },
+        {
+          "product_id": "AAHPxslEAOVqtWWP0tWlIbrp",
+          "product_name": "Screen Printing 2oz 60ml Liquid Lens Spray Cleaner for Glasses Custom Print Microfiber Eyeglass Cloth Cleaning Kit",
+          "order_count": 1,
+          "quantity_sum": 1000,
+          "estimated_amount_by_currency": [
+            {
+              "currency": "USD",
+              "amount": 270
+            }
+          ]
+        },
+        {
+          "product_id": "AAHLxslEAOVqtWWP0tWl-_fO",
+          "product_name": "Custom Triangle Eyeglass Packaging Sunglasses Paper Box Folding Spectacle Cases for Glasses Packaging Set",
+          "order_count": 1,
+          "quantity_sum": 1000,
+          "estimated_amount_by_currency": [
+            {
+              "currency": "USD",
+              "amount": 120
+            }
+          ]
+        },
+        {
+          "product_id": "AAGmxslEAOVqtWWP0tWlnE6x",
+          "product_name": "Lens Spray Cleaning Kit Cleaner Glasses Spray1 Oz/2 oz Eyeglasses Lens Spray Cleaner Kit Cleaning Solution",
+          "order_count": 1,
+          "quantity_sum": 1000,
+          "estimated_amount_by_currency": [
+            {
+              "currency": "USD",
+              "amount": 530
+            }
+          ]
+        },
+        {
+          "product_id": "AAEYxslEAOVqtWWP0tWl5Ttt",
+          "product_name": "Colorful Glasses Packaging Bags 18*9cm Soft Sunglasses case Microfiber Pouch Eyeglass Bag with logo Custom",
+          "order_count": 2,
+          "quantity_sum": 600,
+          "estimated_amount_by_currency": [
+            {
+              "currency": "USD",
+              "amount": 120
+            }
+          ]
+        }
+      ]
+    },
+    "trend_signal": "***"
+  },
+  "derived_comparison": {
+    "comparison_ready": true,
+    "observed_order_count_delta": {
+      "derived": true,
+      "current_value": 3,
+      "previous_value": 5,
+      "delta_value": -2,
+      "delta_rate": -0.4,
+      "trend_direction": "down"
+    },
+    "average_daily_order_count_delta": {
+      "derived": true,
+      "current_value": 1,
+      "previous_value": 1.6667,
+      "delta_value": -0.6667,
+      "delta_rate": -0.4,
+      "trend_direction": "down"
+    },
+    "current_segment": [
+      {
+        "date": "2026-04-07",
+        "order_count": 1
+      },
+      {
+        "date": "2026-04-09",
+        "order_count": 1
+      },
+      {
+        "date": "2026-04-10",
+        "order_count": 1
+      }
+    ],
+    "previous_segment": [
+      {
+        "date": "2026-03-24",
+        "order_count": 1
+      },
+      {
+        "date": "2026-03-30",
+        "order_count": 2
+      },
+      {
+        "date": "2026-04-01",
+        "order_count": 2
+      }
+    ],
+    "product_contribution_delta": {
+      "derived": true,
+      "available": false,
+      "reason": "current order management summary does not expose comparable previous-window product contribution slices"
+    },
+    "comparison_boundary": {
+      "sampled_window_based": true,
+      "derived_from_existing_order_summary_only": true
+    }
+  },
+  "unavailable_dimensions": [
+    "country_structure"
+  ],
+  "boundary_statement": {
+    "derived_comparison_only": true,
+    "official_new_fields_added": false,
+    "derived_from_existing_order_apis_only": true,
+    "not_full_order_cockpit": true,
+    "country_structure_unavailable_currently": true,
+    "product_contribution_delta_not_available": true,
+    "comparison_is_sample_window_based": true
+  }
+}

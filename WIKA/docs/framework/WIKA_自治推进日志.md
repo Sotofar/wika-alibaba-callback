@@ -1153,6 +1153,50 @@
 - 当前仍不是 task 2 complete
 - 当前仍不是完整经营驾驶舱
 
+## 2026-04-11 Stage 27 Derived Comparison Layer
+
+### 起始基线
+- local start commit: `1981a4d8725b0374afdbdd2378d88907801266bd`
+- `stage26 doc anchoring and validation preflight` 处于待 push 状态
+
+### 本轮动作
+- push `stage26 doc anchoring and validation preflight` 到 `origin/main`
+- 完成最小线上基线确认：
+  - `/health` -> `200`
+  - `/integrations/alibaba/auth/debug` -> `200`
+  - `operations/products/orders management-summary` -> `200`
+- 新增 stage27 comparison helper：
+  - `comparison-utils.js`
+  - `operations-comparison.js`
+  - `products-comparison.js`
+  - `orders-comparison.js`
+- 在 `app.js` 中新增 comparison summary route：
+  - `/integrations/alibaba/wika/reports/operations/comparison-summary`
+  - `/integrations/alibaba/wika/reports/products/comparison-summary`
+  - `/integrations/alibaba/wika/reports/orders/comparison-summary`
+- 新增：
+  - `WIKA/docs/framework/WIKA_阶段27_周期对比层设计.md`
+  - `WIKA/scripts/validate-wika-stage27-comparison-layer.js`
+  - stage27 comparison evidence 一组
+
+### 本轮验证结果
+- `node --check app.js` 通过
+- comparison helper / route / script 的 `node --check` 通过
+- `node WIKA/scripts/validate-wika-stage27-comparison-layer.js` 通过
+- comparison route 当前状态：
+  - operations -> `PASS_LOCAL_CONTRACT`
+  - products -> `PASS_LOCAL_CONTRACT`
+  - orders -> `PASS_LOCAL_CONTRACT`
+
+### 本轮结论
+- 本轮没有新增 official fields
+- 本轮没有新增官方候选方法 runtime 验证
+- 本轮 comparison 层已达到本地 contract 候选，可作为下一轮上线判断基础
+- 本轮不 push stage27
+- 当前仍不是 task 1 complete
+- 当前仍不是 task 2 complete
+- 当前仍不是完整经营驾驶舱
+
 
 
 

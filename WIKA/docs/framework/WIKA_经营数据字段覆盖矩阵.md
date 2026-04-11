@@ -245,3 +245,44 @@
 - public body 仍未暴露 `shipping_address.country` 或 `buyer.country` 实值
 - 因此 `country_structure` 继续保持 unavailable
 
+## 2026-04-11 Stage 27 Comparison Layer Delta
+
+### 店铺级 comparison derived outputs
+- `visitor_delta` -> derived comparison output
+- `imps_delta` -> derived comparison output
+- `clk_delta` -> derived comparison output
+- `clk_rate_delta` -> derived comparison output
+- `fb_delta` -> derived comparison output
+- `reply_delta` -> derived comparison output
+- `trend_direction_summary` -> derived comparison output
+
+### 产品级 comparison derived outputs
+- `click_delta` -> derived comparison output
+- `impression_delta` -> derived comparison output
+- `visitor_delta` -> derived comparison output
+- `fb_delta` -> derived comparison output
+- `order_delta` -> derived comparison output
+- `bookmark_delta` -> derived comparison output
+- `compare_delta` -> derived comparison output
+- `share_delta` -> derived comparison output
+- `ranking_delta` -> derived comparison output
+- `top_risers / top_decliners` -> derived comparison output
+
+### 订单级 comparison derived outputs
+- `observed_order_count_delta` -> derived comparison output
+- `average_daily_order_count_delta` -> derived comparison output
+- `current_segment / previous_segment` -> derived comparison output
+- `product_contribution_delta` -> current local contract keeps `available=false`
+
+### 本轮没有新增 official 字段
+- store official fields 仍只确认：
+  - `visitor / imps / clk / clk_rate / fb / reply`
+- product official fields 仍只确认：
+  - `click / impression / visitor / fb / order / bookmark / compare / share / keyword_effects`
+- order official/public gap 仍未补齐：
+  - `country_structure` 继续 unavailable
+
+### 边界说明
+- `period_over_period_change` 本轮只形成自建 derived comparison，不等于官方字段已确认
+- comparison 输出不能回写覆盖 official fields
+

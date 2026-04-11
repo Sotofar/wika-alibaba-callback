@@ -1,0 +1,397 @@
+{
+  "ok": true,
+  "module": "products",
+  "account": "***",
+  "read_only": true,
+  "report_name": "products_comparison_summary",
+  "generated_at": "2026-04-11T11:59:44.049Z",
+  "comparison_basis": {
+    "type": "sampled_product_period_comparison",
+    "derived": true,
+    "current_window_basis": "current live mydata product summary stat window",
+    "previous_window_basis": "previous comparable stat_date for the same statistics_type"
+  },
+  "statistics_type": "day",
+  "current_window": {
+    "stat_date": "2026-04-09"
+  },
+  "previous_window": {
+    "stat_date": "2026-04-08",
+    "available": true
+  },
+  "product_scope_basis": "sample_from_products_list",
+  "product_scope_limit": 5,
+  "product_scope_truncated": true,
+  "product_ids_used": [
+    "1601740791024",
+    "1601740600810",
+    "1601739528585",
+    "1601700588198",
+    "1601592243227"
+  ],
+  "product_ids_used_count": 5,
+  "official_inputs": {
+    "field_names": [
+      "click",
+      "impression",
+      "visitor",
+      "fb",
+      "order",
+      "bookmark",
+      "compare",
+      "share"
+    ],
+    "current_aggregate_metrics": {
+      "click": 0,
+      "impression": 2,
+      "visitor": 2,
+      "fb": 0,
+      "order": 0,
+      "bookmark": 0,
+      "compare": 0,
+      "share": 0
+    },
+    "previous_aggregate_metrics": {
+      "click": 0,
+      "impression": 4,
+      "visitor": 1,
+      "fb": 0,
+      "order": 0,
+      "bookmark": 0,
+      "compare": 0,
+      "share": 0
+    },
+    "keyword_signal_current": "***",
+    "keyword_signal_previous": "***"
+  },
+  "derived_comparison": {
+    "comparison_ready": true,
+    "aggregate_metric_deltas": {
+      "click": {
+        "derived": true,
+        "current_value": 0,
+        "previous_value": 0,
+        "delta_value": 0,
+        "delta_rate": null,
+        "trend_direction": "flat"
+      },
+      "impression": {
+        "derived": true,
+        "current_value": 2,
+        "previous_value": 4,
+        "delta_value": -2,
+        "delta_rate": -0.5,
+        "trend_direction": "down"
+      },
+      "visitor": {
+        "derived": true,
+        "current_value": 2,
+        "previous_value": 1,
+        "delta_value": 1,
+        "delta_rate": 1,
+        "trend_direction": "up"
+      },
+      "fb": {
+        "derived": true,
+        "current_value": 0,
+        "previous_value": 0,
+        "delta_value": 0,
+        "delta_rate": null,
+        "trend_direction": "flat"
+      },
+      "order": {
+        "derived": true,
+        "current_value": 0,
+        "previous_value": 0,
+        "delta_value": 0,
+        "delta_rate": null,
+        "trend_direction": "flat"
+      },
+      "bookmark": {
+        "derived": true,
+        "current_value": 0,
+        "previous_value": 0,
+        "delta_value": 0,
+        "delta_rate": null,
+        "trend_direction": "flat"
+      },
+      "compare": {
+        "derived": true,
+        "current_value": 0,
+        "previous_value": 0,
+        "delta_value": 0,
+        "delta_rate": null,
+        "trend_direction": "flat"
+      },
+      "share": {
+        "derived": true,
+        "current_value": 0,
+        "previous_value": 0,
+        "delta_value": 0,
+        "delta_rate": null,
+        "trend_direction": "flat"
+      }
+    },
+    "keyword_signal_delta": "***",
+    "ranking_delta": {
+      "impression": [
+        {
+          "product_id": 1601700588198,
+          "product_name": "Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case",
+          "metric_name": "impression",
+          "current_rank": 1,
+          "previous_rank": 2,
+          "rank_delta": 1,
+          "current_value": 2,
+          "previous_value": 2
+        },
+        {
+          "product_id": 1601740791024,
+          "product_name": "Customizable New Fashion Portable Eyeglasses Accessories Leather Big Glasses case Oversize Sunglasses Holder",
+          "metric_name": "impression",
+          "current_rank": 2,
+          "previous_rank": null,
+          "rank_delta": null,
+          "current_value": 0,
+          "previous_value": null
+        }
+      ],
+      "click": [
+        {
+          "product_id": 1601700588198,
+          "product_name": "Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case",
+          "metric_name": "click",
+          "current_rank": 1,
+          "previous_rank": 2,
+          "rank_delta": 1,
+          "current_value": 0,
+          "previous_value": 0
+        },
+        {
+          "product_id": 1601740791024,
+          "product_name": "Customizable New Fashion Portable Eyeglasses Accessories Leather Big Glasses case Oversize Sunglasses Holder",
+          "metric_name": "click",
+          "current_rank": 2,
+          "previous_rank": null,
+          "rank_delta": null,
+          "current_value": 0,
+          "previous_value": null
+        }
+      ],
+      "order": [
+        {
+          "product_id": 1601700588198,
+          "product_name": "Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case",
+          "metric_name": "order",
+          "current_rank": 1,
+          "previous_rank": 2,
+          "rank_delta": 1,
+          "current_value": 0,
+          "previous_value": 0
+        },
+        {
+          "product_id": 1601740791024,
+          "product_name": "Customizable New Fashion Portable Eyeglasses Accessories Leather Big Glasses case Oversize Sunglasses Holder",
+          "metric_name": "order",
+          "current_rank": 2,
+          "previous_rank": null,
+          "rank_delta": null,
+          "current_value": 0,
+          "previous_value": null
+        }
+      ]
+    },
+    "top_risers_by_click_delta": [
+      {
+        "product_id": 1601700588198,
+        "product_name": "Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case",
+        "metric_name": "click",
+        "derived": true,
+        "current_value": 0,
+        "previous_value": 0,
+        "delta_value": 0,
+        "delta_rate": null,
+        "trend_direction": "flat"
+      }
+    ],
+    "top_decliners_by_click_delta": [
+      {
+        "product_id": 1601700588198,
+        "product_name": "Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case",
+        "metric_name": "click",
+        "derived": true,
+        "current_value": 0,
+        "previous_value": 0,
+        "delta_value": 0,
+        "delta_rate": null,
+        "trend_direction": "flat"
+      }
+    ],
+    "trend_direction_summary": {
+      "up": 1,
+      "down": 1,
+      "flat": 6,
+      "unknown": 0
+    },
+    "item_level_deltas": [
+      {
+        "product_id": 1601700588198,
+        "product_name": "Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case",
+        "metric_deltas": {
+          "click": {
+            "derived": true,
+            "current_value": 0,
+            "previous_value": 0,
+            "delta_value": 0,
+            "delta_rate": null,
+            "trend_direction": "flat"
+          },
+          "impression": {
+            "derived": true,
+            "current_value": 2,
+            "previous_value": 2,
+            "delta_value": 0,
+            "delta_rate": 0,
+            "trend_direction": "flat"
+          },
+          "visitor": {
+            "derived": true,
+            "current_value": 0,
+            "previous_value": 0,
+            "delta_value": 0,
+            "delta_rate": null,
+            "trend_direction": "flat"
+          },
+          "fb": {
+            "derived": true,
+            "current_value": 0,
+            "previous_value": 0,
+            "delta_value": 0,
+            "delta_rate": null,
+            "trend_direction": "flat"
+          },
+          "order": {
+            "derived": true,
+            "current_value": 0,
+            "previous_value": 0,
+            "delta_value": 0,
+            "delta_rate": null,
+            "trend_direction": "flat"
+          },
+          "bookmark": {
+            "derived": true,
+            "current_value": 0,
+            "previous_value": 0,
+            "delta_value": 0,
+            "delta_rate": null,
+            "trend_direction": "flat"
+          },
+          "compare": {
+            "derived": true,
+            "current_value": 0,
+            "previous_value": 0,
+            "delta_value": 0,
+            "delta_rate": null,
+            "trend_direction": "flat"
+          },
+          "share": {
+            "derived": true,
+            "current_value": 0,
+            "previous_value": 0,
+            "delta_value": 0,
+            "delta_rate": null,
+            "trend_direction": "flat"
+          }
+        }
+      },
+      {
+        "product_id": 1601740791024,
+        "product_name": "Customizable New Fashion Portable Eyeglasses Accessories Leather Big Glasses case Oversize Sunglasses Holder",
+        "metric_deltas": {
+          "click": {
+            "derived": true,
+            "current_value": 0,
+            "previous_value": null,
+            "delta_value": null,
+            "delta_rate": null,
+            "trend_direction": "unknown"
+          },
+          "impression": {
+            "derived": true,
+            "current_value": 0,
+            "previous_value": null,
+            "delta_value": null,
+            "delta_rate": null,
+            "trend_direction": "unknown"
+          },
+          "visitor": {
+            "derived": true,
+            "current_value": 2,
+            "previous_value": null,
+            "delta_value": null,
+            "delta_rate": null,
+            "trend_direction": "unknown"
+          },
+          "fb": {
+            "derived": true,
+            "current_value": 0,
+            "previous_value": null,
+            "delta_value": null,
+            "delta_rate": null,
+            "trend_direction": "unknown"
+          },
+          "order": {
+            "derived": true,
+            "current_value": 0,
+            "previous_value": null,
+            "delta_value": null,
+            "delta_rate": null,
+            "trend_direction": "unknown"
+          },
+          "bookmark": {
+            "derived": true,
+            "current_value": 0,
+            "previous_value": null,
+            "delta_value": null,
+            "delta_rate": null,
+            "trend_direction": "unknown"
+          },
+          "compare": {
+            "derived": true,
+            "current_value": 0,
+            "previous_value": null,
+            "delta_value": null,
+            "delta_rate": null,
+            "trend_direction": "unknown"
+          },
+          "share": {
+            "derived": true,
+            "current_value": 0,
+            "previous_value": null,
+            "delta_value": null,
+            "delta_rate": null,
+            "trend_direction": "unknown"
+          }
+        }
+      }
+    ]
+  },
+  "unavailable_dimensions": [
+    "access_source",
+    "inquiry_source",
+    "country_source",
+    "period_over_period_change"
+  ],
+  "boundary_statement": {
+    "derived_comparison_only": true,
+    "official_new_fields_added": false,
+    "not_full_product_cockpit": true,
+    "sample_scope_reused_for_previous_window": true,
+    "comparison_requires_same_product_sample": true,
+    "conservative_mapping_rules": [
+      "retain official field names: click / impression / visitor / fb / order / bookmark / compare / share / keyword_effects",
+      "derived comparison does not convert keyword_effects into a new official field",
+      "sample-based scope remains explicit and must not be read as full-shop full-history coverage"
+    ]
+  }
+}
