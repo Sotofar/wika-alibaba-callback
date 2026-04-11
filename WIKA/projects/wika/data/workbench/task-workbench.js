@@ -2,16 +2,30 @@ import { buildProductDraftWorkbench } from "./product-draft-workbench.js";
 import { buildReplyWorkbench } from "./reply-workbench.js";
 import { buildOrderWorkbench } from "./order-workbench.js";
 
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 function unique(values = []) {
   return [...new Set(values.map((value) => String(value ?? "").trim()).filter(Boolean))];
 }
 
 export async function buildTaskWorkbench(clientConfig, query = {}, preloaded = {}) {
-  const [task3Summary, task4Summary, task5Summary] = await Promise.all([
-    preloaded.task3Summary ?? buildProductDraftWorkbench(clientConfig, query),
-    preloaded.task4Summary ?? buildReplyWorkbench(clientConfig, query),
-    preloaded.task5Summary ?? buildOrderWorkbench(clientConfig, query)
-  ]);
+  // Pace heavyweight read-side builders to avoid transient upstream ApiCallLimit bursts.
+  const task3Summary =
+    preloaded.task3Summary ?? (await buildProductDraftWorkbench(clientConfig, query));
+  if (!preloaded.task3Summary && !preloaded.task4Summary) {
+    await sleep(1200);
+  }
+
+  const task4Summary =
+    preloaded.task4Summary ?? (await buildReplyWorkbench(clientConfig, query));
+  if (!preloaded.task4Summary && !preloaded.task5Summary) {
+    await sleep(1200);
+  }
+
+  const task5Summary =
+    preloaded.task5Summary ?? (await buildOrderWorkbench(clientConfig, query));
 
   return {
     report_name: "task_workbench",
