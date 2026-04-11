@@ -3,9 +3,9 @@
 ## 2026-04-11 Stage 23 Orders Derived Summary Delta
 
 ### 任务 2：经营诊断扩展
-- 本地已新增订单 derived summary 层：
+- 已新增订单 derived summary 层：
   - `/integrations/alibaba/wika/reports/orders/management-summary`
-- 本地已扩展订单诊断层：
+- 已扩展订单诊断层：
   - `/integrations/alibaba/wika/reports/orders/minimal-diagnostic`
 - 当前已能保守消费的 derived 订单维度：
   - `formal_summary`
@@ -14,6 +14,7 @@
 - 当前仍未完成：
   - `country_structure`
   - 完整官方订单经营报表
+  - 完整经营驾驶舱
 
 ### 任务 1：读取平台数据
 - store/product 读取层本轮无新增字段

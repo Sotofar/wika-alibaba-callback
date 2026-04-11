@@ -19,13 +19,24 @@
 - 已通过本地 contract 验证：
   - `orders_management_summary -> PASS_LOCAL_CONTRACT`
   - `orders_minimal_diagnostic -> PASS_LOCAL_CONTRACT`
+- 已通过 production smoke：
+  - `/integrations/alibaba/wika/reports/operations/management-summary`
+  - `/integrations/alibaba/wika/reports/products/management-summary`
+  - `/integrations/alibaba/wika/reports/orders/management-summary`
+  - `/integrations/alibaba/wika/reports/operations/minimal-diagnostic`
+  - `/integrations/alibaba/wika/reports/products/minimal-diagnostic`
+  - `/integrations/alibaba/wika/reports/orders/minimal-diagnostic`
+- 已生成 stage23 post-deploy evidence：
+  - `docs/framework/evidence/wika-stage23-post-deploy-summary.json`
+  - `docs/framework/evidence/wika_orders_management_summary_post_deploy.json`
+  - `docs/framework/evidence/wika_orders_minimal_diagnostic_post_deploy.json`
 
 ### 本轮明确边界
 - 不新增 Alibaba API 探索
 - 不推进 XD
 - 不做任何写动作
 - `country_structure` 继续 unavailable
-- stage23 本地改动先不 push，等确认后再决定
+- 订单层当前已部署，但仍只成立为 derived / conservative / partial
 
 ## 2026-04-10 Stage 21 Deploy Lock Update
 

@@ -5,7 +5,7 @@
 ### 本轮不再作为高优先级新 API 候选的方向
 - `formal_summary`
 - `product_contribution`
-- 原因：当前已可由现有 `orders/list + orders/detail + orders/fund / logistics` 保守派生，并已沉淀到本地 orders management summary contract。
+- 原因：当前已可由现有 `orders/list + orders/detail + orders/fund / logistics` 保守派生，并已沉淀到已部署的 orders management summary / minimal diagnostic。
 
 ### 当前订单级真正剩余的高优先级缺口
 - `country_structure`

@@ -21,13 +21,22 @@
 - 本地 contract 验证结果：
   - `orders_management_summary -> PASS_LOCAL_CONTRACT`
   - `orders_minimal_diagnostic -> PASS_LOCAL_CONTRACT`
+- push：
+  - `537ba3877e357c2e38fea986ad386d7a521e82d6 -> origin/main` 成功
+- production smoke 结果：
+  - `/integrations/alibaba/wika/reports/operations/management-summary` -> `200 + JSON + PASS`
+  - `/integrations/alibaba/wika/reports/products/management-summary` -> `200 + JSON + PASS`
+  - `/integrations/alibaba/wika/reports/orders/management-summary` -> `200 + JSON + PASS`
+  - `/integrations/alibaba/wika/reports/operations/minimal-diagnostic` -> `200 + JSON + PASS`
+  - `/integrations/alibaba/wika/reports/products/minimal-diagnostic` -> `200 + JSON + PASS`
+  - `/integrations/alibaba/wika/reports/orders/minimal-diagnostic` -> `200 + JSON + PASS`
 - 当前收口：
   - `formal_summary` 已在本地 summary 层成立
   - `product_contribution` 已在本地 summary 层成立
   - `country_structure` 继续 unavailable
   - 本阶段没有修改 store/product live routes
   - 本阶段没有任何写动作
-  - 本阶段先不 push，待确认后再决定
+  - 本阶段已完成 deploy lock
 
 ### 阶段 21 收口二：隔离工作树部署验证与正式基线锁定
 

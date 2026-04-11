@@ -1,12 +1,12 @@
 ﻿# WIKA_经营数据字段覆盖矩阵
 
-## 2026-04-11 Stage 23 Order Summary Delta
+## 2026-04-11 Stage 23 Order Summary Deploy Delta
 
-### 订单级新增本地 derived 字段暴露
-- `formal_summary` -> derived field surfaced in local `/integrations/alibaba/wika/reports/orders/management-summary`
-- `product_contribution` -> derived field surfaced in local `/integrations/alibaba/wika/reports/orders/management-summary`
-- `trend_signal` -> derived field surfaced in local summary / minimal diagnostic, sample/window based only
-- `country_structure` -> unavailable in local `orders/management-summary` and `orders/minimal-diagnostic`
+### 订单级新增 derived 字段暴露
+- `formal_summary` -> derived field surfaced in deployed `/integrations/alibaba/wika/reports/orders/management-summary`
+- `product_contribution` -> derived field surfaced in deployed `/integrations/alibaba/wika/reports/orders/management-summary`
+- `trend_signal` -> derived field surfaced in deployed summary / minimal diagnostic, sample/window based only
+- `country_structure` -> unavailable in deployed `orders/management-summary` and `orders/minimal-diagnostic`
 
 ### store / product 维度保持不变
 - 本轮没有修改 store live routes

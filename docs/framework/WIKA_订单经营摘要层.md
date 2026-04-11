@@ -44,11 +44,20 @@
   - `total_order_count=120`
   - `top_products_by_order_count=5`
 
+## production deployment smoke 结果
+- `/integrations/alibaba/wika/reports/orders/management-summary` -> `200 + JSON + PASS`
+- `/integrations/alibaba/wika/reports/orders/minimal-diagnostic` -> `200 + JSON + PASS`
+- 联动复核通过：
+  - `/integrations/alibaba/wika/reports/operations/management-summary`
+  - `/integrations/alibaba/wika/reports/products/management-summary`
+  - `/integrations/alibaba/wika/reports/operations/minimal-diagnostic`
+  - `/integrations/alibaba/wika/reports/products/minimal-diagnostic`
+
 ## 当前固定边界
 - 当前 orders management summary 是 derived / conservative / partial 的。
 - 当前 trend 只按 sample/window based 暴露。
 - 当前 `country_structure` 仍 unavailable。
-- 当前本地改动尚未 push / 尚未部署。
+- 当前 stage23 已 push 并完成 deployment smoke。
 - not task 1 complete
 - not task 2 complete
 - no write action attempted

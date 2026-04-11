@@ -1,0 +1,129 @@
+{
+  "stage": "stage23_post_deploy_smoke",
+  "generated_at": "2026-04-11T08:37:49.846Z",
+  "routes": [
+    {
+      "key": "operations_management_summary",
+      "path": "/integrations/alibaba/wika/reports/operations/management-summary",
+      "status": 200,
+      "elapsed_ms": 2634,
+      "attempts": 1,
+      "is_json": true,
+      "checks": {
+        "report_name_present": true,
+        "official_present": true,
+        "derived_present": true,
+        "unavailable_present": true,
+        "boundary_present": true
+      },
+      "passed": true,
+      "transport_error": null,
+      "parse_error": null
+    },
+    {
+      "key": "products_management_summary",
+      "path": "/integrations/alibaba/wika/reports/products/management-summary",
+      "status": 200,
+      "elapsed_ms": 5226,
+      "attempts": 2,
+      "is_json": true,
+      "checks": {
+        "report_name_present": true,
+        "official_present": true,
+        "derived_present": true,
+        "unavailable_present": true,
+        "sample_boundary_visible": true,
+        "boundary_present": true
+      },
+      "passed": true,
+      "transport_error": null,
+      "parse_error": null
+    },
+    {
+      "key": "orders_management_summary",
+      "path": "/integrations/alibaba/wika/reports/orders/management-summary",
+      "status": 200,
+      "elapsed_ms": 6265,
+      "attempts": 2,
+      "is_json": true,
+      "checks": {
+        "report_name_present": true,
+        "formal_summary_present": true,
+        "product_contribution_present": true,
+        "trend_signal_present": true,
+        "unavailable_present": true,
+        "boundary_present": true
+      },
+      "passed": true,
+      "transport_error": null,
+      "parse_error": null
+    },
+    {
+      "key": "operations_minimal_diagnostic",
+      "path": "/integrations/alibaba/wika/reports/operations/minimal-diagnostic",
+      "status": 200,
+      "elapsed_ms": 12119,
+      "attempts": 1,
+      "is_json": true,
+      "checks": {
+        "section_present": true,
+        "nested_signal_interpretation_present": true,
+        "nested_recommendation_block_present": true,
+        "nested_unavailable_echo_present": true,
+        "nested_confidence_present": true,
+        "nested_boundary_present": true
+      },
+      "passed": true,
+      "transport_error": null,
+      "parse_error": null
+    },
+    {
+      "key": "products_minimal_diagnostic",
+      "path": "/integrations/alibaba/wika/reports/products/minimal-diagnostic",
+      "status": 200,
+      "elapsed_ms": 6776,
+      "attempts": 1,
+      "is_json": true,
+      "checks": {
+        "section_present": true,
+        "nested_ranking_interpretation_present": true,
+        "nested_keyword_takeaways_present": true,
+        "nested_recommendation_block_present": true,
+        "nested_unavailable_echo_present": true,
+        "nested_confidence_present": true,
+        "nested_boundary_present": true
+      },
+      "passed": true,
+      "transport_error": null,
+      "parse_error": null
+    },
+    {
+      "key": "orders_minimal_diagnostic",
+      "path": "/integrations/alibaba/wika/reports/orders/minimal-diagnostic",
+      "status": 200,
+      "elapsed_ms": 9629,
+      "attempts": 1,
+      "is_json": true,
+      "checks": {
+        "formal_summary_section_present": true,
+        "product_contribution_section_present": true,
+        "trend_signal_section_present": true,
+        "unavailable_echo_present": true,
+        "recommendation_block_present": true,
+        "confidence_present": true,
+        "boundary_present": true
+      },
+      "passed": true,
+      "transport_error": null,
+      "parse_error": null
+    }
+  ],
+  "boundary_statement": {
+    "not_task_1_complete": true,
+    "not_task_2_complete": true,
+    "no_write_action_attempted": true,
+    "wika_only_thread": true,
+    "xd_untouched_in_business_execution": true,
+    "not_full_business_cockpit": true
+  }
+}
