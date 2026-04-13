@@ -2206,11 +2206,47 @@ function createAccountOrderDraftTypesHandler(accountKey) {
 }
 
 function remapDiagnosticPayload(node, accountKey) {
+  const sourceRouteMap =
+    accountKey === "xd"
+      ? {
+          "/integrations/alibaba/wika/data/products/list":
+            "/integrations/alibaba/xd/data/products/list",
+          "/integrations/alibaba/wika/data/products/score":
+            "/integrations/alibaba/xd/data/products/score",
+          "/integrations/alibaba/wika/data/products/detail":
+            "/integrations/alibaba/xd/data/products/detail",
+          "/integrations/alibaba/wika/data/orders/list":
+            "/integrations/alibaba/xd/data/orders/list",
+          "/integrations/alibaba/wika/data/orders/fund":
+            "/integrations/alibaba/xd/data/orders/fund",
+          "/integrations/alibaba/wika/data/orders/logistics":
+            "/integrations/alibaba/xd/data/orders/logistics",
+          "/integrations/alibaba/wika/reports/products/management-summary":
+            "/integrations/alibaba/xd/reports/products/management-summary"
+        }
+      : null;
+  const unavailableSourceRoutes =
+    accountKey === "xd"
+      ? new Set([
+          "/integrations/alibaba/wika/reports/products/performance-summary",
+          "/integrations/alibaba/wika/reports/orders/management-summary",
+          "/integrations/alibaba/wika/reports/operations/management-summary"
+        ])
+      : null;
+
   if (Array.isArray(node)) {
     return node.map((item) => remapDiagnosticPayload(item, accountKey));
   }
 
   if (typeof node === "string") {
+    if (sourceRouteMap && Object.prototype.hasOwnProperty.call(sourceRouteMap, node)) {
+      return sourceRouteMap[node];
+    }
+
+    if (unavailableSourceRoutes?.has(node)) {
+      return null;
+    }
+
     return node.replaceAll(
       "/integrations/alibaba/wika/",
       `/integrations/alibaba/${accountKey}/`
