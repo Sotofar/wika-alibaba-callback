@@ -3976,6 +3976,14 @@ app.get(
   "/integrations/alibaba/xd/data/products/schema/render/draft",
   createAccountProductSchemaRenderDraftHandler("xd")
 );
+app.get(
+  "/integrations/alibaba/xd/data/media/list",
+  createAccountMediaListHandler("xd")
+);
+app.get(
+  "/integrations/alibaba/xd/data/media/groups",
+  createAccountMediaGroupsHandler("xd")
+);
 
 app.get(
   "/integrations/alibaba/wika/data/orders/list",
