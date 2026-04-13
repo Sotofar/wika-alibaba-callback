@@ -1,5 +1,25 @@
 ﻿# WIKA_项目基线
 
+## 2026-04-13 Stage 31 Local Operator Console Candidate
+
+### Local candidate only
+- stage31 当前仍是本地候选 / 本地 contract 状态，尚未写成已部署能力。
+- 新增本地候选 route：
+  - `/integrations/alibaba/wika/reports/operator-console`
+- Validation status：
+  - `node --check app.js` passed
+  - `node --check WIKA/projects/wika/data/cockpit/operator-console.js` passed
+  - `node --check WIKA/scripts/validate-wika-stage31-operator-console.js` passed
+  - `node WIKA/scripts/validate-wika-stage31-operator-console.js` passed
+  - 本地 contract evidence 已写入 `WIKA/docs/framework/evidence/`
+
+### Stage31 boundary
+- operator-console 只做统一控制台消费层，不是平台内执行层。
+- 本轮不新增 official fields。
+- 本轮不新增 Alibaba API 验证。
+- task 6 继续排除。
+- 当前仍未部署，不能写成线上已可用能力。
+
 ## 2026-04-13 Stage 30 Deploy Lock: Action Center and Preview Layer
 
 ### deployed routes

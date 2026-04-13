@@ -1,5 +1,30 @@
 ﻿# WIKA 面向 6 项任务 API 缺口矩阵
 
+## 2026-04-13 Stage 31 Operator Console Delta
+
+### Task 1
+- `operator-console` can surface one higher-level summary for the current store / product / order cockpit and action center.
+- This does not add new official inputs and does not close the remaining field gaps.
+
+### Task 2
+- `operator-console` can expose one more direct control-plane style summary for diagnostics, comparisons, blockers, and next-best actions.
+- Remaining unavailable dimensions stay unchanged.
+
+### Task 3
+- `operator-console` can surface task3 safe-draft readiness and manual blockers in one higher-level console.
+- This does not publish products.
+
+### Task 4
+- `operator-console` can surface task4 external reply-draft readiness in one higher-level console.
+- This does not send platform replies.
+
+### Task 5
+- `operator-console` can surface task5 external order-draft readiness in one higher-level console.
+- This does not create platform orders.
+
+### Task 6
+- Explicitly excluded in stage31.
+
 ## 2026-04-13 Stage 29 Action Center and Preview Delta
 
 ### Task 1

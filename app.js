@@ -52,6 +52,7 @@ import { buildProductsComparisonSummary } from "./WIKA/projects/wika/data/report
 import { buildOrdersComparisonSummary } from "./WIKA/projects/wika/data/reports/orders-comparison.js";
 import { buildBusinessCockpit } from "./WIKA/projects/wika/data/cockpit/business-cockpit.js";
 import { buildActionCenter } from "./WIKA/projects/wika/data/cockpit/action-center.js";
+import { buildOperatorConsole } from "./WIKA/projects/wika/data/cockpit/operator-console.js";
 import { buildProductDraftWorkbench } from "./WIKA/projects/wika/data/workbench/product-draft-workbench.js";
 import { buildReplyWorkbench } from "./WIKA/projects/wika/data/workbench/reply-workbench.js";
 import { buildOrderWorkbench } from "./WIKA/projects/wika/data/workbench/order-workbench.js";
@@ -2833,6 +2834,49 @@ function createWikaActionCenterHandler() {
   };
 }
 
+function createWikaOperatorConsoleHandler() {
+  return async (req, res) => {
+    try {
+      const result = await buildOperatorConsole(
+        await getWikaReadOnlyClientConfig(),
+        req.query
+      );
+
+      logInfo("Wika operator console completed", {
+        nextBestActionCount: result.next_best_actions?.length ?? 0,
+        sharedBlockerCount: result.shared_blockers?.length ?? 0
+      });
+
+      res.status(200).json({
+        ok: true,
+        module: "operator_console",
+        account: "wika",
+        read_only: true,
+        ...result
+      });
+    } catch (error) {
+      logError("Wika operator console failed", {
+        error: error instanceof Error ? error.message : String(error),
+        details:
+          error instanceof AlibabaApiError || error?.details
+            ? error.details
+            : undefined,
+        top_error: extractTopErrorResponse(error),
+        query: req.query
+      });
+
+      const readOnlyError = normalizeWikaReadOnlyError(error, {
+        module: "operator_console",
+        query: req.query
+      });
+      const statusCode =
+        readOnlyError.statusCode ??
+        (error instanceof AlibabaApiError ? 502 : 500);
+      res.status(statusCode).json(readOnlyError.body);
+    }
+  };
+}
+
 function createWikaProductDraftWorkbenchHandler() {
   return async (req, res) => {
     try {
@@ -3982,6 +4026,10 @@ app.get(
 app.get(
   "/integrations/alibaba/wika/reports/action-center",
   createWikaActionCenterHandler()
+);
+app.get(
+  "/integrations/alibaba/wika/reports/operator-console",
+  createWikaOperatorConsoleHandler()
 );
 
 app.get(

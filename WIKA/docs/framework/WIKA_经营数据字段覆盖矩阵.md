@@ -1,5 +1,35 @@
 ﻿# WIKA_经营数据字段覆盖矩阵
 
+## 2026-04-13 Stage 31 Operator Console Delta
+
+### No new confirmed fields
+- store official fields remain:
+  - `visitor`
+  - `imps`
+  - `clk`
+  - `clk_rate`
+  - `fb`
+  - `reply`
+- product official fields remain:
+  - `click`
+  - `impression`
+  - `visitor`
+  - `fb`
+  - `order`
+  - `bookmark`
+  - `compare`
+  - `share`
+  - `keyword_effects`
+- order layer remains:
+  - `formal_summary` -> derived
+  - `product_contribution` -> derived
+  - `trend_signal` -> derived
+  - `country_structure` -> unavailable
+
+### Stage31 packaging delta
+- `operator-console` only repackages existing cockpit / action-center / task-workbench / preview readiness outputs.
+- No field should be reclassified from unavailable to confirmed in this round.
+
 ## 2026-04-13 Stage 29 Action Center and Preview Delta
 
 ### No new confirmed fields

@@ -1,5 +1,22 @@
 ﻿# WIKA 自治推进日志
 
+### 阶段 31：统一运营控制台层（本地候选）
+
+- 实际起始 commit：`0bd08fd430fbe83f4d31cc0498d7bfbc16bb5d42`
+- 本轮新增本地候选 route：
+  - `/integrations/alibaba/wika/reports/operator-console`
+- 本轮新增 helper：
+  - `WIKA/projects/wika/data/cockpit/operator-console.js`
+- 本轮新增验证脚本：
+  - `WIKA/scripts/validate-wika-stage31-operator-console.js`
+- 验证结论：
+  - stage31 local contract -> `PASS`
+  - no new official fields
+  - no new API verification
+  - no write action attempted
+  - task 6 excluded
+- 本轮不写成已上线，不写成 task1~5 complete。
+
 ### 阶段 29/30：行动中心与输入感知预览层（已部署）
 
 - 实际起始 commit：`572f41f7a4f5a48760593ff9131c581b3936e4c7`

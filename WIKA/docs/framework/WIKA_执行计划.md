@@ -1,5 +1,38 @@
 ﻿# WIKA_执行计划
 
+## 2026-04-13 Stage 31 Unified Operator Console Layer
+
+### 当前阶段
+- 阶段 31：统一运营控制台层本地候选
+
+### 本轮目标
+- 在既有 `business-cockpit + action-center + task-workbench + preview-center` 之上，再补一层统一控制台。
+- 让业务方直接看到当前经营态势、优先动作、task3/4/5 preview readiness 与共享 blocker。
+
+### 已完成的本地候选
+- helper：
+  - `WIKA/projects/wika/data/cockpit/operator-console.js`
+- route：
+  - `/integrations/alibaba/wika/reports/operator-console`
+- script：
+  - `WIKA/scripts/validate-wika-stage31-operator-console.js`
+
+### Gate result
+- stage30 在线基线回归已通过。
+- stage31 已达到 local contract pass。
+- stage31 还未进入 deployed / smoke-verified 状态。
+
+### 固定边界
+- operator-console 只做统一控制台层，不新增 official fields。
+- preview readiness 只表示预览入口存在，不表示平台内执行已可用。
+- not task 1 complete
+- not task 2 complete
+- not task 3 complete
+- not task 4 complete
+- not task 5 complete
+- task 6 excluded
+- not full business cockpit
+
 ## 2026-04-13 Stage 30 Deploy Lock: Action Center and Preview Layer
 
 ### 当前阶段

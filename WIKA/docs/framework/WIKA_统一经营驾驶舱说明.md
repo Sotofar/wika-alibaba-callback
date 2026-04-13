@@ -120,3 +120,26 @@
 - 只复用现有 cockpit / diagnostic / comparison / workbench 输出
 - 不新增 official fields
 - not full business cockpit
+
+## 2026-04-13 Stage 31 Operator Console Addendum
+
+### local candidate route
+- `/integrations/alibaba/wika/reports/operator-console`
+
+### what it adds
+- 在既有 `business-cockpit + action-center + task-workbench + preview-center` 之上，再补一个统一控制台层
+- 统一暴露：
+  - `business_cockpit_summary`
+  - `action_center_summary`
+  - `task3_summary`
+  - `task4_summary`
+  - `task5_summary`
+  - `preview_readiness`
+  - `shared_blockers`
+  - `next_best_actions`
+  - `boundary_statement`
+
+### fixed boundary
+- operator-console 只是更高层消费视图，不是平台内执行层
+- 当前仍是 local candidate，不写成 deployed
+- not full business cockpit
