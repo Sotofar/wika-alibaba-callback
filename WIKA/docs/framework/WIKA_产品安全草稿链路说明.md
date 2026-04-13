@@ -1,5 +1,32 @@
 ﻿# WIKA 产品安全草稿链路说明
 
+## 2026-04-13 Stage 34/35 Write Boundary Addendum
+
+### task3 direct candidate matrix
+- `alibaba.icbu.photobank.upload`
+- `alibaba.icbu.product.add.draft`
+- `alibaba.icbu.product.schema.add.draft`
+
+### fixed preflight result
+- `photobank.upload` -> `NO_ROLLBACK_PATH`
+- `product.add.draft` -> `NO_ROLLBACK_PATH`
+- `product.schema.add.draft` -> `PARAM_CONTRACT_UNSTABLE`
+
+### what changed
+- 当前不再只写“低风险边界未证明”，而是已经把：
+  - 官方候选方法
+  - 直接用途
+  - 参数契约成熟度
+  - 测试 scope
+  - readback
+  - rollback
+  全部落到了正式矩阵与 preflight 证据中。
+
+### fixed boundary
+- task3 当前仍停在 safe draft preparation only
+- 当前没有任何 task3 write candidate 满足 runtime-ready 前置条件
+- 当前不进入真实 photobank upload / real draft create / draft publish 试点
+
 更新时间：2026-04-05
 
 ## 2026-04-11 Stage 28 Product Draft Workbench Candidate

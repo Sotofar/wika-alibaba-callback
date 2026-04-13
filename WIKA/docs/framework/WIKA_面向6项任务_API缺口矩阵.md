@@ -1,5 +1,38 @@
 ﻿# WIKA 面向 6 项任务 API 缺口矩阵
 
+## 2026-04-13 Stage 34/35 Write Boundary Delta
+
+### Task 3
+- 当前 direct write candidate 已收敛为：
+  - `alibaba.icbu.photobank.upload`
+  - `alibaba.icbu.product.add.draft`
+  - `alibaba.icbu.product.schema.add.draft`
+- 当前固定阻塞：
+  - `NO_ROLLBACK_PATH`
+  - `NO_TEST_SCOPE`
+  - `PARAM_CONTRACT_UNSTABLE`（限 `schema.add.draft`）
+- 结论：
+  - 当前仍只有安全草稿准备层与外部 handoff 层
+  - 当前不能进入真实写入试点
+
+### Task 4
+- 当前 direct write candidate：无
+- 当前固定阻塞：
+  - `DOC_INSUFFICIENT`
+- 结论：
+  - 当前仍只有 external reply draft / preview / handoff pack
+  - 当前不能进入平台内回复写侧验证
+
+### Task 5
+- 当前 direct write candidate 已收敛为：
+  - `alibaba.trade.order.create`
+- 当前固定阻塞：
+  - `NO_ROLLBACK_PATH`
+  - `NO_TEST_SCOPE`
+- 结论：
+  - 当前仍只有 external order draft / preview / handoff pack
+  - 当前不能进入真实创单试点
+
 ## 2026-04-13 Stage 33 Maximum Completion Delta
 
 ### Task 1

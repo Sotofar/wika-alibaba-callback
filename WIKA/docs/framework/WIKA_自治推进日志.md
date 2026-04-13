@@ -1,5 +1,32 @@
 ﻿# WIKA 自治推进日志
 
+### 阶段 34 / 35：写侧边界候选矩阵与前置条件收口
+
+- 实际起始 commit：`a8fc18fa23a27784178adaac0422461ae1ba8b59`
+- 本轮新增沉淀：
+  - `WIKA/projects/wika/data/write-boundary/write-boundary-candidates.js`
+  - `WIKA/scripts/validate-wika-stage34-write-boundary-matrix.js`
+  - `WIKA/scripts/validate-wika-stage35-write-preflight.js`
+  - `WIKA/docs/framework/WIKA_阶段34_写侧边界候选矩阵.md`
+  - `WIKA/docs/framework/WIKA_阶段35_写侧文档定锚与前置条件.md`
+  - `WIKA/docs/framework/evidence/wika-stage34-write-boundary-matrix.json`
+  - `WIKA/docs/framework/evidence/wika-stage35-write-boundary-preflight.json`
+- 阶段 34 结论：
+  - task3 direct candidate = 3
+  - task4 direct candidate = 0
+  - task5 direct candidate = 1
+  - 当前 runtime-ready 候选 = 0
+- 阶段 35 结论：
+  - task3 -> `NO_ROLLBACK_PATH`
+  - task4 -> `DOC_INSUFFICIENT`
+  - task5 -> `NO_ROLLBACK_PATH`
+  - 当前不进入阶段 36 / 37 / 38
+- 本轮边界：
+  - 不做真实写入
+  - 不新增 live routes
+  - 不新增 Alibaba API runtime 验证
+  - task 6 excluded
+
 ### 阶段 33：当前边界下最大完成度收口
 
 - 本轮新增沉淀：

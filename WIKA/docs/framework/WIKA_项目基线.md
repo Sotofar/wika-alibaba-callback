@@ -1,5 +1,31 @@
 ﻿# WIKA_项目基线
 
+## 2026-04-13 Stage 34/35 Write Boundary Matrix and Preflight
+
+### current status
+- 当前已完成 task3/4/5 direct write candidate 矩阵与安全前置条件证明。
+- task3 direct candidate：
+  - `alibaba.icbu.photobank.upload`
+  - `alibaba.icbu.product.add.draft`
+  - `alibaba.icbu.product.schema.add.draft`
+- task4 direct candidate：
+  - none
+- task5 direct candidate：
+  - `alibaba.trade.order.create`
+
+### fixed conclusion
+- 当前 `runtime_ready_candidate_count = 0`。
+- task3 当前主阻塞：`NO_ROLLBACK_PATH`，同时缺 `NO_TEST_SCOPE`。
+- task4 当前主阻塞：`DOC_INSUFFICIENT`。
+- task5 当前主阻塞：`NO_ROLLBACK_PATH`，同时缺 `NO_TEST_SCOPE`。
+- 当前不进入阶段 36 / 37 / 38 的真实写侧试点。
+- 当前继续保持：
+  - not task 3 complete
+  - not task 4 complete
+  - not task 5 complete
+  - task 6 excluded
+  - not full business cockpit
+
 ## 2026-04-13 Stage 33 Maximum Completion Under Current Boundary
 
 ### current status

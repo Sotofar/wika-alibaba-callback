@@ -1,5 +1,20 @@
 ﻿# WIKA 已上线能力复用清单
 
+## 2026-04-13 Stage 34/35 Additions
+- 本轮没有新增 live route。
+- 本轮新增可复用的写侧边界前置包资产：
+  - `WIKA/projects/wika/data/write-boundary/write-boundary-candidates.js`
+  - `WIKA/scripts/validate-wika-stage34-write-boundary-matrix.js`
+  - `WIKA/scripts/validate-wika-stage35-write-preflight.js`
+  - `WIKA/docs/framework/WIKA_阶段34_写侧边界候选矩阵.md`
+  - `WIKA/docs/framework/WIKA_阶段35_写侧文档定锚与前置条件.md`
+  - `WIKA/docs/framework/evidence/wika-stage34-write-boundary-matrix.json`
+  - `WIKA/docs/framework/evidence/wika-stage35-write-boundary-preflight.json`
+- 当前复用边界：
+  - 这些资产只用于写侧边界证明前置包
+  - 不代表平台内写动作已安全开放
+  - 不代表 task3/4/5 complete
+
 ## 2026-04-13 Stage 33 Current Boundary Closure
 - 当前可直接复用的最高层消费链已经形成：
   - `business-cockpit`
