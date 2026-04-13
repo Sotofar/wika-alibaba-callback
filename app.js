@@ -3944,6 +3944,18 @@ app.get("/integrations/alibaba/xd/data/products/list", async (req, res) => {
       .json(buildReadOnlyErrorResponse(error));
   }
 });
+app.get(
+  "/integrations/alibaba/xd/data/products/score",
+  createAccountProductScoreHandler("xd")
+);
+app.get(
+  "/integrations/alibaba/xd/data/products/detail",
+  createAccountProductDetailHandler("xd")
+);
+app.get(
+  "/integrations/alibaba/xd/data/products/groups",
+  createAccountProductGroupsHandler("xd")
+);
 
 app.get(
   "/integrations/alibaba/wika/data/orders/list",
@@ -3972,6 +3984,14 @@ app.get(
 app.get(
   "/integrations/alibaba/xd/data/orders/detail",
   createAccountOrderDetailHandler("xd")
+);
+app.get(
+  "/integrations/alibaba/xd/data/orders/fund",
+  createAccountOrderFundHandler("xd")
+);
+app.get(
+  "/integrations/alibaba/xd/data/orders/logistics",
+  createAccountOrderLogisticsHandler("xd")
 );
 
 app.get(
