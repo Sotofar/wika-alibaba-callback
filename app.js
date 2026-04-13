@@ -2205,6 +2205,36 @@ function createAccountOrderDraftTypesHandler(accountKey) {
   };
 }
 
+function remapDiagnosticPayload(node, accountKey) {
+  if (Array.isArray(node)) {
+    return node.map((item) => remapDiagnosticPayload(item, accountKey));
+  }
+
+  if (typeof node === "string") {
+    return node.replaceAll(
+      "/integrations/alibaba/wika/",
+      `/integrations/alibaba/${accountKey}/`
+    );
+  }
+
+  if (!node || typeof node !== "object") {
+    return node;
+  }
+
+  const output = {};
+
+  for (const [key, value] of Object.entries(node)) {
+    if (key === "account" || key === "source_account") {
+      output[key] = accountKey;
+      continue;
+    }
+
+    output[key] = remapDiagnosticPayload(value, accountKey);
+  }
+
+  return output;
+}
+
 function createWikaMinimalDiagnosticHandler() {
   return async (req, res) => {
     try {
@@ -2221,6 +2251,48 @@ function createWikaMinimalDiagnosticHandler() {
       res.status(200).json(result);
     } catch (error) {
       logError("Wika minimal operations diagnostic failed", {
+        error: error instanceof Error ? error.message : String(error),
+        details:
+          error instanceof AlibabaApiError || error?.details
+            ? error.details
+            : undefined,
+        top_error: extractTopErrorResponse(error),
+        query: req.query
+      });
+
+      const hasMissingKeys =
+        error instanceof ConfigurationError ||
+        Array.isArray(error?.missingKeys);
+
+      res
+        .status(error instanceof ConfigurationError ? 500 : hasMissingKeys ? 400 : 502)
+        .json(buildReadOnlyErrorResponse(error));
+    }
+  };
+}
+
+function createXdMinimalDiagnosticHandler() {
+  return async (req, res) => {
+    try {
+      const result = remapDiagnosticPayload(
+        await fetchWikaMinimalDiagnostic(
+          {
+            account: "xd",
+            ...(await getAlibabaReadOnlyClientConfig("xd"))
+          },
+          req.query
+        ),
+        "xd"
+      );
+
+      logInfo("XD minimal operations diagnostic completed", {
+        productSnapshotCount: result.sample_size.product_snapshot_count,
+        orderSnapshotCount: result.sample_size.order_snapshot_count
+      });
+
+      res.status(200).json(result);
+    } catch (error) {
+      logError("XD minimal operations diagnostic failed", {
         error: error instanceof Error ? error.message : String(error),
         details:
           error instanceof AlibabaApiError || error?.details
@@ -2540,6 +2612,48 @@ function createWikaProductMinimalDiagnosticHandler() {
   };
 }
 
+function createXdProductMinimalDiagnosticHandler() {
+  return async (req, res) => {
+    try {
+      const result = remapDiagnosticPayload(
+        await fetchWikaProductMinimalDiagnostic(
+          {
+            account: "xd",
+            ...(await getAlibabaReadOnlyClientConfig("xd"))
+          },
+          req.query
+        ),
+        "xd"
+      );
+
+      logInfo("XD minimal products diagnostic completed", {
+        productSnapshotCount: result.sample_size.product_snapshot_count,
+        productScoreCount: result.sample_size.product_score_count
+      });
+
+      res.status(200).json(result);
+    } catch (error) {
+      logError("XD minimal products diagnostic failed", {
+        error: error instanceof Error ? error.message : String(error),
+        details:
+          error instanceof AlibabaApiError || error?.details
+            ? error.details
+            : undefined,
+        top_error: extractTopErrorResponse(error),
+        query: req.query
+      });
+
+      const hasMissingKeys =
+        error instanceof ConfigurationError ||
+        Array.isArray(error?.missingKeys);
+
+      res
+        .status(error instanceof ConfigurationError ? 500 : hasMissingKeys ? 400 : 502)
+        .json(buildReadOnlyErrorResponse(error));
+    }
+  };
+}
+
 function createWikaOrderManagementSummaryHandler() {
   return async (req, res) => {
     try {
@@ -2643,6 +2757,48 @@ function createWikaOrderMinimalDiagnosticHandler() {
       res.status(200).json(result);
     } catch (error) {
       logError("Wika minimal orders diagnostic failed", {
+        error: error instanceof Error ? error.message : String(error),
+        details:
+          error instanceof AlibabaApiError || error?.details
+            ? error.details
+            : undefined,
+        top_error: extractTopErrorResponse(error),
+        query: req.query
+      });
+
+      const hasMissingKeys =
+        error instanceof ConfigurationError ||
+        Array.isArray(error?.missingKeys);
+
+      res
+        .status(error instanceof ConfigurationError ? 500 : hasMissingKeys ? 400 : 502)
+        .json(buildReadOnlyErrorResponse(error));
+    }
+  };
+}
+
+function createXdOrderMinimalDiagnosticHandler() {
+  return async (req, res) => {
+    try {
+      const result = remapDiagnosticPayload(
+        await fetchWikaOrderMinimalDiagnostic(
+          {
+            account: "xd",
+            ...(await getAlibabaReadOnlyClientConfig("xd"))
+          },
+          req.query
+        ),
+        "xd"
+      );
+
+      logInfo("XD minimal orders diagnostic completed", {
+        orderSnapshotCount: result.sample_size.order_snapshot_count,
+        orderFundCount: result.sample_size.order_fund_count
+      });
+
+      res.status(200).json(result);
+    } catch (error) {
+      logError("XD minimal orders diagnostic failed", {
         error: error instanceof Error ? error.message : String(error),
         details:
           error instanceof AlibabaApiError || error?.details
@@ -3984,6 +4140,10 @@ app.get(
   "/integrations/alibaba/xd/data/media/groups",
   createAccountMediaGroupsHandler("xd")
 );
+app.get(
+  "/integrations/alibaba/xd/data/customers/list",
+  createAccountCustomerListHandler("xd")
+);
 
 app.get(
   "/integrations/alibaba/wika/data/orders/list",
@@ -4020,6 +4180,10 @@ app.get(
 app.get(
   "/integrations/alibaba/xd/data/orders/logistics",
   createAccountOrderLogisticsHandler("xd")
+);
+app.get(
+  "/integrations/alibaba/xd/data/orders/draft-types",
+  createAccountOrderDraftTypesHandler("xd")
 );
 
 app.get(
@@ -4176,6 +4340,18 @@ app.get(
         .json(buildReadOnlyErrorResponse(error));
     }
   }
+);
+app.get(
+  "/integrations/alibaba/xd/reports/products/minimal-diagnostic",
+  createXdProductMinimalDiagnosticHandler()
+);
+app.get(
+  "/integrations/alibaba/xd/reports/orders/minimal-diagnostic",
+  createXdOrderMinimalDiagnosticHandler()
+);
+app.get(
+  "/integrations/alibaba/xd/reports/operations/minimal-diagnostic",
+  createXdMinimalDiagnosticHandler()
 );
 
 app.get("/integrations/alibaba/auth/start", createAlibabaAuthStartHandler("wika"));
