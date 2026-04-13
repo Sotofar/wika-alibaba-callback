@@ -1,5 +1,16 @@
 ﻿# WIKA_经营数据字段覆盖矩阵
 
+## 2026-04-13 Stage 32 Operator Console Deploy Delta
+
+### No new confirmed fields
+- store official fields remain unchanged
+- product official fields remain unchanged
+- order derived layer remains unchanged
+
+### Stage32 packaging delta
+- `/integrations/alibaba/wika/reports/operator-console` only packages existing cockpit / action-center / task-workbench / preview readiness outputs.
+- No field should be reclassified from unavailable to confirmed in this round.
+
 ## 2026-04-13 Stage 31 Operator Console Delta
 
 ### No new confirmed fields
