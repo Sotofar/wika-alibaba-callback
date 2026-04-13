@@ -218,3 +218,26 @@
   - `WIKA/docs/framework/evidence/wika_task_workbench_post_deploy.json`
 
 
+## 2026-04-13 Stage26 XD replay addendum
+
+### 可直接复用的 XD 结论
+- base/runtime:
+  - `/health`
+  - `/integrations/alibaba/xd/auth/debug`
+  - `/integrations/alibaba/xd/auth/start`
+  - `/integrations/alibaba/xd/auth/callback`
+- live routes:
+  - `/integrations/alibaba/xd/data/products/list`
+  - `/integrations/alibaba/xd/data/orders/list`
+  - `/integrations/alibaba/xd/data/orders/detail`
+  - `/integrations/alibaba/xd/reports/products/management-summary`
+- equivalent direct-method:
+  - `alibaba.icbu.product.get`
+  - `alibaba.icbu.product.group.get`
+  - `alibaba.icbu.product.score.get`
+  - `alibaba.seller.order.fund.get`
+  - `alibaba.seller.order.logistics.get`
+
+### 复用边界
+- 等价 direct-method 结论不能替代缺失的 XD route。
+- `overview.industry.get`、`indicator.basic.get`、`self.product.get` 当前只能复用为 `NO_DATA` 证据，不能接入业务层。

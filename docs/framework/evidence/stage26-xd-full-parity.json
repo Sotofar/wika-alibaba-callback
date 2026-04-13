@@ -1,0 +1,362 @@
+{
+  "evaluated_at": "2026-04-13T06:07:17.362Z",
+  "base_url": "https://api.wikapacking.com",
+  "current_head": "4e8ec3638d0be8a26d9c0d3536e814fcf945c5bf",
+  "production_gate": {
+    "status": "PASS_BASE",
+    "canaries": [
+      {
+        "path": "/health",
+        "status": 200,
+        "elapsed_ms": 890
+      },
+      {
+        "path": "/integrations/alibaba/auth/debug",
+        "status": 200,
+        "elapsed_ms": 934
+      },
+      {
+        "path": "/integrations/alibaba/xd/auth/debug",
+        "status": 200,
+        "elapsed_ms": 952
+      },
+      {
+        "path": "/integrations/alibaba/xd/data/products/list?page_size=1",
+        "status": 200,
+        "elapsed_ms": 2139
+      },
+      {
+        "path": "/integrations/alibaba/xd/data/orders/list?page_size=1",
+        "status": 200,
+        "elapsed_ms": 2039
+      }
+    ]
+  },
+  "auth_refresh": {
+    "attempted": true,
+    "profile": "standard",
+    "status": "PASSED_AFTER_REFRESH_BOOTSTRAP"
+  },
+  "samples": {
+    "productId": "AAFyoO5wAOXRII6QqyxoQgE-",
+    "numericProductId": 1601740545697,
+    "groupId": 812751108,
+    "catId": 36127040,
+    "tradeId": "298115506501029720",
+    "dateRange": {
+      "start_date": "2026-03-14",
+      "end_date": "2026-04-12"
+    },
+    "industry": {
+      "industry_id": 111,
+      "industry_desc": "All",
+      "main_category": true
+    },
+    "statDate": "2026-04-12"
+  },
+  "routes": [
+    {
+      "path": "/health",
+      "module": "runtime",
+      "method": "GET",
+      "status_code": 200,
+      "final_classification": "RECONFIRMED_XD",
+      "equivalent": null
+    },
+    {
+      "path": "/integrations/alibaba/xd/auth/debug",
+      "module": "runtime",
+      "method": "GET",
+      "status_code": 200,
+      "final_classification": "RECONFIRMED_XD",
+      "equivalent": null
+    },
+    {
+      "path": "/integrations/alibaba/xd/auth/start",
+      "module": "runtime",
+      "method": "GET",
+      "status_code": 200,
+      "final_classification": "RECONFIRMED_XD",
+      "equivalent": null
+    },
+    {
+      "path": "/integrations/alibaba/xd/auth/callback",
+      "module": "runtime",
+      "method": "GET",
+      "status_code": 400,
+      "final_classification": "RECONFIRMED_XD",
+      "equivalent": null
+    },
+    {
+      "path": "/integrations/alibaba/xd/data/products/list?page_size=1",
+      "module": "products",
+      "method": "GET",
+      "status_code": 200,
+      "final_classification": "RECONFIRMED_XD",
+      "equivalent": null
+    }
+  ],
+  "direct_methods": [
+    {
+      "method": "alibaba.mydata.overview.date.get",
+      "status_code": 200,
+      "final_classification": "PASSED",
+      "error": null,
+      "summary": {
+        "top_keys": [
+          "alibaba_mydata_overview_date_get_response"
+        ],
+        "payload_keys": [
+          "result_list",
+          "request_id",
+          "_trace_id_"
+        ],
+        "meaningful": true
+      }
+    },
+    {
+      "method": "alibaba.mydata.overview.industry.get",
+      "status_code": 200,
+      "final_classification": "NO_DATA",
+      "error": null,
+      "summary": {
+        "top_keys": [
+          "alibaba_mydata_overview_industry_get_response"
+        ],
+        "payload_keys": [
+          "request_id",
+          "_trace_id_"
+        ],
+        "meaningful": false
+      }
+    },
+    {
+      "method": "alibaba.mydata.overview.indicator.basic.get",
+      "status_code": 200,
+      "final_classification": "NO_DATA",
+      "error": null,
+      "summary": {
+        "top_keys": [
+          "alibaba_mydata_overview_indicator_basic_get_response"
+        ],
+        "payload_keys": [
+          "result",
+          "request_id",
+          "_trace_id_"
+        ],
+        "meaningful": false
+      }
+    },
+    {
+      "method": "alibaba.mydata.self.product.date.get",
+      "status_code": 200,
+      "final_classification": "PASSED",
+      "error": null,
+      "summary": {
+        "top_keys": [
+          "alibaba_mydata_self_product_date_get_response"
+        ],
+        "payload_keys": [
+          "end_date",
+          "start_date",
+          "request_id",
+          "_trace_id_"
+        ],
+        "meaningful": true
+      }
+    },
+    {
+      "method": "alibaba.mydata.self.product.get",
+      "status_code": 200,
+      "final_classification": "NO_DATA",
+      "error": null,
+      "summary": {
+        "top_keys": [
+          "alibaba_mydata_self_product_get_response"
+        ],
+        "payload_keys": [
+          "result",
+          "request_id",
+          "_trace_id_"
+        ],
+        "meaningful": false
+      }
+    }
+  ],
+  "equivalent_methods": [
+    {
+      "method": "alibaba.icbu.product.get",
+      "status_code": 200,
+      "final_classification": "PASSED"
+    },
+    {
+      "method": "alibaba.icbu.product.group.get",
+      "status_code": 200,
+      "final_classification": "PASSED"
+    },
+    {
+      "method": "alibaba.icbu.product.score.get",
+      "status_code": 200,
+      "final_classification": "PASSED"
+    }
+  ],
+  "candidate_pool": [
+    {
+      "method": "alibaba.seller.trade.decode",
+      "status_code": 200,
+      "final_classification": "PARAM_CONTRACT_MISSING",
+      "error": {
+        "code": "MissingParameter",
+        "sub_code": null,
+        "msg": "The input parameter “encryptor_id” that is mandatory for processing this request is not supplied"
+      },
+      "summary": {
+        "top_keys": [
+          "error_response"
+        ],
+        "payload_keys": [
+          "type",
+          "code",
+          "msg",
+          "request_id",
+          "_trace_id_"
+        ],
+        "meaningful": true
+      }
+    },
+    {
+      "method": "alibaba.icbu.product.type.available.get",
+      "status_code": 200,
+      "final_classification": "PARAM_CONTRACT_MISSING",
+      "error": {
+        "code": "MissingParameter",
+        "sub_code": null,
+        "msg": "The input parameter “type_request” that is mandatory for processing this request is not supplied"
+      },
+      "summary": {
+        "top_keys": [
+          "error_response"
+        ],
+        "payload_keys": [
+          "type",
+          "code",
+          "msg",
+          "request_id",
+          "_trace_id_"
+        ],
+        "meaningful": true
+      }
+    },
+    {
+      "method": "alibaba.mydata.self.keyword.date.get",
+      "status_code": 200,
+      "final_classification": "TENANT_OR_PRODUCT_RESTRICTION",
+      "error": {
+        "code": "InsufficientPermission",
+        "sub_code": null,
+        "msg": "App does not have permission to access this api"
+      },
+      "summary": {
+        "top_keys": [
+          "error_response"
+        ],
+        "payload_keys": [
+          "type",
+          "code",
+          "msg",
+          "request_id",
+          "_trace_id_"
+        ],
+        "meaningful": true
+      }
+    },
+    {
+      "method": "alibaba.mydata.self.keyword.effect.week.get",
+      "status_code": 200,
+      "final_classification": "PARAM_CONTRACT_MISSING",
+      "error": {
+        "code": "MissingParameter",
+        "sub_code": null,
+        "msg": "The input parameter “date_range” that is mandatory for processing this request is not supplied"
+      },
+      "summary": {
+        "top_keys": [
+          "error_response"
+        ],
+        "payload_keys": [
+          "type",
+          "code",
+          "msg",
+          "request_id",
+          "_trace_id_"
+        ],
+        "meaningful": true
+      }
+    },
+    {
+      "method": "alibaba.mydata.self.keyword.effect.month.get",
+      "status_code": 200,
+      "final_classification": "TENANT_OR_PRODUCT_RESTRICTION",
+      "error": {
+        "code": "InsufficientPermission",
+        "sub_code": null,
+        "msg": "App does not have permission to access this api"
+      },
+      "summary": {
+        "top_keys": [
+          "error_response"
+        ],
+        "payload_keys": [
+          "type",
+          "code",
+          "msg",
+          "request_id",
+          "_trace_id_"
+        ],
+        "meaningful": true
+      }
+    }
+  ],
+  "regression": {
+    "stable_route_status": 200,
+    "stable_direct_status": "PASSED",
+    "rechecked_passed_directs": [
+      {
+        "method": "alibaba.mydata.overview.date.get",
+        "status": "PASSED",
+        "status_code": 200
+      },
+      {
+        "method": "alibaba.mydata.self.product.date.get",
+        "status": "PASSED",
+        "status_code": 200
+      },
+      {
+        "method": "alibaba.seller.order.get",
+        "status": "PASSED",
+        "status_code": 200
+      },
+      {
+        "method": "alibaba.seller.order.fund.get",
+        "status": "PASSED",
+        "status_code": 200
+      },
+      {
+        "method": "alibaba.seller.order.logistics.get",
+        "status": "PASSED",
+        "status_code": 200
+      }
+    ]
+  },
+  "counts": {
+    "route_reconfirmed_xd": 8,
+    "route_equivalent": 5,
+    "direct_passed": 5,
+    "no_data": 3,
+    "auth_refresh_or_reauthorize_needed": 0,
+    "tenant_or_product_restriction": 3,
+    "doc_mismatch": 14,
+    "blocked_env": 0,
+    "unknown": 0
+  }
+}

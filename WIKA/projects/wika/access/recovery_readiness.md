@@ -21,3 +21,16 @@
 - 若后续明确允许受控 elevated confirm，只对这 4 个 mydata 方法单次验证，不扩大到其他接口。
 - 在没有权限动作前，不要继续重跑同一批 direct-method。
 - 若没有新的权限变化证据，也没有 `XD_ELEVATED_ALLOWED=1`，则 stage24 之后继续空转没有意义。
+## 2026-04-13 Stage26 XD readiness update
+
+| 条件 | 当前状态 | 证据 |
+| --- | --- | --- |
+| production base 继续 PASS_BASE | 是 | `/health`、`/integrations/alibaba/auth/debug`、`/integrations/alibaba/xd/auth/debug`、representative XD list route 均为 200 |
+| 是否仍使用 stage24 早停逻辑 | 否 | 本轮已直接以“权限已申请到”为前提，先 refresh/bootstrap 再做验证 |
+| XD parity replay 是否已完成本轮范围 | 是 | 27 条 parity route 全部已有新鲜分类 |
+| 历史 8 项 direct-method 是否已更新为新结论 | 是 | 5 个 `PASSED`、3 个 `NO_DATA` |
+| WIKA 候选池中的 XD read-only API 是否已至少尝试并分类 | 是 | 7 项候选全部已做单次最小调用并落分类 |
+
+## 结论
+- 当前已满足 stage26 定义范围内的“readiness closed”。
+- 后续若继续推进，不再是环境或是否申请权限的问题，而是 route parity 缺口与 candidate 参数契约缺口。

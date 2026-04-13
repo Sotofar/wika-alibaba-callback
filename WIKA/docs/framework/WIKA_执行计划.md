@@ -661,3 +661,28 @@
 
 
 
+## 2026-04-13 Stage26 XD parity/access closure
+
+### 本轮已完成
+- XD production/base canary
+- XD 27 条 parity route 全量 replay
+- XD 历史 8 项 direct-method 重闭环
+- XD 候选池 7 项单次最小调用与分类
+- 文档、矩阵、证据回写
+
+### 当前剩余
+- route parity gap:
+  - categories / media / customers / orders draft-types / minimal-diagnostic / draft-tools
+- candidate 参数契约 gap:
+  - `alibaba.seller.trade.decode`
+  - `alibaba.icbu.product.type.available.get`
+  - `alibaba.mydata.self.keyword.effect.week.get`
+  - `alibaba.mydata.industry.keyword.get`
+- candidate 对象级限制:
+  - `alibaba.mydata.self.keyword.date.get`
+  - `alibaba.mydata.self.keyword.effect.month.get`
+  - `alibaba.mydata.seller.opendata.getconkeyword`
+
+### 下一轮最短路径
+- 先决定是否要补 XD 缺失 route，还是继续停留在 direct-method / evidence 层。
+- 若补 route，优先 products detail/groups/score 与 orders fund/logistics 这 5 个已被 direct-method 证明可用的对象。

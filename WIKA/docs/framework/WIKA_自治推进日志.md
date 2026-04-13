@@ -1406,3 +1406,31 @@
 
 
 
+### 阶段 26：XD parity/access 全量推进
+
+- 实际起始 commit：`4e8ec3638d0be8a26d9c0d3536e814fcf945c5bf`
+- 本轮先确认 base canary：
+  - `/health` -> `200`
+  - `/integrations/alibaba/auth/debug` -> `200`
+  - `/integrations/alibaba/xd/auth/debug` -> `200`
+  - `/integrations/alibaba/xd/data/products/list?page_size=1` -> `200`
+  - `/integrations/alibaba/xd/data/orders/list?page_size=1` -> `200`
+- 本轮执行了：
+  - XD 27 条 parity route replay
+  - XD 历史 8 项 direct-method 重闭环
+  - WIKA 候选池 7 项在 XD 上的单次最小调用
+- 本轮新增落盘：
+  - `scripts/validate-xd-stage26-full-parity.js`
+  - `docs/framework/evidence/stage26-xd-full-parity.json`
+  - `Ali-WIKA/projects/xd/access/api_matrix.csv`
+  - `Ali-WIKA/projects/xd/access/parity_replay_stage26.md`
+  - `Ali-WIKA/projects/xd/access/direct_method_closure_stage26.md`
+  - `Ali-WIKA/projects/xd/access/candidate_pool_stage26.md`
+  - `Ali-WIKA/projects/xd/access/api_coverage.md`
+  - `Ali-WIKA/projects/xd/access/permission_gap.md`
+- 本轮关键结论：
+  - XD 不是“整体未开权”
+  - 5 个 direct-method `PASSED`
+  - 3 个 direct-method `NO_DATA`
+  - 5 条 route `PASSED_WITH_EQUIVALENT_DATA`
+  - 14 条 route `DOC_MISMATCH`

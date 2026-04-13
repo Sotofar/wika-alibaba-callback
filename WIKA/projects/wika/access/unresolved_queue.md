@@ -71,3 +71,32 @@
   - 当前结论：`PASSED`
 - `alibaba.seller.order.logistics.get`
   - 当前结论：`PASSED`
+## 2026-04-13 Stage26 XD parity/access update
+
+### 当前总论
+- XD 不再沿用 stage24 的 `AWAITING_EXTERNAL_PERMISSION_ACTION` 作为总停止标签。
+- 本轮已在“权限已申请到”为权威前提下完成 XD parity replay、8 项 direct-method 重闭环、候选池最小尝试。
+- WIKA 未决主干不再是“是否继续等外部权限动作”，而是：
+  - XD route parity 仍有 14 条 `DOC_MISMATCH`
+  - XD 候选池仍有参数契约缺口
+  - 个别 mydata 候选仍有对象级 `TENANT_OR_PRODUCT_RESTRICTION`
+
+### 已从未决主干移出的 XD 对象
+- `alibaba.mydata.overview.date.get` -> `PASSED`
+- `alibaba.mydata.self.product.date.get` -> `PASSED`
+- `alibaba.mydata.overview.industry.get` -> `NO_DATA`
+- `alibaba.mydata.self.product.get` -> `NO_DATA`
+- `alibaba.mydata.overview.indicator.basic.get` -> `NO_DATA`
+
+### 仍保留为未决的 XD 项
+- route parity 缺口：
+  - categories / media / customers / orders draft-types / minimal-diagnostic / draft-tools
+- candidate pool 契约缺口：
+  - `alibaba.seller.trade.decode`
+  - `alibaba.icbu.product.type.available.get`
+  - `alibaba.mydata.self.keyword.effect.week.get`
+  - `alibaba.mydata.industry.keyword.get`
+- candidate pool 对象级限制：
+  - `alibaba.mydata.self.keyword.date.get`
+  - `alibaba.mydata.self.keyword.effect.month.get`
+  - `alibaba.mydata.seller.opendata.getconkeyword`

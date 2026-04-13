@@ -86,3 +86,8 @@
 - [ ] 不复制真实 secret
 - [ ] 不复制其他账号的真实验证结果
 - [ ] 每个账号单独输出读取清单和验证记录
+## Stage26 补充规则
+- [ ] `200 + *_response` 不能直接记为通过
+- [ ] 必须确认业务 payload 里存在真实字段，而不是只有 `request_id / _trace_id_`
+- [ ] 空 `result` / 空 `value` / 空数组，应归类为 `NO_DATA`
+- [ ] 单个对象级 `InsufficientPermission` 不能直接扩大写成“整套账号未开权”

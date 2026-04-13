@@ -1,5 +1,18 @@
 ﻿# 接入排查 SOP
 
+## 症状 10：direct-method 返回 200，但只有 `request_id / _trace_id_`
+
+优先排查：
+- 是否只是顶层出现 `*_response`，但真正业务 payload 为空对象、空数组或只剩追踪字段
+- 是否把 `200 + 无 error_response` 误写成 `PASSED`
+- 是否需要区分 `NO_DATA`、`TENANT_OR_PRODUCT_RESTRICTION`、`PARAM_CONTRACT_MISSING`
+
+处理原则：
+- `200` 不是通过条件，必须确认存在真实业务字段
+- 只有 `request_id / _trace_id_`、空 `result`、空 `value`，应归类为 `NO_DATA`
+- 先做一次安全 refresh/bootstrap，再判断是否仍是对象级权限或租户限制
+- 不要把单个对象级 `InsufficientPermission` 扩大写成“整套账号仍未开权”
+
 ## 排查总顺序
 1. 服务是否在线
 2. callback / redirect_uri 是否一致

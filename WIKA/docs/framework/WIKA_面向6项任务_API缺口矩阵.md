@@ -430,3 +430,21 @@
 - 本轮继续排除 task 6
 - 未推进 provider、真实送达、真实通知外发能力
 
+## 2026-04-13 Stage26 XD delta
+
+### 任务 1：读取平台数据
+- XD 已确认可直接读取：
+  - orders: `get / fund / logistics`
+  - mydata: `overview.date.get`、`self.product.date.get`
+- XD 已进入可读层但当前无业务 payload：
+  - `overview.industry.get`
+  - `overview.indicator.basic.get`
+  - `self.product.get`
+
+### 任务 2：经营诊断扩展
+- XD 当前没有新增 live diagnostic route。
+- `products/detail / groups / score` 与 `orders/fund / logistics` 已被 direct-method 证明可读，但仍停留在 route parity gap。
+
+### 当前不是任务完成的原因
+- 14 条 XD parity route 仍是 `DOC_MISMATCH`
+- 候选池仍有参数契约缺口与对象级限制

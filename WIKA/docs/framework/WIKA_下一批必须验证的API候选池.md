@@ -202,3 +202,19 @@
 - 只要仓内仍缺 doc URL + 稳定参数契约，就继续保持 `DOC_FOUND_NOT_TESTED`
 - 不因为 legacy page-request 里见过同义字段，就绕回去做 undocumented runtime 探测
 
+## 2026-04-13 Stage26 XD candidate replay delta
+
+### 本轮已尝试并分类
+- `alibaba.seller.trade.decode` -> `PARAM_CONTRACT_MISSING` (`encryptor_id`)
+- `alibaba.icbu.product.type.available.get` -> `PARAM_CONTRACT_MISSING` (`type_request`)
+- `alibaba.mydata.self.keyword.date.get` -> `TENANT_OR_PRODUCT_RESTRICTION`
+- `alibaba.mydata.self.keyword.effect.week.get` -> `PARAM_CONTRACT_MISSING` (`date_range`)
+- `alibaba.mydata.self.keyword.effect.month.get` -> `TENANT_OR_PRODUCT_RESTRICTION`
+- `alibaba.mydata.industry.keyword.get` -> `PARAM_CONTRACT_MISSING` (`keywords`)
+- `alibaba.mydata.seller.opendata.getconkeyword` -> `TENANT_OR_PRODUCT_RESTRICTION`
+
+### 新口径
+- 候选池对象不再保持 `DOC_FOUND_NOT_TESTED`。
+- 当前停机点不是“没有继续尝试”，而是：
+  - 参数契约仍缺
+  - 或对象级权限/租户限制仍在

@@ -736,3 +736,22 @@
 - not task 2 complete
 - not full business cockpit
 
+## 2026-04-13 Stage26 XD parity/access baseline
+
+### XD 当前冻结结论
+- production base: `PASS_BASE`
+- XD parity route:
+  - `RECONFIRMED_XD`: 8
+  - `PASSED_WITH_EQUIVALENT_DATA`: 5
+  - `DOC_MISMATCH`: 14
+- 历史 8 项 direct-method:
+  - `PASSED`: 5
+  - `NO_DATA`: 3
+- XD 候选池:
+  - `PARAM_CONTRACT_MISSING`: 4
+  - `TENANT_OR_PRODUCT_RESTRICTION`: 3
+
+### 统一口径
+- 不再沿用 stage24 的 `AWAITING_EXTERNAL_PERMISSION_ACTION` 作为 XD 停止标签。
+- `200 + *_response` 不再自动等于通过；必须存在真实业务 payload。
+- `PASSED_WITH_EQUIVALENT_DATA` 只代表 direct-method 已可读，不代表 XD route 已上线。
