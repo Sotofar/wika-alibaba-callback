@@ -468,3 +468,27 @@
 ### 当前不是任务完成的原因
 - 14 条 XD parity route 仍是 `DOC_MISMATCH`
 - 候选池仍有参数契约缺口与对象级限制
+## 2026-04-13 Stage28 XD 缺口矩阵 delta
+
+### task 1 / task 2 直接相关新增可用项
+- categories:
+  - `tree`
+  - `attributes`
+- products schema:
+  - `schema`
+  - `schema/render`
+- media:
+  - `list`
+  - `groups`
+- orders:
+  - `draft-types`
+- diagnostics:
+  - `products/minimal-diagnostic`
+  - `orders/minimal-diagnostic`
+  - `operations/minimal-diagnostic`
+
+### 当前仍未闭合的 XD 缺口
+- `customers/list`：对象级限制
+- `products/schema/render/draft`：当前无 draft payload
+- keyword family：仍缺 `properties`
+- draft tools：继续排除出安全只读范围

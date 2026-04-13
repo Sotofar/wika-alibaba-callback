@@ -34,3 +34,15 @@
 ## 结论
 - 当前已满足 stage26 定义范围内的“readiness closed”。
 - 后续若继续推进，不再是环境或是否申请权限的问题，而是 route parity 缺口与 candidate 参数契约缺口。
+## 2026-04-13 Stage28 XD readiness update
+
+| 条件 | 当前状态 | 证据 |
+| --- | --- | --- |
+| production base 继续 PASS_BASE | 是 | `/health`、`/integrations/alibaba/auth/debug`、`/integrations/alibaba/xd/auth/debug`、representative XD list route 均为 200 |
+| 剩余 14 条 XD parity gap 是否已全部得到新鲜结论 | 是 | `DOC_MISMATCH` 已清零，全部转成 passed / no-data / restriction / skipped |
+| stage27 已补 route 是否保持健康 | 是 | `products/detail / groups / score` 与 `orders/fund / logistics` 最小 sanity 继续正常 |
+| 候选池 7 项是否全部重判完成 | 是 | 1 个 `PASSED`、2 个 `PARAM_CONTRACT_MISSING`、4 个 `TENANT_OR_PRODUCT_RESTRICTION` |
+
+## 结论
+- 当前已满足 stage28 定义范围内的 readonly closure。
+- 后续若继续推进，主问题不再是 route 缺失，而是 keyword family 的 `properties` 契约与对象级限制。

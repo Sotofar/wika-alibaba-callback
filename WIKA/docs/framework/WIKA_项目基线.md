@@ -775,3 +775,26 @@
 - 不再沿用 stage24 的 `AWAITING_EXTERNAL_PERMISSION_ACTION` 作为 XD 停止标签。
 - `200 + *_response` 不再自动等于通过；必须存在真实业务 payload。
 - `PASSED_WITH_EQUIVALENT_DATA` 只代表 direct-method 已可读，不代表 XD route 已上线。
+## 2026-04-13 Stage28 XD readonly closure baseline
+
+### XD 当前冻结结论
+- production base: `PASS_BASE`
+- XD parity route:
+  - `RECONFIRMED_XD`: 8
+  - `ROUTE_BOUND_AND_PASSED`: 15
+  - `ROUTE_BOUND_NO_DATA`: 1
+  - `TENANT_OR_PRODUCT_RESTRICTION`: 1
+  - `WRITE_ADJACENT_SKIPPED`: 2
+  - `DOC_MISMATCH`: 0
+- XD 候选池：
+  - `PASSED`: 1
+  - `PARAM_CONTRACT_MISSING`: 2
+  - `TENANT_OR_PRODUCT_RESTRICTION`: 4
+
+### 统一口径
+- route gap 已不再是 XD 当前主阻塞。
+- 当前剩余未决主要是：
+  - `customers/list` 对象级限制
+  - `products/schema/render/draft` 无真实 draft payload
+  - keyword family 缺 `properties` 契约
+  - draft tools 继续保留在 write-adjacent 边界外

@@ -100,3 +100,30 @@
   - `alibaba.mydata.self.keyword.date.get`
   - `alibaba.mydata.self.keyword.effect.month.get`
   - `alibaba.mydata.seller.opendata.getconkeyword`
+## 2026-04-13 Stage28 XD readonly closure update
+
+### 已从未决主干移出的 XD route gap
+- `categories/tree`
+- `categories/attributes`
+- `products/schema`
+- `products/schema/render`
+- `media/list`
+- `media/groups`
+- `orders/draft-types`
+- `reports/products/minimal-diagnostic`
+- `reports/orders/minimal-diagnostic`
+- `reports/operations/minimal-diagnostic`
+
+### 当前仍保留为未决的 XD 项
+- route:
+  - `customers/list` -> `TENANT_OR_PRODUCT_RESTRICTION`
+  - `products/schema/render/draft` -> `ROUTE_BOUND_NO_DATA`
+  - `tools/reply-draft` -> `WRITE_ADJACENT_SKIPPED`
+  - `tools/order-draft` -> `WRITE_ADJACENT_SKIPPED`
+- candidate:
+  - `alibaba.mydata.self.keyword.effect.week.get` -> `PARAM_CONTRACT_MISSING` (`properties`)
+  - `alibaba.mydata.industry.keyword.get` -> `PARAM_CONTRACT_MISSING` (`properties`)
+  - `alibaba.seller.trade.decode` -> `TENANT_OR_PRODUCT_RESTRICTION`
+  - `alibaba.mydata.self.keyword.date.get` -> `TENANT_OR_PRODUCT_RESTRICTION`
+  - `alibaba.mydata.self.keyword.effect.month.get` -> `TENANT_OR_PRODUCT_RESTRICTION`
+  - `alibaba.mydata.seller.opendata.getconkeyword` -> `TENANT_OR_PRODUCT_RESTRICTION`

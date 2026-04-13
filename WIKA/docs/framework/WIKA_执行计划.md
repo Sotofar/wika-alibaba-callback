@@ -712,3 +712,16 @@
 ### 下一轮最短路径
 - 先决定是否要补 XD 缺失 route，还是继续停留在 direct-method / evidence 层。
 - 若补 route，优先 products detail/groups/score 与 orders fund/logistics 这 5 个已被 direct-method 证明可用的对象。
+## 2026-04-13 Stage28 XD 执行计划回写
+
+### 本轮已完成
+- 剩余 14 条 XD readonly parity gap 全部收口
+- draft tools 已明确 `WRITE_ADJACENT_SKIPPED`
+- 候选池 7 项已全部重判
+
+### 当前下一步最短路径
+- 不再回头做 route parity。
+- 若继续推进，只做：
+  - `alibaba.mydata.self.keyword.effect.week.get` 的 `properties` 契约补齐
+  - `alibaba.mydata.industry.keyword.get` 的 `properties` 契约补齐
+  - 保持 `customers/list` / `trade.decode` 等对象级限制的单对象跟踪

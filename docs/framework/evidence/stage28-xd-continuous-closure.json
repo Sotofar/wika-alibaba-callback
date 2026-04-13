@@ -1,0 +1,1024 @@
+{
+  "evaluated_at": "2026-04-13T09:07:47.437Z",
+  "current_head": "ea89eb3708eedd7e488534dd8bc6cf211d3c0d7b",
+  "base_url": "https://api.wikapacking.com",
+  "production_gate": {
+    "status": "PASS_BASE",
+    "canaries": [
+      {
+        "path": "/health",
+        "status_code": 200,
+        "elapsed_ms": 1031
+      },
+      {
+        "path": "/integrations/alibaba/auth/debug",
+        "status_code": 200,
+        "elapsed_ms": 973
+      },
+      {
+        "path": "/integrations/alibaba/xd/auth/debug",
+        "status_code": 200,
+        "elapsed_ms": 1034
+      },
+      {
+        "path": "/integrations/alibaba/xd/data/products/list?page_size=1",
+        "status_code": 200,
+        "elapsed_ms": 1939
+      },
+      {
+        "path": "/integrations/alibaba/xd/data/orders/list?page_size=1",
+        "status_code": 200,
+        "elapsed_ms": 2082
+      }
+    ]
+  },
+  "samples": {
+    "productId": "AAFyoO5wAOXRII6QqyxoQgE-",
+    "numericProductId": 1601740545697,
+    "groupId": 812751108,
+    "catId": 36127040,
+    "tradeId": "25961733501035158",
+    "keyword": null,
+    "buyerEncryptorId": "gFiDXtrVz27t82YcKnIPoQ==",
+    "dateRange": {
+      "start_date": "2026-03-14",
+      "end_date": "2026-04-12"
+    },
+    "industry": {
+      "industry_id": 111,
+      "industry_desc": "All",
+      "main_category": true
+    },
+    "statDate": "2026-04-12"
+  },
+  "remaining_gap_start_count": 14,
+  "remaining_gap_end_count": 0,
+  "batch_results": {
+    "A": {
+      "routes": [
+        {
+          "name": "categories/tree",
+          "family": "categories",
+          "final_classification": "ROUTE_BOUND_AND_PASSED"
+        },
+        {
+          "name": "categories/attributes",
+          "family": "categories",
+          "final_classification": "ROUTE_BOUND_AND_PASSED"
+        },
+        {
+          "name": "products/schema",
+          "family": "products schema",
+          "final_classification": "ROUTE_BOUND_AND_PASSED"
+        },
+        {
+          "name": "products/schema/render",
+          "family": "products schema",
+          "final_classification": "ROUTE_BOUND_AND_PASSED"
+        },
+        {
+          "name": "products/schema/render/draft",
+          "family": "products schema",
+          "final_classification": "ROUTE_BOUND_NO_DATA"
+        }
+      ],
+      "candidates": []
+    },
+    "B": {
+      "routes": [
+        {
+          "name": "media/list",
+          "family": "media",
+          "final_classification": "ROUTE_BOUND_AND_PASSED"
+        },
+        {
+          "name": "media/groups",
+          "family": "media",
+          "final_classification": "ROUTE_BOUND_AND_PASSED"
+        }
+      ],
+      "candidates": []
+    },
+    "C": {
+      "routes": [
+        {
+          "name": "customers/list",
+          "family": "customers",
+          "final_classification": "TENANT_OR_PRODUCT_RESTRICTION"
+        },
+        {
+          "name": "orders/draft-types",
+          "family": "orders draft-types",
+          "final_classification": "ROUTE_BOUND_AND_PASSED"
+        },
+        {
+          "name": "reports/products/minimal-diagnostic",
+          "family": "minimal-diagnostic",
+          "final_classification": "ROUTE_BOUND_AND_PASSED"
+        },
+        {
+          "name": "reports/orders/minimal-diagnostic",
+          "family": "minimal-diagnostic",
+          "final_classification": "ROUTE_BOUND_AND_PASSED"
+        },
+        {
+          "name": "reports/operations/minimal-diagnostic",
+          "family": "minimal-diagnostic",
+          "final_classification": "ROUTE_BOUND_AND_PASSED"
+        }
+      ],
+      "candidates": []
+    },
+    "D": {
+      "routes": [
+        {
+          "name": "tools/reply-draft",
+          "family": "draft tools",
+          "final_classification": "WRITE_ADJACENT_SKIPPED"
+        },
+        {
+          "name": "tools/order-draft",
+          "family": "draft tools",
+          "final_classification": "WRITE_ADJACENT_SKIPPED"
+        }
+      ],
+      "candidates": []
+    },
+    "E": {
+      "routes": [],
+      "candidates": [
+        {
+          "method": "alibaba.seller.trade.decode",
+          "final_classification": "TENANT_OR_PRODUCT_RESTRICTION"
+        },
+        {
+          "method": "alibaba.icbu.product.type.available.get",
+          "final_classification": "PASSED"
+        },
+        {
+          "method": "alibaba.mydata.self.keyword.effect.week.get",
+          "final_classification": "PARAM_CONTRACT_MISSING"
+        },
+        {
+          "method": "alibaba.mydata.industry.keyword.get",
+          "final_classification": "PARAM_CONTRACT_MISSING"
+        },
+        {
+          "method": "alibaba.mydata.self.keyword.date.get",
+          "final_classification": "TENANT_OR_PRODUCT_RESTRICTION"
+        },
+        {
+          "method": "alibaba.mydata.self.keyword.effect.month.get",
+          "final_classification": "TENANT_OR_PRODUCT_RESTRICTION"
+        },
+        {
+          "method": "alibaba.mydata.seller.opendata.getconkeyword",
+          "final_classification": "TENANT_OR_PRODUCT_RESTRICTION"
+        }
+      ]
+    }
+  },
+  "route_pass_count": 10,
+  "route_no_data_count": 1,
+  "param_missing_count": 2,
+  "tenant_restriction_count": 5,
+  "write_adjacent_skipped_count": 2,
+  "blocked_env_count": 0,
+  "unknown_count": 0,
+  "candidate_pool_summary": [
+    {
+      "method": "alibaba.seller.trade.decode",
+      "final_classification": "TENANT_OR_PRODUCT_RESTRICTION",
+      "error": {
+        "code": "InsufficientPermission",
+        "sub_code": null,
+        "msg": "App does not have permission to access this api",
+        "sub_msg": null
+      }
+    },
+    {
+      "method": "alibaba.icbu.product.type.available.get",
+      "final_classification": "PASSED",
+      "error": null
+    },
+    {
+      "method": "alibaba.mydata.self.keyword.effect.week.get",
+      "final_classification": "PARAM_CONTRACT_MISSING",
+      "error": {
+        "code": "MissingParameter",
+        "sub_code": null,
+        "msg": "The input parameter “properties” that is mandatory for processing this request is not supplied",
+        "sub_msg": null
+      }
+    },
+    {
+      "method": "alibaba.mydata.industry.keyword.get",
+      "final_classification": "PARAM_CONTRACT_MISSING",
+      "error": {
+        "code": "MissingParameter",
+        "sub_code": null,
+        "msg": "The input parameter “properties” that is mandatory for processing this request is not supplied",
+        "sub_msg": null
+      }
+    },
+    {
+      "method": "alibaba.mydata.self.keyword.date.get",
+      "final_classification": "TENANT_OR_PRODUCT_RESTRICTION",
+      "error": {
+        "code": "InsufficientPermission",
+        "sub_code": null,
+        "msg": "App does not have permission to access this api",
+        "sub_msg": null
+      }
+    },
+    {
+      "method": "alibaba.mydata.self.keyword.effect.month.get",
+      "final_classification": "TENANT_OR_PRODUCT_RESTRICTION",
+      "error": {
+        "code": "InsufficientPermission",
+        "sub_code": null,
+        "msg": "App does not have permission to access this api",
+        "sub_msg": null
+      }
+    },
+    {
+      "method": "alibaba.mydata.seller.opendata.getconkeyword",
+      "final_classification": "TENANT_OR_PRODUCT_RESTRICTION",
+      "error": {
+        "code": "InsufficientPermission",
+        "sub_code": null,
+        "msg": "App does not have permission to access this api",
+        "sub_msg": null
+      }
+    }
+  ],
+  "biggest_blocker": "alibaba.mydata.self.keyword.effect.week.get",
+  "routes": [
+    {
+      "batch": "A",
+      "family": "categories",
+      "name": "categories/tree",
+      "path": "/integrations/alibaba/xd/data/categories/tree",
+      "status_code": 200,
+      "elapsed_ms": 897,
+      "final_classification": "ROUTE_BOUND_AND_PASSED",
+      "summary": {
+        "top_keys": [
+          "ok",
+          "account",
+          "module",
+          "read_only",
+          "verification_status",
+          "evidence_level",
+          "data_scope",
+          "source",
+          "request_meta",
+          "response_meta",
+          "verified_fields",
+          "warnings",
+          "raw_root_key",
+          "category"
+        ],
+        "business_keys": [
+          "category"
+        ],
+        "meaningful": true
+      },
+      "error": null,
+      "top_error": null,
+      "raw_error_category": null
+    },
+    {
+      "batch": "A",
+      "family": "categories",
+      "name": "categories/attributes",
+      "path": "/integrations/alibaba/xd/data/categories/attributes?cat_id=36127040",
+      "status_code": 200,
+      "elapsed_ms": 1721,
+      "final_classification": "ROUTE_BOUND_AND_PASSED",
+      "summary": {
+        "top_keys": [
+          "ok",
+          "account",
+          "module",
+          "read_only",
+          "verification_status",
+          "evidence_level",
+          "data_scope",
+          "source",
+          "request_meta",
+          "response_meta",
+          "verified_fields",
+          "warnings",
+          "raw_root_keys",
+          "attr_result_list",
+          "attributes"
+        ],
+        "business_keys": [
+          "raw_root_keys",
+          "attr_result_list",
+          "attributes"
+        ],
+        "meaningful": true
+      },
+      "error": null,
+      "top_error": null,
+      "raw_error_category": null
+    },
+    {
+      "batch": "A",
+      "family": "products schema",
+      "name": "products/schema",
+      "path": "/integrations/alibaba/xd/data/products/schema?cat_id=36127040",
+      "status_code": 200,
+      "elapsed_ms": 2282,
+      "final_classification": "ROUTE_BOUND_AND_PASSED",
+      "summary": {
+        "top_keys": [
+          "ok",
+          "account",
+          "module",
+          "read_only",
+          "verification_status",
+          "evidence_level",
+          "data_scope",
+          "source",
+          "request_meta",
+          "response_meta",
+          "verified_fields",
+          "warnings",
+          "raw_root_key",
+          "data"
+        ],
+        "business_keys": [
+          "data"
+        ],
+        "meaningful": true
+      },
+      "error": null,
+      "top_error": null,
+      "raw_error_category": null
+    },
+    {
+      "batch": "A",
+      "family": "products schema",
+      "name": "products/schema/render",
+      "path": "/integrations/alibaba/xd/data/products/schema/render?cat_id=36127040&product_id=1601740545697",
+      "status_code": 200,
+      "elapsed_ms": 2875,
+      "final_classification": "ROUTE_BOUND_AND_PASSED",
+      "summary": {
+        "top_keys": [
+          "ok",
+          "account",
+          "module",
+          "read_only",
+          "verification_status",
+          "evidence_level",
+          "data_scope",
+          "source",
+          "request_meta",
+          "response_meta",
+          "verified_fields",
+          "warnings",
+          "raw_root_key",
+          "data"
+        ],
+        "business_keys": [
+          "data"
+        ],
+        "meaningful": true
+      },
+      "error": null,
+      "top_error": null,
+      "raw_error_category": null
+    },
+    {
+      "batch": "A",
+      "family": "products schema",
+      "name": "products/schema/render/draft",
+      "path": "/integrations/alibaba/xd/data/products/schema/render/draft?cat_id=36127040&product_id=1601740545697",
+      "status_code": 200,
+      "elapsed_ms": 1187,
+      "final_classification": "ROUTE_BOUND_NO_DATA",
+      "summary": {
+        "top_keys": [
+          "ok",
+          "account",
+          "module",
+          "read_only",
+          "verification_status",
+          "evidence_level",
+          "data_scope",
+          "source",
+          "request_meta",
+          "response_meta",
+          "verified_fields",
+          "warnings",
+          "raw_root_key",
+          "data"
+        ],
+        "business_keys": [
+          "data"
+        ],
+        "meaningful": false
+      },
+      "error": null,
+      "top_error": null,
+      "raw_error_category": null
+    },
+    {
+      "batch": "B",
+      "family": "media",
+      "name": "media/list",
+      "path": "/integrations/alibaba/xd/data/media/list?page_size=1",
+      "status_code": 200,
+      "elapsed_ms": 957,
+      "final_classification": "ROUTE_BOUND_AND_PASSED",
+      "summary": {
+        "top_keys": [
+          "ok",
+          "account",
+          "module",
+          "read_only",
+          "verification_status",
+          "evidence_level",
+          "data_scope",
+          "source",
+          "request_meta",
+          "response_meta",
+          "verified_fields",
+          "warnings",
+          "raw_root_key",
+          "pagination_query_list",
+          "items"
+        ],
+        "business_keys": [
+          "pagination_query_list",
+          "items"
+        ],
+        "meaningful": true
+      },
+      "error": null,
+      "top_error": null,
+      "raw_error_category": null
+    },
+    {
+      "batch": "B",
+      "family": "media",
+      "name": "media/groups",
+      "path": "/integrations/alibaba/xd/data/media/groups",
+      "status_code": 200,
+      "elapsed_ms": 1070,
+      "final_classification": "ROUTE_BOUND_AND_PASSED",
+      "summary": {
+        "top_keys": [
+          "ok",
+          "account",
+          "module",
+          "read_only",
+          "verification_status",
+          "evidence_level",
+          "data_scope",
+          "source",
+          "request_meta",
+          "response_meta",
+          "verified_fields",
+          "warnings",
+          "raw_root_key",
+          "groups"
+        ],
+        "business_keys": [
+          "groups"
+        ],
+        "meaningful": true
+      },
+      "error": null,
+      "top_error": null,
+      "raw_error_category": null
+    },
+    {
+      "batch": "C",
+      "family": "customers",
+      "name": "customers/list",
+      "path": "/integrations/alibaba/xd/data/customers/list?customer_id_begin=0&last_sync_end_time=2026-04-06%2000%3A00%3A00&page_size=1",
+      "status_code": 502,
+      "elapsed_ms": 1019,
+      "final_classification": "TENANT_OR_PRODUCT_RESTRICTION",
+      "summary": {
+        "top_keys": [
+          "ok",
+          "error",
+          "error_category",
+          "top_error"
+        ],
+        "business_keys": [
+          "error",
+          "error_category",
+          "top_error"
+        ],
+        "meaningful": true
+      },
+      "error": null,
+      "top_error": {
+        "code": "InsufficientPermission",
+        "sub_code": null,
+        "msg": "App does not have permission to access this api",
+        "sub_msg": null
+      },
+      "raw_error_category": "permission_error"
+    },
+    {
+      "batch": "C",
+      "family": "orders draft-types",
+      "name": "orders/draft-types",
+      "path": "/integrations/alibaba/xd/data/orders/draft-types",
+      "status_code": 200,
+      "elapsed_ms": 1394,
+      "final_classification": "ROUTE_BOUND_AND_PASSED",
+      "summary": {
+        "top_keys": [
+          "ok",
+          "account",
+          "module",
+          "read_only",
+          "verification_status",
+          "evidence_level",
+          "data_scope",
+          "source",
+          "request_meta",
+          "response_meta",
+          "verified_fields",
+          "warnings",
+          "raw_root_key",
+          "types"
+        ],
+        "business_keys": [
+          "types"
+        ],
+        "meaningful": true
+      },
+      "error": null,
+      "top_error": null,
+      "raw_error_category": null
+    },
+    {
+      "batch": "C",
+      "family": "minimal-diagnostic",
+      "name": "reports/products/minimal-diagnostic",
+      "path": "/integrations/alibaba/xd/reports/products/minimal-diagnostic",
+      "status_code": 200,
+      "elapsed_ms": 6298,
+      "final_classification": "ROUTE_BOUND_AND_PASSED",
+      "summary": {
+        "top_keys": [
+          "ok",
+          "account",
+          "module",
+          "report_type",
+          "read_only",
+          "generated_at",
+          "data_scope",
+          "sample_size",
+          "time_window",
+          "available_signals",
+          "score_summary",
+          "content_completeness_findings",
+          "structure_findings",
+          "performance_section",
+          "diagnostic_findings",
+          "recommendations",
+          "missing_data_blockers",
+          "management_summary",
+          "limitations"
+        ],
+        "business_keys": [
+          "report_type",
+          "generated_at",
+          "sample_size",
+          "time_window",
+          "available_signals",
+          "score_summary",
+          "content_completeness_findings",
+          "structure_findings",
+          "performance_section",
+          "diagnostic_findings",
+          "recommendations",
+          "missing_data_blockers",
+          "management_summary",
+          "limitations"
+        ],
+        "meaningful": true
+      },
+      "error": null,
+      "top_error": null,
+      "raw_error_category": null
+    },
+    {
+      "batch": "C",
+      "family": "minimal-diagnostic",
+      "name": "reports/orders/minimal-diagnostic",
+      "path": "/integrations/alibaba/xd/reports/orders/minimal-diagnostic",
+      "status_code": 200,
+      "elapsed_ms": 12377,
+      "final_classification": "ROUTE_BOUND_AND_PASSED",
+      "summary": {
+        "top_keys": [
+          "ok",
+          "account",
+          "module",
+          "report_type",
+          "read_only",
+          "generated_at",
+          "data_scope",
+          "sample_size",
+          "time_window",
+          "available_signals",
+          "logistics_summary",
+          "fund_signal_summary",
+          "formal_summary_section",
+          "product_contribution_section",
+          "trend_signal_section",
+          "unavailable_dimensions_echo",
+          "recommendation_block",
+          "confidence_hints",
+          "boundary_statement",
+          "management_summary"
+        ],
+        "business_keys": [
+          "report_type",
+          "generated_at",
+          "sample_size",
+          "time_window",
+          "available_signals",
+          "logistics_summary",
+          "fund_signal_summary",
+          "formal_summary_section",
+          "product_contribution_section",
+          "trend_signal_section",
+          "unavailable_dimensions_echo",
+          "recommendation_block",
+          "confidence_hints",
+          "boundary_statement",
+          "management_summary",
+          "operational_risks",
+          "diagnostic_findings",
+          "recommendations",
+          "missing_data_blockers",
+          "limitations"
+        ],
+        "meaningful": true
+      },
+      "error": null,
+      "top_error": null,
+      "raw_error_category": null
+    },
+    {
+      "batch": "C",
+      "family": "minimal-diagnostic",
+      "name": "reports/operations/minimal-diagnostic",
+      "path": "/integrations/alibaba/xd/reports/operations/minimal-diagnostic",
+      "status_code": 200,
+      "elapsed_ms": 13322,
+      "final_classification": "ROUTE_BOUND_AND_PASSED",
+      "summary": {
+        "top_keys": [
+          "ok",
+          "account",
+          "module",
+          "report_type",
+          "read_only",
+          "generated_at",
+          "data_scope",
+          "sample_size",
+          "time_window",
+          "available_signals",
+          "traffic_performance_section",
+          "diagnostic_findings",
+          "recommendations",
+          "missing_data_blockers",
+          "scope_definition",
+          "product_diagnostic",
+          "order_diagnostic",
+          "limitations"
+        ],
+        "business_keys": [
+          "report_type",
+          "generated_at",
+          "sample_size",
+          "time_window",
+          "available_signals",
+          "traffic_performance_section",
+          "diagnostic_findings",
+          "recommendations",
+          "missing_data_blockers",
+          "scope_definition",
+          "product_diagnostic",
+          "order_diagnostic",
+          "limitations"
+        ],
+        "meaningful": true
+      },
+      "error": null,
+      "top_error": null,
+      "raw_error_category": null
+    },
+    {
+      "batch": "D",
+      "family": "draft tools",
+      "name": "tools/reply-draft",
+      "path": "/integrations/alibaba/xd/tools/reply-draft",
+      "status_code": null,
+      "elapsed_ms": null,
+      "final_classification": "WRITE_ADJACENT_SKIPPED",
+      "summary": null,
+      "error": null,
+      "top_error": null,
+      "skip_reason": "POST draft package route is write-adjacent and not a strict read-only query/diagnostic surface."
+    },
+    {
+      "batch": "D",
+      "family": "draft tools",
+      "name": "tools/order-draft",
+      "path": "/integrations/alibaba/xd/tools/order-draft",
+      "status_code": null,
+      "elapsed_ms": null,
+      "final_classification": "WRITE_ADJACENT_SKIPPED",
+      "summary": null,
+      "error": null,
+      "top_error": null,
+      "skip_reason": "POST order draft package route is write-adjacent and not a strict read-only query/diagnostic surface."
+    }
+  ],
+  "candidate_pool": [
+    {
+      "method": "alibaba.seller.trade.decode",
+      "request_params": {
+        "e_trade_id": "259***158",
+        "encryptor_id": "gFi***Q=="
+      },
+      "status_code": 200,
+      "elapsed_ms": 75,
+      "final_classification": "TENANT_OR_PRODUCT_RESTRICTION",
+      "summary": {
+        "top_keys": [
+          "error_response"
+        ],
+        "payload_keys": [
+          "type",
+          "code",
+          "msg",
+          "request_id",
+          "_trace_id_"
+        ],
+        "meaningful": true
+      },
+      "error": {
+        "code": "InsufficientPermission",
+        "sub_code": null,
+        "msg": "App does not have permission to access this api",
+        "sub_msg": null
+      }
+    },
+    {
+      "method": "alibaba.icbu.product.type.available.get",
+      "request_params": {
+        "type_request": {
+          "cat_id": "361***040",
+          "language": "en_US"
+        }
+      },
+      "status_code": 200,
+      "elapsed_ms": 919,
+      "final_classification": "PASSED",
+      "summary": {
+        "top_keys": [
+          "alibaba_icbu_product_type_available_get_response"
+        ],
+        "payload_keys": [
+          "trace_id",
+          "data",
+          "biz_success",
+          "request_id",
+          "_trace_id_"
+        ],
+        "meaningful": true
+      },
+      "error": null
+    },
+    {
+      "method": "alibaba.mydata.self.keyword.effect.week.get",
+      "request_params": {
+        "stat_date": "2026-04-12",
+        "date_range": {
+          "start_date": "2026-03-14",
+          "end_date": "2026-04-12"
+        }
+      },
+      "status_code": 200,
+      "elapsed_ms": 44,
+      "final_classification": "PARAM_CONTRACT_MISSING",
+      "summary": {
+        "top_keys": [
+          "error_response"
+        ],
+        "payload_keys": [
+          "type",
+          "code",
+          "msg",
+          "request_id",
+          "_trace_id_"
+        ],
+        "meaningful": true
+      },
+      "error": {
+        "code": "MissingParameter",
+        "sub_code": null,
+        "msg": "The input parameter “properties” that is mandatory for processing this request is not supplied",
+        "sub_msg": null
+      }
+    },
+    {
+      "method": "alibaba.mydata.industry.keyword.get",
+      "request_params": {
+        "date_range": {
+          "start_date": "2026-03-14",
+          "end_date": "2026-04-12"
+        },
+        "industry": {
+          "industry_id": 111,
+          "industry_desc": "All",
+          "main_category": true
+        },
+        "keywords": []
+      },
+      "status_code": 200,
+      "elapsed_ms": 42,
+      "final_classification": "PARAM_CONTRACT_MISSING",
+      "summary": {
+        "top_keys": [
+          "error_response"
+        ],
+        "payload_keys": [
+          "type",
+          "code",
+          "msg",
+          "request_id",
+          "_trace_id_"
+        ],
+        "meaningful": true
+      },
+      "error": {
+        "code": "MissingParameter",
+        "sub_code": null,
+        "msg": "The input parameter “properties” that is mandatory for processing this request is not supplied",
+        "sub_msg": null
+      }
+    },
+    {
+      "method": "alibaba.mydata.self.keyword.date.get",
+      "request_params": {
+        "statistics_type": "day"
+      },
+      "status_code": 200,
+      "elapsed_ms": 56,
+      "final_classification": "TENANT_OR_PRODUCT_RESTRICTION",
+      "summary": {
+        "top_keys": [
+          "error_response"
+        ],
+        "payload_keys": [
+          "type",
+          "code",
+          "msg",
+          "request_id",
+          "_trace_id_"
+        ],
+        "meaningful": true
+      },
+      "error": {
+        "code": "InsufficientPermission",
+        "sub_code": null,
+        "msg": "App does not have permission to access this api",
+        "sub_msg": null
+      }
+    },
+    {
+      "method": "alibaba.mydata.self.keyword.effect.month.get",
+      "request_params": {
+        "stat_date": "2026-04-12"
+      },
+      "status_code": 200,
+      "elapsed_ms": 49,
+      "final_classification": "TENANT_OR_PRODUCT_RESTRICTION",
+      "summary": {
+        "top_keys": [
+          "error_response"
+        ],
+        "payload_keys": [
+          "type",
+          "code",
+          "msg",
+          "request_id",
+          "_trace_id_"
+        ],
+        "meaningful": true
+      },
+      "error": {
+        "code": "InsufficientPermission",
+        "sub_code": null,
+        "msg": "App does not have permission to access this api",
+        "sub_msg": null
+      }
+    },
+    {
+      "method": "alibaba.mydata.seller.opendata.getconkeyword",
+      "request_params": {},
+      "status_code": 200,
+      "elapsed_ms": 48,
+      "final_classification": "TENANT_OR_PRODUCT_RESTRICTION",
+      "summary": {
+        "top_keys": [
+          "error_response"
+        ],
+        "payload_keys": [
+          "type",
+          "code",
+          "msg",
+          "request_id",
+          "_trace_id_"
+        ],
+        "meaningful": true
+      },
+      "error": {
+        "code": "InsufficientPermission",
+        "sub_code": null,
+        "msg": "App does not have permission to access this api",
+        "sub_msg": null
+      }
+    }
+  ],
+  "regression": {
+    "rechecked_passed_routes": [
+      {
+        "name": "categories/tree",
+        "status_code": 200,
+        "recheck_classification": "ROUTE_BOUND_AND_PASSED"
+      },
+      {
+        "name": "categories/attributes",
+        "status_code": 200,
+        "recheck_classification": "ROUTE_BOUND_AND_PASSED"
+      },
+      {
+        "name": "products/schema",
+        "status_code": 200,
+        "recheck_classification": "ROUTE_BOUND_AND_PASSED"
+      },
+      {
+        "name": "products/schema/render",
+        "status_code": 200,
+        "recheck_classification": "ROUTE_BOUND_AND_PASSED"
+      },
+      {
+        "name": "media/list",
+        "status_code": 200,
+        "recheck_classification": "ROUTE_BOUND_AND_PASSED"
+      },
+      {
+        "name": "media/groups",
+        "status_code": 200,
+        "recheck_classification": "ROUTE_BOUND_AND_PASSED"
+      },
+      {
+        "name": "orders/draft-types",
+        "status_code": 200,
+        "recheck_classification": "ROUTE_BOUND_AND_PASSED"
+      },
+      {
+        "name": "reports/products/minimal-diagnostic",
+        "status_code": 200,
+        "recheck_classification": "ROUTE_BOUND_AND_PASSED"
+      },
+      {
+        "name": "reports/orders/minimal-diagnostic",
+        "status_code": 200,
+        "recheck_classification": "ROUTE_BOUND_AND_PASSED"
+      },
+      {
+        "name": "reports/operations/minimal-diagnostic",
+        "status_code": 200,
+        "recheck_classification": "ROUTE_BOUND_AND_PASSED"
+      }
+    ],
+    "stable_route": {
+      "path": "/integrations/alibaba/xd/data/orders/list?page_size=1",
+      "status_code": 200
+    },
+    "stable_direct": {
+      "method": "alibaba.seller.order.get",
+      "final_classification": "PASSED",
+      "status_code": 200
+    }
+  }
+}

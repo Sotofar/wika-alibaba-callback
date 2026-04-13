@@ -218,3 +218,28 @@
 - 当前停机点不是“没有继续尝试”，而是：
   - 参数契约仍缺
   - 或对象级权限/租户限制仍在
+## 2026-04-13 Stage28 XD candidate closure delta
+
+### 本轮已推进的变化
+- `alibaba.icbu.product.type.available.get`：
+  - 已按官方 `type_request={cat_id, language}` 契约调用
+  - 新结论：`PASSED`
+- `alibaba.seller.trade.decode`：
+  - 已补真实 `encryptor_id`
+  - 新结论：`TENANT_OR_PRODUCT_RESTRICTION`
+- `alibaba.mydata.self.keyword.effect.week.get`：
+  - 已补 `date_range`
+  - 新阻塞：`properties`
+- `alibaba.mydata.industry.keyword.get`：
+  - 已补 `keywords`
+  - 新阻塞：`properties`
+
+### 当前剩余候选主阻塞
+- `PARAM_CONTRACT_MISSING`
+  - `alibaba.mydata.self.keyword.effect.week.get`
+  - `alibaba.mydata.industry.keyword.get`
+- `TENANT_OR_PRODUCT_RESTRICTION`
+  - `alibaba.seller.trade.decode`
+  - `alibaba.mydata.self.keyword.date.get`
+  - `alibaba.mydata.self.keyword.effect.month.get`
+  - `alibaba.mydata.seller.opendata.getconkeyword`

@@ -1465,3 +1465,31 @@
   - 3 个 direct-method `NO_DATA`
   - 5 条 route `PASSED_WITH_EQUIVALENT_DATA`
   - 14 条 route `DOC_MISMATCH`
+### 阶段 28：XD readonly parity + candidate continuous closure
+
+- 实际起始 commit：`64534100de2d24c5038ac9fe734ba7acc8b69497`
+- 本轮新增 production 只读 route：
+  - categories: `tree` / `attributes`
+  - products schema: `schema` / `schema/render`
+  - media: `list` / `groups`
+  - orders: `draft-types`
+  - reports: `products/orders/operations minimal-diagnostic`
+- 本轮 route 结论：
+  - `ROUTE_BOUND_AND_PASSED`: 10
+  - `ROUTE_BOUND_NO_DATA`: 1
+  - `TENANT_OR_PRODUCT_RESTRICTION`: 1
+  - `WRITE_ADJACENT_SKIPPED`: 2
+  - `DOC_MISMATCH`: 0
+- 本轮候选池结论：
+  - `PASSED`: 1 (`alibaba.icbu.product.type.available.get`)
+  - `PARAM_CONTRACT_MISSING`: 2（两者都已推进到 `properties` 阻塞）
+  - `TENANT_OR_PRODUCT_RESTRICTION`: 4
+- 本轮新增落盘：
+  - `scripts/validate-xd-stage28-continuous.js`
+  - `docs/framework/evidence/stage28-xd-continuous-closure.json`
+  - `Ali-WIKA/projects/xd/access/parity_replay_stage28_continuous.md`
+  - `Ali-WIKA/projects/xd/access/candidate_pool_stage28_continuous.md`
+- 本轮关键结论：
+  - XD 剩余 14 条 parity gap 已全部收口
+  - route 侧不再有 `DOC_MISMATCH`
+  - 当前最大阻塞转为 keyword family 的 `properties` 契约

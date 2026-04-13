@@ -241,3 +241,22 @@
 ### 复用边界
 - 等价 direct-method 结论不能替代缺失的 XD route。
 - `overview.industry.get`、`indicator.basic.get`、`self.product.get` 当前只能复用为 `NO_DATA` 证据，不能接入业务层。
+## 2026-04-13 Stage28 XD 已上线复用增量
+
+### 新增可直接复用的 XD route
+- `/integrations/alibaba/xd/data/categories/tree`
+- `/integrations/alibaba/xd/data/categories/attributes`
+- `/integrations/alibaba/xd/data/products/schema`
+- `/integrations/alibaba/xd/data/products/schema/render`
+- `/integrations/alibaba/xd/data/media/list`
+- `/integrations/alibaba/xd/data/media/groups`
+- `/integrations/alibaba/xd/data/orders/draft-types`
+- `/integrations/alibaba/xd/reports/products/minimal-diagnostic`
+- `/integrations/alibaba/xd/reports/orders/minimal-diagnostic`
+- `/integrations/alibaba/xd/reports/operations/minimal-diagnostic`
+
+### 仍不能写成稳定复用的对象
+- `/integrations/alibaba/xd/data/customers/list`
+- `/integrations/alibaba/xd/data/products/schema/render/draft`
+- `/integrations/alibaba/xd/tools/reply-draft`
+- `/integrations/alibaba/xd/tools/order-draft`
