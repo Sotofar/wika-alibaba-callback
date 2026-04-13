@@ -51,10 +51,15 @@ import { buildOperationsComparisonSummary } from "./WIKA/projects/wika/data/repo
 import { buildProductsComparisonSummary } from "./WIKA/projects/wika/data/reports/products-comparison.js";
 import { buildOrdersComparisonSummary } from "./WIKA/projects/wika/data/reports/orders-comparison.js";
 import { buildBusinessCockpit } from "./WIKA/projects/wika/data/cockpit/business-cockpit.js";
+import { buildActionCenter } from "./WIKA/projects/wika/data/cockpit/action-center.js";
 import { buildProductDraftWorkbench } from "./WIKA/projects/wika/data/workbench/product-draft-workbench.js";
 import { buildReplyWorkbench } from "./WIKA/projects/wika/data/workbench/reply-workbench.js";
 import { buildOrderWorkbench } from "./WIKA/projects/wika/data/workbench/order-workbench.js";
 import { buildTaskWorkbench } from "./WIKA/projects/wika/data/workbench/task-workbench.js";
+import { buildProductDraftPreview } from "./WIKA/projects/wika/data/workbench/product-draft-preview.js";
+import { buildReplyPreview } from "./WIKA/projects/wika/data/workbench/reply-preview.js";
+import { buildOrderPreview } from "./WIKA/projects/wika/data/workbench/order-preview.js";
+import { buildPreviewCenter } from "./WIKA/projects/wika/data/workbench/preview-center.js";
 import { buildWikaExternalReplyDraftPackage } from "./shared/data/modules/alibaba-external-reply-drafts.js";
 import { buildWikaExternalOrderDraftPackage } from "./shared/data/modules/alibaba-order-drafts.js";
 
@@ -2786,6 +2791,48 @@ function createWikaBusinessCockpitHandler() {
   };
 }
 
+function createWikaActionCenterHandler() {
+  return async (req, res) => {
+    try {
+      const result = await buildActionCenter(
+        await getWikaReadOnlyClientConfig(),
+        req.query
+      );
+
+      logInfo("Wika action center completed", {
+        prioritizedActionCount: result.prioritized_actions?.length ?? 0,
+        sharedBlockerCount: result.shared_blockers?.length ?? 0
+      });
+
+      res.status(200).json({
+        ok: true,
+        module: "action_center",
+        account: "wika",
+        read_only: true,
+        ...result
+      });
+    } catch (error) {
+      logError("Wika action center failed", {
+        error: error instanceof Error ? error.message : String(error),
+        details:
+          error instanceof AlibabaApiError || error?.details
+            ? error.details
+            : undefined,
+        top_error: extractTopErrorResponse(error),
+        query: req.query
+      });
+
+      const hasMissingKeys =
+        error instanceof ConfigurationError ||
+        Array.isArray(error?.missingKeys);
+
+      res
+        .status(error instanceof ConfigurationError ? 500 : hasMissingKeys ? 400 : 502)
+        .json(buildReadOnlyErrorResponse(error));
+    }
+  };
+}
+
 function createWikaProductDraftWorkbenchHandler() {
   return async (req, res) => {
     try {
@@ -2816,6 +2863,47 @@ function createWikaProductDraftWorkbenchHandler() {
             : undefined,
         top_error: extractTopErrorResponse(error),
         query: req.query
+      });
+
+      const hasMissingKeys =
+        error instanceof ConfigurationError ||
+        Array.isArray(error?.missingKeys);
+
+      res
+        .status(error instanceof ConfigurationError ? 500 : hasMissingKeys ? 400 : 502)
+        .json(buildReadOnlyErrorResponse(error));
+    }
+  };
+}
+
+function createWikaProductDraftPreviewHandler() {
+  return async (req, res) => {
+    try {
+      const result = await buildProductDraftPreview(
+        await getWikaReadOnlyClientConfig(),
+        normalizeToolRequestBody(req.body)
+      );
+
+      logInfo("Wika product draft preview completed", {
+        productId: result.product_context?.product_id ?? null,
+        blockingRiskCount: result.blocking_risks?.length ?? 0
+      });
+
+      res.status(200).json({
+        ok: true,
+        module: "task3_product_draft_preview",
+        account: "wika",
+        read_only: true,
+        ...result
+      });
+    } catch (error) {
+      logError("Wika product draft preview failed", {
+        error: error instanceof Error ? error.message : String(error),
+        details:
+          error instanceof AlibabaApiError || error?.details
+            ? error.details
+            : undefined,
+        top_error: extractTopErrorResponse(error)
       });
 
       const hasMissingKeys =
@@ -2871,6 +2959,47 @@ function createWikaReplyWorkbenchHandler() {
   };
 }
 
+function createWikaReplyPreviewHandler() {
+  return async (req, res) => {
+    try {
+      const result = await buildReplyPreview(
+        await getWikaReadOnlyClientConfig(),
+        normalizeToolRequestBody(req.body)
+      );
+
+      logInfo("Wika reply preview completed", {
+        workflowProfile: result.workflow_preview?.workflow_profile ?? null,
+        hardBlockerCount: result.hard_blockers?.length ?? 0
+      });
+
+      res.status(200).json({
+        ok: true,
+        module: "task4_reply_preview",
+        account: "wika",
+        read_only: true,
+        ...result
+      });
+    } catch (error) {
+      logError("Wika reply preview failed", {
+        error: error instanceof Error ? error.message : String(error),
+        details:
+          error instanceof AlibabaApiError || error?.details
+            ? error.details
+            : undefined,
+        top_error: extractTopErrorResponse(error)
+      });
+
+      const hasMissingKeys =
+        error instanceof ConfigurationError ||
+        Array.isArray(error?.missingKeys);
+
+      res
+        .status(error instanceof ConfigurationError ? 500 : hasMissingKeys ? 400 : 502)
+        .json(buildReadOnlyErrorResponse(error));
+    }
+  };
+}
+
 function createWikaOrderWorkbenchHandler() {
   return async (req, res) => {
     try {
@@ -2913,6 +3042,47 @@ function createWikaOrderWorkbenchHandler() {
   };
 }
 
+function createWikaOrderPreviewHandler() {
+  return async (req, res) => {
+    try {
+      const result = await buildOrderPreview(
+        await getWikaReadOnlyClientConfig(),
+        normalizeToolRequestBody(req.body)
+      );
+
+      logInfo("Wika order preview completed", {
+        workflowProfile: result.workflow_preview?.workflow_profile ?? null,
+        hardBlockerCount: result.hard_blockers?.length ?? 0
+      });
+
+      res.status(200).json({
+        ok: true,
+        module: "task5_order_preview",
+        account: "wika",
+        read_only: true,
+        ...result
+      });
+    } catch (error) {
+      logError("Wika order preview failed", {
+        error: error instanceof Error ? error.message : String(error),
+        details:
+          error instanceof AlibabaApiError || error?.details
+            ? error.details
+            : undefined,
+        top_error: extractTopErrorResponse(error)
+      });
+
+      const hasMissingKeys =
+        error instanceof ConfigurationError ||
+        Array.isArray(error?.missingKeys);
+
+      res
+        .status(error instanceof ConfigurationError ? 500 : hasMissingKeys ? 400 : 502)
+        .json(buildReadOnlyErrorResponse(error));
+    }
+  };
+}
+
 function createWikaTaskWorkbenchHandler() {
   return async (req, res) => {
     try {
@@ -2941,6 +3111,46 @@ function createWikaTaskWorkbenchHandler() {
             : undefined,
         top_error: extractTopErrorResponse(error),
         query: req.query
+      });
+
+      const hasMissingKeys =
+        error instanceof ConfigurationError ||
+        Array.isArray(error?.missingKeys);
+
+      res
+        .status(error instanceof ConfigurationError ? 500 : hasMissingKeys ? 400 : 502)
+        .json(buildReadOnlyErrorResponse(error));
+    }
+  };
+}
+
+function createWikaPreviewCenterHandler() {
+  return async (req, res) => {
+    try {
+      const result = await buildPreviewCenter(
+        await getWikaReadOnlyClientConfig(),
+        normalizeToolRequestBody(req.body)
+      );
+
+      logInfo("Wika preview center completed", {
+        sharedBlockerCount: result.shared_blockers?.length ?? 0
+      });
+
+      res.status(200).json({
+        ok: true,
+        module: "preview_center",
+        account: "wika",
+        read_only: true,
+        ...result
+      });
+    } catch (error) {
+      logError("Wika preview center failed", {
+        error: error instanceof Error ? error.message : String(error),
+        details:
+          error instanceof AlibabaApiError || error?.details
+            ? error.details
+            : undefined,
+        top_error: extractTopErrorResponse(error)
       });
 
       const hasMissingKeys =
@@ -3769,6 +3979,10 @@ app.get(
   "/integrations/alibaba/wika/reports/business-cockpit",
   createWikaBusinessCockpitHandler()
 );
+app.get(
+  "/integrations/alibaba/wika/reports/action-center",
+  createWikaActionCenterHandler()
+);
 
 app.get(
   "/integrations/alibaba/wika/reports/operations/minimal-diagnostic",
@@ -3789,6 +4003,22 @@ app.get(
 app.get(
   "/integrations/alibaba/wika/workbench/task-workbench",
   createWikaTaskWorkbenchHandler()
+);
+app.post(
+  "/integrations/alibaba/wika/workbench/product-draft-preview",
+  createWikaProductDraftPreviewHandler()
+);
+app.post(
+  "/integrations/alibaba/wika/workbench/reply-preview",
+  createWikaReplyPreviewHandler()
+);
+app.post(
+  "/integrations/alibaba/wika/workbench/order-preview",
+  createWikaOrderPreviewHandler()
+);
+app.post(
+  "/integrations/alibaba/wika/workbench/preview-center",
+  createWikaPreviewCenterHandler()
 );
 app.post(
   "/integrations/alibaba/wika/tools/reply-draft",

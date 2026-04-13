@@ -1,0 +1,355 @@
+{
+  "ok": true,
+  "module": "task4_reply_preview",
+  "account": "***",
+  "read_only": true,
+  "report_name": "reply_preview",
+  "generated_at": "2026-04-13T01:54:14.949Z",
+  "preview_input_summary": {
+    "inquiry_text_present": true,
+    "product_ids": [
+      "AAFwxslEAOVqtWWP0tWvJG1K"
+    ],
+    "quantity": "1000 pcs",
+    "destination_country": "United States",
+    "target_price": "0.65",
+    "expected_lead_time": "25-30 days after artwork approval",
+    "language": "en",
+    "customer_profile_present": true
+  },
+  "workflow_preview": {
+    "workflow_profile": "reply_mockup_customization",
+    "template_version": "2026-04-05.sop-v1",
+    "reply_draft": {
+      "subject": "Draft reply for Customizable New Fashion Portable Eyeglasses Accessories Leather Big Glasses case Oversize Sunglasses Holder",
+      "opening": "Hello, thank you for your inquiry from TEST BUYER / DO-NOT-USE.",
+      "body": "Inquiry summary: Hello, please quote 1000 pcs custom sunglasses cases with logo and confirm lead time.\n\nRequested quantity: 1000 pcs\n\nDestination: United States\n\nProduct references:\n- Customizable New Fashion Portable Eyeglasses Accessories Leather Big Glasses case Oversize Sunglasses Holder | Soft Case | description needs improvement\n\nPrice note: Customer target price reference: USD 0.65. The current system has no verified live pricing source, so the final quote still requires human confirmation.\n\nLead time note: Current lead-time context is manually supplied: 25-30 days after artwork approval. Final lead time still requires human confirmation.",
+      "closing": "Please confirm the following items before sending a formal reply: final_quote, lead_time, mockup_assets, mockup_assets, mockup_assets.",
+      "price_information": {
+        "status": "needs_human_quote",
+        "text": "Customer target price reference: USD 0.65. The current system has no verified live pricing source, so the final quote still requires human confirmation.",
+        "blocker_keys": [
+          "final_quote_confirmation"
+        ]
+      },
+      "product_support": [
+        {
+          "product_id": "AAFwxslEAOVqtWWP0tWvJG1K",
+          "subject": "Customizable New Fashion Portable Eyeglasses Accessories Leather Big Glasses case Oversize Sunglasses Holder",
+          "category_id": 36127040,
+          "group_id": 957658239,
+          "group_name": "Soft Case",
+          "pc_detail_url": "https://www.alibaba.com/product-detail/Customizable-New-Fashion-Portable-Eyeglasses-Accessories_1601740791024.html",
+          "main_image_url": "https://sc04.alicdn.com/kf/H1f4802ee53514b4db076792e69b66f8cZ.jpg",
+          "description_available": false,
+          "keywords": [],
+          "gmt_modified": "2026-04-09 15:04:02",
+          "quality_signals": "***",
+          "problem_hints": []
+        }
+      ],
+      "lead_time_guidance": {
+        "status": "contextual_only",
+        "text": "Current lead-time context is manually supplied: 25-30 days after artwork approval. Final lead time still requires human confirmation.",
+        "blocker_keys": [
+          "final_lead_time_confirmation"
+        ]
+      },
+      "mockup_request": {
+        "needed": true,
+        "mockup_request": "Prepare a mockup requirement pack for manual or design-tool follow-up.",
+        "visual_requirements": [
+          "Show logo placement and print method",
+          "Keep real material and closure structure visible"
+        ],
+        "asset_requirements": [
+          "Customer logo / artwork source file is required",
+          "Color / finish requirement needs confirmation",
+          "Mockup scene / usage context needs confirmation"
+        ],
+        "product_references": [
+          {
+            "product_id": "AAFwxslEAOVqtWWP0tWvJG1K",
+            "subject": "Customizable New Fashion Portable Eyeglasses Accessories Leather Big Glasses case Oversize Sunglasses Holder",
+            "pc_detail_url": "https://www.alibaba.com/product-detail/Customizable-New-Fashion-Portable-Eyeglasses-Accessories_1601740791024.html"
+          }
+        ]
+      },
+      "risk_flags": [
+        "platform_reply_unavailable",
+        "product_content_gap",
+        "mockup_assets_missing"
+      ],
+      "escalation_recommendation": {
+        "level": "high",
+        "recommendation": "A human should fill in pricing, lead time, customer identity or destination details before a formal reply is sent."
+      }
+    },
+    "minimum_reply_package": {
+      "ready_for_human_edit": true,
+      "minimum_context_available": true,
+      "draft_usable_externally": true,
+      "must_handoff_before_any_send": true
+    },
+    "draft_usable_externally": true
+  },
+  "available_context": {
+    "product_context_count": 1,
+    "has_product_diagnostic": true,
+    "has_price_reference": true,
+    "has_destination": true,
+    "has_quantity": true,
+    "has_customer_profile": true,
+    "has_mockup_signal": "***"
+  },
+  "missing_context": [
+    "final_quote",
+    "lead_time",
+    "mockup_assets",
+    "mockup_assets",
+    "mockup_assets"
+  ],
+  "hard_blockers": [
+    {
+      "key": "final_quote",
+      "label": "Final quote",
+      "reason": "Customer target price reference: USD 0.65. The current system has no verified live pricing source, so the final quote still requires human confirmation.",
+      "follow_up_question": "Please confirm the final quote, currency and quote basis.",
+      "required_field": "price.quote_confirmation",
+      "blocker_code": "missing_final_quote",
+      "blocker_reason": "Customer target price reference: USD 0.65. The current system has no verified live pricing source, so the final quote still requires human confirmation.",
+      "blocker_next_action": "人工确认最终报价、币种和报价口径。",
+      "blocker_level": "hard",
+      "blocker_definition": "缺少最终报价确认，系统不能自动承诺正式价格。",
+      "applies_to": [
+        "reply"
+      ],
+      "draft_can_still_be_produced": true,
+      "handoff_mandatory": true,
+      "field_meta": {
+        "source": "human_input_required",
+        "confidence": "high",
+        "missing_reason": "Customer target price reference: USD 0.65. The current system has no verified live pricing source, so the final quote still requires human confirmation."
+      }
+    },
+    {
+      "key": "lead_time",
+      "label": "Lead time confirmation",
+      "reason": "Current lead-time context is manually supplied: 25-30 days after artwork approval. Final lead time still requires human confirmation.",
+      "follow_up_question": "Please confirm sample lead time, production lead time and the start condition.",
+      "required_field": "delivery.lead_time_confirmation",
+      "blocker_code": "missing_lead_time",
+      "blocker_reason": "Current lead-time context is manually supplied: 25-30 days after artwork approval. Final lead time still requires human confirmation.",
+      "blocker_next_action": "人工确认打样期、量产期和起算条件。",
+      "blocker_level": "hard",
+      "blocker_definition": "缺少已确认交期，系统不能自动承诺最终交付时间。",
+      "applies_to": [
+        "reply",
+        "order"
+      ],
+      "draft_can_still_be_produced": true,
+      "handoff_mandatory": true,
+      "field_meta": {
+        "source": "human_input_required",
+        "confidence": "high",
+        "missing_reason": "Current lead-time context is manually supplied: 25-30 days after artwork approval. Final lead time still requires human confirmation."
+      }
+    }
+  ],
+  "soft_blockers": [
+    {
+      "key": "mockup_assets",
+      "label": "Mockup assets",
+      "reason": "Customer logo / artwork source file is required",
+      "follow_up_question": "Please provide logo, finish, color or scene assets for the mockup package.",
+      "required_field": "mockup_request.asset_requirements",
+      "blocker_code": "missing_mockup_assets",
+      "blocker_reason": "Customer logo / artwork source file is required",
+      "blocker_next_action": "向客户收集 logo、工艺、颜色和 mockup 场景要求。",
+      "blocker_level": "soft",
+      "blocker_definition": "缺少 logo、工艺、颜色或场景素材，效果图需求包无法进入执行。",
+      "applies_to": [
+        "reply"
+      ],
+      "draft_can_still_be_produced": true,
+      "handoff_mandatory": false,
+      "field_meta": {
+        "source": "human_input_required",
+        "confidence": "high",
+        "missing_reason": "Customer logo / artwork source file is required"
+      }
+    },
+    {
+      "key": "mockup_assets",
+      "label": "Mockup assets",
+      "reason": "Color / finish requirement needs confirmation",
+      "follow_up_question": "Please provide logo, finish, color or scene assets for the mockup package.",
+      "required_field": "mockup_request.asset_requirements",
+      "blocker_code": "missing_mockup_assets",
+      "blocker_reason": "Color / finish requirement needs confirmation",
+      "blocker_next_action": "向客户收集 logo、工艺、颜色和 mockup 场景要求。",
+      "blocker_level": "soft",
+      "blocker_definition": "缺少 logo、工艺、颜色或场景素材，效果图需求包无法进入执行。",
+      "applies_to": [
+        "reply"
+      ],
+      "draft_can_still_be_produced": true,
+      "handoff_mandatory": false,
+      "field_meta": {
+        "source": "human_input_required",
+        "confidence": "high",
+        "missing_reason": "Color / finish requirement needs confirmation"
+      }
+    },
+    {
+      "key": "mockup_assets",
+      "label": "Mockup assets",
+      "reason": "Mockup scene / usage context needs confirmation",
+      "follow_up_question": "Please provide logo, finish, color or scene assets for the mockup package.",
+      "required_field": "mockup_request.asset_requirements",
+      "blocker_code": "missing_mockup_assets",
+      "blocker_reason": "Mockup scene / usage context needs confirmation",
+      "blocker_next_action": "向客户收集 logo、工艺、颜色和 mockup 场景要求。",
+      "blocker_level": "soft",
+      "blocker_definition": "缺少 logo、工艺、颜色或场景素材，效果图需求包无法进入执行。",
+      "applies_to": [
+        "reply"
+      ],
+      "draft_can_still_be_produced": true,
+      "handoff_mandatory": false,
+      "field_meta": {
+        "source": "human_input_required",
+        "confidence": "high",
+        "missing_reason": "Mockup scene / usage context needs confirmation"
+      }
+    }
+  ],
+  "follow_up_question_details": [
+    {
+      "sequence": 1,
+      "priority": "high",
+      "question": "Please confirm the final quote, currency and quote basis.",
+      "blocker_code": "missing_final_quote",
+      "required_field": "price.quote_confirmation"
+    },
+    {
+      "sequence": 2,
+      "priority": "high",
+      "question": "Please confirm sample lead time, production lead time and the start condition.",
+      "blocker_code": "missing_lead_time",
+      "required_field": "delivery.lead_time_confirmation"
+    },
+    {
+      "sequence": 3,
+      "priority": "medium",
+      "question": "Please provide logo, finish, color or scene assets for the mockup package.",
+      "blocker_code": "missing_mockup_assets",
+      "required_field": "mockup_request.asset_requirements"
+    },
+    {
+      "sequence": 4,
+      "priority": "medium",
+      "question": "Please provide logo, finish, color or scene assets for the mockup package.",
+      "blocker_code": "missing_mockup_assets",
+      "required_field": "mockup_request.asset_requirements"
+    },
+    {
+      "sequence": 5,
+      "priority": "medium",
+      "question": "Please provide logo, finish, color or scene assets for the mockup package.",
+      "blocker_code": "missing_mockup_assets",
+      "required_field": "mockup_request.asset_requirements"
+    }
+  ],
+  "handoff_fields": [
+    {
+      "field": "price.quote_confirmation",
+      "label": "Final quote",
+      "reason": "Customer target price reference: USD 0.65. The current system has no verified live pricing source, so the final quote still requires human confirmation.",
+      "source": "human_input_required",
+      "confidence": "high",
+      "missing_reason": "Customer target price reference: USD 0.65. The current system has no verified live pricing source, so the final quote still requires human confirmation.",
+      "blocker_code": "missing_final_quote",
+      "blocker_level": "hard",
+      "blocker_next_action": "人工确认最终报价、币种和报价口径。",
+      "handoff_mandatory": true,
+      "draft_can_still_be_produced": true,
+      "template_section": "pricing_confirmation",
+      "required_for_minimum_reply": true
+    },
+    {
+      "field": "delivery.lead_time_confirmation",
+      "label": "Lead time confirmation",
+      "reason": "Current lead-time context is manually supplied: 25-30 days after artwork approval. Final lead time still requires human confirmation.",
+      "source": "human_input_required",
+      "confidence": "high",
+      "missing_reason": "Current lead-time context is manually supplied: 25-30 days after artwork approval. Final lead time still requires human confirmation.",
+      "blocker_code": "missing_lead_time",
+      "blocker_level": "hard",
+      "blocker_next_action": "人工确认打样期、量产期和起算条件。",
+      "handoff_mandatory": true,
+      "draft_can_still_be_produced": true,
+      "template_section": "lead_time_confirmation",
+      "required_for_minimum_reply": true
+    },
+    {
+      "field": "mockup_request.asset_requirements",
+      "label": "Mockup assets",
+      "reason": "Customer logo / artwork source file is required",
+      "source": "human_input_required",
+      "confidence": "high",
+      "missing_reason": "Customer logo / artwork source file is required",
+      "blocker_code": "missing_mockup_assets",
+      "blocker_level": "soft",
+      "blocker_next_action": "向客户收集 logo、工艺、颜色和 mockup 场景要求。",
+      "handoff_mandatory": false,
+      "draft_can_still_be_produced": true,
+      "template_section": "mockup_requirements",
+      "required_for_minimum_reply": false
+    },
+    {
+      "field": "mockup_request.asset_requirements",
+      "label": "Mockup assets",
+      "reason": "Color / finish requirement needs confirmation",
+      "source": "human_input_required",
+      "confidence": "high",
+      "missing_reason": "Color / finish requirement needs confirmation",
+      "blocker_code": "missing_mockup_assets",
+      "blocker_level": "soft",
+      "blocker_next_action": "向客户收集 logo、工艺、颜色和 mockup 场景要求。",
+      "handoff_mandatory": false,
+      "draft_can_still_be_produced": true,
+      "template_section": "mockup_requirements",
+      "required_for_minimum_reply": false
+    },
+    {
+      "field": "mockup_request.asset_requirements",
+      "label": "Mockup assets",
+      "reason": "Mockup scene / usage context needs confirmation",
+      "source": "human_input_required",
+      "confidence": "high",
+      "missing_reason": "Mockup scene / usage context needs confirmation",
+      "blocker_code": "missing_mockup_assets",
+      "blocker_level": "soft",
+      "blocker_next_action": "向客户收集 logo、工艺、颜色和 mockup 场景要求。",
+      "handoff_mandatory": false,
+      "draft_can_still_be_produced": true,
+      "template_section": "mockup_requirements",
+      "required_for_minimum_reply": false
+    }
+  ],
+  "quality_gate_summary": {
+    "handoff_required": true,
+    "confidence": "low",
+    "risk_level": "high"
+  },
+  "recommended_next_action": "A human should fill in pricing, lead time, customer identity or destination details before a formal reply is sent.",
+  "boundary_statement": {
+    "input_aware_preview_only": true,
+    "external_reply_draft_only": true,
+    "not_platform_reply": true,
+    "not_platform_internal_send": true,
+    "no_write_action_attempted": true,
+    "task6_excluded": true
+  }
+}

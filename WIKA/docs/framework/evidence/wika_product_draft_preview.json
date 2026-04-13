@@ -1,0 +1,339 @@
+{
+  "ok": true,
+  "module": "task3_product_draft_preview",
+  "account": "***",
+  "read_only": true,
+  "report_name": "product_draft_preview",
+  "generated_at": "2026-04-13T01:54:14.948Z",
+  "preview_input_summary": {
+    "product_id": "1601740791024",
+    "category_id": 36127040,
+    "category_name": "Eyeglasses Cases & Bags",
+    "provided_field_count": 10,
+    "provided_fields": [
+      "base_name",
+      "material",
+      "positioning",
+      "selling_points",
+      "keyword_hints",
+      "application",
+      "customization",
+      "packaging_notes",
+      "moq",
+      "lead_time"
+    ],
+    "asset_path_count": 5,
+    "attribute_count": 0,
+    "schema_mode": "schema_aware"
+  },
+  "product_context": {
+    "product_id": "1601740791024",
+    "subject": "Customizable New Fashion Portable Eyeglasses Accessories Leather Big Glasses case Oversize Sunglasses Holder",
+    "category_id": 36127040,
+    "group_id": "957658239",
+    "score": "5.00"
+  },
+  "context_snapshot": {
+    "schema_context": {
+      "category_id": 36127040,
+      "schema_field_count": 130,
+      "render_field_count": 132,
+      "required_field_ids": [
+        "p-271270841",
+        "saleProp",
+        "p-191288010",
+        "p-200471263",
+        "skuStock",
+        "skuId",
+        "inventory",
+        "productKeywords_0",
+        "width",
+        "height",
+        "boxPackaging",
+        "day",
+        "ladderPeriod_1",
+        "ladderPeriod_2",
+        "priceUnit",
+        "platformLogisticsServices",
+        "shippingTemplateId",
+        "productGroup",
+        "second_group_id",
+        "third_group_id"
+      ],
+      "schema_field_ids_preview": [
+        "infos",
+        "catId",
+        "icbuCatProp",
+        "p-1",
+        "p-2",
+        "p-3",
+        "p-100007796",
+        "p-191290347",
+        "p-230093740",
+        "p-236836420",
+        "p-271270841",
+        "p-373265001",
+        "p-390864271",
+        "p-400035208",
+        "saleProp",
+        "p-191284014",
+        "p-191288010",
+        "p-200471263",
+        "sku",
+        "skuOuterId"
+      ]
+    },
+    "media_candidate_count": 5,
+    "draft_render_observable": true
+  },
+  "draft_preview": {
+    "stage": "product_draft_only",
+    "schema_mode": "schema_aware",
+    "title": "Custom Sunglasses Case PU leather travel organizer sunglasses case custom logo travel case",
+    "highlights": [
+      "zipper closure",
+      "logo customization",
+      "protective interior",
+      "Eyeglasses Cases & Bags category aligned",
+      "MOQ reference: 1000",
+      "Lead time reference: 25-30 days after artwork approval"
+    ],
+    "description_html": "<p><strong>Custom Sunglasses Case PU leather travel organizer sunglasses case custom logo travel case</strong></p><ul><li>zipper closure</li><li>logo customization</li><li>protective interior</li><li>Eyeglasses Cases & Bags category aligned</li><li>MOQ reference: 1000</li><li>Lead time reference: 25-30 days after artwork approval</li></ul><p>Application: gift and retail packaging</p><p>Customization: support logo printing and color customization</p><p>Packaging notes: export carton packing</p>",
+    "keywords": [
+      "sunglasses case",
+      "custom logo",
+      "travel case",
+      "Custom Sunglasses Case",
+      "PU leather",
+      "Eyeglasses Cases & Bags"
+    ],
+    "schema_aware_field_mapping": [
+      {
+        "schema_field_id": "productTitle",
+        "source_key": "title",
+        "ready": true,
+        "available_in_schema": true,
+        "value_preview": "Custom Sunglasses Case PU leather travel organizer sunglasses case custom logo travel case"
+      },
+      {
+        "schema_field_id": "productKeywords",
+        "source_key": "keywords",
+        "ready": true,
+        "available_in_schema": true,
+        "value_preview": [
+          "sunglasses case",
+          "custom logo",
+          "travel case"
+        ]
+      },
+      {
+        "schema_field_id": "productDescType",
+        "source_key": "description_mode",
+        "ready": true,
+        "available_in_schema": true,
+        "value_preview": 2
+      },
+      {
+        "schema_field_id": "icbuCatProp",
+        "source_key": "attribute_plan",
+        "ready": false,
+        "available_in_schema": true,
+        "value_preview": []
+      },
+      {
+        "schema_field_id": "scImages",
+        "source_key": "media_plan",
+        "ready": true,
+        "available_in_schema": true,
+        "value_preview": [
+          "https://sc04.alicdn.com/kf/H0f3d46f26efd475393d8d12ab48e9580s.png",
+          "https://sc04.alicdn.com/kf/H63c65f25bff549638112afacca3a4bcfa.jpg",
+          "https://sc04.alicdn.com/kf/H10552dbd93a8401090cb199013915808d.jpg",
+          "https://sc04.alicdn.com/kf/H7834b645f718449dbfa0d5e13bf3c29dc.jpg",
+          "https://sc04.alicdn.com/kf/Hd68e8c38a6ab43c6977a97d43a5a42fdi.jpg"
+        ]
+      },
+      {
+        "schema_field_id": "minOrderQuantity",
+        "source_key": "moq",
+        "ready": true,
+        "available_in_schema": true,
+        "value_preview": "1000"
+      },
+      {
+        "schema_field_id": "productGroup",
+        "source_key": "group_plan",
+        "ready": true,
+        "available_in_schema": true,
+        "value_preview": {
+          "first_group_id": 957658239,
+          "second_group_id": null,
+          "third_group_id": null
+        }
+      }
+    ],
+    "payload_draft": {
+      "target_api_family": [
+        "alibaba.icbu.product.add.draft",
+        "alibaba.icbu.product.add",
+        "alibaba.icbu.product.schema.add"
+      ],
+      "category_context": {
+        "category_id": 36127040,
+        "category_name": "Eyeglasses Cases & Bags"
+      },
+      "schema_context": {
+        "schema_field_count": 130,
+        "render_field_count": 132
+      },
+      "text_fields": {
+        "title": "Custom Sunglasses Case PU leather travel organizer sunglasses case custom logo travel case",
+        "keywords": [
+          "sunglasses case",
+          "custom logo",
+          "travel case",
+          "Custom Sunglasses Case",
+          "PU leather",
+          "Eyeglasses Cases & Bags"
+        ],
+        "description_html": "<p><strong>Custom Sunglasses Case PU leather travel organizer sunglasses case custom logo travel case</strong></p><ul><li>zipper closure</li><li>logo customization</li><li>protective interior</li><li>Eyeglasses Cases & Bags category aligned</li><li>MOQ reference: 1000</li><li>Lead time reference: 25-30 days after artwork approval</li></ul><p>Application: gift and retail packaging</p><p>Customization: support logo printing and color customization</p><p>Packaging notes: export carton packing</p>"
+      },
+      "schema_field_mapping": [
+        {
+          "schema_field_id": "productTitle",
+          "source_key": "title",
+          "ready": true,
+          "available_in_schema": true,
+          "value_preview": "Custom Sunglasses Case PU leather travel organizer sunglasses case custom logo travel case"
+        },
+        {
+          "schema_field_id": "productKeywords",
+          "source_key": "keywords",
+          "ready": true,
+          "available_in_schema": true,
+          "value_preview": [
+            "sunglasses case",
+            "custom logo",
+            "travel case"
+          ]
+        },
+        {
+          "schema_field_id": "productDescType",
+          "source_key": "description_mode",
+          "ready": true,
+          "available_in_schema": true,
+          "value_preview": 2
+        },
+        {
+          "schema_field_id": "icbuCatProp",
+          "source_key": "attribute_plan",
+          "ready": false,
+          "available_in_schema": true,
+          "value_preview": []
+        },
+        {
+          "schema_field_id": "scImages",
+          "source_key": "media_plan",
+          "ready": true,
+          "available_in_schema": true,
+          "value_preview": [
+            "https://sc04.alicdn.com/kf/H0f3d46f26efd475393d8d12ab48e9580s.png",
+            "https://sc04.alicdn.com/kf/H63c65f25bff549638112afacca3a4bcfa.jpg",
+            "https://sc04.alicdn.com/kf/H10552dbd93a8401090cb199013915808d.jpg",
+            "https://sc04.alicdn.com/kf/H7834b645f718449dbfa0d5e13bf3c29dc.jpg",
+            "https://sc04.alicdn.com/kf/Hd68e8c38a6ab43c6977a97d43a5a42fdi.jpg"
+          ]
+        },
+        {
+          "schema_field_id": "minOrderQuantity",
+          "source_key": "moq",
+          "ready": true,
+          "available_in_schema": true,
+          "value_preview": "1000"
+        },
+        {
+          "schema_field_id": "productGroup",
+          "source_key": "group_plan",
+          "ready": true,
+          "available_in_schema": true,
+          "value_preview": {
+            "first_group_id": 957658239,
+            "second_group_id": null,
+            "third_group_id": null
+          }
+        }
+      ],
+      "attribute_plan": [],
+      "media_plan": [
+        "https://sc04.alicdn.com/kf/H0f3d46f26efd475393d8d12ab48e9580s.png",
+        "https://sc04.alicdn.com/kf/H63c65f25bff549638112afacca3a4bcfa.jpg",
+        "https://sc04.alicdn.com/kf/H10552dbd93a8401090cb199013915808d.jpg",
+        "https://sc04.alicdn.com/kf/H7834b645f718449dbfa0d5e13bf3c29dc.jpg",
+        "https://sc04.alicdn.com/kf/Hd68e8c38a6ab43c6977a97d43a5a42fdi.jpg"
+      ],
+      "group_plan": {
+        "first_group_id": 957658239,
+        "second_group_id": null,
+        "third_group_id": null
+      },
+      "missing_required_attribute_ids": [
+        1,
+        191284014,
+        200471263,
+        400035208
+      ]
+    },
+    "warnings": [
+      "该产物仅为产品草稿，不会触发真实发布。",
+      "payload_draft 是结构化候选草稿，不代表官方最终可提交 payload。"
+    ],
+    "draft_usable_for_manual_review": false
+  },
+  "required_manual_fields": {
+    "missing_requirements": [
+      "required_attributes",
+      "schema_required_fields"
+    ],
+    "human_required_fields": [
+      "p-271270841",
+      "saleProp",
+      "p-191288010",
+      "p-200471263",
+      "skuStock",
+      "skuId",
+      "inventory",
+      "productKeywords_0",
+      "width",
+      "height",
+      "boxPackaging",
+      "day",
+      "ladderPeriod_1",
+      "ladderPeriod_2",
+      "priceUnit",
+      "platformLogisticsServices",
+      "shippingTemplateId",
+      "second_group_id",
+      "third_group_id",
+      "ladderPrice"
+    ],
+    "missing_required_attribute_ids": [
+      1,
+      191284014,
+      200471263,
+      400035208
+    ]
+  },
+  "blocking_risks": [
+    "schema_required_fields_unfilled",
+    "preview_required_attributes",
+    "preview_schema_required_fields"
+  ],
+  "recommended_next_action": "Continue safe draft preparation only. Fill the remaining schema/media/manual fields before any manual draft handoff, and do not enter platform publish.",
+  "boundary_statement": {
+    "input_aware_preview_only": true,
+    "safe_draft_preparation_only": true,
+    "not_platform_publish": true,
+    "not_write_side_closed_loop": true,
+    "no_write_action_attempted": true
+  }
+}

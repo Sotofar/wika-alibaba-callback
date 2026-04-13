@@ -1,5 +1,29 @@
 ﻿# WIKA_项目基线
 
+## 2026-04-13 Stage 29 Local Action Center and Preview Candidate
+
+### Local candidate only
+- stage29 当前仍是本地候选 / 本地 contract 状态，尚未写成已部署能力。
+- 新增本地候选 route：
+  - `/integrations/alibaba/wika/reports/action-center`
+  - `/integrations/alibaba/wika/workbench/product-draft-preview`
+  - `/integrations/alibaba/wika/workbench/reply-preview`
+  - `/integrations/alibaba/wika/workbench/order-preview`
+  - `/integrations/alibaba/wika/workbench/preview-center`
+- Validation status：
+  - `node --check app.js` passed
+  - `node --check` 已覆盖 stage29 新增 helper / route / script 文件
+  - `node WIKA/scripts/validate-wika-stage29-action-center-and-preview.js` passed
+  - 本地 contract evidence 已写入 `WIKA/docs/framework/evidence/`
+
+### Stage29 boundary
+- 本轮不新增 official fields。
+- 本轮不新增 Alibaba API 验证。
+- action-center 只做经营与任务消费层整合，不是平台内执行层。
+- preview 层只做输入感知预览，不是平台内发布 / 回复 / 创单。
+- task 6 继续排除。
+- 当前仍未部署，不能写成线上已可用能力。
+
 ## 2026-04-11 Stage 28 Local Cockpit and Workbench Candidate
 
 ### Local candidate only

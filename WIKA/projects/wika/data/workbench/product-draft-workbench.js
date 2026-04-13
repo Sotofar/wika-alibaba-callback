@@ -94,7 +94,7 @@ function normalizeReadResult(preloadedResult) {
   };
 }
 
-export async function buildProductDraftWorkbench(
+export async function loadProductDraftWorkbenchContext(
   clientConfig,
   query = {},
   preloaded = {}
@@ -272,6 +272,59 @@ export async function buildProductDraftWorkbench(
   if (productDraft.missing_requirements.includes("schema_required_fields")) {
     blockingRisks.push("schema_required_fields_unfilled");
   }
+
+  return {
+    query,
+    requestedProductId,
+    listResult,
+    listItem,
+    productId,
+    categoryId,
+    categoryName,
+    detailRead,
+    detailProduct,
+    scoreRead,
+    groupRead,
+    categoryTreeRead,
+    attributesRead,
+    schemaRead,
+    renderRead,
+    draftRenderRead,
+    mediaListRead,
+    mediaGroupsRead,
+    assetCandidates,
+    attributeDefinitions,
+    productDraft,
+    blockingRisks
+  };
+}
+
+export async function buildProductDraftWorkbench(
+  clientConfig,
+  query = {},
+  preloaded = {}
+) {
+  const context =
+    preloaded.context ??
+    (await loadProductDraftWorkbenchContext(clientConfig, query, preloaded));
+  const {
+    productId,
+    categoryId,
+    categoryName,
+    listItem,
+    detailRead,
+    detailProduct,
+    scoreRead,
+    groupRead,
+    categoryTreeRead,
+    draftRenderRead,
+    mediaListRead,
+    mediaGroupsRead,
+    assetCandidates,
+    attributeDefinitions,
+    productDraft,
+    blockingRisks
+  } = context;
 
   return {
     report_name: "product_draft_workbench",

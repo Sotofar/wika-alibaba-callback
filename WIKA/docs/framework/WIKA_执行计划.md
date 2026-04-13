@@ -1,5 +1,47 @@
 ﻿# WIKA_执行计划
 
+## 2026-04-13 Stage 29 Action Center and Preview Layer
+
+### 当前阶段
+- 阶段 29：行动中心与输入感知预览层
+
+### 本轮目标
+- 在既有 `business-cockpit` 与 `task-workbench` 之上，新增一个统一 `action-center` 消费层。
+- 在 task3/4/5 现有安全草稿与外部草稿链路之上，新增三个输入感知 preview route。
+- 再新增一个 `preview-center` 统一预览总览层。
+
+### 已完成的本地候选
+- helper：
+  - `WIKA/projects/wika/data/cockpit/action-center.js`
+  - `WIKA/projects/wika/data/workbench/product-draft-preview.js`
+  - `WIKA/projects/wika/data/workbench/reply-preview.js`
+  - `WIKA/projects/wika/data/workbench/order-preview.js`
+  - `WIKA/projects/wika/data/workbench/preview-center.js`
+- route：
+  - `/integrations/alibaba/wika/reports/action-center`
+  - `/integrations/alibaba/wika/workbench/product-draft-preview`
+  - `/integrations/alibaba/wika/workbench/reply-preview`
+  - `/integrations/alibaba/wika/workbench/order-preview`
+  - `/integrations/alibaba/wika/workbench/preview-center`
+- script：
+  - `WIKA/scripts/validate-wika-stage29-action-center-and-preview.js`
+
+### Gate result
+- stage28 在线基线回归已通过。
+- stage29 已达到 local contract pass。
+- stage29 还未进入 deployed / smoke-verified 状态。
+
+### 固定边界
+- action-center 只做经营驾驶舱与任务工作台的统一消费视图。
+- product/reply/order preview 只做输入感知预览。
+- not task 1 complete
+- not task 2 complete
+- not task 3 complete
+- not task 4 complete
+- not task 5 complete
+- task 6 excluded
+- not full business cockpit
+
 ## 2026-04-11 Stage 28 Unified Cockpit and Workbench
 
 ### Current stage
