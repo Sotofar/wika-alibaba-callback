@@ -52,3 +52,19 @@
 - not task 5 complete
 - task 6 excluded
 - not full business cockpit
+
+## 2026-04-13 Stage 32 Deploy Lock
+
+### deployed route
+- `/integrations/alibaba/wika/reports/operator-console`
+
+### production status
+- stage31 已 push 到 `origin/main`
+- post-deploy smoke -> `PASS`
+- 依赖的 `business-cockpit / action-center / task-workbench` 同步通过最小基线验证
+
+### fixed boundary
+- unified control plane only
+- not platform-internal execution
+- task 6 excluded
+- not full business cockpit

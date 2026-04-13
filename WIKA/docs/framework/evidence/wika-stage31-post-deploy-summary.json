@@ -1,0 +1,68 @@
+{
+  "stage": "stage31_post_deploy",
+  "generated_at": "2026-04-13T02:17:22.704Z",
+  "base_url": "https://api.wikapacking.com",
+  "online_baseline": {
+    "health": {
+      "status": 200,
+      "elapsed_ms": 889,
+      "body": "ok"
+    },
+    "auth_debug": {
+      "status": 200,
+      "elapsed_ms": 845,
+      "body": {
+        "app_base_url": "https://api.wikapacking.com",
+        "session_secret_present": "***",
+        "state_ttl_seconds": 600,
+        "wika_client_id_present": "***",
+        "wika_client_secret_present": "***",
+        "wika_redirect_uri": "https://api.wikapacking.com/integrations/alibaba/callback",
+        "wika_auth_url": "https://open-api.alibaba.com/oauth/authorize",
+        "wika_token_url": "***",
+        "wika_refresh_token_url": "***",
+        "wika_partner_id_present": false,
+        "wika_auto_refresh_enabled": true,
+        "wika_refresh_buffer_seconds": 600,
+        "wika_bootstrap_refresh_token_present": "***",
+        "wika_token_storage_path": "***",
+        "wika_token_file_exists": "***",
+        "wika_token_loaded": "***",
+        "wika_runtime_loaded_from": "refresh:startup_bootstrap",
+        "wika_startup_init_attempted_at": "2026-04-13T02:13:16.514Z",
+        "wika_startup_init_status": "refresh:startup_bootstrap",
+        "wika_startup_init_error": null,
+        "wika_has_refresh_token": "***",
+        "wika_next_refresh_at": "2026-05-13T02:03:17.763Z",
+        "wika_last_refresh_at": "2026-04-13T02:13:17.763Z",
+        "wika_last_refresh_reason": "startup_bootstrap",
+        "wika_last_refresh_error": null
+      }
+    },
+    "stable_route_statuses": {
+      "businessCockpit": {
+        "route": "/integrations/alibaba/wika/reports/business-cockpit",
+        "status": 200,
+        "elapsed_ms": 13443
+      },
+      "actionCenter": {
+        "route": "/integrations/alibaba/wika/reports/action-center",
+        "status": 200,
+        "elapsed_ms": 34543
+      },
+      "taskWorkbench": {
+        "route": "/integrations/alibaba/wika/workbench/task-workbench",
+        "status": 200,
+        "elapsed_ms": 21189
+      }
+    }
+  },
+  "production_smoke": {
+    "operatorConsole": {
+      "route": "/integrations/alibaba/wika/reports/operator-console",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 35082
+    }
+  }
+}

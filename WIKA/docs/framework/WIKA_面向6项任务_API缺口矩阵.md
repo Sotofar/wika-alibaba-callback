@@ -1,5 +1,39 @@
 ﻿# WIKA 面向 6 项任务 API 缺口矩阵
 
+## 2026-04-13 Stage 33 Maximum Completion Delta
+
+### Task 1
+- 当前边界下最大完成度已达成。
+- Remaining gap 已全部是 unavailable / blocked 维度，不再是消费层缺失。
+
+### Task 2
+- 当前边界下最大完成度已达成。
+- Remaining gap 已全部是字段缺失与边界缺失，不再是诊断 / 控制台包装缺失。
+
+### Task 3 / 4 / 5
+- 当前边界下最大完成度已达成。
+- Remaining gap 已进入平台内执行闭环与写侧低风险边界证明范围。
+
+### Task 6
+- 明确排除，本轮不推进。
+
+## 2026-04-13 Stage 32 Operator Console Deploy Delta
+
+### Task 1
+- `operator-console` 已部署，可把当前 store / product / order cockpit 与 action-center 汇总为一层更高层消费视图。
+- 这不新增 official field，也不关闭剩余字段缺口。
+
+### Task 2
+- `operator-console` 已部署，可把 diagnostics / comparisons / blockers / next-best actions 汇总成统一控制台层。
+- Remaining unavailable dimensions stay unchanged.
+
+### Task 3/4/5
+- `operator-console` 已部署，可统一暴露 task3/4/5 当前 workbench summary 与 preview readiness。
+- 这不等于平台内执行闭环。
+
+### Task 6
+- Explicitly excluded in stage31 / 32.
+
 ## 2026-04-13 Stage 31 Operator Console Delta
 
 ### Task 1

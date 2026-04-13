@@ -143,3 +143,18 @@
 - operator-console 只是更高层消费视图，不是平台内执行层
 - 当前仍是 local candidate，不写成 deployed
 - not full business cockpit
+
+## 2026-04-13 Stage 32 Deploy Lock Addendum
+
+### deployed route
+- `/integrations/alibaba/wika/reports/operator-console`
+
+### production status
+- deployed to `origin/main`
+- production smoke: `200 + JSON + PASS`
+- acceptance mode: single retry after transient deploy-switch jitter
+
+### fixed boundary
+- operator-console 只是统一控制台层，不是平台内执行层
+- 仍然只聚合既有 cockpit / action-center / workbench / preview readiness
+- not full business cockpit

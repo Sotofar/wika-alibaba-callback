@@ -1,0 +1,87 @@
+{
+  "stage": "stage33_maximum_completion_under_current_boundary",
+  "generated_at": "2026-04-13T02:30:00.000Z",
+  "status": "MAX_REACHABLE_UNDER_CURRENT_BOUNDARY",
+  "stable_online_routes": {
+    "summaries": [
+      "/integrations/alibaba/wika/reports/operations/management-summary",
+      "/integrations/alibaba/wika/reports/products/management-summary",
+      "/integrations/alibaba/wika/reports/orders/management-summary"
+    ],
+    "diagnostics": [
+      "/integrations/alibaba/wika/reports/operations/minimal-diagnostic",
+      "/integrations/alibaba/wika/reports/products/minimal-diagnostic",
+      "/integrations/alibaba/wika/reports/orders/minimal-diagnostic"
+    ],
+    "comparisons": [
+      "/integrations/alibaba/wika/reports/operations/comparison-summary",
+      "/integrations/alibaba/wika/reports/products/comparison-summary",
+      "/integrations/alibaba/wika/reports/orders/comparison-summary"
+    ],
+    "cockpit_and_console": [
+      "/integrations/alibaba/wika/reports/business-cockpit",
+      "/integrations/alibaba/wika/reports/action-center",
+      "/integrations/alibaba/wika/reports/operator-console"
+    ],
+    "workbench_and_preview": [
+      "/integrations/alibaba/wika/workbench/product-draft-workbench",
+      "/integrations/alibaba/wika/workbench/reply-workbench",
+      "/integrations/alibaba/wika/workbench/order-workbench",
+      "/integrations/alibaba/wika/workbench/task-workbench",
+      "/integrations/alibaba/wika/workbench/product-draft-preview",
+      "/integrations/alibaba/wika/workbench/reply-preview",
+      "/integrations/alibaba/wika/workbench/order-preview",
+      "/integrations/alibaba/wika/workbench/preview-center"
+    ],
+    "tools": [
+      "/integrations/alibaba/wika/tools/reply-draft",
+      "/integrations/alibaba/wika/tools/order-draft"
+    ]
+  },
+  "task_status": {
+    "task1": {
+      "max_reachable_under_current_boundary": true,
+      "complete": false
+    },
+    "task2": {
+      "max_reachable_under_current_boundary": true,
+      "complete": false
+    },
+    "task3": {
+      "max_reachable_under_current_boundary": true,
+      "complete": false
+    },
+    "task4": {
+      "max_reachable_under_current_boundary": true,
+      "complete": false
+    },
+    "task5": {
+      "max_reachable_under_current_boundary": true,
+      "complete": false
+    },
+    "task6": {
+      "excluded": true
+    }
+  },
+  "unavailable_dimensions": {
+    "store": [
+      "traffic_source",
+      "country_source",
+      "quick_reply_rate"
+    ],
+    "product": [
+      "access_source",
+      "inquiry_source",
+      "country_source",
+      "period_over_period_change"
+    ],
+    "order": [
+      "country_structure"
+    ]
+  },
+  "next_external_conditions": [
+    "new official readable fields with stable doc and parameter contract",
+    "low-risk write-side boundary proof for task3/4/5",
+    "separate task6 thread for real notification provider and delivery"
+  ]
+}

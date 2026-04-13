@@ -1,0 +1,254 @@
+{
+  "report_name": "operator_console",
+  "generated_at": "2026-04-13T02:17:20.841Z",
+  "business_cockpit_summary": {
+    "source_route": "/integrations/alibaba/wika/reports/business-cockpit",
+    "report_name": "business_cockpit",
+    "task_coverage_summary": {
+      "task1_partial_status": {
+        "status": "partially_reopened",
+        "complete": false,
+        "note": "Store, product, and order read-side summaries are available, but several key business dimensions are still missing."
+      },
+      "task2_partial_status": {
+        "status": "partially_reopened",
+        "complete": false,
+        "note": "Minimal diagnostic and comparison layers are available, but this is still not a full business diagnostic cockpit."
+      },
+      "task3_partial_status": {
+        "status": "partially_reopened",
+        "complete": false,
+        "note": "A product safe-draft workbench candidate exists, but it stays at safe draft preparation and does not publish."
+      },
+      "task4_partial_status": {
+        "status": "partially_reopened",
+        "complete": false,
+        "note": "A reply-draft external workbench candidate exists, but it does not send platform replies."
+      },
+      "task5_partial_status": {
+        "status": "partially_reopened",
+        "complete": false,
+        "note": "An order-draft external workbench candidate exists, but it does not create platform orders."
+      },
+      "task6_excluded": true
+    },
+    "cross_section_gap_count": 7,
+    "boundary_statement": {
+      "current_official_mainline_plus_derived_layers_only": true,
+      "not_full_business_cockpit": true,
+      "not_task_1_complete": true,
+      "not_task_2_complete": true,
+      "not_task_3_complete": true,
+      "not_task_4_complete": true,
+      "not_task_5_complete": true,
+      "task_6_excluded": true,
+      "no_write_action_attempted": true,
+      "notes": [
+        "This cockpit only aggregates the currently shipped management summary, minimal diagnostic, and comparison layers.",
+        "Comparison outputs and order formal_summary / product_contribution / trend_signal remain derived outputs.",
+        "Unavailable dimensions stay explicitly visible and are not presented as covered capabilities."
+      ]
+    }
+  },
+  "action_center_summary": {
+    "source_route": "/integrations/alibaba/wika/reports/action-center",
+    "report_name": "action_center",
+    "prioritized_action_count": 1,
+    "next_best_actions": [
+      {
+        "priority": "high",
+        "domain": "task3",
+        "source": "/integrations/alibaba/wika/workbench/product-draft-workbench",
+        "recommended_next_action": "Fill required category attributes, schema-required fields, and media candidates before handing the draft package to manual review. Do not enter platform publish.",
+        "reason": "Task 3 still stays at safe draft preparation and manual field completion."
+      }
+    ],
+    "shared_blocker_count": 23,
+    "boundary_statement": {
+      "action_center_only": true,
+      "current_official_mainline_plus_derived_layers_only": true,
+      "not_platform_execution": true,
+      "task6_excluded": true,
+      "no_write_action_attempted": true
+    }
+  },
+  "task3_summary": {
+    "source_route": "/integrations/alibaba/wika/workbench/product-draft-workbench",
+    "report_name": "product_draft_workbench",
+    "draft_readiness": {
+      "stage": "product_draft_only",
+      "schema_mode": "schema_aware",
+      "safe_draft_preparation_available": true,
+      "ready_for_publish": false,
+      "ready_for_safe_draft_candidate": false,
+      "missing_requirement_count": 2
+    },
+    "required_manual_fields_count": 0,
+    "blocking_risk_count": 1,
+    "recommended_next_action": "Fill required category attributes, schema-required fields, and media candidates before handing the draft package to manual review. Do not enter platform publish.",
+    "boundary_statement": {
+      "safe_draft_preparation_only": true,
+      "not_platform_publish": true,
+      "not_write_side_closed_loop": true,
+      "render_draft_is_observability_only": true
+    }
+  },
+  "task4_summary": {
+    "source_route": "/integrations/alibaba/wika/workbench/reply-workbench",
+    "report_name": "reply_workbench",
+    "current_reply_profiles": [
+      {
+        "code": "reply_minimal_handoff",
+        "label": "Minimal handoff",
+        "note": "Use when only the inquiry text or very limited context is available for an external draft."
+      },
+      {
+        "code": "reply_quote_confirmation_needed",
+        "label": "Quote confirmation draft",
+        "note": "Use when product and customer context already exist, but quote and lead time still need human confirmation."
+      },
+      {
+        "code": "reply_mockup_customization",
+        "label": "Mockup customization draft",
+        "note": "Use when the reply depends on mockup, logo, or customization follow-up material."
+      }
+    ],
+    "hard_blocker_count": 3,
+    "handoff_pack_capability": {
+      "handoff_checklist_available": true,
+      "handoff_fields_available": true,
+      "manual_completion_sop_available": true,
+      "export_formats": [
+        "json",
+        "markdown"
+      ]
+    },
+    "sample_availability": {
+      "preview_generated_without_platform_send": true,
+      "product_diagnostic_sample_size": 12,
+      "product_context_count": 0
+    },
+    "recommended_next_action": null,
+    "boundary_statement": {
+      "external_reply_draft_only": true,
+      "not_platform_reply": true,
+      "not_platform_internal_send": true,
+      "no_real_send_attempted": true,
+      "task6_excluded": true
+    }
+  },
+  "task5_summary": {
+    "source_route": "/integrations/alibaba/wika/workbench/order-workbench",
+    "report_name": "order_workbench",
+    "current_order_profiles": [
+      {
+        "code": "order_minimal_handoff",
+        "label": "Minimal order handoff",
+        "note": "Use when only the basic buyer data and a small amount of line-item context are available for an external order draft."
+      },
+      {
+        "code": "order_quote_confirmation_needed",
+        "label": "Quote confirmation order draft",
+        "note": "Use when line items are available, but price, total amount, and lead time still need human confirmation."
+      },
+      {
+        "code": "order_commercial_review",
+        "label": "Commercial review order draft",
+        "note": "Use when the main commercial fields are present, but manual review is still required before any downstream handoff."
+      }
+    ],
+    "hard_blocker_count": 6,
+    "handoff_pack_capability": {
+      "handoff_checklist_available": true,
+      "handoff_fields_available": true,
+      "manual_completion_sop_available": true,
+      "export_formats": [
+        "json",
+        "markdown"
+      ]
+    },
+    "sample_availability": {
+      "order_diagnostic_snapshot_available": true,
+      "line_item_count": 0,
+      "draft_types": [
+        "TA"
+      ]
+    },
+    "recommended_next_action": null,
+    "boundary_statement": {
+      "external_order_draft_only": true,
+      "not_platform_order_create": true,
+      "not_platform_internal_create": true,
+      "no_real_order_creation_attempted": true,
+      "task6_excluded": true
+    }
+  },
+  "preview_readiness": {
+    "source_route": "/integrations/alibaba/wika/workbench/preview-center",
+    "task3_preview_available": true,
+    "task4_preview_available": true,
+    "task5_preview_available": true,
+    "requires_input_payload": true,
+    "entrypoints": {
+      "task3": {
+        "route": "/integrations/alibaba/wika/workbench/product-draft-preview",
+        "method": "POST"
+      },
+      "task4": {
+        "route": "/integrations/alibaba/wika/workbench/reply-preview",
+        "method": "POST"
+      },
+      "task5": {
+        "route": "/integrations/alibaba/wika/workbench/order-preview",
+        "method": "POST"
+      }
+    },
+    "preview_profiles": {
+      "task3": "product_draft_preview",
+      "task4": null,
+      "task5": null
+    },
+    "platform_internal_execution_available": false,
+    "task6_excluded": true
+  },
+  "shared_blockers": [
+    "traffic_source",
+    "country_source",
+    "quick_reply_rate",
+    "access_source",
+    "inquiry_source",
+    "period_over_period_change",
+    "country_structure",
+    "schema_required_fields_unfilled",
+    "missing_inquiry_text",
+    "missing_final_quote",
+    "missing_lead_time",
+    "missing_destination_country",
+    "missing_product_context",
+    "missing_quantity",
+    "missing_customer_profile",
+    "missing_buyer_company",
+    "missing_buyer_contact",
+    "missing_buyer_email",
+    "missing_line_items",
+    "missing_total_amount"
+  ],
+  "next_best_actions": [
+    {
+      "priority": "high",
+      "domain": "task3",
+      "source": "/integrations/alibaba/wika/workbench/product-draft-workbench",
+      "recommended_next_action": "Fill required category attributes, schema-required fields, and media candidates before handing the draft package to manual review. Do not enter platform publish.",
+      "reason": "Task 3 still stays at safe draft preparation and manual field completion."
+    }
+  ],
+  "boundary_statement": {
+    "operator_console_only": true,
+    "current_official_mainline_plus_derived_layers_only": true,
+    "task1_to_task5_consumption_layer_only": true,
+    "not_platform_internal_execution": true,
+    "task6_excluded": true,
+    "no_write_action_attempted": true,
+    "not_full_business_cockpit": true
+  }
+}
