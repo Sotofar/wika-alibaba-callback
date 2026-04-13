@@ -1,5 +1,25 @@
 ﻿# WIKA 面向 6 项任务 API 缺口矩阵
 
+## 2026-04-13 XD Stage 27 Route Binding Delta
+
+### Task 1
+- XD 已新增在线只读 route：
+  - `products/detail`
+  - `products/groups`
+  - `products/score`
+  - `orders/fund`
+  - `orders/logistics`
+- 这 5 条能力现在已经从“direct-method 等价可读”推进到“production route 可读”。
+
+### Task 2
+- 本轮没有新增 XD report / diagnostic 消费层。
+- 剩余 `minimal-diagnostic` 与其他未绑定 route 继续保持 stage26 的 `DOC_MISMATCH` 状态。
+
+### 本轮边界
+- 本轮没有新增官方字段。
+- 本轮没有重跑 XD 全量 parity replay。
+- 剩余 14 条 `DOC_MISMATCH` route 仍待后续按最小批次处理。
+
 ## 2026-04-13 Stage 34/35 Write Boundary Delta
 
 ### Task 3

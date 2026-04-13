@@ -1,0 +1,335 @@
+{
+  "evaluated_at": "2026-04-13T07:03:54.263Z",
+  "current_head": "135f49155921bffcd7d85999349d45d9e33ccd1d",
+  "base_url": "https://api.wikapacking.com",
+  "production_gate": {
+    "status": "PASS_BASE",
+    "canaries": [
+      {
+        "path": "/health",
+        "status": 200,
+        "elapsed_ms": 1334
+      },
+      {
+        "path": "/integrations/alibaba/xd/auth/debug",
+        "status": 200,
+        "elapsed_ms": 1269
+      },
+      {
+        "path": "/integrations/alibaba/xd/data/products/list?page_size=1",
+        "status": 200,
+        "elapsed_ms": 1475
+      },
+      {
+        "path": "/integrations/alibaba/xd/data/orders/list?page_size=1",
+        "status": 200,
+        "elapsed_ms": 1613
+      }
+    ]
+  },
+  "samples": {
+    "productId": "AAFyoO5wAOXRII6QqyxoQgE-",
+    "groupId": 812751108,
+    "tradeId": "298115506501029720",
+    "source": "live_list_samples"
+  },
+  "routes": [
+    {
+      "name": "products/detail",
+      "module": "products",
+      "path": "/integrations/alibaba/xd/data/products/detail?product_id=AAFyoO5wAOXRII6QqyxoQgE-",
+      "status_code": 200,
+      "elapsed_ms": 1427,
+      "classification": "ROUTE_BOUND_AND_PASSED",
+      "summary": {
+        "top_keys": [
+          "ok",
+          "account",
+          "module",
+          "read_only",
+          "verification_status"
+        ],
+        "response_meta_keys": [
+          "request_id",
+          "trace_id",
+          "product_field_keys"
+        ],
+        "expected_field_key": "product_field_keys",
+        "expected_field_count": 24,
+        "verified_field_count": 8,
+        "error_category": null,
+        "top_error": null
+      }
+    },
+    {
+      "name": "products/groups",
+      "module": "products",
+      "path": "/integrations/alibaba/xd/data/products/groups?group_id=812751108",
+      "status_code": 200,
+      "elapsed_ms": 1222,
+      "classification": "ROUTE_BOUND_AND_PASSED",
+      "summary": {
+        "top_keys": [
+          "ok",
+          "account",
+          "module",
+          "read_only",
+          "verification_status"
+        ],
+        "response_meta_keys": [
+          "request_id",
+          "trace_id",
+          "product_group_field_keys"
+        ],
+        "expected_field_key": "product_group_field_keys",
+        "expected_field_count": 6,
+        "verified_field_count": 5,
+        "error_category": null,
+        "top_error": null
+      }
+    },
+    {
+      "name": "products/score",
+      "module": "products",
+      "path": "/integrations/alibaba/xd/data/products/score?product_id=AAFyoO5wAOXRII6QqyxoQgE-",
+      "status_code": 200,
+      "elapsed_ms": 1210,
+      "classification": "ROUTE_BOUND_AND_PASSED",
+      "summary": {
+        "top_keys": [
+          "ok",
+          "account",
+          "module",
+          "read_only",
+          "verification_status"
+        ],
+        "response_meta_keys": [
+          "request_id",
+          "trace_id",
+          "result_field_keys"
+        ],
+        "expected_field_key": "result_field_keys",
+        "expected_field_count": 3,
+        "verified_field_count": 3,
+        "error_category": null,
+        "top_error": null
+      }
+    },
+    {
+      "name": "orders/fund",
+      "module": "orders",
+      "path": "/integrations/alibaba/xd/data/orders/fund?e_trade_id=298115506501029720&data_select=fund_serviceFee%2Cfund_fundPay",
+      "status_code": 200,
+      "elapsed_ms": 1490,
+      "classification": "ROUTE_BOUND_AND_PASSED",
+      "summary": {
+        "top_keys": [
+          "ok",
+          "account",
+          "module",
+          "read_only",
+          "verification_status"
+        ],
+        "response_meta_keys": [
+          "request_id",
+          "trace_id",
+          "value_field_keys"
+        ],
+        "expected_field_key": "value_field_keys",
+        "expected_field_count": 2,
+        "verified_field_count": 2,
+        "error_category": null,
+        "top_error": null
+      }
+    },
+    {
+      "name": "orders/logistics",
+      "module": "orders",
+      "path": "/integrations/alibaba/xd/data/orders/logistics?e_trade_id=298115506501029720&data_select=logistic_order",
+      "status_code": 200,
+      "elapsed_ms": 1257,
+      "classification": "ROUTE_BOUND_AND_PASSED",
+      "summary": {
+        "top_keys": [
+          "ok",
+          "account",
+          "module",
+          "read_only",
+          "verification_status"
+        ],
+        "response_meta_keys": [
+          "request_id",
+          "trace_id",
+          "value_field_keys"
+        ],
+        "expected_field_key": "value_field_keys",
+        "expected_field_count": 3,
+        "verified_field_count": 2,
+        "error_category": null,
+        "top_error": null
+      }
+    }
+  ],
+  "regression": [
+    {
+      "name": "products/detail",
+      "path": "/integrations/alibaba/xd/data/products/detail?product_id=AAFyoO5wAOXRII6QqyxoQgE-",
+      "status_code": 200,
+      "elapsed_ms": 1130,
+      "classification": "ROUTE_BOUND_AND_PASSED",
+      "summary": {
+        "top_keys": [
+          "ok",
+          "account",
+          "module",
+          "read_only",
+          "verification_status"
+        ],
+        "response_meta_keys": [
+          "request_id",
+          "trace_id",
+          "product_field_keys"
+        ],
+        "expected_field_key": "product_field_keys",
+        "expected_field_count": 24,
+        "verified_field_count": 8,
+        "error_category": null,
+        "top_error": null
+      }
+    },
+    {
+      "name": "products/groups",
+      "path": "/integrations/alibaba/xd/data/products/groups?group_id=812751108",
+      "status_code": 200,
+      "elapsed_ms": 849,
+      "classification": "ROUTE_BOUND_AND_PASSED",
+      "summary": {
+        "top_keys": [
+          "ok",
+          "account",
+          "module",
+          "read_only",
+          "verification_status"
+        ],
+        "response_meta_keys": [
+          "request_id",
+          "trace_id",
+          "product_group_field_keys"
+        ],
+        "expected_field_key": "product_group_field_keys",
+        "expected_field_count": 6,
+        "verified_field_count": 5,
+        "error_category": null,
+        "top_error": null
+      }
+    },
+    {
+      "name": "products/score",
+      "path": "/integrations/alibaba/xd/data/products/score?product_id=AAFyoO5wAOXRII6QqyxoQgE-",
+      "status_code": 200,
+      "elapsed_ms": 1042,
+      "classification": "ROUTE_BOUND_AND_PASSED",
+      "summary": {
+        "top_keys": [
+          "ok",
+          "account",
+          "module",
+          "read_only",
+          "verification_status"
+        ],
+        "response_meta_keys": [
+          "request_id",
+          "trace_id",
+          "result_field_keys"
+        ],
+        "expected_field_key": "result_field_keys",
+        "expected_field_count": 3,
+        "verified_field_count": 3,
+        "error_category": null,
+        "top_error": null
+      }
+    },
+    {
+      "name": "orders/fund",
+      "path": "/integrations/alibaba/xd/data/orders/fund?e_trade_id=298115506501029720&data_select=fund_serviceFee%2Cfund_fundPay",
+      "status_code": 200,
+      "elapsed_ms": 1353,
+      "classification": "ROUTE_BOUND_AND_PASSED",
+      "summary": {
+        "top_keys": [
+          "ok",
+          "account",
+          "module",
+          "read_only",
+          "verification_status"
+        ],
+        "response_meta_keys": [
+          "request_id",
+          "trace_id",
+          "value_field_keys"
+        ],
+        "expected_field_key": "value_field_keys",
+        "expected_field_count": 2,
+        "verified_field_count": 2,
+        "error_category": null,
+        "top_error": null
+      }
+    },
+    {
+      "name": "orders/logistics",
+      "path": "/integrations/alibaba/xd/data/orders/logistics?e_trade_id=298115506501029720&data_select=logistic_order",
+      "status_code": 200,
+      "elapsed_ms": 1374,
+      "classification": "ROUTE_BOUND_AND_PASSED",
+      "summary": {
+        "top_keys": [
+          "ok",
+          "account",
+          "module",
+          "read_only",
+          "verification_status"
+        ],
+        "response_meta_keys": [
+          "request_id",
+          "trace_id",
+          "value_field_keys"
+        ],
+        "expected_field_key": "value_field_keys",
+        "expected_field_count": 3,
+        "verified_field_count": 2,
+        "error_category": null,
+        "top_error": null
+      }
+    }
+  ],
+  "sanity_control": {
+    "path": "/integrations/alibaba/xd/data/orders/list?page_size=1",
+    "status_code": 200,
+    "elapsed_ms": 1150,
+    "classification": "RECONFIRMED_XD_CONTROL",
+    "summary": {
+      "top_keys": [
+        "ok",
+        "account",
+        "module",
+        "read_only",
+        "verification_status"
+      ],
+      "response_meta_keys": [
+        "total_count",
+        "returned_item_count",
+        "start_page",
+        "page_size",
+        "request_id"
+      ],
+      "expected_field_key": "items",
+      "expected_field_count": 0,
+      "verified_field_count": 9,
+      "error_category": null,
+      "top_error": null
+    }
+  },
+  "counts": {
+    "ROUTE_BOUND_AND_PASSED": 5
+  }
+}

@@ -1,5 +1,36 @@
 ﻿# WIKA 自治推进日志
 
+### XD 阶段 27：route binding closure
+
+- 实际起始 commit：`d69168d20be856ab9e97a5a61c4688f0d1cbdfca`
+- 本轮只处理 5 条 XD route 缺口：
+  - `/integrations/alibaba/xd/data/products/detail`
+  - `/integrations/alibaba/xd/data/products/groups`
+  - `/integrations/alibaba/xd/data/products/score`
+  - `/integrations/alibaba/xd/data/orders/fund`
+  - `/integrations/alibaba/xd/data/orders/logistics`
+- 本轮新增沉淀：
+  - `scripts/validate-xd-stage27-route-binding.js`
+  - `docs/framework/evidence/stage27-xd-route-binding.json`
+  - `Ali-WIKA/projects/xd/access/parity_replay_stage27.md`
+- push：
+  - `135f49155921bffcd7d85999349d45d9e33ccd1d -> origin/main` 成功
+- production smoke / regression：
+  - `/health` -> `200`
+  - `/integrations/alibaba/xd/auth/debug` -> `200`
+  - `/integrations/alibaba/xd/data/products/list?page_size=1` -> `200`
+  - `/integrations/alibaba/xd/data/orders/list?page_size=1` -> `200`
+  - 5 条新 route 首次通过全部 `200 + JSON`
+  - 5 条新 route 二次回归全部继续 `200 + JSON`
+- 本轮结论：
+  - `ROUTE_BOUND_AND_PASSED = 5`
+  - stage26 的 5 条 `PASSED_WITH_EQUIVALENT_DATA` 已全部收口为 production route
+  - 剩余 14 条 `DOC_MISMATCH` 未在本轮扩展
+- 本轮边界：
+  - 不重跑 stage26 全量 replay
+  - 不扩到 categories / media / customers / reports / tools 其余 route
+  - 不做任何写侧动作
+
 ### 阶段 34 / 35：写侧边界候选矩阵与前置条件收口
 
 - 实际起始 commit：`a8fc18fa23a27784178adaac0422461ae1ba8b59`

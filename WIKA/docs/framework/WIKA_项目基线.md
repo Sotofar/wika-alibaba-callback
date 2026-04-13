@@ -1,5 +1,25 @@
 ﻿# WIKA_项目基线
 
+## 2026-04-13 XD Stage 27 Route Binding Closure
+
+### current status
+- stage26 中被标记为 `PASSED_WITH_EQUIVALENT_DATA` 的 5 条 XD route 已完成 production 绑定并在线验证。
+- 本轮新增在线 XD route：
+  - `/integrations/alibaba/xd/data/products/detail`
+  - `/integrations/alibaba/xd/data/products/groups`
+  - `/integrations/alibaba/xd/data/products/score`
+  - `/integrations/alibaba/xd/data/orders/fund`
+  - `/integrations/alibaba/xd/data/orders/logistics`
+- production base 持续 `PASS_BASE`，既有 XD control route 未回退。
+
+### fixed conclusion
+- 这 5 条能力不再只是 direct-method 等价证明，而是 production route 已在线可读。
+- 当前 XD parity 状态更新为：
+  - `RECONFIRMED_XD = 8`
+  - `ROUTE_BOUND_AND_PASSED = 5`
+  - `DOC_MISMATCH = 14`
+- 当前最大硬阻塞不再是这 5 条 route 缺失，而是剩余 14 条 `DOC_MISMATCH` 尚未进入下一轮最小批次处理。
+
 ## 2026-04-13 Stage 34/35 Write Boundary Matrix and Preflight
 
 ### current status

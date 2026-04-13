@@ -1,5 +1,31 @@
 ﻿# WIKA_执行计划
 
+## 2026-04-13 XD Stage 27 Route Binding Closure
+
+### 当前阶段
+- XD stage27：只补 5 条已被 direct-method 证明可读、但 production 尚未绑定的 route。
+
+### 已完成
+- `app.js` 已补齐：
+  - `/integrations/alibaba/xd/data/products/detail`
+  - `/integrations/alibaba/xd/data/products/groups`
+  - `/integrations/alibaba/xd/data/products/score`
+  - `/integrations/alibaba/xd/data/orders/fund`
+  - `/integrations/alibaba/xd/data/orders/logistics`
+- 已新增：
+  - `scripts/validate-xd-stage27-route-binding.js`
+  - `docs/framework/evidence/stage27-xd-route-binding.json`
+  - `Ali-WIKA/projects/xd/access/parity_replay_stage27.md`
+
+### Gate result
+- `git push origin HEAD:main` 成功
+- stage27 route binding validate -> `PASS`
+- 5 条目标 route 全部 `ROUTE_BOUND_AND_PASSED`
+- 最小回归复跑继续通过
+
+### 当前唯一下一步
+- 若继续推进 XD parity，只处理剩余 14 条 `DOC_MISMATCH` route，并按最小批次推进，不回到全量 replay。
+
 ## 2026-04-13 Stage 34/35 Write Boundary Preflight
 
 ### 当前阶段

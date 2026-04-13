@@ -5,7 +5,7 @@
 ## 当前覆盖面
 - parity route 总数：27
 - `RECONFIRMED_XD`: 8
-- `PASSED_WITH_EQUIVALENT_DATA`: 5
+- `ROUTE_BOUND_AND_PASSED`: 5
 - `DOC_MISMATCH`: 14
 
 ## direct-method 覆盖
@@ -20,14 +20,39 @@
   - `alibaba.mydata.overview.indicator.basic.get`
   - `alibaba.mydata.self.product.get`
 
-## 当前仍未落地为 XD route 的高价值能力
+## 本轮已完成的 route 绑定
 - products:
-  - detail / groups / score
+  - detail
+  - groups
+  - score
 - orders:
-  - fund / logistics
-- categories / media / customers / minimal-diagnostic / draft-tools:
-  - 当前 production 上不存在 XD route
+  - fund
+  - logistics
+
+## 当前仍未落地的 parity gap
+- categories:
+  - tree
+  - attributes
+- products:
+  - schema
+  - schema/render
+  - schema/render/draft
+- media:
+  - list
+  - groups
+- customers:
+  - list
+- orders:
+  - draft-types
+- reports:
+  - products/minimal-diagnostic
+  - orders/minimal-diagnostic
+  - operations/minimal-diagnostic
+- tools:
+  - reply-draft
+  - order-draft
 
 ## 约束
 - `NO_DATA` 不是 `PASSED`。
-- `PASSED_WITH_EQUIVALENT_DATA` 不是 route online。
+- stage27 只把 5 条已被 direct-method 证明可读的 route 补成 production route。
+- 剩余 14 条 `DOC_MISMATCH` 本轮未扩。
