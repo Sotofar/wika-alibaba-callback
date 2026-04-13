@@ -154,6 +154,22 @@ order draft 继续保留：
 - task 6 excluded
 - local contract only in stage28
 
+## 2026-04-13 Stage 29/30 Preview Addendum
+
+- 已部署：
+  - `/integrations/alibaba/wika/workbench/reply-preview`
+  - `/integrations/alibaba/wika/workbench/order-preview`
+  - `/integrations/alibaba/wika/workbench/preview-center`
+- 当前新增的是 preview consumption layer：
+  - reply preview -> 外部回复草稿输入感知预览
+  - order preview -> 外部订单草稿输入感知预览
+  - preview center -> task3/4/5 统一预览总览
+- 固定边界：
+  - external drafts only
+  - not platform reply send
+  - not platform order create
+  - task 6 excluded
+
 ## 当前结论
 
 当前已经形成“外部草稿工作流层 + blocker taxonomy + 人工补单 SOP + 可失败回归闸门 + handoff pack 导出”的稳定中间层。

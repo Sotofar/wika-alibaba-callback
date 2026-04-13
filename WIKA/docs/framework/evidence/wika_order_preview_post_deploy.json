@@ -1,0 +1,228 @@
+{
+  "report_name": "order_preview",
+  "generated_at": "2026-04-13T02:03:06.426Z",
+  "preview_input_summary": {
+    "buyer_company_name": "TEST BUYER / DO-NOT-USE",
+    "buyer_contact_name": "Sample Buyer",
+    "destination_country": "United States",
+    "line_item_count": 1,
+    "quoted_currency": "USD"
+  },
+  "workflow_preview": {
+    "workflow_profile": "order_commercial_review",
+    "template_version": "2026-04-05.sop-v1",
+    "order_draft_package": {
+      "ok": false,
+      "account": "***",
+      "stage": "external_order_draft_only",
+      "submit_mode": "manual_only",
+      "ready_for_platform_submit": false,
+      "draft_header": {
+        "generated_at": "2026-04-13T02:02:56.897Z",
+        "draft_type": "external_order_draft",
+        "source": "wika_order_entry_boundary"
+      },
+      "buyer": {
+        "buyer_member_seq": null,
+        "company_name": "TEST BUYER / DO-NOT-USE",
+        "contact_name": "Sample Buyer",
+        "email": "buy***com",
+        "phone": null,
+        "country_code": "US",
+        "country_name": "United States"
+      },
+      "line_items": [
+        {
+          "line_no": 1,
+          "product_id": "AAFwxslEAOVqtWWP0tWvJG1K",
+          "product_name": "Customizable New Fashion Portable Eyeglasses Accessories Leather Big Glasses case Oversize Sunglasses Holder",
+          "sku_id": null,
+          "sku_description": null,
+          "quantity": "1000",
+          "unit": "Pieces",
+          "unit_price": "0.65",
+          "currency": "USD",
+          "image_url": "https://sc04.alicdn.com/kf/H1f4802ee53514b4db076792e69b66f8cZ.jpg"
+        }
+      ],
+      "payment_terms": {
+        "currency": "USD",
+        "total_amount": "650",
+        "advance_amount": "195",
+        "balance_amount": null,
+        "payment_terms_text": "30% deposit, balance before shipment"
+      },
+      "shipment_plan": {
+        "trade_term": "FOB",
+        "shipment_method": "sea",
+        "lead_time_text": "25-30 days after artwork approval",
+        "destination_country": "United States",
+        "destination_port": null,
+        "logistics_notes": null
+      },
+      "notes": [],
+      "auto_generated_fields": [
+        "draft_header",
+        "line_items[].line_no",
+        "line_items[].product_id",
+        "line_items[].product_name",
+        "payment_terms.currency",
+        "shipment_plan.trade_term",
+        "shipment_plan.shipment_method",
+        "draft_boundary"
+      ],
+      "manual_required_fields": [
+        "buyer.company_name",
+        "buyer.contact_name",
+        "buyer.email",
+        "line_items[].quantity",
+        "line_items[].unit_price",
+        "payment_terms.total_amount",
+        "payment_terms.advance_amount",
+        "shipment_plan.lead_time_text"
+      ],
+      "reasons_cannot_submit": [
+        "当前仅形成外部订单草稿，不代表平台内订单已创建。",
+        "alibaba.trade.order.create 仍未证明存在非成交、可回滚、无副作用的安全边界。",
+        "当前缺少经过确认的买家、价格、交期与履约参数，不能自动发起真实信保下单。"
+      ],
+      "blocked_automation_fields": {
+        "trade_order_create": [
+          "buyer identity binding",
+          "product_list",
+          "price terms",
+          "payment terms",
+          "delivery terms",
+          "final order submit"
+        ]
+      },
+      "low_risk_write_boundary": {
+        "trade_order_create": {
+          "api_name": "alibaba.trade.order.create",
+          "actual_api_classification": "业务参数错误（说明已过授权层）",
+          "low_risk_boundary_proven": false,
+          "decision": "当前无法证明低风险边界，因此不继续实写验证",
+          "reasons": [
+            "官方文档明确这是“国际站信保下单”，成功路径天然对应真实订单创建，而不是只读或无副作用的预检查。",
+            "当前使用空对象/不完整 payload 调用时，平台返回 MissingParameter，说明已过授权层，但这不等于存在安全草稿模式。",
+            "当前公开官方文档里，尚未识别到明确的 create 同家族 precheck / cancel / draft create 读侧边界，可用于证明可回滚或非成交。",
+            "在没有可逆、可清理、无外部成交副作用证据前，不应继续真实创单验证。"
+          ],
+          "observable_evidence": {
+            "official_explicit_related_methods_seen": [
+              "alibaba.trade.order.create",
+              "alibaba.seller.trade.query.drafttype"
+            ],
+            "create_boundary_result": "使用空 param_order_create 调用 alibaba.trade.order.create 时，平台返回 MissingParameter(product_list)。",
+            "low_risk_precheck_or_draft_api_identified": false,
+            "cleanup_evidence_proven": false
+          },
+          "blocked_automation_fields": [
+            "buyer identity binding",
+            "product_list",
+            "price terms",
+            "payment terms",
+            "delivery terms",
+            "final order submit"
+          ],
+          "allowed_next_step": "仅继续生成外部订单草稿，不进入真实订单创建。"
+        }
+      },
+      "handoff": {
+        "account": "***",
+        "stage": "order_entry_boundary",
+        "status": "pending_human_handoff",
+        "severity": "high",
+        "action": "build_order_draft",
+        "api_name": "alibaba.trade.order.create",
+        "blocker_category": {
+          "code": "manual_confirmation_required",
+          "label": "写操作需要人工确认",
+          "description": "虽然技术上可继续，但执行会影响真实线上对象，必须先人工确认。"
+        },
+        "triggers": [
+          {
+            "code": "live_order_create",
+            "label": "真实订单创建",
+            "description": "任何会触发真实信保下单或真实订单生成的动作，都必须人工接管。"
+          },
+          {
+            "code": "pricing_or_delivery_uncertain",
+            "label": "价格或交期不确定",
+            "description": "写入内容涉及价格、MOQ、交期等承诺字段时，必须人工确认。"
+          },
+          {
+            "code": "irreversible_write_risk",
+            "label": "不可逆写入风险",
+            "description": "无法证明存在草稿/测试模式时，必须人工决定是否继续。"
+          }
+        ],
+        "requires_human_handoff": true,
+        "input_summary": {
+          "buyer_member_seq": null,
+          "line_item_count": 1,
+          "currency": "USD"
+        },
+        "evidence": {
+          "missing_manual_fields": [
+            "buyer.company_name",
+            "buyer.contact_name",
+            "buyer.email",
+            "line_items[].quantity",
+            "line_items[].unit_price",
+            "payment_terms.total_amount",
+            "payment_terms.advance_amount",
+            "shipment_plan.lead_time_text"
+          ],
+          "reasons_cannot_submit": [
+            "当前仅形成外部订单草稿，不代表平台内订单已创建。",
+            "alibaba.trade.order.create 仍未证明存在非成交、可回滚、无副作用的安全边界。",
+            "当前缺少经过确认的买家、价格、交期与履约参数，不能自动发起真实信保下单。"
+          ]
+        },
+        "next_action": "先由人工补齐买家、价格、交期与履约信息，再决定是否进入订单入口的更深边界验证。",
+        "created_at": "2026-04-13T02:02:56.897Z"
+      }
+    },
+    "required_manual_fields": [
+      "buyer.company_name",
+      "buyer.contact_name",
+      "buyer.email",
+      "line_items[].quantity",
+      "line_items[].unit_price",
+      "payment_terms.total_amount",
+      "payment_terms.advance_amount",
+      "shipment_plan.lead_time_text"
+    ],
+    "draft_usable_externally": true
+  },
+  "available_context": {
+    "has_buyer_identity": true,
+    "has_destination": true,
+    "has_price_fields": true,
+    "has_delivery_fields": true,
+    "line_item_count": 1,
+    "draft_types": [
+      "TA"
+    ]
+  },
+  "missing_context": [],
+  "hard_blockers": [],
+  "soft_blockers": [],
+  "follow_up_question_details": [],
+  "handoff_fields": [],
+  "quality_gate_summary": {
+    "handoff_required": false,
+    "confidence": "medium",
+    "risk_level": "high"
+  },
+  "recommended_next_action": "A human should still review commercial terms, delivery assumptions and buyer identity before reuse.",
+  "boundary_statement": {
+    "input_aware_preview_only": true,
+    "external_order_draft_only": true,
+    "not_platform_order_create": true,
+    "not_platform_internal_create": true,
+    "no_write_action_attempted": true,
+    "task6_excluded": true
+  }
+}

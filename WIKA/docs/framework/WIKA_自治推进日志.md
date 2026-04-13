@@ -1,5 +1,38 @@
 ﻿# WIKA 自治推进日志
 
+### 阶段 29/30：行动中心与输入感知预览层（已部署）
+
+- 实际起始 commit：`572f41f7a4f5a48760593ff9131c581b3936e4c7`
+- 阶段 29 本地候选 commit：`0011bb904f677c7e6caf57a2a4fcd92053718cf1`
+- push：
+  - `0011bb904f677c7e6caf57a2a4fcd92053718cf1 -> origin/main` 成功
+- 本轮新增 route：
+  - `/integrations/alibaba/wika/reports/action-center`
+  - `/integrations/alibaba/wika/workbench/product-draft-preview`
+  - `/integrations/alibaba/wika/workbench/reply-preview`
+  - `/integrations/alibaba/wika/workbench/order-preview`
+  - `/integrations/alibaba/wika/workbench/preview-center`
+- 本轮新增 helper：
+  - `WIKA/projects/wika/data/cockpit/action-center.js`
+  - `WIKA/projects/wika/data/workbench/product-draft-preview.js`
+  - `WIKA/projects/wika/data/workbench/reply-preview.js`
+  - `WIKA/projects/wika/data/workbench/order-preview.js`
+  - `WIKA/projects/wika/data/workbench/preview-center.js`
+- 本轮新增验证脚本：
+  - `WIKA/scripts/validate-wika-stage29-action-center-and-preview.js`
+- 验证结论：
+  - stage29 local contract -> `PASS`
+  - stage30 post-deploy smoke -> `PASS`
+  - 新增 5 条 route 均为 `200 + JSON`
+  - 既有 16 条核心 route 与 2 条 tools route 未回退
+- 本轮边界：
+  - action-center 只是统一行动消费层
+  - preview 只是输入感知预览层
+  - 不新增 official fields
+  - 不做写侧动作
+  - task 6 excluded
+  - 不写成 task1~5 complete
+
 ### 阶段 28：统一经营驾驶舱与任务 1-5 工作台（本地候选）
 
 - 实际起始 commit：`0c87585268b20231b1fb6b6724f499beaa278f67`

@@ -1,5 +1,19 @@
 ﻿# WIKA 已上线能力复用清单
 
+## 2026-04-13 Stage 30 Deploy Lock Additions
+- stage29 已 push 到 `origin/main`，action-center 与 preview 层已锁定到远端基线。
+- 已部署并通过 production smoke 的新 route：
+  - `/integrations/alibaba/wika/reports/action-center`
+  - `/integrations/alibaba/wika/workbench/product-draft-preview`
+  - `/integrations/alibaba/wika/workbench/reply-preview`
+  - `/integrations/alibaba/wika/workbench/order-preview`
+  - `/integrations/alibaba/wika/workbench/preview-center`
+- 当前复用边界：
+  - action-center 只聚合既有 cockpit / comparison / diagnostic / workbench 输出
+  - product/reply/order preview 只做输入感知预览
+  - 不新增 official fields
+  - 不触碰平台内发布 / 回复 / 创单
+
 ## 2026-04-11 Stage 24 Deploy Lock Additions
 - stage24 已 push 到 `origin/main`，目录重整、编码修复、路径修复与资产治理结果已锁定为远端基线。
 - stage24 首次 push 后的统一 `502` 已收口为目录迁移导致的 runtime import 层级问题，并已完成最小只读修正。

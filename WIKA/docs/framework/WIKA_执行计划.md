@@ -1,5 +1,35 @@
 ﻿# WIKA_执行计划
 
+## 2026-04-13 Stage 30 Deploy Lock: Action Center and Preview Layer
+
+### 当前阶段
+- 阶段 30：action-center 与 preview-center 远端锁定已完成
+
+### 已上线能力
+- reports：
+  - `/integrations/alibaba/wika/reports/action-center`
+- workbench：
+  - `/integrations/alibaba/wika/workbench/product-draft-preview`
+  - `/integrations/alibaba/wika/workbench/reply-preview`
+  - `/integrations/alibaba/wika/workbench/order-preview`
+  - `/integrations/alibaba/wika/workbench/preview-center`
+
+### Gate result
+- `git push origin HEAD:main` 成功
+- `node WIKA/scripts/validate-wika-stage29-action-center-and-preview.js --post-deploy` passed
+- stage29 / 30 已形成远端正式基线
+
+### 固定边界
+- action-center / preview-center 只增加消费层与预览层，不增加 official 字段。
+- task3/4/5 仍只是安全草稿 / 外部草稿消费层。
+- not task 1 complete
+- not task 2 complete
+- not task 3 complete
+- not task 4 complete
+- not task 5 complete
+- task 6 excluded
+- not full business cockpit
+
 ## 2026-04-13 Stage 29 Action Center and Preview Layer
 
 ### 当前阶段

@@ -96,3 +96,27 @@
 - task coverage summary stays partial for task1~5
 - task6 stays excluded
 - no unavailable dimension is re-labeled as covered
+
+## 2026-04-13 Stage 29/30 Action Center Addendum
+
+### deployed route
+- `/integrations/alibaba/wika/reports/action-center`
+
+### what it adds
+- 在既有 `business-cockpit` 之上，再向上补一层行动优先级消费视图
+- 统一暴露：
+  - `business_cockpit_summary`
+  - `diagnostic_signal_summary`
+  - `comparison_signal_summary`
+  - `task3_summary`
+  - `task4_summary`
+  - `task5_summary`
+  - `prioritized_actions`
+  - `shared_blockers`
+  - `boundary_statement`
+
+### fixed boundary
+- action-center 只是消费层，不是平台内执行层
+- 只复用现有 cockpit / diagnostic / comparison / workbench 输出
+- 不新增 official fields
+- not full business cockpit

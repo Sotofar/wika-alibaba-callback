@@ -1,5 +1,36 @@
 ﻿# WIKA_经营数据字段覆盖矩阵
 
+## 2026-04-13 Stage 29 Action Center and Preview Delta
+
+### No new confirmed fields
+- store official fields remain:
+  - `visitor`
+  - `imps`
+  - `clk`
+  - `clk_rate`
+  - `fb`
+  - `reply`
+- product official fields remain:
+  - `click`
+  - `impression`
+  - `visitor`
+  - `fb`
+  - `order`
+  - `bookmark`
+  - `compare`
+  - `share`
+  - `keyword_effects`
+- order layer remains:
+  - `formal_summary` -> derived
+  - `product_contribution` -> derived
+  - `trend_signal` -> derived
+  - `country_structure` -> unavailable
+
+### Stage29 packaging delta
+- `action-center` only repackages existing cockpit / diagnostic / comparison / workbench outputs.
+- `product/reply/order preview` only expose input-aware preview layers on top of existing safe draft and external draft chains.
+- No field should be reclassified from unavailable to confirmed in this round.
+
 ## 2026-04-11 Stage 28 Cockpit Delta
 
 ### No new confirmed fields

@@ -1,5 +1,30 @@
 ﻿# WIKA 面向 6 项任务 API 缺口矩阵
 
+## 2026-04-13 Stage 29 Action Center and Preview Delta
+
+### Task 1
+- `action-center` can surface the current store / product / order diagnostic and comparison signals as one prioritized action view.
+- This does not add new official inputs and does not close the remaining field gaps.
+
+### Task 2
+- `action-center` can expose a more directly consumable next-action layer on top of existing summaries, comparisons, and diagnostics.
+- Remaining unavailable dimensions stay unchanged.
+
+### Task 3
+- `product-draft-preview` now exposes one deployed preview route for schema-aware / media-aware / manual blocker-aware input preview.
+- This does not publish products and does not create draft objects on platform.
+
+### Task 4
+- `reply-preview` now exposes one deployed preview route for external reply-draft preview and handoff readiness.
+- This does not send platform replies.
+
+### Task 5
+- `order-preview` now exposes one deployed preview route for external order-draft preview and handoff readiness.
+- This does not create platform orders.
+
+### Task 6
+- Explicitly excluded in stage29 / 30.
+
 ## 2026-04-11 Stage 28 Cockpit and Workbench Delta
 
 ### Task 1

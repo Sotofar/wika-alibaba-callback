@@ -1,5 +1,27 @@
 ﻿# WIKA_项目基线
 
+## 2026-04-13 Stage 30 Deploy Lock: Action Center and Preview Layer
+
+### deployed routes
+- `/integrations/alibaba/wika/reports/action-center`
+- `/integrations/alibaba/wika/workbench/product-draft-preview`
+- `/integrations/alibaba/wika/workbench/reply-preview`
+- `/integrations/alibaba/wika/workbench/order-preview`
+- `/integrations/alibaba/wika/workbench/preview-center`
+
+### production status
+- stage29 已 push 到 `origin/main`
+- post-deploy unified smoke -> `PASS`
+- 既有 16 条核心 route 与 2 条 tools route 未回退
+- 新增 5 条 route 全部返回 `200 + JSON`
+
+### fixed boundary
+- action-center 是消费层，不是平台内执行层。
+- preview 层是输入感知预览，不是平台内发布 / 回复 / 创单。
+- 本轮不新增 official fields。
+- 本轮不新增 Alibaba API 验证。
+- task 6 继续排除。
+
 ## 2026-04-13 Stage 29 Local Action Center and Preview Candidate
 
 ### Local candidate only

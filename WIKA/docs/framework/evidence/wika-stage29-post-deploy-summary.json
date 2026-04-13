@@ -1,0 +1,194 @@
+{
+  "stage": "stage29_post_deploy",
+  "generated_at": "2026-04-13T01:59:51.299Z",
+  "base_url": "https://api.wikapacking.com",
+  "online_baseline": {
+    "health": {
+      "status": 200,
+      "elapsed_ms": 1034,
+      "body": "ok"
+    },
+    "auth_debug": {
+      "status": 200,
+      "elapsed_ms": 782,
+      "body": {
+        "app_base_url": "https://api.wikapacking.com",
+        "session_secret_present": "***",
+        "state_ttl_seconds": 600,
+        "wika_client_id_present": "***",
+        "wika_client_secret_present": "***",
+        "wika_redirect_uri": "https://api.wikapacking.com/integrations/alibaba/callback",
+        "wika_auth_url": "https://open-api.alibaba.com/oauth/authorize",
+        "wika_token_url": "***",
+        "wika_refresh_token_url": "***",
+        "wika_partner_id_present": false,
+        "wika_auto_refresh_enabled": true,
+        "wika_refresh_buffer_seconds": 600,
+        "wika_bootstrap_refresh_token_present": "***",
+        "wika_token_storage_path": "***",
+        "wika_token_file_exists": "***",
+        "wika_token_loaded": "***",
+        "wika_runtime_loaded_from": "refresh:startup_bootstrap",
+        "wika_startup_init_attempted_at": "2026-04-11T16:03:23.029Z",
+        "wika_startup_init_status": "refresh:startup_bootstrap",
+        "wika_startup_init_error": null,
+        "wika_has_refresh_token": "***",
+        "wika_next_refresh_at": "2026-05-11T15:53:24.305Z",
+        "wika_last_refresh_at": "2026-04-11T16:03:24.308Z",
+        "wika_last_refresh_reason": "startup_bootstrap",
+        "wika_last_refresh_error": null
+      }
+    },
+    "stable_route_statuses": {
+      "health": {
+        "route": "/health",
+        "status": 200,
+        "elapsed_ms": 1034
+      },
+      "authDebug": {
+        "route": "/integrations/alibaba/auth/debug",
+        "status": 200,
+        "elapsed_ms": 782
+      },
+      "operationsManagementSummary": {
+        "route": "/integrations/alibaba/wika/reports/operations/management-summary",
+        "status": 200,
+        "elapsed_ms": 2573
+      },
+      "productsManagementSummary": {
+        "route": "/integrations/alibaba/wika/reports/products/management-summary",
+        "status": 200,
+        "elapsed_ms": 5208
+      },
+      "ordersManagementSummary": {
+        "route": "/integrations/alibaba/wika/reports/orders/management-summary",
+        "status": 200,
+        "elapsed_ms": 5856
+      },
+      "operationsMinimalDiagnostic": {
+        "route": "/integrations/alibaba/wika/reports/operations/minimal-diagnostic",
+        "status": 200,
+        "elapsed_ms": 12483
+      },
+      "productsMinimalDiagnostic": {
+        "route": "/integrations/alibaba/wika/reports/products/minimal-diagnostic",
+        "status": 200,
+        "elapsed_ms": 6719
+      },
+      "ordersMinimalDiagnostic": {
+        "route": "/integrations/alibaba/wika/reports/orders/minimal-diagnostic",
+        "status": 200,
+        "elapsed_ms": 9435
+      },
+      "operationsComparisonSummary": {
+        "route": "/integrations/alibaba/wika/reports/operations/comparison-summary",
+        "status": 200,
+        "elapsed_ms": 4026
+      },
+      "productsComparisonSummary": {
+        "route": "/integrations/alibaba/wika/reports/products/comparison-summary",
+        "status": 200,
+        "elapsed_ms": 6886
+      },
+      "ordersComparisonSummary": {
+        "route": "/integrations/alibaba/wika/reports/orders/comparison-summary",
+        "status": 200,
+        "elapsed_ms": 5504
+      },
+      "businessCockpit": {
+        "route": "/integrations/alibaba/wika/reports/business-cockpit",
+        "status": 200,
+        "elapsed_ms": 12780
+      },
+      "productDraftWorkbench": {
+        "route": "/integrations/alibaba/wika/workbench/product-draft-workbench",
+        "status": 200,
+        "elapsed_ms": 4297
+      },
+      "replyWorkbench": {
+        "route": "/integrations/alibaba/wika/workbench/reply-workbench",
+        "status": 200,
+        "elapsed_ms": 6038
+      },
+      "orderWorkbench": {
+        "route": "/integrations/alibaba/wika/workbench/order-workbench",
+        "status": 200,
+        "elapsed_ms": 10155
+      },
+      "taskWorkbench": {
+        "route": "/integrations/alibaba/wika/workbench/task-workbench",
+        "status": 200,
+        "elapsed_ms": 20950
+      }
+    },
+    "stable_tool_statuses": {
+      "reply_draft": {
+        "route": "/integrations/alibaba/wika/tools/reply-draft",
+        "method": "POST",
+        "status": 200,
+        "elapsed_ms": 8714
+      },
+      "order_draft": {
+        "route": "/integrations/alibaba/wika/tools/order-draft",
+        "method": "POST",
+        "status": 200,
+        "elapsed_ms": 11932
+      }
+    }
+  },
+  "local_contract": {
+    "action_center": {
+      "prioritized_action_count": 1,
+      "shared_blocker_count": 23
+    },
+    "product_draft_preview": {
+      "product_id": "1601740791024",
+      "blocking_risk_count": 3,
+      "missing_requirement_count": 2
+    },
+    "reply_preview": {
+      "workflow_profile": "reply_mockup_customization",
+      "hard_blocker_count": 2
+    },
+    "order_preview": {
+      "workflow_profile": "order_commercial_review",
+      "hard_blocker_count": 0
+    },
+    "preview_center": {
+      "shared_blocker_count": 6,
+      "task3_preview_available": true
+    }
+  },
+  "production_smoke": {
+    "actionCenter": {
+      "route": "/integrations/alibaba/wika/reports/action-center",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 33496
+    },
+    "productDraftPreview": {
+      "route": "/integrations/alibaba/wika/workbench/product-draft-preview",
+      "method": "POST",
+      "status": 200,
+      "elapsed_ms": 3927
+    },
+    "replyPreview": {
+      "route": "/integrations/alibaba/wika/workbench/reply-preview",
+      "method": "POST",
+      "status": 200,
+      "elapsed_ms": 8185
+    },
+    "orderPreview": {
+      "route": "/integrations/alibaba/wika/workbench/order-preview",
+      "method": "POST",
+      "status": 200,
+      "elapsed_ms": 11169
+    },
+    "previewCenter": {
+      "route": "/integrations/alibaba/wika/workbench/preview-center",
+      "method": "POST",
+      "status": 200,
+      "elapsed_ms": 24380
+    }
+  }
+}

@@ -118,6 +118,22 @@
 - no real order creation attempted
 - local contract only in stage28
 
+## 2026-04-13 Stage 29/30 Order Preview Addendum
+
+- 已部署：
+  - `/integrations/alibaba/wika/workbench/order-preview`
+- 当前 preview 只在既有外部订单草稿链路上，额外补一层输入感知输出：
+  - `preview_input_summary`
+  - `workflow_preview`
+  - `draft_preview`
+  - `blocking_risks`
+  - `quality_gate_summary`
+  - `recommended_next_action`
+- 固定边界：
+  - external order draft only
+  - not platform order create
+  - no write action attempted
+
 如果这些字段未经人工确认，就不能继续真实创单。
 
 ## 当前为什么不能直接提交平台订单

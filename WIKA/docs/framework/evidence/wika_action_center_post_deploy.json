@@ -1,0 +1,111 @@
+{
+  "report_name": "action_center",
+  "generated_at": "2026-04-13T02:02:42.957Z",
+  "business_cockpit_summary": {
+    "source_route": "/integrations/alibaba/wika/reports/business-cockpit",
+    "task_coverage_summary": {
+      "task1_partial_status": {
+        "status": "partially_reopened",
+        "complete": false,
+        "note": "Store, product, and order read-side summaries are available, but several key business dimensions are still missing."
+      },
+      "task2_partial_status": {
+        "status": "partially_reopened",
+        "complete": false,
+        "note": "Minimal diagnostic and comparison layers are available, but this is still not a full business diagnostic cockpit."
+      },
+      "task3_partial_status": {
+        "status": "partially_reopened",
+        "complete": false,
+        "note": "A product safe-draft workbench candidate exists, but it stays at safe draft preparation and does not publish."
+      },
+      "task4_partial_status": {
+        "status": "partially_reopened",
+        "complete": false,
+        "note": "A reply-draft external workbench candidate exists, but it does not send platform replies."
+      },
+      "task5_partial_status": {
+        "status": "partially_reopened",
+        "complete": false,
+        "note": "An order-draft external workbench candidate exists, but it does not create platform orders."
+      },
+      "task6_excluded": true
+    },
+    "combined_gap_count": 7
+  },
+  "diagnostic_signal_summary": "***",
+  "comparison_signal_summary": "***",
+  "task3_summary": {
+    "report_name": "product_draft_workbench",
+    "recommended_next_action": "Fill required category attributes, schema-required fields, and media candidates before handing the draft package to manual review. Do not enter platform publish.",
+    "blocking_signals": "***",
+    "boundary_statement": {
+      "safe_draft_preparation_only": true,
+      "not_platform_publish": true,
+      "not_write_side_closed_loop": true,
+      "render_draft_is_observability_only": true
+    }
+  },
+  "task4_summary": {
+    "report_name": "reply_workbench",
+    "recommended_next_action": null,
+    "blocking_signals": "***",
+    "boundary_statement": {
+      "external_reply_draft_only": true,
+      "not_platform_reply": true,
+      "not_platform_internal_send": true,
+      "no_real_send_attempted": true,
+      "task6_excluded": true
+    }
+  },
+  "task5_summary": {
+    "report_name": "order_workbench",
+    "recommended_next_action": null,
+    "blocking_signals": "***",
+    "boundary_statement": {
+      "external_order_draft_only": true,
+      "not_platform_order_create": true,
+      "not_platform_internal_create": true,
+      "no_real_order_creation_attempted": true,
+      "task6_excluded": true
+    }
+  },
+  "prioritized_actions": [
+    {
+      "priority": "high",
+      "domain": "task3",
+      "source": "/integrations/alibaba/wika/workbench/product-draft-workbench",
+      "recommended_next_action": "Fill required category attributes, schema-required fields, and media candidates before handing the draft package to manual review. Do not enter platform publish.",
+      "reason": "Task 3 still stays at safe draft preparation and manual field completion."
+    }
+  ],
+  "shared_blockers": [
+    "traffic_source",
+    "country_source",
+    "quick_reply_rate",
+    "access_source",
+    "inquiry_source",
+    "period_over_period_change",
+    "country_structure",
+    "schema_required_fields_unfilled",
+    "missing_inquiry_text",
+    "missing_final_quote",
+    "missing_lead_time",
+    "missing_destination_country",
+    "missing_product_context",
+    "missing_quantity",
+    "missing_customer_profile",
+    "missing_buyer_company",
+    "missing_buyer_contact",
+    "missing_buyer_email",
+    "missing_line_items",
+    "missing_total_amount"
+  ],
+  "boundary_statement": {
+    "action_center_only": true,
+    "current_official_mainline_plus_derived_layers_only": true,
+    "not_platform_execution": true,
+    "task6_excluded": true,
+    "no_write_action_attempted": true
+  }
+}

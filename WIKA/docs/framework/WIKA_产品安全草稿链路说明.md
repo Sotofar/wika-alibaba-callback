@@ -196,3 +196,20 @@ Phase 6 新增证据：
 
 WIKA 当前已经具备“schema-aware 的低风险产品草稿准备链路”，并且已经证明 media 可观测、draft 可区分；但还没有证明 photobank.upload 和 product.add.draft 具备可隔离、可清理、可回滚的低风险边界，因此仍不能把这条链路写成“产品上新闭环已完成”。
 
+## 2026-04-13 Stage 29/30 Product Preview Addendum
+
+- 已部署：
+  - `/integrations/alibaba/wika/workbench/product-draft-preview`
+- 当前 preview 只在既有安全草稿链路上，额外补一层输入感知输出：
+  - `preview_input_summary`
+  - `product_context`
+  - `context_snapshot`
+  - `draft_preview`
+  - `required_manual_fields`
+  - `blocking_risks`
+  - `recommended_next_action`
+- 固定边界：
+  - safe draft preparation only
+  - not platform publish
+  - no write action attempted
+

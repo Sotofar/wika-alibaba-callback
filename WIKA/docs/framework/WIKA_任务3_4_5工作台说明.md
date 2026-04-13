@@ -98,3 +98,25 @@
 - task5 stays external order draft only
 - task3/4/5 workbench is not platform-internal execution
 - task6 stays excluded
+
+## 2026-04-13 Stage 29/30 Preview Addendum
+
+### deployed preview routes
+- `/integrations/alibaba/wika/workbench/product-draft-preview`
+- `/integrations/alibaba/wika/workbench/reply-preview`
+- `/integrations/alibaba/wika/workbench/order-preview`
+- `/integrations/alibaba/wika/workbench/preview-center`
+
+### what stage29 / 30 adds
+- 在既有 task3/4/5 workbench 之上，再补一层输入感知 preview
+- 当前 preview 统一强调：
+  - preview only
+  - external draft only
+  - manual handoff still required
+  - not platform-internal execution
+
+### fixed boundary
+- task3 preview 不是平台内商品发布
+- task4 preview 不是平台内发送回复
+- task5 preview 不是平台内创建订单
+- preview-center 只是统一预览总览层
