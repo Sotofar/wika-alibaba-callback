@@ -3956,6 +3956,26 @@ app.get(
   "/integrations/alibaba/xd/data/products/groups",
   createAccountProductGroupsHandler("xd")
 );
+app.get(
+  "/integrations/alibaba/xd/data/categories/tree",
+  createAccountCategoryTreeHandler("xd")
+);
+app.get(
+  "/integrations/alibaba/xd/data/categories/attributes",
+  createAccountCategoryAttributesHandler("xd")
+);
+app.get(
+  "/integrations/alibaba/xd/data/products/schema",
+  createAccountProductSchemaHandler("xd")
+);
+app.get(
+  "/integrations/alibaba/xd/data/products/schema/render",
+  createAccountProductSchemaRenderHandler("xd")
+);
+app.get(
+  "/integrations/alibaba/xd/data/products/schema/render/draft",
+  createAccountProductSchemaRenderDraftHandler("xd")
+);
 
 app.get(
   "/integrations/alibaba/wika/data/orders/list",
