@@ -1,0 +1,10 @@
+{
+  "generated_at": "2026-04-14T01:48:50.838Z",
+  "report_path": "D:\\Code\\阿里国际站\\WIKA\\docs\\reports\\WIKA_全平台诊断报告.md",
+  "evidence_path": "D:\\Code\\阿里国际站\\WIKA\\docs\\reports\\WIKA_全平台诊断证据.json",
+  "summary_path": "D:\\Code\\阿里国际站\\WIKA\\docs\\reports\\WIKA_全平台诊断摘要.json",
+  "route_success_count": 24,
+  "route_failure_count": 0,
+  "failed_routes": [],
+  "max_completion_reached": true
+}

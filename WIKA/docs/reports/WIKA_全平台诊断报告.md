@@ -1,0 +1,156 @@
+# WIKA 全平台诊断总报告
+
+生成时间：2026-04-14T01:48:50.838Z
+成功 route 数：24/24
+
+## 1. 执行摘要
+- WIKA 当前已经形成店铺、产品、订单三层经营摘要、最小诊断、周期对比、统一驾驶舱、行动中心、统一控制台，以及任务 3/4/5 的工作台与预览层。
+- 本轮核心成功 route 数为 24/24，已足够生成完整、可读、可验证的全平台诊断总报告。
+- 当前最优先动作仍是先补齐 task3 所需的分类属性、schema 必填字段和媒体素材，再把更完整的产品上下文反哺 task4/5 外部草稿。
+- 当前最大盲区仍是 traffic_source、country_source、quick_reply_rate、access_source、inquiry_source、period_over_period_change、country_structure，这些维度会限制来源归因、国家结构和平台内闭环判断。
+- 任务 3/4/5 当前都停留在安全草稿、预览和人工接力层，不是平台内执行闭环。
+
+## 2. 数据覆盖说明
+- 店铺级 official mainline confirmed：visitor、imps、clk、clk_rate、fb、reply。
+- 产品级 official mainline confirmed：click、impression、visitor、fb、order、bookmark、compare、share、keyword_effects。
+- 订单级当前成立的是 derived 层 formal_summary、product_contribution、trend_signal；country_structure 仍 unavailable。
+- comparison、business-cockpit、action-center、operator-console、workbench、preview 全部属于 derived consumption layer，不是新增 official field。
+- stage34/35 写侧边界前置包当前只证明了边界状态，没有新增低风险实写成功样本；task3=NO_ROLLBACK_PATH，task4=DOC_INSUFFICIENT，task5=NO_ROLLBACK_PATH。
+
+### 2.1 Official mainline confirmed
+- 店铺级 official fields：visitor、imps、clk、clk_rate、fb、reply
+- 产品级 official fields：click、impression、visitor、fb、order、bookmark、compare、share、keyword_effects
+- 订单级官方原始只读基础来自 orders/list、orders/detail、orders/fund、orders/logistics
+
+### 2.2 Derived
+- 店铺、产品、订单 comparison delta
+- 订单 derived：formal_summary、product_contribution、trend_signal
+- business-cockpit、action-center、operator-console
+- task3/4/5 workbench、preview、draft package
+
+### 2.3 Unavailable
+- traffic_source：当前仍 unavailable
+- country_source：当前仍 unavailable
+- quick_reply_rate：当前仍 unavailable
+- access_source：当前仍 unavailable
+- inquiry_source：当前仍 unavailable
+- period_over_period_change：当前仍 unavailable
+- country_structure：当前仍 unavailable
+
+## 3. 店铺级诊断
+- 当前店铺经营概览：visitor=257、imps=6959、clk=156、clk_rate=0.0224、fb=7、reply=0.9921。
+- 上一可比窗口对比：visitor -3、imps 190、clk 13、fb -1，reply 趋势为 down。
+- 店铺层当前不是流量塌陷问题，而是“已有增长但来源归因不透明”，因此无法确认哪些渠道、国家或回复速度在真正驱动效果。
+- 店铺层主要盲区：traffic_source、country_source、quick_reply_rate。
+- 当前店铺级 mydata 子集没有明显异常，建议继续按周跟踪 visitor / imps / clk / fb / reply。
+- 当前店铺层建议以 visitor / imps / clk / fb / reply 的周节奏跟踪为主，不把缺失的来源维度脑补成已覆盖。
+
+## 4. 产品级诊断
+- 当前产品表现概览：product_scope_basis=sample_from_products_list、product_scope_limit=5、product_scope_truncated=true。
+- 聚合指标：click=0、impression=0、visitor=0、order=0。
+- 上一可比窗口对比：impression -7、visitor 0、order 0。
+- 当前样本内未形成明显高表现产品。
+- 当前产品层主要问题：missing_description_count=5、missing_keywords_count=8、low_score_count=1。
+- 当前产品层最主要问题不是曝光完全没有，而是样本内曝光上升后仍没带来 visitor / order 同步抬升，说明详情内容、关键词和结构准备仍是主要短板。
+- 产品层数据盲区：access_source、inquiry_source、country_source、period_over_period_change；并且 management/comparison 仍是 sample-based，不代表全量产品历史。
+
+## 5. 订单级诊断
+- 当前订单正式汇总：total_order_count=122、observed_trade_count=3、trade_status_distribution=undeliver:2、unpay:1。
+- 订单金额与履约信号：total_amount_by_currency=USD 6685.4，logistics_status_distribution=UNDELIVERED:3。
+- 产品贡献概览：1. Screen Printing 2oz 60ml Liquid Lens Spray Clea…（order_count=2）；2. Custom 1oz 2oz Glasses Cleaner Eyewear Lens Spr…（order_count=2）；3. Custom Travel Packaging Set Glasses Case Paper …（order_count=1）
+- 趋势信号：observed_order_count_delta=1，trend_direction=up。
+- 订单层当前已经能给出 conservative derived summary，但本质仍是 sampled/window-based，不是完整订单经营驾驶舱。
+- country_structure 仍 unavailable，因为现有 orders/list、orders/detail、orders/fund、orders/logistics 以及已上线 derived 层都没有稳定国家结构字段可汇总。
+- 订单层数据盲区：country_structure。
+
+## 6. 跨层综合诊断
+- 跨层观察一：店铺 visitor / imps / clk 在上升，但产品样本 visitor / order 仍弱，说明流量增长并未稳定转化到有效商品表现。
+- 跨层观察二：产品内容与 schema 必填字段缺口，会直接拉低 task3 的自动准备质量，也会反向影响 task4 / task5 草稿包的上下文完整度。
+- 跨层观察三：订单层已经能输出 formal_summary / product_contribution / trend_signal，但 country_structure 不可见，跨国家经营判断仍不完整。
+- 跨层共振的核心盲区仍是 traffic_source、country_source、quick_reply_rate、access_source、inquiry_source、period_over_period_change、country_structure。
+- 当前最优先动作仍是先补齐分类属性、schema 必填字段和媒体素材，再交给人工复核，不进入平台发布。
+
+## 7. 任务 3 现状评估
+- WIKA 当前已经能为 task3 提供 schema-aware 安全草稿准备：类目树、属性、schema、render、render.draft、媒体列表、媒体分组、product-draft-workbench、product-draft-preview 全部可读可用。
+- product-draft-workbench 当前状态：safe_draft_preparation_available=true，ready_for_publish=false。
+- product-draft-preview 当前仍缺：required_attributes、schema_required_fields。
+- 当前仍必须人工完成的关键步骤：required_attributes、schema_required_fields。
+- 它仍不是平台内商品发布闭环，因为当前只到 safe draft preparation / payload draft / manual review handoff，未证明低风险、可回滚的真实发布边界。
+- 写侧边界前置包状态：task3=NO_ROLLBACK_PATH。
+
+## 8. 任务 4 现状评估
+- WIKA 当前已经能为 task4 提供 reply-workbench、reply-preview 和 reply-draft 三层消费能力，可生成外部回复草稿、问题补采清单与 handoff 包。
+- reply-workbench 边界：external_reply_draft_only=true，not_platform_reply=true。
+- reply-preview 当前缺失的关键上下文：final_quote、lead_time、mockup_assets。
+- reply-preview 硬阻塞主要集中在：missing_final_quote、missing_lead_time。
+- 当前仍必须人工完成最终报价、交期确认、样图或 mockup 材料确认，因此它还不是平台内自动回复闭环。
+- 写侧边界前置包状态：task4=DOC_INSUFFICIENT。
+
+## 9. 任务 5 现状评估
+- WIKA 当前已经能为 task5 提供 order-workbench、order-preview 和 order-draft 三层消费能力，可生成外部订单草稿、required_manual_fields 和 handoff 包。
+- order-workbench 边界：external_order_draft_only=true，not_platform_order_create=true。
+- order-preview 当前缺失上下文：无。
+- 当前仍必须人工确认的关键订单字段：buyer.company_name、buyer.contact_name、buyer.email、line_items[].quantity、line_items[].unit_price、payment_terms.total_amount、payment_terms.advance_amount、shipment_plan.lead_time_text。
+- 它仍不是平台内创单闭环，因为 buyer identity binding、最终价格、付款条件、履约条件和真实 create rollback 都未证明可自动安全完成。
+- 写侧边界前置包状态：task5=NO_ROLLBACK_PATH。
+
+## 10. 工作量替代评估
+- 能完全自动完成的工作：经营摘要读取、最小诊断、周期对比、business-cockpit、action-center、operator-console、task-workbench 汇总。
+- 能自动完成大部分但仍需人工确认的工作：product-draft-preview、reply-preview、order-preview，以及 reply/order 外部草稿包生成。
+- 只能做到准备层 / 预览层 / 手工接力层的工作：task3 安全草稿准备、task4 正式回复前的上下文补采和草稿整理、task5 正式创单前的商业条款与资料整理。
+- 当前完全做不了的工作：traffic_source、country_source、quick_reply_rate、access_source、inquiry_source、period_over_period_change、country_structure，以及平台内真实发布、平台内真实回复、平台内真实创单。
+- 结论上，WIKA 已经可以替代大部分“读取、汇总、诊断、预览、交接包生成”工作，但还不能替代最终平台内执行与缺失维度判断。
+
+## 11. 运营建议
+### 11.1 立即执行（0–7 天）
+- 先按 action-center / operator-console 的 next_best_action，补齐 task3 所需的 schema 必填字段、分类属性与媒体素材。
+- 把 reply-preview 暴露出的 final_quote、lead_time、mockup_assets 缺口作为销售跟进清单，先补齐再发正式回复。
+- 把 order-workbench / order-preview 给出的 required_manual_fields 当作订单交接检查表，先补齐 buyer、价格、付款与交期。
+
+### 11.2 短期推进（7–30 天）
+- 针对 products/minimal-diagnostic 暴露出的 missing_description_count、missing_keywords_count 和 low_score_count 建一轮样本整改。
+- 建立 operator-console 周复盘节奏，用 business-cockpit + action-center 统一看经营态势、优先动作和跨层阻塞。
+- 把 task3 已整理好的产品上下文继续复用到 task4 / task5 外部草稿，减少人工重复整理。
+
+### 11.3 中期建设（30 天以上）
+- 若要继续提升任务 1/2 的经营判断，需要官方 mainline 补齐 traffic_source、country_source、quick_reply_rate、access_source、inquiry_source、period_over_period_change、country_structure。
+- 若要继续提升任务 3/4/5，需要外部条件证明低风险写侧边界，包括 test scope、readback、rollback 或隔离证明。
+- 若要进入真正 full business cockpit，需要补齐当前 unavailable 维度和平台内执行闭环；当前还不具备这些外部条件。
+
+## 12. 盲区与风险
+- 当前 unavailable 维度：traffic_source、country_source、quick_reply_rate、access_source、inquiry_source、period_over_period_change、country_structure。
+- 这些盲区会让流量来源判断、国家结构判断、平台内回复时效判断和跨国家订单结构判断失真。
+- 当前置信度高的结论主要来自 official mainline confirmed 的店铺/产品字段，以及 conservative derived 的订单 summary/comparison。
+- 当前置信度较保守的部分主要是 sample-based 产品层、window-based 订单层，以及 task3/4/5 的预览与外部草稿消费层。
+
+## 13. 当前边界下的最大完成度结论
+- 在“不做新 API 探索、不碰写侧、不推进任务 6”的当前边界下，WIKA 已经达到当前 official mainline + safe derived 消费层的最大完成度。
+- 当前已经同时具备：summary、diagnostic、comparison、business-cockpit、action-center、operator-console，以及 task3/4/5 workbench、preview、draft package。
+- 后续如果还要明显往前推进，必须依赖外部条件：缺失维度的官方主线补齐，或低风险写侧边界被正式证明。
+
+## 14. 本轮使用的线上 route
+- GET /health -> 200 (ok)
+- GET /integrations/alibaba/auth/debug -> 200 (ok)
+- GET /integrations/alibaba/wika/reports/operations/management-summary -> 200 (ok)
+- GET /integrations/alibaba/wika/reports/products/management-summary -> 200 (ok)
+- GET /integrations/alibaba/wika/reports/orders/management-summary -> 200 (ok)
+- GET /integrations/alibaba/wika/reports/operations/minimal-diagnostic -> 200 (ok)
+- GET /integrations/alibaba/wika/reports/products/minimal-diagnostic -> 200 (ok)
+- GET /integrations/alibaba/wika/reports/orders/minimal-diagnostic -> 200 (ok)
+- GET /integrations/alibaba/wika/reports/operations/comparison-summary -> 200 (ok)
+- GET /integrations/alibaba/wika/reports/products/comparison-summary -> 200 (ok)
+- GET /integrations/alibaba/wika/reports/orders/comparison-summary -> 200 (ok)
+- GET /integrations/alibaba/wika/reports/business-cockpit -> 200 (ok)
+- GET /integrations/alibaba/wika/reports/action-center -> 200 (ok)
+- GET /integrations/alibaba/wika/reports/operator-console -> 200 (ok)
+- GET /integrations/alibaba/wika/workbench/product-draft-workbench -> 200 (ok)
+- GET /integrations/alibaba/wika/workbench/reply-workbench -> 200 (ok)
+- GET /integrations/alibaba/wika/workbench/order-workbench -> 200 (ok)
+- GET /integrations/alibaba/wika/workbench/task-workbench -> 200 (ok)
+- POST /integrations/alibaba/wika/workbench/product-draft-preview -> 200 (ok)
+- POST /integrations/alibaba/wika/workbench/reply-preview -> 200 (ok)
+- POST /integrations/alibaba/wika/workbench/order-preview -> 200 (ok)
+- POST /integrations/alibaba/wika/workbench/preview-center -> 200 (ok)
+- POST /integrations/alibaba/wika/tools/reply-draft -> 200 (ok)
+- POST /integrations/alibaba/wika/tools/order-draft -> 200 (ok)
+
