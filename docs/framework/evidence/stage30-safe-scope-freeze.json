@@ -1,0 +1,110 @@
+{
+  "evaluated_at": "2026-04-14T06:13:29.484Z",
+  "current_head": "51aeb9bacc8ae450101ebe035764cd8aea1e407c",
+  "safe_scope_complete": true,
+  "reopen_gate_defined": true,
+  "biggest_external_blocker": "New external tenant/product live evidence is required to change the current restriction attribution.",
+  "remaining_route_gap_count": 0,
+  "remaining_candidate_unresolved_count": 0,
+  "restriction_confirmed_count": 6,
+  "write_adjacent_skipped_count": 2,
+  "passed_count": 6,
+  "no_data_count": 3,
+  "param_contract_confirmed_count": 0,
+  "production_gate": {
+    "status": "PASS_BASE",
+    "canaries": [
+      {
+        "path": "/health",
+        "status_code": 200,
+        "elapsed_ms": 982
+      },
+      {
+        "path": "/integrations/alibaba/auth/debug",
+        "status_code": 200,
+        "elapsed_ms": 927
+      },
+      {
+        "path": "/integrations/alibaba/xd/auth/debug",
+        "status_code": 200,
+        "elapsed_ms": 925
+      },
+      {
+        "path": "/integrations/alibaba/xd/data/orders/list?page_size=1",
+        "status_code": 200,
+        "elapsed_ms": 1958
+      }
+    ]
+  },
+  "sanity": {
+    "stable_route": {
+      "path": "/integrations/alibaba/xd/data/orders/list?page_size=1",
+      "status_code": 200,
+      "summary": {
+        "top_keys": [
+          "ok",
+          "account",
+          "module",
+          "read_only",
+          "verification_status",
+          "evidence_level",
+          "data_scope",
+          "source",
+          "request_meta",
+          "response_meta",
+          "verified_fields",
+          "warnings",
+          "raw_root_key",
+          "items"
+        ],
+        "meaningful": true
+      }
+    },
+    "stable_direct": {
+      "method": "alibaba.seller.order.get",
+      "status_code": 200,
+      "final_classification": "PASSED",
+      "summary": {
+        "top_keys": [
+          "alibaba_seller_order_get_response"
+        ],
+        "payload_keys": [
+          "value",
+          "request_id",
+          "_trace_id_"
+        ],
+        "meaningful": true
+      },
+      "error": null
+    }
+  },
+  "blank_or_waiting_count": 0,
+  "frozen_objects": {
+    "routes": [
+      {
+        "target": "/integrations/alibaba/xd/data/customers/list",
+        "classification": "TENANT_OR_PRODUCT_RESTRICTION"
+      },
+      {
+        "target": "/integrations/alibaba/xd/data/products/schema/render/draft",
+        "classification": "ROUTE_BOUND_NO_DATA"
+      },
+      {
+        "target": "/integrations/alibaba/xd/tools/reply-draft",
+        "classification": "WRITE_ADJACENT_SKIPPED"
+      },
+      {
+        "target": "/integrations/alibaba/xd/tools/order-draft",
+        "classification": "WRITE_ADJACENT_SKIPPED"
+      }
+    ],
+    "candidates": [
+      "alibaba.mydata.self.keyword.effect.week.get",
+      "alibaba.mydata.industry.keyword.get",
+      "alibaba.seller.trade.decode",
+      "alibaba.mydata.self.keyword.date.get",
+      "alibaba.mydata.self.keyword.effect.month.get",
+      "alibaba.mydata.seller.opendata.getconkeyword"
+    ]
+  }
+}

@@ -1,5 +1,30 @@
 ﻿# WIKA 下一批必须验证的 API 候选池
 
+## 2026-04-14 Stage 30 XD Safe Scope Freeze Delta
+
+### XD 当前是否还有仓内“下一批候选”
+- 没有。
+- stage29 已把当前 safe-scope 内剩余 6 个 candidate 全部收口到最终新鲜结论。
+- 因此，当前不再存在“继续在仓内试一轮就会前进”的 XD candidate。
+
+### 当前冻结对象
+- `alibaba.mydata.self.keyword.effect.week.get`
+- `alibaba.mydata.industry.keyword.get`
+- `alibaba.seller.trade.decode`
+- `alibaba.mydata.self.keyword.date.get`
+- `alibaba.mydata.self.keyword.effect.month.get`
+- `alibaba.mydata.seller.opendata.getconkeyword`
+
+### 这些对象为什么不再属于“下一批必须验证”
+- keyword family 的 `properties` 已完成最小契约收口，不再是参数未知。
+- 其余对象也没有新的仓内反证会推翻现有 restriction 归因。
+- 继续仓内重试不会新增证据。
+
+### 只有在什么情况下才重新进入候选池
+- 新的外部租户/产品级 live 证据
+- 新的官方文档 / 控制台 / payload 证据
+- 新的真实对象样本，可直接覆盖当前冻结对象
+
 ## 2026-04-11 Stage 26 Doc Anchoring Delta
 
 ### stage25 远端状态

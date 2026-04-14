@@ -1,5 +1,28 @@
 ﻿# WIKA 面向 6 项任务 API 缺口矩阵
 
+## 2026-04-14 Stage 30 XD Safe Scope Freeze Delta
+
+### XD 当前统一状态
+- route parity gap：`0`
+- candidate unresolved：`0`
+- 当前 safe-scope 内不再存在 access 空白状态
+
+### Task 1 / Task 2
+- XD 当前 safe-scope 已完成所有安全 read-only parity 与 candidate 收口。
+- 继续缺的部分已经不是“仓内 route 未补”或“参数还没试完”，而是：
+  - `customers/list` 的对象级 restriction
+  - `products/schema/render/draft` 的真实 draft payload 缺失
+  - 6 个 candidate 的 `TENANT_OR_PRODUCT_RESTRICTION_CONFIRMED`
+
+### Task 3 / Task 4 / Task 5
+- `tools/reply-draft` 与 `tools/order-draft` 继续明确为 `WRITE_ADJACENT_SKIPPED`。
+- 它们属于 safe-scope 外的写侧邻接边界，不在当前 access freeze 内继续推进。
+
+### 当前边界
+- 本轮不再新增 XD route family
+- 本轮不再新增 XD candidate 尝试
+- 之后只有拿到新的外部证据时，才值得重开冻结对象
+
 ## 2026-04-13 XD Stage 27 Route Binding Delta
 
 ### Task 1

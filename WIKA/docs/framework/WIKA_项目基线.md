@@ -1,5 +1,27 @@
 ﻿# WIKA_项目基线
 
+## 2026-04-14 Stage 30 XD Safe Scope Final Freeze
+
+### current status
+- XD route parity 线已完成：
+  - stage27 已补齐 5 条 production route 缺口
+  - stage28 已把剩余 `DOC_MISMATCH` parity gap 收到 0
+- XD candidate pool 线也已完成到当前 safe-scope：
+  - stage29 已把剩余 6 个对象全部收口
+- 当前 safe-scope 统计：
+  - `remaining_route_gap_count = 0`
+  - `remaining_candidate_unresolved_count = 0`
+  - `restriction_confirmed_count = 6`
+  - `write_adjacent_skipped_count = 2`
+
+### fixed conclusion
+- XD access 线在当前 safe-scope 下已正式封板。
+- 当前仓内不再存在 route parity 未决、candidate 空白状态或“下轮再看”的 access 对象。
+- 当前最大阻塞已转到仓外：
+  - 缺新的外部租户/产品级 live 证据
+  - 缺能改变 restriction 归因的官方 / 控制台 / 真实 payload 新证据
+- 后续若继续，只能按 stage30 reopen gate 重开，不能再做仓内同构重试。
+
 ## 2026-04-13 XD Stage 27 Route Binding Closure
 
 ### current status

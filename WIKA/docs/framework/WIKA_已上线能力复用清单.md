@@ -1,5 +1,16 @@
 ﻿# WIKA 已上线能力复用清单
 
+## 2026-04-14 Stage 30 XD Safe Scope Freeze Addendum
+- 本轮没有新增 XD production route。
+- 本轮新增的是“当前 safe-scope 已正式封板”的复用边界：
+  - 已上线且稳定的 XD readonly route 继续只做复用，不再做同构重放。
+  - `customers/list` 继续只能作为对象级 restriction route 看待。
+  - `products/schema/render/draft` 继续只能作为已绑定但当前无 draft payload 的 route 看待。
+  - `tools/reply-draft` / `tools/order-draft` 继续不进入 safe readonly reuse 集合。
+- 当前唯一允许重开的方向是：
+  - 新的外部租户/产品级 live 证据
+  - 或新的官方 / 控制台 / payload 证据，能改变当前冻结归因
+
 ## 2026-04-13 Stage 34/35 Additions
 - 本轮没有新增 live route。
 - 本轮新增可复用的写侧边界前置包资产：

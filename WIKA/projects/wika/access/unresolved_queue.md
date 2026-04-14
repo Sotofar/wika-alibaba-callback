@@ -2,6 +2,43 @@
 
 更新时间：2026-04-10
 
+## 2026-04-14 Stage30 Safe Scope Freeze
+
+### 当前总论
+- XD / WIKA access 线在当前 safe-scope 下已经正式收口。
+- XD route parity gap：`0`
+- XD candidate 未决：`0`
+- 当前未决队列不再包含“仓内继续重试就能推进”的 XD access 对象。
+
+### XD 当前已冻结而非未决的对象
+- route
+  - `/integrations/alibaba/xd/data/customers/list` -> `TENANT_OR_PRODUCT_RESTRICTION`
+  - `/integrations/alibaba/xd/data/products/schema/render/draft` -> `ROUTE_BOUND_NO_DATA`
+  - `/integrations/alibaba/xd/tools/reply-draft` -> `WRITE_ADJACENT_SKIPPED`
+  - `/integrations/alibaba/xd/tools/order-draft` -> `WRITE_ADJACENT_SKIPPED`
+- candidate
+  - `alibaba.mydata.self.keyword.effect.week.get` -> `TENANT_OR_PRODUCT_RESTRICTION_CONFIRMED`
+  - `alibaba.mydata.industry.keyword.get` -> `TENANT_OR_PRODUCT_RESTRICTION_CONFIRMED`
+  - `alibaba.seller.trade.decode` -> `TENANT_OR_PRODUCT_RESTRICTION_CONFIRMED`
+  - `alibaba.mydata.self.keyword.date.get` -> `TENANT_OR_PRODUCT_RESTRICTION_CONFIRMED`
+  - `alibaba.mydata.self.keyword.effect.month.get` -> `TENANT_OR_PRODUCT_RESTRICTION_CONFIRMED`
+  - `alibaba.mydata.seller.opendata.getconkeyword` -> `TENANT_OR_PRODUCT_RESTRICTION_CONFIRMED`
+
+### 为什么这些对象不再算“未决”
+- `customers/list` 已经是 route 绑定完成后的对象级限制，不是 route 缺失。
+- keyword family 的 `properties` 已经收口，当前不再是参数未知。
+- `trade.decode` 等 4 项也没有新的仓内反证会改变 restriction 归因。
+- 因此继续仓内同构重试不会增加新证据。
+
+### 当前唯一合法重开条件
+- 新的外部租户/产品级 live 证据
+- 新的官方文档 / 控制台 / payload 证据，能改变 restriction 归因
+- 新的真实对象样本，能直接覆盖当前冻结对象
+
+### 当前未决主干
+- XD access 线当前无仓内未决主干。
+- 后续若继续，应转为“外部新证据到位后的受控重开”，而不是继续在仓内空转。
+
 ## 当前总论
 - WIKA route 层 27 条已验证/已上线 access route 继续保持 frozen baseline，不需要本轮重复 replay。
 - 当前未决主干只剩 direct-method 层：XD mydata 权限缺口，以及是否需要后续人工权限动作。
