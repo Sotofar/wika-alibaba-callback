@@ -1,0 +1,331 @@
+{
+  "evaluated_at": "2026-04-14T01:27:58.407Z",
+  "current_head": "7085034be2e6865b30d2d93bb9c25e2e31a60a9c",
+  "base_url": "https://api.wikapacking.com",
+  "production_gate": {
+    "status": "PASS_BASE",
+    "canaries": [
+      {
+        "path": "/health",
+        "status_code": 200,
+        "elapsed_ms": 1092
+      },
+      {
+        "path": "/integrations/alibaba/auth/debug",
+        "status_code": 200,
+        "elapsed_ms": 1087
+      },
+      {
+        "path": "/integrations/alibaba/xd/auth/debug",
+        "status_code": 200,
+        "elapsed_ms": 959
+      },
+      {
+        "path": "/integrations/alibaba/xd/data/orders/list?page_size=1",
+        "status_code": 200,
+        "elapsed_ms": 2702
+      },
+      {
+        "path": "/integrations/alibaba/xd/data/categories/tree",
+        "status_code": 200,
+        "elapsed_ms": 2422
+      },
+      {
+        "path": "/integrations/alibaba/xd/data/media/list?page_size=1",
+        "status_code": 200,
+        "elapsed_ms": 2430
+      },
+      {
+        "path": "/integrations/alibaba/xd/reports/orders/minimal-diagnostic",
+        "status_code": 200,
+        "elapsed_ms": 13978
+      }
+    ]
+  },
+  "candidate_start_count": 6,
+  "candidate_end_unresolved_count": 0,
+  "group_a": [
+    {
+      "method": "alibaba.mydata.self.keyword.effect.week.get",
+      "doc_url": "https://open.alibaba.com/doc/api.htm#/api?cid=20785&path=alibaba.mydata.self.keyword.effect.week.get&methodType=GET/POST",
+      "doc_required_top_level": [
+        "date_range",
+        "properties"
+      ],
+      "doc_properties_fields": [
+        "keywords_in_use",
+        "keywords_viewed",
+        "offset",
+        "order_by_mode",
+        "limit",
+        "is_p4p",
+        "keyword",
+        "order_by_field"
+      ],
+      "request_params": {
+        "date_range": {
+          "start_date": "2026-03-15",
+          "end_date": "2026-04-13"
+        },
+        "properties": {
+          "keywords_in_use": "ALL",
+          "keywords_viewed": "ALL",
+          "offset": "0",
+          "order_by_mode": "desc",
+          "limit": "10",
+          "is_p4p": "ALL",
+          "keyword": "mp3",
+          "order_by_field": "sumShowCnt"
+        }
+      },
+      "initial_attempt": {
+        "status_code": 200,
+        "elapsed_ms": 105,
+        "classification": "TENANT_OR_PRODUCT_RESTRICTION",
+        "summary": {
+          "top_keys": [
+            "error_response"
+          ],
+          "payload_keys": [
+            "type",
+            "code",
+            "msg",
+            "request_id",
+            "_trace_id_"
+          ],
+          "meaningful": true
+        },
+        "error": {
+          "code": "InsufficientPermission",
+          "sub_code": null,
+          "msg": "App does not have permission to access this api",
+          "sub_msg": null
+        }
+      },
+      "regression_attempt": {
+        "status_code": 200,
+        "elapsed_ms": 29,
+        "classification": "TENANT_OR_PRODUCT_RESTRICTION",
+        "summary": {
+          "top_keys": [
+            "error_response"
+          ],
+          "payload_keys": [
+            "type",
+            "code",
+            "msg",
+            "request_id",
+            "_trace_id_"
+          ],
+          "meaningful": true
+        },
+        "error": {
+          "code": "InsufficientPermission",
+          "sub_code": null,
+          "msg": "App does not have permission to access this api",
+          "sub_msg": null
+        }
+      },
+      "final_classification": "TENANT_OR_PRODUCT_RESTRICTION_CONFIRMED"
+    },
+    {
+      "method": "alibaba.mydata.industry.keyword.get",
+      "doc_url": "https://open.alibaba.com/doc/api.htm#/api?cid=20785&path=alibaba.mydata.industry.keyword.get&methodType=GET/POST",
+      "doc_required_top_level": [
+        "keywords",
+        "properties"
+      ],
+      "doc_properties_fields": [
+        "offset",
+        "order_by_mode",
+        "limit",
+        "precise_match",
+        "order_by_field"
+      ],
+      "request_params": {
+        "keywords": "mp3",
+        "properties": {
+          "offset": "0",
+          "order_by_mode": "desc",
+          "limit": "10",
+          "precise_match": "false",
+          "order_by_field": "srh_pv_this_mon"
+        }
+      },
+      "initial_attempt": {
+        "status_code": 200,
+        "elapsed_ms": 45,
+        "classification": "TENANT_OR_PRODUCT_RESTRICTION",
+        "summary": {
+          "top_keys": [
+            "error_response"
+          ],
+          "payload_keys": [
+            "type",
+            "code",
+            "msg",
+            "request_id",
+            "_trace_id_"
+          ],
+          "meaningful": true
+        },
+        "error": {
+          "code": "InsufficientPermission",
+          "sub_code": null,
+          "msg": "App does not have permission to access this api",
+          "sub_msg": null
+        }
+      },
+      "regression_attempt": {
+        "status_code": 200,
+        "elapsed_ms": 26,
+        "classification": "TENANT_OR_PRODUCT_RESTRICTION",
+        "summary": {
+          "top_keys": [
+            "error_response"
+          ],
+          "payload_keys": [
+            "type",
+            "code",
+            "msg",
+            "request_id",
+            "_trace_id_"
+          ],
+          "meaningful": true
+        },
+        "error": {
+          "code": "InsufficientPermission",
+          "sub_code": null,
+          "msg": "App does not have permission to access this api",
+          "sub_msg": null
+        }
+      },
+      "final_classification": "TENANT_OR_PRODUCT_RESTRICTION_CONFIRMED"
+    }
+  ],
+  "group_b": [
+    {
+      "method": "alibaba.seller.trade.decode",
+      "retested_in_stage29": false,
+      "stage28_reference": {
+        "status_code": 200,
+        "final_classification": "TENANT_OR_PRODUCT_RESTRICTION",
+        "error": {
+          "code": "InsufficientPermission",
+          "sub_code": null,
+          "msg": "App does not have permission to access this api",
+          "sub_msg": null
+        },
+        "request_params": {
+          "e_trade_id": "259***158",
+          "encryptor_id": "gFi***Q=="
+        }
+      },
+      "final_classification": "TENANT_OR_PRODUCT_RESTRICTION_CONFIRMED"
+    },
+    {
+      "method": "alibaba.mydata.self.keyword.date.get",
+      "retested_in_stage29": false,
+      "stage28_reference": {
+        "status_code": 200,
+        "final_classification": "TENANT_OR_PRODUCT_RESTRICTION",
+        "error": {
+          "code": "InsufficientPermission",
+          "sub_code": null,
+          "msg": "App does not have permission to access this api",
+          "sub_msg": null
+        },
+        "request_params": {
+          "statistics_type": "day"
+        }
+      },
+      "final_classification": "TENANT_OR_PRODUCT_RESTRICTION_CONFIRMED"
+    },
+    {
+      "method": "alibaba.mydata.self.keyword.effect.month.get",
+      "retested_in_stage29": false,
+      "stage28_reference": {
+        "status_code": 200,
+        "final_classification": "TENANT_OR_PRODUCT_RESTRICTION",
+        "error": {
+          "code": "InsufficientPermission",
+          "sub_code": null,
+          "msg": "App does not have permission to access this api",
+          "sub_msg": null
+        },
+        "request_params": {
+          "stat_date": "2026-04-12"
+        }
+      },
+      "final_classification": "TENANT_OR_PRODUCT_RESTRICTION_CONFIRMED"
+    },
+    {
+      "method": "alibaba.mydata.seller.opendata.getconkeyword",
+      "retested_in_stage29": false,
+      "stage28_reference": {
+        "status_code": 200,
+        "final_classification": "TENANT_OR_PRODUCT_RESTRICTION",
+        "error": {
+          "code": "InsufficientPermission",
+          "sub_code": null,
+          "msg": "App does not have permission to access this api",
+          "sub_msg": null
+        },
+        "request_params": {}
+      },
+      "final_classification": "TENANT_OR_PRODUCT_RESTRICTION_CONFIRMED"
+    }
+  ],
+  "regression": {
+    "stable_route": {
+      "path": "/integrations/alibaba/xd/data/orders/list?page_size=1",
+      "status_code": 200,
+      "summary": {
+        "top_keys": [
+          "ok",
+          "account",
+          "module",
+          "read_only",
+          "verification_status",
+          "evidence_level",
+          "data_scope",
+          "source",
+          "request_meta",
+          "response_meta",
+          "verified_fields",
+          "warnings",
+          "raw_root_key",
+          "items"
+        ],
+        "meaningful": true
+      }
+    },
+    "stable_direct": {
+      "method": "alibaba.seller.order.get",
+      "status_code": 200,
+      "final_classification": "PASSED",
+      "summary": {
+        "top_keys": [
+          "alibaba_seller_order_get_response"
+        ],
+        "payload_keys": [
+          "value",
+          "request_id",
+          "_trace_id_"
+        ],
+        "meaningful": true
+      },
+      "error": null
+    }
+  },
+  "passed_count": 0,
+  "no_data_count": 0,
+  "param_contract_confirmed_count": 0,
+  "param_contract_missing_confirmed_count": 0,
+  "tenant_restriction_confirmed_count": 6,
+  "blocked_env_count": 0,
+  "unknown_count": 0,
+  "flaky_count": 0,
+  "biggest_blocker": "remaining reopen path requires external tenant/product evidence instead of more in-repo retries.",
+  "safe_scope_complete": true
+}

@@ -243,3 +243,23 @@
   - `alibaba.mydata.self.keyword.date.get`
   - `alibaba.mydata.self.keyword.effect.month.get`
   - `alibaba.mydata.seller.opendata.getconkeyword`
+
+## stage29 最终收口（2026-04-14）
+- `alibaba.mydata.self.keyword.effect.week.get`
+  - stage29 已依据官方文档补齐 `properties`
+  - 最终结论：`TENANT_OR_PRODUCT_RESTRICTION_CONFIRMED`
+- `alibaba.mydata.industry.keyword.get`
+  - stage29 已依据官方文档补齐 `properties`
+  - 最终结论：`TENANT_OR_PRODUCT_RESTRICTION_CONFIRMED`
+- `alibaba.seller.trade.decode`
+  - 最终结论：`TENANT_OR_PRODUCT_RESTRICTION_CONFIRMED`
+- `alibaba.mydata.self.keyword.date.get`
+  - 最终结论：`TENANT_OR_PRODUCT_RESTRICTION_CONFIRMED`
+- `alibaba.mydata.self.keyword.effect.month.get`
+  - 最终结论：`TENANT_OR_PRODUCT_RESTRICTION_CONFIRMED`
+- `alibaba.mydata.seller.opendata.getconkeyword`
+  - 最终结论：`TENANT_OR_PRODUCT_RESTRICTION_CONFIRMED`
+
+### stage29 后的唯一重开条件
+- 新的外部租户/产品级证据
+- 或新的 live 样本，能证明这些对象已从 restriction 层转入可读层

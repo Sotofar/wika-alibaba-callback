@@ -121,9 +121,21 @@
   - `tools/reply-draft` -> `WRITE_ADJACENT_SKIPPED`
   - `tools/order-draft` -> `WRITE_ADJACENT_SKIPPED`
 - candidate:
-  - `alibaba.mydata.self.keyword.effect.week.get` -> `PARAM_CONTRACT_MISSING` (`properties`)
-  - `alibaba.mydata.industry.keyword.get` -> `PARAM_CONTRACT_MISSING` (`properties`)
-  - `alibaba.seller.trade.decode` -> `TENANT_OR_PRODUCT_RESTRICTION`
-  - `alibaba.mydata.self.keyword.date.get` -> `TENANT_OR_PRODUCT_RESTRICTION`
-  - `alibaba.mydata.self.keyword.effect.month.get` -> `TENANT_OR_PRODUCT_RESTRICTION`
-  - `alibaba.mydata.seller.opendata.getconkeyword` -> `TENANT_OR_PRODUCT_RESTRICTION`
+- `alibaba.mydata.self.keyword.effect.week.get` -> `PARAM_CONTRACT_MISSING` (`properties`)
+- `alibaba.mydata.industry.keyword.get` -> `PARAM_CONTRACT_MISSING` (`properties`)
+- `alibaba.seller.trade.decode` -> `TENANT_OR_PRODUCT_RESTRICTION`
+- `alibaba.mydata.self.keyword.date.get` -> `TENANT_OR_PRODUCT_RESTRICTION`
+- `alibaba.mydata.self.keyword.effect.month.get` -> `TENANT_OR_PRODUCT_RESTRICTION`
+- `alibaba.mydata.seller.opendata.getconkeyword` -> `TENANT_OR_PRODUCT_RESTRICTION`
+
+## stage29 同步（2026-04-14）
+- XD candidate pool safe-scope 已完成收口。
+- 原 stage28 剩余 6 项已全部更新为最终结论：
+  - `alibaba.mydata.self.keyword.effect.week.get` -> `TENANT_OR_PRODUCT_RESTRICTION_CONFIRMED`
+  - `alibaba.mydata.industry.keyword.get` -> `TENANT_OR_PRODUCT_RESTRICTION_CONFIRMED`
+  - `alibaba.seller.trade.decode` -> `TENANT_OR_PRODUCT_RESTRICTION_CONFIRMED`
+  - `alibaba.mydata.self.keyword.date.get` -> `TENANT_OR_PRODUCT_RESTRICTION_CONFIRMED`
+  - `alibaba.mydata.self.keyword.effect.month.get` -> `TENANT_OR_PRODUCT_RESTRICTION_CONFIRMED`
+  - `alibaba.mydata.seller.opendata.getconkeyword` -> `TENANT_OR_PRODUCT_RESTRICTION_CONFIRMED`
+- XD 当前 safe-scope 下已无 candidate 未决项。
+- 若未来重开，只应依赖新的外部租户/产品级证据，而不是继续仓内同构重试。

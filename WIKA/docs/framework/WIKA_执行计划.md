@@ -722,6 +722,10 @@
 ### 当前下一步最短路径
 - 不再回头做 route parity。
 - 若继续推进，只做：
-  - `alibaba.mydata.self.keyword.effect.week.get` 的 `properties` 契约补齐
-  - `alibaba.mydata.industry.keyword.get` 的 `properties` 契约补齐
+  - 新外部租户/产品级证据到位后，再重开相关对象
   - 保持 `customers/list` / `trade.decode` 等对象级限制的单对象跟踪
+
+## stage29 更新（2026-04-14）
+- `alibaba.mydata.self.keyword.effect.week.get` / `alibaba.mydata.industry.keyword.get` 的 `properties` 契约已补齐到可验证层。
+- 两者的最新 live 结论都是 `TENANT_OR_PRODUCT_RESTRICTION_CONFIRMED`。
+- 因此，执行计划中的下一步不再是“补 `properties`”，而是“只有拿到外部新证据时才重开”。

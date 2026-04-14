@@ -1,6 +1,6 @@
 # XD API coverage
 
-更新时间：2026-04-13
+更新时间：2026-04-14
 
 ## 当前覆盖面
 - parity route 总数：27
@@ -23,53 +23,45 @@
   - `alibaba.mydata.overview.indicator.basic.get`
   - `alibaba.mydata.self.product.get`
 
-## stage27 已补齐且保持健康的 route
+## stage27 已补齐且持续健康的 route
 - `products/detail`
 - `products/groups`
 - `products/score`
 - `orders/fund`
 - `orders/logistics`
 
-## stage28 连续推进结果
+## stage28 route 收口结果
+- Batch A
+  - `categories/tree` -> `ROUTE_BOUND_AND_PASSED`
+  - `categories/attributes` -> `ROUTE_BOUND_AND_PASSED`
+  - `products/schema` -> `ROUTE_BOUND_AND_PASSED`
+  - `products/schema/render` -> `ROUTE_BOUND_AND_PASSED`
+  - `products/schema/render/draft` -> `ROUTE_BOUND_NO_DATA`
+- Batch B
+  - `media/list` -> `ROUTE_BOUND_AND_PASSED`
+  - `media/groups` -> `ROUTE_BOUND_AND_PASSED`
+- Batch C
+  - `customers/list` -> `TENANT_OR_PRODUCT_RESTRICTION`
+  - `orders/draft-types` -> `ROUTE_BOUND_AND_PASSED`
+  - `reports/products/minimal-diagnostic` -> `ROUTE_BOUND_AND_PASSED`
+  - `reports/orders/minimal-diagnostic` -> `ROUTE_BOUND_AND_PASSED`
+  - `reports/operations/minimal-diagnostic` -> `ROUTE_BOUND_AND_PASSED`
+- Batch D
+  - `tools/reply-draft` -> `WRITE_ADJACENT_SKIPPED`
+  - `tools/order-draft` -> `WRITE_ADJACENT_SKIPPED`
 
-### Batch A
-- `categories/tree` -> `ROUTE_BOUND_AND_PASSED`
-- `categories/attributes` -> `ROUTE_BOUND_AND_PASSED`
-- `products/schema` -> `ROUTE_BOUND_AND_PASSED`
-- `products/schema/render` -> `ROUTE_BOUND_AND_PASSED`
-  - 当前验证使用 `products/list` 返回的 numeric `id=1601740545697`
-- `products/schema/render/draft` -> `ROUTE_BOUND_NO_DATA`
-  - route 已绑定，但当前真实样本 draft schema 为空
+## stage29 final closure
+- 候选池 6 个对象已全部收口为最终新鲜结论。
+- `alibaba.mydata.self.keyword.effect.week.get` 与 `alibaba.mydata.industry.keyword.get` 已从 `PARAM_CONTRACT_MISSING` 推进到 `TENANT_OR_PRODUCT_RESTRICTION_CONFIRMED`。
+- 当前 XD safe-scope 已完成：route parity 为 0，candidate pool 未决为 0。
 
-### Batch B
-- `media/list` -> `ROUTE_BOUND_AND_PASSED`
-- `media/groups` -> `ROUTE_BOUND_AND_PASSED`
+### 当前冻结边界
+- `/integrations/alibaba/xd/data/customers/list`：对象级 restriction
+- `/integrations/alibaba/xd/data/products/schema/render/draft`：当前无真实 draft payload
+- `/integrations/alibaba/xd/tools/reply-draft`
+- `/integrations/alibaba/xd/tools/order-draft`
+- candidate pool 6 项：全部已冻结为 `TENANT_OR_PRODUCT_RESTRICTION_CONFIRMED`
 
-### Batch C
-- `customers/list` -> `TENANT_OR_PRODUCT_RESTRICTION`
-- `orders/draft-types` -> `ROUTE_BOUND_AND_PASSED`
-- `reports/products/minimal-diagnostic` -> `ROUTE_BOUND_AND_PASSED`
-- `reports/orders/minimal-diagnostic` -> `ROUTE_BOUND_AND_PASSED`
-- `reports/operations/minimal-diagnostic` -> `ROUTE_BOUND_AND_PASSED`
-
-### Batch D
-- `tools/reply-draft` -> `WRITE_ADJACENT_SKIPPED`
-- `tools/order-draft` -> `WRITE_ADJACENT_SKIPPED`
-
-## 候选池 stage28
-- `PASSED`
-  - `alibaba.icbu.product.type.available.get`
-- `PARAM_CONTRACT_MISSING`
-  - `alibaba.mydata.self.keyword.effect.week.get`（当前阻塞：`properties`）
-  - `alibaba.mydata.industry.keyword.get`（当前阻塞：`properties`）
-- `TENANT_OR_PRODUCT_RESTRICTION`
-  - `alibaba.seller.trade.decode`
-  - `alibaba.mydata.self.keyword.date.get`
-  - `alibaba.mydata.self.keyword.effect.month.get`
-  - `alibaba.mydata.seller.opendata.getconkeyword`
-
-## 当前剩余边界
-- `customers/list` 仍停留在对象级权限/租户限制，不可扩大写成“XD 整体未开权”。
-- `products/schema/render/draft` 还没有真实 draft payload，不能写成失败或完整可用。
-- draft tools 仍属于 write-adjacent 范围，本轮继续排除。
-- 候选池还剩 6 个未决对象，其中 2 个是参数契约缺口，4 个是对象级限制。
+### 只有拿到新外部证据才值得重开
+- 新的租户/产品级可读权限证据
+- 新的 live 样本，能证明 keyword family 或 trade decode 已进入可读窗口

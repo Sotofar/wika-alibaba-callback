@@ -492,3 +492,8 @@
 - `products/schema/render/draft`：当前无 draft payload
 - keyword family：仍缺 `properties`
 - draft tools：继续排除出安全只读范围
+
+## stage29 更新（2026-04-14）
+- keyword family 已不再属于参数契约缺口。
+- 相关对象现已统一收口为 `TENANT_OR_PRODUCT_RESTRICTION_CONFIRMED`。
+- 6 项任务矩阵中，XD 当前 safe-scope 仅剩冻结边界，不再存在 candidate “待确认”空白项。

@@ -798,3 +798,9 @@
   - `products/schema/render/draft` 无真实 draft payload
   - keyword family 缺 `properties` 契约
   - draft tools 继续保留在 write-adjacent 边界外
+
+## stage29 更新（2026-04-14）
+- XD route parity gap：0
+- XD candidate pool 未决：0
+- keyword family 的 `properties` 已完成最小契约闭环，但 live 结果稳定落在 restriction 层
+- safe-scope 当前已完成，后续不再默认存在仓内可继续推进的 read-only closure 任务

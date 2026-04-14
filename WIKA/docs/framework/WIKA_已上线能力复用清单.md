@@ -260,3 +260,10 @@
 - `/integrations/alibaba/xd/data/products/schema/render/draft`
 - `/integrations/alibaba/xd/tools/reply-draft`
 - `/integrations/alibaba/xd/tools/order-draft`
+
+## stage29 更新（2026-04-14）
+- 本轮没有新增 production route 复用面。
+- 本轮新增的是 candidate closure 结论：
+  - keyword family 两项已从参数缺口推进到对象级 restriction
+  - 其余 4 项 candidate 也已冻结为对象级 restriction
+- 这意味着 XD 当前 safe-scope 下的“可继续复用读取面”已经收口完成。

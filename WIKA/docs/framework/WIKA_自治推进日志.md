@@ -1493,3 +1493,28 @@
   - XD 剩余 14 条 parity gap 已全部收口
   - route 侧不再有 `DOC_MISMATCH`
   - 当前最大阻塞转为 keyword family 的 `properties` 契约
+
+## stage29-final-closure（2026-04-14）
+- 目标：把 stage28 剩余 6 个 candidate 对象全部收口到最终新鲜结论。
+- Group A：
+  - 通过官方文档页补齐 `alibaba.mydata.self.keyword.effect.week.get` / `alibaba.mydata.industry.keyword.get` 的最小 `properties` 合同
+  - 两者在 doc-aligned 请求下都稳定返回 `InsufficientPermission`
+  - 结论：两者都转为 `TENANT_OR_PRODUCT_RESTRICTION_CONFIRMED`
+- Group B：
+  - `alibaba.seller.trade.decode`
+  - `alibaba.mydata.self.keyword.date.get`
+  - `alibaba.mydata.self.keyword.effect.month.get`
+  - `alibaba.mydata.seller.opendata.getconkeyword`
+  - 基于 stage28 live 证据且无新反证，全部冻结为 `TENANT_OR_PRODUCT_RESTRICTION_CONFIRMED`
+- 最小回归：
+  - `/integrations/alibaba/xd/data/orders/list?page_size=1` -> 200
+  - `alibaba.seller.order.get` -> `PASSED`
+- 本轮新增落盘：
+  - `scripts/validate-xd-stage29-final-closure.js`
+  - `Ali-WIKA/projects/xd/access/keyword_properties_contract_stage29.md`
+  - `Ali-WIKA/projects/xd/access/candidate_pool_stage29_final.md`
+  - `docs/framework/evidence/stage29-xd-candidate-final-closure.json`
+- 本轮关键结论：
+  - XD candidate pool 未决从 6 收到 0
+  - XD 当前 safe-scope closure 完成
+  - 后续若继续推进，唯一值得做的是等待新的外部租户/产品级证据
