@@ -520,3 +520,38 @@
 - keyword family 已不再属于参数契约缺口。
 - 相关对象现已统一收口为 `TENANT_OR_PRODUCT_RESTRICTION_CONFIRMED`。
 - 6 项任务矩阵中，XD 当前 safe-scope 仅剩冻结边界，不再存在 candidate “待确认”空白项。
+## 2026-04-15 Stage 41-44 Operations OS Delta
+
+### Task 1
+- 本轮没有新增 store / product / order official field。
+- 当前新增的是运营数据版图与 ads import-ready 层，不是新的店铺 / 产品 / 订单 official 覆盖。
+- Task 1 继续缺：
+  - 店铺级：`traffic_source`、`country_source`、`quick_reply_rate`
+  - 产品级：`access_source`、`inquiry_source`、`country_source`、`period_over_period_change`
+  - 订单级：`country_structure`
+
+### Task 2
+- 本轮新增：
+  - 广告导入摘要层
+  - 广告 comparison / diagnostic / action-center 本地合同
+  - 内容与页面优化建议层本地合同
+- 这些新增都属于：
+  - `import-driven` 或 `derived recommendation`
+  - 不是新的 official API confirm
+  - 不是已上线 production report route
+
+### Task 3 / Task 4 / Task 5
+- 本轮没有新增写侧边界证明。
+- 任务 3/4/5 继续维持当前 workbench / preview / handoff pack 状态，不写成平台内闭环。
+
+### 当前新增阻塞
+- 若要把 ads layer 真正并入统一运营控制台在线层，当前还缺：
+  - 真实广告导出样本
+  - 稳定导入承接方式
+  - 或稳定 official ads route
+- 若要把内容优化建议显著做强，当前还缺：
+  - 页面行为级真实数据
+  - 更强的页面结构输入
+
+### Task 6
+- 明确排除，本轮不推进。

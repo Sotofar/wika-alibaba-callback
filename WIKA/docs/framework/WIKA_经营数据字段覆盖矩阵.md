@@ -434,3 +434,62 @@
 - 产品级：`access_source / inquiry_source / country_source / period_over_period_change`
 - 订单级：`country_structure`
 
+## 2026-04-15 Stage 41-44 Operations OS Delta
+
+### No new confirmed official fields
+- store official fields remain:
+  - `visitor`
+  - `imps`
+  - `clk`
+  - `clk_rate`
+  - `fb`
+  - `reply`
+- product official fields remain:
+  - `click`
+  - `impression`
+  - `visitor`
+  - `fb`
+  - `order`
+  - `bookmark`
+  - `compare`
+  - `share`
+  - `keyword_effects`
+- order layer remains:
+  - `formal_summary` -> derived
+  - `product_contribution` -> derived
+  - `trend_signal` -> derived
+  - `country_structure` -> unavailable
+
+### Stage41-44 new coverage type
+- ads domain:
+  - current status -> `import_required`
+  - supported import fields:
+    - `date`
+    - `campaign_name`
+    - `campaign_id`
+    - `ad_group_name`
+    - `ad_group_id`
+    - `keyword`
+    - `spend`
+    - `impressions`
+    - `clicks`
+    - `inquiries`
+    - `ctr`
+    - `cpc`
+    - `conversion`
+    - `inquiry_rate`
+  - all ad deltas / recommendations remain `derived_from_import`
+- content / page optimization domain:
+  - current status -> `derived_plus_manual`
+  - no page behavior field is reclassified as confirmed
+
+### Stage41-44 boundary delta
+- No unavailable dimension should be reclassified from unavailable to confirmed in this round.
+- `traffic_source`
+- `country_source`
+- `quick_reply_rate`
+- `access_source`
+- `inquiry_source`
+- `period_over_period_change`
+- `country_structure`
+  all remain unavailable / blocked at the official mainline level.

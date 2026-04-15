@@ -1,0 +1,104 @@
+{
+  "stage": "stage44",
+  "generated_at": "2026-04-15T06:59:47.305Z",
+  "base_url": "https://api.wikapacking.com",
+  "baseline": {
+    "health": {
+      "status": 200,
+      "elapsed_ms": 627
+    },
+    "auth_debug": {
+      "status": 200,
+      "elapsed_ms": 561,
+      "source_mode": "production_route"
+    }
+  },
+  "source_routes": [
+    "/integrations/alibaba/wika/reports/products/management-summary",
+    "/integrations/alibaba/wika/reports/products/minimal-diagnostic",
+    "/integrations/alibaba/wika/reports/products/comparison-summary",
+    "/integrations/alibaba/wika/reports/business-cockpit",
+    "/integrations/alibaba/wika/reports/operator-console"
+  ],
+  "source_modes": {
+    "product_summary": "production_route",
+    "product_diagnostic": "production_route",
+    "product_comparison": "production_route",
+    "business_cockpit": "production_route",
+    "operator_console": "production_route"
+  },
+  "contract_status": "PASS_LOCAL_CONTRACT_WITH_PRODUCTION_INPUTS",
+  "result": {
+    "report_name": "content_optimization_layer",
+    "generated_at": "2026-04-15T06:59:47.303Z",
+    "homepage_optimization_suggestions": [
+      {
+        "domain": "task3",
+        "priority": "high",
+        "suggestion": "Fill required category attributes, schema-required fields, and media candidates before handing the draft package to manual review. Do not enter platform publish.",
+        "basis": "Task 3 still stays at safe draft preparation and manual field completion.",
+        "evidence": null
+      },
+      {
+        "domain": "homepage",
+        "priority": "P2",
+        "suggestion": "首页模块优化建议当前只能基于产品与经营表现做保守判断，无法按来源流量或国家来源精细化调优。",
+        "basis": "traffic_source / country_source 当前仍 unavailable。"
+      }
+    ],
+    "product_detail_optimization_suggestions": [],
+    "media_optimization_suggestions": [
+      {
+        "domain": "media",
+        "priority": "P1",
+        "suggestion": "主图、详情图与媒体素材优先跟随当前诊断问题清单整改，先处理高流量低反馈商品。",
+        "basis": "product diagnostic 已给出内容侧问题信号。",
+        "evidence": [
+          "problem_map identifies concrete quality gaps in the sampled products.",
+          "Product detail sampling exposes content completeness and recency signals.",
+          "Group/category sampling exposes structure coverage and ungrouped items."
+        ]
+      },
+      {
+        "domain": "media",
+        "priority": "P2",
+        "suggestion": "当前产品 summary 仍有 sample/cap 边界，媒体优化建议应先从已纳入样本的重点产品开始。",
+        "basis": "product_scope_truncated = true。"
+      }
+    ],
+    "title_keyword_optimization_suggestions": [],
+    "new_product_direction_suggestions": [
+      {
+        "domain": "new_product_direction",
+        "priority": "P2",
+        "suggestion": "新品建议当前只能基于已上线商品表现、关键词信号与现有工作台 readiness 做保守扩展，不能伪装成完整选品模型。",
+        "basis": "当前没有新的选品专用 official field，必须沿用既有经营与内容信号。"
+      },
+      {
+        "domain": "new_product_direction",
+        "priority": "P2",
+        "suggestion": "由于缺少国家来源维度，新品方向建议暂时不能按国家市场精细拆分，只能做全局保守建议。",
+        "basis": "country_source unavailable。"
+      }
+    ],
+    "unavailable_dimensions": [
+      "access_source",
+      "inquiry_source",
+      "country_source",
+      "period_over_period_change",
+      "traffic_source",
+      "quick_reply_rate",
+      "country_structure",
+      "page_heatmap",
+      "page_clickstream",
+      "homepage_module_ctr"
+    ],
+    "boundary_statement": {
+      "current_official_mainline_plus_derived_layers_only": true,
+      "recommendations_are_conservative": true,
+      "no_page_behavior_api_confirmed": true,
+      "manual_confirmation_still_required": true,
+      "no_write_action_attempted": true
+    }
+  }
+}

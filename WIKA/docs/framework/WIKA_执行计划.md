@@ -748,3 +748,41 @@
 - `alibaba.mydata.self.keyword.effect.week.get` / `alibaba.mydata.industry.keyword.get` 的 `properties` 契约已补齐到可验证层。
 - 两者的最新 live 结论都是 `TENANT_OR_PRODUCT_RESTRICTION_CONFIRMED`。
 - 因此，执行计划中的下一步不再是“补 `properties`”，而是“只有拿到外部新证据时才重开”。
+## 2026-04-15 Stage 41-44 Operations OS Local Foundation
+
+### 当前阶段
+- 阶段 41：运营数据版图与指标口径
+- 阶段 42：广告数据导入层
+- 阶段 43：广告诊断与投放建议层
+- 阶段 44：内容与页面优化建议层
+
+### 已完成
+- 已新增：
+  - `WIKA/projects/wika/data/ads/schema.js`
+  - `WIKA/projects/wika/data/ads/normalizer.js`
+  - `WIKA/projects/wika/data/ads/diagnostics.js`
+  - `WIKA/projects/wika/data/content-optimization/content-optimization.js`
+  - `WIKA/scripts/validate-wika-stage41-metrics-map.js`
+  - `WIKA/scripts/validate-wika-stage42-ads-import-layer.js`
+  - `WIKA/scripts/validate-wika-stage43-ads-diagnostic.js`
+  - `WIKA/scripts/validate-wika-stage44-content-optimization.js`
+  - 阶段 41/42/43/44 对应文档与 evidence
+- 已确认：
+  - 店铺 / 产品 / 订单当前 official / derived 口径没有被改写
+  - 广告域当前不再等待未知 official route，先走导入层
+  - 页面与内容优化当前已可输出保守建议层
+
+### Gate result
+- stage41 metrics map -> `PASS_LOCAL_CONTRACT`
+- stage42 ads import layer -> `PASS_LOCAL_CONTRACT`
+- stage43 ads diagnostic -> `PASS_LOCAL_CONTRACT`
+- stage44 content optimization -> `PASS_LOCAL_CONTRACT_WITH_PRODUCTION_INPUTS`
+  - production fetch 存在超时抖动时，已安全回退到 post-deploy evidence，不影响本地合同成立
+
+### 当前唯一下一步
+- 若继续推进阶段 45，不应再重复包装 store/product/order 消费层。
+- 当前唯一值得前进的方向是：
+  - 明确广告导入的 live carriage 方案
+  - 拿到真实广告导出样本
+  - 再决定是否把 ads layer 安全接入统一运营控制层
+- 在没有真实广告样本或稳定导入承接方式前，不把 ads layer 写成已上线运营控制台能力。

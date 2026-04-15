@@ -278,3 +278,22 @@
   - keyword family 两项已从参数缺口推进到对象级 restriction
   - 其余 4 项 candidate 也已冻结为对象级 restriction
 - 这意味着 XD 当前 safe-scope 下的“可继续复用读取面”已经收口完成。
+## 2026-04-15 Stage 41-44 Additions
+- 本轮没有新增 live route。
+- 本轮新增可复用的本地运营操作系统资产：
+  - `WIKA/projects/wika/data/ads/schema.js`
+  - `WIKA/projects/wika/data/ads/normalizer.js`
+  - `WIKA/projects/wika/data/ads/diagnostics.js`
+  - `WIKA/projects/wika/data/content-optimization/content-optimization.js`
+  - `WIKA/scripts/validate-wika-stage41-metrics-map.js`
+  - `WIKA/scripts/validate-wika-stage42-ads-import-layer.js`
+  - `WIKA/scripts/validate-wika-stage43-ads-diagnostic.js`
+  - `WIKA/scripts/validate-wika-stage44-content-optimization.js`
+  - 阶段 41/42/43/44 文档与 evidence
+- 当前复用边界：
+  - ads 资产只代表 import-ready + local contract 成立
+  - content optimization 资产只代表 conservative derived recommendation layer 成立
+  - 不代表 ads official api 已打通
+  - 不代表页面行为数据已具备
+  - 不代表已新增 production route
+  - 不代表 task1~5 complete

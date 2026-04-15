@@ -1,0 +1,834 @@
+{
+  "stage": "stage43",
+  "generated_at": "2026-04-15T06:56:11.735Z",
+  "source_file": "D:\\Code\\阿里国际站\\WIKA\\projects\\wika\\data\\ads\\sample-import.csv",
+  "contract_status": "PASS_LOCAL_CONTRACT",
+  "windows": {
+    "current": {
+      "start": "2026-04-08",
+      "end": "2026-04-12"
+    },
+    "previous": {
+      "start": "2026-04-01",
+      "end": "2026-04-03"
+    }
+  },
+  "summary": {
+    "report_name": "ads_summary",
+    "generated_at": "2026-04-15T06:56:11.732Z",
+    "source_type": "manual_import",
+    "import_contract": {
+      "schema_version": "stage42_ads_import_v1",
+      "row_count": 8,
+      "normalized_row_count": 8,
+      "error_count": 0,
+      "warning_count": 0
+    },
+    "summary": {
+      "campaign_count": 3,
+      "ad_group_count": 4,
+      "keyword_count": 4,
+      "date_range": {
+        "start": "2026-04-01",
+        "end": "2026-04-12"
+      },
+      "metric_totals": {
+        "spend": 897.5,
+        "impressions": 28490,
+        "clicks": 848,
+        "inquiries": 37,
+        "ctr": 0.029765,
+        "cpc": 1.058373,
+        "inquiry_rate": 0.043632,
+        "cost_per_inquiry": 24.256757
+      }
+    },
+    "campaign_breakdown": [
+      {
+        "key": "CMP-001",
+        "spend": 688.6,
+        "impressions": 18240,
+        "clicks": 529,
+        "inquiries": 20,
+        "row_count": 5,
+        "ctr": 0.029002,
+        "cpc": 1.301701,
+        "inquiry_rate": 0.037807,
+        "cost_per_inquiry": 34.43
+      },
+      {
+        "key": "CMP-002",
+        "spend": 112.9,
+        "impressions": 4350,
+        "clicks": 179,
+        "inquiries": 17,
+        "row_count": 2,
+        "ctr": 0.041149,
+        "cpc": 0.630726,
+        "inquiry_rate": 0.094972,
+        "cost_per_inquiry": 6.641176
+      },
+      {
+        "key": "CMP-003",
+        "spend": 96,
+        "impressions": 5900,
+        "clicks": 140,
+        "inquiries": 0,
+        "row_count": 1,
+        "ctr": 0.023729,
+        "cpc": 0.685714,
+        "inquiry_rate": 0,
+        "cost_per_inquiry": null
+      }
+    ],
+    "ad_group_breakdown": [
+      {
+        "key": "AG-001",
+        "spend": 382.1,
+        "impressions": 9760,
+        "clicks": 287,
+        "inquiries": 9,
+        "row_count": 3,
+        "ctr": 0.029406,
+        "cpc": 1.331359,
+        "inquiry_rate": 0.031359,
+        "cost_per_inquiry": 42.455556
+      },
+      {
+        "key": "AG-002",
+        "spend": 306.5,
+        "impressions": 8480,
+        "clicks": 242,
+        "inquiries": 11,
+        "row_count": 2,
+        "ctr": 0.028538,
+        "cpc": 1.266529,
+        "inquiry_rate": 0.045455,
+        "cost_per_inquiry": 27.863636
+      },
+      {
+        "key": "AG-003",
+        "spend": 112.9,
+        "impressions": 4350,
+        "clicks": 179,
+        "inquiries": 17,
+        "row_count": 2,
+        "ctr": 0.041149,
+        "cpc": 0.630726,
+        "inquiry_rate": 0.094972,
+        "cost_per_inquiry": 6.641176
+      },
+      {
+        "key": "AG-004",
+        "spend": 96,
+        "impressions": 5900,
+        "clicks": 140,
+        "inquiries": 0,
+        "row_count": 1,
+        "ctr": 0.023729,
+        "cpc": 0.685714,
+        "inquiry_rate": 0,
+        "cost_per_inquiry": null
+      }
+    ],
+    "keyword_breakdown": [
+      {
+        "key": "industrial pump",
+        "spend": 382.1,
+        "impressions": 9760,
+        "clicks": 287,
+        "inquiries": 9,
+        "row_count": 3,
+        "ctr": 0.029406,
+        "cpc": 1.331359,
+        "inquiry_rate": 0.031359,
+        "cost_per_inquiry": 42.455556
+      },
+      {
+        "key": "control valve",
+        "spend": 306.5,
+        "impressions": 8480,
+        "clicks": 242,
+        "inquiries": 11,
+        "row_count": 2,
+        "ctr": 0.028538,
+        "cpc": 1.266529,
+        "inquiry_rate": 0.045455,
+        "cost_per_inquiry": 27.863636
+      },
+      {
+        "key": "wika packing",
+        "spend": 112.9,
+        "impressions": 4350,
+        "clicks": 179,
+        "inquiries": 17,
+        "row_count": 2,
+        "ctr": 0.041149,
+        "cpc": 0.630726,
+        "inquiry_rate": 0.094972,
+        "cost_per_inquiry": 6.641176
+      },
+      {
+        "key": "cheap packing",
+        "spend": 96,
+        "impressions": 5900,
+        "clicks": 140,
+        "inquiries": 0,
+        "row_count": 1,
+        "ctr": 0.023729,
+        "cpc": 0.685714,
+        "inquiry_rate": 0,
+        "cost_per_inquiry": null
+      }
+    ],
+    "unavailable_dimensions": [
+      "official_ads_api_route",
+      "campaign_writeback",
+      "budget_mutation",
+      "bid_mutation",
+      "official_budget_status",
+      "official_bid_history",
+      "official_region_delivery_status"
+    ],
+    "boundary_statement": {
+      "manual_import_only": true,
+      "not_official_ads_api": true,
+      "current_permissions_do_not_confirm_stable_ads_route": true,
+      "no_platform_write_action_attempted": true,
+      "import_analysis_only": true,
+      "not_platform_ad_mutation": true
+    }
+  },
+  "comparison": {
+    "report_name": "ads_comparison",
+    "generated_at": "2026-04-15T06:56:11.733Z",
+    "comparison_basis": {
+      "current_window": {
+        "start": "2026-04-08",
+        "end": "2026-04-12"
+      },
+      "previous_window": {
+        "start": "2026-04-01",
+        "end": "2026-04-03"
+      },
+      "source_type": "manual_import"
+    },
+    "current_window": {
+      "start": "2026-04-08",
+      "end": "2026-04-12"
+    },
+    "previous_window": {
+      "start": "2026-04-01",
+      "end": "2026-04-03"
+    },
+    "derived_comparison": {
+      "trend_direction": "improving",
+      "metric_deltas": {
+        "spend": {
+          "current": 507.8,
+          "previous": 389.7,
+          "delta_value": 118.1,
+          "delta_rate": 0.303054
+        },
+        "impressions": {
+          "current": 18180,
+          "previous": 10310,
+          "delta_value": 7870,
+          "delta_rate": 0.763337
+        },
+        "clicks": {
+          "current": 544,
+          "previous": 304,
+          "delta_value": 240,
+          "delta_rate": 0.789474
+        },
+        "inquiries": {
+          "current": 27,
+          "previous": 10,
+          "delta_value": 17,
+          "delta_rate": 1.7
+        },
+        "ctr": {
+          "current": 0.029923,
+          "previous": 0.029486,
+          "delta_value": 0.000437,
+          "delta_rate": 0.014821
+        },
+        "cpc": {
+          "current": 0.933456,
+          "previous": 1.281908,
+          "delta_value": -0.348452,
+          "delta_rate": -0.271823
+        },
+        "inquiry_rate": {
+          "current": 0.049632,
+          "previous": 0.032895,
+          "delta_value": 0.016737,
+          "delta_rate": 0.508801
+        }
+      }
+    },
+    "unavailable_dimensions": [
+      "official_ads_api_route",
+      "campaign_writeback",
+      "budget_mutation",
+      "bid_mutation"
+    ],
+    "boundary_statement": {
+      "manual_import_only": true,
+      "not_official_ads_api": true,
+      "current_permissions_do_not_confirm_stable_ads_route": true,
+      "no_platform_write_action_attempted": true,
+      "comparison_layer_is_derived": true,
+      "imported_ads_data_only": true
+    }
+  },
+  "diagnostic": {
+    "report_name": "ads_diagnostic",
+    "generated_at": "2026-04-15T06:56:11.734Z",
+    "official_inputs": {
+      "source_type": "manual_import",
+      "imported_fields": [
+        "date",
+        "campaign_name/campaign_id",
+        "ad_group_name/ad_group_id",
+        "keyword",
+        "spend",
+        "impressions",
+        "clicks",
+        "inquiries"
+      ]
+    },
+    "summary": {
+      "report_name": "ads_summary",
+      "generated_at": "2026-04-15T06:56:11.733Z",
+      "source_type": "manual_import",
+      "import_contract": {
+        "schema_version": "stage42_ads_import_v1",
+        "row_count": 8,
+        "normalized_row_count": 8,
+        "error_count": 0,
+        "warning_count": 0
+      },
+      "summary": {
+        "campaign_count": 3,
+        "ad_group_count": 4,
+        "keyword_count": 4,
+        "date_range": {
+          "start": "2026-04-01",
+          "end": "2026-04-12"
+        },
+        "metric_totals": {
+          "spend": 897.5,
+          "impressions": 28490,
+          "clicks": 848,
+          "inquiries": 37,
+          "ctr": 0.029765,
+          "cpc": 1.058373,
+          "inquiry_rate": 0.043632,
+          "cost_per_inquiry": 24.256757
+        }
+      },
+      "campaign_breakdown": [
+        {
+          "key": "CMP-001",
+          "spend": 688.6,
+          "impressions": 18240,
+          "clicks": 529,
+          "inquiries": 20,
+          "row_count": 5,
+          "ctr": 0.029002,
+          "cpc": 1.301701,
+          "inquiry_rate": 0.037807,
+          "cost_per_inquiry": 34.43
+        },
+        {
+          "key": "CMP-002",
+          "spend": 112.9,
+          "impressions": 4350,
+          "clicks": 179,
+          "inquiries": 17,
+          "row_count": 2,
+          "ctr": 0.041149,
+          "cpc": 0.630726,
+          "inquiry_rate": 0.094972,
+          "cost_per_inquiry": 6.641176
+        },
+        {
+          "key": "CMP-003",
+          "spend": 96,
+          "impressions": 5900,
+          "clicks": 140,
+          "inquiries": 0,
+          "row_count": 1,
+          "ctr": 0.023729,
+          "cpc": 0.685714,
+          "inquiry_rate": 0,
+          "cost_per_inquiry": null
+        }
+      ],
+      "ad_group_breakdown": [
+        {
+          "key": "AG-001",
+          "spend": 382.1,
+          "impressions": 9760,
+          "clicks": 287,
+          "inquiries": 9,
+          "row_count": 3,
+          "ctr": 0.029406,
+          "cpc": 1.331359,
+          "inquiry_rate": 0.031359,
+          "cost_per_inquiry": 42.455556
+        },
+        {
+          "key": "AG-002",
+          "spend": 306.5,
+          "impressions": 8480,
+          "clicks": 242,
+          "inquiries": 11,
+          "row_count": 2,
+          "ctr": 0.028538,
+          "cpc": 1.266529,
+          "inquiry_rate": 0.045455,
+          "cost_per_inquiry": 27.863636
+        },
+        {
+          "key": "AG-003",
+          "spend": 112.9,
+          "impressions": 4350,
+          "clicks": 179,
+          "inquiries": 17,
+          "row_count": 2,
+          "ctr": 0.041149,
+          "cpc": 0.630726,
+          "inquiry_rate": 0.094972,
+          "cost_per_inquiry": 6.641176
+        },
+        {
+          "key": "AG-004",
+          "spend": 96,
+          "impressions": 5900,
+          "clicks": 140,
+          "inquiries": 0,
+          "row_count": 1,
+          "ctr": 0.023729,
+          "cpc": 0.685714,
+          "inquiry_rate": 0,
+          "cost_per_inquiry": null
+        }
+      ],
+      "keyword_breakdown": [
+        {
+          "key": "industrial pump",
+          "spend": 382.1,
+          "impressions": 9760,
+          "clicks": 287,
+          "inquiries": 9,
+          "row_count": 3,
+          "ctr": 0.029406,
+          "cpc": 1.331359,
+          "inquiry_rate": 0.031359,
+          "cost_per_inquiry": 42.455556
+        },
+        {
+          "key": "control valve",
+          "spend": 306.5,
+          "impressions": 8480,
+          "clicks": 242,
+          "inquiries": 11,
+          "row_count": 2,
+          "ctr": 0.028538,
+          "cpc": 1.266529,
+          "inquiry_rate": 0.045455,
+          "cost_per_inquiry": 27.863636
+        },
+        {
+          "key": "wika packing",
+          "spend": 112.9,
+          "impressions": 4350,
+          "clicks": 179,
+          "inquiries": 17,
+          "row_count": 2,
+          "ctr": 0.041149,
+          "cpc": 0.630726,
+          "inquiry_rate": 0.094972,
+          "cost_per_inquiry": 6.641176
+        },
+        {
+          "key": "cheap packing",
+          "spend": 96,
+          "impressions": 5900,
+          "clicks": 140,
+          "inquiries": 0,
+          "row_count": 1,
+          "ctr": 0.023729,
+          "cpc": 0.685714,
+          "inquiry_rate": 0,
+          "cost_per_inquiry": null
+        }
+      ],
+      "unavailable_dimensions": [
+        "official_ads_api_route",
+        "campaign_writeback",
+        "budget_mutation",
+        "bid_mutation",
+        "official_budget_status",
+        "official_bid_history",
+        "official_region_delivery_status"
+      ],
+      "boundary_statement": {
+        "manual_import_only": true,
+        "not_official_ads_api": true,
+        "current_permissions_do_not_confirm_stable_ads_route": true,
+        "no_platform_write_action_attempted": true,
+        "import_analysis_only": true,
+        "not_platform_ad_mutation": true
+      }
+    },
+    "comparison": {
+      "report_name": "ads_comparison",
+      "generated_at": "2026-04-15T06:56:11.734Z",
+      "comparison_basis": {
+        "current_window": {
+          "start": "2026-04-08",
+          "end": "2026-04-12"
+        },
+        "previous_window": {
+          "start": "2026-04-01",
+          "end": "2026-04-03"
+        },
+        "source_type": "manual_import"
+      },
+      "current_window": {
+        "start": "2026-04-08",
+        "end": "2026-04-12"
+      },
+      "previous_window": {
+        "start": "2026-04-01",
+        "end": "2026-04-03"
+      },
+      "derived_comparison": {
+        "trend_direction": "improving",
+        "metric_deltas": {
+          "spend": {
+            "current": 507.8,
+            "previous": 389.7,
+            "delta_value": 118.1,
+            "delta_rate": 0.303054
+          },
+          "impressions": {
+            "current": 18180,
+            "previous": 10310,
+            "delta_value": 7870,
+            "delta_rate": 0.763337
+          },
+          "clicks": {
+            "current": 544,
+            "previous": 304,
+            "delta_value": 240,
+            "delta_rate": 0.789474
+          },
+          "inquiries": {
+            "current": 27,
+            "previous": 10,
+            "delta_value": 17,
+            "delta_rate": 1.7
+          },
+          "ctr": {
+            "current": 0.029923,
+            "previous": 0.029486,
+            "delta_value": 0.000437,
+            "delta_rate": 0.014821
+          },
+          "cpc": {
+            "current": 0.933456,
+            "previous": 1.281908,
+            "delta_value": -0.348452,
+            "delta_rate": -0.271823
+          },
+          "inquiry_rate": {
+            "current": 0.049632,
+            "previous": 0.032895,
+            "delta_value": 0.016737,
+            "delta_rate": 0.508801
+          }
+        }
+      },
+      "unavailable_dimensions": [
+        "official_ads_api_route",
+        "campaign_writeback",
+        "budget_mutation",
+        "bid_mutation"
+      ],
+      "boundary_statement": {
+        "manual_import_only": true,
+        "not_official_ads_api": true,
+        "current_permissions_do_not_confirm_stable_ads_route": true,
+        "no_platform_write_action_attempted": true,
+        "comparison_layer_is_derived": true,
+        "imported_ads_data_only": true
+      }
+    },
+    "diagnostic_findings": [
+      {
+        "severity": "medium",
+        "code": "KEYWORD_EFFICIENCY_GAP",
+        "message": "存在高点击低询盘关键词，建议先降本或暂停低效率词。",
+        "evidence": [
+          {
+            "keyword": "cheap packing",
+            "clicks": 140,
+            "inquiries": 0,
+            "inquiry_rate": 0
+          },
+          {
+            "keyword": "industrial pump",
+            "clicks": 287,
+            "inquiries": 9,
+            "inquiry_rate": 0.031359
+          },
+          {
+            "keyword": "control valve",
+            "clicks": 242,
+            "inquiries": 11,
+            "inquiry_rate": 0.045455
+          }
+        ]
+      },
+      {
+        "severity": "info",
+        "code": "SPEND_CONCENTRATION",
+        "message": "当前花费集中在少数计划，建议逐个核查其点击质量与询盘承接。",
+        "evidence": [
+          {
+            "campaign": "CMP-001",
+            "spend": 688.6,
+            "clicks": 529,
+            "inquiries": 20
+          },
+          {
+            "campaign": "CMP-002",
+            "spend": 112.9,
+            "clicks": 179,
+            "inquiries": 17
+          },
+          {
+            "campaign": "CMP-003",
+            "spend": 96,
+            "clicks": 140,
+            "inquiries": 0
+          }
+        ]
+      },
+      {
+        "severity": "info",
+        "code": "TREND_DIRECTION",
+        "message": "当前广告总体变化方向为 improving。"
+      }
+    ],
+    "recommendations": [
+      {
+        "priority": "P1",
+        "action": "对高询盘率关键词做扩量观察，必要时单独拆组。",
+        "basis": "已识别出可复用的高询盘关键词。",
+        "evidence": [
+          {
+            "keyword": "wika packing",
+            "inquiry_rate": 0.094972,
+            "inquiries": 17
+          },
+          {
+            "keyword": "control valve",
+            "inquiry_rate": 0.045455,
+            "inquiries": 11
+          },
+          {
+            "keyword": "industrial pump",
+            "inquiry_rate": 0.031359,
+            "inquiries": 9
+          }
+        ]
+      },
+      {
+        "priority": "P1",
+        "action": "对高成本关键词做降价、暂停或转内容整改。",
+        "basis": "存在成本偏高的关键词。",
+        "evidence": [
+          {
+            "keyword": "industrial pump",
+            "cost_per_inquiry": 42.455556,
+            "spend": 382.1,
+            "inquiries": 9
+          },
+          {
+            "keyword": "control valve",
+            "cost_per_inquiry": 27.863636,
+            "spend": 306.5,
+            "inquiries": 11
+          },
+          {
+            "keyword": "wika packing",
+            "cost_per_inquiry": 6.641176,
+            "spend": 112.9,
+            "inquiries": 17
+          }
+        ]
+      }
+    ],
+    "unavailable_dimensions": [
+      "official_ads_api_route",
+      "campaign_writeback",
+      "budget_mutation",
+      "bid_mutation",
+      "official_budget_status",
+      "official_bid_history",
+      "official_region_delivery_status"
+    ],
+    "boundary_statement": {
+      "manual_import_only": true,
+      "imported_ads_data_only": true,
+      "recommendations_are_derived": true,
+      "not_official_ads_api": true,
+      "no_platform_write_action_attempted": true
+    }
+  },
+  "action_center": {
+    "report_name": "ads_action_center",
+    "generated_at": "2026-04-15T06:56:11.735Z",
+    "summary_snapshot": {
+      "campaign_count": 3,
+      "ad_group_count": 4,
+      "keyword_count": 4,
+      "date_range": {
+        "start": "2026-04-01",
+        "end": "2026-04-12"
+      },
+      "metric_totals": {
+        "spend": 897.5,
+        "impressions": 28490,
+        "clicks": 848,
+        "inquiries": 37,
+        "ctr": 0.029765,
+        "cpc": 1.058373,
+        "inquiry_rate": 0.043632,
+        "cost_per_inquiry": 24.256757
+      }
+    },
+    "comparison_snapshot": {
+      "trend_direction": "improving",
+      "metric_deltas": {
+        "spend": {
+          "current": 507.8,
+          "previous": 389.7,
+          "delta_value": 118.1,
+          "delta_rate": 0.303054
+        },
+        "impressions": {
+          "current": 18180,
+          "previous": 10310,
+          "delta_value": 7870,
+          "delta_rate": 0.763337
+        },
+        "clicks": {
+          "current": 544,
+          "previous": 304,
+          "delta_value": 240,
+          "delta_rate": 0.789474
+        },
+        "inquiries": {
+          "current": 27,
+          "previous": 10,
+          "delta_value": 17,
+          "delta_rate": 1.7
+        },
+        "ctr": {
+          "current": 0.029923,
+          "previous": 0.029486,
+          "delta_value": 0.000437,
+          "delta_rate": 0.014821
+        },
+        "cpc": {
+          "current": 0.933456,
+          "previous": 1.281908,
+          "delta_value": -0.348452,
+          "delta_rate": -0.271823
+        },
+        "inquiry_rate": {
+          "current": 0.049632,
+          "previous": 0.032895,
+          "delta_value": 0.016737,
+          "delta_rate": 0.508801
+        }
+      }
+    },
+    "prioritized_actions": [
+      {
+        "priority": "P1",
+        "action": "对高询盘率关键词做扩量观察，必要时单独拆组。",
+        "basis": "已识别出可复用的高询盘关键词。",
+        "evidence": [
+          {
+            "keyword": "wika packing",
+            "inquiry_rate": 0.094972,
+            "inquiries": 17
+          },
+          {
+            "keyword": "control valve",
+            "inquiry_rate": 0.045455,
+            "inquiries": 11
+          },
+          {
+            "keyword": "industrial pump",
+            "inquiry_rate": 0.031359,
+            "inquiries": 9
+          }
+        ]
+      },
+      {
+        "priority": "P1",
+        "action": "对高成本关键词做降价、暂停或转内容整改。",
+        "basis": "存在成本偏高的关键词。",
+        "evidence": [
+          {
+            "keyword": "industrial pump",
+            "cost_per_inquiry": 42.455556,
+            "spend": 382.1,
+            "inquiries": 9
+          },
+          {
+            "keyword": "control valve",
+            "cost_per_inquiry": 27.863636,
+            "spend": 306.5,
+            "inquiries": 11
+          },
+          {
+            "keyword": "wika packing",
+            "cost_per_inquiry": 6.641176,
+            "spend": 112.9,
+            "inquiries": 17
+          }
+        ]
+      }
+    ],
+    "shared_blockers": [
+      "manual_import_required",
+      "official_ads_api_unavailable_or_unconfirmed",
+      "budget_bid_mutation_not_supported"
+    ],
+    "unavailable_dimensions": [
+      "official_ads_api_route",
+      "campaign_writeback",
+      "budget_mutation",
+      "bid_mutation",
+      "official_budget_status",
+      "official_bid_history",
+      "official_region_delivery_status"
+    ],
+    "boundary_statement": {
+      "imported_ads_data_only": true,
+      "action_center_only": true,
+      "not_platform_execution": true,
+      "no_platform_write_action_attempted": true
+    }
+  }
+}

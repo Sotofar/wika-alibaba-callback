@@ -1,0 +1,9 @@
+date,campaign_name,campaign_id,ad_group_name,ad_group_id,keyword,spend,impressions,clicks,inquiries,ctr,cpc,conversion,inquiry_rate,budget,bid,region,device,currency,source_file
+2026-04-01,SAMPLE_Search_Core,CMP-001,SAMPLE_Pump_Broad,AG-001,industrial pump,125.50,3200,96,3,3.00%,1.3073,3.13%,3.13%,500,1.2,EU,desktop,USD,sample-export-week1.csv
+2026-04-02,SAMPLE_Search_Core,CMP-001,SAMPLE_Pump_Broad,AG-001,industrial pump,118.20,3010,90,2,2.99%,1.3133,2.22%,2.22%,500,1.2,EU,desktop,USD,sample-export-week1.csv
+2026-04-03,SAMPLE_Search_Core,CMP-001,SAMPLE_Valve_Exact,AG-002,control valve,146.00,4100,118,5,2.88%,1.2373,4.24%,4.24%,500,1.5,EU,mobile,USD,sample-export-week1.csv
+2026-04-08,SAMPLE_Search_Core,CMP-001,SAMPLE_Pump_Broad,AG-001,industrial pump,138.40,3550,101,4,2.85%,1.3703,3.96%,3.96%,500,1.25,EU,desktop,USD,sample-export-week2.csv
+2026-04-09,SAMPLE_Search_Core,CMP-001,SAMPLE_Valve_Exact,AG-002,control valve,160.50,4380,124,6,2.83%,1.2944,4.84%,4.84%,500,1.55,EU,mobile,USD,sample-export-week2.csv
+2026-04-10,SAMPLE_Brand_Defense,CMP-002,SAMPLE_Brand_Keyword,AG-003,wika packing,54.80,2100,87,8,4.14%,0.6299,9.20%,9.20%,180,0.68,Global,desktop,USD,sample-export-week2.csv
+2026-04-11,SAMPLE_Brand_Defense,CMP-002,SAMPLE_Brand_Keyword,AG-003,wika packing,58.10,2250,92,9,4.09%,0.6315,9.78%,9.78%,180,0.68,Global,desktop,USD,sample-export-week2.csv
+2026-04-12,SAMPLE_Test_Keyword_Cleanup,CMP-003,SAMPLE_Low_Intent,AG-004,cheap packing,96.00,5900,140,0,2.37%,0.6857,0.00%,0.00%,120,0.4,US,mobile,USD,sample-export-week2.csv

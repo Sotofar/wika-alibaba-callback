@@ -1,0 +1,148 @@
+{
+  "stage": "stage41",
+  "generated_at": "2026-04-15T00:00:00.000Z",
+  "domains": {
+    "store_operations": {
+      "status": "auto_read_confirmed",
+      "official_fields": [
+        "visitor",
+        "imps",
+        "clk",
+        "clk_rate",
+        "fb",
+        "reply"
+      ],
+      "derived_outputs": [
+        "management_summary",
+        "minimal_diagnostic",
+        "comparison_summary",
+        "business_cockpit_signals"
+      ],
+      "unavailable_dimensions": [
+        "traffic_source",
+        "country_source",
+        "quick_reply_rate"
+      ]
+    },
+    "product_operations": {
+      "status": "auto_read_confirmed",
+      "official_fields": [
+        "click",
+        "impression",
+        "visitor",
+        "fb",
+        "order",
+        "bookmark",
+        "compare",
+        "share",
+        "keyword_effects"
+      ],
+      "derived_outputs": [
+        "management_summary",
+        "minimal_diagnostic",
+        "comparison_summary",
+        "draft_readiness",
+        "preview_readiness"
+      ],
+      "unavailable_dimensions": [
+        "access_source",
+        "inquiry_source",
+        "country_source",
+        "period_over_period_change"
+      ]
+    },
+    "order_operations": {
+      "status": "auto_read_confirmed_partial",
+      "official_fields": [
+        "orders_list_snapshot",
+        "orders_detail_snapshot",
+        "fund_snapshot",
+        "logistics_snapshot"
+      ],
+      "derived_outputs": [
+        "formal_summary",
+        "product_contribution",
+        "trend_signal",
+        "minimal_diagnostic",
+        "comparison_summary"
+      ],
+      "unavailable_dimensions": [
+        "country_structure"
+      ]
+    },
+    "ads_delivery": {
+      "status": "import_required",
+      "auto_sources": [],
+      "import_schema_fields": [
+        "date",
+        "campaign_name",
+        "campaign_id",
+        "ad_group_name",
+        "ad_group_id",
+        "keyword",
+        "spend",
+        "impressions",
+        "clicks",
+        "inquiries",
+        "ctr",
+        "cpc",
+        "conversion",
+        "inquiry_rate"
+      ],
+      "unavailable_dimensions": [
+        "official_ads_api_route",
+        "budget_mutation",
+        "bid_mutation"
+      ]
+    },
+    "content_page_optimization": {
+      "status": "derived_plus_manual",
+      "sources": [
+        "products/management-summary",
+        "products/minimal-diagnostic",
+        "products/comparison-summary",
+        "products/detail",
+        "products/score",
+        "products/groups",
+        "products/schema",
+        "products/schema/render",
+        "media/list",
+        "business-cockpit",
+        "action-center",
+        "operator-console"
+      ],
+      "unavailable_dimensions": [
+        "page_heatmap",
+        "page_clickstream",
+        "homepage_module_ctr"
+      ]
+    },
+    "workbench_inputs": {
+      "status": "auto_read_confirmed",
+      "sources": [
+        "product-draft-workbench",
+        "reply-workbench",
+        "order-workbench",
+        "task-workbench",
+        "product-draft-preview",
+        "reply-preview",
+        "order-preview",
+        "preview-center"
+      ],
+      "note": "task3/task4/task5 当前已具备消费层、准备层、预览层，但仍不是平台内执行闭环。"
+    }
+  },
+  "metric_interpretation": {
+    "official": "当前 official production mainline 已验证可得字段",
+    "derived": "基于当前 official 字段或既有 derived 层保守计算的结果",
+    "import_required": "业务必需但当前无稳定 official read route，因此通过导入层补位",
+    "manual_required": "必须由人工判断或人工补充的上下文"
+  },
+  "boundary_statement": {
+    "wika_only": true,
+    "xd_excluded": true,
+    "task6_excluded": true,
+    "no_write_action_attempted": true,
+    "not_full_business_cockpit": true
+  }
+}
