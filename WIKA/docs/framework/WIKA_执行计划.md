@@ -861,3 +861,27 @@
   - 收集真实广告导出文件
   - 收集页面人工盘点输入
   - 再把 ads / page input 安全接入更高层运营控制台消费链
+
+## 2026-04-18 Stage 45 runtime 稳定性修复回写
+
+### 已完成
+- 已修复 `preview-center` 的 `GET` 兼容入口。
+- 已对以下高层消费 route 加入只读 time budget 与 degraded JSON：
+  - `/integrations/alibaba/wika/reports/action-center`
+  - `/integrations/alibaba/wika/reports/operator-console`
+  - `/integrations/alibaba/wika/workbench/task-workbench`
+- 已新增 live-only smoke 脚本：
+  - `WIKA/scripts/validate-wika-stage45-runtime-stability.js`
+
+### 当前剩余
+- 当前不再以 `404` 或整条 timeout 作为高层消费层的常态失败模式。
+- 当前仍存在的 live 波动已被收敛到显式 degraded section：
+  - `action-center.store_diagnostic`
+  - `task-workbench.task5_summary`
+
+### 下一步唯一动作
+- stage45 基线锁定后，不再继续扩高层 route。
+- 若后续推进，只围绕：
+  - 真实广告输入
+  - 页面人工盘点输入
+  - 基于这些输入的更强消费层

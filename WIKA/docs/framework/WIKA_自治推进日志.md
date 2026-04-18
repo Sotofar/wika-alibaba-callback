@@ -1652,3 +1652,45 @@
 - 当前唯一阻塞：
   - 阶段 45 若要进入在线统一层，当前缺真实广告导出样本与稳定导入承接方式
   - 页面级优化再往前也会开始依赖页面行为级真实数据
+
+## 2026-04-18 Stage 45 Runtime Stability Fix
+
+### 当前阶段
+- stage45 runtime 稳定性修复与推送前复核
+
+### 已完成
+- 已复现并确认：
+  - `preview-center` live `404` 原因是只注册了 `POST`，缺少 `GET` 兼容入口
+  - `action-center` / `operator-console` / `task-workbench` 存在重型串行聚合导致的高时延波动
+- 已修复：
+  - `preview-center` 新增 `GET` summary-only 兼容入口
+  - `task-workbench` 引入 time budget + degraded JSON
+  - `action-center` 改成直接聚合必要 section，并支持 degraded JSON
+  - `operator-console` 改成轻量 summary 聚合，并避免直接重新构建重型 `business-cockpit`
+- 已新增：
+  - `WIKA/projects/wika/data/common/aggregate-runtime.js`
+  - `WIKA/scripts/validate-wika-stage45-local-contract.js`
+  - `WIKA/scripts/validate-wika-stage45-runtime-stability.js`
+
+### Gate result
+- `node --check`：
+  - `app.js`
+  - 本轮新增或修改 JS
+  均通过
+- 本地 contract：
+  - `task-workbench` -> `PASS_LOCAL_CONTRACT`
+  - `action-center` -> `PASS_LOCAL_CONTRACT`
+  - `preview-center` -> `PASS_LOCAL_CONTRACT`
+  - `operator-console` -> `PASS_LOCAL_CONTRACT`
+- paced live smoke：
+  - `preview-center` -> `200 full_success`
+  - `action-center` -> `200 degraded`
+  - `operator-console` -> `200 full_success`
+  - `task-workbench` -> `200 degraded`
+  - `business-cockpit` -> `200 full_success`
+
+### 当前唯一结论
+- stage45 当前可以写成：
+  - 高层消费 route 已恢复 live 可读性
+  - 部分 route 仍有显式 degraded section
+  - 但不再依赖 `404` / timeout 作为默认失败形态

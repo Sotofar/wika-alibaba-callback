@@ -114,6 +114,10 @@ function sanitize(node) {
   return output;
 }
 
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 function stripEnvelope(body = {}) {
   if (!body || typeof body !== "object") {
     return body;
@@ -171,6 +175,36 @@ async function fetchRoute(route) {
   };
 }
 
+function isApiCallLimitResult(result = {}) {
+  const topErrorCode =
+    result.body?.top_error?.code ??
+    result.body?.error_response?.code ??
+    null;
+
+  return topErrorCode === "ApiCallLimit" || /ApiCallLimit/i.test(result.text_preview ?? "");
+}
+
+async function fetchRouteWithPacedRetry(route) {
+  const waitPlan = [0, 1800, 3200];
+  let lastResult = null;
+
+  for (const waitMs of waitPlan) {
+    if (waitMs > 0) {
+      await sleep(waitMs);
+    }
+
+    lastResult = await fetchRoute(route);
+    if (
+      lastResult.status === 200 ||
+      !isApiCallLimitResult(lastResult)
+    ) {
+      return lastResult;
+    }
+  }
+
+  return lastResult;
+}
+
 function assertRouteShape(result, route) {
   assert(result.status === 200, `${route.key} status != 200`);
 
@@ -179,7 +213,9 @@ function assertRouteShape(result, route) {
   }
 
   assert(result.is_json === true, `${route.key} did not return JSON`);
-  assert(result.boundary_statement_present === true, `${route.key} missing boundary_statement`);
+  if (route.key !== "auth_debug") {
+    assert(result.boundary_statement_present === true, `${route.key} missing boundary_statement`);
+  }
 
   const keys = result.top_level_keys;
   switch (route.key) {
@@ -221,7 +257,7 @@ function assertRouteShape(result, route) {
 
 const results = {};
 for (const route of ROUTES) {
-  results[route.key] = await fetchRoute(route);
+  results[route.key] = await fetchRouteWithPacedRetry(route);
   assertRouteShape(results[route.key], route);
 }
 

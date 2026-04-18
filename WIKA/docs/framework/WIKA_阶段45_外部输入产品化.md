@@ -104,3 +104,48 @@
 - task 6 excluded
 - no write action attempted
 - not full business cockpit
+
+## 2026-04-18 stage45 runtime 稳定性修复
+
+### 修复范围
+- `preview-center`：
+  - 为 `/integrations/alibaba/wika/workbench/preview-center` 补回 `GET` 兼容入口
+  - 保留 `POST` 全量输入感知预览
+  - `GET` 默认返回 summary-only 结构，不再直接 `404`
+- 高层聚合 route：
+  - `/integrations/alibaba/wika/reports/action-center`
+  - `/integrations/alibaba/wika/reports/operator-console`
+  - `/integrations/alibaba/wika/workbench/task-workbench`
+  已加入只读 time budget 与 degraded JSON 输出
+
+### live 结果
+- `preview-center`：
+  - `GET /integrations/alibaba/wika/workbench/preview-center` -> `200 JSON`
+  - 当前输出已包含：
+    - `task3_preview_summary`
+    - `task4_preview_summary`
+    - `task5_preview_summary`
+    - `shared_readiness`
+    - `shared_blockers`
+    - `shared_handoff_rules`
+    - `boundary_statement`
+- `action-center`：
+  - live 返回 `200 JSON`
+  - 当前允许在下游超时时返回 `degraded`
+  - 最新 smoke 里 `store_diagnostic` 命中 `time_budget_exceeded`
+- `task-workbench`：
+  - live 返回 `200 JSON`
+  - 当前允许在下游超时时返回 `degraded`
+  - 最新 smoke 里 `task5_summary` 命中 `time_budget_exceeded`
+- `operator-console`：
+  - live 返回 `200 JSON`
+  - 最新 smoke 为 `full_success`
+
+### 当前结论
+- 本轮没有新增业务功能，没有新增 Alibaba API。
+- 本轮修复的是高层消费 route 的 live 稳定性，不是新能力扩张。
+- 当前 live 口径应写成：
+  - `preview-center`: `ONLINE_COMPATIBLE`
+  - `action-center`: `ONLINE_DEGRADED_JSON_SUPPORTED`
+  - `task-workbench`: `ONLINE_DEGRADED_JSON_SUPPORTED`
+  - `operator-console`: `ONLINE_FULL_SUCCESS`

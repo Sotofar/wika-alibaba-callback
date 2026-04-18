@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-18T15:20:01.987Z",
+  "generated_at": "2026-04-18T15:28:13.610Z",
   "stage": "permission_closure",
   "online_smoke_status": "PASS",
   "online_smoke_policy": {
@@ -69,12 +69,12 @@
         "wika_token_file_exists": "***",
         "wika_token_loaded": "***",
         "wika_runtime_loaded_from": "refresh:startup_bootstrap",
-        "wika_startup_init_attempted_at": "2026-04-18T14:59:24.965Z",
+        "wika_startup_init_attempted_at": "2026-04-18T15:21:51.975Z",
         "wika_startup_init_status": "refresh:startup_bootstrap",
         "wika_startup_init_error": null,
         "wika_has_refresh_token": "***",
-        "wika_next_refresh_at": "2026-05-18T14:49:25.987Z",
-        "wika_last_refresh_at": "2026-04-18T14:59:25.989Z",
+        "wika_next_refresh_at": "2026-05-18T15:11:53.060Z",
+        "wika_last_refresh_at": "2026-04-18T15:21:53.063Z",
         "wika_last_refresh_reason": "startup_bootstrap",
         "wika_last_refresh_error": null
       },
@@ -102,7 +102,7 @@
       ],
       "body": {
         "report_name": "operations_management_summary",
-        "generated_at": "2026-04-18T15:17:58.511Z",
+        "generated_at": "2026-04-18T15:27:04.442Z",
         "report_scope": {
           "type": "store_level_mydata_subset",
           "sample_based": false
@@ -174,7 +174,7 @@
           ]
         }
       },
-      "text_preview": "{\"ok\":true,\"module\":\"operations\",\"account\":\"wika\",\"read_only\":true,\"report_name\":\"operations_management_summary\",\"generated_at\":\"2026-04-18T15:17:58.511Z\",\"report_scope\":{\"type\":\"store_level_mydata_su",
+      "text_preview": "{\"ok\":true,\"module\":\"operations\",\"account\":\"wika\",\"read_only\":true,\"report_name\":\"operations_management_summary\",\"generated_at\":\"2026-04-18T15:27:04.442Z\",\"report_scope\":{\"type\":\"store_level_mydata_su",
       "source_mode": "production_route"
     },
     "products_management_summary": {
@@ -246,7 +246,7 @@
           ]
         },
         "report_name": "products_management_summary",
-        "generated_at": "2026-04-18T15:18:03.381Z",
+        "generated_at": "2026-04-18T15:27:09.379Z",
         "statistics_type": "day",
         "stat_date": "2026-04-16",
         "report_scope": {
@@ -433,7 +433,7 @@
         ],
         "management_summary": {
           "report_name": "products_management_summary",
-          "generated_at": "2026-04-18T15:18:03.381Z",
+          "generated_at": "2026-04-18T15:27:09.379Z",
           "report_scope": {
             "type": "sampled_product_mydata_subset",
             "sample_based": true
@@ -667,7 +667,7 @@
       ],
       "body": {
         "report_name": "orders_management_summary",
-        "generated_at": "2026-04-18T15:18:09.066Z",
+        "generated_at": "2026-04-18T15:27:14.916Z",
         "report_scope": {
           "type": "derived_order_summary",
           "derived": true,
@@ -889,7 +889,7 @@
           "Current order management summary is sampled/window-based; check page_limit and observed_trade_count before using it as a management headline."
         ]
       },
-      "text_preview": "{\"ok\":true,\"module\":\"orders\",\"account\":\"wika\",\"read_only\":true,\"report_name\":\"orders_management_summary\",\"generated_at\":\"2026-04-18T15:18:09.066Z\",\"report_scope\":{\"type\":\"derived_order_summary\",\"deriv",
+      "text_preview": "{\"ok\":true,\"module\":\"orders\",\"account\":\"wika\",\"read_only\":true,\"report_name\":\"orders_management_summary\",\"generated_at\":\"2026-04-18T15:27:14.916Z\",\"report_scope\":{\"type\":\"derived_order_summary\",\"deriv",
       "source_mode": "production_route"
     },
     "business_cockpit": {
@@ -3769,11 +3769,13 @@
         "task5_summary",
         "prioritized_actions",
         "shared_blockers",
+        "partial_status",
+        "degraded_sections",
         "boundary_statement"
       ],
       "body": {
         "report_name": "action_center",
-        "generated_at": "2026-04-13T02:02:42.957Z",
+        "generated_at": "2026-04-18T15:27:27.403Z",
         "business_cockpit_summary": {
           "source_route": "/integrations/alibaba/wika/reports/business-cockpit",
           "task_coverage_summary": {
@@ -3833,13 +3835,13 @@
         },
         "task5_summary": {
           "report_name": "order_workbench",
-          "recommended_next_action": null,
+          "recommended_next_action": "Task5 summary is temporarily degraded. Retry the order workbench after the read-side builder recovers, and keep the workflow in external draft handoff only.",
           "blocking_signals": "***",
           "boundary_statement": {
             "external_order_draft_only": true,
             "not_platform_order_create": true,
             "not_platform_internal_create": true,
-            "no_real_order_creation_attempted": true,
+            "degraded_read_only_summary": true,
             "task6_excluded": true
           }
         },
@@ -3850,6 +3852,13 @@
             "source": "/integrations/alibaba/wika/workbench/product-draft-workbench",
             "recommended_next_action": "Fill required category attributes, schema-required fields, and media candidates before handing the draft package to manual review. Do not enter platform publish.",
             "reason": "Task 3 still stays at safe draft preparation and manual field completion."
+          },
+          {
+            "priority": "high",
+            "domain": "task5",
+            "source": "/integrations/alibaba/wika/workbench/order-workbench",
+            "recommended_next_action": "Task5 summary is temporarily degraded. Retry the order workbench after the read-side builder recovers, and keep the workflow in external draft handoff only.",
+            "reason": "Task 5 still requires external order draft handoff and manual commercial confirmation."
           }
         ],
         "shared_blockers": [
@@ -3868,24 +3877,34 @@
           "missing_product_context",
           "missing_quantity",
           "missing_customer_profile",
-          "missing_buyer_company",
-          "missing_buyer_contact",
-          "missing_buyer_email",
-          "missing_line_items",
-          "missing_total_amount"
+          "task5_summary_time_budget_exceeded",
+          "task5_summary:time_budget_exceeded",
+          "store_diagnostic:time_budget_exceeded"
+        ],
+        "partial_status": {
+          "mode": "degraded",
+          "complete": false,
+          "degraded_section_count": 1
+        },
+        "degraded_sections": [
+          {
+            "section": "store_diagnostic",
+            "reason": "time_budget_exceeded",
+            "budget_ms": 9000,
+            "error_message": "section exceeded 9000ms time budget"
+          }
         ],
         "boundary_statement": {
           "action_center_only": true,
           "current_official_mainline_plus_derived_layers_only": true,
           "not_platform_execution": true,
+          "degraded_response_supported": true,
           "task6_excluded": true,
           "no_write_action_attempted": true
         }
       },
-      "text_preview": null,
-      "source_mode": "local_post_deploy_evidence_fallback",
-      "fallback_evidence_path": "D:\\Code\\阿里国际站\\WIKA\\docs\\framework\\evidence\\wika_action_center_post_deploy.json",
-      "fallback_reason": "live_status_502"
+      "text_preview": "{\"ok\":true,\"module\":\"action_center\",\"account\":\"wika\",\"read_only\":true,\"report_name\":\"action_center\",\"generated_at\":\"2026-04-18T15:27:27.403Z\",\"business_cockpit_summary\":{\"source_route\":\"/integrations/",
+      "source_mode": "production_route"
     },
     "operator_console": {
       "method": "GET",
@@ -3903,11 +3922,13 @@
         "preview_readiness",
         "shared_blockers",
         "next_best_actions",
+        "partial_status",
+        "degraded_sections",
         "boundary_statement"
       ],
       "body": {
         "report_name": "operator_console",
-        "generated_at": "2026-04-13T02:17:20.841Z",
+        "generated_at": "2026-04-18T15:27:45.786Z",
         "business_cockpit_summary": {
           "source_route": "/integrations/alibaba/wika/reports/business-cockpit",
           "report_name": "business_cockpit",
@@ -3970,11 +3991,31 @@
               "reason": "Task 3 still stays at safe draft preparation and manual field completion."
             }
           ],
-          "shared_blocker_count": 23,
+          "shared_blocker_count": 25,
+          "partial_status": {
+            "mode": "degraded",
+            "complete": false,
+            "degraded_section_count": 2
+          },
+          "degraded_sections": [
+            {
+              "section": "store_diagnostic",
+              "reason": "time_budget_exceeded",
+              "budget_ms": 9000,
+              "error_message": "section exceeded 9000ms time budget"
+            },
+            {
+              "section": "product_diagnostic",
+              "reason": "upstream_read_failure",
+              "budget_ms": 9000,
+              "error_message": "TOP API returned error_response"
+            }
+          ],
           "boundary_statement": {
             "action_center_only": true,
             "current_official_mainline_plus_derived_layers_only": true,
             "not_platform_execution": true,
+            "degraded_response_supported": true,
             "task6_excluded": true,
             "no_write_action_attempted": true
           }
@@ -4149,20 +4190,25 @@
             "reason": "Task 3 still stays at safe draft preparation and manual field completion."
           }
         ],
+        "partial_status": {
+          "mode": "full_success",
+          "complete": true,
+          "degraded_section_count": 0
+        },
+        "degraded_sections": [],
         "boundary_statement": {
           "operator_console_only": true,
           "current_official_mainline_plus_derived_layers_only": true,
           "task1_to_task5_consumption_layer_only": true,
           "not_platform_internal_execution": true,
+          "degraded_response_supported": true,
           "task6_excluded": true,
           "no_write_action_attempted": true,
           "not_full_business_cockpit": true
         }
       },
-      "text_preview": null,
-      "source_mode": "local_post_deploy_evidence_fallback",
-      "fallback_evidence_path": "D:\\Code\\阿里国际站\\WIKA\\docs\\framework\\evidence\\wika_operator_console_post_deploy.json",
-      "fallback_reason": "The operation was aborted due to timeout"
+      "text_preview": "{\"ok\":true,\"module\":\"operator_console\",\"account\":\"wika\",\"read_only\":true,\"report_name\":\"operator_console\",\"generated_at\":\"2026-04-18T15:27:45.786Z\",\"business_cockpit_summary\":{\"source_route\":\"/integra",
+      "source_mode": "production_route"
     },
     "product_draft_workbench": {
       "method": "GET",
@@ -4183,7 +4229,7 @@
       ],
       "body": {
         "report_name": "product_draft_workbench",
-        "generated_at": "2026-04-18T15:19:03.063Z",
+        "generated_at": "2026-04-18T15:27:49.547Z",
         "product_context": {
           "sample_source": "/integrations/alibaba/wika/data/products/detail",
           "product_id": "1601740791024",
@@ -4270,7 +4316,7 @@
           "render_draft_is_observability_only": true
         }
       },
-      "text_preview": "{\"ok\":true,\"module\":\"task3_product_draft_workbench\",\"account\":\"wika\",\"read_only\":true,\"report_name\":\"product_draft_workbench\",\"generated_at\":\"2026-04-18T15:19:03.063Z\",\"product_context\":{\"sample_sourc",
+      "text_preview": "{\"ok\":true,\"module\":\"task3_product_draft_workbench\",\"account\":\"wika\",\"read_only\":true,\"report_name\":\"product_draft_workbench\",\"generated_at\":\"2026-04-18T15:27:49.547Z\",\"product_context\":{\"sample_sourc",
       "source_mode": "production_route"
     },
     "reply_workbench": {
@@ -4292,7 +4338,7 @@
       ],
       "body": {
         "report_name": "reply_workbench",
-        "generated_at": "2026-04-18T15:19:09.559Z",
+        "generated_at": "2026-04-11T15:57:36.467Z",
         "workflow_capability": {
           "workflow_type": "external_reply_draft",
           "external_only": true,
@@ -4383,8 +4429,10 @@
           "task6_excluded": true
         }
       },
-      "text_preview": "{\"ok\":true,\"module\":\"task4_reply_workbench\",\"account\":\"wika\",\"read_only\":true,\"report_name\":\"reply_workbench\",\"generated_at\":\"2026-04-18T15:19:09.559Z\",\"workflow_capability\":{\"workflow_type\":\"external",
-      "source_mode": "production_route"
+      "text_preview": null,
+      "source_mode": "local_post_deploy_evidence_fallback",
+      "fallback_evidence_path": "D:\\Code\\阿里国际站\\WIKA\\docs\\framework\\evidence\\wika_reply_workbench_post_deploy.json",
+      "fallback_reason": "live_status_502"
     },
     "order_workbench": {
       "method": "GET",
@@ -4406,7 +4454,7 @@
       ],
       "body": {
         "report_name": "order_workbench",
-        "generated_at": "2026-04-18T15:19:19.351Z",
+        "generated_at": "2026-04-18T15:28:01.651Z",
         "workflow_capability": {
           "workflow_type": "external_order_draft_package",
           "external_only": true,
@@ -4585,7 +4633,7 @@
           "task6_excluded": true
         }
       },
-      "text_preview": "{\"ok\":true,\"module\":\"task5_order_workbench\",\"account\":\"wika\",\"read_only\":true,\"report_name\":\"order_workbench\",\"generated_at\":\"2026-04-18T15:19:19.351Z\",\"workflow_capability\":{\"workflow_type\":\"external",
+      "text_preview": "{\"ok\":true,\"module\":\"task5_order_workbench\",\"account\":\"wika\",\"read_only\":true,\"report_name\":\"order_workbench\",\"generated_at\":\"2026-04-18T15:28:01.651Z\",\"workflow_capability\":{\"workflow_type\":\"external",
       "source_mode": "production_route"
     },
     "task_workbench": {
@@ -4601,14 +4649,16 @@
         "task5_summary",
         "shared_blockers",
         "shared_handoff_rules",
+        "partial_status",
+        "degraded_sections",
         "boundary_statement"
       ],
       "body": {
         "report_name": "task_workbench",
-        "generated_at": "2026-04-11T15:58:19.746Z",
+        "generated_at": "2026-04-18T15:28:11.530Z",
         "task3_summary": {
           "report_name": "product_draft_workbench",
-          "generated_at": "2026-04-11T15:58:02.325Z",
+          "generated_at": "2026-04-18T15:28:05.891Z",
           "product_context": {
             "sample_source": "/integrations/alibaba/wika/data/products/detail",
             "product_id": "1601740791024",
@@ -4622,10 +4672,10 @@
           "schema_context": {
             "category_tree_available": true,
             "category_name": "Eyeglasses Cases & Bags",
-            "attribute_definition_count": 17,
+            "attribute_definition_count": 18,
             "required_attribute_count": 4,
-            "schema_field_count": 130,
-            "render_field_count": 132,
+            "schema_field_count": 131,
+            "render_field_count": 133,
             "schema_mode": "schema_aware",
             "render_draft_observability": {
               "attempted": true,
@@ -4657,7 +4707,7 @@
             ],
             "human_required_fields": [
               "p-271270841",
-              "saleProp",
+              "p-323283557",
               "p-191288010",
               "p-200471263",
               "skuStock",
@@ -4697,7 +4747,7 @@
         },
         "task4_summary": {
           "report_name": "reply_workbench",
-          "generated_at": "2026-04-11T15:58:08.644Z",
+          "generated_at": "2026-04-18T15:28:07.849Z",
           "workflow_capability": {
             "workflow_type": "external_reply_draft",
             "external_only": true,
@@ -4790,129 +4840,23 @@
         },
         "task5_summary": {
           "report_name": "order_workbench",
-          "generated_at": "2026-04-11T15:58:19.746Z",
+          "generated_at": "2026-04-18T15:28:11.530Z",
           "workflow_capability": {
             "workflow_type": "external_order_draft_package",
             "external_only": true,
-            "platform_order_available": false,
-            "preview_route": "/integrations/alibaba/wika/tools/order-draft",
-            "template_version": "2026-04-05.sop-v1"
+            "platform_order_available": false
           },
-          "input_requirements": {
-            "required_minimum_fields": [
-              "buyer.company_name",
-              "buyer.contact_name",
-              "buyer.email",
-              "line_items",
-              "shipment_plan.destination_country"
+          "blocker_taxonomy_summary": {
+            "preview_profile": null,
+            "hard_blocker_codes": [
+              "task5_summary_time_budget_exceeded"
             ],
-            "optional_fields": [
-              "payment_terms.total_amount",
-              "payment_terms.advance_amount",
-              "shipment_plan.lead_time_text",
-              "shipment_plan.trade_term",
-              "shipment_plan.shipment_method"
-            ],
-            "preview_mode": "POST body to /integrations/alibaba/wika/tools/order-draft"
-          },
-          "current_order_profiles": [
-            {
-              "code": "order_minimal_handoff",
-              "label": "Minimal order handoff",
-              "note": "Use when only the basic buyer data and a small amount of line-item context are available for an external order draft."
-            },
-            {
-              "code": "order_quote_confirmation_needed",
-              "label": "Quote confirmation order draft",
-              "note": "Use when line items are available, but price, total amount, and lead time still need human confirmation."
-            },
-            {
-              "code": "order_commercial_review",
-              "label": "Commercial review order draft",
-              "note": "Use when the main commercial fields are present, but manual review is still required before any downstream handoff."
-            }
-          ],
-          "required_manual_field_system": {
-            "required_manual_fields": [
-              "buyer.company_name",
-              "buyer.contact_name",
-              "buyer.email",
-              "line_items[].quantity",
-              "line_items[].unit_price",
-              "payment_terms.total_amount",
-              "payment_terms.advance_amount",
-              "shipment_plan.lead_time_text"
-            ],
-            "required_manual_field_details": [
-              {
-                "field": "buyer.company_name",
-                "template_section": "buyer_identity",
-                "why_required": "缺少买家公司主体，订单草稿无法交接给人工继续推进。",
-                "example_value": "ABC Trading LLC",
-                "collection_hint": "从客户签名、名片、邮箱域名或聊天记录中确认。",
-                "who_should_fill": "sales"
-              },
-              {
-                "field": "buyer.contact_name",
-                "template_section": "buyer_identity",
-                "why_required": "缺少联系人，人工回复和报价回传对象不明确。",
-                "example_value": "John Smith",
-                "collection_hint": "优先从询盘落款、邮箱签名或聊天记录获取。",
-                "who_should_fill": "sales"
-              },
-              {
-                "field": "buyer.email",
-                "template_section": "buyer_identity",
-                "why_required": "缺少正式联系邮箱，无法发送外部报价或订单草稿。",
-                "example_value": "***",
-                "collection_hint": "优先收集可正式回传文件的邮箱地址。",
-                "who_should_fill": "sales"
-              },
-              {
-                "field": "line_items[].quantity",
-                "template_section": "commercial_terms",
-                "why_required": "数量决定价格、交期和包装方案。",
-                "example_value": "1000",
-                "collection_hint": "确认正式采购量、MOQ 或打样数量。",
-                "who_should_fill": "sales"
-              },
-              {
-                "field": "line_items[].unit_price",
-                "template_section": "commercial_terms",
-                "why_required": "单价缺失会导致订单草稿无法形成有效报价包。",
-                "example_value": "0.65",
-                "collection_hint": "结合数量、材质、工艺和运费方案人工确认。",
-                "who_should_fill": "sales"
-              },
-              {
-                "field": "payment_terms.total_amount",
-                "template_section": "commercial_terms",
-                "why_required": "缺少总价，无法形成完整订单草稿包。",
-                "example_value": "650",
-                "collection_hint": "按行项目汇总或人工确认总报价。",
-                "who_should_fill": "sales"
-              },
-              {
-                "field": "payment_terms.advance_amount",
-                "template_section": "commercial_terms",
-                "why_required": "预付款安排影响付款条件和订单执行节奏。",
-                "example_value": "195",
-                "collection_hint": "确认定金比例或预付款金额。",
-                "who_should_fill": "sales"
-              },
-              {
-                "field": "shipment_plan.lead_time_text",
-                "template_section": "delivery_terms",
-                "why_required": "缺少交期会导致订单草稿无法形成明确承诺。",
-                "example_value": "25-30 days after artwork approval",
-                "collection_hint": "按打样、排产、出货阶段向业务或生产确认。",
-                "who_should_fill": "sales / production"
-              }
-            ]
+            "soft_blocker_codes": [],
+            "missing_context": []
           },
           "handoff_pack_capability": {
-            "handoff_checklist_available": true,
-            "handoff_fields_available": true,
+            "handoff_checklist_available": false,
+            "handoff_fields_available": false,
             "manual_completion_sop_available": true,
             "export_formats": [
               "json",
@@ -4922,50 +4866,26 @@
           "quality_gate_summary": {
             "handoff_required": true,
             "draft_usable_externally": false,
-            "alert_payload_available": true,
-            "follow_up_question_count": 10
+            "alert_payload_available": false,
+            "follow_up_question_count": 0
           },
           "sample_availability": {
-            "order_diagnostic_snapshot_available": true,
+            "order_diagnostic_snapshot_available": false,
             "line_item_count": 0,
-            "draft_types": [
-              "TA"
-            ]
+            "draft_types": []
           },
-          "blocker_taxonomy_summary": {
-            "preview_profile": "order_minimal_handoff",
-            "hard_blocker_codes": [
-              "missing_buyer_company",
-              "missing_buyer_contact",
-              "missing_buyer_email",
-              "missing_line_items",
-              "missing_total_amount",
-              "missing_lead_time"
-            ],
-            "soft_blocker_codes": [
-              "missing_advance_amount",
-              "missing_destination_country",
-              "missing_trade_term",
-              "missing_shipment_method"
-            ],
-            "missing_context": [
-              "buyer.company_name",
-              "buyer.contact_name",
-              "buyer.email",
-              "line_items",
-              "payment_terms.total_amount",
-              "shipment_plan.lead_time_text",
-              "payment_terms.advance_amount",
-              "shipment_plan.destination_country",
-              "shipment_plan.trade_term",
-              "shipment_plan.shipment_method"
-            ]
+          "recommended_next_action": "Task5 summary is temporarily degraded. Retry the order workbench after the read-side builder recovers, and keep the workflow in external draft handoff only.",
+          "partial_status": {
+            "section": "task5_summary",
+            "reason": "time_budget_exceeded",
+            "budget_ms": 9000,
+            "error_message": "section exceeded 9000ms time budget"
           },
           "boundary_statement": {
             "external_order_draft_only": true,
             "not_platform_order_create": true,
             "not_platform_internal_create": true,
-            "no_real_order_creation_attempted": true,
+            "degraded_read_only_summary": true,
             "task6_excluded": true
           }
         },
@@ -4978,19 +4898,26 @@
           "missing_product_context",
           "missing_quantity",
           "missing_customer_profile",
-          "missing_buyer_company",
-          "missing_buyer_contact",
-          "missing_buyer_email",
-          "missing_line_items",
-          "missing_total_amount",
-          "missing_advance_amount",
-          "missing_trade_term",
-          "missing_shipment_method"
+          "task5_summary_time_budget_exceeded",
+          "task5_summary:time_budget_exceeded"
         ],
         "shared_handoff_rules": [
           "All task3/4/5 workbenches only produce external drafts or safe draft preparation outputs and do not trigger platform write actions.",
           "If a hard blocker exists, key manual fields are missing, or low-risk boundaries are unproven, the workflow must hand off to manual review.",
           "Task 6 notification provider and real delivery capability are out of scope for this round."
+        ],
+        "partial_status": {
+          "mode": "degraded",
+          "complete": false,
+          "degraded_section_count": 1
+        },
+        "degraded_sections": [
+          {
+            "section": "task5_summary",
+            "reason": "time_budget_exceeded",
+            "budget_ms": 9000,
+            "error_message": "section exceeded 9000ms time budget"
+          }
         ],
         "boundary_statement": {
           "task3_safe_draft_only": true,
@@ -4998,14 +4925,13 @@
           "task5_external_order_only": true,
           "task3_task4_task5_workbench_only": true,
           "not_platform_internal_execution": true,
+          "degraded_response_supported": true,
           "task6_excluded": true,
           "no_write_action_attempted": true
         }
       },
-      "text_preview": null,
-      "source_mode": "local_post_deploy_evidence_fallback",
-      "fallback_evidence_path": "D:\\Code\\阿里国际站\\WIKA\\docs\\framework\\evidence\\wika_task_workbench_post_deploy.json",
-      "fallback_reason": "The operation was aborted due to timeout"
+      "text_preview": "{\"ok\":true,\"module\":\"task_workbench\",\"account\":\"wika\",\"read_only\":true,\"report_name\":\"task_workbench\",\"generated_at\":\"2026-04-18T15:28:11.530Z\",\"task3_summary\":{\"report_name\":\"product_draft_workbench\"",
+      "source_mode": "production_route"
     },
     "preview_center": {
       "method": "GET",
@@ -5015,921 +4941,74 @@
       "top_level_keys": [
         "report_name",
         "generated_at",
-        "product_preview",
-        "reply_preview",
-        "order_preview",
+        "task3_preview_summary",
+        "task4_preview_summary",
+        "task5_preview_summary",
+        "shared_readiness",
         "preview_readiness",
         "shared_blockers",
+        "shared_handoff_rules",
         "boundary_statement"
       ],
       "body": {
         "report_name": "preview_center",
-        "generated_at": "2026-04-13T02:03:30.601Z",
-        "product_preview": {
+        "generated_at": "2026-04-18T15:28:12.251Z",
+        "task3_preview_summary": {
+          "source_route": "/integrations/alibaba/wika/workbench/product-draft-preview",
           "report_name": "product_draft_preview",
-          "generated_at": "2026-04-13T02:03:10.269Z",
-          "preview_input_summary": {
-            "product_id": "1601740791024",
-            "category_id": 36127040,
-            "category_name": "Eyeglasses Cases & Bags",
-            "provided_field_count": 10,
-            "provided_fields": [
-              "base_name",
-              "material",
-              "positioning",
-              "selling_points",
-              "keyword_hints",
-              "application",
-              "customization",
-              "packaging_notes",
-              "moq",
-              "lead_time"
-            ],
-            "asset_path_count": 5,
-            "attribute_count": 0,
-            "schema_mode": "schema_aware"
-          },
-          "product_context": {
-            "product_id": "1601740791024",
-            "subject": "Customizable New Fashion Portable Eyeglasses Accessories Leather Big Glasses case Oversize Sunglasses Holder",
-            "category_id": 36127040,
-            "group_id": "957658239",
-            "score": "5.00"
-          },
-          "context_snapshot": {
-            "schema_context": {
-              "category_id": 36127040,
-              "schema_field_count": 130,
-              "render_field_count": 132,
-              "required_field_ids": [
-                "p-271270841",
-                "saleProp",
-                "p-191288010",
-                "p-200471263",
-                "skuStock",
-                "skuId",
-                "inventory",
-                "productKeywords_0",
-                "width",
-                "height",
-                "boxPackaging",
-                "day",
-                "ladderPeriod_1",
-                "ladderPeriod_2",
-                "priceUnit",
-                "platformLogisticsServices",
-                "shippingTemplateId",
-                "productGroup",
-                "second_group_id",
-                "third_group_id"
-              ],
-              "schema_field_ids_preview": [
-                "infos",
-                "catId",
-                "icbuCatProp",
-                "p-1",
-                "p-2",
-                "p-3",
-                "p-100007796",
-                "p-191290347",
-                "p-230093740",
-                "p-236836420",
-                "p-271270841",
-                "p-373265001",
-                "p-390864271",
-                "p-400035208",
-                "saleProp",
-                "p-191284014",
-                "p-191288010",
-                "p-200471263",
-                "sku",
-                "skuOuterId"
-              ]
-            },
-            "media_candidate_count": 5,
-            "draft_render_observable": true
-          },
-          "draft_preview": {
-            "stage": "product_draft_only",
-            "schema_mode": "schema_aware",
-            "title": "Custom Sunglasses Case PU leather travel organizer sunglasses case custom logo travel case",
-            "highlights": [
-              "zipper closure",
-              "logo customization",
-              "protective interior",
-              "Eyeglasses Cases & Bags category aligned",
-              "MOQ reference: 1000",
-              "Lead time reference: 25-30 days after artwork approval"
-            ],
-            "description_html": "<p><strong>Custom Sunglasses Case PU leather travel organizer sunglasses case custom logo travel case</strong></p><ul><li>zipper closure</li><li>logo customization</li><li>protective interior</li><li>Eyeglasses Cases & Bags category aligned</li><li>MOQ reference: 1000</li><li>Lead time reference: 25-30 days after artwork approval</li></ul><p>Application: gift and retail packaging</p><p>Customization: support logo printing and color customization</p><p>Packaging notes: export carton packing</p>",
-            "keywords": [
-              "sunglasses case",
-              "custom logo",
-              "travel case",
-              "Custom Sunglasses Case",
-              "PU leather",
-              "Eyeglasses Cases & Bags"
-            ],
-            "schema_aware_field_mapping": [
-              {
-                "schema_field_id": "productTitle",
-                "source_key": "title",
-                "ready": true,
-                "available_in_schema": true,
-                "value_preview": "Custom Sunglasses Case PU leather travel organizer sunglasses case custom logo travel case"
-              },
-              {
-                "schema_field_id": "productKeywords",
-                "source_key": "keywords",
-                "ready": true,
-                "available_in_schema": true,
-                "value_preview": [
-                  "sunglasses case",
-                  "custom logo",
-                  "travel case"
-                ]
-              },
-              {
-                "schema_field_id": "productDescType",
-                "source_key": "description_mode",
-                "ready": true,
-                "available_in_schema": true,
-                "value_preview": 2
-              },
-              {
-                "schema_field_id": "icbuCatProp",
-                "source_key": "attribute_plan",
-                "ready": false,
-                "available_in_schema": true,
-                "value_preview": []
-              },
-              {
-                "schema_field_id": "scImages",
-                "source_key": "media_plan",
-                "ready": true,
-                "available_in_schema": true,
-                "value_preview": [
-                  "https://sc04.alicdn.com/kf/H0f3d46f26efd475393d8d12ab48e9580s.png",
-                  "https://sc04.alicdn.com/kf/H63c65f25bff549638112afacca3a4bcfa.jpg",
-                  "https://sc04.alicdn.com/kf/H10552dbd93a8401090cb199013915808d.jpg",
-                  "https://sc04.alicdn.com/kf/H7834b645f718449dbfa0d5e13bf3c29dc.jpg",
-                  "https://sc04.alicdn.com/kf/Hd68e8c38a6ab43c6977a97d43a5a42fdi.jpg"
-                ]
-              },
-              {
-                "schema_field_id": "minOrderQuantity",
-                "source_key": "moq",
-                "ready": true,
-                "available_in_schema": true,
-                "value_preview": "1000"
-              },
-              {
-                "schema_field_id": "productGroup",
-                "source_key": "group_plan",
-                "ready": true,
-                "available_in_schema": true,
-                "value_preview": {
-                  "first_group_id": 957658239,
-                  "second_group_id": null,
-                  "third_group_id": null
-                }
-              }
-            ],
-            "payload_draft": {
-              "target_api_family": [
-                "alibaba.icbu.product.add.draft",
-                "alibaba.icbu.product.add",
-                "alibaba.icbu.product.schema.add"
-              ],
-              "category_context": {
-                "category_id": 36127040,
-                "category_name": "Eyeglasses Cases & Bags"
-              },
-              "schema_context": {
-                "schema_field_count": 130,
-                "render_field_count": 132
-              },
-              "text_fields": {
-                "title": "Custom Sunglasses Case PU leather travel organizer sunglasses case custom logo travel case",
-                "keywords": [
-                  "sunglasses case",
-                  "custom logo",
-                  "travel case",
-                  "Custom Sunglasses Case",
-                  "PU leather",
-                  "Eyeglasses Cases & Bags"
-                ],
-                "description_html": "<p><strong>Custom Sunglasses Case PU leather travel organizer sunglasses case custom logo travel case</strong></p><ul><li>zipper closure</li><li>logo customization</li><li>protective interior</li><li>Eyeglasses Cases & Bags category aligned</li><li>MOQ reference: 1000</li><li>Lead time reference: 25-30 days after artwork approval</li></ul><p>Application: gift and retail packaging</p><p>Customization: support logo printing and color customization</p><p>Packaging notes: export carton packing</p>"
-              },
-              "schema_field_mapping": [
-                {
-                  "schema_field_id": "productTitle",
-                  "source_key": "title",
-                  "ready": true,
-                  "available_in_schema": true,
-                  "value_preview": "Custom Sunglasses Case PU leather travel organizer sunglasses case custom logo travel case"
-                },
-                {
-                  "schema_field_id": "productKeywords",
-                  "source_key": "keywords",
-                  "ready": true,
-                  "available_in_schema": true,
-                  "value_preview": [
-                    "sunglasses case",
-                    "custom logo",
-                    "travel case"
-                  ]
-                },
-                {
-                  "schema_field_id": "productDescType",
-                  "source_key": "description_mode",
-                  "ready": true,
-                  "available_in_schema": true,
-                  "value_preview": 2
-                },
-                {
-                  "schema_field_id": "icbuCatProp",
-                  "source_key": "attribute_plan",
-                  "ready": false,
-                  "available_in_schema": true,
-                  "value_preview": []
-                },
-                {
-                  "schema_field_id": "scImages",
-                  "source_key": "media_plan",
-                  "ready": true,
-                  "available_in_schema": true,
-                  "value_preview": [
-                    "https://sc04.alicdn.com/kf/H0f3d46f26efd475393d8d12ab48e9580s.png",
-                    "https://sc04.alicdn.com/kf/H63c65f25bff549638112afacca3a4bcfa.jpg",
-                    "https://sc04.alicdn.com/kf/H10552dbd93a8401090cb199013915808d.jpg",
-                    "https://sc04.alicdn.com/kf/H7834b645f718449dbfa0d5e13bf3c29dc.jpg",
-                    "https://sc04.alicdn.com/kf/Hd68e8c38a6ab43c6977a97d43a5a42fdi.jpg"
-                  ]
-                },
-                {
-                  "schema_field_id": "minOrderQuantity",
-                  "source_key": "moq",
-                  "ready": true,
-                  "available_in_schema": true,
-                  "value_preview": "1000"
-                },
-                {
-                  "schema_field_id": "productGroup",
-                  "source_key": "group_plan",
-                  "ready": true,
-                  "available_in_schema": true,
-                  "value_preview": {
-                    "first_group_id": 957658239,
-                    "second_group_id": null,
-                    "third_group_id": null
-                  }
-                }
-              ],
-              "attribute_plan": [],
-              "media_plan": [
-                "https://sc04.alicdn.com/kf/H0f3d46f26efd475393d8d12ab48e9580s.png",
-                "https://sc04.alicdn.com/kf/H63c65f25bff549638112afacca3a4bcfa.jpg",
-                "https://sc04.alicdn.com/kf/H10552dbd93a8401090cb199013915808d.jpg",
-                "https://sc04.alicdn.com/kf/H7834b645f718449dbfa0d5e13bf3c29dc.jpg",
-                "https://sc04.alicdn.com/kf/Hd68e8c38a6ab43c6977a97d43a5a42fdi.jpg"
-              ],
-              "group_plan": {
-                "first_group_id": 957658239,
-                "second_group_id": null,
-                "third_group_id": null
-              },
-              "missing_required_attribute_ids": [
-                1,
-                191284014,
-                200471263,
-                400035208
-              ]
-            },
-            "warnings": [
-              "该产物仅为产品草稿，不会触发真实发布。",
-              "payload_draft 是结构化候选草稿，不代表官方最终可提交 payload。"
-            ],
-            "draft_usable_for_manual_review": false
-          },
-          "required_manual_fields": {
-            "missing_requirements": [
-              "required_attributes",
-              "schema_required_fields"
-            ],
-            "human_required_fields": [
-              "p-271270841",
-              "saleProp",
-              "p-191288010",
-              "p-200471263",
-              "skuStock",
-              "skuId",
-              "inventory",
-              "productKeywords_0",
-              "width",
-              "height",
-              "boxPackaging",
-              "day",
-              "ladderPeriod_1",
-              "ladderPeriod_2",
-              "priceUnit",
-              "platformLogisticsServices",
-              "shippingTemplateId",
-              "second_group_id",
-              "third_group_id",
-              "ladderPrice"
-            ],
-            "missing_required_attribute_ids": [
-              1,
-              191284014,
-              200471263,
-              400035208
-            ]
-          },
-          "blocking_risks": [
-            "schema_required_fields_unfilled",
-            "preview_required_attributes",
-            "preview_schema_required_fields"
-          ],
-          "recommended_next_action": "Continue safe draft preparation only. Fill the remaining schema/media/manual fields before any manual draft handoff, and do not enter platform publish.",
-          "boundary_statement": {
-            "input_aware_preview_only": true,
-            "safe_draft_preparation_only": true,
-            "not_platform_publish": true,
-            "not_write_side_closed_loop": true,
-            "no_write_action_attempted": true
-          }
+          "safe_draft_preparation_only": true,
+          "platform_internal_publish_available": false,
+          "required_manual_field_count": 0,
+          "blocking_risk_count": 0,
+          "recommended_next_action": "Submit product preview input, then complete missing manual fields before any manual publish action.",
+          "boundary_statement": null
         },
-        "reply_preview": {
+        "task4_preview_summary": {
+          "source_route": "/integrations/alibaba/wika/workbench/reply-preview",
           "report_name": "reply_preview",
-          "generated_at": "2026-04-13T02:03:19.074Z",
-          "preview_input_summary": {
-            "inquiry_text_present": true,
-            "product_ids": [
-              "AAFwxslEAOVqtWWP0tWvJG1K"
-            ],
-            "quantity": "1000 pcs",
-            "destination_country": "United States",
-            "target_price": "0.65",
-            "expected_lead_time": "25-30 days after artwork approval",
-            "language": "en",
-            "customer_profile_present": true
-          },
-          "workflow_preview": {
-            "workflow_profile": "reply_mockup_customization",
-            "template_version": "2026-04-05.sop-v1",
-            "reply_draft": {
-              "subject": "Draft reply for Customizable New Fashion Portable Eyeglasses Accessories Leather Big Glasses case Oversize Sunglasses Holder",
-              "opening": "Hello, thank you for your inquiry from TEST BUYER / DO-NOT-USE.",
-              "body": "Inquiry summary: Hello, please quote 1000 pcs custom sunglasses cases with logo and confirm lead time.\n\nRequested quantity: 1000 pcs\n\nDestination: United States\n\nProduct references:\n- Customizable New Fashion Portable Eyeglasses Accessories Leather Big Glasses case Oversize Sunglasses Holder | Soft Case | description needs improvement\n\nPrice note: Customer target price reference: USD 0.65. The current system has no verified live pricing source, so the final quote still requires human confirmation.\n\nLead time note: Current lead-time context is manually supplied: 25-30 days after artwork approval. Final lead time still requires human confirmation.",
-              "closing": "Please confirm the following items before sending a formal reply: final_quote, lead_time, mockup_assets, mockup_assets, mockup_assets.",
-              "price_information": {
-                "status": "needs_human_quote",
-                "text": "Customer target price reference: USD 0.65. The current system has no verified live pricing source, so the final quote still requires human confirmation.",
-                "blocker_keys": [
-                  "final_quote_confirmation"
-                ]
-              },
-              "product_support": [
-                {
-                  "product_id": "AAFwxslEAOVqtWWP0tWvJG1K",
-                  "subject": "Customizable New Fashion Portable Eyeglasses Accessories Leather Big Glasses case Oversize Sunglasses Holder",
-                  "category_id": 36127040,
-                  "group_id": 957658239,
-                  "group_name": "Soft Case",
-                  "pc_detail_url": "https://www.alibaba.com/product-detail/Customizable-New-Fashion-Portable-Eyeglasses-Accessories_1601740791024.html",
-                  "main_image_url": "https://sc04.alicdn.com/kf/H1f4802ee53514b4db076792e69b66f8cZ.jpg",
-                  "description_available": false,
-                  "keywords": [],
-                  "gmt_modified": "2026-04-09 15:04:02",
-                  "quality_signals": "***",
-                  "problem_hints": []
-                }
-              ],
-              "lead_time_guidance": {
-                "status": "contextual_only",
-                "text": "Current lead-time context is manually supplied: 25-30 days after artwork approval. Final lead time still requires human confirmation.",
-                "blocker_keys": [
-                  "final_lead_time_confirmation"
-                ]
-              },
-              "mockup_request": {
-                "needed": true,
-                "mockup_request": "Prepare a mockup requirement pack for manual or design-tool follow-up.",
-                "visual_requirements": [
-                  "Show logo placement and print method",
-                  "Keep real material and closure structure visible"
-                ],
-                "asset_requirements": [
-                  "Customer logo / artwork source file is required",
-                  "Color / finish requirement needs confirmation",
-                  "Mockup scene / usage context needs confirmation"
-                ],
-                "product_references": [
-                  {
-                    "product_id": "AAFwxslEAOVqtWWP0tWvJG1K",
-                    "subject": "Customizable New Fashion Portable Eyeglasses Accessories Leather Big Glasses case Oversize Sunglasses Holder",
-                    "pc_detail_url": "https://www.alibaba.com/product-detail/Customizable-New-Fashion-Portable-Eyeglasses-Accessories_1601740791024.html"
-                  }
-                ]
-              },
-              "risk_flags": [
-                "platform_reply_unavailable",
-                "product_content_gap",
-                "mockup_assets_missing"
-              ],
-              "escalation_recommendation": {
-                "level": "high",
-                "recommendation": "A human should fill in pricing, lead time, customer identity or destination details before a formal reply is sent."
-              }
-            },
-            "minimum_reply_package": {
-              "ready_for_human_edit": true,
-              "minimum_context_available": true,
-              "draft_usable_externally": true,
-              "must_handoff_before_any_send": true
-            },
-            "draft_usable_externally": true
-          },
-          "available_context": {
-            "product_context_count": 1,
-            "has_product_diagnostic": true,
-            "has_price_reference": true,
-            "has_destination": true,
-            "has_quantity": true,
-            "has_customer_profile": true,
-            "has_mockup_signal": "***"
-          },
-          "missing_context": [
-            "final_quote",
-            "lead_time",
-            "mockup_assets",
-            "mockup_assets",
-            "mockup_assets"
-          ],
-          "hard_blockers": [
-            {
-              "key": "final_quote",
-              "label": "Final quote",
-              "reason": "Customer target price reference: USD 0.65. The current system has no verified live pricing source, so the final quote still requires human confirmation.",
-              "follow_up_question": "Please confirm the final quote, currency and quote basis.",
-              "required_field": "price.quote_confirmation",
-              "blocker_code": "missing_final_quote",
-              "blocker_reason": "Customer target price reference: USD 0.65. The current system has no verified live pricing source, so the final quote still requires human confirmation.",
-              "blocker_next_action": "人工确认最终报价、币种和报价口径。",
-              "blocker_level": "hard",
-              "blocker_definition": "缺少最终报价确认，系统不能自动承诺正式价格。",
-              "applies_to": [
-                "reply"
-              ],
-              "draft_can_still_be_produced": true,
-              "handoff_mandatory": true,
-              "field_meta": {
-                "source": "human_input_required",
-                "confidence": "high",
-                "missing_reason": "Customer target price reference: USD 0.65. The current system has no verified live pricing source, so the final quote still requires human confirmation."
-              }
-            },
-            {
-              "key": "lead_time",
-              "label": "Lead time confirmation",
-              "reason": "Current lead-time context is manually supplied: 25-30 days after artwork approval. Final lead time still requires human confirmation.",
-              "follow_up_question": "Please confirm sample lead time, production lead time and the start condition.",
-              "required_field": "delivery.lead_time_confirmation",
-              "blocker_code": "missing_lead_time",
-              "blocker_reason": "Current lead-time context is manually supplied: 25-30 days after artwork approval. Final lead time still requires human confirmation.",
-              "blocker_next_action": "人工确认打样期、量产期和起算条件。",
-              "blocker_level": "hard",
-              "blocker_definition": "缺少已确认交期，系统不能自动承诺最终交付时间。",
-              "applies_to": [
-                "reply",
-                "order"
-              ],
-              "draft_can_still_be_produced": true,
-              "handoff_mandatory": true,
-              "field_meta": {
-                "source": "human_input_required",
-                "confidence": "high",
-                "missing_reason": "Current lead-time context is manually supplied: 25-30 days after artwork approval. Final lead time still requires human confirmation."
-              }
-            }
-          ],
-          "soft_blockers": [
-            {
-              "key": "mockup_assets",
-              "label": "Mockup assets",
-              "reason": "Customer logo / artwork source file is required",
-              "follow_up_question": "Please provide logo, finish, color or scene assets for the mockup package.",
-              "required_field": "mockup_request.asset_requirements",
-              "blocker_code": "missing_mockup_assets",
-              "blocker_reason": "Customer logo / artwork source file is required",
-              "blocker_next_action": "向客户收集 logo、工艺、颜色和 mockup 场景要求。",
-              "blocker_level": "soft",
-              "blocker_definition": "缺少 logo、工艺、颜色或场景素材，效果图需求包无法进入执行。",
-              "applies_to": [
-                "reply"
-              ],
-              "draft_can_still_be_produced": true,
-              "handoff_mandatory": false,
-              "field_meta": {
-                "source": "human_input_required",
-                "confidence": "high",
-                "missing_reason": "Customer logo / artwork source file is required"
-              }
-            },
-            {
-              "key": "mockup_assets",
-              "label": "Mockup assets",
-              "reason": "Color / finish requirement needs confirmation",
-              "follow_up_question": "Please provide logo, finish, color or scene assets for the mockup package.",
-              "required_field": "mockup_request.asset_requirements",
-              "blocker_code": "missing_mockup_assets",
-              "blocker_reason": "Color / finish requirement needs confirmation",
-              "blocker_next_action": "向客户收集 logo、工艺、颜色和 mockup 场景要求。",
-              "blocker_level": "soft",
-              "blocker_definition": "缺少 logo、工艺、颜色或场景素材，效果图需求包无法进入执行。",
-              "applies_to": [
-                "reply"
-              ],
-              "draft_can_still_be_produced": true,
-              "handoff_mandatory": false,
-              "field_meta": {
-                "source": "human_input_required",
-                "confidence": "high",
-                "missing_reason": "Color / finish requirement needs confirmation"
-              }
-            },
-            {
-              "key": "mockup_assets",
-              "label": "Mockup assets",
-              "reason": "Mockup scene / usage context needs confirmation",
-              "follow_up_question": "Please provide logo, finish, color or scene assets for the mockup package.",
-              "required_field": "mockup_request.asset_requirements",
-              "blocker_code": "missing_mockup_assets",
-              "blocker_reason": "Mockup scene / usage context needs confirmation",
-              "blocker_next_action": "向客户收集 logo、工艺、颜色和 mockup 场景要求。",
-              "blocker_level": "soft",
-              "blocker_definition": "缺少 logo、工艺、颜色或场景素材，效果图需求包无法进入执行。",
-              "applies_to": [
-                "reply"
-              ],
-              "draft_can_still_be_produced": true,
-              "handoff_mandatory": false,
-              "field_meta": {
-                "source": "human_input_required",
-                "confidence": "high",
-                "missing_reason": "Mockup scene / usage context needs confirmation"
-              }
-            }
-          ],
-          "follow_up_question_details": [
-            {
-              "sequence": 1,
-              "priority": "high",
-              "question": "Please confirm the final quote, currency and quote basis.",
-              "blocker_code": "missing_final_quote",
-              "required_field": "price.quote_confirmation"
-            },
-            {
-              "sequence": 2,
-              "priority": "high",
-              "question": "Please confirm sample lead time, production lead time and the start condition.",
-              "blocker_code": "missing_lead_time",
-              "required_field": "delivery.lead_time_confirmation"
-            },
-            {
-              "sequence": 3,
-              "priority": "medium",
-              "question": "Please provide logo, finish, color or scene assets for the mockup package.",
-              "blocker_code": "missing_mockup_assets",
-              "required_field": "mockup_request.asset_requirements"
-            },
-            {
-              "sequence": 4,
-              "priority": "medium",
-              "question": "Please provide logo, finish, color or scene assets for the mockup package.",
-              "blocker_code": "missing_mockup_assets",
-              "required_field": "mockup_request.asset_requirements"
-            },
-            {
-              "sequence": 5,
-              "priority": "medium",
-              "question": "Please provide logo, finish, color or scene assets for the mockup package.",
-              "blocker_code": "missing_mockup_assets",
-              "required_field": "mockup_request.asset_requirements"
-            }
-          ],
-          "handoff_fields": [
-            {
-              "field": "price.quote_confirmation",
-              "label": "Final quote",
-              "reason": "Customer target price reference: USD 0.65. The current system has no verified live pricing source, so the final quote still requires human confirmation.",
-              "source": "human_input_required",
-              "confidence": "high",
-              "missing_reason": "Customer target price reference: USD 0.65. The current system has no verified live pricing source, so the final quote still requires human confirmation.",
-              "blocker_code": "missing_final_quote",
-              "blocker_level": "hard",
-              "blocker_next_action": "人工确认最终报价、币种和报价口径。",
-              "handoff_mandatory": true,
-              "draft_can_still_be_produced": true,
-              "template_section": "pricing_confirmation",
-              "required_for_minimum_reply": true
-            },
-            {
-              "field": "delivery.lead_time_confirmation",
-              "label": "Lead time confirmation",
-              "reason": "Current lead-time context is manually supplied: 25-30 days after artwork approval. Final lead time still requires human confirmation.",
-              "source": "human_input_required",
-              "confidence": "high",
-              "missing_reason": "Current lead-time context is manually supplied: 25-30 days after artwork approval. Final lead time still requires human confirmation.",
-              "blocker_code": "missing_lead_time",
-              "blocker_level": "hard",
-              "blocker_next_action": "人工确认打样期、量产期和起算条件。",
-              "handoff_mandatory": true,
-              "draft_can_still_be_produced": true,
-              "template_section": "lead_time_confirmation",
-              "required_for_minimum_reply": true
-            },
-            {
-              "field": "mockup_request.asset_requirements",
-              "label": "Mockup assets",
-              "reason": "Customer logo / artwork source file is required",
-              "source": "human_input_required",
-              "confidence": "high",
-              "missing_reason": "Customer logo / artwork source file is required",
-              "blocker_code": "missing_mockup_assets",
-              "blocker_level": "soft",
-              "blocker_next_action": "向客户收集 logo、工艺、颜色和 mockup 场景要求。",
-              "handoff_mandatory": false,
-              "draft_can_still_be_produced": true,
-              "template_section": "mockup_requirements",
-              "required_for_minimum_reply": false
-            },
-            {
-              "field": "mockup_request.asset_requirements",
-              "label": "Mockup assets",
-              "reason": "Color / finish requirement needs confirmation",
-              "source": "human_input_required",
-              "confidence": "high",
-              "missing_reason": "Color / finish requirement needs confirmation",
-              "blocker_code": "missing_mockup_assets",
-              "blocker_level": "soft",
-              "blocker_next_action": "向客户收集 logo、工艺、颜色和 mockup 场景要求。",
-              "handoff_mandatory": false,
-              "draft_can_still_be_produced": true,
-              "template_section": "mockup_requirements",
-              "required_for_minimum_reply": false
-            },
-            {
-              "field": "mockup_request.asset_requirements",
-              "label": "Mockup assets",
-              "reason": "Mockup scene / usage context needs confirmation",
-              "source": "human_input_required",
-              "confidence": "high",
-              "missing_reason": "Mockup scene / usage context needs confirmation",
-              "blocker_code": "missing_mockup_assets",
-              "blocker_level": "soft",
-              "blocker_next_action": "向客户收集 logo、工艺、颜色和 mockup 场景要求。",
-              "handoff_mandatory": false,
-              "draft_can_still_be_produced": true,
-              "template_section": "mockup_requirements",
-              "required_for_minimum_reply": false
-            }
-          ],
-          "quality_gate_summary": {
-            "handoff_required": true,
-            "confidence": "low",
-            "risk_level": "high"
-          },
-          "recommended_next_action": "A human should fill in pricing, lead time, customer identity or destination details before a formal reply is sent.",
-          "boundary_statement": {
-            "input_aware_preview_only": true,
-            "external_reply_draft_only": true,
-            "not_platform_reply": true,
-            "not_platform_internal_send": true,
-            "no_write_action_attempted": true,
-            "task6_excluded": true
-          }
+          "external_reply_draft_only": true,
+          "platform_internal_send_available": false,
+          "hard_blocker_count": 0,
+          "soft_blocker_count": 0,
+          "recommended_next_action": "Submit reply preview input, then complete manual review before any external send decision.",
+          "boundary_statement": null
         },
-        "order_preview": {
+        "task5_preview_summary": {
+          "source_route": "/integrations/alibaba/wika/workbench/order-preview",
           "report_name": "order_preview",
-          "generated_at": "2026-04-13T02:03:30.601Z",
-          "preview_input_summary": {
-            "buyer_company_name": "***",
-            "buyer_contact_name": "***",
-            "destination_country": "United States",
-            "line_item_count": 1,
-            "quoted_currency": "USD"
-          },
-          "workflow_preview": {
-            "workflow_profile": "order_commercial_review",
-            "template_version": "2026-04-05.sop-v1",
-            "order_draft_package": {
-              "ok": false,
-              "account": "***",
-              "stage": "external_order_draft_only",
-              "submit_mode": "manual_only",
-              "ready_for_platform_submit": false,
-              "draft_header": {
-                "generated_at": "2026-04-13T02:03:20.859Z",
-                "draft_type": "external_order_draft",
-                "source": "wika_order_entry_boundary"
-              },
-              "buyer": "***",
-              "line_items": [
-                {
-                  "line_no": 1,
-                  "product_id": "AAFwxslEAOVqtWWP0tWvJG1K",
-                  "product_name": "Customizable New Fashion Portable Eyeglasses Accessories Leather Big Glasses case Oversize Sunglasses Holder",
-                  "sku_id": null,
-                  "sku_description": null,
-                  "quantity": "1000",
-                  "unit": "Pieces",
-                  "unit_price": "0.65",
-                  "currency": "USD",
-                  "image_url": "https://sc04.alicdn.com/kf/H1f4802ee53514b4db076792e69b66f8cZ.jpg"
-                }
-              ],
-              "payment_terms": {
-                "currency": "USD",
-                "total_amount": "650",
-                "advance_amount": "195",
-                "balance_amount": null,
-                "payment_terms_text": "30% deposit, balance before shipment"
-              },
-              "shipment_plan": {
-                "trade_term": "FOB",
-                "shipment_method": "sea",
-                "lead_time_text": "25-30 days after artwork approval",
-                "destination_country": "United States",
-                "destination_port": null,
-                "logistics_notes": null
-              },
-              "notes": [],
-              "auto_generated_fields": [
-                "draft_header",
-                "line_items[].line_no",
-                "line_items[].product_id",
-                "line_items[].product_name",
-                "payment_terms.currency",
-                "shipment_plan.trade_term",
-                "shipment_plan.shipment_method",
-                "draft_boundary"
-              ],
-              "manual_required_fields": [
-                "buyer.company_name",
-                "buyer.contact_name",
-                "buyer.email",
-                "line_items[].quantity",
-                "line_items[].unit_price",
-                "payment_terms.total_amount",
-                "payment_terms.advance_amount",
-                "shipment_plan.lead_time_text"
-              ],
-              "reasons_cannot_submit": [
-                "当前仅形成外部订单草稿，不代表平台内订单已创建。",
-                "alibaba.trade.order.create 仍未证明存在非成交、可回滚、无副作用的安全边界。",
-                "当前缺少经过确认的买家、价格、交期与履约参数，不能自动发起真实信保下单。"
-              ],
-              "blocked_automation_fields": {
-                "trade_order_create": [
-                  "buyer identity binding",
-                  "product_list",
-                  "price terms",
-                  "payment terms",
-                  "delivery terms",
-                  "final order submit"
-                ]
-              },
-              "low_risk_write_boundary": {
-                "trade_order_create": {
-                  "api_name": "alibaba.trade.order.create",
-                  "actual_api_classification": "业务参数错误（说明已过授权层）",
-                  "low_risk_boundary_proven": false,
-                  "decision": "当前无法证明低风险边界，因此不继续实写验证",
-                  "reasons": [
-                    "官方文档明确这是“国际站信保下单”，成功路径天然对应真实订单创建，而不是只读或无副作用的预检查。",
-                    "当前使用空对象/不完整 payload 调用时，平台返回 MissingParameter，说明已过授权层，但这不等于存在安全草稿模式。",
-                    "当前公开官方文档里，尚未识别到明确的 create 同家族 precheck / cancel / draft create 读侧边界，可用于证明可回滚或非成交。",
-                    "在没有可逆、可清理、无外部成交副作用证据前，不应继续真实创单验证。"
-                  ],
-                  "observable_evidence": {
-                    "official_explicit_related_methods_seen": [
-                      "alibaba.trade.order.create",
-                      "alibaba.seller.trade.query.drafttype"
-                    ],
-                    "create_boundary_result": "使用空 param_order_create 调用 alibaba.trade.order.create 时，平台返回 MissingParameter(product_list)。",
-                    "low_risk_precheck_or_draft_api_identified": false,
-                    "cleanup_evidence_proven": false
-                  },
-                  "blocked_automation_fields": [
-                    "buyer identity binding",
-                    "product_list",
-                    "price terms",
-                    "payment terms",
-                    "delivery terms",
-                    "final order submit"
-                  ],
-                  "allowed_next_step": "仅继续生成外部订单草稿，不进入真实订单创建。"
-                }
-              },
-              "handoff": {
-                "account": "***",
-                "stage": "order_entry_boundary",
-                "status": "pending_human_handoff",
-                "severity": "high",
-                "action": "build_order_draft",
-                "api_name": "alibaba.trade.order.create",
-                "blocker_category": {
-                  "code": "manual_confirmation_required",
-                  "label": "写操作需要人工确认",
-                  "description": "虽然技术上可继续，但执行会影响真实线上对象，必须先人工确认。"
-                },
-                "triggers": [
-                  {
-                    "code": "live_order_create",
-                    "label": "真实订单创建",
-                    "description": "任何会触发真实信保下单或真实订单生成的动作，都必须人工接管。"
-                  },
-                  {
-                    "code": "pricing_or_delivery_uncertain",
-                    "label": "价格或交期不确定",
-                    "description": "写入内容涉及价格、MOQ、交期等承诺字段时，必须人工确认。"
-                  },
-                  {
-                    "code": "irreversible_write_risk",
-                    "label": "不可逆写入风险",
-                    "description": "无法证明存在草稿/测试模式时，必须人工决定是否继续。"
-                  }
-                ],
-                "requires_human_handoff": true,
-                "input_summary": {
-                  "buyer_member_seq": "***",
-                  "line_item_count": 1,
-                  "currency": "USD"
-                },
-                "evidence": {
-                  "missing_manual_fields": [
-                    "buyer.company_name",
-                    "buyer.contact_name",
-                    "buyer.email",
-                    "line_items[].quantity",
-                    "line_items[].unit_price",
-                    "payment_terms.total_amount",
-                    "payment_terms.advance_amount",
-                    "shipment_plan.lead_time_text"
-                  ],
-                  "reasons_cannot_submit": [
-                    "当前仅形成外部订单草稿，不代表平台内订单已创建。",
-                    "alibaba.trade.order.create 仍未证明存在非成交、可回滚、无副作用的安全边界。",
-                    "当前缺少经过确认的买家、价格、交期与履约参数，不能自动发起真实信保下单。"
-                  ]
-                },
-                "next_action": "先由人工补齐买家、价格、交期与履约信息，再决定是否进入订单入口的更深边界验证。",
-                "created_at": "2026-04-13T02:03:20.859Z"
-              }
+          "external_order_draft_only": true,
+          "platform_internal_create_available": false,
+          "hard_blocker_count": 0,
+          "soft_blocker_count": 0,
+          "recommended_next_action": "Submit order preview input, then complete manual commercial review before any external create decision.",
+          "boundary_statement": null
+        },
+        "shared_readiness": {
+          "task3_preview_available": true,
+          "task4_preview_available": true,
+          "task5_preview_available": true,
+          "requires_input_payload": true,
+          "entrypoints": {
+            "task3": {
+              "route": "/integrations/alibaba/wika/workbench/product-draft-preview",
+              "method": "POST"
             },
-            "required_manual_fields": [
-              "buyer.company_name",
-              "buyer.contact_name",
-              "buyer.email",
-              "line_items[].quantity",
-              "line_items[].unit_price",
-              "payment_terms.total_amount",
-              "payment_terms.advance_amount",
-              "shipment_plan.lead_time_text"
-            ],
-            "draft_usable_externally": true
+            "task4": {
+              "route": "/integrations/alibaba/wika/workbench/reply-preview",
+              "method": "POST"
+            },
+            "task5": {
+              "route": "/integrations/alibaba/wika/workbench/order-preview",
+              "method": "POST"
+            }
           },
-          "available_context": {
-            "has_buyer_identity": "***",
-            "has_destination": true,
-            "has_price_fields": true,
-            "has_delivery_fields": true,
-            "line_item_count": 1,
-            "draft_types": [
-              "TA"
-            ]
+          "preview_profiles": {
+            "task3": "product_draft_preview",
+            "task4": null,
+            "task5": null
           },
-          "missing_context": [],
-          "hard_blockers": [],
-          "soft_blockers": [],
-          "follow_up_question_details": [],
-          "handoff_fields": [],
-          "quality_gate_summary": {
-            "handoff_required": false,
-            "confidence": "medium",
-            "risk_level": "high"
-          },
-          "recommended_next_action": "A human should still review commercial terms, delivery assumptions and buyer identity before reuse.",
-          "boundary_statement": {
-            "input_aware_preview_only": true,
-            "external_order_draft_only": true,
-            "not_platform_order_create": true,
-            "not_platform_internal_create": true,
-            "no_write_action_attempted": true,
-            "task6_excluded": true
-          }
+          "platform_internal_execution_available": false,
+          "task6_excluded": true
         },
         "preview_readiness": {
           "task3_preview_available": true,
@@ -5952,31 +5031,30 @@
           },
           "preview_profiles": {
             "task3": "product_draft_preview",
-            "task4": "reply_mockup_customization",
-            "task5": "order_commercial_review"
+            "task4": null,
+            "task5": null
           },
           "platform_internal_execution_available": false,
           "task6_excluded": true
         },
         "shared_blockers": [
-          "schema_required_fields_unfilled",
-          "preview_required_attributes",
-          "preview_schema_required_fields",
-          "missing_final_quote",
-          "missing_lead_time",
-          "missing_mockup_assets"
+          "preview_center_requires_post_input_payload_for_full_preview"
+        ],
+        "shared_handoff_rules": [
+          "Preview center only provides input-aware preview summaries and never triggers platform-internal publish, reply, or order-create actions.",
+          "Task3/4/5 preview results must hand off to manual review whenever key manual fields, hard blockers, or incomplete business context remain.",
+          "Task 6 notification provider and real outbound delivery capability remain excluded from this round."
         ],
         "boundary_statement": {
           "input_aware_preview_only": true,
+          "preview_center_summary_only": true,
           "not_platform_internal_execution": true,
           "task6_excluded": true,
           "no_write_action_attempted": true
         }
       },
-      "text_preview": null,
-      "source_mode": "local_post_deploy_evidence_fallback",
-      "fallback_evidence_path": "D:\\Code\\阿里国际站\\WIKA\\docs\\framework\\evidence\\wika_preview_center_post_deploy.json",
-      "fallback_reason": "live_status_404"
+      "text_preview": "{\"ok\":true,\"module\":\"preview_center\",\"account\":\"wika\",\"read_only\":true,\"report_name\":\"preview_center\",\"generated_at\":\"2026-04-18T15:28:12.251Z\",\"task3_preview_summary\":{\"source_route\":\"/integrations/a",
+      "source_mode": "production_route"
     }
   },
   "capability_matrix": {
@@ -6081,7 +5159,7 @@
   ],
   "ads_import_contract": {
     "report_name": "ads_import_contract",
-    "generated_at": "2026-04-18T15:20:01.987Z",
+    "generated_at": "2026-04-18T15:28:13.610Z",
     "schema_version": "stage42_ads_import_v1",
     "supported_input_formats": [
       "csv",
@@ -6208,7 +5286,7 @@
   },
   "page_audit_contract": {
     "report_name": "page_audit_contract",
-    "generated_at": "2026-04-18T15:20:01.987Z",
+    "generated_at": "2026-04-18T15:28:13.610Z",
     "supported_input_formats": [
       "csv",
       "json"
@@ -6322,7 +5400,7 @@
   "input_readiness": {
     "csv_mode": {
       "report_name": "input_readiness_summary",
-      "generated_at": "2026-04-18T15:17:55.320Z",
+      "generated_at": "2026-04-18T15:26:59.456Z",
       "auto_fetch_layer": {
         "current_status": "AUTO_FETCH_READY",
         "stable_routes": [
@@ -6351,13 +5429,13 @@
       },
       "ads_import_layer": {
         "report_name": "ads_input_productization_summary",
-        "generated_at": "2026-04-18T15:17:55.320Z",
+        "generated_at": "2026-04-18T15:26:59.456Z",
         "current_status": "IMPORT_READY_WITH_SAMPLE",
         "source_type": "manual_import_csv",
         "input_format": "csv",
         "contract": {
           "report_name": "ads_import_contract",
-          "generated_at": "2026-04-18T15:17:55.320Z",
+          "generated_at": "2026-04-18T15:26:59.456Z",
           "schema_version": "stage42_ads_import_v1",
           "supported_input_formats": [
             "csv",
@@ -6491,7 +5569,7 @@
         "analysis_outputs": {
           "ads_summary": {
             "report_name": "ads_summary",
-            "generated_at": "2026-04-18T15:17:55.319Z",
+            "generated_at": "2026-04-18T15:26:59.456Z",
             "source_type": "manual_import_csv",
             "import_contract": {
               "schema_version": "stage42_ads_import_v1",
@@ -6581,7 +5659,7 @@
           },
           "ads_comparison": {
             "report_name": "ads_comparison",
-            "generated_at": "2026-04-18T15:17:55.319Z",
+            "generated_at": "2026-04-18T15:26:59.456Z",
             "comparison_basis": {
               "current_window": {
                 "start": "2026-04-06",
@@ -6665,7 +5743,7 @@
           },
           "ads_diagnostic": {
             "report_name": "ads_diagnostic",
-            "generated_at": "2026-04-18T15:17:55.320Z",
+            "generated_at": "2026-04-18T15:26:59.456Z",
             "official_inputs": {
               "source_type": "manual_import",
               "imported_fields": [
@@ -6681,7 +5759,7 @@
             },
             "summary": {
               "report_name": "ads_summary",
-              "generated_at": "2026-04-18T15:17:55.320Z",
+              "generated_at": "2026-04-18T15:26:59.456Z",
               "source_type": "manual_import_csv",
               "import_contract": {
                 "schema_version": "stage42_ads_import_v1",
@@ -6771,7 +5849,7 @@
             },
             "comparison": {
               "report_name": "ads_comparison",
-              "generated_at": "2026-04-18T15:17:55.320Z",
+              "generated_at": "2026-04-18T15:26:59.456Z",
               "comparison_basis": {
                 "current_window": {
                   "start": "2026-04-06",
@@ -6932,7 +6010,7 @@
           },
           "ads_action_center": {
             "report_name": "ads_action_center",
-            "generated_at": "2026-04-18T15:17:55.320Z",
+            "generated_at": "2026-04-18T15:26:59.456Z",
             "summary_snapshot": {
               "campaign_count": 1,
               "ad_group_count": 1,
@@ -7068,11 +6146,11 @@
       },
       "page_audit_layer": {
         "report_name": "page_audit_input_summary",
-        "generated_at": "2026-04-18T15:17:55.320Z",
+        "generated_at": "2026-04-18T15:26:59.456Z",
         "current_status": "MANUAL_AUDIT_READY_WITH_SAMPLE",
         "contract": {
           "report_name": "page_audit_contract",
-          "generated_at": "2026-04-18T15:17:55.320Z",
+          "generated_at": "2026-04-18T15:26:59.456Z",
           "supported_input_formats": [
             "csv",
             "json"
@@ -7231,7 +6309,7 @@
     },
     "json_mode": {
       "report_name": "input_readiness_summary",
-      "generated_at": "2026-04-18T15:17:55.320Z",
+      "generated_at": "2026-04-18T15:26:59.456Z",
       "auto_fetch_layer": {
         "current_status": "AUTO_FETCH_READY",
         "stable_routes": [
@@ -7260,13 +6338,13 @@
       },
       "ads_import_layer": {
         "report_name": "ads_input_productization_summary",
-        "generated_at": "2026-04-18T15:17:55.320Z",
+        "generated_at": "2026-04-18T15:26:59.456Z",
         "current_status": "IMPORT_READY_WITH_SAMPLE",
         "source_type": "manual_import_json",
         "input_format": "json",
         "contract": {
           "report_name": "ads_import_contract",
-          "generated_at": "2026-04-18T15:17:55.320Z",
+          "generated_at": "2026-04-18T15:26:59.456Z",
           "schema_version": "stage42_ads_import_v1",
           "supported_input_formats": [
             "csv",
@@ -7400,7 +6478,7 @@
         "analysis_outputs": {
           "ads_summary": {
             "report_name": "ads_summary",
-            "generated_at": "2026-04-18T15:17:55.320Z",
+            "generated_at": "2026-04-18T15:26:59.456Z",
             "source_type": "manual_import_json",
             "import_contract": {
               "schema_version": "stage42_ads_import_v1",
@@ -7490,7 +6568,7 @@
           },
           "ads_comparison": {
             "report_name": "ads_comparison",
-            "generated_at": "2026-04-18T15:17:55.320Z",
+            "generated_at": "2026-04-18T15:26:59.456Z",
             "comparison_basis": {
               "current_window": {
                 "start": "2026-04-06",
@@ -7574,7 +6652,7 @@
           },
           "ads_diagnostic": {
             "report_name": "ads_diagnostic",
-            "generated_at": "2026-04-18T15:17:55.320Z",
+            "generated_at": "2026-04-18T15:26:59.456Z",
             "official_inputs": {
               "source_type": "manual_import",
               "imported_fields": [
@@ -7590,7 +6668,7 @@
             },
             "summary": {
               "report_name": "ads_summary",
-              "generated_at": "2026-04-18T15:17:55.320Z",
+              "generated_at": "2026-04-18T15:26:59.456Z",
               "source_type": "manual_import_json",
               "import_contract": {
                 "schema_version": "stage42_ads_import_v1",
@@ -7680,7 +6758,7 @@
             },
             "comparison": {
               "report_name": "ads_comparison",
-              "generated_at": "2026-04-18T15:17:55.320Z",
+              "generated_at": "2026-04-18T15:26:59.456Z",
               "comparison_basis": {
                 "current_window": {
                   "start": "2026-04-06",
@@ -7841,7 +6919,7 @@
           },
           "ads_action_center": {
             "report_name": "ads_action_center",
-            "generated_at": "2026-04-18T15:17:55.320Z",
+            "generated_at": "2026-04-18T15:26:59.456Z",
             "summary_snapshot": {
               "campaign_count": 1,
               "ad_group_count": 1,
@@ -7977,11 +7055,11 @@
       },
       "page_audit_layer": {
         "report_name": "page_audit_input_summary",
-        "generated_at": "2026-04-18T15:17:55.320Z",
+        "generated_at": "2026-04-18T15:26:59.456Z",
         "current_status": "MANUAL_AUDIT_READY_WITH_SAMPLE",
         "contract": {
           "report_name": "page_audit_contract",
-          "generated_at": "2026-04-18T15:17:55.320Z",
+          "generated_at": "2026-04-18T15:26:59.456Z",
           "supported_input_formats": [
             "csv",
             "json"

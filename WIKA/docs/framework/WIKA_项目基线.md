@@ -958,3 +958,33 @@
   - not task 5 complete
   - task 6 excluded
   - not full business cockpit
+
+## 2026-04-18 Stage 45 Runtime Stability Fix
+
+### current status
+- stage45 在 `input productization / permission closure` 基线之上，已补高层消费 route 的 live 稳定性修复。
+- 当前新增或修复的 live 行为：
+  - `GET /integrations/alibaba/wika/workbench/preview-center` 已恢复为兼容入口
+  - `action-center` / `task-workbench` 已支持 `degraded` 只读 JSON
+  - `operator-console` 已从重型串行聚合收敛为更稳定的聚合路径
+
+### fixed conclusion
+- `preview-center` 不再允许直接 `404`。
+- 高层消费层当前至少保证：
+  - 返回 `200 JSON`
+  - 或在下游超时时返回可读 `degraded` JSON
+- 最新 paced smoke 结果：
+  - `action-center`: `200 degraded`
+  - `operator-console`: `200 full_success`
+  - `task-workbench`: `200 degraded`
+  - `preview-center`: `200 full_success`
+  - `business-cockpit`: `200 full_success`
+- 当前仍保持：
+  - not task 1 complete
+  - not task 2 complete
+  - not task 3 complete
+  - not task 4 complete
+  - not task 5 complete
+  - task 6 excluded
+  - no write action attempted
+  - not full business cockpit

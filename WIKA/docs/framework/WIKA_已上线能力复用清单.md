@@ -329,3 +329,25 @@
   - 不代表页面行为数据已具备
   - 不代表已新增 production route
   - 不代表 task1~5 complete
+
+## 2026-04-18 Stage 45 Runtime Stability Additions
+- 本轮没有新增 Alibaba API，也没有新增业务写侧能力。
+- 本轮新增可复用的稳定性资产：
+  - `WIKA/projects/wika/data/common/aggregate-runtime.js`
+  - `WIKA/scripts/validate-wika-stage45-local-contract.js`
+  - `WIKA/scripts/validate-wika-stage45-runtime-stability.js`
+  - `WIKA/docs/framework/evidence/wika-stage45-runtime-stability-summary.json`
+- 本轮修复并可直接复用的 live route 行为：
+  - `/integrations/alibaba/wika/workbench/preview-center`
+    - 已恢复 `GET` 兼容入口
+    - `GET` 返回 summary-only 结构
+  - `/integrations/alibaba/wika/reports/action-center`
+    - 已支持 degraded JSON
+  - `/integrations/alibaba/wika/reports/operator-console`
+    - 已收敛重型串行聚合路径
+  - `/integrations/alibaba/wika/workbench/task-workbench`
+    - 已支持 degraded JSON
+- 当前复用边界：
+  - degraded JSON 只代表 route 可读与边界清晰
+  - 不代表所有 section 都 full success
+  - 不代表 task1~5 complete
