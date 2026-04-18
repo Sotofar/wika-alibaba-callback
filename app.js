@@ -3363,9 +3363,17 @@ function createWikaTaskWorkbenchHandler() {
 function createWikaPreviewCenterHandler() {
   return async (req, res) => {
     try {
+      const normalizedInput =
+        req.method === "GET"
+          ? {
+              ...normalizeToolRequestBody(req.query),
+              summary_only: true
+            }
+          : normalizeToolRequestBody(req.body);
+
       const result = await buildPreviewCenter(
         await getWikaReadOnlyClientConfig(),
-        normalizeToolRequestBody(req.body)
+        normalizedInput
       );
 
       logInfo("Wika preview center completed", {
@@ -4311,6 +4319,10 @@ app.post(
 app.post(
   "/integrations/alibaba/wika/workbench/order-preview",
   createWikaOrderPreviewHandler()
+);
+app.get(
+  "/integrations/alibaba/wika/workbench/preview-center",
+  createWikaPreviewCenterHandler()
 );
 app.post(
   "/integrations/alibaba/wika/workbench/preview-center",

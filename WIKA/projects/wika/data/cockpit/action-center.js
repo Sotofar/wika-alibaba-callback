@@ -1,12 +1,94 @@
-import { buildBusinessCockpit } from "./business-cockpit.js";
+import {
+  fetchWikaMinimalDiagnostic,
+  fetchWikaOrderMinimalDiagnostic,
+  fetchWikaProductMinimalDiagnostic
+} from "../../../../../shared/data/modules/wika-minimal-diagnostic.js";
+import { buildPartialStatus, loadSectionWithBudget } from "../common/aggregate-runtime.js";
+import { buildOperationsComparisonSummary } from "../reports/operations-comparison.js";
+import { buildProductsComparisonSummary } from "../reports/products-comparison.js";
+import { buildOrdersComparisonSummary } from "../reports/orders-comparison.js";
 import { buildTaskWorkbench } from "../workbench/task-workbench.js";
+import { buildCrossSectionGaps } from "./cockpit-gaps.js";
+import {
+  buildTaskCoverageSummary,
+  normalizeOrderDiagnostic,
+  normalizeProductDiagnostic,
+  normalizeStoreDiagnostic
+} from "./business-cockpit-normalizers.js";
 
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
+const STORE_DIAGNOSTIC_BUDGET_MS = 9000;
+const PRODUCT_DIAGNOSTIC_BUDGET_MS = 9000;
+const ORDER_DIAGNOSTIC_BUDGET_MS = 9000;
+const STORE_COMPARISON_BUDGET_MS = 9000;
+const PRODUCT_COMPARISON_BUDGET_MS = 9000;
+const ORDER_COMPARISON_BUDGET_MS = 9000;
+const TASK_WORKBENCH_BUDGET_MS = 14000;
 
 function unique(values = []) {
   return [...new Set(values.map((value) => String(value ?? "").trim()).filter(Boolean))];
+}
+
+function buildDiagnosticFallback(sectionName, meta) {
+  return {
+    source_route: `/integrations/alibaba/wika/reports/${sectionName}/minimal-diagnostic`,
+    report_name: `${sectionName}_minimal_diagnostic`,
+    finding_count: 0,
+    recommendation_count: 0,
+    top_findings: [],
+    top_recommendations: [],
+    confidence_hints: {
+      degraded: true,
+      reason: meta.reason
+    },
+    unavailable_dimensions_echo: [],
+    partial_status: meta
+  };
+}
+
+function buildComparisonFallback(sectionName, meta) {
+  return {
+    source_route: `/integrations/alibaba/wika/reports/${sectionName}/comparison-summary`,
+    report_name: `${sectionName}_comparison_summary`,
+    current_window: null,
+    previous_window: null,
+    trend_direction: null,
+    primary_deltas: null,
+    unavailable_dimensions: [],
+    partial_status: meta
+  };
+}
+
+function buildTaskWorkbenchFallback(meta) {
+  return {
+    report_name: "task_workbench",
+    task3_summary: {
+      report_name: "product_draft_workbench",
+      recommended_next_action:
+        "Task3 workbench is temporarily degraded. Retry after the read-side builder recovers.",
+      blocking_risks: [`task3_summary_${meta.reason}`]
+    },
+    task4_summary: {
+      report_name: "reply_workbench",
+      recommended_next_action:
+        "Task4 workbench is temporarily degraded. Retry after the read-side builder recovers.",
+      blocker_taxonomy_summary: {
+        hard_blocker_codes: [`task4_summary_${meta.reason}`],
+        soft_blocker_codes: []
+      }
+    },
+    task5_summary: {
+      report_name: "order_workbench",
+      recommended_next_action:
+        "Task5 workbench is temporarily degraded. Retry after the read-side builder recovers.",
+      blocker_taxonomy_summary: {
+        hard_blocker_codes: [`task5_summary_${meta.reason}`],
+        soft_blocker_codes: []
+      }
+    },
+    shared_blockers: [`task_workbench:${meta.reason}`],
+    partial_status: buildPartialStatus([meta]),
+    degraded_sections: [meta]
+  };
 }
 
 function summarizeDiagnosticSection(section = {}) {
@@ -15,15 +97,19 @@ function summarizeDiagnosticSection(section = {}) {
     report_name: section.report_name ?? null,
     finding_count: Array.isArray(section.diagnostic_findings)
       ? section.diagnostic_findings.length
-      : 0,
+      : section.finding_count ?? 0,
     recommendation_count: Array.isArray(section.recommendations)
       ? section.recommendations.length
-      : 0,
+      : section.recommendation_count ?? 0,
     top_findings: Array.isArray(section.diagnostic_findings)
       ? section.diagnostic_findings.slice(0, 3)
-      : [],
+      : section.top_findings ?? [],
+    top_recommendations: Array.isArray(section.recommendations)
+      ? section.recommendations.slice(0, 3)
+      : section.top_recommendations ?? [],
     confidence_hints: section.confidence_hints ?? null,
-    unavailable_dimensions_echo: section.unavailable_dimensions_echo ?? []
+    unavailable_dimensions_echo: section.unavailable_dimensions_echo ?? [],
+    partial_status: section.partial_status ?? null
   };
 }
 
@@ -34,14 +120,15 @@ function summarizeComparisonSection(section = {}) {
     current_window: section.current_window ?? null,
     previous_window: section.previous_window ?? null,
     trend_direction:
-      section.derived_comparison?.trend_direction ??
-      section.derived_comparison?.summary?.trend_direction ??
-      null,
+      section.derived_comparison?.trend_direction_summary?.overall_direction ??
+      section.derived_comparison?.trend_direction ?? null,
     primary_deltas:
       section.derived_comparison?.metric_deltas ??
-      section.derived_comparison?.delta_summary ??
+      section.derived_comparison?.aggregate_metric_deltas ??
+      section.primary_deltas ??
       null,
-    unavailable_dimensions: section.unavailable_dimensions ?? []
+    unavailable_dimensions: section.unavailable_dimensions ?? [],
+    partial_status: section.partial_status ?? null
   };
 }
 
@@ -58,10 +145,11 @@ function summarizeWorkbenchSection(section = {}, reportName) {
   };
 }
 
-function buildPrioritizedActions({ cockpit, taskWorkbench }) {
+function buildPrioritizedActions({ diagnosticSummaries, taskWorkbench }) {
   const actions = [];
-  const pushAction = (priority, domain, source, recommended_next_action, reason) => {
-    if (!recommended_next_action) {
+
+  function pushAction(priority, domain, source, recommendedNextAction, reason) {
+    if (!recommendedNextAction) {
       return;
     }
 
@@ -69,10 +157,10 @@ function buildPrioritizedActions({ cockpit, taskWorkbench }) {
       priority,
       domain,
       source,
-      recommended_next_action,
+      recommended_next_action: recommendedNextAction,
       reason
     });
-  };
+  }
 
   pushAction(
     "high",
@@ -96,35 +184,25 @@ function buildPrioritizedActions({ cockpit, taskWorkbench }) {
     "Task 5 still requires external order draft handoff and manual commercial confirmation."
   );
 
-  const storeRecommendation = Array.isArray(cockpit.store_diagnostic?.recommendations)
-    ? cockpit.store_diagnostic.recommendations[0]
-    : null;
-  const productRecommendation = Array.isArray(cockpit.product_diagnostic?.recommendations)
-    ? cockpit.product_diagnostic.recommendations[0]
-    : null;
-  const orderRecommendation = Array.isArray(cockpit.order_diagnostic?.recommendations)
-    ? cockpit.order_diagnostic.recommendations[0]
-    : null;
-
   pushAction(
     "medium",
     "store",
     "/integrations/alibaba/wika/reports/operations/minimal-diagnostic",
-    storeRecommendation,
+    diagnosticSummaries.store.top_recommendations?.[0],
     "Store diagnostic remains the shortest read-side signal path for task1/task2 follow-up."
   );
   pushAction(
     "medium",
     "product",
     "/integrations/alibaba/wika/reports/products/minimal-diagnostic",
-    productRecommendation,
+    diagnosticSummaries.product.top_recommendations?.[0],
     "Product diagnostic and comparison stay the main consumer layer for task1/task2."
   );
   pushAction(
     "medium",
     "order",
     "/integrations/alibaba/wika/reports/orders/minimal-diagnostic",
-    orderRecommendation,
+    diagnosticSummaries.order.top_recommendations?.[0],
     "Order diagnostic remains derived and partial, so manual review stays necessary."
   );
 
@@ -132,34 +210,121 @@ function buildPrioritizedActions({ cockpit, taskWorkbench }) {
 }
 
 export async function buildActionCenter(clientConfig, query = {}, preloaded = {}) {
-  const businessCockpit =
-    preloaded.businessCockpit ?? (await buildBusinessCockpit(clientConfig, query));
-  if (!preloaded.businessCockpit && !preloaded.taskWorkbench) {
-    await sleep(1200);
-  }
+  const crossSectionGaps = buildCrossSectionGaps();
 
-  const taskWorkbench =
-    preloaded.taskWorkbench ?? (await buildTaskWorkbench(clientConfig, query));
+  const [
+    storeDiagnosticResult,
+    productDiagnosticResult,
+    orderDiagnosticResult,
+    storeComparisonResult,
+    productComparisonResult,
+    orderComparisonResult,
+    taskWorkbenchResult
+  ] = await Promise.all([
+    loadSectionWithBudget({
+      section: "store_diagnostic",
+      budgetMs: STORE_DIAGNOSTIC_BUDGET_MS,
+      loader: async () =>
+        preloaded.storeDiagnostic ??
+        summarizeDiagnosticSection(
+          normalizeStoreDiagnostic(
+            await fetchWikaMinimalDiagnostic(clientConfig, query)
+          )
+        ),
+      fallbackValue: (meta) => buildDiagnosticFallback("operations", meta)
+    }),
+    loadSectionWithBudget({
+      section: "product_diagnostic",
+      budgetMs: PRODUCT_DIAGNOSTIC_BUDGET_MS,
+      loader: async () =>
+        preloaded.productDiagnostic ??
+        summarizeDiagnosticSection(
+          normalizeProductDiagnostic(
+            await fetchWikaProductMinimalDiagnostic(clientConfig, query)
+          )
+        ),
+      fallbackValue: (meta) => buildDiagnosticFallback("products", meta)
+    }),
+    loadSectionWithBudget({
+      section: "order_diagnostic",
+      budgetMs: ORDER_DIAGNOSTIC_BUDGET_MS,
+      loader: async () =>
+        preloaded.orderDiagnostic ??
+        summarizeDiagnosticSection(
+          normalizeOrderDiagnostic(
+            await fetchWikaOrderMinimalDiagnostic(clientConfig, query)
+          )
+        ),
+      fallbackValue: (meta) => buildDiagnosticFallback("orders", meta)
+    }),
+    loadSectionWithBudget({
+      section: "store_comparison",
+      budgetMs: STORE_COMPARISON_BUDGET_MS,
+      loader: async () =>
+        preloaded.storeComparison ??
+        summarizeComparisonSection(
+          await buildOperationsComparisonSummary(clientConfig, query)
+        ),
+      fallbackValue: (meta) => buildComparisonFallback("operations", meta)
+    }),
+    loadSectionWithBudget({
+      section: "product_comparison",
+      budgetMs: PRODUCT_COMPARISON_BUDGET_MS,
+      loader: async () =>
+        preloaded.productComparison ??
+        summarizeComparisonSection(
+          await buildProductsComparisonSummary(clientConfig, query)
+        ),
+      fallbackValue: (meta) => buildComparisonFallback("products", meta)
+    }),
+    loadSectionWithBudget({
+      section: "order_comparison",
+      budgetMs: ORDER_COMPARISON_BUDGET_MS,
+      loader: async () =>
+        preloaded.orderComparison ??
+        summarizeComparisonSection(await buildOrdersComparisonSummary(clientConfig, query)),
+      fallbackValue: (meta) => buildComparisonFallback("orders", meta)
+    }),
+    loadSectionWithBudget({
+      section: "task_workbench",
+      budgetMs: TASK_WORKBENCH_BUDGET_MS,
+      loader: async () => preloaded.taskWorkbench ?? buildTaskWorkbench(clientConfig, query),
+      fallbackValue: buildTaskWorkbenchFallback
+    })
+  ]);
+
+  const degradedSections = [
+    storeDiagnosticResult.degradedSection,
+    productDiagnosticResult.degradedSection,
+    orderDiagnosticResult.degradedSection,
+    storeComparisonResult.degradedSection,
+    productComparisonResult.degradedSection,
+    orderComparisonResult.degradedSection,
+    taskWorkbenchResult.degradedSection
+  ].filter(Boolean);
+
+  const diagnosticSignalSummary = {
+    store: storeDiagnosticResult.value,
+    product: productDiagnosticResult.value,
+    order: orderDiagnosticResult.value
+  };
+  const comparisonSignalSummary = {
+    store: storeComparisonResult.value,
+    product: productComparisonResult.value,
+    order: orderComparisonResult.value
+  };
+  const taskWorkbench = taskWorkbenchResult.value;
 
   return {
     report_name: "action_center",
     generated_at: new Date().toISOString(),
     business_cockpit_summary: {
       source_route: "/integrations/alibaba/wika/reports/business-cockpit",
-      task_coverage_summary: businessCockpit.task_coverage_summary ?? null,
-      combined_gap_count:
-        businessCockpit.cross_section_gaps?.combined_unavailable_dimensions?.length ?? 0
+      task_coverage_summary: buildTaskCoverageSummary(),
+      combined_gap_count: crossSectionGaps.combined_unavailable_dimensions.length
     },
-    diagnostic_signal_summary: {
-      store: summarizeDiagnosticSection(businessCockpit.store_diagnostic),
-      product: summarizeDiagnosticSection(businessCockpit.product_diagnostic),
-      order: summarizeDiagnosticSection(businessCockpit.order_diagnostic)
-    },
-    comparison_signal_summary: {
-      store: summarizeComparisonSection(businessCockpit.store_comparison),
-      product: summarizeComparisonSection(businessCockpit.product_comparison),
-      order: summarizeComparisonSection(businessCockpit.order_comparison)
-    },
+    diagnostic_signal_summary: diagnosticSignalSummary,
+    comparison_signal_summary: comparisonSignalSummary,
     task3_summary: summarizeWorkbenchSection(
       taskWorkbench.task3_summary,
       "product_draft_workbench"
@@ -173,17 +338,21 @@ export async function buildActionCenter(clientConfig, query = {}, preloaded = {}
       "order_workbench"
     ),
     prioritized_actions: buildPrioritizedActions({
-      cockpit: businessCockpit,
+      diagnosticSummaries: diagnosticSignalSummary,
       taskWorkbench
     }),
     shared_blockers: unique([
-      ...(businessCockpit.cross_section_gaps?.combined_unavailable_dimensions ?? []),
-      ...(taskWorkbench.shared_blockers ?? [])
+      ...(crossSectionGaps.combined_unavailable_dimensions ?? []),
+      ...(taskWorkbench.shared_blockers ?? []),
+      ...degradedSections.map((section) => `${section.section}:${section.reason}`)
     ]),
+    partial_status: buildPartialStatus(degradedSections),
+    degraded_sections: degradedSections,
     boundary_statement: {
       action_center_only: true,
       current_official_mainline_plus_derived_layers_only: true,
       not_platform_execution: true,
+      degraded_response_supported: true,
       task6_excluded: true,
       no_write_action_attempted: true
     }
