@@ -1,4 +1,27 @@
-﻿# WIKA_项目基线
+## 2026-04-18 Stage 31 XD Safe-Scope Productization
+
+### current status
+- XD access safe-scope 仍保持封板完成状态：
+  - `remaining_route_gap_count = 0`
+  - `remaining_candidate_unresolved_count = 0`
+  - `restriction_confirmed_count = 6`
+  - `write_adjacent_skipped_count = 2`
+- 本轮不再新增 route parity 扩张，也不再新增 candidate pool 调用。
+- 本轮新增的是现实工作产物：
+  - 权限与能力总账
+  - 上周运营报告
+  - 日报 / 周报自动生成脚本
+  - 关键 route 巡检与回归脚本
+
+### fixed conclusion
+- XD 现有权限在当前 safe-scope 内已经尽量打通。
+- 当前 Codex 的价值已经从“继续试 API”切换到：
+  - 运营报告
+  - 日报 / 周报自动化
+  - 关键 route 巡检
+  - 打通能力回归
+  - restriction 对象重开 gate 判断
+- 若没有新的外部租户/产品级 live 证据，不应继续做同构重试。
 
 ## 2026-04-14 Stage 30 XD Safe Scope Final Freeze
 

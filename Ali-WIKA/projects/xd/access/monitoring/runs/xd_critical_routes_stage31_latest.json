@@ -1,0 +1,193 @@
+{
+  "generated_at": "2026-04-18T14:57:15.704Z",
+  "dry_run": false,
+  "overall_status": "PASS",
+  "safe_scope_complete": true,
+  "samples": {
+    "trade_id_present": true,
+    "product_id_present": true,
+    "group_id_present": true
+  },
+  "checks": [
+    {
+      "name": "health",
+      "route_or_method": "/health",
+      "expected_status": "200",
+      "actual_status": 200,
+      "classification": "PASS_NO_DATA",
+      "elapsed_ms": 514,
+      "evidence_summary": "ok",
+      "next_action": "保持每日巡检。"
+    },
+    {
+      "name": "auth-debug",
+      "route_or_method": "/integrations/alibaba/auth/debug",
+      "expected_status": "200",
+      "actual_status": 200,
+      "classification": "PASS",
+      "elapsed_ms": 327,
+      "evidence_summary": "{\"app_base_url\":\"https://api.wikapacking.com\",\"session_secret_present\":\"***\",\"state_ttl_seconds\":600,\"active_state_count\":0,\"wika_client_id_present\":\"***\",\"wika_client_secret_present\":\"***\",\"wika_redirect_uri\":\"https://api.wikapacking.com/i",
+      "next_action": "保持每日巡检。"
+    },
+    {
+      "name": "xd-auth-debug",
+      "route_or_method": "/integrations/alibaba/xd/auth/debug",
+      "expected_status": "200",
+      "actual_status": 200,
+      "classification": "PASS",
+      "elapsed_ms": 513,
+      "evidence_summary": "{\"account\":\"xd\",\"xd_client_id_present\":\"***\",\"xd_client_secret_present\":\"***\",\"xd_redirect_uri\":\"https://api.wikapacking.com/integrations/alibaba/xd/auth/callback\",\"xd_auth_url\":\"https://open-api.alibaba.com/oauth/authorize\",\"xd_token_url\":",
+      "next_action": "保持每日巡检。"
+    },
+    {
+      "name": "orders-list",
+      "route_or_method": "/integrations/alibaba/xd/data/orders/list?page_size=1",
+      "expected_status": "200",
+      "actual_status": 200,
+      "classification": "PASS",
+      "elapsed_ms": 1318,
+      "evidence_summary": "{\"ok\":true,\"account\":\"xd\",\"module\":\"orders\",\"read_only\":true,\"verification_status\":\"已验证可读\",\"evidence_level\":\"L1\",\"data_scope\":\"minimal_list\",\"source\":{\"type\":\"official_api\",\"api_name\":\"alibaba.seller.order.list\",\"endpoint_url\":\"https://open",
+      "next_action": "保持每日巡检。"
+    },
+    {
+      "name": "orders-detail",
+      "route_or_method": "/integrations/alibaba/xd/data/orders/detail?e_trade_id=298944806501026817",
+      "expected_status": "200",
+      "actual_status": 200,
+      "classification": "PASS",
+      "elapsed_ms": 1392,
+      "evidence_summary": "{\"ok\":true,\"account\":\"xd\",\"module\":\"orders\",\"read_only\":true,\"verification_status\":\"已验证可读\",\"evidence_level\":\"L1\",\"data_scope\":\"minimal_detail\",\"source\":{\"type\":\"official_api\",\"api_name\":\"alibaba.seller.order.get\",\"endpoint_url\":\"https://ope",
+      "next_action": "保持每日巡检。"
+    },
+    {
+      "name": "products-list",
+      "route_or_method": "/integrations/alibaba/xd/data/products/list?page_size=1",
+      "expected_status": "200",
+      "actual_status": 200,
+      "classification": "PASS",
+      "elapsed_ms": 1011,
+      "evidence_summary": "{\"ok\":true,\"module\":\"products\",\"account\":\"xd\",\"read_only\":true,\"verification_status\":\"已验证可读\",\"evidence_level\":\"L1\",\"source\":{\"type\":\"official_api\",\"api_name\":\"alibaba.icbu.product.list\",\"endpoint_url\":\"https://open-api.alibaba.com/sync\",\"re",
+      "next_action": "保持每日巡检。"
+    },
+    {
+      "name": "products-detail",
+      "route_or_method": "/integrations/alibaba/xd/data/products/detail?product_id=1601740545697",
+      "expected_status": "200",
+      "actual_status": 200,
+      "classification": "PASS",
+      "elapsed_ms": 1118,
+      "evidence_summary": "{\"ok\":true,\"account\":\"xd\",\"module\":\"products\",\"read_only\":true,\"verification_status\":\"已验证可读\",\"evidence_level\":\"L1\",\"data_scope\":\"raw_detail\",\"source\":{\"type\":\"official_api\",\"api_name\":\"alibaba.icbu.product.get\",\"endpoint_url\":\"https://open-",
+      "next_action": "保持每日巡检。"
+    },
+    {
+      "name": "products-groups",
+      "route_or_method": "/integrations/alibaba/xd/data/products/groups?group_id=812751108",
+      "expected_status": "200",
+      "actual_status": 200,
+      "classification": "PASS",
+      "elapsed_ms": 899,
+      "evidence_summary": "{\"ok\":true,\"account\":\"xd\",\"module\":\"products\",\"read_only\":true,\"verification_status\":\"已验证可读\",\"evidence_level\":\"L1\",\"data_scope\":\"raw_groups\",\"source\":{\"type\":\"official_api\",\"api_name\":\"alibaba.icbu.product.group.get\",\"endpoint_url\":\"https:/",
+      "next_action": "保持每日巡检。"
+    },
+    {
+      "name": "products-score",
+      "route_or_method": "/integrations/alibaba/xd/data/products/score?product_id=1601740545697",
+      "expected_status": "200",
+      "actual_status": 200,
+      "classification": "PASS",
+      "elapsed_ms": 1090,
+      "evidence_summary": "{\"ok\":true,\"account\":\"xd\",\"module\":\"products\",\"read_only\":true,\"verification_status\":\"已验证可读\",\"evidence_level\":\"L1\",\"data_scope\":\"raw_score\",\"source\":{\"type\":\"official_api\",\"api_name\":\"alibaba.icbu.product.score.get\",\"endpoint_url\":\"https://",
+      "next_action": "保持每日巡检。"
+    },
+    {
+      "name": "categories-tree",
+      "route_or_method": "/integrations/alibaba/xd/data/categories/tree?page_size=1",
+      "expected_status": "200",
+      "actual_status": 200,
+      "classification": "PASS",
+      "elapsed_ms": 912,
+      "evidence_summary": "{\"ok\":true,\"account\":\"xd\",\"module\":\"categories\",\"read_only\":true,\"verification_status\":\"已验证可读\",\"evidence_level\":\"L1\",\"data_scope\":\"raw_category_tree\",\"source\":{\"type\":\"official_api\",\"api_name\":\"alibaba.icbu.category.get.new\",\"endpoint_url\":",
+      "next_action": "保持每日巡检。"
+    },
+    {
+      "name": "media-list",
+      "route_or_method": "/integrations/alibaba/xd/data/media/list?page_size=1",
+      "expected_status": "200",
+      "actual_status": 200,
+      "classification": "PASS",
+      "elapsed_ms": 1121,
+      "evidence_summary": "{\"ok\":true,\"account\":\"xd\",\"module\":\"media\",\"read_only\":true,\"verification_status\":\"已验证可读\",\"evidence_level\":\"L1\",\"data_scope\":\"raw_photobank_list\",\"source\":{\"type\":\"official_api\",\"api_name\":\"alibaba.icbu.photobank.list\",\"endpoint_url\":\"https",
+      "next_action": "保持每日巡检。"
+    },
+    {
+      "name": "orders-summary-report",
+      "route_or_method": "/integrations/alibaba/xd/reports/orders/summary",
+      "expected_status": "200",
+      "actual_status": 404,
+      "classification": "SKIPPED_BY_SAFETY",
+      "elapsed_ms": 506,
+      "evidence_summary": "当前 production 未绑定 report route，stage31 以文件化报告资产替代，不在本轮回头扩 route。",
+      "next_action": "维持文件化报告替代，不在 stage31 回头扩 route。"
+    },
+    {
+      "name": "orders-trend-report",
+      "route_or_method": "/integrations/alibaba/xd/reports/orders/trend",
+      "expected_status": "200",
+      "actual_status": 404,
+      "classification": "SKIPPED_BY_SAFETY",
+      "elapsed_ms": 510,
+      "evidence_summary": "当前 production 未绑定 report route，stage31 以文件化报告资产替代，不在本轮回头扩 route。",
+      "next_action": "维持文件化报告替代，不在 stage31 回头扩 route。"
+    },
+    {
+      "name": "orders-report-consumers",
+      "route_or_method": "/integrations/alibaba/xd/reports/orders/report-consumers",
+      "expected_status": "200",
+      "actual_status": 404,
+      "classification": "SKIPPED_BY_SAFETY",
+      "elapsed_ms": 327,
+      "evidence_summary": "当前 production 未绑定 report route，stage31 以文件化报告资产替代，不在本轮回头扩 route。",
+      "next_action": "维持文件化报告替代，不在 stage31 回头扩 route。"
+    },
+    {
+      "name": "products-minimal-diagnostic",
+      "route_or_method": "/integrations/alibaba/xd/reports/products/minimal-diagnostic",
+      "expected_status": "200",
+      "actual_status": 200,
+      "classification": "PASS",
+      "elapsed_ms": 6505,
+      "evidence_summary": "{\"ok\":true,\"account\":\"xd\",\"module\":\"products\",\"report_type\":\"minimal_diagnostic\",\"read_only\":true,\"generated_at\":\"2026-04-18T14:56:44.529Z\",\"data_scope\":{\"mode\":\"sampled_snapshot\",\"product_page_size\":20,\"product_score_limit\":8,\"product_deta",
+      "next_action": "保持每日巡检。"
+    },
+    {
+      "name": "orders-minimal-diagnostic",
+      "route_or_method": "/integrations/alibaba/xd/reports/orders/minimal-diagnostic",
+      "expected_status": "200",
+      "actual_status": 200,
+      "classification": "PASS",
+      "elapsed_ms": 10403,
+      "evidence_summary": "{\"ok\":true,\"account\":\"xd\",\"module\":\"orders\",\"report_type\":\"minimal_diagnostic\",\"read_only\":true,\"generated_at\":\"2026-04-18T14:56:51.299Z\",\"data_scope\":{\"mode\":\"sampled_snapshot\",\"order_page_size\":8,\"order_sample_limit\":5},\"sample_size\":{\"or",
+      "next_action": "保持每日巡检。"
+    },
+    {
+      "name": "operations-minimal-diagnostic",
+      "route_or_method": "/integrations/alibaba/xd/reports/operations/minimal-diagnostic",
+      "expected_status": "200",
+      "actual_status": 200,
+      "classification": "PASS",
+      "elapsed_ms": 13297,
+      "evidence_summary": "{\"ok\":true,\"account\":\"xd\",\"module\":\"operations\",\"report_type\":\"minimal_diagnostic\",\"read_only\":true,\"generated_at\":\"2026-04-18T14:57:01.841Z\",\"data_scope\":{\"mode\":\"sampled_snapshot\",\"product_page_size\":20,\"product_score_limit\":8,\"product_de",
+      "next_action": "保持每日巡检。"
+    },
+    {
+      "name": "stable-direct",
+      "route_or_method": "alibaba.seller.order.get",
+      "expected_status": "200",
+      "actual_status": "credentials_unavailable",
+      "classification": "SKIPPED_BY_SAFETY",
+      "elapsed_ms": 0,
+      "evidence_summary": "local credentials unavailable; fallback stage30 stable_direct=PASSED",
+      "next_action": "当前先沿用 stage30 已验证 direct-method 证据，不在 stage31 额外解阻本地 token。"
+    }
+  ]
+}

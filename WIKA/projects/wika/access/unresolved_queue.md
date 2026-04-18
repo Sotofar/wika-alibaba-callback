@@ -1,4 +1,27 @@
-﻿# WIKA 未决队列
+更新时间：2026-04-18
+
+## 2026-04-18 Stage31 Safe-Scope Productization
+
+### 当前总论
+- XD / WIKA access 线当前没有新的仓内未决主干。
+- stage31 已经把 XD safe-scope 封板结果转成现实工作产物，不再停留在“打通结论”层。
+- 因此当前未决队列中不新增任何 XD access 调用项，只保留外部新证据触发的 reopen gate。
+
+### 当前应转入的工作
+- 日报 / 周报生成
+- 关键 route 巡检
+- 打通能力回归
+- restriction 对象重开条件判断
+
+### 当前仍不属于“仓内未决”的对象
+- `customers/list` restriction
+- stage29 冻结的 6 个 candidate restriction
+- 2 个 write-adjacent skipped 对象
+
+### 当前唯一合法重开条件
+- 新的外部租户/产品级 live 证据
+- 新的官方文档 / 控制台 / payload 证据
+- 新的真实对象样本，能直接改变当前 restriction 归因
 
 更新时间：2026-04-10
 

@@ -1,4 +1,19 @@
-# WIKA / XD recovery readiness
+更新时间：2026-04-18
+
+## stage31 productization readiness
+
+| 项目 | 是否完成 | 说明 |
+| --- | --- | --- |
+| safe-scope 仍保持 complete | 是 | `remaining_route_gap_count = 0`，`remaining_candidate_unresolved_count = 0` |
+| XD 周报产物是否已落盘 | 是 | `XD_WEEKLY_OPERATIONS_REPORT_STAGE31.md` 与 JSON evidence 已生成 |
+| 报告自动化脚本是否已落盘 | 是 | `scripts/generate-xd-operations-report-stage31.js` |
+| 关键 route 巡检脚本是否已落盘 | 是 | `scripts/check-xd-critical-routes-stage31.js` |
+| validation 链是否已补齐 | 是 | stage31 三个验证脚本已新增 |
+
+## 当前结论
+- 当前恢复 readiness 的重点已不再是 access 打通，而是 safe-scope 的持续可用性与可维护性。
+- 后续若继续推进，应优先使用 stage31 产物做日报、周报、巡检、回归与 reopen gate 判断。
+- 在没有新的外部证据前，不再继续 access 同构重试。
 
 更新时间：2026-04-14
 

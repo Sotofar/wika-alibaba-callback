@@ -1,0 +1,47 @@
+{
+  "generated_at": "2026-04-18T14:57:42.156Z",
+  "safe_scope_complete": true,
+  "route_gap_count": 0,
+  "candidate_unresolved_count": 0,
+  "deliverables_completed": 4,
+  "permission_ledger_created": true,
+  "weekly_report_created": true,
+  "report_generator_created": true,
+  "critical_route_monitor_created": true,
+  "validation_results": {
+    "boundary_results": {
+      "scripts/check-boundary.js": "missing",
+      "scripts/doc-audit.js": "missing"
+    },
+    "operations_validation": {
+      "status": "ok",
+      "markdown_path": "D:\\Code\\阿里国际站__stage31_xd_productization\\Ali-WIKA\\projects\\xd\\access\\XD_WEEKLY_OPERATIONS_REPORT_STAGE31.md",
+      "json_path": "D:\\Code\\阿里国际站__stage31_xd_productization\\docs\\framework\\evidence\\xd_weekly_operations_report_stage31.json",
+      "section_count": 7
+    },
+    "monitoring_validation": {
+      "status": "ok",
+      "overall_status": "PASS",
+      "planned_checks": 18
+    }
+  },
+  "realistic_tasks_codex_can_now_do": [
+    "生成 XD 日报",
+    "生成 XD 周报",
+    "做订单可见样本趋势摘要",
+    "做商品基础可见样本摘要",
+    "做关键 route 巡检",
+    "做打通能力回归检查",
+    "做 restriction 对象重开条件判断",
+    "为业务侧生成运营摘要草稿"
+  ],
+  "realistic_tasks_codex_should_not_do_without_new_evidence": [
+    "继续无证据重试 restriction 对象",
+    "扩写侧 / draft-adjacent 动作",
+    "编造 GMV / 转化率 / 国家结构 / 全量经营诊断",
+    "把当前页样本说成全量数据",
+    "重跑 stage26/27/28/29/30 同构验证"
+  ],
+  "biggest_remaining_boundary": "No new external tenant/product live evidence exists to change the current restriction-confirmed conclusions.",
+  "next_reopen_gate": "Only reopen after new external tenant/product live evidence, official doc/control-plane evidence, or new verified readonly payload directly changes restriction attribution."
+}

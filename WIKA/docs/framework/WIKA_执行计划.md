@@ -1,4 +1,25 @@
-﻿# WIKA_执行计划
+## 2026-04-18 Stage 31 XD Safe-Scope Productization
+
+### 当前阶段
+- 阶段 31：XD safe-scope productization
+
+### 已完成
+- 已新增：
+  - `Ali-WIKA/projects/xd/access/XD_PERMISSION_AND_CAPABILITY_LEDGER_STAGE31.md`
+  - `Ali-WIKA/projects/xd/access/xd_permission_capability_ledger_stage31.csv`
+  - `Ali-WIKA/projects/xd/access/XD_WEEKLY_OPERATIONS_REPORT_STAGE31.md`
+  - `scripts/generate-xd-operations-report-stage31.js`
+  - `scripts/check-xd-critical-routes-stage31.js`
+  - `scripts/validate-xd-operations-report-stage31.js`
+  - `scripts/validate-xd-critical-routes-stage31.js`
+  - `scripts/validate-xd-stage31-productization.js`
+- 已确认：
+  - safe-scope 继续 complete
+  - route gap 继续为 0
+  - candidate unresolved 继续为 0
+
+### 当前唯一下一步
+- 在没有外部新证据前，转入运营报告、巡检、回归和 reopen gate 维护，不再继续 access 同构重试。
 
 ## 2026-04-14 Stage 30 XD Safe Scope Freeze
 
