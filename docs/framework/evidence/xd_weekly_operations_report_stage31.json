@@ -1,0 +1,171 @@
+{
+  "mode": "weekly",
+  "generated_at": "2026-04-18T14:52:42.967Z",
+  "source_mode": "live",
+  "time_window": {
+    "start": "2026-04-06",
+    "end": "2026-04-12",
+    "timeZone": "Asia/Shanghai"
+  },
+  "data_sources": [
+    "当前 production stable routes",
+    "stage26-stage30 evidence",
+    "api_coverage / permission_gap / freeze docs"
+  ],
+  "executive_summary": [
+    "XD access safe-scope 已封板，当前 route parity gap=0，candidate unresolved=0。",
+    "当前 production base 继续可读：/health、/integrations/alibaba/auth/debug、/integrations/alibaba/xd/auth/debug 均可返回。",
+    "订单与商品核心只读 route 可持续提供当前页样本和最小详情能力，可直接用于日报、周报草稿和巡检。",
+    "订单上周严格全量统计仍不可可靠给出；当前能给出的只有当前页样本命中上周窗口的观察值。",
+    "fund/logistics 目前只适合作为 sample trade 的覆盖信号，不应被写成稳定经营指标。",
+    "products/detail、groups、score、categories、media 已可读，可支撑商品基础盘点与元信息核查。",
+    "orders/report 型 summary/trend/report-consumers route 当前 production 为 404，但 stage28 打通的 minimal-diagnostic routes 仍可作为辅助信号。",
+    "没有新的外部租户/产品级 live 证据前，不建议继续对 restriction 对象做同构重试。"
+  ],
+  "orders": {
+    "visible_order_count_current_page": {
+      "value": 10,
+      "reason": null,
+      "required_evidence": null
+    },
+    "total_order_count_from_current_page_response": {
+      "value": 1225,
+      "reason": null,
+      "required_evidence": null
+    },
+    "last_week_created_hits_in_current_page_sample": {
+      "value": 1,
+      "reason": "只代表当前页样本命中上周窗口的记录数，不代表上周全量订单。",
+      "required_evidence": "支持时间窗口的已验证聚合 route 或多页受控聚合证据"
+    },
+    "last_week_modified_hits_in_current_page_sample": {
+      "value": 0,
+      "reason": "只代表当前页样本命中上周窗口的记录数，不代表上周全量订单。",
+      "required_evidence": "支持时间窗口的已验证聚合 route 或多页受控聚合证据"
+    },
+    "strict_last_week_total_orders": {
+      "value": "not_available",
+      "reason": "当前 safe-scope 只保证当前页样本和已读范围，不提供严格按上周窗口裁切的全量订单聚合。",
+      "required_evidence": "可重复验证的周维度订单聚合 route 或多页受控聚合证据"
+    },
+    "current_page_create_range": {
+      "min": "2026-04-11",
+      "max": "2026-04-18"
+    },
+    "sampled_trade_status_distribution": {
+      "unpay": 4,
+      "undeliver": 1
+    },
+    "sampled_fulfillment_channel_distribution": {
+      "TAD": 3,
+      "TAO": 2
+    },
+    "sampled_shipment_method_distribution": {
+      "multimodal_transport": 3,
+      "express": 2
+    },
+    "shipment_date_present_count_in_sampled_details": 0,
+    "fund_signal": {
+      "value": "available_on_sample_trade",
+      "reason": "仅作为 sample trade 的可读覆盖信号，不提升为经营层稳定字段集。",
+      "required_evidence": null
+    },
+    "logistics_signal": {
+      "value": "available_on_sample_trade",
+      "reason": "仅作为 sample trade 的可读覆盖信号，不提升为经营层稳定字段集。",
+      "required_evidence": null
+    },
+    "report_routes": {
+      "summary": "status=404",
+      "trend": "status=404",
+      "report_consumers": "status=404",
+      "products_minimal_diagnostic": "status=200",
+      "orders_minimal_diagnostic": "status=200",
+      "operations_minimal_diagnostic": "status=200"
+    }
+  },
+  "products": {
+    "visible_product_count_current_page": {
+      "value": 10,
+      "reason": null,
+      "required_evidence": null
+    },
+    "total_product_count_from_current_page_response": {
+      "value": 919,
+      "reason": null,
+      "required_evidence": null
+    },
+    "last_week_created_hits_in_current_page_sample": {
+      "value": 8,
+      "reason": "只代表当前页商品样本命中上周窗口的记录数，不代表上周全量商品变化。",
+      "required_evidence": "支持周窗口的商品聚合或可重复多页采样证据"
+    },
+    "last_week_modified_hits_in_current_page_sample": {
+      "value": 9,
+      "reason": "只代表当前页商品样本命中上周窗口的记录数，不代表上周全量商品变化。",
+      "required_evidence": "支持周窗口的商品聚合或可重复多页采样证据"
+    },
+    "current_page_modify_range": {
+      "min": "2026-04-08",
+      "max": "2026-04-15"
+    },
+    "product_detail_status": {
+      "value": "available",
+      "reason": "可做基础详情抽样，不等于全量经营分析。",
+      "required_evidence": null
+    },
+    "product_groups_status": {
+      "value": "available",
+      "reason": "可做分组元信息核查。",
+      "required_evidence": null
+    },
+    "product_score_status": {
+      "value": "available",
+      "reason": "可做基础质量分抽样。",
+      "required_evidence": null
+    },
+    "categories_tree_status": {
+      "value": "available",
+      "reason": "可做类目树与类目元信息核查。",
+      "required_evidence": null
+    },
+    "media_list_status": {
+      "value": "available",
+      "reason": "可做媒体素材存在性与基础元信息核查。",
+      "required_evidence": null
+    },
+    "banned_metrics": [
+      "GMV 归因 not_available",
+      "转化率 not_available",
+      "国家结构 not_available",
+      "完整经营诊断 not_available"
+    ]
+  },
+  "capability_state": {
+    "safe_scope_complete": true,
+    "route_gap_count": 0,
+    "candidate_unresolved_count": 0,
+    "restriction_confirmed_count": 6,
+    "write_adjacent_skipped_count": 2,
+    "base_health": {
+      "health": "status=200",
+      "auth_debug": "status=200",
+      "xd_auth_debug": "status=200",
+      "stable_direct": "available_via_stage30_evidence"
+    }
+  },
+  "risks": [
+    "当前页 / 已读范围限制：orders 与 products 当前只保证当前页样本和少量详情抽样，不是全量聚合。",
+    "非多页全量聚合：没有受控多页扫描与周维度聚合证据前，不能把样本数写成全量业务数。",
+    "tenant/product restriction：stage29/stage30 已冻结的 6 个 candidate 仍需外部新证据才能重开。",
+    "write-adjacent skip：2 个 draft-adjacent 对象保持跳过，不在本轮自动化范围内。",
+    "report routes 404：当前 production 未绑定 orders/summary、trend、report-consumers；本轮改用文件化报告资产 + minimal-diagnostic 辅助信号，不建议在 stage31 回头扩 route。"
+  ],
+  "next_actions": [
+    "把 `scripts/check-xd-critical-routes-stage31.js` 接入每日巡检，保活当前 stable routes。",
+    "把 `scripts/generate-xd-operations-report-stage31.js` 交给业务侧试跑日报 / 周报模板。",
+    "在对外分发报告前保留“当前页样本 / 非全量聚合”口径说明。",
+    "对 restriction confirmed 对象只做重开 gate 判断，不做无证据重试。",
+    "一旦出现新的租户/产品级 live 证据，再按 stage30 reopen gate 受控重开。"
+  ]
+}

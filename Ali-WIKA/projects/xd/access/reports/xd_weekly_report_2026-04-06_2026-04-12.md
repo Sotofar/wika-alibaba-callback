@@ -1,0 +1,71 @@
+# XD 上周运营报告
+
+生成时间：2026-04-18T14:52:42.967Z
+
+# 1. 报告范围
+- 时间窗口：2026-04-06 至 2026-04-12
+- 时区：Asia/Shanghai
+- 数据来源：当前 production stable routes；stage26-stage30 evidence；api_coverage / permission_gap / freeze docs
+- 不包含范围：写侧动作、未知 API、全量多页聚合、GMV/转化率/国家结构/完整经营诊断。
+- 数据口径限制：当前页样本、已读页面范围、只读 live route 与 stage26-stage30 冻结证据交叉使用，非全量聚合。
+
+# 2. 执行摘要
+- XD access safe-scope 已封板，当前 route parity gap=0，candidate unresolved=0。
+- 当前 production base 继续可读：/health、/integrations/alibaba/auth/debug、/integrations/alibaba/xd/auth/debug 均可返回。
+- 订单与商品核心只读 route 可持续提供当前页样本和最小详情能力，可直接用于日报、周报草稿和巡检。
+- 订单上周严格全量统计仍不可可靠给出；当前能给出的只有当前页样本命中上周窗口的观察值。
+- fund/logistics 目前只适合作为 sample trade 的覆盖信号，不应被写成稳定经营指标。
+- products/detail、groups、score、categories、media 已可读，可支撑商品基础盘点与元信息核查。
+- orders/report 型 summary/trend/report-consumers route 当前 production 为 404，但 stage28 打通的 minimal-diagnostic routes 仍可作为辅助信号。
+- 没有新的外部租户/产品级 live 证据前，不建议继续对 restriction 对象做同构重试。
+
+# 3. 订单运营摘要
+- 上周窗口严格全量订单数：not_available。原因：当前 safe-scope 只保证当前页样本和已读范围，不提供严格按上周窗口裁切的全量订单聚合。
+- 当前页可见订单样本数：10；当前页响应 total_count：1225。
+- 当前页样本 create_date 范围：2026-04-11 至 2026-04-18。
+- 当前页样本命中上周窗口的 create 记录：1；modify 记录：0。
+- 已抽样订单状态分布：unpay=4, undeliver=1。
+- 已抽样 fulfillment channel 分布：TAD=3, TAO=2。
+- 已抽样 shipment method 分布：multimodal_transport=3, express=2。
+- 发货时间字段已出现条数：0。
+- fund 覆盖信号：available_on_sample_trade；说明：仅作为 sample trade 的可读覆盖信号，不提升为经营层稳定字段集。
+- logistics 覆盖信号：available_on_sample_trade；说明：仅作为 sample trade 的可读覆盖信号，不提升为经营层稳定字段集。
+- orders/report 型 route 状态：summary=status=404，trend=status=404，report-consumers=status=404。
+- minimal-diagnostic 状态：products=status=200，orders=status=200，operations=status=200。
+
+# 4. 商品与内容摘要
+- 当前页可见商品样本数：10；当前页响应 total_item：919。
+- 当前页样本 gmt_modified 范围：2026-04-08 至 2026-04-15。
+- 当前页商品样本命中上周窗口的 create 记录：8；modify 记录：9。
+- 商品 detail 状态：available；说明：可做基础详情抽样，不等于全量经营分析。
+- 商品 groups 状态：available；说明：可做分组元信息核查。
+- 商品 score 状态：available；说明：可做基础质量分抽样。
+- categories/tree 状态：available；说明：可做类目树与类目元信息核查。
+- media/list 状态：available；说明：可做媒体素材存在性与基础元信息核查。
+- 当前可用于的运营动作：商品基础盘点、详情抽样核查、分组元信息核查、类目树核查、媒体素材存在性检查。
+- 当前不可可靠给出的指标：GMV、转化率、国家结构、全量商品贡献、完整经营诊断。
+
+# 5. 运行与能力状态
+- 当前 safe-scope 完成状态：complete
+- route parity gap：0
+- candidate unresolved：0
+- restriction confirmed：6
+- write-adjacent skipped：2
+- 当前 health / auth/debug / xd auth/debug：status=200 / status=200 / status=200
+- 稳定 direct-method 状态：available_via_stage30_evidence
+- 以上属于截至当前状态附注，不等于上周业务成果。
+
+# 6. 风险与限制
+- 当前页 / 已读范围限制：orders 与 products 当前只保证当前页样本和少量详情抽样，不是全量聚合。
+- 非多页全量聚合：没有受控多页扫描与周维度聚合证据前，不能把样本数写成全量业务数。
+- tenant/product restriction：stage29/stage30 已冻结的 6 个 candidate 仍需外部新证据才能重开。
+- write-adjacent skip：2 个 draft-adjacent 对象保持跳过，不在本轮自动化范围内。
+- report routes 404：当前 production 未绑定 orders/summary、trend、report-consumers；本轮改用文件化报告资产 + minimal-diagnostic 辅助信号，不建议在 stage31 回头扩 route。
+
+# 7. 下周建议动作
+- 把 `scripts/check-xd-critical-routes-stage31.js` 接入每日巡检，保活当前 stable routes。
+- 把 `scripts/generate-xd-operations-report-stage31.js` 交给业务侧试跑日报 / 周报模板。
+- 在对外分发报告前保留“当前页样本 / 非全量聚合”口径说明。
+- 对 restriction confirmed 对象只做重开 gate 判断，不做无证据重试。
+- 一旦出现新的租户/产品级 live 证据，再按 stage30 reopen gate 受控重开。
+
