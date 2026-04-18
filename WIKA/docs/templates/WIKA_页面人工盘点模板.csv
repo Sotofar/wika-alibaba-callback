@@ -1,0 +1,2 @@
+audit_date,page_type,page_url,module_name,module_position,homepage_module,banner_status,core_product_exposure,category_entry_status,contact_entry_status,inquiry_entry_status,main_image_status,video_status,detail_content_status,observed_issue,manual_recommendation,priority,owner,evidence_link,notes
+2026-04-18,homepage,https://www.wikapacking.com,Hero Banner,1,YES,PARTIAL,YES,YES,YES,YES,PARTIAL,NO,PARTIAL,"主 banner 卖点偏泛，首屏缺直接询盘引导","补充首屏差异化卖点、交付能力与询盘 CTA","P0",运营负责人,https://example.com/homepage-screenshot,"样例行，仅用于说明模板结构"

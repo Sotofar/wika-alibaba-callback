@@ -1,0 +1,2372 @@
+{
+  "stage": "stage45",
+  "generated_at": "2026-04-18T08:11:38.306Z",
+  "contract_status": "PASS_LOCAL_CONTRACT",
+  "online_baseline_status": "PASS",
+  "templates": {
+    "ads": "D:\\Code\\阿里国际站\\WIKA\\docs\\templates\\WIKA_广告数据导入模板.csv",
+    "page_audit": "D:\\Code\\阿里国际站\\WIKA\\docs\\templates\\WIKA_页面人工盘点模板.csv"
+  },
+  "online_results": {
+    "health": {
+      "path": "/health",
+      "status": 200,
+      "is_json": false,
+      "has_boundary_statement": false,
+      "body_preview": "ok"
+    },
+    "auth_debug": {
+      "path": "/integrations/alibaba/auth/debug",
+      "status": 200,
+      "is_json": true,
+      "has_boundary_statement": false,
+      "body_preview": "{\"app_base_url\":\"https://api.wikapacking.com\",\"session_secret_present\":true,\"state_ttl_seconds\":600,\"active_state_count\":0,\"wika_client_id_present\":true,\"wika_client_secret_present\":true,\"wika_redirec"
+    },
+    "operations_management_summary": {
+      "path": "/integrations/alibaba/wika/reports/operations/management-summary",
+      "status": 200,
+      "is_json": true,
+      "has_boundary_statement": true,
+      "body_preview": "{\"ok\":true,\"module\":\"operations\",\"account\":\"wika\",\"read_only\":true,\"report_name\":\"operations_management_summary\",\"generated_at\":\"2026-04-18T08:11:20.467Z\",\"report_scope\":{\"type\":\"store_level_mydata_su",
+      "source_mode": "production_route"
+    },
+    "products_management_summary": {
+      "path": "/integrations/alibaba/wika/reports/products/management-summary",
+      "status": 200,
+      "is_json": true,
+      "has_boundary_statement": true,
+      "body_preview": "{\"ok\":true,\"module\":\"products\",\"account\":\"wika\",\"read_only\":true,\"source\":{\"type\":\"official_api\",\"api_name\":\"alibaba.icbu.product.list\",\"endpoint_url\":\"https://open-api.alibaba.com/sync\",\"request_meth",
+      "source_mode": "production_route"
+    },
+    "orders_management_summary": {
+      "path": "/integrations/alibaba/wika/reports/orders/management-summary",
+      "status": 200,
+      "is_json": true,
+      "has_boundary_statement": true,
+      "body_preview": "{\"ok\":true,\"module\":\"orders\",\"account\":\"wika\",\"read_only\":true,\"report_name\":\"orders_management_summary\",\"generated_at\":\"2026-04-18T08:11:22.799Z\",\"report_scope\":{\"type\":\"derived_order_summary\",\"deriv",
+      "source_mode": "production_route"
+    },
+    "business_cockpit": {
+      "path": "/integrations/alibaba/wika/reports/business-cockpit",
+      "status": 200,
+      "is_json": true,
+      "has_boundary_statement": true,
+      "body_preview": "{\"ok\":true,\"module\":\"business_cockpit\",\"account\":\"wika\",\"read_only\":true,\"report_name\":\"business_cockpit\",\"generated_at\":\"2026-04-18T08:11:29.447Z\",\"store_overview\":{\"source_route\":\"/integrations/alib",
+      "source_mode": "production_route"
+    },
+    "action_center": {
+      "path": "/integrations/alibaba/wika/reports/action-center",
+      "status": 200,
+      "is_json": true,
+      "source_mode": "local_evidence_fallback",
+      "body": {
+        "report_name": "action_center",
+        "generated_at": "2026-04-13T02:02:42.957Z",
+        "business_cockpit_summary": {
+          "source_route": "/integrations/alibaba/wika/reports/business-cockpit",
+          "task_coverage_summary": {
+            "task1_partial_status": {
+              "status": "partially_reopened",
+              "complete": false,
+              "note": "Store, product, and order read-side summaries are available, but several key business dimensions are still missing."
+            },
+            "task2_partial_status": {
+              "status": "partially_reopened",
+              "complete": false,
+              "note": "Minimal diagnostic and comparison layers are available, but this is still not a full business diagnostic cockpit."
+            },
+            "task3_partial_status": {
+              "status": "partially_reopened",
+              "complete": false,
+              "note": "A product safe-draft workbench candidate exists, but it stays at safe draft preparation and does not publish."
+            },
+            "task4_partial_status": {
+              "status": "partially_reopened",
+              "complete": false,
+              "note": "A reply-draft external workbench candidate exists, but it does not send platform replies."
+            },
+            "task5_partial_status": {
+              "status": "partially_reopened",
+              "complete": false,
+              "note": "An order-draft external workbench candidate exists, but it does not create platform orders."
+            },
+            "task6_excluded": true
+          },
+          "combined_gap_count": 7
+        },
+        "diagnostic_signal_summary": "***",
+        "comparison_signal_summary": "***",
+        "task3_summary": {
+          "report_name": "product_draft_workbench",
+          "recommended_next_action": "Fill required category attributes, schema-required fields, and media candidates before handing the draft package to manual review. Do not enter platform publish.",
+          "blocking_signals": "***",
+          "boundary_statement": {
+            "safe_draft_preparation_only": true,
+            "not_platform_publish": true,
+            "not_write_side_closed_loop": true,
+            "render_draft_is_observability_only": true
+          }
+        },
+        "task4_summary": {
+          "report_name": "reply_workbench",
+          "recommended_next_action": null,
+          "blocking_signals": "***",
+          "boundary_statement": {
+            "external_reply_draft_only": true,
+            "not_platform_reply": true,
+            "not_platform_internal_send": true,
+            "no_real_send_attempted": true,
+            "task6_excluded": true
+          }
+        },
+        "task5_summary": {
+          "report_name": "order_workbench",
+          "recommended_next_action": null,
+          "blocking_signals": "***",
+          "boundary_statement": {
+            "external_order_draft_only": true,
+            "not_platform_order_create": true,
+            "not_platform_internal_create": true,
+            "no_real_order_creation_attempted": true,
+            "task6_excluded": true
+          }
+        },
+        "prioritized_actions": [
+          {
+            "priority": "high",
+            "domain": "task3",
+            "source": "/integrations/alibaba/wika/workbench/product-draft-workbench",
+            "recommended_next_action": "Fill required category attributes, schema-required fields, and media candidates before handing the draft package to manual review. Do not enter platform publish.",
+            "reason": "Task 3 still stays at safe draft preparation and manual field completion."
+          }
+        ],
+        "shared_blockers": [
+          "traffic_source",
+          "country_source",
+          "quick_reply_rate",
+          "access_source",
+          "inquiry_source",
+          "period_over_period_change",
+          "country_structure",
+          "schema_required_fields_unfilled",
+          "missing_inquiry_text",
+          "missing_final_quote",
+          "missing_lead_time",
+          "missing_destination_country",
+          "missing_product_context",
+          "missing_quantity",
+          "missing_customer_profile",
+          "missing_buyer_company",
+          "missing_buyer_contact",
+          "missing_buyer_email",
+          "missing_line_items",
+          "missing_total_amount"
+        ],
+        "boundary_statement": {
+          "action_center_only": true,
+          "current_official_mainline_plus_derived_layers_only": true,
+          "not_platform_execution": true,
+          "task6_excluded": true,
+          "no_write_action_attempted": true
+        }
+      },
+      "fallback_reason": "The operation was aborted due to timeout"
+    },
+    "operator_console": {
+      "path": "/integrations/alibaba/wika/reports/operator-console",
+      "status": 200,
+      "is_json": true,
+      "source_mode": "local_evidence_fallback",
+      "body": {
+        "report_name": "operator_console",
+        "generated_at": "2026-04-13T02:17:20.841Z",
+        "business_cockpit_summary": {
+          "source_route": "/integrations/alibaba/wika/reports/business-cockpit",
+          "report_name": "business_cockpit",
+          "task_coverage_summary": {
+            "task1_partial_status": {
+              "status": "partially_reopened",
+              "complete": false,
+              "note": "Store, product, and order read-side summaries are available, but several key business dimensions are still missing."
+            },
+            "task2_partial_status": {
+              "status": "partially_reopened",
+              "complete": false,
+              "note": "Minimal diagnostic and comparison layers are available, but this is still not a full business diagnostic cockpit."
+            },
+            "task3_partial_status": {
+              "status": "partially_reopened",
+              "complete": false,
+              "note": "A product safe-draft workbench candidate exists, but it stays at safe draft preparation and does not publish."
+            },
+            "task4_partial_status": {
+              "status": "partially_reopened",
+              "complete": false,
+              "note": "A reply-draft external workbench candidate exists, but it does not send platform replies."
+            },
+            "task5_partial_status": {
+              "status": "partially_reopened",
+              "complete": false,
+              "note": "An order-draft external workbench candidate exists, but it does not create platform orders."
+            },
+            "task6_excluded": true
+          },
+          "cross_section_gap_count": 7,
+          "boundary_statement": {
+            "current_official_mainline_plus_derived_layers_only": true,
+            "not_full_business_cockpit": true,
+            "not_task_1_complete": true,
+            "not_task_2_complete": true,
+            "not_task_3_complete": true,
+            "not_task_4_complete": true,
+            "not_task_5_complete": true,
+            "task_6_excluded": true,
+            "no_write_action_attempted": true,
+            "notes": [
+              "This cockpit only aggregates the currently shipped management summary, minimal diagnostic, and comparison layers.",
+              "Comparison outputs and order formal_summary / product_contribution / trend_signal remain derived outputs.",
+              "Unavailable dimensions stay explicitly visible and are not presented as covered capabilities."
+            ]
+          }
+        },
+        "action_center_summary": {
+          "source_route": "/integrations/alibaba/wika/reports/action-center",
+          "report_name": "action_center",
+          "prioritized_action_count": 1,
+          "next_best_actions": [
+            {
+              "priority": "high",
+              "domain": "task3",
+              "source": "/integrations/alibaba/wika/workbench/product-draft-workbench",
+              "recommended_next_action": "Fill required category attributes, schema-required fields, and media candidates before handing the draft package to manual review. Do not enter platform publish.",
+              "reason": "Task 3 still stays at safe draft preparation and manual field completion."
+            }
+          ],
+          "shared_blocker_count": 23,
+          "boundary_statement": {
+            "action_center_only": true,
+            "current_official_mainline_plus_derived_layers_only": true,
+            "not_platform_execution": true,
+            "task6_excluded": true,
+            "no_write_action_attempted": true
+          }
+        },
+        "task3_summary": {
+          "source_route": "/integrations/alibaba/wika/workbench/product-draft-workbench",
+          "report_name": "product_draft_workbench",
+          "draft_readiness": {
+            "stage": "product_draft_only",
+            "schema_mode": "schema_aware",
+            "safe_draft_preparation_available": true,
+            "ready_for_publish": false,
+            "ready_for_safe_draft_candidate": false,
+            "missing_requirement_count": 2
+          },
+          "required_manual_fields_count": 0,
+          "blocking_risk_count": 1,
+          "recommended_next_action": "Fill required category attributes, schema-required fields, and media candidates before handing the draft package to manual review. Do not enter platform publish.",
+          "boundary_statement": {
+            "safe_draft_preparation_only": true,
+            "not_platform_publish": true,
+            "not_write_side_closed_loop": true,
+            "render_draft_is_observability_only": true
+          }
+        },
+        "task4_summary": {
+          "source_route": "/integrations/alibaba/wika/workbench/reply-workbench",
+          "report_name": "reply_workbench",
+          "current_reply_profiles": [
+            {
+              "code": "reply_minimal_handoff",
+              "label": "Minimal handoff",
+              "note": "Use when only the inquiry text or very limited context is available for an external draft."
+            },
+            {
+              "code": "reply_quote_confirmation_needed",
+              "label": "Quote confirmation draft",
+              "note": "Use when product and customer context already exist, but quote and lead time still need human confirmation."
+            },
+            {
+              "code": "reply_mockup_customization",
+              "label": "Mockup customization draft",
+              "note": "Use when the reply depends on mockup, logo, or customization follow-up material."
+            }
+          ],
+          "hard_blocker_count": 3,
+          "handoff_pack_capability": {
+            "handoff_checklist_available": true,
+            "handoff_fields_available": true,
+            "manual_completion_sop_available": true,
+            "export_formats": [
+              "json",
+              "markdown"
+            ]
+          },
+          "sample_availability": {
+            "preview_generated_without_platform_send": true,
+            "product_diagnostic_sample_size": 12,
+            "product_context_count": 0
+          },
+          "recommended_next_action": null,
+          "boundary_statement": {
+            "external_reply_draft_only": true,
+            "not_platform_reply": true,
+            "not_platform_internal_send": true,
+            "no_real_send_attempted": true,
+            "task6_excluded": true
+          }
+        },
+        "task5_summary": {
+          "source_route": "/integrations/alibaba/wika/workbench/order-workbench",
+          "report_name": "order_workbench",
+          "current_order_profiles": [
+            {
+              "code": "order_minimal_handoff",
+              "label": "Minimal order handoff",
+              "note": "Use when only the basic buyer data and a small amount of line-item context are available for an external order draft."
+            },
+            {
+              "code": "order_quote_confirmation_needed",
+              "label": "Quote confirmation order draft",
+              "note": "Use when line items are available, but price, total amount, and lead time still need human confirmation."
+            },
+            {
+              "code": "order_commercial_review",
+              "label": "Commercial review order draft",
+              "note": "Use when the main commercial fields are present, but manual review is still required before any downstream handoff."
+            }
+          ],
+          "hard_blocker_count": 6,
+          "handoff_pack_capability": {
+            "handoff_checklist_available": true,
+            "handoff_fields_available": true,
+            "manual_completion_sop_available": true,
+            "export_formats": [
+              "json",
+              "markdown"
+            ]
+          },
+          "sample_availability": {
+            "order_diagnostic_snapshot_available": true,
+            "line_item_count": 0,
+            "draft_types": [
+              "TA"
+            ]
+          },
+          "recommended_next_action": null,
+          "boundary_statement": {
+            "external_order_draft_only": true,
+            "not_platform_order_create": true,
+            "not_platform_internal_create": true,
+            "no_real_order_creation_attempted": true,
+            "task6_excluded": true
+          }
+        },
+        "preview_readiness": {
+          "source_route": "/integrations/alibaba/wika/workbench/preview-center",
+          "task3_preview_available": true,
+          "task4_preview_available": true,
+          "task5_preview_available": true,
+          "requires_input_payload": true,
+          "entrypoints": {
+            "task3": {
+              "route": "/integrations/alibaba/wika/workbench/product-draft-preview",
+              "method": "POST"
+            },
+            "task4": {
+              "route": "/integrations/alibaba/wika/workbench/reply-preview",
+              "method": "POST"
+            },
+            "task5": {
+              "route": "/integrations/alibaba/wika/workbench/order-preview",
+              "method": "POST"
+            }
+          },
+          "preview_profiles": {
+            "task3": "product_draft_preview",
+            "task4": null,
+            "task5": null
+          },
+          "platform_internal_execution_available": false,
+          "task6_excluded": true
+        },
+        "shared_blockers": [
+          "traffic_source",
+          "country_source",
+          "quick_reply_rate",
+          "access_source",
+          "inquiry_source",
+          "period_over_period_change",
+          "country_structure",
+          "schema_required_fields_unfilled",
+          "missing_inquiry_text",
+          "missing_final_quote",
+          "missing_lead_time",
+          "missing_destination_country",
+          "missing_product_context",
+          "missing_quantity",
+          "missing_customer_profile",
+          "missing_buyer_company",
+          "missing_buyer_contact",
+          "missing_buyer_email",
+          "missing_line_items",
+          "missing_total_amount"
+        ],
+        "next_best_actions": [
+          {
+            "priority": "high",
+            "domain": "task3",
+            "source": "/integrations/alibaba/wika/workbench/product-draft-workbench",
+            "recommended_next_action": "Fill required category attributes, schema-required fields, and media candidates before handing the draft package to manual review. Do not enter platform publish.",
+            "reason": "Task 3 still stays at safe draft preparation and manual field completion."
+          }
+        ],
+        "boundary_statement": {
+          "operator_console_only": true,
+          "current_official_mainline_plus_derived_layers_only": true,
+          "task1_to_task5_consumption_layer_only": true,
+          "not_platform_internal_execution": true,
+          "task6_excluded": true,
+          "no_write_action_attempted": true,
+          "not_full_business_cockpit": true
+        }
+      },
+      "fallback_reason": "The operation was aborted due to timeout"
+    }
+  },
+  "ads_import_contract": {
+    "report_name": "ads_import_contract",
+    "generated_at": "2026-04-18T08:11:18.234Z",
+    "schema_version": "stage42_ads_import_v1",
+    "required_fields": [
+      "date",
+      "spend",
+      "impressions",
+      "clicks"
+    ],
+    "optional_fields": [
+      "campaign_name",
+      "campaign_id",
+      "ad_group_name",
+      "ad_group_id",
+      "keyword",
+      "inquiries",
+      "ctr",
+      "cpc",
+      "conversion",
+      "inquiry_rate",
+      "budget",
+      "bid",
+      "region",
+      "device",
+      "currency",
+      "source_file"
+    ],
+    "template_columns": [
+      "date",
+      "campaign_name",
+      "campaign_id",
+      "ad_group_name",
+      "ad_group_id",
+      "keyword",
+      "spend",
+      "impressions",
+      "clicks",
+      "inquiries",
+      "ctr",
+      "cpc",
+      "conversion",
+      "inquiry_rate",
+      "budget",
+      "bid",
+      "region",
+      "device",
+      "currency",
+      "source_file"
+    ],
+    "field_descriptions": {
+      "date": "导出日期，系统会标准化到 YYYY-MM-DD。",
+      "campaign_name": "计划名称；campaign_name 与 campaign_id 至少需要一个。",
+      "campaign_id": "计划 ID；campaign_name 与 campaign_id 至少需要一个。",
+      "ad_group_name": "单元名称，建议尽量提供。",
+      "ad_group_id": "单元 ID，建议尽量提供。",
+      "keyword": "关键词级输入；没有关键词维度时可留空。",
+      "spend": "广告花费，数值型，必填。",
+      "impressions": "曝光量，数值型，必填。",
+      "clicks": "点击量，数值型，必填。",
+      "inquiries": "询盘量，若缺失会降低建议强度。",
+      "ctr": "点击率；缺失时按 clicks / impressions 保守计算。",
+      "cpc": "单次点击成本；缺失时按 spend / clicks 保守计算。",
+      "conversion": "可得的转化率字段；当前不强制。",
+      "inquiry_rate": "询盘率；缺失时按 inquiries / clicks 保守计算。",
+      "budget": "预算，只参与只读分析。",
+      "bid": "出价，只参与只读分析。",
+      "region": "地域维度，若导出可得建议提供。",
+      "device": "设备维度，若导出可得建议提供。",
+      "currency": "币种，建议显式填写。",
+      "source_file": "原始来源文件名或来源标记，用于追溯。"
+    },
+    "allowed_source_types": [
+      "alibaba_ads_export",
+      "manual_sheet",
+      "third_party_rollup",
+      "sanitized_history_sample"
+    ],
+    "analysis_entrypoints": {
+      "ads_summary": "buildAdsSummaryReport",
+      "ads_comparison": "buildAdsComparisonReport",
+      "ads_diagnostic": "buildAdsDiagnosticReport",
+      "ads_action_center": "buildAdsActionCenterReport"
+    },
+    "enhancement_scope": {
+      "strengthened_capabilities": [
+        "ads_spend_change_analysis",
+        "ads_click_and_inquiry_efficiency_analysis",
+        "campaign_and_keyword_prioritization",
+        "ads_action_center_prioritized_actions"
+      ],
+      "unchanged_capabilities": [
+        "operations_management_summary",
+        "products_management_summary",
+        "orders_management_summary",
+        "business_cockpit",
+        "action_center",
+        "operator_console",
+        "content_optimization_layer"
+      ]
+    },
+    "boundary_statement": {
+      "import_driven_only": true,
+      "not_official_ads_api": true,
+      "no_platform_write_action_attempted": true
+    }
+  },
+  "ads_productization": {
+    "report_name": "ads_input_productization_summary",
+    "generated_at": "2026-04-18T08:11:18.238Z",
+    "current_status": "IMPORT_READY_WITH_SAMPLE",
+    "source_type": "manual_import_template",
+    "contract": {
+      "report_name": "ads_import_contract",
+      "generated_at": "2026-04-18T08:11:18.238Z",
+      "schema_version": "stage42_ads_import_v1",
+      "required_fields": [
+        "date",
+        "spend",
+        "impressions",
+        "clicks"
+      ],
+      "optional_fields": [
+        "campaign_name",
+        "campaign_id",
+        "ad_group_name",
+        "ad_group_id",
+        "keyword",
+        "inquiries",
+        "ctr",
+        "cpc",
+        "conversion",
+        "inquiry_rate",
+        "budget",
+        "bid",
+        "region",
+        "device",
+        "currency",
+        "source_file"
+      ],
+      "template_columns": [
+        "date",
+        "campaign_name",
+        "campaign_id",
+        "ad_group_name",
+        "ad_group_id",
+        "keyword",
+        "spend",
+        "impressions",
+        "clicks",
+        "inquiries",
+        "ctr",
+        "cpc",
+        "conversion",
+        "inquiry_rate",
+        "budget",
+        "bid",
+        "region",
+        "device",
+        "currency",
+        "source_file"
+      ],
+      "field_descriptions": {
+        "date": "导出日期，系统会标准化到 YYYY-MM-DD。",
+        "campaign_name": "计划名称；campaign_name 与 campaign_id 至少需要一个。",
+        "campaign_id": "计划 ID；campaign_name 与 campaign_id 至少需要一个。",
+        "ad_group_name": "单元名称，建议尽量提供。",
+        "ad_group_id": "单元 ID，建议尽量提供。",
+        "keyword": "关键词级输入；没有关键词维度时可留空。",
+        "spend": "广告花费，数值型，必填。",
+        "impressions": "曝光量，数值型，必填。",
+        "clicks": "点击量，数值型，必填。",
+        "inquiries": "询盘量，若缺失会降低建议强度。",
+        "ctr": "点击率；缺失时按 clicks / impressions 保守计算。",
+        "cpc": "单次点击成本；缺失时按 spend / clicks 保守计算。",
+        "conversion": "可得的转化率字段；当前不强制。",
+        "inquiry_rate": "询盘率；缺失时按 inquiries / clicks 保守计算。",
+        "budget": "预算，只参与只读分析。",
+        "bid": "出价，只参与只读分析。",
+        "region": "地域维度，若导出可得建议提供。",
+        "device": "设备维度，若导出可得建议提供。",
+        "currency": "币种，建议显式填写。",
+        "source_file": "原始来源文件名或来源标记，用于追溯。"
+      },
+      "allowed_source_types": [
+        "alibaba_ads_export",
+        "manual_sheet",
+        "third_party_rollup",
+        "sanitized_history_sample"
+      ],
+      "analysis_entrypoints": {
+        "ads_summary": "buildAdsSummaryReport",
+        "ads_comparison": "buildAdsComparisonReport",
+        "ads_diagnostic": "buildAdsDiagnosticReport",
+        "ads_action_center": "buildAdsActionCenterReport"
+      },
+      "enhancement_scope": {
+        "strengthened_capabilities": [
+          "ads_spend_change_analysis",
+          "ads_click_and_inquiry_efficiency_analysis",
+          "campaign_and_keyword_prioritization",
+          "ads_action_center_prioritized_actions"
+        ],
+        "unchanged_capabilities": [
+          "operations_management_summary",
+          "products_management_summary",
+          "orders_management_summary",
+          "business_cockpit",
+          "action_center",
+          "operator_console",
+          "content_optimization_layer"
+        ]
+      },
+      "boundary_statement": {
+        "import_driven_only": true,
+        "not_official_ads_api": true,
+        "no_platform_write_action_attempted": true
+      }
+    },
+    "template_validation": {
+      "ok": true,
+      "row_count": 1,
+      "normalized_row_count": 1,
+      "errors": [],
+      "warnings": [],
+      "metric_totals": {
+        "spend": 120.5,
+        "impressions": 4500,
+        "clicks": 96,
+        "inquiries": 4,
+        "ctr": 0.021333,
+        "cpc": 1.255208,
+        "inquiry_rate": 0.041667,
+        "cost_per_inquiry": 30.125
+      }
+    },
+    "analysis_outputs": {
+      "ads_summary": {
+        "report_name": "ads_summary",
+        "generated_at": "2026-04-18T08:11:18.236Z",
+        "source_type": "manual_import_template",
+        "import_contract": {
+          "schema_version": "stage42_ads_import_v1",
+          "row_count": 1,
+          "normalized_row_count": 1,
+          "error_count": 0,
+          "warning_count": 0
+        },
+        "summary": {
+          "campaign_count": 1,
+          "ad_group_count": 1,
+          "keyword_count": 1,
+          "date_range": {
+            "start": "2026-04-12",
+            "end": "2026-04-12"
+          },
+          "metric_totals": {
+            "spend": 120.5,
+            "impressions": 4500,
+            "clicks": 96,
+            "inquiries": 4,
+            "ctr": 0.021333,
+            "cpc": 1.255208,
+            "inquiry_rate": 0.041667,
+            "cost_per_inquiry": 30.125
+          }
+        },
+        "campaign_breakdown": [
+          {
+            "key": "CAMPAIGN_SAMPLE_001",
+            "spend": 120.5,
+            "impressions": 4500,
+            "clicks": 96,
+            "inquiries": 4,
+            "row_count": 1,
+            "ctr": 0.021333,
+            "cpc": 1.255208,
+            "inquiry_rate": 0.041667,
+            "cost_per_inquiry": 30.125
+          }
+        ],
+        "ad_group_breakdown": [
+          {
+            "key": "ADGROUP_SAMPLE_001",
+            "spend": 120.5,
+            "impressions": 4500,
+            "clicks": 96,
+            "inquiries": 4,
+            "row_count": 1,
+            "ctr": 0.021333,
+            "cpc": 1.255208,
+            "inquiry_rate": 0.041667,
+            "cost_per_inquiry": 30.125
+          }
+        ],
+        "keyword_breakdown": [
+          {
+            "key": "wika box",
+            "spend": 120.5,
+            "impressions": 4500,
+            "clicks": 96,
+            "inquiries": 4,
+            "row_count": 1,
+            "ctr": 0.021333,
+            "cpc": 1.255208,
+            "inquiry_rate": 0.041667,
+            "cost_per_inquiry": 30.125
+          }
+        ],
+        "unavailable_dimensions": [
+          "official_ads_api_route",
+          "campaign_writeback",
+          "budget_mutation",
+          "bid_mutation",
+          "official_budget_status",
+          "official_bid_history",
+          "official_region_delivery_status"
+        ],
+        "boundary_statement": {
+          "manual_import_only": true,
+          "not_official_ads_api": true,
+          "current_permissions_do_not_confirm_stable_ads_route": true,
+          "no_platform_write_action_attempted": true,
+          "import_analysis_only": true,
+          "not_platform_ad_mutation": true
+        }
+      },
+      "ads_comparison": {
+        "report_name": "ads_comparison",
+        "generated_at": "2026-04-18T08:11:18.237Z",
+        "comparison_basis": {
+          "current_window": {
+            "start": "2026-04-06",
+            "end": "2026-04-12"
+          },
+          "previous_window": {
+            "start": "2026-03-30",
+            "end": "2026-04-05"
+          },
+          "source_type": "manual_import_template"
+        },
+        "current_window": {
+          "start": "2026-04-06",
+          "end": "2026-04-12"
+        },
+        "previous_window": {
+          "start": "2026-03-30",
+          "end": "2026-04-05"
+        },
+        "derived_comparison": {
+          "trend_direction": "improving",
+          "metric_deltas": {
+            "spend": {
+              "current": 120.5,
+              "previous": 0,
+              "delta_value": 120.5,
+              "delta_rate": null
+            },
+            "impressions": {
+              "current": 4500,
+              "previous": 0,
+              "delta_value": 4500,
+              "delta_rate": null
+            },
+            "clicks": {
+              "current": 96,
+              "previous": 0,
+              "delta_value": 96,
+              "delta_rate": null
+            },
+            "inquiries": {
+              "current": 4,
+              "previous": 0,
+              "delta_value": 4,
+              "delta_rate": null
+            },
+            "ctr": {
+              "current": 0.021333,
+              "previous": null,
+              "delta_value": null,
+              "delta_rate": null
+            },
+            "cpc": {
+              "current": 1.255208,
+              "previous": null,
+              "delta_value": null,
+              "delta_rate": null
+            },
+            "inquiry_rate": {
+              "current": 0.041667,
+              "previous": null,
+              "delta_value": null,
+              "delta_rate": null
+            }
+          }
+        },
+        "unavailable_dimensions": [
+          "official_ads_api_route",
+          "campaign_writeback",
+          "budget_mutation",
+          "bid_mutation"
+        ],
+        "boundary_statement": {
+          "manual_import_only": true,
+          "not_official_ads_api": true,
+          "current_permissions_do_not_confirm_stable_ads_route": true,
+          "no_platform_write_action_attempted": true,
+          "comparison_layer_is_derived": true,
+          "imported_ads_data_only": true
+        }
+      },
+      "ads_diagnostic": {
+        "report_name": "ads_diagnostic",
+        "generated_at": "2026-04-18T08:11:18.237Z",
+        "official_inputs": {
+          "source_type": "manual_import",
+          "imported_fields": [
+            "date",
+            "campaign_name/campaign_id",
+            "ad_group_name/ad_group_id",
+            "keyword",
+            "spend",
+            "impressions",
+            "clicks",
+            "inquiries"
+          ]
+        },
+        "summary": {
+          "report_name": "ads_summary",
+          "generated_at": "2026-04-18T08:11:18.237Z",
+          "source_type": "manual_import_template",
+          "import_contract": {
+            "schema_version": "stage42_ads_import_v1",
+            "row_count": 1,
+            "normalized_row_count": 1,
+            "error_count": 0,
+            "warning_count": 0
+          },
+          "summary": {
+            "campaign_count": 1,
+            "ad_group_count": 1,
+            "keyword_count": 1,
+            "date_range": {
+              "start": "2026-04-12",
+              "end": "2026-04-12"
+            },
+            "metric_totals": {
+              "spend": 120.5,
+              "impressions": 4500,
+              "clicks": 96,
+              "inquiries": 4,
+              "ctr": 0.021333,
+              "cpc": 1.255208,
+              "inquiry_rate": 0.041667,
+              "cost_per_inquiry": 30.125
+            }
+          },
+          "campaign_breakdown": [
+            {
+              "key": "CAMPAIGN_SAMPLE_001",
+              "spend": 120.5,
+              "impressions": 4500,
+              "clicks": 96,
+              "inquiries": 4,
+              "row_count": 1,
+              "ctr": 0.021333,
+              "cpc": 1.255208,
+              "inquiry_rate": 0.041667,
+              "cost_per_inquiry": 30.125
+            }
+          ],
+          "ad_group_breakdown": [
+            {
+              "key": "ADGROUP_SAMPLE_001",
+              "spend": 120.5,
+              "impressions": 4500,
+              "clicks": 96,
+              "inquiries": 4,
+              "row_count": 1,
+              "ctr": 0.021333,
+              "cpc": 1.255208,
+              "inquiry_rate": 0.041667,
+              "cost_per_inquiry": 30.125
+            }
+          ],
+          "keyword_breakdown": [
+            {
+              "key": "wika box",
+              "spend": 120.5,
+              "impressions": 4500,
+              "clicks": 96,
+              "inquiries": 4,
+              "row_count": 1,
+              "ctr": 0.021333,
+              "cpc": 1.255208,
+              "inquiry_rate": 0.041667,
+              "cost_per_inquiry": 30.125
+            }
+          ],
+          "unavailable_dimensions": [
+            "official_ads_api_route",
+            "campaign_writeback",
+            "budget_mutation",
+            "bid_mutation",
+            "official_budget_status",
+            "official_bid_history",
+            "official_region_delivery_status"
+          ],
+          "boundary_statement": {
+            "manual_import_only": true,
+            "not_official_ads_api": true,
+            "current_permissions_do_not_confirm_stable_ads_route": true,
+            "no_platform_write_action_attempted": true,
+            "import_analysis_only": true,
+            "not_platform_ad_mutation": true
+          }
+        },
+        "comparison": {
+          "report_name": "ads_comparison",
+          "generated_at": "2026-04-18T08:11:18.237Z",
+          "comparison_basis": {
+            "current_window": {
+              "start": "2026-04-06",
+              "end": "2026-04-12"
+            },
+            "previous_window": {
+              "start": "2026-03-30",
+              "end": "2026-04-05"
+            },
+            "source_type": "manual_import_template"
+          },
+          "current_window": {
+            "start": "2026-04-06",
+            "end": "2026-04-12"
+          },
+          "previous_window": {
+            "start": "2026-03-30",
+            "end": "2026-04-05"
+          },
+          "derived_comparison": {
+            "trend_direction": "improving",
+            "metric_deltas": {
+              "spend": {
+                "current": 120.5,
+                "previous": 0,
+                "delta_value": 120.5,
+                "delta_rate": null
+              },
+              "impressions": {
+                "current": 4500,
+                "previous": 0,
+                "delta_value": 4500,
+                "delta_rate": null
+              },
+              "clicks": {
+                "current": 96,
+                "previous": 0,
+                "delta_value": 96,
+                "delta_rate": null
+              },
+              "inquiries": {
+                "current": 4,
+                "previous": 0,
+                "delta_value": 4,
+                "delta_rate": null
+              },
+              "ctr": {
+                "current": 0.021333,
+                "previous": null,
+                "delta_value": null,
+                "delta_rate": null
+              },
+              "cpc": {
+                "current": 1.255208,
+                "previous": null,
+                "delta_value": null,
+                "delta_rate": null
+              },
+              "inquiry_rate": {
+                "current": 0.041667,
+                "previous": null,
+                "delta_value": null,
+                "delta_rate": null
+              }
+            }
+          },
+          "unavailable_dimensions": [
+            "official_ads_api_route",
+            "campaign_writeback",
+            "budget_mutation",
+            "bid_mutation"
+          ],
+          "boundary_statement": {
+            "manual_import_only": true,
+            "not_official_ads_api": true,
+            "current_permissions_do_not_confirm_stable_ads_route": true,
+            "no_platform_write_action_attempted": true,
+            "comparison_layer_is_derived": true,
+            "imported_ads_data_only": true
+          }
+        },
+        "diagnostic_findings": [
+          {
+            "severity": "medium",
+            "code": "KEYWORD_EFFICIENCY_GAP",
+            "message": "存在高点击低询盘关键词，建议先降本或暂停低效率词。",
+            "evidence": [
+              {
+                "keyword": "wika box",
+                "clicks": 96,
+                "inquiries": 4,
+                "inquiry_rate": 0.041667
+              }
+            ]
+          },
+          {
+            "severity": "info",
+            "code": "SPEND_CONCENTRATION",
+            "message": "当前花费集中在少数计划，建议逐个核查其点击质量与询盘承接。",
+            "evidence": [
+              {
+                "campaign": "CAMPAIGN_SAMPLE_001",
+                "spend": 120.5,
+                "clicks": 96,
+                "inquiries": 4
+              }
+            ]
+          },
+          {
+            "severity": "info",
+            "code": "TREND_DIRECTION",
+            "message": "当前广告总体变化方向为 improving。"
+          }
+        ],
+        "recommendations": [
+          {
+            "priority": "P1",
+            "action": "对高询盘率关键词做扩量观察，必要时单独拆组。",
+            "basis": "已识别出可复用的高询盘关键词。",
+            "evidence": [
+              {
+                "keyword": "wika box",
+                "inquiry_rate": 0.041667,
+                "inquiries": 4
+              }
+            ]
+          },
+          {
+            "priority": "P1",
+            "action": "对高成本关键词做降价、暂停或转内容整改。",
+            "basis": "存在成本偏高的关键词。",
+            "evidence": [
+              {
+                "keyword": "wika box",
+                "cost_per_inquiry": 30.125,
+                "spend": 120.5,
+                "inquiries": 4
+              }
+            ]
+          }
+        ],
+        "unavailable_dimensions": [
+          "official_ads_api_route",
+          "campaign_writeback",
+          "budget_mutation",
+          "bid_mutation",
+          "official_budget_status",
+          "official_bid_history",
+          "official_region_delivery_status"
+        ],
+        "boundary_statement": {
+          "manual_import_only": true,
+          "imported_ads_data_only": true,
+          "recommendations_are_derived": true,
+          "not_official_ads_api": true,
+          "no_platform_write_action_attempted": true
+        }
+      },
+      "ads_action_center": {
+        "report_name": "ads_action_center",
+        "generated_at": "2026-04-18T08:11:18.238Z",
+        "summary_snapshot": {
+          "campaign_count": 1,
+          "ad_group_count": 1,
+          "keyword_count": 1,
+          "date_range": {
+            "start": "2026-04-12",
+            "end": "2026-04-12"
+          },
+          "metric_totals": {
+            "spend": 120.5,
+            "impressions": 4500,
+            "clicks": 96,
+            "inquiries": 4,
+            "ctr": 0.021333,
+            "cpc": 1.255208,
+            "inquiry_rate": 0.041667,
+            "cost_per_inquiry": 30.125
+          }
+        },
+        "comparison_snapshot": {
+          "trend_direction": "improving",
+          "metric_deltas": {
+            "spend": {
+              "current": 120.5,
+              "previous": 0,
+              "delta_value": 120.5,
+              "delta_rate": null
+            },
+            "impressions": {
+              "current": 4500,
+              "previous": 0,
+              "delta_value": 4500,
+              "delta_rate": null
+            },
+            "clicks": {
+              "current": 96,
+              "previous": 0,
+              "delta_value": 96,
+              "delta_rate": null
+            },
+            "inquiries": {
+              "current": 4,
+              "previous": 0,
+              "delta_value": 4,
+              "delta_rate": null
+            },
+            "ctr": {
+              "current": 0.021333,
+              "previous": null,
+              "delta_value": null,
+              "delta_rate": null
+            },
+            "cpc": {
+              "current": 1.255208,
+              "previous": null,
+              "delta_value": null,
+              "delta_rate": null
+            },
+            "inquiry_rate": {
+              "current": 0.041667,
+              "previous": null,
+              "delta_value": null,
+              "delta_rate": null
+            }
+          }
+        },
+        "prioritized_actions": [
+          {
+            "priority": "P1",
+            "action": "对高询盘率关键词做扩量观察，必要时单独拆组。",
+            "basis": "已识别出可复用的高询盘关键词。",
+            "evidence": [
+              {
+                "keyword": "wika box",
+                "inquiry_rate": 0.041667,
+                "inquiries": 4
+              }
+            ]
+          },
+          {
+            "priority": "P1",
+            "action": "对高成本关键词做降价、暂停或转内容整改。",
+            "basis": "存在成本偏高的关键词。",
+            "evidence": [
+              {
+                "keyword": "wika box",
+                "cost_per_inquiry": 30.125,
+                "spend": 120.5,
+                "inquiries": 4
+              }
+            ]
+          }
+        ],
+        "shared_blockers": [
+          "manual_import_required",
+          "official_ads_api_unavailable_or_unconfirmed",
+          "budget_bid_mutation_not_supported"
+        ],
+        "unavailable_dimensions": [
+          "official_ads_api_route",
+          "campaign_writeback",
+          "budget_mutation",
+          "bid_mutation",
+          "official_budget_status",
+          "official_bid_history",
+          "official_region_delivery_status"
+        ],
+        "boundary_statement": {
+          "imported_ads_data_only": true,
+          "action_center_only": true,
+          "not_platform_execution": true,
+          "no_platform_write_action_attempted": true
+        }
+      }
+    },
+    "capabilities_enhanced_when_input_arrives": [
+      "ads_summary",
+      "ads_comparison",
+      "ads_diagnostic",
+      "ads_action_center"
+    ],
+    "capabilities_still_not_solved_by_ads_input": [
+      "official_ads_api_route",
+      "campaign_writeback",
+      "budget_mutation",
+      "bid_mutation"
+    ],
+    "boundary_statement": {
+      "import_driven_only": true,
+      "not_official_ads_api": true,
+      "no_platform_write_action_attempted": true
+    }
+  },
+  "page_audit_contract": {
+    "report_name": "page_audit_contract",
+    "generated_at": "2026-04-18T08:11:18.239Z",
+    "required_fields": [
+      "audit_date",
+      "page_type",
+      "page_url",
+      "module_name",
+      "observed_issue",
+      "manual_recommendation",
+      "priority"
+    ],
+    "optional_fields": [
+      "module_position",
+      "homepage_module",
+      "banner_status",
+      "core_product_exposure",
+      "category_entry_status",
+      "contact_entry_status",
+      "inquiry_entry_status",
+      "main_image_status",
+      "video_status",
+      "detail_content_status",
+      "owner",
+      "evidence_link",
+      "notes"
+    ],
+    "template_columns": [
+      "audit_date",
+      "page_type",
+      "page_url",
+      "module_name",
+      "module_position",
+      "homepage_module",
+      "banner_status",
+      "core_product_exposure",
+      "category_entry_status",
+      "contact_entry_status",
+      "inquiry_entry_status",
+      "main_image_status",
+      "video_status",
+      "detail_content_status",
+      "observed_issue",
+      "manual_recommendation",
+      "priority",
+      "owner",
+      "evidence_link",
+      "notes"
+    ],
+    "field_descriptions": {
+      "audit_date": "盘点日期，系统会标准化到 YYYY-MM-DD。",
+      "page_type": "页面类型，建议使用 homepage / product_detail / landing_page / category_page / other。",
+      "page_url": "盘点页面 URL。",
+      "module_name": "模块名称。",
+      "module_position": "模块位置或序号。",
+      "homepage_module": "是否属于首页模块，建议填 YES / NO。",
+      "banner_status": "主 banner 状态。",
+      "core_product_exposure": "是否有核心商品露出。",
+      "category_entry_status": "重点类目入口状态。",
+      "contact_entry_status": "联系方式入口状态。",
+      "inquiry_entry_status": "询盘入口状态。",
+      "main_image_status": "主图完整度与质量状态。",
+      "video_status": "视频状态。",
+      "detail_content_status": "详情内容状态。",
+      "observed_issue": "当前人工观察到的问题。",
+      "manual_recommendation": "当前人工建议动作。",
+      "priority": "建议优先级，P0 / P1 / P2。",
+      "owner": "建议负责人。",
+      "evidence_link": "截图或录屏链接。",
+      "notes": "补充说明。"
+    },
+    "allowed_status_values": [
+      "YES",
+      "NO",
+      "PARTIAL",
+      "UNKNOWN"
+    ],
+    "enhancement_scope": {
+      "strengthened_capabilities": [
+        "homepage_optimization_suggestions",
+        "product_detail_optimization_suggestions",
+        "media_optimization_suggestions",
+        "manual_issue_tracking_for_operator_console"
+      ],
+      "unchanged_capabilities": [
+        "official_page_behavior_metrics",
+        "heatmap",
+        "page_clickstream"
+      ]
+    },
+    "boundary_statement": {
+      "manual_audit_only": true,
+      "not_official_behavior_data": true,
+      "conservative_recommendation_strengthened": true,
+      "no_write_action_attempted": true
+    }
+  },
+  "page_audit_summary": {
+    "report_name": "page_audit_input_summary",
+    "generated_at": "2026-04-18T08:11:18.240Z",
+    "current_status": "MANUAL_AUDIT_READY_WITH_SAMPLE",
+    "contract": {
+      "report_name": "page_audit_contract",
+      "generated_at": "2026-04-18T08:11:18.240Z",
+      "required_fields": [
+        "audit_date",
+        "page_type",
+        "page_url",
+        "module_name",
+        "observed_issue",
+        "manual_recommendation",
+        "priority"
+      ],
+      "optional_fields": [
+        "module_position",
+        "homepage_module",
+        "banner_status",
+        "core_product_exposure",
+        "category_entry_status",
+        "contact_entry_status",
+        "inquiry_entry_status",
+        "main_image_status",
+        "video_status",
+        "detail_content_status",
+        "owner",
+        "evidence_link",
+        "notes"
+      ],
+      "template_columns": [
+        "audit_date",
+        "page_type",
+        "page_url",
+        "module_name",
+        "module_position",
+        "homepage_module",
+        "banner_status",
+        "core_product_exposure",
+        "category_entry_status",
+        "contact_entry_status",
+        "inquiry_entry_status",
+        "main_image_status",
+        "video_status",
+        "detail_content_status",
+        "observed_issue",
+        "manual_recommendation",
+        "priority",
+        "owner",
+        "evidence_link",
+        "notes"
+      ],
+      "field_descriptions": {
+        "audit_date": "盘点日期，系统会标准化到 YYYY-MM-DD。",
+        "page_type": "页面类型，建议使用 homepage / product_detail / landing_page / category_page / other。",
+        "page_url": "盘点页面 URL。",
+        "module_name": "模块名称。",
+        "module_position": "模块位置或序号。",
+        "homepage_module": "是否属于首页模块，建议填 YES / NO。",
+        "banner_status": "主 banner 状态。",
+        "core_product_exposure": "是否有核心商品露出。",
+        "category_entry_status": "重点类目入口状态。",
+        "contact_entry_status": "联系方式入口状态。",
+        "inquiry_entry_status": "询盘入口状态。",
+        "main_image_status": "主图完整度与质量状态。",
+        "video_status": "视频状态。",
+        "detail_content_status": "详情内容状态。",
+        "observed_issue": "当前人工观察到的问题。",
+        "manual_recommendation": "当前人工建议动作。",
+        "priority": "建议优先级，P0 / P1 / P2。",
+        "owner": "建议负责人。",
+        "evidence_link": "截图或录屏链接。",
+        "notes": "补充说明。"
+      },
+      "allowed_status_values": [
+        "YES",
+        "NO",
+        "PARTIAL",
+        "UNKNOWN"
+      ],
+      "enhancement_scope": {
+        "strengthened_capabilities": [
+          "homepage_optimization_suggestions",
+          "product_detail_optimization_suggestions",
+          "media_optimization_suggestions",
+          "manual_issue_tracking_for_operator_console"
+        ],
+        "unchanged_capabilities": [
+          "official_page_behavior_metrics",
+          "heatmap",
+          "page_clickstream"
+        ]
+      },
+      "boundary_statement": {
+        "manual_audit_only": true,
+        "not_official_behavior_data": true,
+        "conservative_recommendation_strengthened": true,
+        "no_write_action_attempted": true
+      }
+    },
+    "row_count": 1,
+    "normalized_row_count": 1,
+    "errors": [],
+    "summary": {
+      "page_type_breakdown": {
+        "homepage": 1
+      },
+      "priority_breakdown": {
+        "P0": 1
+      },
+      "homepage_module_rows": 1,
+      "contact_entry_missing_rows": 0,
+      "inquiry_entry_missing_rows": 0,
+      "incomplete_content_rows": 1
+    },
+    "capability_enhancement_map": [
+      "content_optimization_layer",
+      "homepage_optimization_suggestions",
+      "media_optimization_suggestions",
+      "operator_console_manual_followup"
+    ],
+    "boundary_statement": {
+      "manual_audit_only": true,
+      "not_official_behavior_data": true,
+      "conservative_recommendation_strengthened": true,
+      "no_write_action_attempted": true
+    }
+  },
+  "input_readiness_summary": {
+    "report_name": "input_readiness_summary",
+    "generated_at": "2026-04-18T08:11:18.241Z",
+    "auto_fetch_layer": {
+      "current_status": "AUTO_FETCH_READY",
+      "stable_routes": [
+        "/integrations/alibaba/wika/reports/operations/management-summary",
+        "/integrations/alibaba/wika/reports/products/management-summary",
+        "/integrations/alibaba/wika/reports/orders/management-summary",
+        "/integrations/alibaba/wika/reports/operations/minimal-diagnostic",
+        "/integrations/alibaba/wika/reports/products/minimal-diagnostic",
+        "/integrations/alibaba/wika/reports/orders/minimal-diagnostic",
+        "/integrations/alibaba/wika/reports/operations/comparison-summary",
+        "/integrations/alibaba/wika/reports/products/comparison-summary",
+        "/integrations/alibaba/wika/reports/orders/comparison-summary",
+        "/integrations/alibaba/wika/reports/business-cockpit",
+        "/integrations/alibaba/wika/reports/action-center",
+        "/integrations/alibaba/wika/reports/operator-console"
+      ],
+      "unavailable_dimensions": [
+        "traffic_source",
+        "country_source",
+        "quick_reply_rate",
+        "access_source",
+        "inquiry_source",
+        "period_over_period_change",
+        "country_structure"
+      ]
+    },
+    "ads_import_layer": {
+      "report_name": "ads_input_productization_summary",
+      "generated_at": "2026-04-18T08:11:18.241Z",
+      "current_status": "IMPORT_READY_WITH_SAMPLE",
+      "source_type": "manual_import",
+      "contract": {
+        "report_name": "ads_import_contract",
+        "generated_at": "2026-04-18T08:11:18.241Z",
+        "schema_version": "stage42_ads_import_v1",
+        "required_fields": [
+          "date",
+          "spend",
+          "impressions",
+          "clicks"
+        ],
+        "optional_fields": [
+          "campaign_name",
+          "campaign_id",
+          "ad_group_name",
+          "ad_group_id",
+          "keyword",
+          "inquiries",
+          "ctr",
+          "cpc",
+          "conversion",
+          "inquiry_rate",
+          "budget",
+          "bid",
+          "region",
+          "device",
+          "currency",
+          "source_file"
+        ],
+        "template_columns": [
+          "date",
+          "campaign_name",
+          "campaign_id",
+          "ad_group_name",
+          "ad_group_id",
+          "keyword",
+          "spend",
+          "impressions",
+          "clicks",
+          "inquiries",
+          "ctr",
+          "cpc",
+          "conversion",
+          "inquiry_rate",
+          "budget",
+          "bid",
+          "region",
+          "device",
+          "currency",
+          "source_file"
+        ],
+        "field_descriptions": {
+          "date": "导出日期，系统会标准化到 YYYY-MM-DD。",
+          "campaign_name": "计划名称；campaign_name 与 campaign_id 至少需要一个。",
+          "campaign_id": "计划 ID；campaign_name 与 campaign_id 至少需要一个。",
+          "ad_group_name": "单元名称，建议尽量提供。",
+          "ad_group_id": "单元 ID，建议尽量提供。",
+          "keyword": "关键词级输入；没有关键词维度时可留空。",
+          "spend": "广告花费，数值型，必填。",
+          "impressions": "曝光量，数值型，必填。",
+          "clicks": "点击量，数值型，必填。",
+          "inquiries": "询盘量，若缺失会降低建议强度。",
+          "ctr": "点击率；缺失时按 clicks / impressions 保守计算。",
+          "cpc": "单次点击成本；缺失时按 spend / clicks 保守计算。",
+          "conversion": "可得的转化率字段；当前不强制。",
+          "inquiry_rate": "询盘率；缺失时按 inquiries / clicks 保守计算。",
+          "budget": "预算，只参与只读分析。",
+          "bid": "出价，只参与只读分析。",
+          "region": "地域维度，若导出可得建议提供。",
+          "device": "设备维度，若导出可得建议提供。",
+          "currency": "币种，建议显式填写。",
+          "source_file": "原始来源文件名或来源标记，用于追溯。"
+        },
+        "allowed_source_types": [
+          "alibaba_ads_export",
+          "manual_sheet",
+          "third_party_rollup",
+          "sanitized_history_sample"
+        ],
+        "analysis_entrypoints": {
+          "ads_summary": "buildAdsSummaryReport",
+          "ads_comparison": "buildAdsComparisonReport",
+          "ads_diagnostic": "buildAdsDiagnosticReport",
+          "ads_action_center": "buildAdsActionCenterReport"
+        },
+        "enhancement_scope": {
+          "strengthened_capabilities": [
+            "ads_spend_change_analysis",
+            "ads_click_and_inquiry_efficiency_analysis",
+            "campaign_and_keyword_prioritization",
+            "ads_action_center_prioritized_actions"
+          ],
+          "unchanged_capabilities": [
+            "operations_management_summary",
+            "products_management_summary",
+            "orders_management_summary",
+            "business_cockpit",
+            "action_center",
+            "operator_console",
+            "content_optimization_layer"
+          ]
+        },
+        "boundary_statement": {
+          "import_driven_only": true,
+          "not_official_ads_api": true,
+          "no_platform_write_action_attempted": true
+        }
+      },
+      "template_validation": {
+        "ok": true,
+        "row_count": 1,
+        "normalized_row_count": 1,
+        "errors": [],
+        "warnings": [],
+        "metric_totals": {
+          "spend": 120.5,
+          "impressions": 4500,
+          "clicks": 96,
+          "inquiries": 4,
+          "ctr": 0.021333,
+          "cpc": 1.255208,
+          "inquiry_rate": 0.041667,
+          "cost_per_inquiry": 30.125
+        }
+      },
+      "analysis_outputs": {
+        "ads_summary": {
+          "report_name": "ads_summary",
+          "generated_at": "2026-04-18T08:11:18.241Z",
+          "source_type": "manual_import",
+          "import_contract": {
+            "schema_version": "stage42_ads_import_v1",
+            "row_count": 1,
+            "normalized_row_count": 1,
+            "error_count": 0,
+            "warning_count": 0
+          },
+          "summary": {
+            "campaign_count": 1,
+            "ad_group_count": 1,
+            "keyword_count": 1,
+            "date_range": {
+              "start": "2026-04-12",
+              "end": "2026-04-12"
+            },
+            "metric_totals": {
+              "spend": 120.5,
+              "impressions": 4500,
+              "clicks": 96,
+              "inquiries": 4,
+              "ctr": 0.021333,
+              "cpc": 1.255208,
+              "inquiry_rate": 0.041667,
+              "cost_per_inquiry": 30.125
+            }
+          },
+          "campaign_breakdown": [
+            {
+              "key": "CAMPAIGN_SAMPLE_001",
+              "spend": 120.5,
+              "impressions": 4500,
+              "clicks": 96,
+              "inquiries": 4,
+              "row_count": 1,
+              "ctr": 0.021333,
+              "cpc": 1.255208,
+              "inquiry_rate": 0.041667,
+              "cost_per_inquiry": 30.125
+            }
+          ],
+          "ad_group_breakdown": [
+            {
+              "key": "ADGROUP_SAMPLE_001",
+              "spend": 120.5,
+              "impressions": 4500,
+              "clicks": 96,
+              "inquiries": 4,
+              "row_count": 1,
+              "ctr": 0.021333,
+              "cpc": 1.255208,
+              "inquiry_rate": 0.041667,
+              "cost_per_inquiry": 30.125
+            }
+          ],
+          "keyword_breakdown": [
+            {
+              "key": "wika box",
+              "spend": 120.5,
+              "impressions": 4500,
+              "clicks": 96,
+              "inquiries": 4,
+              "row_count": 1,
+              "ctr": 0.021333,
+              "cpc": 1.255208,
+              "inquiry_rate": 0.041667,
+              "cost_per_inquiry": 30.125
+            }
+          ],
+          "unavailable_dimensions": [
+            "official_ads_api_route",
+            "campaign_writeback",
+            "budget_mutation",
+            "bid_mutation",
+            "official_budget_status",
+            "official_bid_history",
+            "official_region_delivery_status"
+          ],
+          "boundary_statement": {
+            "manual_import_only": true,
+            "not_official_ads_api": true,
+            "current_permissions_do_not_confirm_stable_ads_route": true,
+            "no_platform_write_action_attempted": true,
+            "import_analysis_only": true,
+            "not_platform_ad_mutation": true
+          }
+        },
+        "ads_comparison": {
+          "report_name": "ads_comparison",
+          "generated_at": "2026-04-18T08:11:18.241Z",
+          "comparison_basis": {
+            "current_window": {
+              "start": "2026-04-06",
+              "end": "2026-04-12"
+            },
+            "previous_window": {
+              "start": "2026-03-30",
+              "end": "2026-04-05"
+            },
+            "source_type": "manual_import"
+          },
+          "current_window": {
+            "start": "2026-04-06",
+            "end": "2026-04-12"
+          },
+          "previous_window": {
+            "start": "2026-03-30",
+            "end": "2026-04-05"
+          },
+          "derived_comparison": {
+            "trend_direction": "improving",
+            "metric_deltas": {
+              "spend": {
+                "current": 120.5,
+                "previous": 0,
+                "delta_value": 120.5,
+                "delta_rate": null
+              },
+              "impressions": {
+                "current": 4500,
+                "previous": 0,
+                "delta_value": 4500,
+                "delta_rate": null
+              },
+              "clicks": {
+                "current": 96,
+                "previous": 0,
+                "delta_value": 96,
+                "delta_rate": null
+              },
+              "inquiries": {
+                "current": 4,
+                "previous": 0,
+                "delta_value": 4,
+                "delta_rate": null
+              },
+              "ctr": {
+                "current": 0.021333,
+                "previous": null,
+                "delta_value": null,
+                "delta_rate": null
+              },
+              "cpc": {
+                "current": 1.255208,
+                "previous": null,
+                "delta_value": null,
+                "delta_rate": null
+              },
+              "inquiry_rate": {
+                "current": 0.041667,
+                "previous": null,
+                "delta_value": null,
+                "delta_rate": null
+              }
+            }
+          },
+          "unavailable_dimensions": [
+            "official_ads_api_route",
+            "campaign_writeback",
+            "budget_mutation",
+            "bid_mutation"
+          ],
+          "boundary_statement": {
+            "manual_import_only": true,
+            "not_official_ads_api": true,
+            "current_permissions_do_not_confirm_stable_ads_route": true,
+            "no_platform_write_action_attempted": true,
+            "comparison_layer_is_derived": true,
+            "imported_ads_data_only": true
+          }
+        },
+        "ads_diagnostic": {
+          "report_name": "ads_diagnostic",
+          "generated_at": "2026-04-18T08:11:18.241Z",
+          "official_inputs": {
+            "source_type": "manual_import",
+            "imported_fields": [
+              "date",
+              "campaign_name/campaign_id",
+              "ad_group_name/ad_group_id",
+              "keyword",
+              "spend",
+              "impressions",
+              "clicks",
+              "inquiries"
+            ]
+          },
+          "summary": {
+            "report_name": "ads_summary",
+            "generated_at": "2026-04-18T08:11:18.241Z",
+            "source_type": "manual_import",
+            "import_contract": {
+              "schema_version": "stage42_ads_import_v1",
+              "row_count": 1,
+              "normalized_row_count": 1,
+              "error_count": 0,
+              "warning_count": 0
+            },
+            "summary": {
+              "campaign_count": 1,
+              "ad_group_count": 1,
+              "keyword_count": 1,
+              "date_range": {
+                "start": "2026-04-12",
+                "end": "2026-04-12"
+              },
+              "metric_totals": {
+                "spend": 120.5,
+                "impressions": 4500,
+                "clicks": 96,
+                "inquiries": 4,
+                "ctr": 0.021333,
+                "cpc": 1.255208,
+                "inquiry_rate": 0.041667,
+                "cost_per_inquiry": 30.125
+              }
+            },
+            "campaign_breakdown": [
+              {
+                "key": "CAMPAIGN_SAMPLE_001",
+                "spend": 120.5,
+                "impressions": 4500,
+                "clicks": 96,
+                "inquiries": 4,
+                "row_count": 1,
+                "ctr": 0.021333,
+                "cpc": 1.255208,
+                "inquiry_rate": 0.041667,
+                "cost_per_inquiry": 30.125
+              }
+            ],
+            "ad_group_breakdown": [
+              {
+                "key": "ADGROUP_SAMPLE_001",
+                "spend": 120.5,
+                "impressions": 4500,
+                "clicks": 96,
+                "inquiries": 4,
+                "row_count": 1,
+                "ctr": 0.021333,
+                "cpc": 1.255208,
+                "inquiry_rate": 0.041667,
+                "cost_per_inquiry": 30.125
+              }
+            ],
+            "keyword_breakdown": [
+              {
+                "key": "wika box",
+                "spend": 120.5,
+                "impressions": 4500,
+                "clicks": 96,
+                "inquiries": 4,
+                "row_count": 1,
+                "ctr": 0.021333,
+                "cpc": 1.255208,
+                "inquiry_rate": 0.041667,
+                "cost_per_inquiry": 30.125
+              }
+            ],
+            "unavailable_dimensions": [
+              "official_ads_api_route",
+              "campaign_writeback",
+              "budget_mutation",
+              "bid_mutation",
+              "official_budget_status",
+              "official_bid_history",
+              "official_region_delivery_status"
+            ],
+            "boundary_statement": {
+              "manual_import_only": true,
+              "not_official_ads_api": true,
+              "current_permissions_do_not_confirm_stable_ads_route": true,
+              "no_platform_write_action_attempted": true,
+              "import_analysis_only": true,
+              "not_platform_ad_mutation": true
+            }
+          },
+          "comparison": {
+            "report_name": "ads_comparison",
+            "generated_at": "2026-04-18T08:11:18.241Z",
+            "comparison_basis": {
+              "current_window": {
+                "start": "2026-04-06",
+                "end": "2026-04-12"
+              },
+              "previous_window": {
+                "start": "2026-03-30",
+                "end": "2026-04-05"
+              },
+              "source_type": "manual_import"
+            },
+            "current_window": {
+              "start": "2026-04-06",
+              "end": "2026-04-12"
+            },
+            "previous_window": {
+              "start": "2026-03-30",
+              "end": "2026-04-05"
+            },
+            "derived_comparison": {
+              "trend_direction": "improving",
+              "metric_deltas": {
+                "spend": {
+                  "current": 120.5,
+                  "previous": 0,
+                  "delta_value": 120.5,
+                  "delta_rate": null
+                },
+                "impressions": {
+                  "current": 4500,
+                  "previous": 0,
+                  "delta_value": 4500,
+                  "delta_rate": null
+                },
+                "clicks": {
+                  "current": 96,
+                  "previous": 0,
+                  "delta_value": 96,
+                  "delta_rate": null
+                },
+                "inquiries": {
+                  "current": 4,
+                  "previous": 0,
+                  "delta_value": 4,
+                  "delta_rate": null
+                },
+                "ctr": {
+                  "current": 0.021333,
+                  "previous": null,
+                  "delta_value": null,
+                  "delta_rate": null
+                },
+                "cpc": {
+                  "current": 1.255208,
+                  "previous": null,
+                  "delta_value": null,
+                  "delta_rate": null
+                },
+                "inquiry_rate": {
+                  "current": 0.041667,
+                  "previous": null,
+                  "delta_value": null,
+                  "delta_rate": null
+                }
+              }
+            },
+            "unavailable_dimensions": [
+              "official_ads_api_route",
+              "campaign_writeback",
+              "budget_mutation",
+              "bid_mutation"
+            ],
+            "boundary_statement": {
+              "manual_import_only": true,
+              "not_official_ads_api": true,
+              "current_permissions_do_not_confirm_stable_ads_route": true,
+              "no_platform_write_action_attempted": true,
+              "comparison_layer_is_derived": true,
+              "imported_ads_data_only": true
+            }
+          },
+          "diagnostic_findings": [
+            {
+              "severity": "medium",
+              "code": "KEYWORD_EFFICIENCY_GAP",
+              "message": "存在高点击低询盘关键词，建议先降本或暂停低效率词。",
+              "evidence": [
+                {
+                  "keyword": "wika box",
+                  "clicks": 96,
+                  "inquiries": 4,
+                  "inquiry_rate": 0.041667
+                }
+              ]
+            },
+            {
+              "severity": "info",
+              "code": "SPEND_CONCENTRATION",
+              "message": "当前花费集中在少数计划，建议逐个核查其点击质量与询盘承接。",
+              "evidence": [
+                {
+                  "campaign": "CAMPAIGN_SAMPLE_001",
+                  "spend": 120.5,
+                  "clicks": 96,
+                  "inquiries": 4
+                }
+              ]
+            },
+            {
+              "severity": "info",
+              "code": "TREND_DIRECTION",
+              "message": "当前广告总体变化方向为 improving。"
+            }
+          ],
+          "recommendations": [
+            {
+              "priority": "P1",
+              "action": "对高询盘率关键词做扩量观察，必要时单独拆组。",
+              "basis": "已识别出可复用的高询盘关键词。",
+              "evidence": [
+                {
+                  "keyword": "wika box",
+                  "inquiry_rate": 0.041667,
+                  "inquiries": 4
+                }
+              ]
+            },
+            {
+              "priority": "P1",
+              "action": "对高成本关键词做降价、暂停或转内容整改。",
+              "basis": "存在成本偏高的关键词。",
+              "evidence": [
+                {
+                  "keyword": "wika box",
+                  "cost_per_inquiry": 30.125,
+                  "spend": 120.5,
+                  "inquiries": 4
+                }
+              ]
+            }
+          ],
+          "unavailable_dimensions": [
+            "official_ads_api_route",
+            "campaign_writeback",
+            "budget_mutation",
+            "bid_mutation",
+            "official_budget_status",
+            "official_bid_history",
+            "official_region_delivery_status"
+          ],
+          "boundary_statement": {
+            "manual_import_only": true,
+            "imported_ads_data_only": true,
+            "recommendations_are_derived": true,
+            "not_official_ads_api": true,
+            "no_platform_write_action_attempted": true
+          }
+        },
+        "ads_action_center": {
+          "report_name": "ads_action_center",
+          "generated_at": "2026-04-18T08:11:18.241Z",
+          "summary_snapshot": {
+            "campaign_count": 1,
+            "ad_group_count": 1,
+            "keyword_count": 1,
+            "date_range": {
+              "start": "2026-04-12",
+              "end": "2026-04-12"
+            },
+            "metric_totals": {
+              "spend": 120.5,
+              "impressions": 4500,
+              "clicks": 96,
+              "inquiries": 4,
+              "ctr": 0.021333,
+              "cpc": 1.255208,
+              "inquiry_rate": 0.041667,
+              "cost_per_inquiry": 30.125
+            }
+          },
+          "comparison_snapshot": {
+            "trend_direction": "improving",
+            "metric_deltas": {
+              "spend": {
+                "current": 120.5,
+                "previous": 0,
+                "delta_value": 120.5,
+                "delta_rate": null
+              },
+              "impressions": {
+                "current": 4500,
+                "previous": 0,
+                "delta_value": 4500,
+                "delta_rate": null
+              },
+              "clicks": {
+                "current": 96,
+                "previous": 0,
+                "delta_value": 96,
+                "delta_rate": null
+              },
+              "inquiries": {
+                "current": 4,
+                "previous": 0,
+                "delta_value": 4,
+                "delta_rate": null
+              },
+              "ctr": {
+                "current": 0.021333,
+                "previous": null,
+                "delta_value": null,
+                "delta_rate": null
+              },
+              "cpc": {
+                "current": 1.255208,
+                "previous": null,
+                "delta_value": null,
+                "delta_rate": null
+              },
+              "inquiry_rate": {
+                "current": 0.041667,
+                "previous": null,
+                "delta_value": null,
+                "delta_rate": null
+              }
+            }
+          },
+          "prioritized_actions": [
+            {
+              "priority": "P1",
+              "action": "对高询盘率关键词做扩量观察，必要时单独拆组。",
+              "basis": "已识别出可复用的高询盘关键词。",
+              "evidence": [
+                {
+                  "keyword": "wika box",
+                  "inquiry_rate": 0.041667,
+                  "inquiries": 4
+                }
+              ]
+            },
+            {
+              "priority": "P1",
+              "action": "对高成本关键词做降价、暂停或转内容整改。",
+              "basis": "存在成本偏高的关键词。",
+              "evidence": [
+                {
+                  "keyword": "wika box",
+                  "cost_per_inquiry": 30.125,
+                  "spend": 120.5,
+                  "inquiries": 4
+                }
+              ]
+            }
+          ],
+          "shared_blockers": [
+            "manual_import_required",
+            "official_ads_api_unavailable_or_unconfirmed",
+            "budget_bid_mutation_not_supported"
+          ],
+          "unavailable_dimensions": [
+            "official_ads_api_route",
+            "campaign_writeback",
+            "budget_mutation",
+            "bid_mutation",
+            "official_budget_status",
+            "official_bid_history",
+            "official_region_delivery_status"
+          ],
+          "boundary_statement": {
+            "imported_ads_data_only": true,
+            "action_center_only": true,
+            "not_platform_execution": true,
+            "no_platform_write_action_attempted": true
+          }
+        }
+      },
+      "capabilities_enhanced_when_input_arrives": [
+        "ads_summary",
+        "ads_comparison",
+        "ads_diagnostic",
+        "ads_action_center"
+      ],
+      "capabilities_still_not_solved_by_ads_input": [
+        "official_ads_api_route",
+        "campaign_writeback",
+        "budget_mutation",
+        "bid_mutation"
+      ],
+      "boundary_statement": {
+        "import_driven_only": true,
+        "not_official_ads_api": true,
+        "no_platform_write_action_attempted": true
+      }
+    },
+    "page_audit_layer": {
+      "report_name": "page_audit_input_summary",
+      "generated_at": "2026-04-18T08:11:18.241Z",
+      "current_status": "MANUAL_AUDIT_READY_WITH_SAMPLE",
+      "contract": {
+        "report_name": "page_audit_contract",
+        "generated_at": "2026-04-18T08:11:18.241Z",
+        "required_fields": [
+          "audit_date",
+          "page_type",
+          "page_url",
+          "module_name",
+          "observed_issue",
+          "manual_recommendation",
+          "priority"
+        ],
+        "optional_fields": [
+          "module_position",
+          "homepage_module",
+          "banner_status",
+          "core_product_exposure",
+          "category_entry_status",
+          "contact_entry_status",
+          "inquiry_entry_status",
+          "main_image_status",
+          "video_status",
+          "detail_content_status",
+          "owner",
+          "evidence_link",
+          "notes"
+        ],
+        "template_columns": [
+          "audit_date",
+          "page_type",
+          "page_url",
+          "module_name",
+          "module_position",
+          "homepage_module",
+          "banner_status",
+          "core_product_exposure",
+          "category_entry_status",
+          "contact_entry_status",
+          "inquiry_entry_status",
+          "main_image_status",
+          "video_status",
+          "detail_content_status",
+          "observed_issue",
+          "manual_recommendation",
+          "priority",
+          "owner",
+          "evidence_link",
+          "notes"
+        ],
+        "field_descriptions": {
+          "audit_date": "盘点日期，系统会标准化到 YYYY-MM-DD。",
+          "page_type": "页面类型，建议使用 homepage / product_detail / landing_page / category_page / other。",
+          "page_url": "盘点页面 URL。",
+          "module_name": "模块名称。",
+          "module_position": "模块位置或序号。",
+          "homepage_module": "是否属于首页模块，建议填 YES / NO。",
+          "banner_status": "主 banner 状态。",
+          "core_product_exposure": "是否有核心商品露出。",
+          "category_entry_status": "重点类目入口状态。",
+          "contact_entry_status": "联系方式入口状态。",
+          "inquiry_entry_status": "询盘入口状态。",
+          "main_image_status": "主图完整度与质量状态。",
+          "video_status": "视频状态。",
+          "detail_content_status": "详情内容状态。",
+          "observed_issue": "当前人工观察到的问题。",
+          "manual_recommendation": "当前人工建议动作。",
+          "priority": "建议优先级，P0 / P1 / P2。",
+          "owner": "建议负责人。",
+          "evidence_link": "截图或录屏链接。",
+          "notes": "补充说明。"
+        },
+        "allowed_status_values": [
+          "YES",
+          "NO",
+          "PARTIAL",
+          "UNKNOWN"
+        ],
+        "enhancement_scope": {
+          "strengthened_capabilities": [
+            "homepage_optimization_suggestions",
+            "product_detail_optimization_suggestions",
+            "media_optimization_suggestions",
+            "manual_issue_tracking_for_operator_console"
+          ],
+          "unchanged_capabilities": [
+            "official_page_behavior_metrics",
+            "heatmap",
+            "page_clickstream"
+          ]
+        },
+        "boundary_statement": {
+          "manual_audit_only": true,
+          "not_official_behavior_data": true,
+          "conservative_recommendation_strengthened": true,
+          "no_write_action_attempted": true
+        }
+      },
+      "row_count": 1,
+      "normalized_row_count": 1,
+      "errors": [],
+      "summary": {
+        "page_type_breakdown": {
+          "homepage": 1
+        },
+        "priority_breakdown": {
+          "P0": 1
+        },
+        "homepage_module_rows": 1,
+        "contact_entry_missing_rows": 0,
+        "inquiry_entry_missing_rows": 0,
+        "incomplete_content_rows": 1
+      },
+      "capability_enhancement_map": [
+        "content_optimization_layer",
+        "homepage_optimization_suggestions",
+        "media_optimization_suggestions",
+        "operator_console_manual_followup"
+      ],
+      "boundary_statement": {
+        "manual_audit_only": true,
+        "not_official_behavior_data": true,
+        "conservative_recommendation_strengthened": true,
+        "no_write_action_attempted": true
+      }
+    },
+    "capability_enhancement_map": {
+      "ads_input_enhances": [
+        "ads_summary",
+        "ads_comparison",
+        "ads_diagnostic",
+        "ads_action_center"
+      ],
+      "page_audit_enhances": [
+        "content_optimization_layer",
+        "homepage_optimization_suggestions",
+        "media_optimization_suggestions",
+        "operator_console_manual_followup"
+      ],
+      "still_unavailable_without_new_sources": [
+        "official_ads_api_route",
+        "page_clickstream",
+        "page_heatmap",
+        "traffic_source",
+        "country_source",
+        "country_structure"
+      ]
+    },
+    "boundary_statement": {
+      "auto_fetch_first_import_fallback": true,
+      "ads_layer_is_import_driven": true,
+      "page_audit_is_manual_input_layer": true,
+      "not_official_behavior_data": true,
+      "no_write_action_attempted": true
+    }
+  }
+}

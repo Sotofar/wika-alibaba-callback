@@ -1,0 +1,2 @@
+date,campaign_name,campaign_id,ad_group_name,ad_group_id,keyword,spend,impressions,clicks,inquiries,ctr,cpc,conversion,inquiry_rate,budget,bid,region,device,currency,source_file
+2026-04-12,Search_Campaign_A,CAMPAIGN_SAMPLE_001,Core_Group_A,ADGROUP_SAMPLE_001,wika box,120.50,4500,96,4,2.13%,1.2552,4.17%,4.17%,300,1.50,Global,Desktop,USD,ads_export_sample.csv

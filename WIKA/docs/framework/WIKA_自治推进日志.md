@@ -20,6 +20,31 @@
   - 后续若继续，只能由新的外部租户/产品级 live 证据触发重开
   - 在没有新证据前，不再继续仓内同构重试
 
+### 阶段 45：外部输入产品化
+
+- 实际起始 commit：`aadc1908cf9b239dad4a521a3e0b8beb25f129a1`
+- 本轮没有新增 API 探索。
+- 本轮没有新增写侧动作。
+- 本轮只做三件事：
+  - 把广告样本导入从 sample 演示收口成正式模板 + 合同层
+  - 把页面人工盘点做成正式模板 + 合同层
+  - 把自动抓取层、广告导入层、页面人工盘点层统一到 `input_readiness_summary`
+- 本轮新增沉淀：
+  - `WIKA/docs/templates/WIKA_广告数据导入模板.csv`
+  - `WIKA/docs/templates/WIKA_广告数据导入说明.md`
+  - `WIKA/docs/templates/WIKA_页面人工盘点模板.csv`
+  - `WIKA/docs/templates/WIKA_页面人工盘点说明.md`
+  - `WIKA/projects/wika/data/ads/import-contract.js`
+  - `WIKA/projects/wika/data/content-optimization/page-audit-contract.js`
+  - `WIKA/projects/wika/data/inputs/input-readiness-summary.js`
+  - `WIKA/scripts/validate-wika-stage45-input-productization.js`
+  - `WIKA/docs/framework/WIKA_阶段45_外部输入产品化.md`
+  - `WIKA/docs/framework/evidence/wika-stage45-input-productization.json`
+- 本轮收口结论：
+  - WIKA 当前不再缺“广告输入口”与“页面人工盘点输入口”
+  - 当前真正剩余的是人工持续提供真实广告导出与页面盘点数据
+  - 当前没有把 ads / page input 误写成 fully automated capability
+
 ### XD 阶段 27：route binding closure
 
 - 实际起始 commit：`d69168d20be856ab9e97a5a61c4688f0d1cbdfca`

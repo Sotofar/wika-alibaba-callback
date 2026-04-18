@@ -76,6 +76,27 @@
   - 当前仍只有 external order draft / preview / handoff pack
   - 当前不能进入真实创单试点
 
+## 2026-04-18 Stage 45 Input Productization Delta
+
+### Task 1 / Task 2
+- 本轮没有新增 official field。
+- 本轮没有新增 Alibaba API 探索。
+- 本轮新增的是两个外部输入口：
+  - 广告导入模板与合同层
+  - 页面人工盘点模板与合同层
+- 当前增益：
+  - ads 诊断与建议层不再停留在 sample-import.csv 演示
+  - 页面优化建议层不再只有纯 derived 保守建议，可以叠加人工盘点输入
+
+### 当前仍未解决
+- 广告域：
+  - 仍无稳定 official ads api
+  - 仍依赖真实广告导出文件
+- 页面域：
+  - 仍无官方行为数据 / 热图 / 点击流
+  - 仍依赖人工盘点
+- 因此当前只新增输入口，不把这些能力误写成 fully automated capability
+
 ## 2026-04-13 Stage 33 Maximum Completion Delta
 
 ### Task 1

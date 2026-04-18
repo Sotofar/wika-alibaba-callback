@@ -786,3 +786,35 @@
   - 拿到真实广告导出样本
   - 再决定是否把 ads layer 安全接入统一运营控制层
 - 在没有真实广告样本或稳定导入承接方式前，不把 ads layer 写成已上线运营控制台能力。
+
+## 2026-04-18 Stage 45 外部输入产品化
+
+### 当前阶段
+- 阶段 45：外部输入产品化
+
+### 已完成
+- 已新增广告输入产品化资产：
+  - `WIKA/docs/templates/WIKA_广告数据导入模板.csv`
+  - `WIKA/docs/templates/WIKA_广告数据导入说明.md`
+  - `WIKA/projects/wika/data/ads/import-contract.js`
+- 已新增页面人工盘点产品化资产：
+  - `WIKA/docs/templates/WIKA_页面人工盘点模板.csv`
+  - `WIKA/docs/templates/WIKA_页面人工盘点说明.md`
+  - `WIKA/projects/wika/data/content-optimization/page-audit-contract.js`
+- 已新增输入总览合同层：
+  - `WIKA/projects/wika/data/inputs/input-readiness-summary.js`
+  - `WIKA/scripts/validate-wika-stage45-input-productization.js`
+  - `WIKA/docs/framework/evidence/wika-stage45-input-productization.json`
+
+### Gate result
+- 阶段 41–44 远端基线可用。
+- 广告导入模板合同 -> `PASS_LOCAL_CONTRACT`
+- 页面人工盘点模板合同 -> `PASS_LOCAL_CONTRACT`
+- 输入总览层 -> `PASS_LOCAL_CONTRACT`
+
+### 当前唯一下一步
+- 若后续继续推进，不再先做新 API。
+- 当前唯一值得前进的方向是：
+  - 收集真实广告导出文件
+  - 收集页面人工盘点输入
+  - 再把 ads / page input 安全接入更高层运营控制台消费链
