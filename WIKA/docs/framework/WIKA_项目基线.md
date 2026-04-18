@@ -23,6 +23,46 @@
   - restriction 对象重开 gate 判断
 - 若没有新的外部租户/产品级 live 证据，不应继续做同构重试。
 
+## 2026-04-18 WIKA 现有权限打通收口
+
+### current status
+- 当前 official read mainline 已稳定打通：
+  - store / product / order summary
+  - store / product / order diagnostic
+  - store / product / order comparison
+- 当前 derived consumption layer 已稳定打通：
+  - `business-cockpit`
+  - `action-center`
+  - `operator-console`
+  - task3/4/5 workbench
+  - task3/4/5 preview
+- 当前 import-driven layer 已稳定打通：
+  - 广告导入模板与合同层
+  - 页面人工盘点模板与合同层
+  - `input_readiness_summary` 本地合同层
+- 本轮新增仓内补齐：
+  - 广告导入 `CSV + JSON` 双模板
+  - 页面人工盘点 `CSV + JSON` 双模板
+  - 现有权限打通总表
+  - 外部阻塞清单
+  - 工作分配清单
+
+### fixed conclusion
+- 当前仓内能继续补齐的低风险能力已基本补齐。
+- 当前剩余阻塞已收敛为外部条件：
+  - official missing dimensions
+  - task3/4/5 写侧前置条件
+  - 真实广告导出
+  - 页面人工盘点持续输入
+- 当前继续保持：
+  - not task 1 complete
+  - not task 2 complete
+  - not task 3 complete
+  - not task 4 complete
+  - not task 5 complete
+  - task 6 excluded
+  - not full business cockpit
+
 ## 2026-04-14 Stage 30 XD Safe Scope Final Freeze
 
 ### current status

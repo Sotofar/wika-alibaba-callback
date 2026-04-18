@@ -9,6 +9,8 @@
 - `WIKA/projects/wika/data/ads/schema.js`
 - `WIKA/projects/wika/data/ads/normalizer.js`
 - `WIKA/projects/wika/data/ads/sample-import.csv`
+- `WIKA/docs/templates/WIKA_广告数据导入模板.csv`
+- `WIKA/docs/templates/WIKA_广告数据导入模板.json`
 - `WIKA/scripts/validate-wika-stage42-ads-import-layer.js`
 - `WIKA/docs/framework/evidence/wika-stage42-ads-import-layer.json`
 
@@ -42,6 +44,9 @@
 - `cpc` 若缺失，则按 `spend / clicks` 计算
 - `inquiry_rate` 若缺失，则按 `inquiries / clicks` 计算
 - `cost_per_inquiry` 统一按 `spend / inquiries` 派生
+- 当前模板支持：
+  - CSV 行式导入
+  - JSON 数组导入
 
 ## 当前边界
 - manual import only

@@ -1,5 +1,21 @@
 ﻿# WIKA 已上线能力复用清单
 
+## 2026-04-18 权限打通收口新增可复用资产
+- 本轮没有新增 live route。
+- 本轮新增的是“现有权限边界收口资产”：
+  - `WIKA/docs/framework/WIKA_现有权限打通总表.md`
+  - `WIKA/docs/framework/WIKA_外部阻塞清单.md`
+  - `WIKA/docs/reports/WIKA_现有权限下工作分配清单.md`
+  - `WIKA/docs/templates/WIKA_广告数据导入模板.json`
+  - `WIKA/docs/templates/WIKA_页面人工盘点模板.json`
+  - `WIKA/scripts/validate-wika-permission-closure.js`
+  - `WIKA/docs/framework/evidence/wika-permission-closure-matrix.json`
+- 当前复用边界：
+  - 这些资产只负责把“现有权限下能做什么 / 不能做什么”写清楚
+  - 不代表新增 official 字段
+  - 不代表 task3/4/5 写侧已解锁
+  - 不代表广告 official api 或页面行为数据已打通
+
 ## 2026-04-14 Stage 30 XD Safe Scope Freeze Addendum
 - 本轮没有新增 XD production route。
 - 本轮新增的是“当前 safe-scope 已正式封板”的复用边界：

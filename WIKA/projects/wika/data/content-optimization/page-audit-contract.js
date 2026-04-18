@@ -181,10 +181,29 @@ export function parsePageAuditCsvText(csvText = "") {
   })
 }
 
+export function parsePageAuditJsonText(jsonText = "") {
+  const trimmed = String(jsonText ?? "").trim()
+  if (!trimmed) {
+    return []
+  }
+
+  const parsed = JSON.parse(trimmed)
+  if (Array.isArray(parsed)) {
+    return parsed
+  }
+
+  if (parsed && typeof parsed === "object" && Array.isArray(parsed.rows)) {
+    return parsed.rows
+  }
+
+  throw new Error("page audit json import must be an array or an object with rows")
+}
+
 export function buildPageAuditContract() {
   return {
     report_name: "page_audit_contract",
     generated_at: new Date().toISOString(),
+    supported_input_formats: ["csv", "json"],
     required_fields: [...PAGE_AUDIT_REQUIRED_FIELDS],
     optional_fields: [...PAGE_AUDIT_OPTIONAL_FIELDS],
     template_columns: [...PAGE_AUDIT_TEMPLATE_COLUMNS],

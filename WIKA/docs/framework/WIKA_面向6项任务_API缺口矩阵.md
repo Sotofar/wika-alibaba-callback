@@ -1,5 +1,65 @@
 ﻿# WIKA 面向 6 项任务 API 缺口矩阵
 
+## 2026-04-18 WIKA 现有权限打通收口 Delta
+
+### Task 1
+- 当前 store / product / order 读侧已打通到当前边界上限。
+- 当前继续缺的不是消费层包装，而是 official missing dimensions：
+  - store：`traffic_source` `country_source` `quick_reply_rate`
+  - product：`access_source` `inquiry_source` `country_source` `period_over_period_change`
+  - order：`country_structure`
+
+### Task 2
+- 当前 summary / diagnostic / comparison / cockpit / action-center / operator-console 已齐。
+- 当前继续缺的不是诊断层，而是：
+  - 来源归因
+  - 国家归因
+  - 页面行为数据
+  - 广告 official mainline
+
+### Task 3
+- 当前最完整能力：
+  - product-draft-workbench
+  - product-draft-preview
+  - schema / media / render / score 支撑的安全准备层
+- 当前阻塞：
+  - `NO_ROLLBACK_PATH`
+  - `NO_TEST_SCOPE`
+  - `PARAM_CONTRACT_UNSTABLE`
+
+### Task 4
+- 当前最完整能力：
+  - reply-workbench
+  - reply-preview
+  - `/integrations/alibaba/wika/tools/reply-draft`
+- 当前阻塞：
+  - `DOC_INSUFFICIENT`
+  - 缺 direct candidate
+
+### Task 5
+- 当前最完整能力：
+  - order-workbench
+  - order-preview
+  - `/integrations/alibaba/wika/tools/order-draft`
+- 当前阻塞：
+  - `NO_ROLLBACK_PATH`
+  - `NO_TEST_SCOPE`
+  - 缺 stable readback
+
+### Task 6
+- 明确排除，不推进。
+
+### 本轮补齐
+- 本轮补齐的不是新 API，而是：
+  - 广告导入 `CSV + JSON` 双模板
+  - 页面人工盘点 `CSV + JSON` 双模板
+  - 当前权限下的工作分配清单
+  - 外部阻塞清单
+
+### 当前结论
+- 当前能在仓内继续补齐的部分已基本补齐。
+- 剩余未补齐部分全部转入外部条件。
+
 ## 2026-04-14 Stage 30 XD Safe Scope Freeze Delta
 
 ### XD 当前统一状态

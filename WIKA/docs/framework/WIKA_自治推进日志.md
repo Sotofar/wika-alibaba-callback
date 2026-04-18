@@ -24,6 +24,33 @@
   - 当前 Codex 应转入报告、巡检、回归与重开 gate 判断
   - 若没有新的外部租户/产品级 live 证据，不再继续做 access 同构重试
 
+### 现有权限打通收口
+
+- 实际起始 commit：`5b1bb4d8d38f1a2adc11c3ac7fab540e8897686f`
+- 本轮没有新增 API 探索。
+- 本轮没有新增写侧动作。
+- 本轮只做四件事：
+  - 生成现有权限打通总表
+  - 生成外部阻塞清单
+  - 生成工作分配清单
+  - 把广告导入与页面人工盘点补齐到 `CSV + JSON` 双模板
+- 本轮新增沉淀：
+  - `WIKA/docs/framework/WIKA_现有权限打通总表.md`
+  - `WIKA/docs/framework/WIKA_外部阻塞清单.md`
+  - `WIKA/docs/reports/WIKA_现有权限下工作分配清单.md`
+  - `WIKA/docs/templates/WIKA_广告数据导入模板.json`
+  - `WIKA/docs/templates/WIKA_页面人工盘点模板.json`
+  - `WIKA/scripts/validate-wika-permission-closure.js`
+  - `WIKA/docs/framework/evidence/wika-permission-closure-matrix.json`
+- 本轮收口结论：
+  - 当前仓内能打通的低风险能力已全部补齐到现有边界
+  - 当前剩余问题全部收敛为外部条件
+  - 当前可以明确告诉业务方：WIKA 现在能做什么、不能做什么、还要人工做什么
+- 本轮最小线上校验备注：
+  - live-first 下 `action-center`、`operator-console`、`task-workbench` 存在 timeout 波动
+  - `preview-center` 当前 live 观察到 `404`
+  - 本轮用 post-deploy evidence 完成结构兜底，不把这类一致性波动误写成权限未打通
+
 ### XD 阶段 30：safe-scope final freeze
 
 - 实际起始 commit：`51aeb9bacc8ae450101ebe035764cd8aea1e407c`

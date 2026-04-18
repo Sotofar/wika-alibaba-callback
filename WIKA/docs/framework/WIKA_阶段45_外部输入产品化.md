@@ -18,11 +18,13 @@
 
 ### 广告输入产品化
 - `WIKA/docs/templates/WIKA_广告数据导入模板.csv`
+- `WIKA/docs/templates/WIKA_广告数据导入模板.json`
 - `WIKA/docs/templates/WIKA_广告数据导入说明.md`
 - `WIKA/projects/wika/data/ads/import-contract.js`
 
 ### 页面人工盘点产品化
 - `WIKA/docs/templates/WIKA_页面人工盘点模板.csv`
+- `WIKA/docs/templates/WIKA_页面人工盘点模板.json`
 - `WIKA/docs/templates/WIKA_页面人工盘点说明.md`
 - `WIKA/projects/wika/data/content-optimization/page-audit-contract.js`
 
@@ -82,6 +84,7 @@
 - WIKA 不再停在“页面没有行为数据，无法继续”的空泛结论。
 - 当前已经把两类外部输入都产品化成：
   - 模板
+  - `CSV + JSON` 双输入格式
   - 字段口径
   - 合同层
   - 验证脚本

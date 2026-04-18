@@ -138,6 +138,24 @@ export function parseAdsCsvText(csvText = "") {
   })
 }
 
+export function parseAdsJsonText(jsonText = "") {
+  const trimmed = String(jsonText ?? "").trim()
+  if (!trimmed) {
+    return []
+  }
+
+  const parsed = JSON.parse(trimmed)
+  if (Array.isArray(parsed)) {
+    return parsed
+  }
+
+  if (parsed && typeof parsed === "object" && Array.isArray(parsed.rows)) {
+    return parsed.rows
+  }
+
+  throw new Error("ads json import must be an array or an object with rows")
+}
+
 function aggregateTotals(rows = []) {
   return rows.reduce(
     (accumulator, row) => {

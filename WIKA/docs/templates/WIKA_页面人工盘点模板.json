@@ -1,0 +1,24 @@
+[
+  {
+    "audit_date": "2026-04-18",
+    "page_type": "homepage",
+    "page_url": "https://www.wikapacking.com",
+    "module_name": "Hero Banner",
+    "module_position": "1",
+    "homepage_module": "YES",
+    "banner_status": "PARTIAL",
+    "core_product_exposure": "YES",
+    "category_entry_status": "YES",
+    "contact_entry_status": "YES",
+    "inquiry_entry_status": "YES",
+    "main_image_status": "PARTIAL",
+    "video_status": "NO",
+    "detail_content_status": "PARTIAL",
+    "observed_issue": "主 banner 卖点偏泛，首屏缺直接询盘引导",
+    "manual_recommendation": "补充首屏差异化卖点、交付能力与询盘 CTA",
+    "priority": "P0",
+    "owner": "运营负责人",
+    "evidence_link": "https://example.com/homepage-screenshot",
+    "notes": "样例行，仅用于说明模板结构"
+  }
+]

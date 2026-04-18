@@ -4,7 +4,7 @@ import {
   ADS_IMPORT_SCHEMA,
   ADS_IMPORT_TEMPLATE_COLUMNS
 } from "./schema.js"
-import { buildAdsImportSummary, parseAdsCsvText } from "./normalizer.js"
+import { buildAdsImportSummary, parseAdsCsvText, parseAdsJsonText } from "./normalizer.js"
 import {
   buildAdsActionCenterReport,
   buildAdsComparisonReport,
@@ -14,6 +14,9 @@ import {
 
 export const ADS_IMPORT_ALLOWED_SOURCE_TYPES = Object.freeze([
   "alibaba_ads_export",
+  "manual_import_template",
+  "manual_import_csv",
+  "manual_import_json",
   "manual_sheet",
   "third_party_rollup",
   "sanitized_history_sample"
@@ -58,9 +61,11 @@ export function buildAdsImportContract() {
     report_name: "ads_import_contract",
     generated_at: new Date().toISOString(),
     schema_version: ADS_IMPORT_SCHEMA.schema_version,
+    supported_input_formats: ["csv", "json"],
     required_fields: [...ADS_IMPORT_REQUIRED_FIELDS],
     optional_fields: [...ADS_IMPORT_OPTIONAL_FIELDS],
     template_columns: [...ADS_IMPORT_TEMPLATE_COLUMNS],
+    json_payload_rule: "json payload must be an array of row objects or an object with rows",
     field_descriptions: ADS_IMPORT_FIELD_DESCRIPTIONS,
     allowed_source_types: [...ADS_IMPORT_ALLOWED_SOURCE_TYPES],
     analysis_entrypoints: {
@@ -96,27 +101,37 @@ export function buildAdsImportContract() {
 
 export function buildAdsImportProductizationSummary({
   csvText = "",
+  jsonText = "",
+  rows = [],
   sourceType = "manual_import",
   comparisonWindows = DEFAULT_COMPARISON_WINDOWS
 } = {}) {
-  const rows = csvText ? parseAdsCsvText(csvText) : []
-  const importSummary = buildAdsImportSummary(rows, {
+  const resolvedRows = Array.isArray(rows) && rows.length > 0
+    ? rows
+    : jsonText
+      ? parseAdsJsonText(jsonText)
+      : csvText
+        ? parseAdsCsvText(csvText)
+        : []
+  const inputFormat =
+    Array.isArray(rows) && rows.length > 0 ? "rows" : jsonText ? "json" : csvText ? "csv" : "none"
+  const importSummary = buildAdsImportSummary(resolvedRows, {
     source_type: sourceType
   })
 
   const analysisOutputs =
-    rows.length > 0
+    resolvedRows.length > 0
       ? {
-          ads_summary: buildAdsSummaryReport(rows, {
+          ads_summary: buildAdsSummaryReport(resolvedRows, {
             source_type: sourceType
           }),
-          ads_comparison: buildAdsComparisonReport(rows, comparisonWindows, {
+          ads_comparison: buildAdsComparisonReport(resolvedRows, comparisonWindows, {
             source_type: sourceType
           }),
-          ads_diagnostic: buildAdsDiagnosticReport(rows, comparisonWindows, {
+          ads_diagnostic: buildAdsDiagnosticReport(resolvedRows, comparisonWindows, {
             source_type: sourceType
           }),
-          ads_action_center: buildAdsActionCenterReport(rows, comparisonWindows, {
+          ads_action_center: buildAdsActionCenterReport(resolvedRows, comparisonWindows, {
             source_type: sourceType
           })
         }
@@ -126,11 +141,13 @@ export function buildAdsImportProductizationSummary({
     report_name: "ads_input_productization_summary",
     generated_at: new Date().toISOString(),
     current_status:
-      rows.length > 0 ? "IMPORT_READY_WITH_SAMPLE" : "IMPORT_READY_WAITING_REAL_EXPORT",
+      resolvedRows.length > 0 ? "IMPORT_READY_WITH_SAMPLE" : "IMPORT_READY_WAITING_REAL_EXPORT",
     source_type: sourceType,
+    input_format: inputFormat,
     contract: buildAdsImportContract(),
     template_validation: {
       ok: importSummary.ok,
+      input_format: inputFormat,
       row_count: importSummary.row_count,
       normalized_row_count: importSummary.normalized_row_count,
       errors: importSummary.errors,

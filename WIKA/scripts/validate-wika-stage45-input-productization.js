@@ -8,7 +8,8 @@ import {
 import {
   buildPageAuditContract,
   buildPageAuditInputSummary,
-  parsePageAuditCsvText
+  parsePageAuditCsvText,
+  parsePageAuditJsonText
 } from "../projects/wika/data/content-optimization/page-audit-contract.js"
 import { buildInputReadinessSummary } from "../projects/wika/data/inputs/input-readiness-summary.js"
 
@@ -23,12 +24,26 @@ const ADS_TEMPLATE_PATH = path.join(
   "templates",
   "WIKA_广告数据导入模板.csv"
 )
+const ADS_JSON_TEMPLATE_PATH = path.join(
+  ROOT_DIR,
+  "WIKA",
+  "docs",
+  "templates",
+  "WIKA_广告数据导入模板.json"
+)
 const PAGE_AUDIT_TEMPLATE_PATH = path.join(
   ROOT_DIR,
   "WIKA",
   "docs",
   "templates",
   "WIKA_页面人工盘点模板.csv"
+)
+const PAGE_AUDIT_JSON_TEMPLATE_PATH = path.join(
+  ROOT_DIR,
+  "WIKA",
+  "docs",
+  "templates",
+  "WIKA_页面人工盘点模板.json"
 )
 const EVIDENCE_PATH = path.join(
   ROOT_DIR,
@@ -195,21 +210,33 @@ async function probeRouteWithFallback(route) {
 }
 
 const adsTemplateText = fs.readFileSync(ADS_TEMPLATE_PATH, "utf8")
+const adsJsonTemplateText = fs.readFileSync(ADS_JSON_TEMPLATE_PATH, "utf8")
 const pageAuditTemplateText = fs.readFileSync(PAGE_AUDIT_TEMPLATE_PATH, "utf8")
+const pageAuditJsonTemplateText = fs.readFileSync(PAGE_AUDIT_JSON_TEMPLATE_PATH, "utf8")
 
 const adsContract = buildAdsImportContract()
 const adsProductization = buildAdsImportProductizationSummary({
   csvText: adsTemplateText,
   sourceType: "manual_import_template"
 })
+const adsProductizationJson = buildAdsImportProductizationSummary({
+  jsonText: adsJsonTemplateText,
+  sourceType: "manual_import_json"
+})
 
 const pageAuditRows = parsePageAuditCsvText(pageAuditTemplateText)
+const pageAuditJsonRows = parsePageAuditJsonText(pageAuditJsonTemplateText)
 const pageAuditContract = buildPageAuditContract()
 const pageAuditSummary = buildPageAuditInputSummary(pageAuditRows)
+const pageAuditJsonSummary = buildPageAuditInputSummary(pageAuditJsonRows)
 
 const inputReadinessSummary = buildInputReadinessSummary({
   adsCsvText: adsTemplateText,
   pageAuditCsvText: pageAuditTemplateText
+})
+const inputReadinessSummaryJson = buildInputReadinessSummary({
+  adsJsonText: adsJsonTemplateText,
+  pageAuditJsonText: pageAuditJsonTemplateText
 })
 
 assert(
@@ -224,6 +251,10 @@ assert(
 assert(
   adsProductization.template_validation.ok === true,
   "广告模板校验应通过"
+)
+assert(
+  adsProductizationJson.template_validation.ok === true,
+  "广告 JSON 模板校验应通过"
 )
 assert(
   Array.isArray(adsProductization.capabilities_enhanced_when_input_arrives) &&
@@ -241,6 +272,7 @@ assert(
   "页面人工盘点状态应为 MANUAL_AUDIT_READY_WITH_SAMPLE"
 )
 assert(pageAuditSummary.errors.length === 0, "页面人工盘点模板应无合同错误")
+assert(pageAuditJsonSummary.errors.length === 0, "页面人工盘点 JSON 模板应无合同错误")
 
 assert(
   inputReadinessSummary.report_name === "input_readiness_summary",
@@ -258,6 +290,15 @@ assert(
   inputReadinessSummary.page_audit_layer.current_status ===
     "MANUAL_AUDIT_READY_WITH_SAMPLE",
   "输入总览中的页面盘点层状态不符合预期"
+)
+assert(
+  inputReadinessSummaryJson.ads_import_layer.current_status === "IMPORT_READY_WITH_SAMPLE",
+  "JSON 输入总览中的广告层状态不符合预期"
+)
+assert(
+  inputReadinessSummaryJson.page_audit_layer.current_status ===
+    "MANUAL_AUDIT_READY_WITH_SAMPLE",
+  "JSON 输入总览中的页面盘点层状态不符合预期"
 )
 
 const onlineResults = Object.fromEntries(
@@ -293,15 +334,26 @@ const output = {
     ? "PASS"
     : "DEGRADED",
   templates: {
-    ads: ADS_TEMPLATE_PATH,
-    page_audit: PAGE_AUDIT_TEMPLATE_PATH
+    ads_csv: ADS_TEMPLATE_PATH,
+    ads_json: ADS_JSON_TEMPLATE_PATH,
+    page_audit_csv: PAGE_AUDIT_TEMPLATE_PATH,
+    page_audit_json: PAGE_AUDIT_JSON_TEMPLATE_PATH
   },
   online_results: onlineResults,
   ads_import_contract: adsContract,
-  ads_productization: adsProductization,
+  ads_productization: {
+    csv: adsProductization,
+    json: adsProductizationJson
+  },
   page_audit_contract: pageAuditContract,
-  page_audit_summary: pageAuditSummary,
-  input_readiness_summary: inputReadinessSummary
+  page_audit_summary: {
+    csv: pageAuditSummary,
+    json: pageAuditJsonSummary
+  },
+  input_readiness_summary: {
+    csv: inputReadinessSummary,
+    json: inputReadinessSummaryJson
+  }
 }
 
 writeJson(EVIDENCE_PATH, output)

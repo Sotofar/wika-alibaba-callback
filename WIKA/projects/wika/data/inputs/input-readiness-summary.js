@@ -3,7 +3,8 @@ import {
 } from "../ads/import-contract.js"
 import {
   buildPageAuditInputSummary,
-  parsePageAuditCsvText
+  parsePageAuditCsvText,
+  parsePageAuditJsonText
 } from "../content-optimization/page-audit-contract.js"
 
 export const WIKA_AUTO_FETCH_LAYER = Object.freeze({
@@ -35,15 +36,20 @@ export const WIKA_AUTO_FETCH_LAYER = Object.freeze({
 
 export function buildInputReadinessSummary({
   adsCsvText = "",
-  pageAuditCsvText = ""
+  adsJsonText = "",
+  pageAuditCsvText = "",
+  pageAuditJsonText = ""
 } = {}) {
-  const pageAuditRows = pageAuditCsvText
-    ? parsePageAuditCsvText(pageAuditCsvText)
-    : []
+  const pageAuditRows = pageAuditJsonText
+    ? parsePageAuditJsonText(pageAuditJsonText)
+    : pageAuditCsvText
+      ? parsePageAuditCsvText(pageAuditCsvText)
+      : []
 
   const adsImportLayer = buildAdsImportProductizationSummary({
     csvText: adsCsvText,
-    sourceType: "manual_import"
+    jsonText: adsJsonText,
+    sourceType: adsJsonText ? "manual_import_json" : "manual_import_csv"
   })
   const pageAuditLayer = buildPageAuditInputSummary(pageAuditRows)
 
