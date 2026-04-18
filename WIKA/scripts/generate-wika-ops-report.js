@@ -2,24 +2,26 @@ import fs from "node:fs"
 import path from "node:path"
 import { fileURLToPath } from "node:url"
 
-import { renderOpsReportMarkdown, renderOpsReportSummaryMarkdown } from "../projects/wika/data/reports/report-layout.js"
+import {
+  renderOpsReportMarkdown,
+  renderOpsReportSummaryMarkdown
+} from "../projects/wika/data/reports/report-layout.js"
 import { buildReportModel } from "../projects/wika/data/reports/report-writer.js"
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const ROOT_DIR = path.resolve(__dirname, "..", "..")
 const WIKA_DIR = path.join(ROOT_DIR, "WIKA")
 const REPORT_DIR = path.join(WIKA_DIR, "docs", "reports")
+const EVIDENCE_DIR = path.join(WIKA_DIR, "docs", "framework", "evidence")
+const TEMPLATE_DIR = path.join(WIKA_DIR, "docs", "templates")
 const BASE_URL = "https://api.wikapacking.com"
+const FETCH_TIMEOUT_MS = 18000
 
 const OUTPUTS = {
   report: path.join(REPORT_DIR, "WIKA_运营示范报告.md"),
   reportSummary: path.join(REPORT_DIR, "WIKA_运营示范报告摘要.md"),
-  evidence: path.join(REPORT_DIR, "WIKA_运营示范报告证据.json")
-}
-
-const FALLBACK_FILES = {
-  summary: path.join(REPORT_DIR, "WIKA_全平台诊断摘要.json"),
-  evidence: path.join(REPORT_DIR, "WIKA_全平台诊断证据.json")
+  evidence: path.join(REPORT_DIR, "WIKA_运营示范报告证据.json"),
+  score: path.join(REPORT_DIR, "WIKA_运营示范报告评分.json")
 }
 
 const ROUTES = {
@@ -88,6 +90,10 @@ const ROUTES = {
   taskWorkbench: {
     method: "GET",
     path: "/integrations/alibaba/wika/workbench/task-workbench"
+  },
+  previewCenter: {
+    method: "GET",
+    path: "/integrations/alibaba/wika/workbench/preview-center"
   },
   productDraftPreview: {
     method: "POST",
@@ -226,107 +232,181 @@ function stripEnvelope(body = {}) {
   return cloned
 }
 
-function routeSuccess(name, result) {
-  if (!result) {
-    return false
+function normalizeDegradedMarker(marker) {
+  if (!marker) {
+    return null
   }
 
+  if (typeof marker === "string") {
+    return marker
+  }
+
+  if (typeof marker === "object") {
+    return (
+      marker.section ??
+      marker.name ??
+      marker.key ??
+      marker.reason ??
+      marker.code ??
+      marker.message ??
+      null
+    )
+  }
+
+  return null
+}
+
+function classifyRouteState(name, status, body, text) {
   if (name === "health") {
-    return result.status === 200
+    return {
+      route_state: status === 200 ? "full_success" : "failed",
+      degraded_reason: null
+    }
   }
 
-  return result.status === 200 && result.is_json && result.body !== null && result.body?.ok !== false
-}
+  if (status !== 200 || body === null || body?.ok === false) {
+    return {
+      route_state: "failed",
+      degraded_reason: body?.error_message ?? body?.message ?? text?.slice(0, 160) ?? "non_200_or_non_json"
+    }
+  }
 
-async function fetchRoute(name, route) {
-  const startedAt = Date.now()
-  const response = await fetch(`${BASE_URL}${route.path}`, {
-    method: route.method,
-    headers: {
-      accept: "application/json",
-      ...(route.method === "POST" ? { "content-type": "application/json" } : {})
+  const degradedReasons = []
+  const partialStatus = body?.partial_status
+  const topLevelStatus = [body?.status, body?.route_status, body?.report_status, body?.execution_status].find(
+    (value) => typeof value === "string"
+  )
+  const degradedSections = []
+
+  if (Array.isArray(body?.degraded_sections) && body.degraded_sections.length > 0) {
+    degradedSections.push(...body.degraded_sections)
+  }
+
+  if (typeof partialStatus === "string" && /degraded|partial/i.test(partialStatus)) {
+    degradedReasons.push(partialStatus)
+  }
+
+  if (partialStatus && typeof partialStatus === "object") {
+    if (typeof partialStatus.status === "string" && /degraded|partial/i.test(partialStatus.status)) {
+      degradedReasons.push(partialStatus.status)
+    }
+    if (Array.isArray(partialStatus.degraded_sections) && partialStatus.degraded_sections.length > 0) {
+      degradedSections.push(...partialStatus.degraded_sections)
+    }
+  }
+
+  if (topLevelStatus && /degraded|partial/i.test(topLevelStatus)) {
+    degradedReasons.push(topLevelStatus)
+  }
+
+  const bodyText = JSON.stringify(
+    {
+      degraded_sections: degradedSections,
+      partial_status: partialStatus,
+      error: body?.error,
+      message: body?.message,
+      status: topLevelStatus
     },
-    ...(route.method === "POST" ? { body: JSON.stringify(POST_INPUTS[name] ?? {}) } : {})
-  })
-  const text = await response.text()
-  let body = null
-  try {
-    body = JSON.parse(text)
-  } catch {
-    body = null
+    null,
+    2
+  )
+
+  if (/time_budget_exceeded|timeout/i.test(bodyText)) {
+    degradedReasons.push("time_budget_exceeded")
   }
 
-  return {
-    name,
-    path: route.path,
-    method: route.method,
-    status: response.status,
-    elapsed_ms: Date.now() - startedAt,
-    is_json: body !== null,
-    body,
-    text,
-    source: "live",
-    note: response.status === 200 ? "ok" : "live_failed"
-  }
-}
-
-function buildFallbackResult(name, route, stored = {}) {
-  return {
-    name,
-    path: route.path,
-    method: route.method,
-    status: stored.status ?? null,
-    elapsed_ms: null,
-    is_json: Boolean(stored.body),
-    body: stored.body ?? null,
-    text: null,
-    source: "fallback",
-    note: "fallback_from_last_report"
-  }
-}
-
-async function collectRouteResults() {
-  const previousEvidence = readJsonIfExists(FALLBACK_FILES.evidence) ?? {}
-  const previousRouteResults = previousEvidence.route_results ?? {}
-  const results = {}
-
-  for (const [name, route] of Object.entries(ROUTES)) {
-    try {
-      const live = await fetchRoute(name, route)
-      if (routeSuccess(name, live)) {
-        results[name] = live
-        continue
-      }
-
-      if (previousRouteResults[name]) {
-        results[name] = buildFallbackResult(name, route, previousRouteResults[name])
-        continue
-      }
-
-      results[name] = live
-    } catch (error) {
-      if (previousRouteResults[name]) {
-        results[name] = buildFallbackResult(name, route, previousRouteResults[name])
-      } else {
-        results[name] = {
-          name,
-          path: route.path,
-          method: route.method,
-          status: null,
-          elapsed_ms: null,
-          is_json: false,
-          body: null,
-          text: null,
-          source: "live",
-          note: error.message
-        }
-      }
+  if (degradedReasons.length > 0 || degradedSections.length > 0) {
+    const readableReasons = [...new Set([...degradedReasons, ...degradedSections].map((item) => normalizeDegradedMarker(item)).filter(Boolean))]
+    return {
+      route_state: "degraded",
+      degraded_reason: readableReasons.join(", ")
     }
   }
 
   return {
-    previousEvidence,
-    results
+    route_state: "full_success",
+    degraded_reason: null
+  }
+}
+
+async function fetchRoute(name, route) {
+  const startedAt = Date.now()
+  const controller = new AbortController()
+  const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS)
+
+  try {
+    const response = await fetch(`${BASE_URL}${route.path}`, {
+      method: route.method,
+      headers: {
+        accept: "application/json",
+        ...(route.method === "POST" ? { "content-type": "application/json" } : {})
+      },
+      signal: controller.signal,
+      ...(route.method === "POST" ? { body: JSON.stringify(POST_INPUTS[name] ?? {}) } : {})
+    })
+
+    const text = await response.text()
+    let body = null
+    try {
+      body = JSON.parse(text)
+    } catch {
+      body = null
+    }
+
+    const classification = classifyRouteState(name, response.status, body, text)
+
+    return {
+      name,
+      path: route.path,
+      method: route.method,
+      status: response.status,
+      elapsed_ms: Date.now() - startedAt,
+      is_json: body !== null,
+      body,
+      text,
+      source: "live",
+      note: response.status === 200 ? "ok" : "live_failed",
+      route_state: classification.route_state,
+      degraded_reason: classification.degraded_reason
+    }
+  } catch (error) {
+    return {
+      name,
+      path: route.path,
+      method: route.method,
+      status: null,
+      elapsed_ms: Date.now() - startedAt,
+      is_json: false,
+      body: null,
+      text: null,
+      source: "live",
+      note: error.name === "AbortError" ? "timeout" : error.message,
+      route_state: "failed",
+      degraded_reason: null
+    }
+  } finally {
+    clearTimeout(timeout)
+  }
+}
+
+async function collectRouteResults() {
+  const entries = await Promise.all(
+    Object.entries(ROUTES).map(async ([name, route]) => [name, await fetchRoute(name, route)])
+  )
+  return Object.fromEntries(entries)
+}
+
+function buildLocalAssets() {
+  return {
+    stage45_input_evidence: readJsonIfExists(
+      path.join(EVIDENCE_DIR, "wika-stage45-input-productization.json")
+    ),
+    template_files: {
+      ads_csv: path.join(TEMPLATE_DIR, "WIKA_广告数据导入模板.csv"),
+      ads_json: path.join(TEMPLATE_DIR, "WIKA_广告数据导入模板.json"),
+      page_audit_csv: path.join(TEMPLATE_DIR, "WIKA_页面人工盘点模板.csv"),
+      page_audit_json: path.join(TEMPLATE_DIR, "WIKA_页面人工盘点模板.json")
+    }
   }
 }
 
@@ -338,26 +418,29 @@ function assert(condition, message) {
 
 async function run() {
   const generatedAt = new Date().toISOString()
-  const { previousEvidence, results } = await collectRouteResults()
+  const results = await collectRouteResults()
   const routeUsage = Object.values(results).map((item) => ({
+    name: item.name,
     method: item.method,
     path: item.path,
     status: item.status ?? "failed",
-    success: routeSuccess(item.name, item),
-    source: item.source,
+    elapsed_ms: item.elapsed_ms,
+    is_json: item.is_json,
+    route_state: item.route_state,
+    degraded_reason: item.degraded_reason,
     note: item.note
   }))
 
   assert(
-    routeSuccess("health", results.health),
-    "/health 不可用，无法继续生成示范报告。"
+    results.health.route_state === "full_success",
+    "/health 不可用，当前不能生成可信示范报告。"
   )
   assert(
-    routeSuccess("authDebug", results.authDebug),
-    "/integrations/alibaba/auth/debug 不可用，无法继续生成示范报告。"
+    results.authDebug.route_state === "full_success",
+    "/integrations/alibaba/auth/debug 不可用，当前不能生成可信示范报告。"
   )
 
-  const criticalKeys = [
+  const coreAnalyticKeys = [
     "operationsManagementSummary",
     "productsManagementSummary",
     "ordersManagementSummary",
@@ -366,26 +449,25 @@ async function run() {
     "ordersMinimalDiagnostic",
     "operationsComparisonSummary",
     "productsComparisonSummary",
-    "ordersComparisonSummary",
-    "businessCockpit",
-    "actionCenter",
-    "operatorConsole"
+    "ordersComparisonSummary"
   ]
 
-  const criticalSuccessCount = criticalKeys.filter((key) => routeSuccess(key, results[key])).length
-  assert(
-    criticalSuccessCount >= 9,
-    "核心 route 成功数量不足，当前无法形成可信示范报告。"
-  )
+  const coreFullSuccessCount = coreAnalyticKeys.filter(
+    (key) => results[key].route_state === "full_success"
+  ).length
+
+  assert(coreFullSuccessCount >= 8, "底层稳定 route 成功数量不足，当前无法形成可信示范报告。")
 
   const data = Object.fromEntries(
     Object.entries(results).map(([key, result]) => [key, stripEnvelope(result.body)])
   )
 
+  const localAssets = buildLocalAssets()
   const report = buildReportModel({
     generated_at: generatedAt,
     route_usage: routeUsage,
-    data
+    data,
+    local_assets: localAssets
   })
 
   assert(report.self_score.pass, "示范报告自评分未过线，必须继续修改。")
@@ -393,22 +475,24 @@ async function run() {
   const evidence = {
     generated_at: generatedAt,
     report_title: report.title,
-    route_usage: routeUsage,
-    raw_route_results: Object.fromEntries(
+    route_results: Object.fromEntries(
       Object.entries(results).map(([key, value]) => [
         key,
         {
           path: value.path,
           method: value.method,
           status: value.status,
-          source: value.source,
+          route_state: value.route_state,
+          degraded_reason: value.degraded_reason,
+          elapsed_ms: value.elapsed_ms,
           note: value.note,
           body: sanitize(value.body)
         }
       ])
     ),
-    previous_report_fallback_available: Boolean(previousEvidence?.route_results),
-    report_model: sanitize(report)
+    local_assets: sanitize(localAssets),
+    report_model: sanitize(report),
+    self_score: report.self_score
   }
 
   const markdown = renderOpsReportMarkdown(report)
@@ -417,6 +501,7 @@ async function run() {
   writeText(OUTPUTS.report, markdown)
   writeText(OUTPUTS.reportSummary, summaryMarkdown)
   writeJson(OUTPUTS.evidence, evidence)
+  writeJson(OUTPUTS.score, report.self_score)
 
   console.log(
     JSON.stringify(
@@ -426,8 +511,10 @@ async function run() {
         report_path: OUTPUTS.report,
         summary_path: OUTPUTS.reportSummary,
         evidence_path: OUTPUTS.evidence,
-        route_success_count: routeUsage.filter((item) => item.success).length,
-        route_failure_count: routeUsage.filter((item) => !item.success).length,
+        score_path: OUTPUTS.score,
+        full_success_count: routeUsage.filter((item) => item.route_state === "full_success").length,
+        degraded_count: routeUsage.filter((item) => item.route_state === "degraded").length,
+        failed_count: routeUsage.filter((item) => item.route_state === "failed").length,
         self_score: report.self_score
       },
       null,

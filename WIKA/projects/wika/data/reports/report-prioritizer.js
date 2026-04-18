@@ -17,7 +17,8 @@ function asText(value, fallback = "") {
     return fallback
   }
 
-  return String(value).trim() || fallback
+  const text = String(value).trim()
+  return text || fallback
 }
 
 function clampList(values = [], limit = 5) {
@@ -45,13 +46,13 @@ function scoreItem(item = {}) {
 function dedupeByKey(items = []) {
   const seen = new Set()
   const output = []
+
   for (const item of items) {
     const key = asText(
       item.key ??
         item.action ??
         item.title ??
-        item.finding ??
-        `${item.priority}:${item.why ?? ""}:${item.owner ?? ""}`
+        `${item.priority ?? ""}:${item.owner ?? ""}:${item.manual_confirmation_required ?? ""}`
     ).toLowerCase()
 
     if (!key || seen.has(key)) {
@@ -74,7 +75,7 @@ export function normalizeFinding(candidate = {}) {
     return {
       title: candidate,
       evidence: "见当前 production 只读链路输出。",
-      impact: "需要人工根据上下文确认优先级。",
+      impact: "需要结合经营上下文继续确认优先级。",
       severity: "medium",
       impact_score: 1
     }
@@ -88,7 +89,7 @@ export function normalizeFinding(candidate = {}) {
   return {
     title,
     evidence: asText(candidate.evidence ?? candidate.basis ?? candidate.reason, "见当前 production 只读链路输出。"),
-    impact: asText(candidate.impact ?? candidate.effect ?? candidate.consequence, "需要结合经营上下文继续判断。"),
+    impact: asText(candidate.impact ?? candidate.effect ?? candidate.consequence, "需要结合经营上下文继续确认影响。"),
     severity: normalizeSeverity(candidate.severity),
     impact_score: Number.isFinite(candidate.impact_score) ? candidate.impact_score : 1
   }
@@ -102,8 +103,8 @@ export function normalizeProblem(candidate = {}) {
   if (typeof candidate === "string") {
     return {
       title: candidate,
-      why: "当前问题已在多层输出中反复出现。",
-      consequence: "若不处理，会继续拖累经营判断和执行效率。",
+      why: "当前问题已在多层输出中重复出现。",
+      consequence: "若不处理，会继续拖累经营判断与动作执行。",
       severity: "medium",
       impact_score: 1
     }
@@ -138,7 +139,9 @@ export function normalizeAction(candidate = {}, defaults = {}) {
       why: defaults.why ?? "当前多层输出都指向这一步。",
       expected_benefit: defaults.expected_benefit ?? "可先收口当前最直接的问题。",
       owner: defaults.owner ?? "运营",
-      wika_support: defaults.wika_support ?? "已能输出相关问题、证据与人工接手清单。",
+      wika_support: defaults.wika_support ?? "已能输出相关问题、证据与交接前准备层。",
+      manual_confirmation_required: defaults.manual_confirmation_required ?? "需要",
+      handoff_mode: defaults.handoff_mode ?? "由人工根据 WIKA 输出继续执行。",
       severity: defaults.severity ?? "medium",
       impact_score: defaults.impact_score ?? 1
     }
@@ -160,7 +163,15 @@ export function normalizeAction(candidate = {}, defaults = {}) {
     owner: asText(candidate.owner ?? candidate.executor, defaults.owner ?? "运营"),
     wika_support: asText(
       candidate.wika_support ?? candidate.support_scope,
-      defaults.wika_support ?? "已能提供证据、诊断与人工接手前的准备层。"
+      defaults.wika_support ?? "已能提供证据、诊断与人工接手前准备层。"
+    ),
+    manual_confirmation_required: asText(
+      candidate.manual_confirmation_required ?? candidate.manual_confirmation ?? candidate.need_manual_confirmation,
+      defaults.manual_confirmation_required ?? "需要"
+    ),
+    handoff_mode: asText(
+      candidate.handoff_mode ?? candidate.handoff ?? candidate.delivery_mode,
+      defaults.handoff_mode ?? "由人工根据 WIKA 输出继续执行。"
     ),
     severity: normalizeSeverity(candidate.severity ?? defaults.severity),
     impact_score: Number.isFinite(candidate.impact_score)

@@ -1,0 +1,49 @@
+{
+  "total_score": 39,
+  "max_score": 40,
+  "delivery_threshold": 34,
+  "veto_errors": [],
+  "pass": true,
+  "dimensions": [
+    {
+      "name": "结论清晰度",
+      "score": 5,
+      "reason": "执行摘要、核心发现和关键问题已形成结论先行结构。"
+    },
+    {
+      "name": "数据有效性",
+      "score": 4,
+      "reason": "底层稳定 route 足够，但存在降级 route，因此按降级参与而非完整成功处理。"
+    },
+    {
+      "name": "判断可信度",
+      "score": 5,
+      "reason": "判断严格区分 official、derived、unavailable 与 degraded 参与边界。"
+    },
+    {
+      "name": "建议可执行性",
+      "score": 5,
+      "reason": "每条动作都写了执行人、预期收益、WIKA 支撑范围和人工确认要求。"
+    },
+    {
+      "name": "优先级明确性",
+      "score": 5,
+      "reason": "动作已按 P1 / P2 / P3 排序，并能和问题闭环。"
+    },
+    {
+      "name": "对业务方可读性",
+      "score": 5,
+      "reason": "正文先讲问题和动作，再讲证据与边界，不再像技术日志。"
+    },
+    {
+      "name": "盲区表达完整性",
+      "score": 5,
+      "reason": "盲区不仅列出字段，还说明了它限制了哪些判断。"
+    },
+    {
+      "name": "排版清晰度",
+      "score": 5,
+      "reason": "章节顺序固定，适合开会和业务阅读。"
+    }
+  ]
+}

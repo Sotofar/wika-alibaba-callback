@@ -49,8 +49,10 @@ function renderActions(actions = {}) {
       lines.push(`- 做什么：${item.action}`)
       lines.push(`- 为什么：${item.why}`)
       lines.push(`- 预期收益：${item.expected_benefit}`)
-      lines.push(`- 需要谁执行：${item.owner}`)
+      lines.push(`- 执行人：${item.owner}`)
       lines.push(`- WIKA 当前能支持到什么程度：${item.wika_support}`)
+      lines.push(`- 是否需要人工确认：${item.manual_confirmation_required}`)
+      lines.push(`- 交接方式：${item.handoff_mode}`)
       lines.push("")
     })
   })
@@ -67,6 +69,7 @@ function renderBoundary(boundary = {}) {
     `- official confirmed：${boundary.official_confirmed.join("；")}`,
     `- derived：${boundary.derived_layers.join("；")}`,
     `- unavailable：${boundary.unavailable_dimensions.join("；")}`,
+    `- degraded route 参与情况：${boundary.degraded_route_participation}`,
     ...bullets(boundary.notes)
   ]
 }
@@ -102,22 +105,24 @@ export function renderOpsReportMarkdown(report = {}) {
     ""
   ]
 
-  lines.push(...section("执行摘要", bullets(report.executive_summary)))
-  lines.push(...section("核心发现", renderFindings(report.core_findings, "发现")))
-  lines.push(...section("关键问题", renderFindings(report.key_problems, "问题")))
-  lines.push(...section("优先行动", renderActions(report.prioritized_actions)))
-  lines.push(...section("店铺级诊断", bullets(report.store_diagnosis)))
-  lines.push(...section("产品级诊断", bullets(report.product_diagnosis)))
-  lines.push(...section("订单级诊断", bullets(report.order_diagnosis)))
-  lines.push(...section("跨层综合判断", bullets(report.cross_layer_judgement)))
-  lines.push(...section("任务 3 现状评估", bullets(report.task3_assessment)))
-  lines.push(...section("任务 4 现状评估", bullets(report.task4_assessment)))
-  lines.push(...section("任务 5 现状评估", bullets(report.task5_assessment)))
-  lines.push(...section("WIKA 当前能替代多少工作", bullets(report.replacement_assessment)))
-  lines.push(...section("数据盲区", renderBlindSpots(report.blind_spots)))
-  lines.push(...section("边界声明", renderBoundary(report.boundary_statement)))
-  lines.push(...section("自评分", renderScore(report.self_score)))
-  lines.push(...section("数据源清单", bullets(report.data_sources)))
+  lines.push(...section("A. 执行摘要", bullets(report.executive_summary)))
+  lines.push(...section("B. 核心发现", renderFindings(report.core_findings, "发现")))
+  lines.push(...section("C. 关键问题", renderFindings(report.key_problems, "问题")))
+  lines.push(...section("D. 优先行动", renderActions(report.prioritized_actions)))
+  lines.push(...section("E. 店铺诊断", bullets(report.store_diagnosis)))
+  lines.push(...section("F. 产品诊断", bullets(report.product_diagnosis)))
+  lines.push(...section("G. 订单诊断", bullets(report.order_diagnosis)))
+  lines.push(...section("H. 广告 / 页面输入层状态", bullets(report.ads_and_page_input_status)))
+  lines.push(...section("I. 跨层综合判断", bullets(report.cross_layer_judgement)))
+  lines.push(...section("J. 任务 3 现状评估", bullets(report.task3_assessment)))
+  lines.push(...section("K. 任务 4 现状评估", bullets(report.task4_assessment)))
+  lines.push(...section("L. 任务 5 现状评估", bullets(report.task5_assessment)))
+  lines.push(...section("M. 工作量替代评估", bullets(report.replacement_assessment)))
+  lines.push(...section("N. 数据盲区", renderBlindSpots(report.blind_spots)))
+  lines.push(...section("O. 路由健康与证据约束", bullets(report.route_health_summary)))
+  lines.push(...section("P. 边界声明", renderBoundary(report.boundary_statement)))
+  lines.push(...section("Q. 自评分", renderScore(report.self_score)))
+  lines.push(...section("R. 数据源清单", bullets(report.data_sources)))
 
   return `${lines.join("\n").trim()}\n`
 }
@@ -141,6 +146,7 @@ export function renderOpsReportSummaryMarkdown(report = {}) {
     )
   )
   lines.push(...section("当前关键盲区", renderBlindSpots(report.blind_spots.slice(0, 5))))
+  lines.push(...section("当前路由健康提示", bullets(report.route_health_summary.slice(0, 4))))
   lines.push(...section("当前边界", renderBoundary(report.boundary_statement)))
   lines.push(...section("自评分", [
     `- 总分：${report.self_score.total_score}/${report.self_score.max_score}`,
