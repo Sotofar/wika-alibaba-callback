@@ -17,11 +17,7 @@ import {
   getLastCompleteNaturalWeek,
   timestampToDateString,
   isDateWithinRange,
-  summarizeRouteBody,
   summarizeSyncBody,
-  topError,
-  sanitize,
-  safeString,
   scanForSensitiveValues
 } from "./xd-stage31-common.js";
 
@@ -77,9 +73,8 @@ function countDatesInRange(items, timeZone, kind, start, end) {
 function buildDistribution(entries, key) {
   const distribution = {};
   for (const entry of entries) {
-    const value = entry?.[key];
-    const normalized = value || "not_available";
-    distribution[normalized] = (distribution[normalized] || 0) + 1;
+    const value = entry?.[key] || "not_available";
+    distribution[value] = (distribution[value] || 0) + 1;
   }
   return distribution;
 }
@@ -87,6 +82,14 @@ function buildDistribution(entries, key) {
 function formatDistribution(distribution) {
   const parts = Object.entries(distribution || {}).map(([key, value]) => `${key}=${value}`);
   return parts.length ? parts.join(", ") : "not_available";
+}
+
+function renderMetric(value, reason = null, requiredEvidence = null) {
+  return {
+    value: value ?? "not_available",
+    reason,
+    required_evidence: requiredEvidence
+  };
 }
 
 async function loadLiveData({ timeZone, start, end }) {
@@ -270,18 +273,8 @@ function loadEvidenceData({ timeZone, start, end }) {
   };
 }
 
-function renderMetric(value, reason, requiredEvidence) {
-  return {
-    value: value ?? "not_available",
-    reason: reason || null,
-    required_evidence: requiredEvidence || null
-  };
-}
-
 function buildStructuredReport({ mode, timeZone, start, end, data }) {
   const stage30 = exists(STAGE30_EVIDENCE_PATH) ? readJson(STAGE30_EVIDENCE_PATH) : null;
-  const orderItems = data.orders.items || [];
-  const productItems = data.products.items || [];
   const ordersResponseMeta = data.orders.list?.raw_body?.response_meta || {};
   const productsResponseMeta = data.products.list?.raw_body?.response_meta || {};
   const fundAvailable = data.orders.fund_check?.status === 200 && !!data.orders.fund_check?.raw_body?.value;
@@ -298,33 +291,36 @@ function buildStructuredReport({ mode, timeZone, start, end, data }) {
     data.stable_direct?.raw_body || data.stable_direct?.body
       ? summarizeSyncBody("alibaba.seller.order.get", data.stable_direct.raw_body || data.stable_direct.body)
       : null;
+
+  const windowLabel = mode === "daily" ? "今日窗口" : "本报告窗口";
+  const windowStrictMetricLabel = mode === "daily" ? "今日窗口严格全量订单数" : "本报告窗口严格全量订单数";
+  const windowReasonSuffix =
+    mode === "daily" ? "只代表当前页样本命中今日窗口的记录数，不代表今日全量业务。" : "只代表当前页样本命中本报告窗口的记录数，不代表窗口内全量业务。";
+
   const ordersSection = {
-    visible_order_count_current_page: renderMetric(
-      ordersResponseMeta.returned_item_count ?? orderItems.length,
-      null,
-      null
-    ),
+    visible_order_count_current_page: renderMetric(ordersResponseMeta.returned_item_count ?? data.orders.items.length),
     total_order_count_from_current_page_response: renderMetric(
       ordersResponseMeta.total_count ?? "not_available",
       ordersResponseMeta.total_count ? null : "orders/list 当前响应未暴露 total_count",
       ordersResponseMeta.total_count ? null : "orders/list response_meta.total_count"
     ),
-    last_week_created_hits_in_current_page_sample: renderMetric(
+    window_created_hits_in_current_page_sample: renderMetric(
       data.orders.create_hits_in_window,
-      "只代表当前页样本命中上周窗口的记录数，不代表上周全量订单。",
+      windowReasonSuffix,
       "支持时间窗口的已验证聚合 route 或多页受控聚合证据"
     ),
-    last_week_modified_hits_in_current_page_sample: renderMetric(
+    window_modified_hits_in_current_page_sample: renderMetric(
       data.orders.modify_hits_in_window,
-      "只代表当前页样本命中上周窗口的记录数，不代表上周全量订单。",
+      windowReasonSuffix,
       "支持时间窗口的已验证聚合 route 或多页受控聚合证据"
     ),
-    strict_last_week_total_orders: renderMetric(
+    strict_window_total_orders: renderMetric(
       "not_available",
-      "当前 safe-scope 只保证当前页样本和已读范围，不提供严格按上周窗口裁切的全量订单聚合。",
-      "可重复验证的周维度订单聚合 route 或多页受控聚合证据"
+      "当前 safe-scope 只保证当前页样本和已读范围，不提供严格按报告窗口裁切的全量订单聚合。",
+      "可重复验证的时间窗口订单聚合 route 或多页受控聚合证据"
     ),
-    current_page_create_range: data.orders.create_range || renderMetric("not_available", "当前页无 create_date 样本", "orders/list items.create_date"),
+    current_page_create_range:
+      data.orders.create_range || renderMetric("not_available", "当前页无 create_date 样本", "orders/list items.create_date"),
     sampled_trade_status_distribution: data.orders.trade_status_distribution,
     sampled_fulfillment_channel_distribution: data.orders.fulfillment_channel_distribution,
     sampled_shipment_method_distribution: data.orders.shipment_method_distribution,
@@ -343,23 +339,24 @@ function buildStructuredReport({ mode, timeZone, start, end, data }) {
   };
 
   const productsSection = {
-    visible_product_count_current_page: renderMetric(productItems.length, null, null),
+    visible_product_count_current_page: renderMetric(data.products.items.length),
     total_product_count_from_current_page_response: renderMetric(
       productsResponseMeta.total_item ?? "not_available",
       productsResponseMeta.total_item ? null : "products/list 当前响应未暴露 total_item",
       productsResponseMeta.total_item ? null : "products/list response_meta.total_item"
     ),
-    last_week_created_hits_in_current_page_sample: renderMetric(
+    window_created_hits_in_current_page_sample: renderMetric(
       data.products.create_hits_in_window,
-      "只代表当前页商品样本命中上周窗口的记录数，不代表上周全量商品变化。",
-      "支持周窗口的商品聚合或可重复多页采样证据"
+      windowReasonSuffix,
+      "支持时间窗口的商品聚合或可重复多页采样证据"
     ),
-    last_week_modified_hits_in_current_page_sample: renderMetric(
+    window_modified_hits_in_current_page_sample: renderMetric(
       data.products.modify_hits_in_window,
-      "只代表当前页商品样本命中上周窗口的记录数，不代表上周全量商品变化。",
-      "支持周窗口的商品聚合或可重复多页采样证据"
+      windowReasonSuffix,
+      "支持时间窗口的商品聚合或可重复多页采样证据"
     ),
-    current_page_modify_range: data.products.modify_range || renderMetric("not_available", "当前页无 gmt_modified 样本", "products/list items.gmt_modified"),
+    current_page_modify_range:
+      data.products.modify_range || renderMetric("not_available", "当前页无 gmt_modified 样本", "products/list items.gmt_modified"),
     product_detail_status: renderMetric(
       data.products.detail_check?.status === 200 ? "available" : "not_available",
       data.products.detail_check?.status === 200 ? "可做基础详情抽样，不等于全量经营分析。" : "当前样本 detail 未成功。",
@@ -394,14 +391,14 @@ function buildStructuredReport({ mode, timeZone, start, end, data }) {
   };
 
   const executiveSummary = [
-    `XD access safe-scope 已封板，当前 route parity gap=0，candidate unresolved=0。`,
-    `当前 production base 继续可读：/health、/integrations/alibaba/auth/debug、/integrations/alibaba/xd/auth/debug 均可返回。`,
-    `订单与商品核心只读 route 可持续提供当前页样本和最小详情能力，可直接用于日报、周报草稿和巡检。`,
-    `订单上周严格全量统计仍不可可靠给出；当前能给出的只有当前页样本命中上周窗口的观察值。`,
-    `fund/logistics 目前只适合作为 sample trade 的覆盖信号，不应被写成稳定经营指标。`,
-    `products/detail、groups、score、categories、media 已可读，可支撑商品基础盘点与元信息核查。`,
-    `orders/report 型 summary/trend/report-consumers route 当前 production 为 404，但 stage28 打通的 minimal-diagnostic routes 仍可作为辅助信号。`,
-    `没有新的外部租户/产品级 live 证据前，不建议继续对 restriction 对象做同构重试。`
+    "XD access safe-scope 已封板，当前 route parity gap=0，candidate unresolved=0。",
+    "当前 production base 继续可读：/health、/integrations/alibaba/auth/debug、/integrations/alibaba/xd/auth/debug 均返回 200。",
+    "订单与商品核心只读 route 可持续提供当前页样本与最小详情能力，可直接用于日报、周报草稿与巡检。",
+    `${windowStrictMetricLabel} 仍不可可靠给出；当前能给出的只有当前页样本命中报告窗口的观察值。`,
+    "fund/logistics 目前只适合作为 sample trade 覆盖信号，不应写成稳定经营指标。",
+    "products/detail、groups、score、categories、media 已可读，可支撑商品基础盘点与元信息核查。",
+    "orders/report 型 summary/trend/report-consumers 当前 production 为 404，但 stage28 打通的 minimal-diagnostic routes 可作为辅助信号。",
+    "没有新的外部租户/产品级 live 证据前，不建议继续对 restriction 对象做同构重试。"
   ];
 
   const capabilityState = {
@@ -424,17 +421,17 @@ function buildStructuredReport({ mode, timeZone, start, end, data }) {
 
   const risks = [
     "当前页 / 已读范围限制：orders 与 products 当前只保证当前页样本和少量详情抽样，不是全量聚合。",
-    "非多页全量聚合：没有受控多页扫描与周维度聚合证据前，不能把样本数写成全量业务数。",
+    "非多页全量聚合：没有受控多页扫描与时间窗口聚合证据前，不能把样本数写成全量业务数。",
     "tenant/product restriction：stage29/stage30 已冻结的 6 个 candidate 仍需外部新证据才能重开。",
     "write-adjacent skip：2 个 draft-adjacent 对象保持跳过，不在本轮自动化范围内。",
-      "report routes 404：当前 production 未绑定 orders/summary、trend、report-consumers；本轮改用文件化报告资产 + minimal-diagnostic 辅助信号，不建议在 stage31 回头扩 route。"
+    "report routes 404：当前 production 未绑定 orders/summary、trend、report-consumers；本轮改用文件化报告资产 + minimal-diagnostic 辅助信号，不建议回头扩 route。"
   ];
 
   const nextActions = [
-    "把 `scripts/check-xd-critical-routes-stage31.js` 接入每日巡检，保活当前 stable routes。",
-    "把 `scripts/generate-xd-operations-report-stage31.js` 交给业务侧试跑日报 / 周报模板。",
-    "在对外分发报告前保留“当前页样本 / 非全量聚合”口径说明。",
-    "对 restriction confirmed 对象只做重开 gate 判断，不做无证据重试。",
+    "把 scripts/check-xd-critical-routes-stage31.js 接入每日巡检，保活当前 stable routes。",
+    "把 scripts/generate-xd-operations-report-stage31.js 交给业务侧试跑日报 / 周报模板。",
+    "对外分发报告时保留“当前页样本 / 非全量聚合”口径说明。",
+    "对 restriction confirmed 对象只做 reopen gate 判断，不做无证据重试。",
     "一旦出现新的租户/产品级 live 证据，再按 stage30 reopen gate 受控重开。"
   ];
 
@@ -443,6 +440,7 @@ function buildStructuredReport({ mode, timeZone, start, end, data }) {
     generated_at: new Date().toISOString(),
     source_mode: data.source_mode,
     time_window: { start, end, timeZone },
+    window_label: windowLabel,
     data_sources: [
       "当前 production stable routes",
       "stage26-stage30 evidence",
@@ -462,8 +460,11 @@ function renderMarkdown(report) {
   const orderStatuses = formatDistribution(report.orders.sampled_trade_status_distribution);
   const fulfillment = formatDistribution(report.orders.sampled_fulfillment_channel_distribution);
   const shipmentMethods = formatDistribution(report.orders.sampled_shipment_method_distribution);
+  const title = report.mode === "daily" ? "XD 今日运营日报" : "XD 最新周报";
+  const statusNote = "以下属于截至当前状态附注，不等于报告窗口内全部业务成果。";
+
   return [
-    `# XD ${report.mode === "daily" ? "日报" : "上周运营报告"}`,
+    `# ${title}`,
     "",
     `生成时间：${report.generated_at}`,
     "",
@@ -478,10 +479,10 @@ function renderMarkdown(report) {
     ...report.executive_summary.map((line) => `- ${line}`),
     "",
     "# 3. 订单运营摘要",
-    `- 上周窗口严格全量订单数：${report.orders.strict_last_week_total_orders.value}。原因：${report.orders.strict_last_week_total_orders.reason}`,
+    `- ${report.window_label}严格全量订单数：${report.orders.strict_window_total_orders.value}。原因：${report.orders.strict_window_total_orders.reason}`,
     `- 当前页可见订单样本数：${report.orders.visible_order_count_current_page.value}；当前页响应 total_count：${report.orders.total_order_count_from_current_page_response.value}。`,
     `- 当前页样本 create_date 范围：${report.orders.current_page_create_range.min || "not_available"} 至 ${report.orders.current_page_create_range.max || "not_available"}。`,
-    `- 当前页样本命中上周窗口的 create 记录：${report.orders.last_week_created_hits_in_current_page_sample.value}；modify 记录：${report.orders.last_week_modified_hits_in_current_page_sample.value}。`,
+    `- 当前页样本命中${report.window_label}的 create 记录：${report.orders.window_created_hits_in_current_page_sample.value}；modify 记录：${report.orders.window_modified_hits_in_current_page_sample.value}。`,
     `- 已抽样订单状态分布：${orderStatuses}。`,
     `- 已抽样 fulfillment channel 分布：${fulfillment}。`,
     `- 已抽样 shipment method 分布：${shipmentMethods}。`,
@@ -494,7 +495,7 @@ function renderMarkdown(report) {
     "# 4. 商品与内容摘要",
     `- 当前页可见商品样本数：${report.products.visible_product_count_current_page.value}；当前页响应 total_item：${report.products.total_product_count_from_current_page_response.value}。`,
     `- 当前页样本 gmt_modified 范围：${report.products.current_page_modify_range.min || "not_available"} 至 ${report.products.current_page_modify_range.max || "not_available"}。`,
-    `- 当前页商品样本命中上周窗口的 create 记录：${report.products.last_week_created_hits_in_current_page_sample.value}；modify 记录：${report.products.last_week_modified_hits_in_current_page_sample.value}。`,
+    `- 当前页商品样本命中${report.window_label}的 create 记录：${report.products.window_created_hits_in_current_page_sample.value}；modify 记录：${report.products.window_modified_hits_in_current_page_sample.value}。`,
     `- 商品 detail 状态：${report.products.product_detail_status.value}；说明：${report.products.product_detail_status.reason}`,
     `- 商品 groups 状态：${report.products.product_groups_status.value}；说明：${report.products.product_groups_status.reason}`,
     `- 商品 score 状态：${report.products.product_score_status.value}；说明：${report.products.product_score_status.reason}`,
@@ -511,7 +512,7 @@ function renderMarkdown(report) {
     `- write-adjacent skipped：${report.capability_state.write_adjacent_skipped_count}`,
     `- 当前 health / auth/debug / xd auth/debug：${report.capability_state.base_health.health} / ${report.capability_state.base_health.auth_debug} / ${report.capability_state.base_health.xd_auth_debug}`,
     `- 稳定 direct-method 状态：${report.capability_state.base_health.stable_direct}`,
-    "- 以上属于截至当前状态附注，不等于上周业务成果。",
+    `- ${statusNote}`,
     "",
     "# 6. 风险与限制",
     ...report.risks.map((line) => `- ${line}`),
@@ -560,7 +561,8 @@ export async function main(argv = process.argv.slice(2)) {
     fromEvidence: Boolean(args["from-evidence"])
   });
 
-  const outputPath = args.output || (mode === "weekly" ? WEEKLY_REPORT_PATH : buildDefaultOutputPath(mode, report.time_window.start, report.time_window.end));
+  const outputPath =
+    args.output || (mode === "weekly" ? WEEKLY_REPORT_PATH : buildDefaultOutputPath(mode, report.time_window.start, report.time_window.end));
   const jsonOutputPath =
     args["json-output"] ||
     (mode === "weekly" ? WEEKLY_REPORT_EVIDENCE_PATH : buildDefaultJsonPath(mode, report.time_window.start, report.time_window.end));
@@ -569,10 +571,8 @@ export async function main(argv = process.argv.slice(2)) {
     writeText(outputPath, `${markdown}\n`);
     writeJson(jsonOutputPath, report);
     if (mode === "weekly") {
-      const canonicalMd = buildDefaultOutputPath(mode, report.time_window.start, report.time_window.end);
-      const canonicalJson = buildDefaultJsonPath(mode, report.time_window.start, report.time_window.end);
-      writeText(canonicalMd, `${markdown}\n`);
-      writeJson(canonicalJson, report);
+      writeText(buildDefaultOutputPath(mode, report.time_window.start, report.time_window.end), `${markdown}\n`);
+      writeJson(buildDefaultJsonPath(mode, report.time_window.start, report.time_window.end), report);
     }
   }
 

@@ -1,13 +1,13 @@
 {
-  "mode": "weekly",
-  "generated_at": "2026-04-18T23:06:54.139Z",
+  "mode": "daily",
+  "generated_at": "2026-04-18T23:06:53.969Z",
   "source_mode": "live",
   "time_window": {
-    "start": "2026-04-06",
-    "end": "2026-04-12",
+    "start": "2026-04-19",
+    "end": "2026-04-19",
     "timeZone": "Asia/Shanghai"
   },
-  "window_label": "本报告窗口",
+  "window_label": "今日窗口",
   "data_sources": [
     "当前 production stable routes",
     "stage26-stage30 evidence",
@@ -17,7 +17,7 @@
     "XD access safe-scope 已封板，当前 route parity gap=0，candidate unresolved=0。",
     "当前 production base 继续可读：/health、/integrations/alibaba/auth/debug、/integrations/alibaba/xd/auth/debug 均返回 200。",
     "订单与商品核心只读 route 可持续提供当前页样本与最小详情能力，可直接用于日报、周报草稿与巡检。",
-    "本报告窗口严格全量订单数 仍不可可靠给出；当前能给出的只有当前页样本命中报告窗口的观察值。",
+    "今日窗口严格全量订单数 仍不可可靠给出；当前能给出的只有当前页样本命中报告窗口的观察值。",
     "fund/logistics 目前只适合作为 sample trade 覆盖信号，不应写成稳定经营指标。",
     "products/detail、groups、score、categories、media 已可读，可支撑商品基础盘点与元信息核查。",
     "orders/report 型 summary/trend/report-consumers 当前 production 为 404，但 stage28 打通的 minimal-diagnostic routes 可作为辅助信号。",
@@ -35,13 +35,13 @@
       "required_evidence": null
     },
     "window_created_hits_in_current_page_sample": {
-      "value": 1,
-      "reason": "只代表当前页样本命中本报告窗口的记录数，不代表窗口内全量业务。",
+      "value": 0,
+      "reason": "只代表当前页样本命中今日窗口的记录数，不代表今日全量业务。",
       "required_evidence": "支持时间窗口的已验证聚合 route 或多页受控聚合证据"
     },
     "window_modified_hits_in_current_page_sample": {
-      "value": 0,
-      "reason": "只代表当前页样本命中本报告窗口的记录数，不代表窗口内全量业务。",
+      "value": 2,
+      "reason": "只代表当前页样本命中今日窗口的记录数，不代表今日全量业务。",
       "required_evidence": "支持时间窗口的已验证聚合 route 或多页受控聚合证据"
     },
     "strict_window_total_orders": {
@@ -97,13 +97,13 @@
       "required_evidence": null
     },
     "window_created_hits_in_current_page_sample": {
-      "value": 8,
-      "reason": "只代表当前页样本命中本报告窗口的记录数，不代表窗口内全量业务。",
+      "value": 0,
+      "reason": "只代表当前页样本命中今日窗口的记录数，不代表今日全量业务。",
       "required_evidence": "支持时间窗口的商品聚合或可重复多页采样证据"
     },
     "window_modified_hits_in_current_page_sample": {
-      "value": 9,
-      "reason": "只代表当前页样本命中本报告窗口的记录数，不代表窗口内全量业务。",
+      "value": 0,
+      "reason": "只代表当前页样本命中今日窗口的记录数，不代表今日全量业务。",
       "required_evidence": "支持时间窗口的商品聚合或可重复多页采样证据"
     },
     "current_page_modify_range": {

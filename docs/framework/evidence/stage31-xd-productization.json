@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-18T14:57:42.156Z",
+  "generated_at": "2026-04-18T23:07:53.637Z",
   "safe_scope_complete": true,
   "route_gap_count": 0,
   "candidate_unresolved_count": 0,
@@ -15,8 +15,8 @@
     },
     "operations_validation": {
       "status": "ok",
-      "markdown_path": "D:\\Code\\阿里国际站__stage31_xd_productization\\Ali-WIKA\\projects\\xd\\access\\XD_WEEKLY_OPERATIONS_REPORT_STAGE31.md",
-      "json_path": "D:\\Code\\阿里国际站__stage31_xd_productization\\docs\\framework\\evidence\\xd_weekly_operations_report_stage31.json",
+      "markdown_path": "D:\\Code\\阿里国际站\\Ali-WIKA\\projects\\xd\\access\\XD_WEEKLY_OPERATIONS_REPORT_STAGE31.md",
+      "json_path": "D:\\Code\\阿里国际站\\docs\\framework\\evidence\\xd_weekly_operations_report_stage31.json",
       "section_count": 7
     },
     "monitoring_validation": {

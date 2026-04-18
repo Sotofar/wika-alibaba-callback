@@ -1,0 +1,120 @@
+{
+  "generated_at": "2026-04-19T07:08:05.4945151+08:00",
+  "stage": "stage32-xd-operations-runbook-trial",
+  "head": "80244ea6386f5898dbb4b0d60c37a6f85a372972",
+  "worktree_clean_before": true,
+  "precheck": {
+    "health": 200,
+    "auth_debug": 200,
+    "xd_auth_debug": 200,
+    "stable_xd_route": {
+      "route": "/integrations/alibaba/xd/data/orders/list?page_size=1",
+      "status": 200
+    }
+  },
+  "daily_report": {
+    "markdown_path": "D:\\Code\\阿里国际站\\Ali-WIKA\\projects\\xd\\access\\reports\\xd_daily_report_2026-04-19_stage32.md",
+    "json_path": "D:\\Code\\阿里国际站\\Ali-WIKA\\projects\\xd\\access\\reports\\xd_daily_report_2026-04-19_stage32.json",
+    "mode": "daily",
+    "source_mode": "live",
+    "time_window": {
+      "start": "2026-04-19",
+      "end": "2026-04-19",
+      "timeZone": "Asia/Shanghai"
+    },
+    "sample_metrics": {
+      "visible_order_count_current_page": 10,
+      "total_order_count_from_current_page_response": 1225,
+      "window_created_hits_in_current_page_sample": 0,
+      "window_modified_hits_in_current_page_sample": 2,
+      "visible_product_count_current_page": 10,
+      "total_product_count_from_current_page_response": 919,
+      "product_window_created_hits_in_current_page_sample": 0,
+      "product_window_modified_hits_in_current_page_sample": 0
+    }
+  },
+  "weekly_report": {
+    "markdown_path": "D:\\Code\\阿里国际站\\Ali-WIKA\\projects\\xd\\access\\reports\\xd_weekly_report_2026-04-06_2026-04-12_stage32.md",
+    "json_path": "D:\\Code\\阿里国际站\\Ali-WIKA\\projects\\xd\\access\\reports\\xd_weekly_report_2026-04-06_2026-04-12_stage32.json",
+    "mode": "weekly",
+    "source_mode": "live",
+    "time_window": {
+      "start": "2026-04-06",
+      "end": "2026-04-12",
+      "timeZone": "Asia/Shanghai"
+    },
+    "sample_metrics": {
+      "visible_order_count_current_page": 10,
+      "total_order_count_from_current_page_response": 1225,
+      "window_created_hits_in_current_page_sample": 1,
+      "window_modified_hits_in_current_page_sample": 0,
+      "visible_product_count_current_page": 10,
+      "total_product_count_from_current_page_response": 919,
+      "product_window_created_hits_in_current_page_sample": 8,
+      "product_window_modified_hits_in_current_page_sample": 9
+    }
+  },
+  "critical_route_monitoring": {
+    "json_path": "D:\\Code\\阿里国际站\\Ali-WIKA\\projects\\xd\\access\\monitoring\\runs\\xd_critical_routes_stage32_trial.json",
+    "markdown_path": "D:\\Code\\阿里国际站\\Ali-WIKA\\projects\\xd\\access\\monitoring\\runs\\xd_critical_routes_stage32_trial.md",
+    "overall_status": "PASS",
+    "safe_scope_complete": true,
+    "classification_counts": {
+      "total": 18,
+      "PASS": 13,
+      "PASS_NO_DATA": 1,
+      "SKIPPED_BY_SAFETY": 4,
+      "FAIL": 0
+    }
+  },
+  "derived_outputs": {
+    "operations_summary_markdown": "D:\\Code\\阿里国际站\\Ali-WIKA\\projects\\xd\\access\\reports\\XD_OPERATIONS_SUMMARY_STAGE32.md",
+    "executive_summary_markdown": "D:\\Code\\阿里国际站\\Ali-WIKA\\projects\\xd\\access\\reports\\XD_EXECUTIVE_SUMMARY_STAGE32.md"
+  },
+  "validation_results": {
+    "scripts/validate-xd-operations-report-stage31.js": "ok",
+    "scripts/validate-xd-critical-routes-stage31.js": "ok",
+    "scripts/validate-xd-stage31-productization.js": "ok"
+  },
+  "operations_readout": {
+    "today_and_this_week_can_see": [
+      "可见订单与商品当前页样本",
+      "订单状态与履约/发货分布的样本信号",
+      "商品详情、分组、评分、类目、媒体是否可读",
+      "关键 route 与 minimal-diagnostic 是否健康"
+    ],
+    "most_worth_business_attention": [
+      "样本订单中未付款和待发货信号仍值得每日盯盘",
+      "商品基础盘点链路已经足够支持抽样巡查",
+      "当前更适合固定跑报告和巡检，而不是继续做接口试探"
+    ],
+    "top_misread_risks": [
+      "不要把当前页样本写成全量结果",
+      "不要把 total_count 或 total_item 写成严格窗口业务结果",
+      "不要把 fund/logistics 覆盖信号写成稳定经营指标"
+    ]
+  },
+  "executive_readout": {
+    "capability_state": "XD safe-scope 已封板，日报/周报/巡检已可重复执行。",
+    "operational_value_this_week": [
+      "给业务侧提供稳定的样本范围运营摘要",
+      "给管理侧提供低风险、可复核的周报草稿",
+      "用巡检机制防止已打通 route 静默回退"
+    ],
+    "current_limitations": [
+      "非多页全量聚合",
+      "restriction 对象仍需外部新证据",
+      "不输出 GMV、转化率、国家结构、完整经营诊断"
+    ],
+    "recommended_next_actions": [
+      "把日报、周报、巡检纳入固定节奏",
+      "让业务侧开始试用摘要和周报",
+      "仅在出现新外部 live 证据后按 reopen gate 受控重开"
+    ],
+    "worth_continued_investment": true
+  },
+  "final_judgement": {
+    "codex_can_stably_produce_operations_work": true,
+    "safest_next_business_use": "把 XD 日报、周报和关键 route 巡检作为固定运营动作，每日观察样本订单/商品信号，每周输出业务摘要，限制在 safe-scope 口径内使用。"
+  }
+}
