@@ -1,5 +1,9 @@
 # WIKA 经营诊断报告
 
+## 执行摘要
+
+当前最明确的经营问题不是“系统数据不够多”，而是“现有可读数据已经反复指向产品内容准备度不足、销售交接流程仍需固定、广告与页面层输入仍缺”。这份报告用于指导深度复盘与跨部门排期，不把 degraded route、导入层 readiness 或 workbench/preview 误写成平台内闭环能力。
+
 ## 数据覆盖说明
 
 - official read mainline：management-summary、minimal-diagnostic、comparison-summary、business-cockpit、preview/workbench/tool 层。
@@ -49,14 +53,14 @@
   - 执行人：产品运营
   - WIKA 支撑范围：WIKA 已定位缺口并输出建议。
   - 是否需要人工确认：需要人工确认最终内容与素材真实性。
-- P1：把回复与订单流程固定到 preview + draft + handoff 模式
+- P2：把回复与订单流程固定到 preview + draft + handoff 模式
   - 做什么：统一采用 workbench 识别缺字段，preview 审核，draft 交人工最终执行。
   - 为什么：这是当前 task4/task5 最稳定的低风险路径。
   - 预期收益：降低回复与订单准备错误，缩短交接时间。
   - 执行人：销售 / 跟单
   - WIKA 支撑范围：WIKA 可完成大部分准备工作。
   - 是否需要人工确认：最终发送与创单仍需人工完成。
-- P2：把广告与页面输入补齐到固定节奏
+- P3：把广告与页面输入补齐到固定节奏
   - 做什么：每周一固定导入广告样本，每周一次完成页面人工盘点。
   - 为什么：当前广告和页面建议的主要限制来自输入缺失，不来自算法能力。
   - 预期收益：让建议层从保守推断逐步升级到基于真实样本的诊断。

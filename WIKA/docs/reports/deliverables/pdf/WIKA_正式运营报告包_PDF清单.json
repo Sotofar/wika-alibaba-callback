@@ -1,0 +1,227 @@
+{
+  "generated_at": "2026-04-19T14:33:51.840Z",
+  "desktop_dir": "C:\\Users\\Jone\\Desktop",
+  "files": [
+    {
+      "title": "WIKA_管理层简报",
+      "markdown_name": "WIKA_管理层简报.md",
+      "markdown_path": "D:\\Code\\阿里国际站\\WIKA\\docs\\reports\\deliverables\\WIKA_管理层简报.md",
+      "repo_pdf": "D:\\Code\\阿里国际站\\WIKA\\docs\\reports\\deliverables\\pdf\\WIKA_管理层简报.pdf",
+      "desktop_pdf": "C:\\Users\\Jone\\Desktop\\WIKA_管理层简报.pdf",
+      "roles": [
+        "老板 / 管理层",
+        "运营负责人"
+      ],
+      "roles_text": "老板 / 管理层、运营负责人",
+      "manual_inputs": "需要人工补广告样本、页面盘点、最终报价与交期口径。",
+      "major": true,
+      "repo_pdf_size_bytes": 8012,
+      "desktop_pdf_size_bytes": 8012
+    },
+    {
+      "title": "WIKA_运营周报",
+      "markdown_name": "WIKA_运营周报.md",
+      "markdown_path": "D:\\Code\\阿里国际站\\WIKA\\docs\\reports\\deliverables\\WIKA_运营周报.md",
+      "repo_pdf": "D:\\Code\\阿里国际站\\WIKA\\docs\\reports\\deliverables\\pdf\\WIKA_运营周报.pdf",
+      "desktop_pdf": "C:\\Users\\Jone\\Desktop\\WIKA_运营周报.pdf",
+      "roles": [
+        "运营负责人",
+        "店铺运营"
+      ],
+      "roles_text": "运营负责人、店铺运营",
+      "manual_inputs": "需要人工补广告样本、页面盘点和产品素材更新状态。",
+      "major": true,
+      "repo_pdf_size_bytes": 8493,
+      "desktop_pdf_size_bytes": 8493
+    },
+    {
+      "title": "WIKA_经营诊断报告",
+      "markdown_name": "WIKA_经营诊断报告.md",
+      "markdown_path": "D:\\Code\\阿里国际站\\WIKA\\docs\\reports\\deliverables\\WIKA_经营诊断报告.md",
+      "repo_pdf": "D:\\Code\\阿里国际站\\WIKA\\docs\\reports\\deliverables\\pdf\\WIKA_经营诊断报告.pdf",
+      "desktop_pdf": "C:\\Users\\Jone\\Desktop\\WIKA_经营诊断报告.pdf",
+      "roles": [
+        "管理层",
+        "运营负责人",
+        "店铺运营"
+      ],
+      "roles_text": "管理层、运营负责人、店铺运营",
+      "manual_inputs": "需要人工确认盲区影响、广告样本、页面盘点与跨部门执行节奏。",
+      "major": true,
+      "repo_pdf_size_bytes": 9466,
+      "desktop_pdf_size_bytes": 9466
+    },
+    {
+      "title": "WIKA_产品优化建议报告",
+      "markdown_name": "WIKA_产品优化建议报告.md",
+      "markdown_path": "D:\\Code\\阿里国际站\\WIKA\\docs\\reports\\deliverables\\WIKA_产品优化建议报告.md",
+      "repo_pdf": "D:\\Code\\阿里国际站\\WIKA\\docs\\reports\\deliverables\\pdf\\WIKA_产品优化建议报告.pdf",
+      "desktop_pdf": "C:\\Users\\Jone\\Desktop\\WIKA_产品优化建议报告.pdf",
+      "roles": [
+        "产品运营",
+        "设计",
+        "运营负责人"
+      ],
+      "roles_text": "产品运营、设计、运营负责人",
+      "manual_inputs": "需要人工补产品规格、材质、主图、视频、详情素材和关键词校对。",
+      "major": true,
+      "repo_pdf_size_bytes": 7808,
+      "desktop_pdf_size_bytes": 7808
+    },
+    {
+      "title": "WIKA_广告分析报告",
+      "markdown_name": "WIKA_广告分析报告.md",
+      "markdown_path": "D:\\Code\\阿里国际站\\WIKA\\docs\\reports\\deliverables\\WIKA_广告分析报告.md",
+      "repo_pdf": "D:\\Code\\阿里国际站\\WIKA\\docs\\reports\\deliverables\\pdf\\WIKA_广告分析报告.pdf",
+      "desktop_pdf": "C:\\Users\\Jone\\Desktop\\WIKA_广告分析报告.pdf",
+      "roles": [
+        "广告投放负责人",
+        "运营负责人"
+      ],
+      "roles_text": "广告投放负责人、运营负责人",
+      "manual_inputs": "必须人工提供真实广告导出样本，否则只能作为 readiness 报告使用。",
+      "major": true,
+      "repo_pdf_size_bytes": 7290,
+      "desktop_pdf_size_bytes": 7290
+    },
+    {
+      "title": "WIKA_店铺执行清单",
+      "markdown_name": "WIKA_店铺执行清单.md",
+      "markdown_path": "D:\\Code\\阿里国际站\\WIKA\\docs\\reports\\deliverables\\WIKA_店铺执行清单.md",
+      "repo_pdf": "D:\\Code\\阿里国际站\\WIKA\\docs\\reports\\deliverables\\pdf\\WIKA_店铺执行清单.pdf",
+      "desktop_pdf": "C:\\Users\\Jone\\Desktop\\WIKA_店铺执行清单.pdf",
+      "roles": [
+        "店铺运营",
+        "执行同事"
+      ],
+      "roles_text": "店铺运营、执行同事",
+      "manual_inputs": "需要人工按日/周执行并勾选补数项。",
+      "major": false,
+      "repo_pdf_size_bytes": 5113,
+      "desktop_pdf_size_bytes": 5113
+    },
+    {
+      "title": "WIKA_销售跟单使用清单",
+      "markdown_name": "WIKA_销售跟单使用清单.md",
+      "markdown_path": "D:\\Code\\阿里国际站\\WIKA\\docs\\reports\\deliverables\\WIKA_销售跟单使用清单.md",
+      "repo_pdf": "D:\\Code\\阿里国际站\\WIKA\\docs\\reports\\deliverables\\pdf\\WIKA_销售跟单使用清单.pdf",
+      "desktop_pdf": "C:\\Users\\Jone\\Desktop\\WIKA_销售跟单使用清单.pdf",
+      "roles": [
+        "销售",
+        "跟单"
+      ],
+      "roles_text": "销售、跟单",
+      "manual_inputs": "最终报价、交期、样品、买家信息仍需人工确认。",
+      "major": false,
+      "repo_pdf_size_bytes": 5164,
+      "desktop_pdf_size_bytes": 5164
+    },
+    {
+      "title": "WIKA_人工接手清单",
+      "markdown_name": "WIKA_人工接手清单.md",
+      "markdown_path": "D:\\Code\\阿里国际站\\WIKA\\docs\\reports\\deliverables\\WIKA_人工接手清单.md",
+      "repo_pdf": "D:\\Code\\阿里国际站\\WIKA\\docs\\reports\\deliverables\\pdf\\WIKA_人工接手清单.pdf",
+      "desktop_pdf": "C:\\Users\\Jone\\Desktop\\WIKA_人工接手清单.pdf",
+      "roles": [
+        "人工接手人员",
+        "运营负责人",
+        "销售 / 跟单"
+      ],
+      "roles_text": "人工接手人员、运营负责人、销售 / 跟单",
+      "manual_inputs": "清单本身就是人工补数与人工确认入口。",
+      "major": false,
+      "repo_pdf_size_bytes": 4923,
+      "desktop_pdf_size_bytes": 4923
+    }
+  ],
+  "validation": [
+    {
+      "file": "D:\\Code\\阿里国际站\\WIKA\\docs\\reports\\deliverables\\WIKA_管理层简报.md",
+      "ok": true,
+      "size_bytes": 4722,
+      "has_summary_or_headline": true,
+      "has_priority_actions": true,
+      "has_manual_handoff": true,
+      "has_boundary_statement": true,
+      "has_false_complete": false,
+      "ads_sample_boundary_present": true
+    },
+    {
+      "file": "D:\\Code\\阿里国际站\\WIKA\\docs\\reports\\deliverables\\WIKA_运营周报.md",
+      "ok": true,
+      "size_bytes": 5155,
+      "has_summary_or_headline": true,
+      "has_priority_actions": true,
+      "has_manual_handoff": true,
+      "has_boundary_statement": true,
+      "has_false_complete": false,
+      "ads_sample_boundary_present": true
+    },
+    {
+      "file": "D:\\Code\\阿里国际站\\WIKA\\docs\\reports\\deliverables\\WIKA_经营诊断报告.md",
+      "ok": true,
+      "size_bytes": 5915,
+      "has_summary_or_headline": true,
+      "has_priority_actions": true,
+      "has_manual_handoff": true,
+      "has_boundary_statement": true,
+      "has_false_complete": false,
+      "ads_sample_boundary_present": true
+    },
+    {
+      "file": "D:\\Code\\阿里国际站\\WIKA\\docs\\reports\\deliverables\\WIKA_产品优化建议报告.md",
+      "ok": true,
+      "size_bytes": 4627,
+      "has_summary_or_headline": true,
+      "has_priority_actions": true,
+      "has_manual_handoff": true,
+      "has_boundary_statement": true,
+      "has_false_complete": false,
+      "ads_sample_boundary_present": true
+    },
+    {
+      "file": "D:\\Code\\阿里国际站\\WIKA\\docs\\reports\\deliverables\\WIKA_广告分析报告.md",
+      "ok": true,
+      "size_bytes": 3964,
+      "has_summary_or_headline": true,
+      "has_priority_actions": true,
+      "has_manual_handoff": true,
+      "has_boundary_statement": true,
+      "has_false_complete": false,
+      "ads_sample_boundary_present": true
+    },
+    {
+      "file": "D:\\Code\\阿里国际站\\WIKA\\docs\\reports\\deliverables\\WIKA_店铺执行清单.md",
+      "ok": true,
+      "size_bytes": 1874,
+      "has_summary_or_headline": true,
+      "has_priority_actions": true,
+      "has_manual_handoff": true,
+      "has_boundary_statement": true,
+      "has_false_complete": false,
+      "ads_sample_boundary_present": true
+    },
+    {
+      "file": "D:\\Code\\阿里国际站\\WIKA\\docs\\reports\\deliverables\\WIKA_销售跟单使用清单.md",
+      "ok": true,
+      "size_bytes": 2092,
+      "has_summary_or_headline": true,
+      "has_priority_actions": true,
+      "has_manual_handoff": true,
+      "has_boundary_statement": true,
+      "has_false_complete": false,
+      "ads_sample_boundary_present": true
+    },
+    {
+      "file": "D:\\Code\\阿里国际站\\WIKA\\docs\\reports\\deliverables\\WIKA_人工接手清单.md",
+      "ok": true,
+      "size_bytes": 1558,
+      "has_summary_or_headline": true,
+      "has_priority_actions": true,
+      "has_manual_handoff": true,
+      "has_boundary_statement": true,
+      "has_false_complete": false,
+      "ads_sample_boundary_present": true
+    }
+  ]
+}

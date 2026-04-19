@@ -398,3 +398,21 @@
   - `action-center` 若 degraded，只能按 degraded 参与写入报告
   - `operator-console` 属于高层聚合视图，不写成稳定全成功承诺
   - task3 / task4 / task5 仍不是平台内闭环
+## 2026-04-19 Stage 47 PDF 交付闭环新增复用资产
+- 本轮没有新增 live route。
+- 本轮新增的是“正式交付 PDF 资产”：
+  - `WIKA/docs/reports/deliverables/pdf/WIKA_管理层简报.pdf`
+  - `WIKA/docs/reports/deliverables/pdf/WIKA_运营周报.pdf`
+  - `WIKA/docs/reports/deliverables/pdf/WIKA_经营诊断报告.pdf`
+  - `WIKA/docs/reports/deliverables/pdf/WIKA_产品优化建议报告.pdf`
+  - `WIKA/docs/reports/deliverables/pdf/WIKA_广告分析报告.pdf`
+  - `WIKA/docs/reports/deliverables/pdf/WIKA_店铺执行清单.pdf`
+  - `WIKA/docs/reports/deliverables/pdf/WIKA_销售跟单使用清单.pdf`
+  - `WIKA/docs/reports/deliverables/pdf/WIKA_人工接手清单.pdf`
+  - `WIKA/docs/reports/deliverables/pdf/WIKA_正式运营报告包_PDF清单.json`
+  - `WIKA/scripts/export-wika-operational-deliverables-pdfs.py`
+- 当前复用边界：
+  - 这些资产只负责交付和分发，不代表新增 official 字段。
+  - 广告报告仍依赖人工样本。
+  - 页面优化建议仍依赖人工盘点输入。
+  - task3 / task4 / task5 仍不是平台内自动执行闭环。

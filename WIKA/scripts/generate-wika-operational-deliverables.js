@@ -188,7 +188,7 @@ function renderManagementBrief() {
       manual: "需要人工确认卖点、材质、规格、主图与详情素材。",
     },
     {
-      priority: "P1",
+      priority: "P2",
       title: "把订单与回复草稿流程固定成外部交接 SOP",
       what: "按销售跟单使用清单执行 reply-preview、reply-draft、order-preview、order-draft 的外部交接闭环。",
       why: "task4/task5 最后一跳仍需人工，当前最大价值在于稳定缩短准备时间而不是冒进写侧。",
@@ -198,7 +198,7 @@ function renderManagementBrief() {
       manual: "最终报价、交期、样品、买家特殊要求仍需人工确认。",
     },
     {
-      priority: "P2",
+      priority: "P3",
       title: "补齐广告样本导出与页面人工盘点",
       what: "按模板提供广告 CSV/JSON 样本和页面盘点表，先满足一周一个样本周期。",
       why: "广告与页面层当前最大的阻塞不是系统代码，而是没有稳定输入。",
@@ -365,7 +365,7 @@ function renderDiagnosticReport() {
       manual: "需要人工确认最终内容与素材真实性。",
     },
     {
-      priority: "P1",
+      priority: "P2",
       title: "把回复与订单流程固定到 preview + draft + handoff 模式",
       what: "统一采用 workbench 识别缺字段，preview 审核，draft 交人工最终执行。",
       why: "这是当前 task4/task5 最稳定的低风险路径。",
@@ -375,7 +375,7 @@ function renderDiagnosticReport() {
       manual: "最终发送与创单仍需人工完成。",
     },
     {
-      priority: "P2",
+      priority: "P3",
       title: "把广告与页面输入补齐到固定节奏",
       what: "每周一固定导入广告样本，每周一次完成页面人工盘点。",
       why: "当前广告和页面建议的主要限制来自输入缺失，不来自算法能力。",
@@ -387,6 +387,10 @@ function renderDiagnosticReport() {
   ];
 
   return `# WIKA 经营诊断报告
+
+## 执行摘要
+
+当前最明确的经营问题不是“系统数据不够多”，而是“现有可读数据已经反复指向产品内容准备度不足、销售交接流程仍需固定、广告与页面层输入仍缺”。这份报告用于指导深度复盘与跨部门排期，不把 degraded route、导入层 readiness 或 workbench/preview 误写成平台内闭环能力。
 
 ## 数据覆盖说明
 
@@ -482,6 +486,10 @@ function renderProductOptimizationReport() {
   ];
 
   return `# WIKA 产品优化建议报告
+
+## 执行摘要
+
+当前产品优化的主战场仍是内容完整度、关键词覆盖度和素材表达，而不是继续猜测更深的流量来源维度。只要产品资料、主图、详情与关键词不齐，后续曝光、点击和询盘承接都很难稳定改善，因此这份报告只给“当前最值得先改的产品侧动作”，不假装已经得到完整页面行为证据。
 
 ## 当前产品主要问题
 
