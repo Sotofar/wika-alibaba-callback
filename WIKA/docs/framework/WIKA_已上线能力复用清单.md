@@ -1,5 +1,26 @@
 ﻿# WIKA 已上线能力复用清单
 
+## 2026-04-19 Stage 47 正式运营报告包新增复用资产
+- 本轮没有新增 live route。
+- 本轮新增的是“正式交付型报告资产”：
+  - `WIKA/docs/reports/deliverables/WIKA_管理层简报.md`
+  - `WIKA/docs/reports/deliverables/WIKA_运营周报.md`
+  - `WIKA/docs/reports/deliverables/WIKA_经营诊断报告.md`
+  - `WIKA/docs/reports/deliverables/WIKA_产品优化建议报告.md`
+  - `WIKA/docs/reports/deliverables/WIKA_广告分析报告.md`
+  - `WIKA/docs/reports/deliverables/WIKA_店铺执行清单.md`
+  - `WIKA/docs/reports/deliverables/WIKA_销售跟单使用清单.md`
+  - `WIKA/docs/reports/deliverables/WIKA_人工接手清单.md`
+  - `WIKA/docs/reports/deliverables/WIKA_正式运营报告包索引.md`
+  - `WIKA/docs/reports/deliverables/WIKA_正式运营报告包评分.json`
+  - `WIKA/docs/reports/deliverables/evidence/WIKA_正式运营报告包证据.json`
+  - `WIKA/scripts/generate-wika-operational-deliverables.js`
+- 当前复用边界：
+  - 这些资产服务于正式交付和团队协同，不代表新增 official 字段。
+  - 广告分析报告仍依赖真实广告样本输入。
+  - 页面优化相关执行仍依赖人工盘点与人工确认。
+  - task3 / task4 / task5 仍不是平台内自动执行闭环。
+
 ## 2026-04-18 权限打通收口新增可复用资产
 - 本轮没有新增 live route。
 - 本轮新增的是“现有权限边界收口资产”：

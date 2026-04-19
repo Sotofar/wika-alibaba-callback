@@ -1,0 +1,237 @@
+{
+  "generated_at": "2026-04-19T14:20:48.158Z",
+  "source_reports": {
+    "stage46_report": "WIKA\\docs\\reports\\WIKA_运营示范报告.md",
+    "stage46_summary": "WIKA\\docs\\reports\\WIKA_运营示范报告摘要.md",
+    "stage46_review": "WIKA\\docs\\reports\\WIKA_运营示范报告质量复核.md",
+    "stage46_evidence": "WIKA\\docs\\reports\\WIKA_运营示范报告证据.json"
+  },
+  "stage46_score": {
+    "total_score": 39,
+    "max_score": 40,
+    "delivery_threshold": 34,
+    "veto_errors": [],
+    "pass": true,
+    "dimensions": [
+      {
+        "name": "结论清晰度",
+        "score": 5,
+        "reason": "执行摘要、核心发现和关键问题已形成结论先行结构。"
+      },
+      {
+        "name": "数据有效性",
+        "score": 4,
+        "reason": "底层稳定 route 足够，但存在降级 route，因此按降级参与而非完整成功处理。"
+      },
+      {
+        "name": "判断可信度",
+        "score": 5,
+        "reason": "判断严格区分 official、derived、unavailable 与 degraded 参与边界。"
+      },
+      {
+        "name": "建议可执行性",
+        "score": 5,
+        "reason": "每条动作都写了执行人、预期收益、WIKA 支撑范围和人工确认要求。"
+      },
+      {
+        "name": "优先级明确性",
+        "score": 5,
+        "reason": "动作已按 P1 / P2 / P3 排序，并能和问题闭环。"
+      },
+      {
+        "name": "对业务方可读性",
+        "score": 5,
+        "reason": "正文先讲问题和动作，再讲证据与边界，不再像技术日志。"
+      },
+      {
+        "name": "盲区表达完整性",
+        "score": 5,
+        "reason": "盲区不仅列出字段，还说明了它限制了哪些判断。"
+      },
+      {
+        "name": "排版清晰度",
+        "score": 5,
+        "reason": "章节顺序固定，适合开会和业务阅读。"
+      }
+    ]
+  },
+  "facts": {
+    "store": {
+      "visitor": 257,
+      "imps": 6959,
+      "clk": 156,
+      "clkRate": "2.24%",
+      "fb": 7,
+      "reply": "99.21%",
+      "status": "店铺层能确认基础流量、点击、反馈和回复相关指标，但仍缺 traffic_source、country_source、quick_reply_rate。"
+    },
+    "product": {
+      "scopeCount": 5,
+      "scopeTruncated": true,
+      "click": 0,
+      "impression": 4,
+      "visitor": 0,
+      "order": 0,
+      "missingDescriptionCount": 5,
+      "missingKeywordCount": 8,
+      "lowScoreCount": 1,
+      "focusProducts": [
+        "custom premium envelope glasses case",
+        "PU leather sunglasses case",
+        "eyewear packaging set sample group"
+      ]
+    },
+    "order": {
+      "totalOrderCount": 124,
+      "observedTradeCount": 3,
+      "observedOrderDelta": -1,
+      "keyProducts": [
+        "lens spray",
+        "cleaner",
+        "cloth"
+      ],
+      "status": "订单层可形成 formal_summary、product_contribution、trend_signal，但 country_structure 仍 unavailable。"
+    },
+    "ads": {
+      "status": "当前没有真实广告导出样本，广告分析层已完成模板、schema、导入校验与标准化输入口。",
+      "templates": [
+        "WIKA/docs/templates/WIKA_广告数据导入模板.csv",
+        "WIKA/docs/templates/WIKA_广告数据导入模板.json"
+      ]
+    },
+    "pageAudit": {
+      "status": "当前没有页面行为级官方数据，页面优化建议依赖人工盘点模板补齐。",
+      "templates": [
+        "WIKA/docs/templates/WIKA_页面人工盘点模板.csv",
+        "WIKA/docs/templates/WIKA_页面人工盘点模板.json"
+      ]
+    },
+    "routeBoundary": {
+      "businessCockpit": "full_success",
+      "actionCenter": "degraded",
+      "operatorConsole": "high-latency aggregation; latest baseline treated as full_success with explicit caution",
+      "taskWorkbench": "stable with possible degraded task5_summary under time budget pressure",
+      "previewCenter": "full_success"
+    },
+    "unavailable": {
+      "store": [
+        "traffic_source",
+        "country_source",
+        "quick_reply_rate"
+      ],
+      "product": [
+        "access_source",
+        "inquiry_source",
+        "country_source",
+        "period_over_period_change"
+      ],
+      "order": [
+        "country_structure"
+      ]
+    }
+  },
+  "scores": {
+    "WIKA_管理层简报.md": {
+      "name": "管理层简报",
+      "total_score": 39,
+      "max_score": 40,
+      "delivery_threshold": 34,
+      "passed": true,
+      "vetoes": [],
+      "dimensions": {
+        "结论清晰度": 5,
+        "数据有效性": 4,
+        "判断可信度": 5,
+        "建议可执行性": 5,
+        "优先级明确性": 5,
+        "对业务方可读性": 5,
+        "盲区表达完整性": 5,
+        "排版清晰度": 5
+      }
+    },
+    "WIKA_运营周报.md": {
+      "name": "运营周报",
+      "total_score": 39,
+      "max_score": 40,
+      "delivery_threshold": 34,
+      "passed": true,
+      "vetoes": [],
+      "dimensions": {
+        "结论清晰度": 5,
+        "数据有效性": 4,
+        "判断可信度": 5,
+        "建议可执行性": 5,
+        "优先级明确性": 5,
+        "对业务方可读性": 5,
+        "盲区表达完整性": 5,
+        "排版清晰度": 5
+      }
+    },
+    "WIKA_经营诊断报告.md": {
+      "name": "经营诊断报告",
+      "total_score": 39,
+      "max_score": 40,
+      "delivery_threshold": 34,
+      "passed": true,
+      "vetoes": [],
+      "dimensions": {
+        "结论清晰度": 5,
+        "数据有效性": 4,
+        "判断可信度": 5,
+        "建议可执行性": 5,
+        "优先级明确性": 5,
+        "对业务方可读性": 5,
+        "盲区表达完整性": 5,
+        "排版清晰度": 5
+      }
+    },
+    "WIKA_产品优化建议报告.md": {
+      "name": "产品优化建议报告",
+      "total_score": 38,
+      "max_score": 40,
+      "delivery_threshold": 34,
+      "passed": true,
+      "vetoes": [],
+      "dimensions": {
+        "结论清晰度": 5,
+        "数据有效性": 4,
+        "判断可信度": 4,
+        "建议可执行性": 5,
+        "优先级明确性": 5,
+        "对业务方可读性": 5,
+        "盲区表达完整性": 5,
+        "排版清晰度": 5
+      }
+    },
+    "WIKA_广告分析报告.md": {
+      "name": "广告分析报告",
+      "total_score": 37,
+      "max_score": 40,
+      "delivery_threshold": 34,
+      "passed": true,
+      "vetoes": [],
+      "dimensions": {
+        "结论清晰度": 5,
+        "数据有效性": 3,
+        "判断可信度": 4,
+        "建议可执行性": 5,
+        "优先级明确性": 5,
+        "对业务方可读性": 5,
+        "盲区表达完整性": 5,
+        "排版清晰度": 5
+      }
+    }
+  },
+  "boundaries": [
+    "not task 1 complete",
+    "not task 2 complete",
+    "not task 3 complete",
+    "not task 4 complete",
+    "not task 5 complete",
+    "task 6 excluded",
+    "no write action attempted",
+    "WIKA-only thread for business work",
+    "XD untouched in business execution",
+    "not full business cockpit"
+  ]
+}
