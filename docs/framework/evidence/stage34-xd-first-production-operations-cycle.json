@@ -1,0 +1,51 @@
+{
+  "generated_at": "2026-04-19T14:25:00.000Z",
+  "stage": "stage34-xd-first-production-operations-cycle",
+  "production_base_status": {
+    "classification": "PASS_BASE",
+    "health": 200,
+    "auth_debug": 200,
+    "xd_auth_debug": 200,
+    "stable_xd_route": {
+      "route": "/integrations/alibaba/xd/data/orders/list?page_size=1",
+      "status": 200
+    }
+  },
+  "workflow_run_status": {
+    "mode": "both",
+    "overall_status": "PASS",
+    "workflow_markdown_path": "D:\\Code\\阿里国际站\\Ali-WIKA\\projects\\xd\\access\\operations\\runs\\xd_operations_workflow_both_2026-04-19_2026-04-06_2026-04-12.md",
+    "workflow_json_path": "D:\\Code\\阿里国际站\\Ali-WIKA\\projects\\xd\\access\\operations\\runs\\xd_operations_workflow_both_2026-04-19_2026-04-06_2026-04-12.json",
+    "daily_window": "2026-04-19",
+    "weekly_window": {
+      "start": "2026-04-06",
+      "end": "2026-04-12"
+    }
+  },
+  "daily_report_generated": true,
+  "weekly_report_generated": true,
+  "monitoring_status": {
+    "overall_status": "PASS",
+    "checks_total": 18,
+    "classification_counts": {
+      "PASS": 13,
+      "PASS_NO_DATA": 1,
+      "SKIPPED_BY_SAFETY": 4,
+      "FAIL": 0
+    },
+    "output_markdown_path": "D:\\Code\\阿里国际站\\Ali-WIKA\\projects\\xd\\access\\monitoring\\runs\\xd_critical_routes_stage33_both_2026-04-19_2026-04-06_2026-04-12.md",
+    "output_json_path": "D:\\Code\\阿里国际站\\Ali-WIKA\\projects\\xd\\access\\monitoring\\runs\\xd_critical_routes_stage33_both_2026-04-19_2026-04-06_2026-04-12.json"
+  },
+  "operations_summary_created": true,
+  "executive_summary_created": true,
+  "route_fail_count": 0,
+  "sample_scope_limitations": [
+    "当前页样本不是全量。",
+    "total_count / total_item 只是接口总量信号，不是严格窗口业务结果。",
+    "fund/logistics 只是样本覆盖信号，不是稳定经营指标。",
+    "当前不输出 GMV、转化率、国家结构、完整经营诊断。",
+    "没有新的外部 live 证据前，不重开 restriction 对象。"
+  ],
+  "biggest_operational_limit": "当前运营输出仍然建立在当前页样本和已读范围之上，无法给出严格窗口下的全量订单、全量商品和完整经营指标。",
+  "next_operational_step": "维持每日巡检 + 日报、每周周报 + 老板摘要的固定节奏，并把 stage34 摘要交给业务侧试用收集反馈。"
+}
