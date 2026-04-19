@@ -1,0 +1,22 @@
+{
+  "generated_at": "2026-04-19T15:00:00.000Z",
+  "stage": "stage35-xd-business-feedback-loop",
+  "stage34_artifacts_present": true,
+  "business_trial_pack_created": true,
+  "executive_briefing_pack_created": true,
+  "feedback_form_created": true,
+  "improvement_backlog_created": true,
+  "recommended_daily_cadence": "每日一次：先看 critical route 巡检，再看日报，再看业务侧摘要。",
+  "recommended_weekly_cadence": "每周一次：上一完整自然周周报 + 老板摘要，建议固定在周一或周例会前输出。",
+  "business_feedback_needed": true,
+  "still_not_supported_metrics": [
+    "全量 GMV",
+    "转化率",
+    "国家结构",
+    "产品贡献",
+    "完整经营诊断",
+    "严格窗口全量订单数",
+    "严格窗口全量商品变化数"
+  ],
+  "next_step": "把 stage35 业务侧试用包和反馈表交给业务侧试用，先收真实使用反馈，再决定下一轮只做表达优化还是格式扩展。"
+}
