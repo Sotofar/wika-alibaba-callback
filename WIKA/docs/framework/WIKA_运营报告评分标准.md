@@ -23,6 +23,7 @@
 - 没有人工接手说明
 - 把 derived 当 official
 - 把 degraded route 写成 full success
+- 把 degraded / failed 的高层聚合 route 写成“完全自动完成”
 - 整篇像 JSON dump
 - 建议无法执行或没有执行人
 

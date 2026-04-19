@@ -1,6 +1,6 @@
 # WIKA 运营示范报告
 
-生成时间：2026-04-18T23:14:19.252Z
+生成时间：2026-04-19T12:52:29.623Z
 模板：WIKA_经营诊断报告模板.md
 
 ## A. 执行摘要
@@ -10,7 +10,7 @@
 - 产品层当前最明确的短板是内容完整度和关键词准备：missing_description_count=5，missing_keywords_count=8，low_score_count=1。
 - 订单层已经能给出 formal_summary、product_contribution、trend_signal，但 country_structure 仍 unavailable，因此只能做保守订单判断。
 - task3 / task4 / task5 当前已经形成工作台、预览和外部草稿消费层，但最后一跳仍需人工接手，不是平台内闭环。
-- 本次报告检测到 2 条 degraded route，因此高层聚合结果只作为辅助排序，核心事实回退到底层稳定 route。
+- 本次报告检测到 1 条 degraded route，因此高层聚合结果只作为辅助排序，核心事实回退到底层稳定 route。
 
 ## B. 核心发现
 
@@ -119,8 +119,8 @@
 ## F. 产品诊断
 
 - 产品 summary 当前仍带 sample 边界：product_scope_limit=5，product_scope_truncated=true。
-- 产品聚合指标当前可读：click=0、impression=0、visitor=0、order=0。
-- 当前可优先关注的样本商品例如：暂无稳定样本商品。
+- 产品聚合指标当前可读：click=0、impression=4、visitor=0、order=0。
+- 当前可优先关注的样本商品例如：Customizable New Fashion Portable Eyeglas…（metric_value=3）、Customizable PU Leather Portable Sunglass…（metric_value=1）。
 - 产品层当前最主要问题仍是详情、关键词、score 与结构维护，而不是单纯没有商品。
 - 产品层最主要的 unavailable 维度仍是 access_source、inquiry_source、country_source、period_over_period_change。
 
@@ -167,8 +167,8 @@
 
 ## M. 工作量替代评估
 
-- 能完全自动完成：summary、diagnostic、comparison、business-cockpit、action-center、operator-console 这一层的读取、汇总和排序。
-- 能自动完成大部分但仍需人工确认：product-draft-preview、reply-preview、order-preview，以及 reply / order 外部草稿包。
+- WIKA 当前已经能完全自动完成：底层 summary、diagnostic、comparison，以及 business-cockpit 这一层的读取、汇总和排序。
+- 能自动完成大部分但仍需人工确认：product-draft-preview、reply-preview、order-preview，以及 reply / order 外部草稿包；action-center、task-workbench、operator-console 只在 live 稳定时用于排序辅助，若出现 degraded / timeout，必须回退到底层稳定 route。
 - 只能做到准备层 / 交接层：task3 商品准备、task4 回复上下文整理、task5 订单条款整理。
 - 当前完全不能替代：平台内发布、平台内回复、平台内创单，以及 unavailable 维度对应的判断。
 
@@ -182,8 +182,8 @@
 
 ## O. 路由健康与证据约束
 
-- 本次 live 读取中，full_success route 共 19 条，degraded route 共 2 条，failed route 共 1 条。
-- 降级参与的 route：/integrations/alibaba/wika/reports/action-center（time_budget_exceeded, store_diagnostic）、/integrations/alibaba/wika/workbench/task-workbench（time_budget_exceeded, task5_summary）。
+- 本次 live 读取中，full_success route 共 20 条，degraded route 共 1 条，failed route 共 1 条。
+- 降级参与的 route：/integrations/alibaba/wika/reports/action-center（time_budget_exceeded, store_diagnostic）。
 - 失败 route：/integrations/alibaba/wika/reports/operator-console（timeout）。
 - 核心事实优先回退到 management-summary、minimal-diagnostic、comparison、各 task workbench 等底层稳定 route。
 
@@ -192,7 +192,7 @@
 - official confirmed：店铺级 official fields：visitor、imps、clk、clk_rate、fb、reply；产品级 official fields：click、impression、visitor、fb、order、bookmark、compare、share、keyword_effects；订单级官方原始只读基础来自 orders/list、orders/detail、orders/fund、orders/logistics
 - derived：store / product / order comparison；formal_summary / product_contribution / trend_signal；business-cockpit / action-center / operator-console；task3 / task4 / task5 workbench / preview / draft package；广告与页面输入层上的诊断建议
 - unavailable：traffic_source；country_source；quick_reply_rate；access_source；inquiry_source；period_over_period_change；country_structure
-- degraded route 参与情况：本次检测到 degraded route：/integrations/alibaba/wika/reports/action-center、/integrations/alibaba/wika/workbench/task-workbench；这些 route 只用于辅助排序或 readiness 提示，核心事实回退到底层稳定 route。
+- degraded route 参与情况：本次检测到 degraded route：/integrations/alibaba/wika/reports/action-center；这些 route 只用于辅助排序或 readiness 提示，核心事实回退到底层稳定 route。
 - 当前不是完整经营驾驶舱。
 - task3 / task4 / task5 当前仍不是平台内闭环。
 - task6 excluded。
@@ -216,25 +216,25 @@
 
 ## R. 数据源清单
 
-- GET /health -> 200（full_success；869ms；ok）
-- GET /integrations/alibaba/auth/debug -> 200（full_success；817ms；ok）
-- GET /integrations/alibaba/wika/reports/operations/management-summary -> 200（full_success；3010ms；ok）
-- GET /integrations/alibaba/wika/reports/products/management-summary -> 200（full_success；5378ms；ok）
-- GET /integrations/alibaba/wika/reports/orders/management-summary -> 200（full_success；5283ms；ok）
-- GET /integrations/alibaba/wika/reports/operations/minimal-diagnostic -> 200（full_success；12149ms；ok）
-- GET /integrations/alibaba/wika/reports/products/minimal-diagnostic -> 200（full_success；6876ms；ok）
-- GET /integrations/alibaba/wika/reports/orders/minimal-diagnostic -> 200（full_success；9312ms；ok）
-- GET /integrations/alibaba/wika/reports/operations/comparison-summary -> 200（full_success；4394ms；ok）
-- GET /integrations/alibaba/wika/reports/products/comparison-summary -> 200（full_success；7271ms；ok）
-- GET /integrations/alibaba/wika/reports/orders/comparison-summary -> 200（full_success；5231ms；ok）
-- GET /integrations/alibaba/wika/reports/business-cockpit -> 200（full_success；12052ms；ok）
-- GET /integrations/alibaba/wika/reports/action-center -> 200（degraded；9941ms；ok）
-- GET /integrations/alibaba/wika/reports/operator-console -> failed（failed；18015ms；timeout）
-- GET /integrations/alibaba/wika/workbench/product-draft-workbench -> 200（full_success；4379ms；ok）
-- GET /integrations/alibaba/wika/workbench/reply-workbench -> 200（full_success；6311ms；ok）
-- GET /integrations/alibaba/wika/workbench/order-workbench -> 200（full_success；9991ms；ok）
-- GET /integrations/alibaba/wika/workbench/task-workbench -> 200（degraded；9803ms；ok）
-- GET /integrations/alibaba/wika/workbench/preview-center -> 200（full_success；784ms；ok）
-- POST /integrations/alibaba/wika/workbench/product-draft-preview -> 200（full_success；4172ms；ok）
-- POST /integrations/alibaba/wika/workbench/reply-preview -> 200（full_success；10414ms；ok）
-- POST /integrations/alibaba/wika/workbench/order-preview -> 200（full_success；11180ms；ok）
+- GET /health -> 200（full_success；664ms；ok）
+- GET /integrations/alibaba/auth/debug -> 200（full_success；617ms；ok）
+- GET /integrations/alibaba/wika/reports/operations/management-summary -> 200（full_success；2397ms；ok）
+- GET /integrations/alibaba/wika/reports/products/management-summary -> 200（full_success；5000ms；ok）
+- GET /integrations/alibaba/wika/reports/orders/management-summary -> 200（full_success；4724ms；ok）
+- GET /integrations/alibaba/wika/reports/operations/minimal-diagnostic -> 200（full_success；12003ms；ok）
+- GET /integrations/alibaba/wika/reports/products/minimal-diagnostic -> 200（full_success；6562ms；ok）
+- GET /integrations/alibaba/wika/reports/orders/minimal-diagnostic -> 200（full_success；9059ms；ok）
+- GET /integrations/alibaba/wika/reports/operations/comparison-summary -> 200（full_success；4544ms；ok）
+- GET /integrations/alibaba/wika/reports/products/comparison-summary -> 200（full_success；6910ms；ok）
+- GET /integrations/alibaba/wika/reports/orders/comparison-summary -> 200（full_success；5202ms；ok）
+- GET /integrations/alibaba/wika/reports/business-cockpit -> 200（full_success；12061ms；ok）
+- GET /integrations/alibaba/wika/reports/action-center -> 200（degraded；9892ms；ok）
+- GET /integrations/alibaba/wika/reports/operator-console -> failed（failed；18014ms；timeout）
+- GET /integrations/alibaba/wika/workbench/product-draft-workbench -> 200（full_success；4377ms；ok）
+- GET /integrations/alibaba/wika/workbench/reply-workbench -> 200（full_success；6243ms；ok）
+- GET /integrations/alibaba/wika/workbench/order-workbench -> 200（full_success；9496ms；ok）
+- GET /integrations/alibaba/wika/workbench/task-workbench -> 200（full_success；9816ms；ok）
+- GET /integrations/alibaba/wika/workbench/preview-center -> 200（full_success；869ms；ok）
+- POST /integrations/alibaba/wika/workbench/product-draft-preview -> 200（full_success；4241ms；ok）
+- POST /integrations/alibaba/wika/workbench/reply-preview -> 200（full_success；10426ms；ok）
+- POST /integrations/alibaba/wika/workbench/order-preview -> 200（full_success；9590ms；ok）

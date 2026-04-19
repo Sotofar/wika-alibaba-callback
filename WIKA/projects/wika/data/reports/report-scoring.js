@@ -44,6 +44,28 @@ function degradedNotDisclosed(report = {}) {
   return !/degraded|降级/.test(summaryText)
 }
 
+function automationOverclaim(report = {}) {
+  const degradedOrFailedRoutes = [
+    ...(report.route_health?.degraded_routes ?? []),
+    ...(report.route_health?.failed_routes ?? [])
+  ]
+
+  if (degradedOrFailedRoutes.length === 0) {
+    return false
+  }
+
+  return (report.replacement_assessment ?? []).some((line) => {
+    if (!/完全自动|瀹屽叏鑷姩/i.test(line)) {
+      return false
+    }
+
+    return degradedOrFailedRoutes.some((route) => {
+      const routeTail = route.split("/").pop() ?? route
+      return /(action-center|operator-console|task-workbench)/i.test(route) && line.includes(routeTail)
+    })
+  })
+}
+
 function manualHandoffMissing(report = {}) {
   const actionItems = flattenActions(report.prioritized_actions)
   if (actionItems.length === 0) {
@@ -93,6 +115,10 @@ export function scoreReport(report = {}) {
   }
   if (rawDumpDetected(report)) {
     vetoErrors.push("整篇像 JSON dump")
+  }
+
+  if (automationOverclaim(report)) {
+    vetoErrors.push("把 degraded / failed 的高层聚合 route 写成完全自动")
   }
 
   const routeHealth = report.route_health ?? {}

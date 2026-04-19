@@ -172,6 +172,15 @@ function buildInputStatus(localAssets = {}) {
   ]
 }
 
+function buildReplacementAssessment() {
+  return [
+    "WIKA 当前已经能完全自动完成：底层 summary、diagnostic、comparison，以及 business-cockpit 这一层的读取、汇总和排序。",
+    "能自动完成大部分但仍需人工确认：product-draft-preview、reply-preview、order-preview，以及 reply / order 外部草稿包；action-center、task-workbench、operator-console 只在 live 稳定时用于排序辅助，若出现 degraded / timeout，必须回退到底层稳定 route。",
+    "只能做到准备层 / 交接层：task3 商品准备、task4 回复上下文整理、task5 订单条款整理。",
+    "当前完全不能替代：平台内发布、平台内回复、平台内创单，以及 unavailable 维度对应的判断。"
+  ]
+}
+
 function pickActionCandidates(data = {}, routeUsage = [], localAssets = {}) {
   const candidates = []
   const routeStateByName = Object.fromEntries(routeUsage.map((item) => [item.name, item.route_state]))
@@ -562,6 +571,7 @@ export function buildReportModel(context = {}) {
     data_sources: collectSourceLines(routeUsage)
   }
 
+  report.replacement_assessment = buildReplacementAssessment()
   report.self_score = scoreReport(report)
   return report
 }

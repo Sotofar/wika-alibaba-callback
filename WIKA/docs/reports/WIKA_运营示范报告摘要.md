@@ -1,6 +1,6 @@
 # WIKA 运营示范报告摘要
 
-生成时间：2026-04-18T23:14:19.252Z
+生成时间：2026-04-19T12:52:29.623Z
 
 ## 给管理层的 5 句话
 
@@ -32,8 +32,8 @@
 
 ## 当前路由健康提示
 
-- 本次 live 读取中，full_success route 共 19 条，degraded route 共 2 条，failed route 共 1 条。
-- 降级参与的 route：/integrations/alibaba/wika/reports/action-center（time_budget_exceeded, store_diagnostic）、/integrations/alibaba/wika/workbench/task-workbench（time_budget_exceeded, task5_summary）。
+- 本次 live 读取中，full_success route 共 20 条，degraded route 共 1 条，failed route 共 1 条。
+- 降级参与的 route：/integrations/alibaba/wika/reports/action-center（time_budget_exceeded, store_diagnostic）。
 - 失败 route：/integrations/alibaba/wika/reports/operator-console（timeout）。
 - 核心事实优先回退到 management-summary、minimal-diagnostic、comparison、各 task workbench 等底层稳定 route。
 
@@ -42,7 +42,7 @@
 - official confirmed：店铺级 official fields：visitor、imps、clk、clk_rate、fb、reply；产品级 official fields：click、impression、visitor、fb、order、bookmark、compare、share、keyword_effects；订单级官方原始只读基础来自 orders/list、orders/detail、orders/fund、orders/logistics
 - derived：store / product / order comparison；formal_summary / product_contribution / trend_signal；business-cockpit / action-center / operator-console；task3 / task4 / task5 workbench / preview / draft package；广告与页面输入层上的诊断建议
 - unavailable：traffic_source；country_source；quick_reply_rate；access_source；inquiry_source；period_over_period_change；country_structure
-- degraded route 参与情况：本次检测到 degraded route：/integrations/alibaba/wika/reports/action-center、/integrations/alibaba/wika/workbench/task-workbench；这些 route 只用于辅助排序或 readiness 提示，核心事实回退到底层稳定 route。
+- degraded route 参与情况：本次检测到 degraded route：/integrations/alibaba/wika/reports/action-center；这些 route 只用于辅助排序或 readiness 提示，核心事实回退到底层稳定 route。
 - 当前不是完整经营驾驶舱。
 - task3 / task4 / task5 当前仍不是平台内闭环。
 - task6 excluded。

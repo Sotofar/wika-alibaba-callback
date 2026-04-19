@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-18T23:14:19.252Z",
+  "generated_at": "2026-04-19T12:52:29.623Z",
   "report_title": "WIKA 运营示范报告",
   "route_results": {
     "health": {
@@ -8,7 +8,7 @@
       "status": 200,
       "route_state": "full_success",
       "degraded_reason": null,
-      "elapsed_ms": 869,
+      "elapsed_ms": 664,
       "note": "ok",
       "body": null
     },
@@ -18,7 +18,7 @@
       "status": 200,
       "route_state": "full_success",
       "degraded_reason": null,
-      "elapsed_ms": 817,
+      "elapsed_ms": 617,
       "note": "ok",
       "body": {
         "app_base_url": "https://api.wikapacking.com",
@@ -55,7 +55,7 @@
       "status": 200,
       "route_state": "full_success",
       "degraded_reason": null,
-      "elapsed_ms": 3010,
+      "elapsed_ms": 2397,
       "note": "ok",
       "body": {
         "ok": true,
@@ -63,7 +63,7 @@
         "account": "wika",
         "read_only": true,
         "report_name": "operations_management_summary",
-        "generated_at": "2026-04-18T23:14:21.726Z",
+        "generated_at": "2026-04-19T12:52:31.098Z",
         "report_scope": {
           "type": "store_level_mydata_subset",
           "sample_based": false
@@ -142,7 +142,7 @@
       "status": 200,
       "route_state": "full_success",
       "degraded_reason": null,
-      "elapsed_ms": 5378,
+      "elapsed_ms": 5000,
       "note": "ok",
       "body": {
         "ok": true,
@@ -187,7 +187,7 @@
           ]
         },
         "report_name": "products_management_summary",
-        "generated_at": "2026-04-18T23:14:24.111Z",
+        "generated_at": "2026-04-19T12:52:33.684Z",
         "statistics_type": "day",
         "stat_date": "2026-04-17",
         "report_scope": {
@@ -209,10 +209,10 @@
           "1601592243227"
         ],
         "product_ids_used_count": 5,
-        "item_count": 0,
+        "item_count": 2,
         "aggregate_official_metrics": {
           "click": 0,
-          "impression": 0,
+          "impression": 4,
           "visitor": 0,
           "fb": 0,
           "order": 0,
@@ -222,14 +222,57 @@
         },
         "aggregate_derived_metrics": {
           "ctr_from_click_over_impression": {
-            "value": null,
+            "value": 0,
             "derived": true,
             "formula": "click / impression",
-            "note": "当前样本缺少 click 或 impression，或 impression <= 0，无法稳定派生 CTR。"
+            "note": "由 official fields click 与 impression 保守派生。"
           }
         },
         "ranking_sections": {
-          "top_products_by_impression": [],
+          "top_products_by_impression": [
+            {
+              "product_id": 1601740791024,
+              "product_name": "Customizable New Fashion Portable Eyeglasses Accessories Leather Big Glasses case Oversize Sunglasses Holder",
+              "metric_name": "impression",
+              "metric_value": 3,
+              "official_metrics": {
+                "impression": 3,
+                "click": 0,
+                "visitor": 0,
+                "fb": 0,
+                "order": 0
+              },
+              "derived_metrics": {
+                "ctr_from_click_over_impression": {
+                  "value": 0,
+                  "derived": true,
+                  "formula": "click / impression",
+                  "note": "Derived from official fields click and impression"
+                }
+              }
+            },
+            {
+              "product_id": 1601700588198,
+              "product_name": "Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case",
+              "metric_name": "impression",
+              "metric_value": 1,
+              "official_metrics": {
+                "impression": 1,
+                "click": 0,
+                "visitor": 0,
+                "fb": 0,
+                "order": 0
+              },
+              "derived_metrics": {
+                "ctr_from_click_over_impression": {
+                  "value": 0,
+                  "derived": true,
+                  "formula": "click / impression",
+                  "note": "Derived from official fields click and impression"
+                }
+              }
+            }
+          ],
           "top_products_by_click": [],
           "top_products_by_fb": [],
           "top_products_by_order": []
@@ -251,7 +294,7 @@
           ]
         },
         "management_recommendations": [
-          "当前样本未见 keyword_effects，有必要继续复核关键词露出与关键词有效性。",
+          "样本内已有 impression 但 click 为 0，优先检查头部样本的主图与标题吸引力。",
           "当前产品经营摘要是带上限的样本聚合，业务使用时必须同时查看 product_scope_limit 与 product_ids_used_count。"
         ],
         "summary": {
@@ -330,7 +373,7 @@
         ],
         "management_summary": {
           "report_name": "products_management_summary",
-          "generated_at": "2026-04-18T23:14:24.111Z",
+          "generated_at": "2026-04-19T12:52:33.684Z",
           "report_scope": {
             "type": "sampled_product_mydata_subset",
             "sample_based": true
@@ -352,10 +395,10 @@
             "1601592243227"
           ],
           "product_ids_used_count": 5,
-          "item_count": 0,
+          "item_count": 2,
           "aggregate_official_metrics": {
             "click": 0,
-            "impression": 0,
+            "impression": 4,
             "visitor": 0,
             "fb": 0,
             "order": 0,
@@ -365,24 +408,157 @@
           },
           "aggregate_derived_metrics": {
             "ctr_from_click_over_impression": {
-              "value": null,
+              "value": 0,
               "derived": true,
               "formula": "click / impression",
-              "note": "当前样本缺少 click 或 impression，或 impression <= 0，无法稳定派生 CTR。"
+              "note": "由 official fields click 与 impression 保守派生。"
             }
           },
           "keyword_signal_summary": "***",
           "ranking_sections": {
-            "top_products_by_impression": [],
+            "top_products_by_impression": [
+              {
+                "product_id": 1601740791024,
+                "product_name": "Customizable New Fashion Portable Eyeglasses Accessories Leather Big Glasses case Oversize Sunglasses Holder",
+                "metric_name": "impression",
+                "metric_value": 3,
+                "official_metrics": {
+                  "impression": 3,
+                  "click": 0,
+                  "visitor": 0,
+                  "fb": 0,
+                  "order": 0
+                },
+                "derived_metrics": {
+                  "ctr_from_click_over_impression": {
+                    "value": 0,
+                    "derived": true,
+                    "formula": "click / impression",
+                    "note": "Derived from official fields click and impression"
+                  }
+                }
+              },
+              {
+                "product_id": 1601700588198,
+                "product_name": "Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case",
+                "metric_name": "impression",
+                "metric_value": 1,
+                "official_metrics": {
+                  "impression": 1,
+                  "click": 0,
+                  "visitor": 0,
+                  "fb": 0,
+                  "order": 0
+                },
+                "derived_metrics": {
+                  "ctr_from_click_over_impression": {
+                    "value": 0,
+                    "derived": true,
+                    "formula": "click / impression",
+                    "note": "Derived from official fields click and impression"
+                  }
+                }
+              }
+            ],
             "top_products_by_click": [],
             "top_products_by_fb": [],
             "top_products_by_order": []
           },
-          "top_products_by_impression": [],
+          "top_products_by_impression": [
+            {
+              "product_id": 1601740791024,
+              "product_name": "Customizable New Fashion Portable Eyeglasses Accessories Leather Big Glasses case Oversize Sunglasses Holder",
+              "metric_name": "impression",
+              "metric_value": 3,
+              "official_metrics": {
+                "impression": 3,
+                "click": 0,
+                "visitor": 0,
+                "fb": 0,
+                "order": 0
+              },
+              "derived_metrics": {
+                "ctr_from_click_over_impression": {
+                  "value": 0,
+                  "derived": true,
+                  "formula": "click / impression",
+                  "note": "Derived from official fields click and impression"
+                }
+              }
+            },
+            {
+              "product_id": 1601700588198,
+              "product_name": "Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case",
+              "metric_name": "impression",
+              "metric_value": 1,
+              "official_metrics": {
+                "impression": 1,
+                "click": 0,
+                "visitor": 0,
+                "fb": 0,
+                "order": 0
+              },
+              "derived_metrics": {
+                "ctr_from_click_over_impression": {
+                  "value": 0,
+                  "derived": true,
+                  "formula": "click / impression",
+                  "note": "Derived from official fields click and impression"
+                }
+              }
+            }
+          ],
           "top_products_by_click": [],
           "top_products_by_fb": [],
           "top_products_by_order": [],
-          "items": [],
+          "items": [
+            {
+              "product_id": 1601700588198,
+              "product_name": "Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case",
+              "official_metrics": {
+                "click": 0,
+                "impression": 1,
+                "visitor": 0,
+                "fb": 0,
+                "order": 0,
+                "bookmark": 0,
+                "compare": 0,
+                "share": 0,
+                "keyword_effects": {}
+              },
+              "derived_metrics": {
+                "ctr_from_click_over_impression": {
+                  "value": 0,
+                  "derived": true,
+                  "formula": "click / impression",
+                  "note": "Derived from official fields click and impression"
+                }
+              }
+            },
+            {
+              "product_id": 1601740791024,
+              "product_name": "Customizable New Fashion Portable Eyeglasses Accessories Leather Big Glasses case Oversize Sunglasses Holder",
+              "official_metrics": {
+                "click": 0,
+                "impression": 3,
+                "visitor": 0,
+                "fb": 0,
+                "order": 0,
+                "bookmark": 0,
+                "compare": 0,
+                "share": 0,
+                "keyword_effects": {}
+              },
+              "derived_metrics": {
+                "ctr_from_click_over_impression": {
+                  "value": 0,
+                  "derived": true,
+                  "formula": "click / impression",
+                  "note": "Derived from official fields click and impression"
+                }
+              }
+            }
+          ],
           "unavailable_dimensions": [
             "access_source",
             "inquiry_source",
@@ -399,7 +575,7 @@
             ]
           },
           "recommendations": [
-            "当前样本未见 keyword_effects，有必要继续复核关键词露出与关键词有效性。",
+            "样本内已有 impression 但 click 为 0，优先检查头部样本的主图与标题吸引力。",
             "当前产品经营摘要是带上限的样本聚合，业务使用时必须同时查看 product_scope_limit 与 product_ids_used_count。"
           ]
         }
@@ -411,7 +587,7 @@
       "status": 200,
       "route_state": "full_success",
       "degraded_reason": null,
-      "elapsed_ms": 5283,
+      "elapsed_ms": 4724,
       "note": "ok",
       "body": {
         "ok": true,
@@ -419,7 +595,7 @@
         "account": "wika",
         "read_only": true,
         "report_name": "orders_management_summary",
-        "generated_at": "2026-04-18T23:14:24.008Z",
+        "generated_at": "2026-04-19T12:52:33.431Z",
         "report_scope": {
           "type": "derived_order_summary",
           "derived": true,
@@ -550,14 +726,14 @@
               ]
             },
             {
-              "product_id": "AAEHxslEAOVqtWWP0tWlPFLu",
-              "product_name": "Wholesale Custom Logo Colorful 220gsm Glasses Microfiber Lens Cleaning Cloth Suede Cloths for Eyeglasses",
+              "product_id": "AAG4xslEAOVqtWWP0tWl_8_f",
+              "product_name": "Custom Travel Packaging Set Glasses Case Paper Box Sunglasses Custom Embossed Logo Eyeglasses With Pouch and Cloth",
               "order_count": 1,
               "quantity_sum": 1000,
               "estimated_amount_by_currency": [
                 {
                   "currency": "USD",
-                  "amount": 120
+                  "amount": 630
                 }
               ]
             }
@@ -612,14 +788,14 @@
               ]
             },
             {
-              "product_id": "AAEHxslEAOVqtWWP0tWlPFLu",
-              "product_name": "Wholesale Custom Logo Colorful 220gsm Glasses Microfiber Lens Cleaning Cloth Suede Cloths for Eyeglasses",
+              "product_id": "AAG4xslEAOVqtWWP0tWl_8_f",
+              "product_name": "Custom Travel Packaging Set Glasses Case Paper Box Sunglasses Custom Embossed Logo Eyeglasses With Pouch and Cloth",
               "order_count": 1,
               "quantity_sum": 1000,
               "estimated_amount_by_currency": [
                 {
                   "currency": "USD",
-                  "amount": 120
+                  "amount": 630
                 }
               ]
             }
@@ -648,7 +824,7 @@
       "status": 200,
       "route_state": "full_success",
       "degraded_reason": null,
-      "elapsed_ms": 12149,
+      "elapsed_ms": 12003,
       "note": "ok",
       "body": {
         "ok": true,
@@ -656,7 +832,7 @@
         "module": "operations",
         "report_type": "minimal_diagnostic",
         "read_only": true,
-        "generated_at": "2026-04-18T23:14:19.565Z",
+        "generated_at": "2026-04-19T12:52:29.467Z",
         "data_scope": {
           "mode": "sampled_snapshot",
           "product_page_size": 20,
@@ -906,7 +1082,7 @@
             "evidence": {
               "statistics_type": "day",
               "stat_date": "2026-04-17",
-              "item_count": 0
+              "item_count": 2
             }
           },
           {
@@ -1340,7 +1516,7 @@
       "status": 200,
       "route_state": "full_success",
       "degraded_reason": null,
-      "elapsed_ms": 6876,
+      "elapsed_ms": 6562,
       "note": "ok",
       "body": {
         "ok": true,
@@ -1348,7 +1524,7 @@
         "module": "products",
         "report_type": "minimal_diagnostic",
         "read_only": true,
-        "generated_at": "2026-04-18T23:14:19.572Z",
+        "generated_at": "2026-04-19T12:52:29.401Z",
         "data_scope": {
           "mode": "sampled_snapshot",
           "product_page_size": 20,
@@ -1457,31 +1633,106 @@
           "source_route": "/integrations/alibaba/wika/reports/products/management-summary",
           "statistics_type": "day",
           "stat_date": "2026-04-17",
-          "item_count": 0,
+          "item_count": 2,
           "engagement_summary": {
-            "products_with_impression": 0,
+            "products_with_impression": 2,
             "products_with_click": 0,
             "products_with_visitor": 0,
             "products_with_fb": 0,
             "products_with_order": 0,
             "products_with_keyword_effects": 0
           },
-          "ranking_preview": [],
+          "ranking_preview": [
+            {
+              "product_id": 1601740791024,
+              "impression": 3,
+              "click": 0,
+              "visitor": 0,
+              "fb": 0,
+              "order": 0,
+              "ctr_from_click_over_impression": {
+                "value": 0,
+                "derived": true,
+                "formula": "click / impression",
+                "note": "Derived from official fields click and impression"
+              }
+            },
+            {
+              "product_id": 1601700588198,
+              "impression": 1,
+              "click": 0,
+              "visitor": 0,
+              "fb": 0,
+              "order": 0,
+              "ctr_from_click_over_impression": {
+                "value": 0,
+                "derived": true,
+                "formula": "click / impression",
+                "note": "Derived from official fields click and impression"
+              }
+            }
+          ],
           "keyword_signal_hints": "***",
-          "basic_recommendations": [],
+          "basic_recommendations": [
+            "Review top products with impression but no click."
+          ],
           "obvious_gap_warnings": [
+            "Impression is present while click stays at 0.",
             "No keyword_effects payload is visible in the current sample."
           ],
           "ranking_interpretation": {
             "summary": "当前 ranking 只基于受控样本 product_ids 聚合，不默认代表全店全量商品排名。",
-            "top_products_by_impression": [],
+            "top_products_by_impression": [
+              {
+                "product_id": 1601740791024,
+                "product_name": "Customizable New Fashion Portable Eyeglasses Accessories Leather Big Glasses case Oversize Sunglasses Holder",
+                "metric_name": "impression",
+                "metric_value": 3,
+                "official_metrics": {
+                  "impression": 3,
+                  "click": 0,
+                  "visitor": 0,
+                  "fb": 0,
+                  "order": 0
+                },
+                "derived_metrics": {
+                  "ctr_from_click_over_impression": {
+                    "value": 0,
+                    "derived": true,
+                    "formula": "click / impression",
+                    "note": "Derived from official fields click and impression"
+                  }
+                }
+              },
+              {
+                "product_id": 1601700588198,
+                "product_name": "Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case",
+                "metric_name": "impression",
+                "metric_value": 1,
+                "official_metrics": {
+                  "impression": 1,
+                  "click": 0,
+                  "visitor": 0,
+                  "fb": 0,
+                  "order": 0
+                },
+                "derived_metrics": {
+                  "ctr_from_click_over_impression": {
+                    "value": 0,
+                    "derived": true,
+                    "formula": "click / impression",
+                    "note": "Derived from official fields click and impression"
+                  }
+                }
+              }
+            ],
             "top_products_by_click": [],
             "top_products_by_fb": [],
             "top_products_by_order": []
           },
           "keyword_signal_takeaways": "***",
           "recommendation_block": [
-            "当前样本未见 keyword_effects，有必要继续复核关键词露出与关键词有效性。",
+            "样本内已有 impression 但 click 为 0，优先检查头部样本的主图与标题吸引力。",
             "当前产品经营摘要是带上限的样本聚合，业务使用时必须同时查看 product_scope_limit 与 product_ids_used_count。"
           ],
           "unavailable_dimensions": [
@@ -1654,7 +1905,7 @@
             "evidence": {
               "statistics_type": "day",
               "stat_date": "2026-04-17",
-              "item_count": 0
+              "item_count": 2
             }
           },
           {
@@ -1716,6 +1967,15 @@
               "reason": "Ungrouped products are still present and should be assigned to clearer catalog groups.",
               "evidence": {
                 "ungrouped_count": 1
+              }
+            },
+            {
+              "strength": "strong",
+              "theme": "performance_followup",
+              "reason": "Review top products with impression but no click.",
+              "evidence": {
+                "statistics_type": "day",
+                "stat_date": "2026-04-17"
               }
             }
           ],
@@ -1820,7 +2080,7 @@
       "status": 200,
       "route_state": "full_success",
       "degraded_reason": null,
-      "elapsed_ms": 9312,
+      "elapsed_ms": 9059,
       "note": "ok",
       "body": {
         "ok": true,
@@ -1828,7 +2088,7 @@
         "module": "orders",
         "report_type": "minimal_diagnostic",
         "read_only": true,
-        "generated_at": "2026-04-18T23:14:19.564Z",
+        "generated_at": "2026-04-19T12:52:29.512Z",
         "data_scope": {
           "mode": "sampled_snapshot",
           "order_page_size": 8,
@@ -1939,18 +2199,6 @@
                 ]
               },
               {
-                "product_id": "AAEYxslEAOVqtWWP0tWl5Ttt",
-                "product_name": "Colorful Glasses Packaging Bags 18*9cm Soft Sunglasses case Microfiber Pouch Eyeglass Bag with logo Custom",
-                "order_count": 1,
-                "quantity_sum": 1000,
-                "estimated_amount_by_currency": [
-                  {
-                    "currency": "USD",
-                    "amount": 170
-                  }
-                ]
-              },
-              {
                 "product_id": "AAHZxslEAOVqtWWP0tWl7jWr",
                 "product_name": "Embossed Logo 15*15cm Custom Eyeglass Cleaning Cloth Microfiber Cleaning Cloth Lens Cleaner Wipes for Camera Lens",
                 "order_count": 1,
@@ -1963,14 +2211,26 @@
                 ]
               },
               {
-                "product_id": "AAEHxslEAOVqtWWP0tWlPFLu",
-                "product_name": "Wholesale Custom Logo Colorful 220gsm Glasses Microfiber Lens Cleaning Cloth Suede Cloths for Eyeglasses",
+                "product_id": "AAEYxslEAOVqtWWP0tWl5Ttt",
+                "product_name": "Colorful Glasses Packaging Bags 18*9cm Soft Sunglasses case Microfiber Pouch Eyeglass Bag with logo Custom",
                 "order_count": 1,
                 "quantity_sum": 1000,
                 "estimated_amount_by_currency": [
                   {
                     "currency": "USD",
-                    "amount": 120
+                    "amount": 170
+                  }
+                ]
+              },
+              {
+                "product_id": "AAG4xslEAOVqtWWP0tWl_8_f",
+                "product_name": "Custom Travel Packaging Set Glasses Case Paper Box Sunglasses Custom Embossed Logo Eyeglasses With Pouch and Cloth",
+                "order_count": 1,
+                "quantity_sum": 1000,
+                "estimated_amount_by_currency": [
+                  {
+                    "currency": "USD",
+                    "amount": 630
                   }
                 ]
               }
@@ -2001,18 +2261,6 @@
                 ]
               },
               {
-                "product_id": "AAEYxslEAOVqtWWP0tWl5Ttt",
-                "product_name": "Colorful Glasses Packaging Bags 18*9cm Soft Sunglasses case Microfiber Pouch Eyeglass Bag with logo Custom",
-                "order_count": 1,
-                "quantity_sum": 1000,
-                "estimated_amount_by_currency": [
-                  {
-                    "currency": "USD",
-                    "amount": 170
-                  }
-                ]
-              },
-              {
                 "product_id": "AAHZxslEAOVqtWWP0tWl7jWr",
                 "product_name": "Embossed Logo 15*15cm Custom Eyeglass Cleaning Cloth Microfiber Cleaning Cloth Lens Cleaner Wipes for Camera Lens",
                 "order_count": 1,
@@ -2025,14 +2273,26 @@
                 ]
               },
               {
-                "product_id": "AAEHxslEAOVqtWWP0tWlPFLu",
-                "product_name": "Wholesale Custom Logo Colorful 220gsm Glasses Microfiber Lens Cleaning Cloth Suede Cloths for Eyeglasses",
+                "product_id": "AAEYxslEAOVqtWWP0tWl5Ttt",
+                "product_name": "Colorful Glasses Packaging Bags 18*9cm Soft Sunglasses case Microfiber Pouch Eyeglass Bag with logo Custom",
                 "order_count": 1,
                 "quantity_sum": 1000,
                 "estimated_amount_by_currency": [
                   {
                     "currency": "USD",
-                    "amount": 120
+                    "amount": 170
+                  }
+                ]
+              },
+              {
+                "product_id": "AAG4xslEAOVqtWWP0tWl_8_f",
+                "product_name": "Custom Travel Packaging Set Glasses Case Paper Box Sunglasses Custom Embossed Logo Eyeglasses With Pouch and Cloth",
+                "order_count": 1,
+                "quantity_sum": 1000,
+                "estimated_amount_by_currency": [
+                  {
+                    "currency": "USD",
+                    "amount": 630
                   }
                 ]
               }
@@ -2066,18 +2326,6 @@
                 ]
               },
               {
-                "product_id": "AAEYxslEAOVqtWWP0tWl5Ttt",
-                "product_name": "Colorful Glasses Packaging Bags 18*9cm Soft Sunglasses case Microfiber Pouch Eyeglass Bag with logo Custom",
-                "order_count": 1,
-                "quantity_sum": 1000,
-                "estimated_amount_by_currency": [
-                  {
-                    "currency": "USD",
-                    "amount": 170
-                  }
-                ]
-              },
-              {
                 "product_id": "AAHZxslEAOVqtWWP0tWl7jWr",
                 "product_name": "Embossed Logo 15*15cm Custom Eyeglass Cleaning Cloth Microfiber Cleaning Cloth Lens Cleaner Wipes for Camera Lens",
                 "order_count": 1,
@@ -2090,14 +2338,26 @@
                 ]
               },
               {
-                "product_id": "AAEHxslEAOVqtWWP0tWlPFLu",
-                "product_name": "Wholesale Custom Logo Colorful 220gsm Glasses Microfiber Lens Cleaning Cloth Suede Cloths for Eyeglasses",
+                "product_id": "AAEYxslEAOVqtWWP0tWl5Ttt",
+                "product_name": "Colorful Glasses Packaging Bags 18*9cm Soft Sunglasses case Microfiber Pouch Eyeglass Bag with logo Custom",
                 "order_count": 1,
                 "quantity_sum": 1000,
                 "estimated_amount_by_currency": [
                   {
                     "currency": "USD",
-                    "amount": 120
+                    "amount": 170
+                  }
+                ]
+              },
+              {
+                "product_id": "AAG4xslEAOVqtWWP0tWl_8_f",
+                "product_name": "Custom Travel Packaging Set Glasses Case Paper Box Sunglasses Custom Embossed Logo Eyeglasses With Pouch and Cloth",
+                "order_count": 1,
+                "quantity_sum": 1000,
+                "estimated_amount_by_currency": [
+                  {
+                    "currency": "USD",
+                    "amount": 630
                   }
                 ]
               }
@@ -2128,18 +2388,6 @@
                 ]
               },
               {
-                "product_id": "AAEYxslEAOVqtWWP0tWl5Ttt",
-                "product_name": "Colorful Glasses Packaging Bags 18*9cm Soft Sunglasses case Microfiber Pouch Eyeglass Bag with logo Custom",
-                "order_count": 1,
-                "quantity_sum": 1000,
-                "estimated_amount_by_currency": [
-                  {
-                    "currency": "USD",
-                    "amount": 170
-                  }
-                ]
-              },
-              {
                 "product_id": "AAHZxslEAOVqtWWP0tWl7jWr",
                 "product_name": "Embossed Logo 15*15cm Custom Eyeglass Cleaning Cloth Microfiber Cleaning Cloth Lens Cleaner Wipes for Camera Lens",
                 "order_count": 1,
@@ -2152,14 +2400,26 @@
                 ]
               },
               {
-                "product_id": "AAEHxslEAOVqtWWP0tWlPFLu",
-                "product_name": "Wholesale Custom Logo Colorful 220gsm Glasses Microfiber Lens Cleaning Cloth Suede Cloths for Eyeglasses",
+                "product_id": "AAEYxslEAOVqtWWP0tWl5Ttt",
+                "product_name": "Colorful Glasses Packaging Bags 18*9cm Soft Sunglasses case Microfiber Pouch Eyeglass Bag with logo Custom",
                 "order_count": 1,
                 "quantity_sum": 1000,
                 "estimated_amount_by_currency": [
                   {
                     "currency": "USD",
-                    "amount": 120
+                    "amount": 170
+                  }
+                ]
+              },
+              {
+                "product_id": "AAG4xslEAOVqtWWP0tWl_8_f",
+                "product_name": "Custom Travel Packaging Set Glasses Case Paper Box Sunglasses Custom Embossed Logo Eyeglasses With Pouch and Cloth",
+                "order_count": 1,
+                "quantity_sum": 1000,
+                "estimated_amount_by_currency": [
+                  {
+                    "currency": "USD",
+                    "amount": 630
                   }
                 ]
               }
@@ -2207,7 +2467,7 @@
         },
         "management_summary": {
           "report_name": "orders_management_summary",
-          "generated_at": "2026-04-18T23:14:27.883Z",
+          "generated_at": "2026-04-19T12:52:37.591Z",
           "report_scope": {
             "type": "derived_order_summary",
             "derived": true,
@@ -2314,18 +2574,6 @@
                 ]
               },
               {
-                "product_id": "AAEYxslEAOVqtWWP0tWl5Ttt",
-                "product_name": "Colorful Glasses Packaging Bags 18*9cm Soft Sunglasses case Microfiber Pouch Eyeglass Bag with logo Custom",
-                "order_count": 1,
-                "quantity_sum": 1000,
-                "estimated_amount_by_currency": [
-                  {
-                    "currency": "USD",
-                    "amount": 170
-                  }
-                ]
-              },
-              {
                 "product_id": "AAHZxslEAOVqtWWP0tWl7jWr",
                 "product_name": "Embossed Logo 15*15cm Custom Eyeglass Cleaning Cloth Microfiber Cleaning Cloth Lens Cleaner Wipes for Camera Lens",
                 "order_count": 1,
@@ -2338,14 +2586,26 @@
                 ]
               },
               {
-                "product_id": "AAEHxslEAOVqtWWP0tWlPFLu",
-                "product_name": "Wholesale Custom Logo Colorful 220gsm Glasses Microfiber Lens Cleaning Cloth Suede Cloths for Eyeglasses",
+                "product_id": "AAEYxslEAOVqtWWP0tWl5Ttt",
+                "product_name": "Colorful Glasses Packaging Bags 18*9cm Soft Sunglasses case Microfiber Pouch Eyeglass Bag with logo Custom",
                 "order_count": 1,
                 "quantity_sum": 1000,
                 "estimated_amount_by_currency": [
                   {
                     "currency": "USD",
-                    "amount": 120
+                    "amount": 170
+                  }
+                ]
+              },
+              {
+                "product_id": "AAG4xslEAOVqtWWP0tWl_8_f",
+                "product_name": "Custom Travel Packaging Set Glasses Case Paper Box Sunglasses Custom Embossed Logo Eyeglasses With Pouch and Cloth",
+                "order_count": 1,
+                "quantity_sum": 1000,
+                "estimated_amount_by_currency": [
+                  {
+                    "currency": "USD",
+                    "amount": 630
                   }
                 ]
               }
@@ -2376,18 +2636,6 @@
                 ]
               },
               {
-                "product_id": "AAEYxslEAOVqtWWP0tWl5Ttt",
-                "product_name": "Colorful Glasses Packaging Bags 18*9cm Soft Sunglasses case Microfiber Pouch Eyeglass Bag with logo Custom",
-                "order_count": 1,
-                "quantity_sum": 1000,
-                "estimated_amount_by_currency": [
-                  {
-                    "currency": "USD",
-                    "amount": 170
-                  }
-                ]
-              },
-              {
                 "product_id": "AAHZxslEAOVqtWWP0tWl7jWr",
                 "product_name": "Embossed Logo 15*15cm Custom Eyeglass Cleaning Cloth Microfiber Cleaning Cloth Lens Cleaner Wipes for Camera Lens",
                 "order_count": 1,
@@ -2400,14 +2648,26 @@
                 ]
               },
               {
-                "product_id": "AAEHxslEAOVqtWWP0tWlPFLu",
-                "product_name": "Wholesale Custom Logo Colorful 220gsm Glasses Microfiber Lens Cleaning Cloth Suede Cloths for Eyeglasses",
+                "product_id": "AAEYxslEAOVqtWWP0tWl5Ttt",
+                "product_name": "Colorful Glasses Packaging Bags 18*9cm Soft Sunglasses case Microfiber Pouch Eyeglass Bag with logo Custom",
                 "order_count": 1,
                 "quantity_sum": 1000,
                 "estimated_amount_by_currency": [
                   {
                     "currency": "USD",
-                    "amount": 120
+                    "amount": 170
+                  }
+                ]
+              },
+              {
+                "product_id": "AAG4xslEAOVqtWWP0tWl_8_f",
+                "product_name": "Custom Travel Packaging Set Glasses Case Paper Box Sunglasses Custom Embossed Logo Eyeglasses With Pouch and Cloth",
+                "order_count": 1,
+                "quantity_sum": 1000,
+                "estimated_amount_by_currency": [
+                  {
+                    "currency": "USD",
+                    "amount": 630
                   }
                 ]
               }
@@ -2565,18 +2825,6 @@
                     ]
                   },
                   {
-                    "product_id": "AAEYxslEAOVqtWWP0tWl5Ttt",
-                    "product_name": "Colorful Glasses Packaging Bags 18*9cm Soft Sunglasses case Microfiber Pouch Eyeglass Bag with logo Custom",
-                    "order_count": 1,
-                    "quantity_sum": 1000,
-                    "estimated_amount_by_currency": [
-                      {
-                        "currency": "USD",
-                        "amount": 170
-                      }
-                    ]
-                  },
-                  {
                     "product_id": "AAHZxslEAOVqtWWP0tWl7jWr",
                     "product_name": "Embossed Logo 15*15cm Custom Eyeglass Cleaning Cloth Microfiber Cleaning Cloth Lens Cleaner Wipes for Camera Lens",
                     "order_count": 1,
@@ -2589,14 +2837,26 @@
                     ]
                   },
                   {
-                    "product_id": "AAEHxslEAOVqtWWP0tWlPFLu",
-                    "product_name": "Wholesale Custom Logo Colorful 220gsm Glasses Microfiber Lens Cleaning Cloth Suede Cloths for Eyeglasses",
+                    "product_id": "AAEYxslEAOVqtWWP0tWl5Ttt",
+                    "product_name": "Colorful Glasses Packaging Bags 18*9cm Soft Sunglasses case Microfiber Pouch Eyeglass Bag with logo Custom",
                     "order_count": 1,
                     "quantity_sum": 1000,
                     "estimated_amount_by_currency": [
                       {
                         "currency": "USD",
-                        "amount": 120
+                        "amount": 170
+                      }
+                    ]
+                  },
+                  {
+                    "product_id": "AAG4xslEAOVqtWWP0tWl_8_f",
+                    "product_name": "Custom Travel Packaging Set Glasses Case Paper Box Sunglasses Custom Embossed Logo Eyeglasses With Pouch and Cloth",
+                    "order_count": 1,
+                    "quantity_sum": 1000,
+                    "estimated_amount_by_currency": [
+                      {
+                        "currency": "USD",
+                        "amount": 630
                       }
                     ]
                   }
@@ -2627,18 +2887,6 @@
                     ]
                   },
                   {
-                    "product_id": "AAEYxslEAOVqtWWP0tWl5Ttt",
-                    "product_name": "Colorful Glasses Packaging Bags 18*9cm Soft Sunglasses case Microfiber Pouch Eyeglass Bag with logo Custom",
-                    "order_count": 1,
-                    "quantity_sum": 1000,
-                    "estimated_amount_by_currency": [
-                      {
-                        "currency": "USD",
-                        "amount": 170
-                      }
-                    ]
-                  },
-                  {
                     "product_id": "AAHZxslEAOVqtWWP0tWl7jWr",
                     "product_name": "Embossed Logo 15*15cm Custom Eyeglass Cleaning Cloth Microfiber Cleaning Cloth Lens Cleaner Wipes for Camera Lens",
                     "order_count": 1,
@@ -2651,14 +2899,26 @@
                     ]
                   },
                   {
-                    "product_id": "AAEHxslEAOVqtWWP0tWlPFLu",
-                    "product_name": "Wholesale Custom Logo Colorful 220gsm Glasses Microfiber Lens Cleaning Cloth Suede Cloths for Eyeglasses",
+                    "product_id": "AAEYxslEAOVqtWWP0tWl5Ttt",
+                    "product_name": "Colorful Glasses Packaging Bags 18*9cm Soft Sunglasses case Microfiber Pouch Eyeglass Bag with logo Custom",
                     "order_count": 1,
                     "quantity_sum": 1000,
                     "estimated_amount_by_currency": [
                       {
                         "currency": "USD",
-                        "amount": 120
+                        "amount": 170
+                      }
+                    ]
+                  },
+                  {
+                    "product_id": "AAG4xslEAOVqtWWP0tWl_8_f",
+                    "product_name": "Custom Travel Packaging Set Glasses Case Paper Box Sunglasses Custom Embossed Logo Eyeglasses With Pouch and Cloth",
+                    "order_count": 1,
+                    "quantity_sum": 1000,
+                    "estimated_amount_by_currency": [
+                      {
+                        "currency": "USD",
+                        "amount": 630
                       }
                     ]
                   }
@@ -2792,7 +3052,7 @@
       "status": 200,
       "route_state": "full_success",
       "degraded_reason": null,
-      "elapsed_ms": 4394,
+      "elapsed_ms": 4544,
       "note": "ok",
       "body": {
         "ok": true,
@@ -2800,7 +3060,7 @@
         "account": "wika",
         "read_only": true,
         "report_name": "operations_comparison_summary",
-        "generated_at": "2026-04-18T23:14:19.531Z",
+        "generated_at": "2026-04-19T12:52:29.485Z",
         "comparison_basis": {
           "type": "store_level_period_comparison",
           "derived": true,
@@ -2940,7 +3200,7 @@
       "status": 200,
       "route_state": "full_success",
       "degraded_reason": null,
-      "elapsed_ms": 7271,
+      "elapsed_ms": 6910,
       "note": "ok",
       "body": {
         "ok": true,
@@ -2948,7 +3208,7 @@
         "account": "wika",
         "read_only": true,
         "report_name": "products_comparison_summary",
-        "generated_at": "2026-04-18T23:14:19.684Z",
+        "generated_at": "2026-04-19T12:52:29.540Z",
         "comparison_basis": {
           "type": "sampled_product_period_comparison",
           "derived": true,
@@ -2987,7 +3247,7 @@
           ],
           "current_aggregate_metrics": {
             "click": 0,
-            "impression": 0,
+            "impression": 4,
             "visitor": 0,
             "fb": 0,
             "order": 0,
@@ -3021,10 +3281,10 @@
             },
             "impression": {
               "derived": true,
-              "current_value": 0,
+              "current_value": 4,
               "previous_value": 6,
-              "delta_value": -6,
-              "delta_rate": -1,
+              "delta_value": -2,
+              "delta_rate": -0.3333,
               "trend_direction": "down"
             },
             "visitor": {
@@ -3078,19 +3338,269 @@
           },
           "keyword_signal_delta": "***",
           "ranking_delta": {
-            "impression": [],
-            "click": [],
-            "order": []
+            "impression": [
+              {
+                "product_id": 1601740791024,
+                "product_name": "Customizable New Fashion Portable Eyeglasses Accessories Leather Big Glasses case Oversize Sunglasses Holder",
+                "metric_name": "impression",
+                "current_rank": 1,
+                "previous_rank": 1,
+                "rank_delta": 0,
+                "current_value": 3,
+                "previous_value": 4
+              },
+              {
+                "product_id": 1601700588198,
+                "product_name": "Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case",
+                "metric_name": "impression",
+                "current_rank": 2,
+                "previous_rank": 2,
+                "rank_delta": 0,
+                "current_value": 1,
+                "previous_value": 2
+              }
+            ],
+            "click": [
+              {
+                "product_id": 1601700588198,
+                "product_name": "Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case",
+                "metric_name": "click",
+                "current_rank": 1,
+                "previous_rank": 1,
+                "rank_delta": 0,
+                "current_value": 0,
+                "previous_value": 0
+              },
+              {
+                "product_id": 1601740791024,
+                "product_name": "Customizable New Fashion Portable Eyeglasses Accessories Leather Big Glasses case Oversize Sunglasses Holder",
+                "metric_name": "click",
+                "current_rank": 2,
+                "previous_rank": 2,
+                "rank_delta": 0,
+                "current_value": 0,
+                "previous_value": 0
+              }
+            ],
+            "order": [
+              {
+                "product_id": 1601700588198,
+                "product_name": "Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case",
+                "metric_name": "order",
+                "current_rank": 1,
+                "previous_rank": 1,
+                "rank_delta": 0,
+                "current_value": 0,
+                "previous_value": 0
+              },
+              {
+                "product_id": 1601740791024,
+                "product_name": "Customizable New Fashion Portable Eyeglasses Accessories Leather Big Glasses case Oversize Sunglasses Holder",
+                "metric_name": "order",
+                "current_rank": 2,
+                "previous_rank": 2,
+                "rank_delta": 0,
+                "current_value": 0,
+                "previous_value": 0
+              }
+            ]
           },
-          "top_risers_by_click_delta": [],
-          "top_decliners_by_click_delta": [],
+          "top_risers_by_click_delta": [
+            {
+              "product_id": 1601700588198,
+              "product_name": "Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case",
+              "metric_name": "click",
+              "derived": true,
+              "current_value": 0,
+              "previous_value": 0,
+              "delta_value": 0,
+              "delta_rate": null,
+              "trend_direction": "flat"
+            },
+            {
+              "product_id": 1601740791024,
+              "product_name": "Customizable New Fashion Portable Eyeglasses Accessories Leather Big Glasses case Oversize Sunglasses Holder",
+              "metric_name": "click",
+              "derived": true,
+              "current_value": 0,
+              "previous_value": 0,
+              "delta_value": 0,
+              "delta_rate": null,
+              "trend_direction": "flat"
+            }
+          ],
+          "top_decliners_by_click_delta": [
+            {
+              "product_id": 1601700588198,
+              "product_name": "Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case",
+              "metric_name": "click",
+              "derived": true,
+              "current_value": 0,
+              "previous_value": 0,
+              "delta_value": 0,
+              "delta_rate": null,
+              "trend_direction": "flat"
+            },
+            {
+              "product_id": 1601740791024,
+              "product_name": "Customizable New Fashion Portable Eyeglasses Accessories Leather Big Glasses case Oversize Sunglasses Holder",
+              "metric_name": "click",
+              "derived": true,
+              "current_value": 0,
+              "previous_value": 0,
+              "delta_value": 0,
+              "delta_rate": null,
+              "trend_direction": "flat"
+            }
+          ],
           "trend_direction_summary": {
             "up": 0,
             "down": 2,
             "flat": 6,
             "unknown": 0
           },
-          "item_level_deltas": []
+          "item_level_deltas": [
+            {
+              "product_id": 1601700588198,
+              "product_name": "Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case",
+              "metric_deltas": {
+                "click": {
+                  "derived": true,
+                  "current_value": 0,
+                  "previous_value": 0,
+                  "delta_value": 0,
+                  "delta_rate": null,
+                  "trend_direction": "flat"
+                },
+                "impression": {
+                  "derived": true,
+                  "current_value": 1,
+                  "previous_value": 2,
+                  "delta_value": -1,
+                  "delta_rate": -0.5,
+                  "trend_direction": "down"
+                },
+                "visitor": {
+                  "derived": true,
+                  "current_value": 0,
+                  "previous_value": 0,
+                  "delta_value": 0,
+                  "delta_rate": null,
+                  "trend_direction": "flat"
+                },
+                "fb": {
+                  "derived": true,
+                  "current_value": 0,
+                  "previous_value": 0,
+                  "delta_value": 0,
+                  "delta_rate": null,
+                  "trend_direction": "flat"
+                },
+                "order": {
+                  "derived": true,
+                  "current_value": 0,
+                  "previous_value": 0,
+                  "delta_value": 0,
+                  "delta_rate": null,
+                  "trend_direction": "flat"
+                },
+                "bookmark": {
+                  "derived": true,
+                  "current_value": 0,
+                  "previous_value": 0,
+                  "delta_value": 0,
+                  "delta_rate": null,
+                  "trend_direction": "flat"
+                },
+                "compare": {
+                  "derived": true,
+                  "current_value": 0,
+                  "previous_value": 0,
+                  "delta_value": 0,
+                  "delta_rate": null,
+                  "trend_direction": "flat"
+                },
+                "share": {
+                  "derived": true,
+                  "current_value": 0,
+                  "previous_value": 0,
+                  "delta_value": 0,
+                  "delta_rate": null,
+                  "trend_direction": "flat"
+                }
+              }
+            },
+            {
+              "product_id": 1601740791024,
+              "product_name": "Customizable New Fashion Portable Eyeglasses Accessories Leather Big Glasses case Oversize Sunglasses Holder",
+              "metric_deltas": {
+                "click": {
+                  "derived": true,
+                  "current_value": 0,
+                  "previous_value": 0,
+                  "delta_value": 0,
+                  "delta_rate": null,
+                  "trend_direction": "flat"
+                },
+                "impression": {
+                  "derived": true,
+                  "current_value": 3,
+                  "previous_value": 4,
+                  "delta_value": -1,
+                  "delta_rate": -0.25,
+                  "trend_direction": "down"
+                },
+                "visitor": {
+                  "derived": true,
+                  "current_value": 0,
+                  "previous_value": 1,
+                  "delta_value": -1,
+                  "delta_rate": -1,
+                  "trend_direction": "down"
+                },
+                "fb": {
+                  "derived": true,
+                  "current_value": 0,
+                  "previous_value": 0,
+                  "delta_value": 0,
+                  "delta_rate": null,
+                  "trend_direction": "flat"
+                },
+                "order": {
+                  "derived": true,
+                  "current_value": 0,
+                  "previous_value": 0,
+                  "delta_value": 0,
+                  "delta_rate": null,
+                  "trend_direction": "flat"
+                },
+                "bookmark": {
+                  "derived": true,
+                  "current_value": 0,
+                  "previous_value": 0,
+                  "delta_value": 0,
+                  "delta_rate": null,
+                  "trend_direction": "flat"
+                },
+                "compare": {
+                  "derived": true,
+                  "current_value": 0,
+                  "previous_value": 0,
+                  "delta_value": 0,
+                  "delta_rate": null,
+                  "trend_direction": "flat"
+                },
+                "share": {
+                  "derived": true,
+                  "current_value": 0,
+                  "previous_value": 0,
+                  "delta_value": 0,
+                  "delta_rate": null,
+                  "trend_direction": "flat"
+                }
+              }
+            }
+          ]
         },
         "unavailable_dimensions": [
           "access_source",
@@ -3118,7 +3628,7 @@
       "status": 200,
       "route_state": "full_success",
       "degraded_reason": null,
-      "elapsed_ms": 5231,
+      "elapsed_ms": 5202,
       "note": "ok",
       "body": {
         "ok": true,
@@ -3126,7 +3636,7 @@
         "account": "wika",
         "read_only": true,
         "report_name": "orders_comparison_summary",
-        "generated_at": "2026-04-18T23:14:19.506Z",
+        "generated_at": "2026-04-19T12:52:29.575Z",
         "comparison_basis": {
           "type": "derived_order_window_comparison",
           "derived": true,
@@ -3397,7 +3907,7 @@
       "status": 200,
       "route_state": "full_success",
       "degraded_reason": null,
-      "elapsed_ms": 12052,
+      "elapsed_ms": 12061,
       "note": "ok",
       "body": {
         "ok": true,
@@ -3405,11 +3915,11 @@
         "account": "wika",
         "read_only": true,
         "report_name": "business_cockpit",
-        "generated_at": "2026-04-18T23:14:30.440Z",
+        "generated_at": "2026-04-19T12:52:40.404Z",
         "store_overview": {
           "source_route": "/integrations/alibaba/wika/reports/operations/management-summary",
           "report_name": "operations_management_summary",
-          "generated_at": "2026-04-18T23:14:21.751Z",
+          "generated_at": "2026-04-19T12:52:31.131Z",
           "report_scope": {
             "type": "store_level_mydata_subset",
             "sample_based": false
@@ -3484,7 +3994,7 @@
         "product_overview": {
           "source_route": "/integrations/alibaba/wika/reports/products/management-summary",
           "report_name": "products_management_summary",
-          "generated_at": "2026-04-18T23:14:23.184Z",
+          "generated_at": "2026-04-19T12:52:32.676Z",
           "report_scope": {
             "type": "sampled_product_mydata_subset",
             "sample_based": true
@@ -3506,10 +4016,10 @@
             "1601592243227"
           ],
           "product_ids_used_count": 5,
-          "item_count": 0,
+          "item_count": 2,
           "aggregate_official_metrics": {
             "click": 0,
-            "impression": 0,
+            "impression": 4,
             "visitor": 0,
             "fb": 0,
             "order": 0,
@@ -3519,24 +4029,157 @@
           },
           "aggregate_derived_metrics": {
             "ctr_from_click_over_impression": {
-              "value": null,
+              "value": 0,
               "derived": true,
               "formula": "click / impression",
-              "note": "当前样本缺少 click 或 impression，或 impression <= 0，无法稳定派生 CTR。"
+              "note": "由 official fields click 与 impression 保守派生。"
             }
           },
           "keyword_signal_summary": "***",
           "ranking_sections": {
-            "top_products_by_impression": [],
+            "top_products_by_impression": [
+              {
+                "product_id": 1601740791024,
+                "product_name": "Customizable New Fashion Portable Eyeglasses Accessories Leather Big Glasses case Oversize Sunglasses Holder",
+                "metric_name": "impression",
+                "metric_value": 3,
+                "official_metrics": {
+                  "impression": 3,
+                  "click": 0,
+                  "visitor": 0,
+                  "fb": 0,
+                  "order": 0
+                },
+                "derived_metrics": {
+                  "ctr_from_click_over_impression": {
+                    "value": 0,
+                    "derived": true,
+                    "formula": "click / impression",
+                    "note": "Derived from official fields click and impression"
+                  }
+                }
+              },
+              {
+                "product_id": 1601700588198,
+                "product_name": "Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case",
+                "metric_name": "impression",
+                "metric_value": 1,
+                "official_metrics": {
+                  "impression": 1,
+                  "click": 0,
+                  "visitor": 0,
+                  "fb": 0,
+                  "order": 0
+                },
+                "derived_metrics": {
+                  "ctr_from_click_over_impression": {
+                    "value": 0,
+                    "derived": true,
+                    "formula": "click / impression",
+                    "note": "Derived from official fields click and impression"
+                  }
+                }
+              }
+            ],
             "top_products_by_click": [],
             "top_products_by_fb": [],
             "top_products_by_order": []
           },
-          "top_products_by_impression": [],
+          "top_products_by_impression": [
+            {
+              "product_id": 1601740791024,
+              "product_name": "Customizable New Fashion Portable Eyeglasses Accessories Leather Big Glasses case Oversize Sunglasses Holder",
+              "metric_name": "impression",
+              "metric_value": 3,
+              "official_metrics": {
+                "impression": 3,
+                "click": 0,
+                "visitor": 0,
+                "fb": 0,
+                "order": 0
+              },
+              "derived_metrics": {
+                "ctr_from_click_over_impression": {
+                  "value": 0,
+                  "derived": true,
+                  "formula": "click / impression",
+                  "note": "Derived from official fields click and impression"
+                }
+              }
+            },
+            {
+              "product_id": 1601700588198,
+              "product_name": "Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case",
+              "metric_name": "impression",
+              "metric_value": 1,
+              "official_metrics": {
+                "impression": 1,
+                "click": 0,
+                "visitor": 0,
+                "fb": 0,
+                "order": 0
+              },
+              "derived_metrics": {
+                "ctr_from_click_over_impression": {
+                  "value": 0,
+                  "derived": true,
+                  "formula": "click / impression",
+                  "note": "Derived from official fields click and impression"
+                }
+              }
+            }
+          ],
           "top_products_by_click": [],
           "top_products_by_fb": [],
           "top_products_by_order": [],
-          "items": [],
+          "items": [
+            {
+              "product_id": 1601700588198,
+              "product_name": "Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case",
+              "official_metrics": {
+                "click": 0,
+                "impression": 1,
+                "visitor": 0,
+                "fb": 0,
+                "order": 0,
+                "bookmark": 0,
+                "compare": 0,
+                "share": 0,
+                "keyword_effects": {}
+              },
+              "derived_metrics": {
+                "ctr_from_click_over_impression": {
+                  "value": 0,
+                  "derived": true,
+                  "formula": "click / impression",
+                  "note": "Derived from official fields click and impression"
+                }
+              }
+            },
+            {
+              "product_id": 1601740791024,
+              "product_name": "Customizable New Fashion Portable Eyeglasses Accessories Leather Big Glasses case Oversize Sunglasses Holder",
+              "official_metrics": {
+                "click": 0,
+                "impression": 3,
+                "visitor": 0,
+                "fb": 0,
+                "order": 0,
+                "bookmark": 0,
+                "compare": 0,
+                "share": 0,
+                "keyword_effects": {}
+              },
+              "derived_metrics": {
+                "ctr_from_click_over_impression": {
+                  "value": 0,
+                  "derived": true,
+                  "formula": "click / impression",
+                  "note": "Derived from official fields click and impression"
+                }
+              }
+            }
+          ],
           "unavailable_dimensions": [
             "access_source",
             "inquiry_source",
@@ -3553,14 +4196,14 @@
             ]
           },
           "recommendations": [
-            "当前样本未见 keyword_effects，有必要继续复核关键词露出与关键词有效性。",
+            "样本内已有 impression 但 click 为 0，优先检查头部样本的主图与标题吸引力。",
             "当前产品经营摘要是带上限的样本聚合，业务使用时必须同时查看 product_scope_limit 与 product_ids_used_count。"
           ]
         },
         "order_overview": {
           "source_route": "/integrations/alibaba/wika/reports/orders/management-summary",
           "report_name": "orders_management_summary",
-          "generated_at": "2026-04-18T23:14:23.817Z",
+          "generated_at": "2026-04-19T12:52:33.754Z",
           "report_scope": {
             "type": "derived_order_summary",
             "derived": true,
@@ -3785,7 +4428,7 @@
         "store_comparison": {
           "source_route": "/integrations/alibaba/wika/reports/operations/comparison-summary",
           "report_name": "operations_comparison_summary",
-          "generated_at": "2026-04-18T23:14:19.553Z",
+          "generated_at": "2026-04-19T12:52:29.433Z",
           "comparison_basis": {
             "type": "store_level_period_comparison",
             "derived": true,
@@ -3921,7 +4564,7 @@
         "product_comparison": {
           "source_route": "/integrations/alibaba/wika/reports/products/comparison-summary",
           "report_name": "products_comparison_summary",
-          "generated_at": "2026-04-18T23:14:19.554Z",
+          "generated_at": "2026-04-19T12:52:29.433Z",
           "comparison_basis": {
             "type": "sampled_product_period_comparison",
             "derived": true,
@@ -3960,7 +4603,7 @@
             ],
             "current_aggregate_metrics": {
               "click": 0,
-              "impression": 0,
+              "impression": 4,
               "visitor": 0,
               "fb": 0,
               "order": 0,
@@ -3994,10 +4637,10 @@
               },
               "impression": {
                 "derived": true,
-                "current_value": 0,
+                "current_value": 4,
                 "previous_value": 6,
-                "delta_value": -6,
-                "delta_rate": -1,
+                "delta_value": -2,
+                "delta_rate": -0.3333,
                 "trend_direction": "down"
               },
               "visitor": {
@@ -4051,19 +4694,269 @@
             },
             "keyword_signal_delta": "***",
             "ranking_delta": {
-              "impression": [],
-              "click": [],
-              "order": []
+              "impression": [
+                {
+                  "product_id": 1601740791024,
+                  "product_name": "Customizable New Fashion Portable Eyeglasses Accessories Leather Big Glasses case Oversize Sunglasses Holder",
+                  "metric_name": "impression",
+                  "current_rank": 1,
+                  "previous_rank": 1,
+                  "rank_delta": 0,
+                  "current_value": 3,
+                  "previous_value": 4
+                },
+                {
+                  "product_id": 1601700588198,
+                  "product_name": "Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case",
+                  "metric_name": "impression",
+                  "current_rank": 2,
+                  "previous_rank": 2,
+                  "rank_delta": 0,
+                  "current_value": 1,
+                  "previous_value": 2
+                }
+              ],
+              "click": [
+                {
+                  "product_id": 1601700588198,
+                  "product_name": "Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case",
+                  "metric_name": "click",
+                  "current_rank": 1,
+                  "previous_rank": 1,
+                  "rank_delta": 0,
+                  "current_value": 0,
+                  "previous_value": 0
+                },
+                {
+                  "product_id": 1601740791024,
+                  "product_name": "Customizable New Fashion Portable Eyeglasses Accessories Leather Big Glasses case Oversize Sunglasses Holder",
+                  "metric_name": "click",
+                  "current_rank": 2,
+                  "previous_rank": 2,
+                  "rank_delta": 0,
+                  "current_value": 0,
+                  "previous_value": 0
+                }
+              ],
+              "order": [
+                {
+                  "product_id": 1601700588198,
+                  "product_name": "Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case",
+                  "metric_name": "order",
+                  "current_rank": 1,
+                  "previous_rank": 1,
+                  "rank_delta": 0,
+                  "current_value": 0,
+                  "previous_value": 0
+                },
+                {
+                  "product_id": 1601740791024,
+                  "product_name": "Customizable New Fashion Portable Eyeglasses Accessories Leather Big Glasses case Oversize Sunglasses Holder",
+                  "metric_name": "order",
+                  "current_rank": 2,
+                  "previous_rank": 2,
+                  "rank_delta": 0,
+                  "current_value": 0,
+                  "previous_value": 0
+                }
+              ]
             },
-            "top_risers_by_click_delta": [],
-            "top_decliners_by_click_delta": [],
+            "top_risers_by_click_delta": [
+              {
+                "product_id": 1601700588198,
+                "product_name": "Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case",
+                "metric_name": "click",
+                "derived": true,
+                "current_value": 0,
+                "previous_value": 0,
+                "delta_value": 0,
+                "delta_rate": null,
+                "trend_direction": "flat"
+              },
+              {
+                "product_id": 1601740791024,
+                "product_name": "Customizable New Fashion Portable Eyeglasses Accessories Leather Big Glasses case Oversize Sunglasses Holder",
+                "metric_name": "click",
+                "derived": true,
+                "current_value": 0,
+                "previous_value": 0,
+                "delta_value": 0,
+                "delta_rate": null,
+                "trend_direction": "flat"
+              }
+            ],
+            "top_decliners_by_click_delta": [
+              {
+                "product_id": 1601700588198,
+                "product_name": "Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case",
+                "metric_name": "click",
+                "derived": true,
+                "current_value": 0,
+                "previous_value": 0,
+                "delta_value": 0,
+                "delta_rate": null,
+                "trend_direction": "flat"
+              },
+              {
+                "product_id": 1601740791024,
+                "product_name": "Customizable New Fashion Portable Eyeglasses Accessories Leather Big Glasses case Oversize Sunglasses Holder",
+                "metric_name": "click",
+                "derived": true,
+                "current_value": 0,
+                "previous_value": 0,
+                "delta_value": 0,
+                "delta_rate": null,
+                "trend_direction": "flat"
+              }
+            ],
             "trend_direction_summary": {
               "up": 0,
               "down": 2,
               "flat": 6,
               "unknown": 0
             },
-            "item_level_deltas": []
+            "item_level_deltas": [
+              {
+                "product_id": 1601700588198,
+                "product_name": "Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case",
+                "metric_deltas": {
+                  "click": {
+                    "derived": true,
+                    "current_value": 0,
+                    "previous_value": 0,
+                    "delta_value": 0,
+                    "delta_rate": null,
+                    "trend_direction": "flat"
+                  },
+                  "impression": {
+                    "derived": true,
+                    "current_value": 1,
+                    "previous_value": 2,
+                    "delta_value": -1,
+                    "delta_rate": -0.5,
+                    "trend_direction": "down"
+                  },
+                  "visitor": {
+                    "derived": true,
+                    "current_value": 0,
+                    "previous_value": 0,
+                    "delta_value": 0,
+                    "delta_rate": null,
+                    "trend_direction": "flat"
+                  },
+                  "fb": {
+                    "derived": true,
+                    "current_value": 0,
+                    "previous_value": 0,
+                    "delta_value": 0,
+                    "delta_rate": null,
+                    "trend_direction": "flat"
+                  },
+                  "order": {
+                    "derived": true,
+                    "current_value": 0,
+                    "previous_value": 0,
+                    "delta_value": 0,
+                    "delta_rate": null,
+                    "trend_direction": "flat"
+                  },
+                  "bookmark": {
+                    "derived": true,
+                    "current_value": 0,
+                    "previous_value": 0,
+                    "delta_value": 0,
+                    "delta_rate": null,
+                    "trend_direction": "flat"
+                  },
+                  "compare": {
+                    "derived": true,
+                    "current_value": 0,
+                    "previous_value": 0,
+                    "delta_value": 0,
+                    "delta_rate": null,
+                    "trend_direction": "flat"
+                  },
+                  "share": {
+                    "derived": true,
+                    "current_value": 0,
+                    "previous_value": 0,
+                    "delta_value": 0,
+                    "delta_rate": null,
+                    "trend_direction": "flat"
+                  }
+                }
+              },
+              {
+                "product_id": 1601740791024,
+                "product_name": "Customizable New Fashion Portable Eyeglasses Accessories Leather Big Glasses case Oversize Sunglasses Holder",
+                "metric_deltas": {
+                  "click": {
+                    "derived": true,
+                    "current_value": 0,
+                    "previous_value": 0,
+                    "delta_value": 0,
+                    "delta_rate": null,
+                    "trend_direction": "flat"
+                  },
+                  "impression": {
+                    "derived": true,
+                    "current_value": 3,
+                    "previous_value": 4,
+                    "delta_value": -1,
+                    "delta_rate": -0.25,
+                    "trend_direction": "down"
+                  },
+                  "visitor": {
+                    "derived": true,
+                    "current_value": 0,
+                    "previous_value": 1,
+                    "delta_value": -1,
+                    "delta_rate": -1,
+                    "trend_direction": "down"
+                  },
+                  "fb": {
+                    "derived": true,
+                    "current_value": 0,
+                    "previous_value": 0,
+                    "delta_value": 0,
+                    "delta_rate": null,
+                    "trend_direction": "flat"
+                  },
+                  "order": {
+                    "derived": true,
+                    "current_value": 0,
+                    "previous_value": 0,
+                    "delta_value": 0,
+                    "delta_rate": null,
+                    "trend_direction": "flat"
+                  },
+                  "bookmark": {
+                    "derived": true,
+                    "current_value": 0,
+                    "previous_value": 0,
+                    "delta_value": 0,
+                    "delta_rate": null,
+                    "trend_direction": "flat"
+                  },
+                  "compare": {
+                    "derived": true,
+                    "current_value": 0,
+                    "previous_value": 0,
+                    "delta_value": 0,
+                    "delta_rate": null,
+                    "trend_direction": "flat"
+                  },
+                  "share": {
+                    "derived": true,
+                    "current_value": 0,
+                    "previous_value": 0,
+                    "delta_value": 0,
+                    "delta_rate": null,
+                    "trend_direction": "flat"
+                  }
+                }
+              }
+            ]
           },
           "unavailable_dimensions": [
             "access_source",
@@ -4087,7 +4980,7 @@
         "order_comparison": {
           "source_route": "/integrations/alibaba/wika/reports/orders/comparison-summary",
           "report_name": "orders_comparison_summary",
-          "generated_at": "2026-04-18T23:14:19.554Z",
+          "generated_at": "2026-04-19T12:52:29.433Z",
           "comparison_basis": {
             "type": "derived_order_window_comparison",
             "derived": true,
@@ -4354,7 +5247,7 @@
         "store_diagnostic": {
           "source_route": "/integrations/alibaba/wika/reports/operations/minimal-diagnostic",
           "report_name": "minimal_diagnostic",
-          "generated_at": "2026-04-18T23:14:19.556Z",
+          "generated_at": "2026-04-19T12:52:29.433Z",
           "diagnostic_findings": [
             {
               "area": "products",
@@ -4493,7 +5386,7 @@
               "evidence": {
                 "statistics_type": "day",
                 "stat_date": "2026-04-17",
-                "item_count": 0
+                "item_count": 2
               }
             },
             {
@@ -4802,7 +5695,7 @@
         "product_diagnostic": {
           "source_route": "/integrations/alibaba/wika/reports/products/minimal-diagnostic",
           "report_name": "minimal_diagnostic",
-          "generated_at": "2026-04-18T23:14:19.556Z",
+          "generated_at": "2026-04-19T12:52:29.433Z",
           "diagnostic_findings": [
             {
               "area": "products",
@@ -4941,7 +5834,7 @@
               "evidence": {
                 "statistics_type": "day",
                 "stat_date": "2026-04-17",
-                "item_count": 0
+                "item_count": 2
               }
             },
             {
@@ -5004,6 +5897,15 @@
                 "evidence": {
                   "ungrouped_count": 1
                 }
+              },
+              {
+                "strength": "strong",
+                "theme": "performance_followup",
+                "reason": "Review top products with impression but no click.",
+                "evidence": {
+                  "statistics_type": "day",
+                  "stat_date": "2026-04-17"
+                }
               }
             ],
             "needs_more_data_actions": [
@@ -5026,31 +5928,106 @@
             "source_route": "/integrations/alibaba/wika/reports/products/management-summary",
             "statistics_type": "day",
             "stat_date": "2026-04-17",
-            "item_count": 0,
+            "item_count": 2,
             "engagement_summary": {
-              "products_with_impression": 0,
+              "products_with_impression": 2,
               "products_with_click": 0,
               "products_with_visitor": 0,
               "products_with_fb": 0,
               "products_with_order": 0,
               "products_with_keyword_effects": 0
             },
-            "ranking_preview": [],
+            "ranking_preview": [
+              {
+                "product_id": 1601740791024,
+                "impression": 3,
+                "click": 0,
+                "visitor": 0,
+                "fb": 0,
+                "order": 0,
+                "ctr_from_click_over_impression": {
+                  "value": 0,
+                  "derived": true,
+                  "formula": "click / impression",
+                  "note": "Derived from official fields click and impression"
+                }
+              },
+              {
+                "product_id": 1601700588198,
+                "impression": 1,
+                "click": 0,
+                "visitor": 0,
+                "fb": 0,
+                "order": 0,
+                "ctr_from_click_over_impression": {
+                  "value": 0,
+                  "derived": true,
+                  "formula": "click / impression",
+                  "note": "Derived from official fields click and impression"
+                }
+              }
+            ],
             "keyword_signal_hints": "***",
-            "basic_recommendations": [],
+            "basic_recommendations": [
+              "Review top products with impression but no click."
+            ],
             "obvious_gap_warnings": [
+              "Impression is present while click stays at 0.",
               "No keyword_effects payload is visible in the current sample."
             ],
             "ranking_interpretation": {
               "summary": "当前 ranking 只基于受控样本 product_ids 聚合，不默认代表全店全量商品排名。",
-              "top_products_by_impression": [],
+              "top_products_by_impression": [
+                {
+                  "product_id": 1601740791024,
+                  "product_name": "Customizable New Fashion Portable Eyeglasses Accessories Leather Big Glasses case Oversize Sunglasses Holder",
+                  "metric_name": "impression",
+                  "metric_value": 3,
+                  "official_metrics": {
+                    "impression": 3,
+                    "click": 0,
+                    "visitor": 0,
+                    "fb": 0,
+                    "order": 0
+                  },
+                  "derived_metrics": {
+                    "ctr_from_click_over_impression": {
+                      "value": 0,
+                      "derived": true,
+                      "formula": "click / impression",
+                      "note": "Derived from official fields click and impression"
+                    }
+                  }
+                },
+                {
+                  "product_id": 1601700588198,
+                  "product_name": "Customizable PU Leather Portable Sunglasses Case New Design Logo Plug-in Closure Travel Anti-scratch Eyeglasses Soft Case",
+                  "metric_name": "impression",
+                  "metric_value": 1,
+                  "official_metrics": {
+                    "impression": 1,
+                    "click": 0,
+                    "visitor": 0,
+                    "fb": 0,
+                    "order": 0
+                  },
+                  "derived_metrics": {
+                    "ctr_from_click_over_impression": {
+                      "value": 0,
+                      "derived": true,
+                      "formula": "click / impression",
+                      "note": "Derived from official fields click and impression"
+                    }
+                  }
+                }
+              ],
               "top_products_by_click": [],
               "top_products_by_fb": [],
               "top_products_by_order": []
             },
             "keyword_signal_takeaways": "***",
             "recommendation_block": [
-              "当前样本未见 keyword_effects，有必要继续复核关键词露出与关键词有效性。",
+              "样本内已有 impression 但 click 为 0，优先检查头部样本的主图与标题吸引力。",
               "当前产品经营摘要是带上限的样本聚合，业务使用时必须同时查看 product_scope_limit 与 product_ids_used_count。"
             ],
             "unavailable_dimensions": [
@@ -5105,7 +6082,7 @@
         "order_diagnostic": {
           "source_route": "/integrations/alibaba/wika/reports/orders/minimal-diagnostic",
           "report_name": "minimal_diagnostic",
-          "generated_at": "2026-04-18T23:14:19.557Z",
+          "generated_at": "2026-04-19T12:52:29.434Z",
           "diagnostic_findings": [
             {
               "area": "orders",
@@ -5241,18 +6218,6 @@
                       ]
                     },
                     {
-                      "product_id": "AAEYxslEAOVqtWWP0tWl5Ttt",
-                      "product_name": "Colorful Glasses Packaging Bags 18*9cm Soft Sunglasses case Microfiber Pouch Eyeglass Bag with logo Custom",
-                      "order_count": 1,
-                      "quantity_sum": 1000,
-                      "estimated_amount_by_currency": [
-                        {
-                          "currency": "USD",
-                          "amount": 170
-                        }
-                      ]
-                    },
-                    {
                       "product_id": "AAHZxslEAOVqtWWP0tWl7jWr",
                       "product_name": "Embossed Logo 15*15cm Custom Eyeglass Cleaning Cloth Microfiber Cleaning Cloth Lens Cleaner Wipes for Camera Lens",
                       "order_count": 1,
@@ -5261,6 +6226,18 @@
                         {
                           "currency": "USD",
                           "amount": 130
+                        }
+                      ]
+                    },
+                    {
+                      "product_id": "AAEYxslEAOVqtWWP0tWl5Ttt",
+                      "product_name": "Colorful Glasses Packaging Bags 18*9cm Soft Sunglasses case Microfiber Pouch Eyeglass Bag with logo Custom",
+                      "order_count": 1,
+                      "quantity_sum": 1000,
+                      "estimated_amount_by_currency": [
+                        {
+                          "currency": "USD",
+                          "amount": 170
                         }
                       ]
                     },
@@ -5303,18 +6280,6 @@
                       ]
                     },
                     {
-                      "product_id": "AAEYxslEAOVqtWWP0tWl5Ttt",
-                      "product_name": "Colorful Glasses Packaging Bags 18*9cm Soft Sunglasses case Microfiber Pouch Eyeglass Bag with logo Custom",
-                      "order_count": 1,
-                      "quantity_sum": 1000,
-                      "estimated_amount_by_currency": [
-                        {
-                          "currency": "USD",
-                          "amount": 170
-                        }
-                      ]
-                    },
-                    {
                       "product_id": "AAHZxslEAOVqtWWP0tWl7jWr",
                       "product_name": "Embossed Logo 15*15cm Custom Eyeglass Cleaning Cloth Microfiber Cleaning Cloth Lens Cleaner Wipes for Camera Lens",
                       "order_count": 1,
@@ -5323,6 +6288,18 @@
                         {
                           "currency": "USD",
                           "amount": 130
+                        }
+                      ]
+                    },
+                    {
+                      "product_id": "AAEYxslEAOVqtWWP0tWl5Ttt",
+                      "product_name": "Colorful Glasses Packaging Bags 18*9cm Soft Sunglasses case Microfiber Pouch Eyeglass Bag with logo Custom",
+                      "order_count": 1,
+                      "quantity_sum": 1000,
+                      "estimated_amount_by_currency": [
+                        {
+                          "currency": "USD",
+                          "amount": 170
                         }
                       ]
                     },
@@ -5523,18 +6500,6 @@
                   ]
                 },
                 {
-                  "product_id": "AAEYxslEAOVqtWWP0tWl5Ttt",
-                  "product_name": "Colorful Glasses Packaging Bags 18*9cm Soft Sunglasses case Microfiber Pouch Eyeglass Bag with logo Custom",
-                  "order_count": 1,
-                  "quantity_sum": 1000,
-                  "estimated_amount_by_currency": [
-                    {
-                      "currency": "USD",
-                      "amount": 170
-                    }
-                  ]
-                },
-                {
                   "product_id": "AAHZxslEAOVqtWWP0tWl7jWr",
                   "product_name": "Embossed Logo 15*15cm Custom Eyeglass Cleaning Cloth Microfiber Cleaning Cloth Lens Cleaner Wipes for Camera Lens",
                   "order_count": 1,
@@ -5543,6 +6508,18 @@
                     {
                       "currency": "USD",
                       "amount": 130
+                    }
+                  ]
+                },
+                {
+                  "product_id": "AAEYxslEAOVqtWWP0tWl5Ttt",
+                  "product_name": "Colorful Glasses Packaging Bags 18*9cm Soft Sunglasses case Microfiber Pouch Eyeglass Bag with logo Custom",
+                  "order_count": 1,
+                  "quantity_sum": 1000,
+                  "estimated_amount_by_currency": [
+                    {
+                      "currency": "USD",
+                      "amount": 170
                     }
                   ]
                 },
@@ -5585,18 +6562,6 @@
                   ]
                 },
                 {
-                  "product_id": "AAEYxslEAOVqtWWP0tWl5Ttt",
-                  "product_name": "Colorful Glasses Packaging Bags 18*9cm Soft Sunglasses case Microfiber Pouch Eyeglass Bag with logo Custom",
-                  "order_count": 1,
-                  "quantity_sum": 1000,
-                  "estimated_amount_by_currency": [
-                    {
-                      "currency": "USD",
-                      "amount": 170
-                    }
-                  ]
-                },
-                {
                   "product_id": "AAHZxslEAOVqtWWP0tWl7jWr",
                   "product_name": "Embossed Logo 15*15cm Custom Eyeglass Cleaning Cloth Microfiber Cleaning Cloth Lens Cleaner Wipes for Camera Lens",
                   "order_count": 1,
@@ -5605,6 +6570,18 @@
                     {
                       "currency": "USD",
                       "amount": 130
+                    }
+                  ]
+                },
+                {
+                  "product_id": "AAEYxslEAOVqtWWP0tWl5Ttt",
+                  "product_name": "Colorful Glasses Packaging Bags 18*9cm Soft Sunglasses case Microfiber Pouch Eyeglass Bag with logo Custom",
+                  "order_count": 1,
+                  "quantity_sum": 1000,
+                  "estimated_amount_by_currency": [
+                    {
+                      "currency": "USD",
+                      "amount": 170
                     }
                   ]
                 },
@@ -5650,18 +6627,6 @@
                   ]
                 },
                 {
-                  "product_id": "AAEYxslEAOVqtWWP0tWl5Ttt",
-                  "product_name": "Colorful Glasses Packaging Bags 18*9cm Soft Sunglasses case Microfiber Pouch Eyeglass Bag with logo Custom",
-                  "order_count": 1,
-                  "quantity_sum": 1000,
-                  "estimated_amount_by_currency": [
-                    {
-                      "currency": "USD",
-                      "amount": 170
-                    }
-                  ]
-                },
-                {
                   "product_id": "AAHZxslEAOVqtWWP0tWl7jWr",
                   "product_name": "Embossed Logo 15*15cm Custom Eyeglass Cleaning Cloth Microfiber Cleaning Cloth Lens Cleaner Wipes for Camera Lens",
                   "order_count": 1,
@@ -5670,6 +6635,18 @@
                     {
                       "currency": "USD",
                       "amount": 130
+                    }
+                  ]
+                },
+                {
+                  "product_id": "AAEYxslEAOVqtWWP0tWl5Ttt",
+                  "product_name": "Colorful Glasses Packaging Bags 18*9cm Soft Sunglasses case Microfiber Pouch Eyeglass Bag with logo Custom",
+                  "order_count": 1,
+                  "quantity_sum": 1000,
+                  "estimated_amount_by_currency": [
+                    {
+                      "currency": "USD",
+                      "amount": 170
                     }
                   ]
                 },
@@ -5712,18 +6689,6 @@
                   ]
                 },
                 {
-                  "product_id": "AAEYxslEAOVqtWWP0tWl5Ttt",
-                  "product_name": "Colorful Glasses Packaging Bags 18*9cm Soft Sunglasses case Microfiber Pouch Eyeglass Bag with logo Custom",
-                  "order_count": 1,
-                  "quantity_sum": 1000,
-                  "estimated_amount_by_currency": [
-                    {
-                      "currency": "USD",
-                      "amount": 170
-                    }
-                  ]
-                },
-                {
                   "product_id": "AAHZxslEAOVqtWWP0tWl7jWr",
                   "product_name": "Embossed Logo 15*15cm Custom Eyeglass Cleaning Cloth Microfiber Cleaning Cloth Lens Cleaner Wipes for Camera Lens",
                   "order_count": 1,
@@ -5732,6 +6697,18 @@
                     {
                       "currency": "USD",
                       "amount": 130
+                    }
+                  ]
+                },
+                {
+                  "product_id": "AAEYxslEAOVqtWWP0tWl5Ttt",
+                  "product_name": "Colorful Glasses Packaging Bags 18*9cm Soft Sunglasses case Microfiber Pouch Eyeglass Bag with logo Custom",
+                  "order_count": 1,
+                  "quantity_sum": 1000,
+                  "estimated_amount_by_currency": [
+                    {
+                      "currency": "USD",
+                      "amount": 170
                     }
                   ]
                 },
@@ -5866,7 +6843,7 @@
       "status": 200,
       "route_state": "degraded",
       "degraded_reason": "time_budget_exceeded, store_diagnostic",
-      "elapsed_ms": 9941,
+      "elapsed_ms": 9892,
       "note": "ok",
       "body": {
         "ok": true,
@@ -5874,7 +6851,7 @@
         "account": "wika",
         "read_only": true,
         "report_name": "action_center",
-        "generated_at": "2026-04-18T23:14:28.515Z",
+        "generated_at": "2026-04-19T12:52:38.448Z",
         "business_cockpit_summary": {
           "source_route": "/integrations/alibaba/wika/reports/business-cockpit",
           "task_coverage_summary": {
@@ -5934,13 +6911,13 @@
         },
         "task5_summary": {
           "report_name": "order_workbench",
-          "recommended_next_action": "Task5 summary is temporarily degraded. Retry the order workbench after the read-side builder recovers, and keep the workflow in external draft handoff only.",
+          "recommended_next_action": null,
           "blocking_signals": "***",
           "boundary_statement": {
             "external_order_draft_only": true,
             "not_platform_order_create": true,
             "not_platform_internal_create": true,
-            "degraded_read_only_summary": true,
+            "no_real_order_creation_attempted": true,
             "task6_excluded": true
           }
         },
@@ -5951,13 +6928,6 @@
             "source": "/integrations/alibaba/wika/workbench/product-draft-workbench",
             "recommended_next_action": "Fill required category attributes, schema-required fields, and media candidates before handing the draft package to manual review. Do not enter platform publish.",
             "reason": "Task 3 still stays at safe draft preparation and manual field completion."
-          },
-          {
-            "priority": "high",
-            "domain": "task5",
-            "source": "/integrations/alibaba/wika/workbench/order-workbench",
-            "recommended_next_action": "Task5 summary is temporarily degraded. Retry the order workbench after the read-side builder recovers, and keep the workflow in external draft handoff only.",
-            "reason": "Task 5 still requires external order draft handoff and manual commercial confirmation."
           }
         ],
         "shared_blockers": [
@@ -5976,8 +6946,14 @@
           "missing_product_context",
           "missing_quantity",
           "missing_customer_profile",
-          "task5_summary_time_budget_exceeded",
-          "task5_summary:time_budget_exceeded",
+          "missing_buyer_company",
+          "missing_buyer_contact",
+          "missing_buyer_email",
+          "missing_line_items",
+          "missing_total_amount",
+          "missing_advance_amount",
+          "missing_trade_term",
+          "missing_shipment_method",
           "store_diagnostic:time_budget_exceeded"
         ],
         "partial_status": {
@@ -6009,7 +6985,7 @@
       "status": null,
       "route_state": "failed",
       "degraded_reason": null,
-      "elapsed_ms": 18015,
+      "elapsed_ms": 18014,
       "note": "timeout",
       "body": null
     },
@@ -6019,7 +6995,7 @@
       "status": 200,
       "route_state": "full_success",
       "degraded_reason": null,
-      "elapsed_ms": 4379,
+      "elapsed_ms": 4377,
       "note": "ok",
       "body": {
         "ok": true,
@@ -6027,7 +7003,7 @@
         "account": "wika",
         "read_only": true,
         "report_name": "product_draft_workbench",
-        "generated_at": "2026-04-18T23:14:23.125Z",
+        "generated_at": "2026-04-19T12:52:33.102Z",
         "product_context": {
           "sample_source": "/integrations/alibaba/wika/data/products/detail",
           "product_id": "1601740791024",
@@ -6141,7 +7117,7 @@
       "status": 200,
       "route_state": "full_success",
       "degraded_reason": null,
-      "elapsed_ms": 6311,
+      "elapsed_ms": 6243,
       "note": "ok",
       "body": {
         "ok": true,
@@ -6149,7 +7125,7 @@
         "account": "wika",
         "read_only": true,
         "report_name": "reply_workbench",
-        "generated_at": "2026-04-18T23:14:25.057Z",
+        "generated_at": "2026-04-19T12:52:34.937Z",
         "workflow_capability": {
           "workflow_type": "external_reply_draft",
           "external_only": true,
@@ -6247,7 +7223,7 @@
       "status": 200,
       "route_state": "full_success",
       "degraded_reason": null,
-      "elapsed_ms": 9991,
+      "elapsed_ms": 9496,
       "note": "ok",
       "body": {
         "ok": true,
@@ -6255,7 +7231,7 @@
         "account": "wika",
         "read_only": true,
         "report_name": "order_workbench",
-        "generated_at": "2026-04-18T23:14:28.731Z",
+        "generated_at": "2026-04-19T12:52:38.219Z",
         "workflow_capability": {
           "workflow_type": "external_order_draft_package",
           "external_only": true,
@@ -6439,9 +7415,9 @@
       "path": "/integrations/alibaba/wika/workbench/task-workbench",
       "method": "GET",
       "status": 200,
-      "route_state": "degraded",
-      "degraded_reason": "time_budget_exceeded, task5_summary",
-      "elapsed_ms": 9803,
+      "route_state": "full_success",
+      "degraded_reason": null,
+      "elapsed_ms": 9816,
       "note": "ok",
       "body": {
         "ok": true,
@@ -6449,10 +7425,10 @@
         "account": "wika",
         "read_only": true,
         "report_name": "task_workbench",
-        "generated_at": "2026-04-18T23:14:28.543Z",
+        "generated_at": "2026-04-19T12:52:38.529Z",
         "task3_summary": {
           "report_name": "product_draft_workbench",
-          "generated_at": "2026-04-18T23:14:22.962Z",
+          "generated_at": "2026-04-19T12:52:33.179Z",
           "product_context": {
             "sample_source": "/integrations/alibaba/wika/data/products/detail",
             "product_id": "1601740791024",
@@ -6561,7 +7537,7 @@
         },
         "task4_summary": {
           "report_name": "reply_workbench",
-          "generated_at": "2026-04-18T23:14:24.973Z",
+          "generated_at": "2026-04-19T12:52:35.164Z",
           "workflow_capability": {
             "workflow_type": "external_reply_draft",
             "external_only": true,
@@ -6654,23 +7630,129 @@
         },
         "task5_summary": {
           "report_name": "order_workbench",
-          "generated_at": "2026-04-18T23:14:28.543Z",
+          "generated_at": "2026-04-19T12:52:38.529Z",
           "workflow_capability": {
             "workflow_type": "external_order_draft_package",
             "external_only": true,
-            "platform_order_available": false
+            "platform_order_available": false,
+            "preview_route": "/integrations/alibaba/wika/tools/order-draft",
+            "template_version": "2026-04-05.sop-v1"
           },
-          "blocker_taxonomy_summary": {
-            "preview_profile": null,
-            "hard_blocker_codes": [
-              "task5_summary_time_budget_exceeded"
+          "input_requirements": {
+            "required_minimum_fields": [
+              "buyer.company_name",
+              "buyer.contact_name",
+              "buyer.email",
+              "line_items",
+              "shipment_plan.destination_country"
             ],
-            "soft_blocker_codes": [],
-            "missing_context": []
+            "optional_fields": [
+              "payment_terms.total_amount",
+              "payment_terms.advance_amount",
+              "shipment_plan.lead_time_text",
+              "shipment_plan.trade_term",
+              "shipment_plan.shipment_method"
+            ],
+            "preview_mode": "POST body to /integrations/alibaba/wika/tools/order-draft"
+          },
+          "current_order_profiles": [
+            {
+              "code": "order_minimal_handoff",
+              "label": "Minimal order handoff",
+              "note": "Use when only the basic buyer data and a small amount of line-item context are available for an external order draft."
+            },
+            {
+              "code": "order_quote_confirmation_needed",
+              "label": "Quote confirmation order draft",
+              "note": "Use when line items are available, but price, total amount, and lead time still need human confirmation."
+            },
+            {
+              "code": "order_commercial_review",
+              "label": "Commercial review order draft",
+              "note": "Use when the main commercial fields are present, but manual review is still required before any downstream handoff."
+            }
+          ],
+          "required_manual_field_system": {
+            "required_manual_fields": [
+              "buyer.company_name",
+              "buyer.contact_name",
+              "buyer.email",
+              "line_items[].quantity",
+              "line_items[].unit_price",
+              "payment_terms.total_amount",
+              "payment_terms.advance_amount",
+              "shipment_plan.lead_time_text"
+            ],
+            "required_manual_field_details": [
+              {
+                "field": "buyer.company_name",
+                "template_section": "buyer_identity",
+                "why_required": "缺少买家公司主体，订单草稿无法交接给人工继续推进。",
+                "example_value": "ABC Trading LLC",
+                "collection_hint": "从客户签名、名片、邮箱域名或聊天记录中确认。",
+                "who_should_fill": "sales"
+              },
+              {
+                "field": "buyer.contact_name",
+                "template_section": "buyer_identity",
+                "why_required": "缺少联系人，人工回复和报价回传对象不明确。",
+                "example_value": "John Smith",
+                "collection_hint": "优先从询盘落款、邮箱签名或聊天记录获取。",
+                "who_should_fill": "sales"
+              },
+              {
+                "field": "buyer.email",
+                "template_section": "buyer_identity",
+                "why_required": "缺少正式联系邮箱，无法发送外部报价或订单草稿。",
+                "example_value": "buyer@example.com",
+                "collection_hint": "优先收集可正式回传文件的邮箱地址。",
+                "who_should_fill": "sales"
+              },
+              {
+                "field": "line_items[].quantity",
+                "template_section": "commercial_terms",
+                "why_required": "数量决定价格、交期和包装方案。",
+                "example_value": "1000",
+                "collection_hint": "确认正式采购量、MOQ 或打样数量。",
+                "who_should_fill": "sales"
+              },
+              {
+                "field": "line_items[].unit_price",
+                "template_section": "commercial_terms",
+                "why_required": "单价缺失会导致订单草稿无法形成有效报价包。",
+                "example_value": "0.65",
+                "collection_hint": "结合数量、材质、工艺和运费方案人工确认。",
+                "who_should_fill": "sales"
+              },
+              {
+                "field": "payment_terms.total_amount",
+                "template_section": "commercial_terms",
+                "why_required": "缺少总价，无法形成完整订单草稿包。",
+                "example_value": "650",
+                "collection_hint": "按行项目汇总或人工确认总报价。",
+                "who_should_fill": "sales"
+              },
+              {
+                "field": "payment_terms.advance_amount",
+                "template_section": "commercial_terms",
+                "why_required": "预付款安排影响付款条件和订单执行节奏。",
+                "example_value": "195",
+                "collection_hint": "确认定金比例或预付款金额。",
+                "who_should_fill": "sales"
+              },
+              {
+                "field": "shipment_plan.lead_time_text",
+                "template_section": "delivery_terms",
+                "why_required": "缺少交期会导致订单草稿无法形成明确承诺。",
+                "example_value": "25-30 days after artwork approval",
+                "collection_hint": "按打样、排产、出货阶段向业务或生产确认。",
+                "who_should_fill": "sales / production"
+              }
+            ]
           },
           "handoff_pack_capability": {
-            "handoff_checklist_available": false,
-            "handoff_fields_available": false,
+            "handoff_checklist_available": true,
+            "handoff_fields_available": true,
             "manual_completion_sop_available": true,
             "export_formats": [
               "json",
@@ -6680,26 +7762,50 @@
           "quality_gate_summary": {
             "handoff_required": true,
             "draft_usable_externally": false,
-            "alert_payload_available": false,
-            "follow_up_question_count": 0
+            "alert_payload_available": true,
+            "follow_up_question_count": 10
           },
           "sample_availability": {
-            "order_diagnostic_snapshot_available": false,
+            "order_diagnostic_snapshot_available": true,
             "line_item_count": 0,
-            "draft_types": []
+            "draft_types": [
+              "TA"
+            ]
           },
-          "recommended_next_action": "Task5 summary is temporarily degraded. Retry the order workbench after the read-side builder recovers, and keep the workflow in external draft handoff only.",
-          "partial_status": {
-            "section": "task5_summary",
-            "reason": "time_budget_exceeded",
-            "budget_ms": 9000,
-            "error_message": "section exceeded 9000ms time budget"
+          "blocker_taxonomy_summary": {
+            "preview_profile": "order_minimal_handoff",
+            "hard_blocker_codes": [
+              "missing_buyer_company",
+              "missing_buyer_contact",
+              "missing_buyer_email",
+              "missing_line_items",
+              "missing_total_amount",
+              "missing_lead_time"
+            ],
+            "soft_blocker_codes": [
+              "missing_advance_amount",
+              "missing_destination_country",
+              "missing_trade_term",
+              "missing_shipment_method"
+            ],
+            "missing_context": [
+              "buyer.company_name",
+              "buyer.contact_name",
+              "buyer.email",
+              "line_items",
+              "payment_terms.total_amount",
+              "shipment_plan.lead_time_text",
+              "payment_terms.advance_amount",
+              "shipment_plan.destination_country",
+              "shipment_plan.trade_term",
+              "shipment_plan.shipment_method"
+            ]
           },
           "boundary_statement": {
             "external_order_draft_only": true,
             "not_platform_order_create": true,
             "not_platform_internal_create": true,
-            "degraded_read_only_summary": true,
+            "no_real_order_creation_attempted": true,
             "task6_excluded": true
           }
         },
@@ -6712,8 +7818,14 @@
           "missing_product_context",
           "missing_quantity",
           "missing_customer_profile",
-          "task5_summary_time_budget_exceeded",
-          "task5_summary:time_budget_exceeded"
+          "missing_buyer_company",
+          "missing_buyer_contact",
+          "missing_buyer_email",
+          "missing_line_items",
+          "missing_total_amount",
+          "missing_advance_amount",
+          "missing_trade_term",
+          "missing_shipment_method"
         ],
         "shared_handoff_rules": [
           "All task3/4/5 workbenches only produce external drafts or safe draft preparation outputs and do not trigger platform write actions.",
@@ -6721,18 +7833,11 @@
           "Task 6 notification provider and real delivery capability are out of scope for this round."
         ],
         "partial_status": {
-          "mode": "degraded",
-          "complete": false,
-          "degraded_section_count": 1
+          "mode": "full_success",
+          "complete": true,
+          "degraded_section_count": 0
         },
-        "degraded_sections": [
-          {
-            "section": "task5_summary",
-            "reason": "time_budget_exceeded",
-            "budget_ms": 9000,
-            "error_message": "section exceeded 9000ms time budget"
-          }
-        ],
+        "degraded_sections": [],
         "boundary_statement": {
           "task3_safe_draft_only": true,
           "task4_external_reply_only": true,
@@ -6751,7 +7856,7 @@
       "status": 200,
       "route_state": "full_success",
       "degraded_reason": null,
-      "elapsed_ms": 784,
+      "elapsed_ms": 869,
       "note": "ok",
       "body": {
         "ok": true,
@@ -6759,7 +7864,7 @@
         "account": "wika",
         "read_only": true,
         "report_name": "preview_center",
-        "generated_at": "2026-04-18T23:14:19.528Z",
+        "generated_at": "2026-04-19T12:52:29.591Z",
         "task3_preview_summary": {
           "source_route": "/integrations/alibaba/wika/workbench/product-draft-preview",
           "report_name": "product_draft_preview",
@@ -6867,7 +7972,7 @@
       "status": 200,
       "route_state": "full_success",
       "degraded_reason": null,
-      "elapsed_ms": 4172,
+      "elapsed_ms": 4241,
       "note": "ok",
       "body": {
         "ok": true,
@@ -6875,7 +7980,7 @@
         "account": "wika",
         "read_only": true,
         "report_name": "product_draft_preview",
-        "generated_at": "2026-04-18T23:14:22.903Z",
+        "generated_at": "2026-04-19T12:52:32.960Z",
         "preview_input_summary": {
           "product_id": "1601740791024",
           "category_id": 36127040,
@@ -7265,7 +8370,7 @@
       "status": 200,
       "route_state": "full_success",
       "degraded_reason": null,
-      "elapsed_ms": 10414,
+      "elapsed_ms": 10426,
       "note": "ok",
       "body": {
         "ok": true,
@@ -7273,7 +8378,7 @@
         "account": "wika",
         "read_only": true,
         "report_name": "reply_preview",
-        "generated_at": "2026-04-18T23:14:29.006Z",
+        "generated_at": "2026-04-19T12:52:38.998Z",
         "preview_input_summary": {
           "inquiry_text_present": true,
           "product_ids": [
@@ -7629,7 +8734,7 @@
       "status": 200,
       "route_state": "full_success",
       "degraded_reason": null,
-      "elapsed_ms": 11180,
+      "elapsed_ms": 9590,
       "note": "ok",
       "body": {
         "ok": true,
@@ -7637,7 +8742,7 @@
         "account": "wika",
         "read_only": true,
         "report_name": "order_preview",
-        "generated_at": "2026-04-18T23:14:29.923Z",
+        "generated_at": "2026-04-19T12:52:38.314Z",
         "preview_input_summary": {
           "buyer_company_name": "***",
           "buyer_contact_name": "***",
@@ -7655,7 +8760,7 @@
             "submit_mode": "manual_only",
             "ready_for_platform_submit": false,
             "draft_header": {
-              "generated_at": "2026-04-18T23:14:20.333Z",
+              "generated_at": "2026-04-19T12:52:30.228Z",
               "draft_type": "external_order_draft",
               "source": "wika_order_entry_boundary"
             },
@@ -7810,7 +8915,7 @@
                 ]
               },
               "next_action": "先由人工补齐买家、价格、交期与履约信息，再决定是否进入订单入口的更深边界验证。",
-              "created_at": "2026-04-18T23:14:20.333Z"
+              "created_at": "2026-04-19T12:52:30.228Z"
             }
           },
           "required_manual_fields": [
@@ -12046,23 +13151,22 @@
   },
   "report_model": {
     "title": "WIKA 运营示范报告",
-    "generated_at": "2026-04-18T23:14:19.252Z",
+    "generated_at": "2026-04-19T12:52:29.623Z",
     "template_reference": "WIKA_经营诊断报告模板.md",
     "route_health": {
-      "full_success_count": 19,
-      "degraded_count": 2,
+      "full_success_count": 20,
+      "degraded_count": 1,
       "failed_count": 1,
       "core_full_success_count": 9,
       "degraded_routes": [
-        "/integrations/alibaba/wika/reports/action-center",
-        "/integrations/alibaba/wika/workbench/task-workbench"
+        "/integrations/alibaba/wika/reports/action-center"
       ],
       "failed_routes": [
         "/integrations/alibaba/wika/reports/operator-console"
       ],
       "summary_lines": [
-        "本次 live 读取中，full_success route 共 19 条，degraded route 共 2 条，failed route 共 1 条。",
-        "降级参与的 route：/integrations/alibaba/wika/reports/action-center（time_budget_exceeded, store_diagnostic）、/integrations/alibaba/wika/workbench/task-workbench（time_budget_exceeded, task5_summary）。",
+        "本次 live 读取中，full_success route 共 20 条，degraded route 共 1 条，failed route 共 1 条。",
+        "降级参与的 route：/integrations/alibaba/wika/reports/action-center（time_budget_exceeded, store_diagnostic）。",
         "失败 route：/integrations/alibaba/wika/reports/operator-console（timeout）。",
         "核心事实优先回退到 management-summary、minimal-diagnostic、comparison、各 task workbench 等底层稳定 route。"
       ]
@@ -12073,7 +13177,7 @@
         "method": "GET",
         "path": "/health",
         "status": 200,
-        "elapsed_ms": 869,
+        "elapsed_ms": 664,
         "is_json": false,
         "route_state": "full_success",
         "degraded_reason": null,
@@ -12084,7 +13188,7 @@
         "method": "GET",
         "path": "/integrations/alibaba/auth/debug",
         "status": 200,
-        "elapsed_ms": 817,
+        "elapsed_ms": 617,
         "is_json": true,
         "route_state": "full_success",
         "degraded_reason": null,
@@ -12095,7 +13199,7 @@
         "method": "GET",
         "path": "/integrations/alibaba/wika/reports/operations/management-summary",
         "status": 200,
-        "elapsed_ms": 3010,
+        "elapsed_ms": 2397,
         "is_json": true,
         "route_state": "full_success",
         "degraded_reason": null,
@@ -12106,7 +13210,7 @@
         "method": "GET",
         "path": "/integrations/alibaba/wika/reports/products/management-summary",
         "status": 200,
-        "elapsed_ms": 5378,
+        "elapsed_ms": 5000,
         "is_json": true,
         "route_state": "full_success",
         "degraded_reason": null,
@@ -12117,7 +13221,7 @@
         "method": "GET",
         "path": "/integrations/alibaba/wika/reports/orders/management-summary",
         "status": 200,
-        "elapsed_ms": 5283,
+        "elapsed_ms": 4724,
         "is_json": true,
         "route_state": "full_success",
         "degraded_reason": null,
@@ -12128,7 +13232,7 @@
         "method": "GET",
         "path": "/integrations/alibaba/wika/reports/operations/minimal-diagnostic",
         "status": 200,
-        "elapsed_ms": 12149,
+        "elapsed_ms": 12003,
         "is_json": true,
         "route_state": "full_success",
         "degraded_reason": null,
@@ -12139,7 +13243,7 @@
         "method": "GET",
         "path": "/integrations/alibaba/wika/reports/products/minimal-diagnostic",
         "status": 200,
-        "elapsed_ms": 6876,
+        "elapsed_ms": 6562,
         "is_json": true,
         "route_state": "full_success",
         "degraded_reason": null,
@@ -12150,7 +13254,7 @@
         "method": "GET",
         "path": "/integrations/alibaba/wika/reports/orders/minimal-diagnostic",
         "status": 200,
-        "elapsed_ms": 9312,
+        "elapsed_ms": 9059,
         "is_json": true,
         "route_state": "full_success",
         "degraded_reason": null,
@@ -12161,7 +13265,7 @@
         "method": "GET",
         "path": "/integrations/alibaba/wika/reports/operations/comparison-summary",
         "status": 200,
-        "elapsed_ms": 4394,
+        "elapsed_ms": 4544,
         "is_json": true,
         "route_state": "full_success",
         "degraded_reason": null,
@@ -12172,7 +13276,7 @@
         "method": "GET",
         "path": "/integrations/alibaba/wika/reports/products/comparison-summary",
         "status": 200,
-        "elapsed_ms": 7271,
+        "elapsed_ms": 6910,
         "is_json": true,
         "route_state": "full_success",
         "degraded_reason": null,
@@ -12183,7 +13287,7 @@
         "method": "GET",
         "path": "/integrations/alibaba/wika/reports/orders/comparison-summary",
         "status": 200,
-        "elapsed_ms": 5231,
+        "elapsed_ms": 5202,
         "is_json": true,
         "route_state": "full_success",
         "degraded_reason": null,
@@ -12194,7 +13298,7 @@
         "method": "GET",
         "path": "/integrations/alibaba/wika/reports/business-cockpit",
         "status": 200,
-        "elapsed_ms": 12052,
+        "elapsed_ms": 12061,
         "is_json": true,
         "route_state": "full_success",
         "degraded_reason": null,
@@ -12205,7 +13309,7 @@
         "method": "GET",
         "path": "/integrations/alibaba/wika/reports/action-center",
         "status": 200,
-        "elapsed_ms": 9941,
+        "elapsed_ms": 9892,
         "is_json": true,
         "route_state": "degraded",
         "degraded_reason": "time_budget_exceeded, store_diagnostic",
@@ -12216,7 +13320,7 @@
         "method": "GET",
         "path": "/integrations/alibaba/wika/reports/operator-console",
         "status": "failed",
-        "elapsed_ms": 18015,
+        "elapsed_ms": 18014,
         "is_json": false,
         "route_state": "failed",
         "degraded_reason": null,
@@ -12227,7 +13331,7 @@
         "method": "GET",
         "path": "/integrations/alibaba/wika/workbench/product-draft-workbench",
         "status": 200,
-        "elapsed_ms": 4379,
+        "elapsed_ms": 4377,
         "is_json": true,
         "route_state": "full_success",
         "degraded_reason": null,
@@ -12238,7 +13342,7 @@
         "method": "GET",
         "path": "/integrations/alibaba/wika/workbench/reply-workbench",
         "status": 200,
-        "elapsed_ms": 6311,
+        "elapsed_ms": 6243,
         "is_json": true,
         "route_state": "full_success",
         "degraded_reason": null,
@@ -12249,7 +13353,7 @@
         "method": "GET",
         "path": "/integrations/alibaba/wika/workbench/order-workbench",
         "status": 200,
-        "elapsed_ms": 9991,
+        "elapsed_ms": 9496,
         "is_json": true,
         "route_state": "full_success",
         "degraded_reason": null,
@@ -12260,10 +13364,10 @@
         "method": "GET",
         "path": "/integrations/alibaba/wika/workbench/task-workbench",
         "status": 200,
-        "elapsed_ms": 9803,
+        "elapsed_ms": 9816,
         "is_json": true,
-        "route_state": "degraded",
-        "degraded_reason": "time_budget_exceeded, task5_summary",
+        "route_state": "full_success",
+        "degraded_reason": null,
         "note": "ok"
       },
       {
@@ -12271,7 +13375,7 @@
         "method": "GET",
         "path": "/integrations/alibaba/wika/workbench/preview-center",
         "status": 200,
-        "elapsed_ms": 784,
+        "elapsed_ms": 869,
         "is_json": true,
         "route_state": "full_success",
         "degraded_reason": null,
@@ -12282,7 +13386,7 @@
         "method": "POST",
         "path": "/integrations/alibaba/wika/workbench/product-draft-preview",
         "status": 200,
-        "elapsed_ms": 4172,
+        "elapsed_ms": 4241,
         "is_json": true,
         "route_state": "full_success",
         "degraded_reason": null,
@@ -12293,7 +13397,7 @@
         "method": "POST",
         "path": "/integrations/alibaba/wika/workbench/reply-preview",
         "status": 200,
-        "elapsed_ms": 10414,
+        "elapsed_ms": 10426,
         "is_json": true,
         "route_state": "full_success",
         "degraded_reason": null,
@@ -12304,15 +13408,15 @@
         "method": "POST",
         "path": "/integrations/alibaba/wika/workbench/order-preview",
         "status": 200,
-        "elapsed_ms": 11180,
+        "elapsed_ms": 9590,
         "is_json": true,
         "route_state": "full_success",
         "degraded_reason": null,
         "note": "ok"
       }
     ],
-    "route_success_count": 19,
-    "route_degraded_count": 2,
+    "route_success_count": 20,
+    "route_degraded_count": 1,
     "route_failure_count": 1,
     "section_order": [
       "A. 执行摘要",
@@ -12340,7 +13444,7 @@
       "产品层当前最明确的短板是内容完整度和关键词准备：missing_description_count=5，missing_keywords_count=8，low_score_count=1。",
       "订单层已经能给出 formal_summary、product_contribution、trend_signal，但 country_structure 仍 unavailable，因此只能做保守订单判断。",
       "task3 / task4 / task5 当前已经形成工作台、预览和外部草稿消费层，但最后一跳仍需人工接手，不是平台内闭环。",
-      "本次报告检测到 2 条 degraded route，因此高层聚合结果只作为辅助排序，核心事实回退到底层稳定 route。"
+      "本次报告检测到 1 条 degraded route，因此高层聚合结果只作为辅助排序，核心事实回退到底层稳定 route。"
     ],
     "core_findings": [
       {
@@ -12509,8 +13613,8 @@
     ],
     "product_diagnosis": [
       "产品 summary 当前仍带 sample 边界：product_scope_limit=5，product_scope_truncated=true。",
-      "产品聚合指标当前可读：click=0、impression=0、visitor=0、order=0。",
-      "当前可优先关注的样本商品例如：暂无稳定样本商品。",
+      "产品聚合指标当前可读：click=0、impression=4、visitor=0、order=0。",
+      "当前可优先关注的样本商品例如：Customizable New Fashion Portable Eyeglas…（metric_value=3）、Customizable PU Leather Portable Sunglass…（metric_value=1）。",
       "产品层当前最主要问题仍是详情、关键词、score 与结构维护，而不是单纯没有商品。",
       "产品层最主要的 unavailable 维度仍是 access_source、inquiry_source、country_source、period_over_period_change。"
     ],
@@ -12550,8 +13654,8 @@
       "因此，task5 当前最大价值是把订单输入、条款和交接资料整理标准化，而不是直接平台内创单。"
     ],
     "replacement_assessment": [
-      "能完全自动完成：summary、diagnostic、comparison、business-cockpit、action-center、operator-console 这一层的读取、汇总和排序。",
-      "能自动完成大部分但仍需人工确认：product-draft-preview、reply-preview、order-preview，以及 reply / order 外部草稿包。",
+      "WIKA 当前已经能完全自动完成：底层 summary、diagnostic、comparison，以及 business-cockpit 这一层的读取、汇总和排序。",
+      "能自动完成大部分但仍需人工确认：product-draft-preview、reply-preview、order-preview，以及 reply / order 外部草稿包；action-center、task-workbench、operator-console 只在 live 稳定时用于排序辅助，若出现 degraded / timeout，必须回退到底层稳定 route。",
       "只能做到准备层 / 交接层：task3 商品准备、task4 回复上下文整理、task5 订单条款整理。",
       "当前完全不能替代：平台内发布、平台内回复、平台内创单，以及 unavailable 维度对应的判断。"
     ],
@@ -12578,8 +13682,8 @@
       }
     ],
     "route_health_summary": [
-      "本次 live 读取中，full_success route 共 19 条，degraded route 共 2 条，failed route 共 1 条。",
-      "降级参与的 route：/integrations/alibaba/wika/reports/action-center（time_budget_exceeded, store_diagnostic）、/integrations/alibaba/wika/workbench/task-workbench（time_budget_exceeded, task5_summary）。",
+      "本次 live 读取中，full_success route 共 20 条，degraded route 共 1 条，failed route 共 1 条。",
+      "降级参与的 route：/integrations/alibaba/wika/reports/action-center（time_budget_exceeded, store_diagnostic）。",
       "失败 route：/integrations/alibaba/wika/reports/operator-console（timeout）。",
       "核心事实优先回退到 management-summary、minimal-diagnostic、comparison、各 task workbench 等底层稳定 route。"
     ],
@@ -12605,7 +13709,7 @@
         "period_over_period_change",
         "country_structure"
       ],
-      "degraded_route_participation": "本次检测到 degraded route：/integrations/alibaba/wika/reports/action-center、/integrations/alibaba/wika/workbench/task-workbench；这些 route 只用于辅助排序或 readiness 提示，核心事实回退到底层稳定 route。",
+      "degraded_route_participation": "本次检测到 degraded route：/integrations/alibaba/wika/reports/action-center；这些 route 只用于辅助排序或 readiness 提示，核心事实回退到底层稳定 route。",
       "notes": [
         "当前不是完整经营驾驶舱。",
         "task3 / task4 / task5 当前仍不是平台内闭环。",
@@ -12614,28 +13718,28 @@
       ]
     },
     "data_sources": [
-      "GET /health -> 200（full_success；869ms；ok）",
-      "GET /integrations/alibaba/auth/debug -> 200（full_success；817ms；ok）",
-      "GET /integrations/alibaba/wika/reports/operations/management-summary -> 200（full_success；3010ms；ok）",
-      "GET /integrations/alibaba/wika/reports/products/management-summary -> 200（full_success；5378ms；ok）",
-      "GET /integrations/alibaba/wika/reports/orders/management-summary -> 200（full_success；5283ms；ok）",
-      "GET /integrations/alibaba/wika/reports/operations/minimal-diagnostic -> 200（full_success；12149ms；ok）",
-      "GET /integrations/alibaba/wika/reports/products/minimal-diagnostic -> 200（full_success；6876ms；ok）",
-      "GET /integrations/alibaba/wika/reports/orders/minimal-diagnostic -> 200（full_success；9312ms；ok）",
-      "GET /integrations/alibaba/wika/reports/operations/comparison-summary -> 200（full_success；4394ms；ok）",
-      "GET /integrations/alibaba/wika/reports/products/comparison-summary -> 200（full_success；7271ms；ok）",
-      "GET /integrations/alibaba/wika/reports/orders/comparison-summary -> 200（full_success；5231ms；ok）",
-      "GET /integrations/alibaba/wika/reports/business-cockpit -> 200（full_success；12052ms；ok）",
-      "GET /integrations/alibaba/wika/reports/action-center -> 200（degraded；9941ms；ok）",
-      "GET /integrations/alibaba/wika/reports/operator-console -> failed（failed；18015ms；timeout）",
-      "GET /integrations/alibaba/wika/workbench/product-draft-workbench -> 200（full_success；4379ms；ok）",
-      "GET /integrations/alibaba/wika/workbench/reply-workbench -> 200（full_success；6311ms；ok）",
-      "GET /integrations/alibaba/wika/workbench/order-workbench -> 200（full_success；9991ms；ok）",
-      "GET /integrations/alibaba/wika/workbench/task-workbench -> 200（degraded；9803ms；ok）",
-      "GET /integrations/alibaba/wika/workbench/preview-center -> 200（full_success；784ms；ok）",
-      "POST /integrations/alibaba/wika/workbench/product-draft-preview -> 200（full_success；4172ms；ok）",
-      "POST /integrations/alibaba/wika/workbench/reply-preview -> 200（full_success；10414ms；ok）",
-      "POST /integrations/alibaba/wika/workbench/order-preview -> 200（full_success；11180ms；ok）"
+      "GET /health -> 200（full_success；664ms；ok）",
+      "GET /integrations/alibaba/auth/debug -> 200（full_success；617ms；ok）",
+      "GET /integrations/alibaba/wika/reports/operations/management-summary -> 200（full_success；2397ms；ok）",
+      "GET /integrations/alibaba/wika/reports/products/management-summary -> 200（full_success；5000ms；ok）",
+      "GET /integrations/alibaba/wika/reports/orders/management-summary -> 200（full_success；4724ms；ok）",
+      "GET /integrations/alibaba/wika/reports/operations/minimal-diagnostic -> 200（full_success；12003ms；ok）",
+      "GET /integrations/alibaba/wika/reports/products/minimal-diagnostic -> 200（full_success；6562ms；ok）",
+      "GET /integrations/alibaba/wika/reports/orders/minimal-diagnostic -> 200（full_success；9059ms；ok）",
+      "GET /integrations/alibaba/wika/reports/operations/comparison-summary -> 200（full_success；4544ms；ok）",
+      "GET /integrations/alibaba/wika/reports/products/comparison-summary -> 200（full_success；6910ms；ok）",
+      "GET /integrations/alibaba/wika/reports/orders/comparison-summary -> 200（full_success；5202ms；ok）",
+      "GET /integrations/alibaba/wika/reports/business-cockpit -> 200（full_success；12061ms；ok）",
+      "GET /integrations/alibaba/wika/reports/action-center -> 200（degraded；9892ms；ok）",
+      "GET /integrations/alibaba/wika/reports/operator-console -> failed（failed；18014ms；timeout）",
+      "GET /integrations/alibaba/wika/workbench/product-draft-workbench -> 200（full_success；4377ms；ok）",
+      "GET /integrations/alibaba/wika/workbench/reply-workbench -> 200（full_success；6243ms；ok）",
+      "GET /integrations/alibaba/wika/workbench/order-workbench -> 200（full_success；9496ms；ok）",
+      "GET /integrations/alibaba/wika/workbench/task-workbench -> 200（full_success；9816ms；ok）",
+      "GET /integrations/alibaba/wika/workbench/preview-center -> 200（full_success；869ms；ok）",
+      "POST /integrations/alibaba/wika/workbench/product-draft-preview -> 200（full_success；4241ms；ok）",
+      "POST /integrations/alibaba/wika/workbench/reply-preview -> 200（full_success；10426ms；ok）",
+      "POST /integrations/alibaba/wika/workbench/order-preview -> 200（full_success；9590ms；ok）"
     ],
     "self_score": {
       "total_score": 39,
