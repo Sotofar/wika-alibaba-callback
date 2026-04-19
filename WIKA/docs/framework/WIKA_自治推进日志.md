@@ -1718,3 +1718,25 @@
   - 每日运营摘要
   - 每周老板摘要
 - 当前仍然只允许在 safe-scope 内工作，不回头做 restriction 同构重试，不扩写侧动作，不把当前页样本写成全量。
+### WIKA 阶段 46：报告系统远端基线锁定
+
+- 实际起始 commit：`6824c4eaaa206f5db19097add21b2d8a1b13886c`
+- 实际结束 commit：`96741fd3d325dc8fe3b2153278532f83bc32e319`
+- 本轮只做三件事：
+  - 重新验证 stage46 报告生成器与示范报告可稳定生成
+  - 将 stage46 报告系统推送到 `origin/main`
+  - 做最小线上回归并修正高层聚合预算
+- 本轮没有新增 API。
+- 本轮没有新增写侧动作。
+- 本轮没有扩展新的报告类型。
+- 本轮新增的最小修复是：
+  - 收紧 `action-center` 聚合预算，优先返回 degraded JSON
+  - 收紧 `operator-console` 外层预算，避免高层聚合直接顶到平台超时
+- 最终最小线上回归结果：
+  - `business-cockpit`: `200 full_success`
+  - `action-center`: `200 degraded`
+  - `operator-console`: `200 full_success`
+- 当前结论：
+  - stage46 已远端锁定
+  - 报告规范、模板、示例、评分器、生成器、示范报告已形成正式基线
+  - 当前仍需诚实保留 degraded / unavailable / 人工接手边界

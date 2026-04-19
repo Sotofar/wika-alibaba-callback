@@ -1,3 +1,31 @@
+## 2026-04-19 Stage 46 报告系统远端基线锁定
+
+### 当前阶段
+- stage46 已完成远端锁定。
+
+### 已完成
+- 已锁定运营报告规范、评分标准、模板、示例、生成器与示范报告。
+- 已完成示范报告运营可用性复核：
+  - 12 项验收全部通过
+  - 自评分 `39/40`
+  - 未触发一票否决项
+- 已完成 push 后最小线上回归：
+  - `/health`
+  - `/integrations/alibaba/auth/debug`
+  - `/integrations/alibaba/wika/reports/business-cockpit`
+  - `/integrations/alibaba/wika/reports/action-center`
+  - `/integrations/alibaba/wika/reports/operator-console`
+
+### 当前剩余
+- 不再重写报告系统，不再扩报告类型。
+- 继续保留高层聚合边界：
+  - `action-center` 可能 degraded
+  - `operator-console` 可能出现高延迟
+- task3 / task4 / task5 继续停在消费层、准备层、外部草稿层，不进入平台内闭环。
+
+### 下一步唯一动作
+- stage46 锁定后，如需继续推进，只允许围绕既有能力做业务使用，不再回头重做报告规范。
+
 ## 2026-04-18 Stage 31 XD Safe-Scope Productization
 
 ### 当前阶段
