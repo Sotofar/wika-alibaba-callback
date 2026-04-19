@@ -1,9 +1,9 @@
-# XD 最新周报
+# XD 今日运营日报
 
-生成时间：2026-04-19T12:52:35.751Z
+生成时间：2026-04-19T12:52:09.182Z
 
 # 1. 报告范围
-- 时间窗口：2026-04-06 至 2026-04-12
+- 时间窗口：2026-04-19 至 2026-04-19
 - 时区：Asia/Shanghai
 - 数据来源：当前 production stable routes；stage26-stage30 evidence；api_coverage / permission_gap / freeze docs
 - 不包含范围：写侧动作、未知 API、全量多页聚合、GMV/转化率/国家结构/完整经营诊断。
@@ -13,17 +13,17 @@
 - XD access safe-scope 已封板，当前 route parity gap=0，candidate unresolved=0。
 - 当前 production base 继续可读：/health、/integrations/alibaba/auth/debug、/integrations/alibaba/xd/auth/debug 均返回 200。
 - 订单与商品核心只读 route 可持续提供当前页样本与最小详情能力，可直接用于日报、周报草稿与巡检。
-- 本报告窗口严格全量订单数 仍不可可靠给出；当前能给出的只有当前页样本命中报告窗口的观察值。
+- 今日窗口严格全量订单数 仍不可可靠给出；当前能给出的只有当前页样本命中报告窗口的观察值。
 - fund/logistics 目前只适合作为 sample trade 覆盖信号，不应写成稳定经营指标。
 - products/detail、groups、score、categories、media 已可读，可支撑商品基础盘点与元信息核查。
 - orders/report 型 summary/trend/report-consumers 当前 production 为 404，但 stage28 打通的 minimal-diagnostic routes 可作为辅助信号。
 - 没有新的外部租户/产品级 live 证据前，不建议继续对 restriction 对象做同构重试。
 
 # 3. 订单运营摘要
-- 本报告窗口严格全量订单数：not_available。原因：当前 safe-scope 只保证当前页样本和已读范围，不提供严格按报告窗口裁切的全量订单聚合。
+- 今日窗口严格全量订单数：not_available。原因：当前 safe-scope 只保证当前页样本和已读范围，不提供严格按报告窗口裁切的全量订单聚合。
 - 当前页可见订单样本数：10；当前页响应 total_count：1225。
 - 当前页样本 create_date 范围：2026-04-11 至 2026-04-18。
-- 当前页样本命中本报告窗口的 create 记录：1；modify 记录：0。
+- 当前页样本命中今日窗口的 create 记录：0；modify 记录：2。
 - 已抽样订单状态分布：unpay=4, undeliver=1。
 - 已抽样 fulfillment channel 分布：TAD=3, TAO=2。
 - 已抽样 shipment method 分布：multimodal_transport=3, express=2。
@@ -36,7 +36,7 @@
 # 4. 商品与内容摘要
 - 当前页可见商品样本数：10；当前页响应 total_item：919。
 - 当前页样本 gmt_modified 范围：2026-04-08 至 2026-04-15。
-- 当前页商品样本命中本报告窗口的 create 记录：8；modify 记录：9。
+- 当前页商品样本命中今日窗口的 create 记录：0；modify 记录：0。
 - 商品 detail 状态：available；说明：可做基础详情抽样，不等于全量经营分析。
 - 商品 groups 状态：available；说明：可做分组元信息核查。
 - 商品 score 状态：available；说明：可做基础质量分抽样。

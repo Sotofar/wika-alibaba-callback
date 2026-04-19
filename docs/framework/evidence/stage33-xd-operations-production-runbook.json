@@ -1,0 +1,85 @@
+{
+  "generated_at": "2026-04-19T12:52:43.075Z",
+  "stage": "stage33-xd-operations-production-runbook",
+  "head_before_commit": "cd1560a50f75eebaf23a1a1615654f628b586131",
+  "production_base_status": {
+    "classification": "PASS_BASE",
+    "health": 200,
+    "auth_debug": 200,
+    "xd_auth_debug": 200,
+    "stable_xd_route": {
+      "route": "/integrations/alibaba/xd/data/orders/list?page_size=1",
+      "status": 200
+    },
+    "stable_direct_control": "available_via_stage30_evidence"
+  },
+  "daily_runbook_created": true,
+  "weekly_checklist_created": true,
+  "interpretation_guide_created": true,
+  "workflow_script_created": true,
+  "workflow_validation_passed": true,
+  "daily_outputs_supported": true,
+  "weekly_outputs_supported": true,
+  "monitoring_supported": true,
+  "workflow_live_run": {
+    "mode": "both",
+    "overall_status": "PASS",
+    "workflow_markdown_path": "D:\\Code\\阿里国际站\\Ali-WIKA\\projects\\xd\\access\\operations\\runs\\xd_operations_workflow_both_2026-04-19_2026-04-06_2026-04-12.md",
+    "workflow_json_path": "D:\\Code\\阿里国际站\\Ali-WIKA\\projects\\xd\\access\\operations\\runs\\xd_operations_workflow_both_2026-04-19_2026-04-06_2026-04-12.json",
+    "monitoring_output_json_path": "D:\\Code\\阿里国际站\\Ali-WIKA\\projects\\xd\\access\\monitoring\\runs\\xd_critical_routes_stage33_both_2026-04-19_2026-04-06_2026-04-12.json",
+    "monitoring_output_markdown_path": "D:\\Code\\阿里国际站\\Ali-WIKA\\projects\\xd\\access\\monitoring\\runs\\xd_critical_routes_stage33_both_2026-04-19_2026-04-06_2026-04-12.md",
+    "monitoring_overall_status": "PASS",
+    "monitoring_classification_counts": {
+      "PASS": 13,
+      "PASS_NO_DATA": 1,
+      "SKIPPED_BY_SAFETY": 4,
+      "FAIL": 0
+    },
+    "daily_report": {
+      "output_markdown_path": "D:\\Code\\阿里国际站\\Ali-WIKA\\projects\\xd\\access\\reports\\xd_daily_report_2026-04-19.md",
+      "output_json_path": "D:\\Code\\阿里国际站\\Ali-WIKA\\projects\\xd\\access\\reports\\xd_daily_report_2026-04-19.json",
+      "visible_order_count_current_page": 10,
+      "total_order_count_signal": 1225,
+      "visible_product_count_current_page": 10,
+      "total_product_count_signal": 919
+    },
+    "weekly_report": {
+      "output_markdown_path": "D:\\Code\\阿里国际站\\Ali-WIKA\\projects\\xd\\access\\XD_WEEKLY_OPERATIONS_REPORT_STAGE31.md",
+      "output_json_path": "D:\\Code\\阿里国际站\\docs\\framework\\evidence\\xd_weekly_operations_report_stage31.json",
+      "window_output_markdown_path": "D:\\Code\\阿里国际站\\Ali-WIKA\\projects\\xd\\access\\reports\\xd_weekly_report_2026-04-06_2026-04-12.md",
+      "window_output_json_path": "D:\\Code\\阿里国际站\\Ali-WIKA\\projects\\xd\\access\\reports\\xd_weekly_report_2026-04-06_2026-04-12.json",
+      "visible_order_count_current_page": 10,
+      "total_order_count_signal": 1225,
+      "visible_product_count_current_page": 10,
+      "total_product_count_signal": 919
+    }
+  },
+  "validation_results": {
+    "stage31_operations_report": "ok",
+    "stage31_monitoring": "ok",
+    "stage31_productization": "ok",
+    "stage33_workflow": "ok",
+    "boundary_results": {
+      "scripts/check-boundary.js": "missing",
+      "scripts/doc-audit.js": "missing"
+    }
+  },
+  "codex_realistic_tasks": [
+    "每日 XD 日报",
+    "每周 XD 周报",
+    "每日关键 route 巡检",
+    "运营可读摘要",
+    "老板摘要",
+    "route 回归检查",
+    "restriction 重开 gate 判断"
+  ],
+  "codex_should_not_do": [
+    "继续无证据同构重试",
+    "编造 GMV / 转化率 / 国家结构",
+    "把当前页样本说成全量",
+    "触碰写侧动作",
+    "重开 write-adjacent skipped"
+  ],
+  "biggest_reporting_limit": "当前仍然只能稳定产出当前页样本 / 已读范围口径，无法给出多页全量聚合结果。",
+  "next_operational_step": "固定每日巡检 + 日报、每周周报 + 老板摘要的节奏；若没有新的外部 live 证据，不再回头做 restriction 同构重试。"
+}

@@ -1694,3 +1694,27 @@
   - 高层消费 route 已恢复 live 可读性
   - 部分 route 仍有显式 degraded section
   - 但不再依赖 `404` / timeout 作为默认失败形态
+
+## 2026-04-19 Stage 33 XD Operations Production Runbook
+
+### 当前阶段
+- stage33 XD 运营工作流正式化
+
+### 本轮新增
+- `Ali-WIKA/projects/xd/access/operations/XD_DAILY_OPERATIONS_RUNBOOK_STAGE33.md`
+- `Ali-WIKA/projects/xd/access/operations/XD_DAILY_CHECKLIST_STAGE33.md`
+- `Ali-WIKA/projects/xd/access/operations/XD_WEEKLY_CHECKLIST_STAGE33.md`
+- `Ali-WIKA/projects/xd/access/operations/XD_REPORT_INTERPRETATION_GUIDE_STAGE33.md`
+- `scripts/run-xd-operations-workflow-stage33.js`
+- `scripts/validate-xd-operations-workflow-stage33.js`
+- `docs/framework/evidence/stage33-xd-operations-production-runbook.json`
+
+### 当前结论
+- XD 已从 stage32 的试运行，进入可重复执行、可交接、可审计的正式运营工作流。
+- 当前可固定执行的节奏已经收口为：
+  - 每日关键 route 巡检
+  - 每日 XD 日报
+  - 每周 XD 周报
+  - 每日运营摘要
+  - 每周老板摘要
+- 当前仍然只允许在 safe-scope 内工作，不回头做 restriction 同构重试，不扩写侧动作，不把当前页样本写成全量。
