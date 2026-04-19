@@ -16,13 +16,13 @@ import {
   normalizeStoreDiagnostic
 } from "./business-cockpit-normalizers.js";
 
-const STORE_DIAGNOSTIC_BUDGET_MS = 9000;
-const PRODUCT_DIAGNOSTIC_BUDGET_MS = 9000;
-const ORDER_DIAGNOSTIC_BUDGET_MS = 9000;
-const STORE_COMPARISON_BUDGET_MS = 9000;
-const PRODUCT_COMPARISON_BUDGET_MS = 9000;
-const ORDER_COMPARISON_BUDGET_MS = 9000;
-const TASK_WORKBENCH_BUDGET_MS = 14000;
+const STORE_DIAGNOSTIC_BUDGET_MS = 7000;
+const PRODUCT_DIAGNOSTIC_BUDGET_MS = 7000;
+const ORDER_DIAGNOSTIC_BUDGET_MS = 7000;
+const STORE_COMPARISON_BUDGET_MS = 7000;
+const PRODUCT_COMPARISON_BUDGET_MS = 7000;
+const ORDER_COMPARISON_BUDGET_MS = 7000;
+const TASK_WORKBENCH_BUDGET_MS = 10000;
 
 function unique(values = []) {
   return [...new Set(values.map((value) => String(value ?? "").trim()).filter(Boolean))];

@@ -8,8 +8,8 @@ import {
   buildTaskCoverageSummary
 } from "./business-cockpit-normalizers.js";
 
-const TASK_WORKBENCH_BUDGET_MS = 14000;
-const ACTION_CENTER_BUDGET_MS = 12000;
+const TASK_WORKBENCH_BUDGET_MS = 9000;
+const ACTION_CENTER_BUDGET_MS = 8000;
 
 function unique(values = []) {
   return [...new Set(values.map((value) => String(value ?? "").trim()).filter(Boolean))];
