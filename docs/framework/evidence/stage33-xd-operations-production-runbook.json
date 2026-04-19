@@ -1,7 +1,36 @@
 {
-  "generated_at": "2026-04-19T12:52:43.075Z",
+  "generated_at": "2026-04-19T14:05:00.000Z",
   "stage": "stage33-xd-operations-production-runbook",
-  "head_before_commit": "cd1560a50f75eebaf23a1a1615654f628b586131",
+  "head_before_commit": "4c4bed2ec511e51f99e7818095c10da49bc60a74",
+  "mainline_consistency_checked": true,
+  "stage31_artifacts_present": true,
+  "stage32_artifacts_present": true,
+  "stage32_overwrite_or_regression_detected": false,
+  "mainline_consistency": {
+    "checked_branch": "origin/main",
+    "local_branch_during_check": "main",
+    "local_head_during_check": "6824c4eaaa206f5db19097add21b2d8a1b13886c",
+    "origin_main_head": "4c4bed2ec511e51f99e7818095c10da49bc60a74",
+    "stage31_expected_commits": [
+      {
+        "commit": "7d426d1",
+        "message": "stage31 xd permission ledger and weekly report",
+        "is_origin_main_ancestor": false,
+        "artifact_presence_confirmed": true
+      },
+      {
+        "commit": "a2dff55",
+        "message": "stage31 xd reporting and monitoring automation",
+        "is_origin_main_ancestor": false,
+        "artifact_presence_confirmed": true
+      }
+    ],
+    "stage31_missing_artifacts": [],
+    "stage32_missing_artifacts": [],
+    "stage33_missing_artifacts": [],
+    "consistency_conclusion": "origin/main 已保留 stage31、stage32、stage33 产物，未发现 stage31 隔离 worktree push 导致的 stage32 覆盖或主线回退。原始 stage31 commit hash 未直接保留为 origin/main 祖先，但对应产物与后续集成结果已在主线上。",
+    "restoration_required": false
+  },
   "production_base_status": {
     "classification": "PASS_BASE",
     "health": 200,
