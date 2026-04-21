@@ -1780,6 +1780,32 @@
   - 页面优化建议仍依赖人工盘点输入
   - task3/task4/task5 仍不是平台内执行闭环
   - task6 excluded
+### WIKA 阶段 49：运营任务执行闭环
+
+- 实际起始 commit：`3c6a6e3ad34a66279636fb57e65bb402e6652986`
+- 本轮没有新增 API、没有新增 live route、没有写侧动作。
+- 本轮只做一件事：把 stage48 的运营任务包升级为可跟踪执行闭环。
+- 新增沉淀包括：
+  - `task-execution-model.js`
+  - `task-status-updater.js`
+  - `task-execution-writer.js`
+  - `update-wika-task-status.js`
+  - 执行看板、每日/每周记录模板、证据收集模板
+  - 人工输入回收清单
+  - 机器可读执行状态 JSON、阻塞清单 JSON、人工输入需求 JSON、下一轮报告输入包 JSON
+  - 执行闭环评分 JSON
+- 本轮执行闭环结果：
+  - `ready_to_execute = 10`
+  - `blocked = 6`
+  - `waiting_for_input = 3`
+  - 人工输入需求：`19`
+  - 评分：`40/40`
+  - 一票否决项：无
+- 当前收口结论：
+  - WIKA 已能把任务包变成可执行、可回填、可复盘、可进入下一轮报告的数据结构。
+  - 任务仍然需要人工执行、人工确认和外部输入补齐。
+  - 当前继续保持 not task 1 complete / not task 2 complete / not task 3 complete / not task 4 complete / not task 5 complete / task 6 excluded。
+
 ### WIKA 阶段 48：运营任务包生成
 
 - 实际起始 commit：`37da3df366e912b4155276ba4a15a05f3a555c8d`
@@ -1849,3 +1875,29 @@
   - stage48 已把报告包推进为可分发、可复跑、可人工接手、可线上 sanity 的正式运营报告包。
   - degraded 已被最小收口 / 接受为合理降级，不阻塞报告包分发。
   - 下一步应进入业务分发、人工补数和固定周期复跑。
+### WIKA 阶段 49：业务分发与人工补数回收
+
+- 起始 commit：`3c6a6e3 stage48 wika report package operationalization`
+- 本轮没有新增 API，没有新增 route，没有重做 PDF，没有做 runtime 性能优化，没有触碰 XD。
+- 本轮新增：
+  - 6 个角色 outbox
+  - 分发执行总索引
+  - 业务试用反馈表
+  - 角色反馈问题清单
+  - 反馈回收与改进规则
+  - 5 类人工补数模板
+  - 人工补数回收说明
+  - stage49 复跑演练 JSON
+  - stage49 evidence
+  - stage49 验证脚本
+- 固定周期复跑演练结果：
+  - Markdown: `8/8`
+  - PDF: `8/8`
+  - raw status: `DEGRADED`
+  - accepted status: `DEGRADED_ACCEPTED`
+  - degraded 仅来自当前环境桌面副本不可见和已接受的 report route degraded
+- 当前收口结论：
+  - 报告包已经可以实际分发。
+  - 业务侧可以开始试用并反馈。
+  - 人工补数模板已经准备好。
+  - 下一步不是继续扩报告体系，而是业务分发、反馈回收和补数回收。

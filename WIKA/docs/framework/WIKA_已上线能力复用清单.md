@@ -416,6 +416,33 @@
   - 广告报告仍依赖人工样本。
   - 页面优化建议仍依赖人工盘点输入。
   - task3 / task4 / task5 仍不是平台内自动执行闭环。
+## 2026-04-21 Stage 49 运营任务执行闭环新增复用资产
+- 本轮没有新增 live route。
+- 本轮新增的是“任务执行闭环与人工输入回收资产”：
+  - `WIKA/docs/tasks/execution/WIKA_任务执行总看板.md`
+  - `WIKA/docs/tasks/execution/WIKA_P1任务执行看板.md`
+  - `WIKA/docs/tasks/execution/WIKA_blocked任务清障看板.md`
+  - `WIKA/docs/tasks/execution/WIKA_按角色执行看板.md`
+  - `WIKA/docs/tasks/execution/WIKA_本周执行计划.md`
+  - `WIKA/docs/tasks/execution/WIKA_每日执行记录模板.md`
+  - `WIKA/docs/tasks/execution/WIKA_每周复盘记录模板.md`
+  - `WIKA/docs/tasks/execution/WIKA_执行证据收集模板.md`
+  - `WIKA/docs/tasks/execution/WIKA_任务执行状态.json`
+  - `WIKA/docs/tasks/execution/WIKA_任务阻塞清单.json`
+  - `WIKA/docs/tasks/execution/WIKA_人工输入需求.json`
+  - `WIKA/docs/tasks/execution/WIKA_下一轮报告输入包.json`
+  - `WIKA/docs/tasks/execution/WIKA_任务执行闭环评分.json`
+  - `WIKA/docs/tasks/inputs/`
+  - `WIKA/docs/tasks/WIKA_运营任务执行闭环说明.md`
+  - `WIKA/projects/wika/data/tasks/task-execution-model.js`
+  - `WIKA/projects/wika/data/tasks/task-status-updater.js`
+  - `WIKA/projects/wika/data/tasks/task-execution-writer.js`
+  - `WIKA/scripts/update-wika-task-status.js`
+- 当前复用边界：
+  - 这些资产用于任务状态追踪、人工输入回收、执行证据收集和下一轮报告输入准备。
+  - 这些资产不代表平台内自动执行闭环。
+  - 当前任务仍需人工执行或确认；task3 / task4 / task5 仍不是 complete；task6 仍 excluded。
+
 ## 2026-04-21 Stage 48 运营任务包新增复用资产
 - 本轮没有新增 live route。
 - 本轮新增的是“报告落地执行型任务资产”：
@@ -485,3 +512,17 @@
   - degraded route 已作为合理降级收口，不代表 full business cockpit。
   - 广告数据、页面盘点、产品素材、报价、交期、样品、买家和订单末端字段仍需人工提供或确认。
   - task1 / task2 / task3 / task4 / task5 仍不是 complete；task6 仍 excluded。
+## 2026-04-21 Stage 49 业务分发与人工补数回收复用资产
+- 本轮没有新增 live route。
+- 本轮新增的是“业务分发与人工输入回收资产”：
+  - `WIKA/docs/reports/deliverables/distribution/stage49_outbox/`
+  - `WIKA/docs/reports/deliverables/distribution/WIKA_分发执行总索引_STAGE49.md`
+  - `WIKA/docs/reports/deliverables/feedback/`
+  - `WIKA/docs/reports/deliverables/handoff/stage49_intake/`
+  - `WIKA/docs/reports/deliverables/evidence/WIKA_stage49_rerun_rehearsal.json`
+  - `WIKA/docs/reports/deliverables/evidence/WIKA_正式运营报告包_STAGE49证据.json`
+  - `WIKA/scripts/validate-wika-stage49-business-distribution.js`
+- 当前复用边界：
+  - 这些资产用于分发、反馈和人工补数回收，不代表 task1-5 complete。
+  - 这些资产不代表 PDF 重新生成，也不代表 degraded route 完全消除。
+  - 后续复用应以真实业务反馈和人工补数为前提。

@@ -1,0 +1,3 @@
+product_id_or_name,material_type,current_status,missing_asset,priority,owner,source_file_or_link,due_date,confidence,notes,codex_next_action,example_value,field_notes
+WIKA_SAMPLE_PRODUCT,image,partial,应用场景图,high,product_operator,WIKA/docs/reports/inputs/products/example.csv,2026-04-30,medium,示例行请替换为真实产品素材,更新产品素材缺口和补图顺序,真实产品 ID 或名称,未提供素材前只保留方向建议
+

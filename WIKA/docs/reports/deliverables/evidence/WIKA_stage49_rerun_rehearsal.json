@@ -1,8 +1,8 @@
 {
   "stage": "stage48-wika-report-package-operationalization",
-  "generated_at": "2026-04-21T05:25:59.123Z",
+  "generated_at": "2026-04-21T05:23:49.011Z",
   "mode": {
-    "dry_run": true,
+    "dry_run": false,
     "check_only": true,
     "skip_pdf": false,
     "skip_desktop_copy": false
@@ -11,7 +11,7 @@
     "index": {
       "path": "D:\\Code\\阿里国际站\\WIKA\\docs\\reports\\deliverables\\WIKA_正式运营报告包索引.md",
       "status": "PASS",
-      "size_bytes": 9278
+      "size_bytes": 7309
     },
     "reports": [
       {
@@ -174,33 +174,77 @@
     ]
   },
   "online_sanity": {
-    "skipped": true,
-    "reason": "dry-run",
+    "skipped": false,
     "routes": [
       {
         "key": "health",
         "path": "/health",
-        "classification": "SKIPPED_BY_DRY_RUN"
+        "http_status": 200,
+        "classification": "PASS",
+        "elapsed_ms": 1088,
+        "degraded_sections": []
       },
       {
         "key": "auth_debug",
         "path": "/integrations/alibaba/auth/debug",
-        "classification": "SKIPPED_BY_DRY_RUN"
+        "http_status": 200,
+        "classification": "PASS",
+        "elapsed_ms": 723,
+        "degraded_sections": []
       },
       {
         "key": "business_cockpit",
         "path": "/integrations/alibaba/wika/reports/business-cockpit",
-        "classification": "SKIPPED_BY_DRY_RUN"
+        "http_status": 200,
+        "classification": "PASS",
+        "elapsed_ms": 12215,
+        "degraded_sections": []
       },
       {
         "key": "operator_console",
         "path": "/integrations/alibaba/wika/reports/operator-console",
-        "classification": "SKIPPED_BY_DRY_RUN"
+        "http_status": 200,
+        "classification": "PASS_WITH_ACCEPTED_DEGRADED",
+        "elapsed_ms": 16606,
+        "degraded_sections": [
+          {
+            "section": "task_workbench",
+            "reason": "time_budget_exceeded",
+            "budget_ms": 9000,
+            "error_message": "section exceeded 9000ms time budget"
+          }
+        ],
+        "partial_status": {
+          "mode": "degraded",
+          "complete": false,
+          "degraded_section_count": 1
+        }
       },
       {
         "key": "action_center",
         "path": "/integrations/alibaba/wika/reports/action-center",
-        "classification": "SKIPPED_BY_DRY_RUN"
+        "http_status": 200,
+        "classification": "PASS_WITH_ACCEPTED_DEGRADED",
+        "elapsed_ms": 9628,
+        "degraded_sections": [
+          {
+            "section": "store_diagnostic",
+            "reason": "time_budget_exceeded",
+            "budget_ms": 7000,
+            "error_message": "section exceeded 7000ms time budget"
+          },
+          {
+            "section": "order_diagnostic",
+            "reason": "time_budget_exceeded",
+            "budget_ms": 7000,
+            "error_message": "section exceeded 7000ms time budget"
+          }
+        ],
+        "partial_status": {
+          "mode": "degraded",
+          "complete": false,
+          "degraded_section_count": 2
+        }
       }
     ]
   },
@@ -218,6 +262,7 @@
   ],
   "overall_status": "DEGRADED",
   "degraded_reasons": [
-    "MISSING_IN_CURRENT_DESKTOP_ENV_REPO_PDFS_PRESENT"
+    "MISSING_IN_CURRENT_DESKTOP_ENV_REPO_PDFS_PRESENT",
+    "accepted_route_degraded"
   ]
 }

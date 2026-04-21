@@ -1092,6 +1092,39 @@
 - 广告相关报告仍依赖人工提供真实广告样本。
 - 页面优化相关报告仍依赖人工盘点输入，不写成真实行为数据结论。
 - task6 继续排除。
+## 2026-04-21 Stage 49 运营任务执行闭环
+
+### current status
+- stage48 已形成并远端锁定运营任务包，本轮在该任务包基础上生成任务执行闭环与人工输入回收机制。
+- 本轮没有新增 live route，没有新增 Alibaba API 探索，没有任何写侧动作。
+- 新增执行闭环资产位于：
+  - `WIKA/docs/tasks/execution/`
+  - `WIKA/docs/tasks/inputs/`
+  - `WIKA/docs/tasks/WIKA_运营任务执行闭环说明.md`
+- 当前任务状态分布：
+  - `ready_to_execute = 10`
+  - `blocked = 6`
+  - `waiting_for_input = 3`
+- 当前人工输入需求数量：`19`
+- 当前执行闭环评分为 `40/40`，达到可交付阈值，未触发一票否决项。
+
+### fixed conclusion
+- stage49 将 stage48 的 19 个运营任务升级为可跟踪、可回填、可复盘、可进入下一轮报告的数据结构。
+- 当前 WIKA 可以支撑任务状态推导、blocked 清障看板、人工输入回收清单、每日/每周记录模板、下一轮报告输入包和机器可读执行状态 JSON。
+- 这仍不是平台内自动执行：
+  - 任务仍需人工执行或确认。
+  - 广告真实样本、页面人工盘点、产品素材、销售/订单字段仍需人工提供。
+  - task3 / task4 / task5 最后一跳仍不进入平台内写侧闭环。
+- 当前继续保持：
+  - not task 1 complete
+  - not task 2 complete
+  - not task 3 complete
+  - not task 4 complete
+  - not task 5 complete
+  - task 6 excluded
+  - no write action attempted
+  - not full business cockpit
+
 ## 2026-04-21 Stage 48 运营任务包生成
 
 ### current status
@@ -1167,6 +1200,29 @@
 - `business-cockpit` 继续作为 `PASS` 基线。
 - `operator-console.task_workbench`、`action-center.store_diagnostic`、`action-center.order_diagnostic` 被收口为 `DEGRADED_ACCEPTED_WITH_REASON`。
 - 当前不应重复生成 PDF 或反复确认报告是否存在；下一步应进入业务分发、人工补数和固定周期复跑。
+
+### continuing boundaries
+- not task 1 complete
+- not task 2 complete
+- not task 3 complete
+- not task 4 complete
+- not task 5 complete
+- task 6 excluded
+- no write action attempted
+- WIKA-only thread for business work
+- XD untouched in business execution
+- not full business cockpit
+## 2026-04-21 Stage 49 Business Distribution And Manual Input Intake
+
+### current status
+- stage47 PDF 交付和 stage48 报告包运营化继续作为权威基线。
+- stage49 新增 6 个角色 outbox、业务试用反馈包、5 类人工补数回收模板、固定周期复跑演练和 stage49 evidence。
+- 本轮没有重新生成 PDF，没有新增 API，没有新增 route，没有触碰 XD，没有写侧动作。
+
+### fixed conclusion
+- WIKA 报告包已经从可分发文档推进到实际分发执行包、反馈回收包、人工补数回收包和固定周期复跑演练。
+- 当前最短业务动作是向对应角色分发报告包并回收人工补数与反馈。
+- `operator-console.task_workbench`、`action-center.store_diagnostic`、`action-center.order_diagnostic` 继续作为 accepted degraded，不阻塞分发。
 
 ### continuing boundaries
 - not task 1 complete

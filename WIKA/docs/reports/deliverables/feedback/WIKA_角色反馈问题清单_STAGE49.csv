@@ -1,0 +1,14 @@
+role,question,answer_type,required_or_optional,why_needed,downstream_change,owner_to_review
+boss_management,管理层简报是否足够支持决策,single_choice,required,判断老板摘要是否可直接分发,调整管理层简报结构,ops_lead
+boss_management,是否接受每周固定收到报告包,single_choice,required,确认分发节奏,建立固定复跑节奏,ops_lead
+ops_lead,运营周报中哪些建议可以执行,multi_text,required,筛选下周行动项,更新店铺执行清单,ops_lead
+ops_lead,哪些内容需要广告真实样本,multi_text,required,识别广告补数优先级,更新广告数据补充模板,ads_owner
+store_operator,店铺执行清单是否可落地,multi_text,required,确认执行动作可用性,更新执行清单措辞,store_operator
+store_operator,哪些页面需要优先盘点,multi_text,required,建立页面补数队列,更新页面盘点模板,store_operator
+product_operator,哪些产品素材缺口最影响页面,multi_text,required,确认产品素材优先级,更新产品素材补充模板,product_operator
+product_operator,哪些关键词需要校对,multi_text,optional,减少关键词建议误差,更新产品优化建议,product_operator
+sales_followup,销售跟单清单中哪些字段最有用,multi_text,required,确认销售侧字段价值,更新销售跟单模板,sales_owner
+sales_followup,是否需要 Excel 版跟单清单,single_choice,optional,确认输出格式需求,规划下一轮格式优化,sales_owner
+human_handoff,哪些补数模板最难填写,multi_text,required,降低人工回收阻力,更新补数说明,handoff_owner
+human_handoff,是否接受当前非全量口径,single_choice,required,确认报告边界是否可接受,调整边界说明,ops_lead
+

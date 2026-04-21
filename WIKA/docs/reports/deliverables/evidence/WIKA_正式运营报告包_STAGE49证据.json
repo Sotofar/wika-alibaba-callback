@@ -1,0 +1,72 @@
+{
+  "stage": "stage49-wika-business-distribution-and-manual-input-intake",
+  "generated_at": "2026-04-21T00:00:00.000Z",
+  "stage48_baseline_confirmed": true,
+  "distribution_outbox_created": true,
+  "outbox_role_count": 6,
+  "feedback_pack_created": true,
+  "manual_intake_templates_created": true,
+  "manual_intake_template_count": 5,
+  "rerun_rehearsal_status": "DEGRADED_ACCEPTED",
+  "repo_pdf_count": 8,
+  "desktop_pdf_status": "MISSING_IN_CURRENT_DESKTOP_ENV_REPO_PDFS_PRESENT",
+  "accepted_degraded_routes": [
+    {
+      "route": "/integrations/alibaba/wika/reports/operator-console",
+      "section": "task_workbench",
+      "classification": "DEGRADED_ACCEPTED_WITH_REASON"
+    },
+    {
+      "route": "/integrations/alibaba/wika/reports/action-center",
+      "section": "store_diagnostic",
+      "classification": "DEGRADED_ACCEPTED_WITH_REASON"
+    },
+    {
+      "route": "/integrations/alibaba/wika/reports/action-center",
+      "section": "order_diagnostic",
+      "classification": "DEGRADED_ACCEPTED_WITH_REASON"
+    }
+  ],
+  "roles_ready_for_distribution": [
+    "boss_management",
+    "ops_lead",
+    "store_operator",
+    "product_operator",
+    "sales_followup",
+    "human_handoff"
+  ],
+  "manual_inputs_required": [
+    "real_ads_export_sample",
+    "page_manual_audit",
+    "product_media_assets",
+    "specifications",
+    "materials",
+    "keyword_review",
+    "final_quote",
+    "delivery_time",
+    "sample_and_buyer_info",
+    "order_terminal_confirmation_fields"
+  ],
+  "next_business_action": "Distribute the stage49 outbox files to the corresponding roles, collect feedback, and collect manual inputs through the stage49 intake templates before the next report rerun.",
+  "should_not_do_next": [
+    "Do not regenerate PDFs without new input or missing repo PDFs.",
+    "Do not re-confirm stage47 or stage48 completion.",
+    "Do not open runtime performance optimization unless online interaction speed becomes a separate business requirement.",
+    "Do not mark task1-5 complete.",
+    "Do not add XD business execution.",
+    "Do not perform write-side business actions."
+  ],
+  "boundaries": [
+    "not task 1 complete",
+    "not task 2 complete",
+    "not task 3 complete",
+    "not task 4 complete",
+    "not task 5 complete",
+    "task 6 excluded",
+    "no write action attempted",
+    "WIKA-only thread for business work",
+    "XD untouched in business execution",
+    "not full business cockpit"
+  ]
+}
+
