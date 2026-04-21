@@ -1,0 +1,16 @@
+feedback_id,role,source_report,feedback_text,feedback_type,priority,requires_report_change,requires_manual_input,requires_new_data_source,can_do_without_new_api,owner,status,next_action,target_stage
+FB-013,ops_lead,WIKA_正式运营报告包索引.md,{是否存在需要新数据源才能回答的问题},new_data_source_needed,P2,false,false,true,false,ops_lead,OPEN,等待业务侧确认是否提供新数据源,stage51
+FB-014,store_operator,WIKA_店铺执行清单.pdf,{是否有不需要执行的建议},not_actionable,P3,true,false,false,true,store_operator,OPEN,等待店铺运营标记不采纳原因,stage51
+FB-015,human_handoff,WIKA_人工接手清单.pdf,{是否有越界或不安全的诉求},unsafe_or_out_of_scope,P1,false,false,false,false,handoff_owner,OPEN,等待人工接手 owner 标记拒绝原因,stage51
+FB-001,boss_management,WIKA_管理层简报.pdf,{管理层简报是否足够支持决策},content_clarity,P1,true,false,false,true,ops_lead,OPEN,等待管理层反馈,stage51
+FB-002,boss_management,WIKA_管理层简报.pdf,{是否接受每周固定收到报告包},business_action,P1,false,false,false,true,ops_lead,OPEN,等待管理层确认分发节奏,stage51
+FB-003,ops_lead,WIKA_运营周报.pdf,{运营周报中哪些建议可以执行},business_action,P1,true,false,false,true,ops_lead,OPEN,等待运营负责人反馈可执行动作,stage51
+FB-004,ops_lead,WIKA_广告分析报告.pdf,{哪些内容需要广告真实样本},manual_input_needed,P1,false,true,false,true,ads_owner,OPEN,等待广告补数 owner 确认,stage51
+FB-005,store_operator,WIKA_店铺执行清单.pdf,{店铺执行清单是否可落地},business_action,P1,true,false,false,true,store_operator,OPEN,等待店铺运营反馈,stage51
+FB-006,store_operator,WIKA_产品优化建议报告.pdf,{哪些页面需要优先盘点},manual_input_needed,P1,false,true,false,true,store_operator,OPEN,等待页面盘点输入,stage51
+FB-007,product_operator,WIKA_产品优化建议报告.pdf,{哪些产品素材缺口最影响页面},manual_input_needed,P1,false,true,false,true,product_operator,OPEN,等待产品素材补数,stage51
+FB-008,product_operator,WIKA_产品优化建议报告.pdf,{哪些关键词需要校对},manual_input_needed,P2,true,true,false,true,product_operator,OPEN,等待关键词校对反馈,stage51
+FB-009,sales_followup,WIKA_销售跟单使用清单.pdf,{销售跟单清单中哪些字段最有用},content_clarity,P1,true,false,false,true,sales_owner,OPEN,等待销售侧字段反馈,stage51
+FB-010,sales_followup,WIKA_销售跟单使用清单.pdf,{是否需要 Excel 版跟单清单},format_request,P2,true,false,false,true,sales_owner,OPEN,等待格式偏好反馈,stage51
+FB-011,human_handoff,WIKA_人工接手清单.pdf,{哪些补数模板最难填写},content_clarity,P1,true,false,false,true,handoff_owner,OPEN,等待人工接手反馈,stage51
+FB-012,human_handoff,WIKA_人工接手清单.pdf,{是否接受当前非全量口径},content_clarity,P1,true,false,false,true,ops_lead,OPEN,等待边界口径反馈,stage51

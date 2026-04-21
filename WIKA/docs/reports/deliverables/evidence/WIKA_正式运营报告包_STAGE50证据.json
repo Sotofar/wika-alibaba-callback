@@ -1,0 +1,90 @@
+{
+  "stage": "stage50-wika-distribution-execution-and-feedback-intake",
+  "generated_at": "2026-04-21T05:45:00.000Z",
+  "stage49_baseline_confirmed": true,
+  "stage49_commit": "27e761b stage49 wika business distribution intake",
+  "current_head_at_start": "a75210ee57fa5d895cb6d8af075f29fb812e0b67",
+  "distribution_execution_ledger_created": true,
+  "message_pack_created": true,
+  "feedback_tracking_created": true,
+  "manual_intake_tracking_created": true,
+  "pre_distribution_check_status": "DEGRADED_ACCEPTED",
+  "pre_distribution_check_raw_status": "DEGRADED",
+  "pre_distribution_check_file": "WIKA/docs/reports/deliverables/evidence/WIKA_stage50_pre_distribution_check.json",
+  "accepted_degraded_reasons": [
+    "MISSING_IN_CURRENT_DESKTOP_ENV_REPO_PDFS_PRESENT",
+    "accepted_route_degraded"
+  ],
+  "accepted_degraded_routes": [
+    {
+      "route": "/integrations/alibaba/wika/reports/operator-console",
+      "section": "task_workbench",
+      "classification": "PASS_WITH_ACCEPTED_DEGRADED",
+      "reason": "time_budget_exceeded"
+    },
+    {
+      "route": "/integrations/alibaba/wika/reports/action-center",
+      "section": "store_diagnostic",
+      "classification": "PASS_WITH_ACCEPTED_DEGRADED",
+      "reason": "time_budget_exceeded"
+    },
+    {
+      "route": "/integrations/alibaba/wika/reports/action-center",
+      "section": "order_diagnostic",
+      "classification": "PASS_WITH_ACCEPTED_DEGRADED",
+      "reason": "time_budget_exceeded"
+    }
+  ],
+  "untracked_inventory_created": true,
+  "untracked_inventory_file": "WIKA/docs/reports/deliverables/evidence/WIKA_stage50_untracked_inventory.json",
+  "non_stage50_untracked_paths_observed": [],
+  "non_stage50_untracked_action": "inventoried_only_no_delete_no_move_no_commit",
+  "roles_ready_for_human_send": [],
+  "roles_waiting_for_recipient": [
+    "boss_management",
+    "ops_lead",
+    "store_operator",
+    "product_operator",
+    "sales_followup",
+    "human_handoff"
+  ],
+  "message_files_created": [
+    "WIKA/docs/reports/deliverables/distribution/stage50_messages/WIKA_老板管理层待发送消息_STAGE50.md",
+    "WIKA/docs/reports/deliverables/distribution/stage50_messages/WIKA_运营负责人待发送消息_STAGE50.md",
+    "WIKA/docs/reports/deliverables/distribution/stage50_messages/WIKA_店铺运营待发送消息_STAGE50.md",
+    "WIKA/docs/reports/deliverables/distribution/stage50_messages/WIKA_产品运营待发送消息_STAGE50.md",
+    "WIKA/docs/reports/deliverables/distribution/stage50_messages/WIKA_销售跟单待发送消息_STAGE50.md",
+    "WIKA/docs/reports/deliverables/distribution/stage50_messages/WIKA_人工接手待发送消息_STAGE50.md"
+  ],
+  "manual_inputs_waiting_owner": [
+    "real_ad_export_sample",
+    "page_manual_audit",
+    "product_assets",
+    "sales_followup_fields",
+    "order_terminal_confirmation_fields"
+  ],
+  "actual_messages_sent": false,
+  "actual_emails_sent": false,
+  "business_write_actions_attempted": false,
+  "pdf_regenerated": false,
+  "report_regenerated": false,
+  "xd_touched": false,
+  "task_completion_claims": {
+    "task1_complete": false,
+    "task2_complete": false,
+    "task3_complete": false,
+    "task4_complete": false,
+    "task5_complete": false,
+    "task6_excluded": true
+  },
+  "next_business_action": "Fill real recipients, manually send the role-specific message pack, collect feedback, collect manual input files, and enter stage51 only after real feedback or accepted manual input is available.",
+  "should_not_do_next": [
+    "do not regenerate PDFs",
+    "do not repeatedly reconfirm stage47-stage49",
+    "do not expand the report system before feedback is returned",
+    "do not claim degraded routes are fully eliminated",
+    "do not claim manual inputs are already filled",
+    "do not perform write-side business actions",
+    "do not touch XD in this WIKA business distribution line"
+  ]
+}

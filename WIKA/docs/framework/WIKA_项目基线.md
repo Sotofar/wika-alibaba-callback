@@ -1235,3 +1235,30 @@
 - WIKA-only thread for business work
 - XD untouched in business execution
 - not full business cockpit
+## 2026-04-21 Stage 50 分发执行与反馈回收基线
+
+### current status
+
+- stage47 PDF 交付、stage48 报告包运营化、stage49 分发/反馈/补数模板均作为当前权威基线保留。
+- stage50 没有重新生成 PDF，没有新增 API，没有新增 route，没有触碰 XD，没有做任何业务写侧动作。
+- 本轮新增的是正式分发执行台账、待发送消息包、反馈回收台账、人工补数接收台账、分发前最终检查、untracked 盘点和 stage50 evidence。
+
+### fixed conclusion
+
+- WIKA 报告包已经从“可分发材料”推进到“可人工发送、可反馈追踪、可补数接收、可分发前检查”的执行状态。
+- 由于没有真实联系人，6 个角色当前均为 `WAITING_FOR_RECIPIENT`，不是已发送状态。
+- 分发前检查 raw status 为 `DEGRADED`，但只来自当前环境桌面副本不可见和已接受的 report route degraded，因此归类为 `DEGRADED_ACCEPTED`，不阻塞人工分发。
+- 当前未观察到非 stage50 untracked 文件；若后续出现 task execution 相关 untracked 文件，应单独开 housekeeping stage 处理。
+
+### continuing boundaries
+
+- not task 1 complete
+- not task 2 complete
+- not task 3 complete
+- not task 4 complete
+- not task 5 complete
+- task 6 excluded
+- no write action attempted
+- WIKA-only thread for business work
+- XD untouched in business execution
+- not full business cockpit

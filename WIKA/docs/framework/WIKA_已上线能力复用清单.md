@@ -526,3 +526,20 @@
   - 这些资产用于分发、反馈和人工补数回收，不代表 task1-5 complete。
   - 这些资产不代表 PDF 重新生成，也不代表 degraded route 完全消除。
   - 后续复用应以真实业务反馈和人工补数为前提。
+## 2026-04-21 Stage 50 分发执行与反馈回收复用资产
+
+- 本轮没有新增 live route。
+- 本轮新增的是“报告包分发执行与回收追踪资产”：
+  - `WIKA/docs/reports/deliverables/distribution/stage50_execution/`
+  - `WIKA/docs/reports/deliverables/distribution/stage50_messages/`
+  - `WIKA/docs/reports/deliverables/feedback/stage50_tracking/`
+  - `WIKA/docs/reports/deliverables/handoff/stage50_intake_tracking/`
+  - `WIKA/docs/reports/deliverables/evidence/WIKA_stage50_pre_distribution_check.json`
+  - `WIKA/docs/reports/deliverables/evidence/WIKA_stage50_untracked_inventory.json`
+  - `WIKA/docs/reports/deliverables/evidence/WIKA_正式运营报告包_STAGE50证据.json`
+  - `WIKA/scripts/validate-wika-stage50-distribution-execution.js`
+- 当前复用边界：
+  - 这些资产用于人工发送、反馈追踪和补数接收，不代表 task1-5 complete。
+  - 这些资产不代表 PDF 重新生成，也不代表 degraded route 完全消除。
+  - 没有真实联系人时，角色状态保持 `WAITING_FOR_RECIPIENT`。
+  - 后续复用必须以真实业务反馈和人工补数为前提。
