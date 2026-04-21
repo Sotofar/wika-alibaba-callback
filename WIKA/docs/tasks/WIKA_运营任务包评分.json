@@ -1,0 +1,52 @@
+{
+  "generated_at": "2026-04-21T03:46:04.972Z",
+  "total_score": 40,
+  "max_score": 40,
+  "delivery_threshold": 34,
+  "passed": true,
+  "vetoes": [],
+  "dimensions": {
+    "可执行性": 5,
+    "角色清晰度": 5,
+    "优先级清晰度": 5,
+    "输入要求清晰度": 5,
+    "验收标准清晰度": 5,
+    "与报告证据的一致性": 5,
+    "边界表达清晰度": 5,
+    "对业务方可读性": 5
+  },
+  "summary": {
+    "total_tasks": 19,
+    "priority_distribution": {
+      "P1": 8,
+      "P2": 6,
+      "P3": 5
+    },
+    "role_distribution": {
+      "老板/管理层": 2,
+      "运营负责人": 6,
+      "店铺运营": 4,
+      "产品运营": 3,
+      "销售/跟单": 2,
+      "人工接手人员": 2
+    },
+    "support_distribution": {
+      "mostly_supported_needs_human_confirm": 8,
+      "manual_only": 7,
+      "preview_or_handoff_only": 2,
+      "blocked": 2
+    },
+    "task_scope_distribution": {
+      "通用运营": 4,
+      "输入层": 6,
+      "任务1/任务2": 2,
+      "任务3": 3,
+      "任务4/任务5": 2,
+      "任务4": 1,
+      "任务3/任务4/任务5": 1
+    },
+    "blocked_task_count": 6,
+    "fully_supported_count": 0,
+    "human_confirmation_required_count": 18
+  }
+}

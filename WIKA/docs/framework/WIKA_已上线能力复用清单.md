@@ -416,3 +416,51 @@
   - 广告报告仍依赖人工样本。
   - 页面优化建议仍依赖人工盘点输入。
   - task3 / task4 / task5 仍不是平台内自动执行闭环。
+## 2026-04-21 Stage 48 运营任务包新增复用资产
+- 本轮没有新增 live route。
+- 本轮新增的是“报告落地执行型任务资产”：
+  - `WIKA/docs/tasks/WIKA_运营任务总看板.md`
+  - `WIKA/docs/tasks/WIKA_老板管理层任务清单.md`
+  - `WIKA/docs/tasks/WIKA_运营负责人任务清单.md`
+  - `WIKA/docs/tasks/WIKA_店铺运营任务清单.md`
+  - `WIKA/docs/tasks/WIKA_产品运营任务清单.md`
+  - `WIKA/docs/tasks/WIKA_广告数据补充任务清单.md`
+  - `WIKA/docs/tasks/WIKA_页面人工盘点任务清单.md`
+  - `WIKA/docs/tasks/WIKA_销售跟单任务清单.md`
+  - `WIKA/docs/tasks/WIKA_人工接手字段补齐清单.md`
+  - `WIKA/docs/tasks/WIKA_运营任务包索引.md`
+  - `WIKA/docs/tasks/WIKA_运营任务包.json`
+  - `WIKA/docs/tasks/WIKA_运营任务包摘要.json`
+  - `WIKA/docs/tasks/WIKA_运营任务包评分.json`
+  - `WIKA/docs/tasks/pdf/`
+  - `WIKA/projects/wika/data/tasks/ops-task-model.js`
+  - `WIKA/projects/wika/data/tasks/ops-task-prioritizer.js`
+  - `WIKA/projects/wika/data/tasks/ops-task-writer.js`
+  - `WIKA/scripts/generate-wika-ops-task-package.js`
+  - `WIKA/scripts/export-wika-ops-task-package-pdfs.py`
+- 当前复用边界：
+  - 这些资产把正式运营报告转成可执行任务包，不代表新增 official 字段。
+  - 这些资产不代表平台内自动执行闭环。
+  - 广告数据、页面盘点、产品素材、报价、交期、样品、买家和订单末端字段仍需人工提供或确认。
+  - task3 / task4 / task5 仍不是 complete；task6 仍 excluded。
+
+## 2026-04-21 Stage 48 正式运营报告包运营化新增复用资产
+- 本轮没有新增 live route。
+- 本轮新增的是“正式报告包运营化资产”：
+  - `WIKA/docs/reports/deliverables/distribution/WIKA_报告包分发说明_STAGE48.md`
+  - `WIKA/docs/reports/deliverables/distribution/WIKA_角色分发矩阵_STAGE48.csv`
+  - `WIKA/docs/reports/deliverables/distribution/WIKA_报告包发送话术_STAGE48.md`
+  - `WIKA/docs/reports/deliverables/handoff/WIKA_人工补数总表_STAGE48.md`
+  - `WIKA/docs/reports/deliverables/handoff/WIKA_人工补数字段清单_STAGE48.csv`
+  - `WIKA/docs/reports/deliverables/handoff/WIKA_人工接手执行说明_STAGE48.md`
+  - `WIKA/docs/reports/deliverables/runtime/WIKA_report_route_degraded_closure_STAGE48.md`
+  - `WIKA/docs/reports/deliverables/runtime/WIKA_report_route_sanity_STAGE48.json`
+  - `WIKA/docs/reports/deliverables/WIKA_正式运营报告包_Runbook_STAGE48.md`
+  - `WIKA/scripts/run-wika-operational-report-package-stage48.js`
+  - `WIKA/scripts/validate-wika-operational-report-package-stage48.js`
+  - `WIKA/docs/reports/deliverables/evidence/WIKA_正式运营报告包_STAGE48证据.json`
+- 当前复用边界：
+  - 分发和复跑资产不代表新增 official 字段。
+  - degraded route 已作为合理降级收口，不代表 full business cockpit。
+  - 广告数据、页面盘点、产品素材、报价、交期、样品、买家和订单末端字段仍需人工提供或确认。
+  - task1 / task2 / task3 / task4 / task5 仍不是 complete；task6 仍 excluded。
