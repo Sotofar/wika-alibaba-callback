@@ -1,0 +1,18 @@
+{
+  "stage": "stage51-wika-distribution-dispatch-and-feedback-intake-automation",
+  "dry_run": true,
+  "input_status": "INPUT_PARSED",
+  "feedback_count": 0,
+  "example_row_count": 1,
+  "by_role": {},
+  "by_type": {},
+  "actionable_count": 0,
+  "requires_manual_input_count": 0,
+  "requires_new_data_source_count": 0,
+  "unsafe_or_out_of_scope_count": 0,
+  "example_classification_supported": true,
+  "recommended_next_stage": "WAIT_FOR_REAL_FEEDBACK",
+  "no_external_api_called": true,
+  "no_message_sent": true,
+  "no_business_write_action": true
+}

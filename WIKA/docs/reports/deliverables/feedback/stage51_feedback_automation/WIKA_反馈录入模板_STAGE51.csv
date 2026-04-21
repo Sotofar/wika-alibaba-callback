@@ -1,0 +1,2 @@
+feedback_id,received_date,role,report_name,section,feedback_text,feedback_type,urgency,business_value,requires_manual_input,requires_new_data_source,requires_report_change,unsafe_or_out_of_scope,owner,status,next_action
+EXAMPLE-001,2026-04-21,ops_lead,WIKA_运营周报.pdf,执行建议,希望把可执行动作放到第一页,business_action,P2,medium,false,false,true,false,ops_lead,EXAMPLE,示例行不计入真实反馈

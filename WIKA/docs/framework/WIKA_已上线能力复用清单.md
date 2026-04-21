@@ -543,3 +543,20 @@
   - 这些资产不代表 PDF 重新生成，也不代表 degraded route 完全消除。
   - 没有真实联系人时，角色状态保持 `WAITING_FOR_RECIPIENT`。
   - 后续复用必须以真实业务反馈和人工补数为前提。
+## 2026-04-21 Stage 51 分发派发与反馈补数自动化复用资产
+
+- 本轮没有新增 live route。
+- 本轮新增的是“人工分发与反馈补数自动化资产”：
+  - `WIKA/docs/reports/deliverables/distribution/stage51_dispatch/`
+  - `WIKA/docs/reports/deliverables/distribution/stage51_final_messages/`
+  - `WIKA/docs/reports/deliverables/distribution/WIKA_人工分发操作Runbook_STAGE51.md`
+  - `WIKA/docs/reports/deliverables/feedback/stage51_feedback_automation/`
+  - `WIKA/scripts/triage-wika-feedback-stage51.js`
+  - `WIKA/docs/reports/deliverables/handoff/stage51_intake_automation/`
+  - `WIKA/scripts/validate-wika-manual-intake-stage51.js`
+  - `WIKA/scripts/validate-wika-stage51-dispatch-intake-automation.js`
+- 当前复用边界：
+  - 这些资产用于人工发送排期、反馈 triage 和补数验收 dry-run，不代表消息已发送。
+  - 这些资产不代表人工补数已补齐。
+  - 这些资产不代表 degraded route 完全消除。
+  - 后续复用必须以真实联系人、真实反馈或有效补数文件为前提。

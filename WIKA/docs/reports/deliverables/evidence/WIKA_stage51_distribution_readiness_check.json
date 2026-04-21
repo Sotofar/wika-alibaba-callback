@@ -1,0 +1,268 @@
+{
+  "stage": "stage48-wika-report-package-operationalization",
+  "generated_at": "2026-04-21T05:59:18.875Z",
+  "mode": {
+    "dry_run": false,
+    "check_only": true,
+    "skip_pdf": false,
+    "skip_desktop_copy": false
+  },
+  "markdown": {
+    "index": {
+      "path": "D:\\Code\\阿里国际站\\WIKA\\docs\\reports\\deliverables\\WIKA_正式运营报告包索引.md",
+      "status": "PASS",
+      "size_bytes": 11588
+    },
+    "reports": [
+      {
+        "path": "D:\\Code\\阿里国际站\\WIKA\\docs\\reports\\deliverables\\WIKA_管理层简报.md",
+        "status": "PASS",
+        "size_bytes": 4722
+      },
+      {
+        "path": "D:\\Code\\阿里国际站\\WIKA\\docs\\reports\\deliverables\\WIKA_运营周报.md",
+        "status": "PASS",
+        "size_bytes": 5155
+      },
+      {
+        "path": "D:\\Code\\阿里国际站\\WIKA\\docs\\reports\\deliverables\\WIKA_经营诊断报告.md",
+        "status": "PASS",
+        "size_bytes": 5915
+      },
+      {
+        "path": "D:\\Code\\阿里国际站\\WIKA\\docs\\reports\\deliverables\\WIKA_产品优化建议报告.md",
+        "status": "PASS",
+        "size_bytes": 4627
+      },
+      {
+        "path": "D:\\Code\\阿里国际站\\WIKA\\docs\\reports\\deliverables\\WIKA_广告分析报告.md",
+        "status": "PASS",
+        "size_bytes": 3964
+      },
+      {
+        "path": "D:\\Code\\阿里国际站\\WIKA\\docs\\reports\\deliverables\\WIKA_店铺执行清单.md",
+        "status": "PASS",
+        "size_bytes": 1874
+      },
+      {
+        "path": "D:\\Code\\阿里国际站\\WIKA\\docs\\reports\\deliverables\\WIKA_销售跟单使用清单.md",
+        "status": "PASS",
+        "size_bytes": 2092
+      },
+      {
+        "path": "D:\\Code\\阿里国际站\\WIKA\\docs\\reports\\deliverables\\WIKA_人工接手清单.md",
+        "status": "PASS",
+        "size_bytes": 1558
+      }
+    ],
+    "pass_count": 8,
+    "expected_count": 8
+  },
+  "pdf": {
+    "skipped": false,
+    "reports": [
+      {
+        "path": "D:\\Code\\阿里国际站\\WIKA\\docs\\reports\\deliverables\\pdf\\WIKA_管理层简报.pdf",
+        "status": "PASS",
+        "size_bytes": 8012
+      },
+      {
+        "path": "D:\\Code\\阿里国际站\\WIKA\\docs\\reports\\deliverables\\pdf\\WIKA_运营周报.pdf",
+        "status": "PASS",
+        "size_bytes": 8493
+      },
+      {
+        "path": "D:\\Code\\阿里国际站\\WIKA\\docs\\reports\\deliverables\\pdf\\WIKA_经营诊断报告.pdf",
+        "status": "PASS",
+        "size_bytes": 9466
+      },
+      {
+        "path": "D:\\Code\\阿里国际站\\WIKA\\docs\\reports\\deliverables\\pdf\\WIKA_产品优化建议报告.pdf",
+        "status": "PASS",
+        "size_bytes": 7808
+      },
+      {
+        "path": "D:\\Code\\阿里国际站\\WIKA\\docs\\reports\\deliverables\\pdf\\WIKA_广告分析报告.pdf",
+        "status": "PASS",
+        "size_bytes": 7290
+      },
+      {
+        "path": "D:\\Code\\阿里国际站\\WIKA\\docs\\reports\\deliverables\\pdf\\WIKA_店铺执行清单.pdf",
+        "status": "PASS",
+        "size_bytes": 5113
+      },
+      {
+        "path": "D:\\Code\\阿里国际站\\WIKA\\docs\\reports\\deliverables\\pdf\\WIKA_销售跟单使用清单.pdf",
+        "status": "PASS",
+        "size_bytes": 5164
+      },
+      {
+        "path": "D:\\Code\\阿里国际站\\WIKA\\docs\\reports\\deliverables\\pdf\\WIKA_人工接手清单.pdf",
+        "status": "PASS",
+        "size_bytes": 4923
+      }
+    ],
+    "pass_count": 8,
+    "expected_count": 8
+  },
+  "json_files": [
+    {
+      "path": "D:\\Code\\阿里国际站\\WIKA\\docs\\reports\\deliverables\\WIKA_正式运营报告包评分.json",
+      "status": "PASS",
+      "size_bytes": 2257,
+      "parse_status": "PASS"
+    },
+    {
+      "path": "D:\\Code\\阿里国际站\\WIKA\\docs\\reports\\deliverables\\evidence\\WIKA_正式运营报告包证据.json",
+      "status": "PASS",
+      "size_bytes": 7068,
+      "parse_status": "PASS"
+    },
+    {
+      "path": "D:\\Code\\阿里国际站\\WIKA\\docs\\reports\\deliverables\\pdf\\WIKA_正式运营报告包_PDF清单.json",
+      "status": "PASS",
+      "size_bytes": 9506,
+      "parse_status": "PASS"
+    }
+  ],
+  "desktop_copy": {
+    "status": "MISSING_IN_CURRENT_DESKTOP_ENV_REPO_PDFS_PRESENT",
+    "desktop_dir": "C:\\Users\\Jone\\Desktop",
+    "pass_count": 0,
+    "expected_count": 8,
+    "files": [
+      {
+        "path": "C:\\Users\\Jone\\Desktop\\WIKA_管理层简报.pdf",
+        "status": "MISSING",
+        "size_bytes": 0
+      },
+      {
+        "path": "C:\\Users\\Jone\\Desktop\\WIKA_运营周报.pdf",
+        "status": "MISSING",
+        "size_bytes": 0
+      },
+      {
+        "path": "C:\\Users\\Jone\\Desktop\\WIKA_经营诊断报告.pdf",
+        "status": "MISSING",
+        "size_bytes": 0
+      },
+      {
+        "path": "C:\\Users\\Jone\\Desktop\\WIKA_产品优化建议报告.pdf",
+        "status": "MISSING",
+        "size_bytes": 0
+      },
+      {
+        "path": "C:\\Users\\Jone\\Desktop\\WIKA_广告分析报告.pdf",
+        "status": "MISSING",
+        "size_bytes": 0
+      },
+      {
+        "path": "C:\\Users\\Jone\\Desktop\\WIKA_店铺执行清单.pdf",
+        "status": "MISSING",
+        "size_bytes": 0
+      },
+      {
+        "path": "C:\\Users\\Jone\\Desktop\\WIKA_销售跟单使用清单.pdf",
+        "status": "MISSING",
+        "size_bytes": 0
+      },
+      {
+        "path": "C:\\Users\\Jone\\Desktop\\WIKA_人工接手清单.pdf",
+        "status": "MISSING",
+        "size_bytes": 0
+      }
+    ]
+  },
+  "online_sanity": {
+    "skipped": false,
+    "routes": [
+      {
+        "key": "health",
+        "path": "/health",
+        "http_status": 200,
+        "classification": "PASS",
+        "elapsed_ms": 989,
+        "degraded_sections": []
+      },
+      {
+        "key": "auth_debug",
+        "path": "/integrations/alibaba/auth/debug",
+        "http_status": 200,
+        "classification": "PASS",
+        "elapsed_ms": 720,
+        "degraded_sections": []
+      },
+      {
+        "key": "business_cockpit",
+        "path": "/integrations/alibaba/wika/reports/business-cockpit",
+        "http_status": 200,
+        "classification": "PASS",
+        "elapsed_ms": 11509,
+        "degraded_sections": []
+      },
+      {
+        "key": "operator_console",
+        "path": "/integrations/alibaba/wika/reports/operator-console",
+        "http_status": 200,
+        "classification": "PASS_WITH_ACCEPTED_DEGRADED",
+        "elapsed_ms": 16595,
+        "degraded_sections": [
+          {
+            "section": "task_workbench",
+            "reason": "time_budget_exceeded",
+            "budget_ms": 9000,
+            "error_message": "section exceeded 9000ms time budget"
+          }
+        ],
+        "partial_status": {
+          "mode": "degraded",
+          "complete": false,
+          "degraded_section_count": 1
+        }
+      },
+      {
+        "key": "action_center",
+        "path": "/integrations/alibaba/wika/reports/action-center",
+        "http_status": 200,
+        "classification": "PASS_WITH_ACCEPTED_DEGRADED",
+        "elapsed_ms": 8948,
+        "degraded_sections": [
+          {
+            "section": "store_diagnostic",
+            "reason": "time_budget_exceeded",
+            "budget_ms": 7000,
+            "error_message": "section exceeded 7000ms time budget"
+          },
+          {
+            "section": "order_diagnostic",
+            "reason": "time_budget_exceeded",
+            "budget_ms": 7000,
+            "error_message": "section exceeded 7000ms time budget"
+          }
+        ],
+        "partial_status": {
+          "mode": "degraded",
+          "complete": false,
+          "degraded_section_count": 2
+        }
+      }
+    ]
+  },
+  "boundaries": [
+    "not task 1 complete",
+    "not task 2 complete",
+    "not task 3 complete",
+    "not task 4 complete",
+    "not task 5 complete",
+    "task 6 excluded",
+    "no write action attempted",
+    "WIKA-only thread for business work",
+    "XD untouched in business execution",
+    "not full business cockpit"
+  ],
+  "overall_status": "DEGRADED",
+  "degraded_reasons": [
+    "MISSING_IN_CURRENT_DESKTOP_ENV_REPO_PDFS_PRESENT",
+    "accepted_route_degraded"
+  ]
+}

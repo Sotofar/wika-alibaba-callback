@@ -1925,3 +1925,28 @@
   - WIKA 报告包已经进入可人工发送、可反馈追踪、可补数接收、可分发前检查的执行状态。
   - 下一步最短业务动作是人工发送角色消息、收集反馈、回收补数，并根据真实反馈进入 stage51。
   - 当前不应继续生成 PDF、反复确认 stage47-stage49，或在没有反馈前继续扩报告体系。
+### WIKA 阶段 51：分发派发与反馈补数自动化
+
+- 起始 commit：`23235f6 stage50 wika distribution execution tracking`
+- 本轮没有重新生成 PDF，没有实际发送消息，没有调用外部通讯工具，没有新增 API，没有新增 route，没有触碰 XD。
+- 本轮新增：
+  - 收件人登记表
+  - 正式发送排期
+  - 发送前检查清单
+  - 6 份角色最终发送消息
+  - 反馈录入模板、triage 规则、triage dry-run 脚本和结果 JSON
+  - 补数文件登记表、验收规则、dry-run 验收脚本和结果 JSON
+  - 人工分发操作 Runbook
+  - stage51 分发准备检查 JSON
+  - stage51 untracked inventory
+  - stage51 evidence
+  - stage51 统一验证脚本
+- dry-run 结果：
+  - feedback triage：`PASS_EMPTY_REAL_FEEDBACK`
+  - manual intake validation：`PASS_WAITING_OWNER`
+  - distribution readiness：`DEGRADED_ACCEPTED`
+- 当前收口结论：
+  - 6 个角色消息已经可交给人工发送人。
+  - 6 个角色仍缺真实联系人，状态保持 `WAITING_FOR_RECIPIENT`。
+  - 下一步最短业务动作是补齐真实联系人并由人工发送消息；发送后回填反馈与补数，再进入 stage52。
+  - 当前不应继续生成 PDF、反复确认 stage47-stage50，或在没有真实反馈和人工补数前扩展报告体系。

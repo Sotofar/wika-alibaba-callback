@@ -1262,3 +1262,32 @@
 - WIKA-only thread for business work
 - XD untouched in business execution
 - not full business cockpit
+## 2026-04-21 Stage 51 分发派发与反馈补数自动化基线
+
+### current status
+
+- stage50 分发执行台账、待发送消息、反馈台账、补数接收台账和 untracked 隔离说明作为当前权威基线。
+- stage51 没有重新生成 PDF，没有实际发送消息，没有新增 API，没有新增 route，没有触碰 XD，没有做任何业务写侧动作。
+- 本轮新增收件人登记、发送排期、最终角色消息、反馈 triage dry-run、人工补数验收 dry-run、人工分发 Runbook、分发准备检查和 stage51 evidence。
+
+### fixed conclusion
+
+- WIKA 报告包已经进入可人工发送、可登记收件人、可排期、可 dry-run triage 反馈、可 dry-run 验收人工补数、可分发前检查的执行状态。
+- 由于没有真实联系人，6 个角色当前仍为 `WAITING_FOR_RECIPIENT`。
+- 反馈模板当前只有示例行，真实反馈数为 0。
+- 人工补数 registry 当前 5 类输入均为 `WAITING_OWNER`。
+- 分发准备检查 raw status 为 `DEGRADED`，归类为 `DEGRADED_ACCEPTED`，不阻塞人工发送。
+
+### continuing boundaries
+
+- not task 1 complete
+- not task 2 complete
+- not task 3 complete
+- not task 4 complete
+- not task 5 complete
+- task 6 excluded
+- no write action attempted
+- no real message sent by Codex
+- WIKA-only thread for business work
+- XD untouched in business execution
+- not full business cockpit

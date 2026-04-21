@@ -1,0 +1,7 @@
+role,recipient_name,recipient_contact,contact_channel,contact_status,placeholder_used,send_owner,feedback_owner,manual_input_owner,notes
+boss_management,老板/管理层收件人占位符,TBD,wechat_or_email,WAITING_FOR_RECIPIENT,yes,ops_lead,ops_lead,ops_lead,补齐真实联系人后才能人工发送
+ops_lead,运营负责人收件人占位符,TBD,wechat_or_email,WAITING_FOR_RECIPIENT,yes,ops_lead,ops_lead,ops_lead,补齐真实联系人后才能人工发送
+store_operator,店铺运营收件人占位符,TBD,wechat_or_feishu,WAITING_FOR_RECIPIENT,yes,ops_lead,store_operator,store_operator,补齐真实联系人后才能人工发送
+product_operator,产品运营收件人占位符,TBD,wechat_or_feishu,WAITING_FOR_RECIPIENT,yes,ops_lead,product_operator,product_operator,补齐真实联系人后才能人工发送
+sales_followup,销售跟单收件人占位符,TBD,wechat_or_email,WAITING_FOR_RECIPIENT,yes,ops_lead,sales_owner,sales_owner,补齐真实联系人后才能人工发送
+human_handoff,人工接手收件人占位符,TBD,wechat_or_feishu,WAITING_FOR_RECIPIENT,yes,ops_lead,handoff_owner,handoff_owner,补齐真实联系人后才能人工发送

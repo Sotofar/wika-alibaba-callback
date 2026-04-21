@@ -1,0 +1,6 @@
+intake_id,input_area,source_owner,expected_template,received_file_or_link,received_status,quality_status,missing_fields,confidence,codex_next_action,target_report,target_stage,notes
+INTAKE-ADS-001,ads,ads_owner,WIKA_广告数据补充模板_STAGE49.csv,TBD,WAITING_OWNER,NOT_CHECKED,all_required_fields,unknown,等待真实广告导出样本,WIKA_广告分析报告.pdf,stage52,未收到文件不得改写广告结论
+INTAKE-PAGE-001,page_audit,store_operator,WIKA_页面盘点补充模板_STAGE49.csv,TBD,WAITING_OWNER,NOT_CHECKED,all_required_fields,unknown,等待页面人工盘点,WIKA_产品优化建议报告.pdf,stage52,未收到文件不得改写页面盘点结论
+INTAKE-PRODUCT-001,product_assets,product_operator,WIKA_产品素材补充模板_STAGE49.csv,TBD,WAITING_OWNER,NOT_CHECKED,all_required_fields,unknown,等待产品素材补充,WIKA_产品优化建议报告.pdf,stage52,未收到文件不得写成素材已补齐
+INTAKE-SALES-001,sales_followup,sales_owner,WIKA_销售跟单补充模板_STAGE49.csv,TBD,WAITING_OWNER,NOT_CHECKED,all_required_fields,unknown,等待销售跟单字段,WIKA_销售跟单使用清单.pdf,stage52,未收到文件不得改写跟单结论
+INTAKE-ORDER-001,order_terminal,handoff_owner,WIKA_订单末端确认模板_STAGE49.csv,TBD,WAITING_OWNER,NOT_CHECKED,all_required_fields,unknown,等待订单末端确认,WIKA_人工接手清单.pdf,stage52,未收到文件不得写成订单末端已确认
