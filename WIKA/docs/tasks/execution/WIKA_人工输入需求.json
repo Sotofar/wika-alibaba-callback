@@ -1,0 +1,341 @@
+{
+  "generated_at": "2026-04-21T05:26:17.405Z",
+  "count": 19,
+  "manual_inputs": [
+    {
+      "task_id": "MGMT-P1-001",
+      "task_title": "拍板本周三件优先事项",
+      "owner_role": "老板/管理层",
+      "priority": "P1",
+      "required_inputs": [
+        "管理层确认本周资源优先级",
+        "确认产品运营、销售/跟单、店铺运营负责人"
+      ],
+      "provide_format": "按任务执行记录模板提供。",
+      "provide_frequency": "每日或本周内一次性补齐",
+      "used_for": "WIKA/docs/reports/deliverables/WIKA_管理层简报.md",
+      "impact_if_missing": "WIKA 已提供任务拆解、证据来源和执行步骤，但业务末端仍需人工确认。",
+      "next_action": "确认 P1 为产品内容补强、销售草稿 SOP、广告与页面输入补齐。"
+    },
+    {
+      "task_id": "ADS-P1-001",
+      "task_title": "导出真实广告样本",
+      "owner_role": "运营负责人",
+      "priority": "P1",
+      "required_inputs": [
+        "缺真实广告导出样本",
+        "date",
+        "campaign_name",
+        "ad_group_name",
+        "keyword",
+        "spend",
+        "impressions",
+        "clicks",
+        "inquiries"
+      ],
+      "provide_format": "按 WIKA 广告数据导入模板提供 CSV/JSON。",
+      "provide_frequency": "每日或本周内一次性补齐",
+      "used_for": "WIKA/docs/reports/deliverables/WIKA_广告分析报告.md",
+      "impact_if_missing": "存在 blocked_by 或 support_level=blocked，需要先清障。",
+      "next_action": "先由 运营负责人 补齐阻塞项：缺真实广告导出样本；date；campaign_name"
+    },
+    {
+      "task_id": "OPS-P1-001",
+      "task_title": "把报告包拆成一周执行排期",
+      "owner_role": "运营负责人",
+      "priority": "P1",
+      "required_inputs": [
+        "本周团队可用人力",
+        "各角色负责人名单",
+        "本周可执行时间窗口"
+      ],
+      "provide_format": "按任务执行记录模板提供。",
+      "provide_frequency": "每日或本周内一次性补齐",
+      "used_for": "WIKA/docs/reports/deliverables/WIKA_运营周报.md",
+      "impact_if_missing": "WIKA 已提供任务拆解、证据来源和执行步骤，但业务末端仍需人工确认。",
+      "next_action": "按本任务包 P1/P2/P3 建立本周排期。"
+    },
+    {
+      "task_id": "PAGE-P1-001",
+      "task_title": "完成首页与重点页面人工盘点",
+      "owner_role": "店铺运营",
+      "priority": "P1",
+      "required_inputs": [
+        "缺页面人工盘点输入",
+        "首页模块",
+        "主 banner",
+        "重点类目入口",
+        "询盘入口",
+        "B2B 信任信息",
+        "当前观察问题"
+      ],
+      "provide_format": "按页面人工盘点模板或执行记录模板提供。",
+      "provide_frequency": "每日或本周内一次性补齐",
+      "used_for": "WIKA/docs/reports/deliverables/WIKA_店铺执行清单.md",
+      "impact_if_missing": "存在 blocked_by 或 support_level=blocked，需要先清障。",
+      "next_action": "先由 店铺运营 补齐阻塞项：缺页面人工盘点输入；首页模块；主 banner"
+    },
+    {
+      "task_id": "STORE-P1-001",
+      "task_title": "建立每日店铺经营检查",
+      "owner_role": "店铺运营",
+      "priority": "P1",
+      "required_inputs": [
+        "每日检查人",
+        "异常记录表",
+        "需要人工确认的异常阈值"
+      ],
+      "provide_format": "按页面人工盘点模板或执行记录模板提供。",
+      "provide_frequency": "每日或本周内一次性补齐",
+      "used_for": "WIKA/docs/reports/deliverables/WIKA_店铺执行清单.md",
+      "impact_if_missing": "WIKA 已提供任务拆解、证据来源和执行步骤，但业务末端仍需人工确认。",
+      "next_action": "每天查看 business-cockpit、management-summary、minimal-diagnostic、comparison-summary。"
+    },
+    {
+      "task_id": "PROD-P1-001",
+      "task_title": "补齐高优先级产品内容缺口",
+      "owner_role": "产品运营",
+      "priority": "P1",
+      "required_inputs": [
+        "产品规格",
+        "材质",
+        "MOQ",
+        "定制能力",
+        "主图",
+        "详情图",
+        "视频素材"
+      ],
+      "provide_format": "按产品素材、规格、材质、关键词清单提供。",
+      "provide_frequency": "每日或本周内一次性补齐",
+      "used_for": "WIKA/docs/reports/deliverables/WIKA_产品优化建议报告.md",
+      "impact_if_missing": "WIKA 已提供任务拆解、证据来源和执行步骤，但业务末端仍需人工确认。",
+      "next_action": "按产品优化建议报告列出优先处理产品。"
+    },
+    {
+      "task_id": "SALES-P1-001",
+      "task_title": "统一 reply/order 草稿人工确认流程",
+      "owner_role": "销售/跟单",
+      "priority": "P1",
+      "required_inputs": [
+        "最终报价",
+        "交期",
+        "样品政策",
+        "买家信息",
+        "订单字段"
+      ],
+      "provide_format": "按销售/订单人工字段清单提供。",
+      "provide_frequency": "每日或本周内一次性补齐",
+      "used_for": "WIKA/docs/reports/deliverables/WIKA_销售跟单使用清单.md",
+      "impact_if_missing": "WIKA 已提供任务拆解、证据来源和执行步骤，但业务末端仍需人工确认。",
+      "next_action": "先用 reply-workbench / reply-preview 检查回复草稿条件。"
+    },
+    {
+      "task_id": "HANDOFF-P1-001",
+      "task_title": "补齐报价、交期、样品和买家关键字段",
+      "owner_role": "人工接手人员",
+      "priority": "P1",
+      "required_inputs": [
+        "报价",
+        "交期",
+        "样品安排",
+        "买家联系人",
+        "订单备注"
+      ],
+      "provide_format": "按销售/订单人工字段清单提供。",
+      "provide_frequency": "每日或本周内一次性补齐",
+      "used_for": "WIKA/docs/reports/deliverables/WIKA_人工接手清单.md",
+      "impact_if_missing": "任务主要依赖人工输入，需先补齐输入后执行。",
+      "next_action": "先补齐输入：报价；交期；样品安排"
+    },
+    {
+      "task_id": "ADS-P2-001",
+      "task_title": "固定广告样本导入节奏",
+      "owner_role": "运营负责人",
+      "priority": "P2",
+      "required_inputs": [
+        "缺稳定广告导入承接节奏",
+        "每周广告导出",
+        "字段映射说明",
+        "导入责任人"
+      ],
+      "provide_format": "按 WIKA 广告数据导入模板提供 CSV/JSON。",
+      "provide_frequency": "每周",
+      "used_for": "WIKA/docs/reports/deliverables/WIKA_广告分析报告.md",
+      "impact_if_missing": "存在 blocked_by 或 support_level=blocked，需要先清障。",
+      "next_action": "先由 运营负责人 补齐阻塞项：缺稳定广告导入承接节奏；每周广告导出；字段映射说明"
+    },
+    {
+      "task_id": "OPS-P2-001",
+      "task_title": "建立每周报告到任务包的固定节奏",
+      "owner_role": "运营负责人",
+      "priority": "P2",
+      "required_inputs": [
+        "每周报告生成时间",
+        "任务负责人",
+        "复盘时间"
+      ],
+      "provide_format": "按任务执行记录模板提供。",
+      "provide_frequency": "每周",
+      "used_for": "WIKA/docs/reports/deliverables/WIKA_运营周报.md",
+      "impact_if_missing": "WIKA 已提供任务拆解、证据来源和执行步骤，但业务末端仍需人工确认。",
+      "next_action": "每周先生成正式运营报告包。"
+    },
+    {
+      "task_id": "PAGE-P2-001",
+      "task_title": "建立页面问题记录与整改闭环",
+      "owner_role": "店铺运营",
+      "priority": "P2",
+      "required_inputs": [
+        "问题截图",
+        "整改建议",
+        "负责人",
+        "完成时间"
+      ],
+      "provide_format": "按页面人工盘点模板或执行记录模板提供。",
+      "provide_frequency": "每周",
+      "used_for": "WIKA/docs/reports/deliverables/WIKA_店铺执行清单.md",
+      "impact_if_missing": "任务主要依赖人工输入，需先补齐输入后执行。",
+      "next_action": "先补齐输入：问题截图；整改建议；负责人"
+    },
+    {
+      "task_id": "STORE-P2-001",
+      "task_title": "检查首页模块、banner、类目入口和询盘入口",
+      "owner_role": "店铺运营",
+      "priority": "P2",
+      "required_inputs": [
+        "页面截图或盘点记录",
+        "模块名称",
+        "问题描述",
+        "建议动作"
+      ],
+      "provide_format": "按页面人工盘点模板或执行记录模板提供。",
+      "provide_frequency": "每周",
+      "used_for": "WIKA/docs/reports/deliverables/WIKA_店铺执行清单.md",
+      "impact_if_missing": "任务主要依赖人工输入，需先补齐输入后执行。",
+      "next_action": "先补齐输入：页面截图或盘点记录；模块名称；问题描述"
+    },
+    {
+      "task_id": "PROD-P2-001",
+      "task_title": "补齐产品媒体与详情页素材",
+      "owner_role": "产品运营",
+      "priority": "P2",
+      "required_inputs": [
+        "主图",
+        "细节图",
+        "应用场景图",
+        "视频",
+        "详情页结构"
+      ],
+      "provide_format": "按产品素材、规格、材质、关键词清单提供。",
+      "provide_frequency": "每周",
+      "used_for": "WIKA/docs/reports/deliverables/WIKA_产品优化建议报告.md",
+      "impact_if_missing": "WIKA 已提供任务拆解、证据来源和执行步骤，但业务末端仍需人工确认。",
+      "next_action": "按产品优先级列出缺素材产品。"
+    },
+    {
+      "task_id": "SALES-P2-001",
+      "task_title": "沉淀高频询盘回复模板",
+      "owner_role": "销售/跟单",
+      "priority": "P2",
+      "required_inputs": [
+        "高频问题列表",
+        "标准报价说明",
+        "交期说明",
+        "样品政策"
+      ],
+      "provide_format": "按销售/订单人工字段清单提供。",
+      "provide_frequency": "每周",
+      "used_for": "WIKA/docs/reports/deliverables/WIKA_销售跟单使用清单.md",
+      "impact_if_missing": "WIKA 已提供任务拆解、证据来源和执行步骤，但业务末端仍需人工确认。",
+      "next_action": "从最近询盘中整理高频问题。"
+    },
+    {
+      "task_id": "MGMT-P3-001",
+      "task_title": "决定是否投入广告数据长期归集",
+      "owner_role": "老板/管理层",
+      "priority": "P3",
+      "required_inputs": [
+        "需要管理层资源决策",
+        "广告投入目标",
+        "导出责任人",
+        "周度复盘机制"
+      ],
+      "provide_format": "按任务执行记录模板提供。",
+      "provide_frequency": "下次复盘前",
+      "used_for": "WIKA/docs/reports/deliverables/WIKA_广告分析报告.md",
+      "impact_if_missing": "存在 blocked_by 或 support_level=blocked，需要先清障。",
+      "next_action": "先由 老板/管理层 补齐阻塞项：需要管理层资源决策；广告投入目标；导出责任人"
+    },
+    {
+      "task_id": "BLOCK-P3-001",
+      "task_title": "保留官方缺失维度为 blocked",
+      "owner_role": "运营负责人",
+      "priority": "P3",
+      "required_inputs": [
+        "缺 official 字段",
+        "缺稳定参数契约",
+        "缺真实返回样本",
+        "官方字段能力",
+        "稳定参数契约",
+        "真实返回样本"
+      ],
+      "provide_format": "按任务执行记录模板提供。",
+      "provide_frequency": "下次复盘前",
+      "used_for": "WIKA/docs/reports/deliverables/WIKA_经营诊断报告.md",
+      "impact_if_missing": "存在 blocked_by 或 support_level=blocked，需要先清障。",
+      "next_action": "先由 运营负责人 补齐阻塞项：缺 official 字段；缺稳定参数契约；缺真实返回样本"
+    },
+    {
+      "task_id": "OPS-P3-001",
+      "task_title": "复盘 WIKA 工作替代比例",
+      "owner_role": "运营负责人",
+      "priority": "P3",
+      "required_inputs": [
+        "本周实际使用记录",
+        "人工接手耗时",
+        "WIKA 输出被采纳比例"
+      ],
+      "provide_format": "按任务执行记录模板提供。",
+      "provide_frequency": "下次复盘前",
+      "used_for": "WIKA/docs/reports/deliverables/WIKA_正式运营报告包索引.md",
+      "impact_if_missing": "WIKA 已提供任务拆解、证据来源和执行步骤，但业务末端仍需人工确认。",
+      "next_action": "统计本周 WIKA 报告、工作台、预览、草稿使用次数。"
+    },
+    {
+      "task_id": "PROD-P3-001",
+      "task_title": "基于现有订单贡献整理新品方向",
+      "owner_role": "产品运营",
+      "priority": "P3",
+      "required_inputs": [
+        "现有订单贡献产品",
+        "产品利润判断",
+        "供应链可行性"
+      ],
+      "provide_format": "按产品素材、规格、材质、关键词清单提供。",
+      "provide_frequency": "下次复盘前",
+      "used_for": "WIKA/docs/reports/deliverables/WIKA_产品优化建议报告.md",
+      "impact_if_missing": "WIKA 已提供任务拆解、证据来源和执行步骤，但业务末端仍需人工确认。",
+      "next_action": "从订单贡献和重点产品中整理候选新品方向。"
+    },
+    {
+      "task_id": "BLOCK-P3-002",
+      "task_title": "保留 task3/task4/task5 写侧最后一跳为人工",
+      "owner_role": "人工接手人员",
+      "priority": "P3",
+      "required_inputs": [
+        "缺测试对象",
+        "缺 rollback/cleanup",
+        "缺 stable readback",
+        "测试对象",
+        "rollback/cleanup 路径",
+        "readback 路径",
+        "官方文档与参数契约"
+      ],
+      "provide_format": "按任务执行记录模板提供。",
+      "provide_frequency": "下次复盘前",
+      "used_for": "WIKA/docs/reports/deliverables/WIKA_人工接手清单.md",
+      "impact_if_missing": "存在 blocked_by 或 support_level=blocked，需要先清障。",
+      "next_action": "先由 人工接手人员 补齐阻塞项：缺测试对象；缺 rollback/cleanup；缺 stable readback"
+    }
+  ]
+}

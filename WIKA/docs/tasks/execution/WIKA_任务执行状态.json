@@ -1,0 +1,1259 @@
+{
+  "generated_at": "2026-04-21T05:26:17.405Z",
+  "source": "WIKA/docs/tasks/WIKA_运营任务包.json",
+  "summary": {
+    "total_tasks": 19,
+    "status_distribution": {
+      "ready_to_execute": 10,
+      "blocked": 6,
+      "waiting_for_input": 3
+    },
+    "priority_status_distribution": {
+      "P1": {
+        "ready_to_execute": 5,
+        "blocked": 2,
+        "waiting_for_input": 1
+      },
+      "P2": {
+        "blocked": 1,
+        "ready_to_execute": 3,
+        "waiting_for_input": 2
+      },
+      "P3": {
+        "blocked": 3,
+        "ready_to_execute": 2
+      }
+    },
+    "role_status_distribution": {
+      "老板/管理层": {
+        "ready_to_execute": 1,
+        "blocked": 1
+      },
+      "运营负责人": {
+        "blocked": 3,
+        "ready_to_execute": 3
+      },
+      "店铺运营": {
+        "blocked": 1,
+        "ready_to_execute": 1,
+        "waiting_for_input": 2
+      },
+      "产品运营": {
+        "ready_to_execute": 3
+      },
+      "销售/跟单": {
+        "ready_to_execute": 2
+      },
+      "人工接手人员": {
+        "waiting_for_input": 1,
+        "blocked": 1
+      }
+    },
+    "blocked_count": 6,
+    "waiting_for_input_count": 3,
+    "ready_to_execute_count": 10,
+    "manual_confirmation_required_count": 19
+  },
+  "tasks": [
+    {
+      "task_id": "MGMT-P1-001",
+      "task_title": "拍板本周三件优先事项",
+      "owner_role": "老板/管理层",
+      "priority": "P1",
+      "support_level": "mostly_supported_needs_human_confirm",
+      "current_status": "ready_to_execute",
+      "status_reason": "WIKA 已提供任务拆解、证据来源和执行步骤，但业务末端仍需人工确认。",
+      "required_inputs": [
+        "管理层确认本周资源优先级",
+        "确认产品运营、销售/跟单、店铺运营负责人"
+      ],
+      "missing_inputs": [],
+      "execution_steps": [
+        "确认 P1 为产品内容补强、销售草稿 SOP、广告与页面输入补齐。",
+        "指定每条主线的负责人和本周交付时间。",
+        "要求运营负责人按任务总看板回填执行状态。"
+      ],
+      "acceptance_criteria": [
+        "三条优先事项均有明确负责人。",
+        "每条事项均有本周完成窗口。",
+        "没有把 task3/task4/task5 写成平台内自动执行闭环。"
+      ],
+      "actual_progress": [],
+      "evidence_required": [
+        "任务 MGMT-P1-001 的执行记录",
+        "执行人、执行时间、证据位置",
+        "是否进入下一轮报告的判断",
+        "验收证据：三条优先事项均有明确负责人。",
+        "验收证据：每条事项均有本周完成窗口。",
+        "验收证据：没有把 task3/task4/task5 写成平台内自动执行闭环。"
+      ],
+      "evidence_received": [],
+      "blocked_by": [],
+      "blocker_owner": "",
+      "next_action": "确认 P1 为产品内容补强、销售草稿 SOP、广告与页面输入补齐。",
+      "due_window": "今天",
+      "review_frequency": "每日",
+      "handoff_required": false,
+      "manual_confirmation_required": true,
+      "updated_at": "2026-04-21T05:26:17.405Z",
+      "source_report": "WIKA/docs/reports/deliverables/WIKA_管理层简报.md",
+      "source_evidence": "WIKA/docs/reports/deliverables/evidence/WIKA_正式运营报告包证据.json",
+      "business_task_scope": "通用运营",
+      "boundary_statement": [
+        "not task 1 complete",
+        "not task 2 complete",
+        "not task 3 complete",
+        "not task 4 complete",
+        "not task 5 complete",
+        "task 6 excluded",
+        "no write action attempted",
+        "WIKA-only thread for business work",
+        "XD untouched in business execution",
+        "not full business cockpit"
+      ]
+    },
+    {
+      "task_id": "ADS-P1-001",
+      "task_title": "导出真实广告样本",
+      "owner_role": "运营负责人",
+      "priority": "P1",
+      "support_level": "manual_only",
+      "current_status": "blocked",
+      "status_reason": "存在 blocked_by 或 support_level=blocked，需要先清障。",
+      "required_inputs": [
+        "date",
+        "campaign_name",
+        "ad_group_name",
+        "keyword",
+        "spend",
+        "impressions",
+        "clicks",
+        "inquiries"
+      ],
+      "missing_inputs": [
+        "缺真实广告导出样本",
+        "date",
+        "campaign_name",
+        "ad_group_name",
+        "keyword",
+        "spend",
+        "impressions",
+        "clicks",
+        "inquiries"
+      ],
+      "execution_steps": [
+        "按广告导入模板从平台或第三方报表导出一周样本。",
+        "检查字段是否覆盖最低必填列。",
+        "交给 WIKA 广告导入层做校验和标准化。"
+      ],
+      "acceptance_criteria": [
+        "样本文件存在且字段完整。",
+        "样本时间范围明确。",
+        "广告报告未在无样本情况下输出真实投放效果结论。"
+      ],
+      "actual_progress": [],
+      "evidence_required": [
+        "任务 ADS-P1-001 的执行记录",
+        "执行人、执行时间、证据位置",
+        "是否进入下一轮报告的判断",
+        "验收证据：样本文件存在且字段完整。",
+        "验收证据：样本时间范围明确。",
+        "验收证据：广告报告未在无样本情况下输出真实投放效果结论。"
+      ],
+      "evidence_received": [],
+      "blocked_by": [
+        "缺真实广告导出样本"
+      ],
+      "blocker_owner": "运营负责人",
+      "next_action": "先由 运营负责人 补齐阻塞项：缺真实广告导出样本；date；campaign_name",
+      "due_window": "本周",
+      "review_frequency": "每日",
+      "handoff_required": true,
+      "manual_confirmation_required": true,
+      "updated_at": "2026-04-21T05:26:17.405Z",
+      "source_report": "WIKA/docs/reports/deliverables/WIKA_广告分析报告.md",
+      "source_evidence": "WIKA/docs/reports/deliverables/evidence/WIKA_正式运营报告包证据.json",
+      "business_task_scope": "输入层",
+      "boundary_statement": [
+        "not task 1 complete",
+        "not task 2 complete",
+        "not task 3 complete",
+        "not task 4 complete",
+        "not task 5 complete",
+        "task 6 excluded",
+        "no write action attempted",
+        "WIKA-only thread for business work",
+        "XD untouched in business execution",
+        "not full business cockpit"
+      ]
+    },
+    {
+      "task_id": "OPS-P1-001",
+      "task_title": "把报告包拆成一周执行排期",
+      "owner_role": "运营负责人",
+      "priority": "P1",
+      "support_level": "mostly_supported_needs_human_confirm",
+      "current_status": "ready_to_execute",
+      "status_reason": "WIKA 已提供任务拆解、证据来源和执行步骤，但业务末端仍需人工确认。",
+      "required_inputs": [
+        "本周团队可用人力",
+        "各角色负责人名单",
+        "本周可执行时间窗口"
+      ],
+      "missing_inputs": [],
+      "execution_steps": [
+        "按本任务包 P1/P2/P3 建立本周排期。",
+        "把产品、广告、页面、销售、人工接手任务分别指派给对应角色。",
+        "每天检查 P1 任务状态，周末复盘 P2 和 P3 是否需要升级。"
+      ],
+      "acceptance_criteria": [
+        "P1 任务全部有负责人和截止时间。",
+        "P2 任务有明确本周推进节点。",
+        "blocked 任务均写明外部输入来源。"
+      ],
+      "actual_progress": [],
+      "evidence_required": [
+        "任务 OPS-P1-001 的执行记录",
+        "执行人、执行时间、证据位置",
+        "是否进入下一轮报告的判断",
+        "验收证据：P1 任务全部有负责人和截止时间。",
+        "验收证据：P2 任务有明确本周推进节点。",
+        "验收证据：blocked 任务均写明外部输入来源。"
+      ],
+      "evidence_received": [],
+      "blocked_by": [],
+      "blocker_owner": "",
+      "next_action": "按本任务包 P1/P2/P3 建立本周排期。",
+      "due_window": "今天",
+      "review_frequency": "每日",
+      "handoff_required": false,
+      "manual_confirmation_required": true,
+      "updated_at": "2026-04-21T05:26:17.405Z",
+      "source_report": "WIKA/docs/reports/deliverables/WIKA_运营周报.md",
+      "source_evidence": "WIKA/docs/reports/deliverables/evidence/WIKA_正式运营报告包证据.json",
+      "business_task_scope": "通用运营",
+      "boundary_statement": [
+        "not task 1 complete",
+        "not task 2 complete",
+        "not task 3 complete",
+        "not task 4 complete",
+        "not task 5 complete",
+        "task 6 excluded",
+        "no write action attempted",
+        "WIKA-only thread for business work",
+        "XD untouched in business execution",
+        "not full business cockpit"
+      ]
+    },
+    {
+      "task_id": "PAGE-P1-001",
+      "task_title": "完成首页与重点页面人工盘点",
+      "owner_role": "店铺运营",
+      "priority": "P1",
+      "support_level": "manual_only",
+      "current_status": "blocked",
+      "status_reason": "存在 blocked_by 或 support_level=blocked，需要先清障。",
+      "required_inputs": [
+        "首页模块",
+        "主 banner",
+        "重点类目入口",
+        "询盘入口",
+        "B2B 信任信息",
+        "当前观察问题"
+      ],
+      "missing_inputs": [
+        "缺页面人工盘点输入",
+        "首页模块",
+        "主 banner",
+        "重点类目入口",
+        "询盘入口",
+        "B2B 信任信息",
+        "当前观察问题"
+      ],
+      "execution_steps": [
+        "按页面人工盘点模板检查首页和重点页面。",
+        "记录每个模块的问题、建议和负责人。",
+        "把盘点结果交给产品运营和设计执行。"
+      ],
+      "acceptance_criteria": [
+        "页面盘点表覆盖首页模块、banner、类目入口和询盘入口。",
+        "每个问题均有人工建议。",
+        "没有把人工盘点写成官方页面行为数据。"
+      ],
+      "actual_progress": [],
+      "evidence_required": [
+        "任务 PAGE-P1-001 的执行记录",
+        "执行人、执行时间、证据位置",
+        "是否进入下一轮报告的判断",
+        "验收证据：页面盘点表覆盖首页模块、banner、类目入口和询盘入口。",
+        "验收证据：每个问题均有人工建议。",
+        "验收证据：没有把人工盘点写成官方页面行为数据。"
+      ],
+      "evidence_received": [],
+      "blocked_by": [
+        "缺页面人工盘点输入"
+      ],
+      "blocker_owner": "店铺运营",
+      "next_action": "先由 店铺运营 补齐阻塞项：缺页面人工盘点输入；首页模块；主 banner",
+      "due_window": "本周",
+      "review_frequency": "每日",
+      "handoff_required": true,
+      "manual_confirmation_required": true,
+      "updated_at": "2026-04-21T05:26:17.405Z",
+      "source_report": "WIKA/docs/reports/deliverables/WIKA_店铺执行清单.md",
+      "source_evidence": "WIKA/docs/reports/deliverables/evidence/WIKA_正式运营报告包证据.json",
+      "business_task_scope": "输入层",
+      "boundary_statement": [
+        "not task 1 complete",
+        "not task 2 complete",
+        "not task 3 complete",
+        "not task 4 complete",
+        "not task 5 complete",
+        "task 6 excluded",
+        "no write action attempted",
+        "WIKA-only thread for business work",
+        "XD untouched in business execution",
+        "not full business cockpit"
+      ]
+    },
+    {
+      "task_id": "STORE-P1-001",
+      "task_title": "建立每日店铺经营检查",
+      "owner_role": "店铺运营",
+      "priority": "P1",
+      "support_level": "mostly_supported_needs_human_confirm",
+      "current_status": "ready_to_execute",
+      "status_reason": "WIKA 已提供任务拆解、证据来源和执行步骤，但业务末端仍需人工确认。",
+      "required_inputs": [
+        "每日检查人",
+        "异常记录表",
+        "需要人工确认的异常阈值"
+      ],
+      "missing_inputs": [],
+      "execution_steps": [
+        "每天查看 business-cockpit、management-summary、minimal-diagnostic、comparison-summary。",
+        "若 action-center 或 operator-console degraded，回到底层稳定 route 查证。",
+        "把异常项登记到运营负责人排期清单。"
+      ],
+      "acceptance_criteria": [
+        "每日检查记录不少于 1 条。",
+        "异常项均有来源 route 或报告章节。",
+        "degraded route 没有被写成 full success。"
+      ],
+      "actual_progress": [],
+      "evidence_required": [
+        "任务 STORE-P1-001 的执行记录",
+        "执行人、执行时间、证据位置",
+        "是否进入下一轮报告的判断",
+        "验收证据：每日检查记录不少于 1 条。",
+        "验收证据：异常项均有来源 route 或报告章节。",
+        "验收证据：degraded route 没有被写成 full success。"
+      ],
+      "evidence_received": [],
+      "blocked_by": [],
+      "blocker_owner": "",
+      "next_action": "每天查看 business-cockpit、management-summary、minimal-diagnostic、comparison-summary。",
+      "due_window": "每日",
+      "review_frequency": "每日",
+      "handoff_required": false,
+      "manual_confirmation_required": true,
+      "updated_at": "2026-04-21T05:26:17.405Z",
+      "source_report": "WIKA/docs/reports/deliverables/WIKA_店铺执行清单.md",
+      "source_evidence": "WIKA/docs/reports/deliverables/evidence/WIKA_正式运营报告包证据.json",
+      "business_task_scope": "任务1/任务2",
+      "boundary_statement": [
+        "not task 1 complete",
+        "not task 2 complete",
+        "not task 3 complete",
+        "not task 4 complete",
+        "not task 5 complete",
+        "task 6 excluded",
+        "no write action attempted",
+        "WIKA-only thread for business work",
+        "XD untouched in business execution",
+        "not full business cockpit"
+      ]
+    },
+    {
+      "task_id": "PROD-P1-001",
+      "task_title": "补齐高优先级产品内容缺口",
+      "owner_role": "产品运营",
+      "priority": "P1",
+      "support_level": "mostly_supported_needs_human_confirm",
+      "current_status": "ready_to_execute",
+      "status_reason": "WIKA 已提供任务拆解、证据来源和执行步骤，但业务末端仍需人工确认。",
+      "required_inputs": [
+        "产品规格",
+        "材质",
+        "MOQ",
+        "定制能力",
+        "主图",
+        "详情图",
+        "视频素材"
+      ],
+      "missing_inputs": [],
+      "execution_steps": [
+        "按产品优化建议报告列出优先处理产品。",
+        "先补描述、关键词、主图和详情结构。",
+        "使用 product-draft-workbench / product-draft-preview 做安全草稿准备。",
+        "人工确认后再进入平台内处理，不由 WIKA 直接发布。"
+      ],
+      "acceptance_criteria": [
+        "优先产品均完成描述和关键词补齐。",
+        "每个产品都有人工确认过的主图或详情素材计划。",
+        "未把 preview 写成平台内发布成功。"
+      ],
+      "actual_progress": [],
+      "evidence_required": [
+        "任务 PROD-P1-001 的执行记录",
+        "执行人、执行时间、证据位置",
+        "是否进入下一轮报告的判断",
+        "验收证据：优先产品均完成描述和关键词补齐。",
+        "验收证据：每个产品都有人工确认过的主图或详情素材计划。",
+        "验收证据：未把 preview 写成平台内发布成功。"
+      ],
+      "evidence_received": [],
+      "blocked_by": [],
+      "blocker_owner": "",
+      "next_action": "按产品优化建议报告列出优先处理产品。",
+      "due_window": "本周",
+      "review_frequency": "每日",
+      "handoff_required": false,
+      "manual_confirmation_required": true,
+      "updated_at": "2026-04-21T05:26:17.405Z",
+      "source_report": "WIKA/docs/reports/deliverables/WIKA_产品优化建议报告.md",
+      "source_evidence": "WIKA/docs/reports/deliverables/evidence/WIKA_正式运营报告包证据.json",
+      "business_task_scope": "任务3",
+      "boundary_statement": [
+        "not task 1 complete",
+        "not task 2 complete",
+        "not task 3 complete",
+        "not task 4 complete",
+        "not task 5 complete",
+        "task 6 excluded",
+        "no write action attempted",
+        "WIKA-only thread for business work",
+        "XD untouched in business execution",
+        "not full business cockpit"
+      ]
+    },
+    {
+      "task_id": "SALES-P1-001",
+      "task_title": "统一 reply/order 草稿人工确认流程",
+      "owner_role": "销售/跟单",
+      "priority": "P1",
+      "support_level": "preview_or_handoff_only",
+      "current_status": "ready_to_execute",
+      "status_reason": "WIKA 已提供任务拆解、证据来源和执行步骤，但业务末端仍需人工确认。",
+      "required_inputs": [
+        "最终报价",
+        "交期",
+        "样品政策",
+        "买家信息",
+        "订单字段"
+      ],
+      "missing_inputs": [],
+      "execution_steps": [
+        "先用 reply-workbench / reply-preview 检查回复草稿条件。",
+        "再用 reply-draft 生成外部草稿并交人工确认。",
+        "订单相关先用 order-workbench / order-preview 检查字段，再用 order-draft 生成外部草稿。",
+        "所有平台内发送或创单动作均由人工完成。"
+      ],
+      "acceptance_criteria": [
+        "每次回复或订单草稿都有人工确认记录。",
+        "缺字段时不得直接发送或创单。",
+        "没有把外部草稿写成平台内执行成功。"
+      ],
+      "actual_progress": [],
+      "evidence_required": [
+        "任务 SALES-P1-001 的执行记录",
+        "执行人、执行时间、证据位置",
+        "是否进入下一轮报告的判断",
+        "验收证据：每次回复或订单草稿都有人工确认记录。",
+        "验收证据：缺字段时不得直接发送或创单。",
+        "验收证据：没有把外部草稿写成平台内执行成功。"
+      ],
+      "evidence_received": [],
+      "blocked_by": [],
+      "blocker_owner": "",
+      "next_action": "先用 reply-workbench / reply-preview 检查回复草稿条件。",
+      "due_window": "每日",
+      "review_frequency": "每日",
+      "handoff_required": true,
+      "manual_confirmation_required": true,
+      "updated_at": "2026-04-21T05:26:17.405Z",
+      "source_report": "WIKA/docs/reports/deliverables/WIKA_销售跟单使用清单.md",
+      "source_evidence": "WIKA/docs/reports/deliverables/evidence/WIKA_正式运营报告包证据.json",
+      "business_task_scope": "任务4/任务5",
+      "boundary_statement": [
+        "not task 1 complete",
+        "not task 2 complete",
+        "not task 3 complete",
+        "not task 4 complete",
+        "not task 5 complete",
+        "task 6 excluded",
+        "no write action attempted",
+        "WIKA-only thread for business work",
+        "XD untouched in business execution",
+        "not full business cockpit"
+      ]
+    },
+    {
+      "task_id": "HANDOFF-P1-001",
+      "task_title": "补齐报价、交期、样品和买家关键字段",
+      "owner_role": "人工接手人员",
+      "priority": "P1",
+      "support_level": "manual_only",
+      "current_status": "waiting_for_input",
+      "status_reason": "任务主要依赖人工输入，需先补齐输入后执行。",
+      "required_inputs": [
+        "报价",
+        "交期",
+        "样品安排",
+        "买家联系人",
+        "订单备注"
+      ],
+      "missing_inputs": [
+        "报价",
+        "交期",
+        "样品安排",
+        "买家联系人",
+        "订单备注"
+      ],
+      "execution_steps": [
+        "按人工接手清单逐项补齐产品、报价、交期、样品、买家、订单字段。",
+        "把补齐结果回填到销售/跟单任务清单。",
+        "由销售/跟单最终确认是否可发送或创单。"
+      ],
+      "acceptance_criteria": [
+        "P1 草稿所需关键字段全部补齐。",
+        "每个字段都有人工来源或负责人。",
+        "WIKA 未被用于替代人工商业承诺。"
+      ],
+      "actual_progress": [],
+      "evidence_required": [
+        "任务 HANDOFF-P1-001 的执行记录",
+        "执行人、执行时间、证据位置",
+        "是否进入下一轮报告的判断",
+        "验收证据：P1 草稿所需关键字段全部补齐。",
+        "验收证据：每个字段都有人工来源或负责人。",
+        "验收证据：WIKA 未被用于替代人工商业承诺。"
+      ],
+      "evidence_received": [],
+      "blocked_by": [],
+      "blocker_owner": "",
+      "next_action": "先补齐输入：报价；交期；样品安排",
+      "due_window": "今天至本周",
+      "review_frequency": "每日",
+      "handoff_required": true,
+      "manual_confirmation_required": true,
+      "updated_at": "2026-04-21T05:26:17.405Z",
+      "source_report": "WIKA/docs/reports/deliverables/WIKA_人工接手清单.md",
+      "source_evidence": "WIKA/docs/reports/deliverables/evidence/WIKA_正式运营报告包证据.json",
+      "business_task_scope": "任务4/任务5",
+      "boundary_statement": [
+        "not task 1 complete",
+        "not task 2 complete",
+        "not task 3 complete",
+        "not task 4 complete",
+        "not task 5 complete",
+        "task 6 excluded",
+        "no write action attempted",
+        "WIKA-only thread for business work",
+        "XD untouched in business execution",
+        "not full business cockpit"
+      ]
+    },
+    {
+      "task_id": "ADS-P2-001",
+      "task_title": "固定广告样本导入节奏",
+      "owner_role": "运营负责人",
+      "priority": "P2",
+      "support_level": "manual_only",
+      "current_status": "blocked",
+      "status_reason": "存在 blocked_by 或 support_level=blocked，需要先清障。",
+      "required_inputs": [
+        "每周广告导出",
+        "字段映射说明",
+        "导入责任人"
+      ],
+      "missing_inputs": [
+        "缺稳定广告导入承接节奏",
+        "每周广告导出",
+        "字段映射说明",
+        "导入责任人"
+      ],
+      "execution_steps": [
+        "约定每周固定导出时间。",
+        "使用广告导入模板检查字段。",
+        "将导入结果纳入下周运营报告。"
+      ],
+      "acceptance_criteria": [
+        "广告样本导入节奏明确。",
+        "字段缺失时有补充责任人。",
+        "未将导入层写成官方广告 API 已打通。"
+      ],
+      "actual_progress": [],
+      "evidence_required": [
+        "任务 ADS-P2-001 的执行记录",
+        "执行人、执行时间、证据位置",
+        "是否进入下一轮报告的判断",
+        "验收证据：广告样本导入节奏明确。",
+        "验收证据：字段缺失时有补充责任人。",
+        "验收证据：未将导入层写成官方广告 API 已打通。"
+      ],
+      "evidence_received": [],
+      "blocked_by": [
+        "缺稳定广告导入承接节奏"
+      ],
+      "blocker_owner": "运营负责人",
+      "next_action": "先由 运营负责人 补齐阻塞项：缺稳定广告导入承接节奏；每周广告导出；字段映射说明",
+      "due_window": "7–30 天",
+      "review_frequency": "每周两次",
+      "handoff_required": true,
+      "manual_confirmation_required": true,
+      "updated_at": "2026-04-21T05:26:17.405Z",
+      "source_report": "WIKA/docs/reports/deliverables/WIKA_广告分析报告.md",
+      "source_evidence": "WIKA/docs/reports/deliverables/evidence/WIKA_正式运营报告包证据.json",
+      "business_task_scope": "输入层",
+      "boundary_statement": [
+        "not task 1 complete",
+        "not task 2 complete",
+        "not task 3 complete",
+        "not task 4 complete",
+        "not task 5 complete",
+        "task 6 excluded",
+        "no write action attempted",
+        "WIKA-only thread for business work",
+        "XD untouched in business execution",
+        "not full business cockpit"
+      ]
+    },
+    {
+      "task_id": "OPS-P2-001",
+      "task_title": "建立每周报告到任务包的固定节奏",
+      "owner_role": "运营负责人",
+      "priority": "P2",
+      "support_level": "mostly_supported_needs_human_confirm",
+      "current_status": "ready_to_execute",
+      "status_reason": "WIKA 已提供任务拆解、证据来源和执行步骤，但业务末端仍需人工确认。",
+      "required_inputs": [
+        "每周报告生成时间",
+        "任务负责人",
+        "复盘时间"
+      ],
+      "missing_inputs": [],
+      "execution_steps": [
+        "每周先生成正式运营报告包。",
+        "再生成运营任务包。",
+        "周中检查 P1，周末复盘 P2/P3。"
+      ],
+      "acceptance_criteria": [
+        "每周至少生成一次任务看板。",
+        "P1 任务有跟踪状态。",
+        "未完成项有原因和下一步。"
+      ],
+      "actual_progress": [],
+      "evidence_required": [
+        "任务 OPS-P2-001 的执行记录",
+        "执行人、执行时间、证据位置",
+        "是否进入下一轮报告的判断",
+        "验收证据：每周至少生成一次任务看板。",
+        "验收证据：P1 任务有跟踪状态。",
+        "验收证据：未完成项有原因和下一步。"
+      ],
+      "evidence_received": [],
+      "blocked_by": [],
+      "blocker_owner": "",
+      "next_action": "每周先生成正式运营报告包。",
+      "due_window": "本周",
+      "review_frequency": "每周两次",
+      "handoff_required": false,
+      "manual_confirmation_required": true,
+      "updated_at": "2026-04-21T05:26:17.405Z",
+      "source_report": "WIKA/docs/reports/deliverables/WIKA_运营周报.md",
+      "source_evidence": "WIKA/docs/reports/deliverables/evidence/WIKA_正式运营报告包证据.json",
+      "business_task_scope": "通用运营",
+      "boundary_statement": [
+        "not task 1 complete",
+        "not task 2 complete",
+        "not task 3 complete",
+        "not task 4 complete",
+        "not task 5 complete",
+        "task 6 excluded",
+        "no write action attempted",
+        "WIKA-only thread for business work",
+        "XD untouched in business execution",
+        "not full business cockpit"
+      ]
+    },
+    {
+      "task_id": "PAGE-P2-001",
+      "task_title": "建立页面问题记录与整改闭环",
+      "owner_role": "店铺运营",
+      "priority": "P2",
+      "support_level": "manual_only",
+      "current_status": "waiting_for_input",
+      "status_reason": "任务主要依赖人工输入，需先补齐输入后执行。",
+      "required_inputs": [
+        "问题截图",
+        "整改建议",
+        "负责人",
+        "完成时间"
+      ],
+      "missing_inputs": [
+        "问题截图",
+        "整改建议",
+        "负责人",
+        "完成时间"
+      ],
+      "execution_steps": [
+        "将页面盘点问题整理成列表。",
+        "给每个问题指定负责人。",
+        "下周复盘是否已处理。"
+      ],
+      "acceptance_criteria": [
+        "每个页面问题都有负责人和处理状态。",
+        "整改结果可追溯。",
+        "仍明确这是人工盘点输入。"
+      ],
+      "actual_progress": [],
+      "evidence_required": [
+        "任务 PAGE-P2-001 的执行记录",
+        "执行人、执行时间、证据位置",
+        "是否进入下一轮报告的判断",
+        "验收证据：每个页面问题都有负责人和处理状态。",
+        "验收证据：整改结果可追溯。",
+        "验收证据：仍明确这是人工盘点输入。"
+      ],
+      "evidence_received": [],
+      "blocked_by": [],
+      "blocker_owner": "",
+      "next_action": "先补齐输入：问题截图；整改建议；负责人",
+      "due_window": "本周",
+      "review_frequency": "每周两次",
+      "handoff_required": true,
+      "manual_confirmation_required": true,
+      "updated_at": "2026-04-21T05:26:17.405Z",
+      "source_report": "WIKA/docs/reports/deliverables/WIKA_店铺执行清单.md",
+      "source_evidence": "WIKA/docs/reports/deliverables/evidence/WIKA_正式运营报告包证据.json",
+      "business_task_scope": "输入层",
+      "boundary_statement": [
+        "not task 1 complete",
+        "not task 2 complete",
+        "not task 3 complete",
+        "not task 4 complete",
+        "not task 5 complete",
+        "task 6 excluded",
+        "no write action attempted",
+        "WIKA-only thread for business work",
+        "XD untouched in business execution",
+        "not full business cockpit"
+      ]
+    },
+    {
+      "task_id": "STORE-P2-001",
+      "task_title": "检查首页模块、banner、类目入口和询盘入口",
+      "owner_role": "店铺运营",
+      "priority": "P2",
+      "support_level": "manual_only",
+      "current_status": "waiting_for_input",
+      "status_reason": "任务主要依赖人工输入，需先补齐输入后执行。",
+      "required_inputs": [
+        "页面截图或盘点记录",
+        "模块名称",
+        "问题描述",
+        "建议动作"
+      ],
+      "missing_inputs": [
+        "页面截图或盘点记录",
+        "模块名称",
+        "问题描述",
+        "建议动作"
+      ],
+      "execution_steps": [
+        "检查首页首屏和主 banner 是否突出重点产品。",
+        "检查类目入口和询盘入口是否清晰。",
+        "把页面问题记录到页面人工盘点任务清单。"
+      ],
+      "acceptance_criteria": [
+        "盘点记录覆盖所有指定模块。",
+        "每个问题都有建议动作和负责人。",
+        "不把盘点结果写成官方行为数据。"
+      ],
+      "actual_progress": [],
+      "evidence_required": [
+        "任务 STORE-P2-001 的执行记录",
+        "执行人、执行时间、证据位置",
+        "是否进入下一轮报告的判断",
+        "验收证据：盘点记录覆盖所有指定模块。",
+        "验收证据：每个问题都有建议动作和负责人。",
+        "验收证据：不把盘点结果写成官方行为数据。"
+      ],
+      "evidence_received": [],
+      "blocked_by": [],
+      "blocker_owner": "",
+      "next_action": "先补齐输入：页面截图或盘点记录；模块名称；问题描述",
+      "due_window": "本周",
+      "review_frequency": "每周两次",
+      "handoff_required": true,
+      "manual_confirmation_required": true,
+      "updated_at": "2026-04-21T05:26:17.405Z",
+      "source_report": "WIKA/docs/reports/deliverables/WIKA_店铺执行清单.md",
+      "source_evidence": "WIKA/docs/reports/deliverables/evidence/WIKA_正式运营报告包证据.json",
+      "business_task_scope": "输入层",
+      "boundary_statement": [
+        "not task 1 complete",
+        "not task 2 complete",
+        "not task 3 complete",
+        "not task 4 complete",
+        "not task 5 complete",
+        "task 6 excluded",
+        "no write action attempted",
+        "WIKA-only thread for business work",
+        "XD untouched in business execution",
+        "not full business cockpit"
+      ]
+    },
+    {
+      "task_id": "PROD-P2-001",
+      "task_title": "补齐产品媒体与详情页素材",
+      "owner_role": "产品运营",
+      "priority": "P2",
+      "support_level": "mostly_supported_needs_human_confirm",
+      "current_status": "ready_to_execute",
+      "status_reason": "WIKA 已提供任务拆解、证据来源和执行步骤，但业务末端仍需人工确认。",
+      "required_inputs": [
+        "主图",
+        "细节图",
+        "应用场景图",
+        "视频",
+        "详情页结构"
+      ],
+      "missing_inputs": [],
+      "execution_steps": [
+        "按产品优先级列出缺素材产品。",
+        "把缺失素材交给设计或产品负责人补齐。",
+        "用 product-draft-preview 检查草稿完整度。"
+      ],
+      "acceptance_criteria": [
+        "每个优先产品至少有主图和详情补齐计划。",
+        "素材经过人工确认。",
+        "草稿只停留在准备层，不写成发布成功。"
+      ],
+      "actual_progress": [],
+      "evidence_required": [
+        "任务 PROD-P2-001 的执行记录",
+        "执行人、执行时间、证据位置",
+        "是否进入下一轮报告的判断",
+        "验收证据：每个优先产品至少有主图和详情补齐计划。",
+        "验收证据：素材经过人工确认。",
+        "验收证据：草稿只停留在准备层，不写成发布成功。"
+      ],
+      "evidence_received": [],
+      "blocked_by": [],
+      "blocker_owner": "",
+      "next_action": "按产品优先级列出缺素材产品。",
+      "due_window": "本周",
+      "review_frequency": "每周两次",
+      "handoff_required": false,
+      "manual_confirmation_required": true,
+      "updated_at": "2026-04-21T05:26:17.405Z",
+      "source_report": "WIKA/docs/reports/deliverables/WIKA_产品优化建议报告.md",
+      "source_evidence": "WIKA/docs/reports/deliverables/evidence/WIKA_正式运营报告包证据.json",
+      "business_task_scope": "任务3",
+      "boundary_statement": [
+        "not task 1 complete",
+        "not task 2 complete",
+        "not task 3 complete",
+        "not task 4 complete",
+        "not task 5 complete",
+        "task 6 excluded",
+        "no write action attempted",
+        "WIKA-only thread for business work",
+        "XD untouched in business execution",
+        "not full business cockpit"
+      ]
+    },
+    {
+      "task_id": "SALES-P2-001",
+      "task_title": "沉淀高频询盘回复模板",
+      "owner_role": "销售/跟单",
+      "priority": "P2",
+      "support_level": "preview_or_handoff_only",
+      "current_status": "ready_to_execute",
+      "status_reason": "WIKA 已提供任务拆解、证据来源和执行步骤，但业务末端仍需人工确认。",
+      "required_inputs": [
+        "高频问题列表",
+        "标准报价说明",
+        "交期说明",
+        "样品政策"
+      ],
+      "missing_inputs": [],
+      "execution_steps": [
+        "从最近询盘中整理高频问题。",
+        "使用 reply-draft 生成外部草稿底稿。",
+        "人工确认后沉淀为团队模板。"
+      ],
+      "acceptance_criteria": [
+        "至少沉淀 5 条高频回复模板。",
+        "模板经过销售负责人确认。",
+        "没有自动平台内发送。"
+      ],
+      "actual_progress": [],
+      "evidence_required": [
+        "任务 SALES-P2-001 的执行记录",
+        "执行人、执行时间、证据位置",
+        "是否进入下一轮报告的判断",
+        "验收证据：至少沉淀 5 条高频回复模板。",
+        "验收证据：模板经过销售负责人确认。",
+        "验收证据：没有自动平台内发送。"
+      ],
+      "evidence_received": [],
+      "blocked_by": [],
+      "blocker_owner": "",
+      "next_action": "从最近询盘中整理高频问题。",
+      "due_window": "本周",
+      "review_frequency": "每周两次",
+      "handoff_required": true,
+      "manual_confirmation_required": true,
+      "updated_at": "2026-04-21T05:26:17.405Z",
+      "source_report": "WIKA/docs/reports/deliverables/WIKA_销售跟单使用清单.md",
+      "source_evidence": "WIKA/docs/reports/deliverables/evidence/WIKA_正式运营报告包证据.json",
+      "business_task_scope": "任务4",
+      "boundary_statement": [
+        "not task 1 complete",
+        "not task 2 complete",
+        "not task 3 complete",
+        "not task 4 complete",
+        "not task 5 complete",
+        "task 6 excluded",
+        "no write action attempted",
+        "WIKA-only thread for business work",
+        "XD untouched in business execution",
+        "not full business cockpit"
+      ]
+    },
+    {
+      "task_id": "MGMT-P3-001",
+      "task_title": "决定是否投入广告数据长期归集",
+      "owner_role": "老板/管理层",
+      "priority": "P3",
+      "support_level": "manual_only",
+      "current_status": "blocked",
+      "status_reason": "存在 blocked_by 或 support_level=blocked，需要先清障。",
+      "required_inputs": [
+        "广告投入目标",
+        "导出责任人",
+        "周度复盘机制"
+      ],
+      "missing_inputs": [
+        "需要管理层资源决策",
+        "广告投入目标",
+        "导出责任人",
+        "周度复盘机制"
+      ],
+      "execution_steps": [
+        "评估广告数据归集是否纳入固定运营流程。",
+        "决定由谁每周导出和校验。",
+        "确认是否把广告分析纳入月度复盘。"
+      ],
+      "acceptance_criteria": [
+        "是否长期归集有明确结论。",
+        "若继续，明确负责人和节奏。",
+        "若不继续，广告报告保持 readiness 口径。"
+      ],
+      "actual_progress": [],
+      "evidence_required": [
+        "任务 MGMT-P3-001 的执行记录",
+        "执行人、执行时间、证据位置",
+        "是否进入下一轮报告的判断",
+        "验收证据：是否长期归集有明确结论。",
+        "验收证据：若继续，明确负责人和节奏。",
+        "验收证据：若不继续，广告报告保持 readiness 口径。"
+      ],
+      "evidence_received": [],
+      "blocked_by": [
+        "需要管理层资源决策"
+      ],
+      "blocker_owner": "老板/管理层",
+      "next_action": "先由 老板/管理层 补齐阻塞项：需要管理层资源决策；广告投入目标；导出责任人",
+      "due_window": "后续跟进",
+      "review_frequency": "每周",
+      "handoff_required": true,
+      "manual_confirmation_required": true,
+      "updated_at": "2026-04-21T05:26:17.405Z",
+      "source_report": "WIKA/docs/reports/deliverables/WIKA_广告分析报告.md",
+      "source_evidence": "WIKA/docs/reports/deliverables/evidence/WIKA_正式运营报告包证据.json",
+      "business_task_scope": "输入层",
+      "boundary_statement": [
+        "not task 1 complete",
+        "not task 2 complete",
+        "not task 3 complete",
+        "not task 4 complete",
+        "not task 5 complete",
+        "task 6 excluded",
+        "no write action attempted",
+        "WIKA-only thread for business work",
+        "XD untouched in business execution",
+        "not full business cockpit"
+      ]
+    },
+    {
+      "task_id": "BLOCK-P3-001",
+      "task_title": "保留官方缺失维度为 blocked",
+      "owner_role": "运营负责人",
+      "priority": "P3",
+      "support_level": "blocked",
+      "current_status": "blocked",
+      "status_reason": "存在 blocked_by 或 support_level=blocked，需要先清障。",
+      "required_inputs": [
+        "官方字段能力",
+        "稳定参数契约",
+        "真实返回样本"
+      ],
+      "missing_inputs": [
+        "缺 official 字段",
+        "缺稳定参数契约",
+        "缺真实返回样本",
+        "官方字段能力",
+        "稳定参数契约",
+        "真实返回样本"
+      ],
+      "execution_steps": [
+        "在任务看板中保留 blocked 维度。",
+        "不基于这些字段生成强结论。",
+        "只有外部权限或官方稳定入口出现时再重开。"
+      ],
+      "acceptance_criteria": [
+        "所有 unavailable 维度均在 blocked 区出现。",
+        "没有用推断替代 official fact。",
+        "没有新增 API 探索。"
+      ],
+      "actual_progress": [],
+      "evidence_required": [
+        "任务 BLOCK-P3-001 的执行记录",
+        "执行人、执行时间、证据位置",
+        "是否进入下一轮报告的判断",
+        "验收证据：所有 unavailable 维度均在 blocked 区出现。",
+        "验收证据：没有用推断替代 official fact。",
+        "验收证据：没有新增 API 探索。"
+      ],
+      "evidence_received": [],
+      "blocked_by": [
+        "缺 official 字段",
+        "缺稳定参数契约",
+        "缺真实返回样本"
+      ],
+      "blocker_owner": "运营负责人",
+      "next_action": "先由 运营负责人 补齐阻塞项：缺 official 字段；缺稳定参数契约；缺真实返回样本",
+      "due_window": "外部条件到位后",
+      "review_frequency": "每周",
+      "handoff_required": false,
+      "manual_confirmation_required": false,
+      "updated_at": "2026-04-21T05:26:17.405Z",
+      "source_report": "WIKA/docs/reports/deliverables/WIKA_经营诊断报告.md",
+      "source_evidence": "WIKA/docs/reports/deliverables/evidence/WIKA_正式运营报告包证据.json",
+      "business_task_scope": "任务1/任务2",
+      "boundary_statement": [
+        "not task 1 complete",
+        "not task 2 complete",
+        "not task 3 complete",
+        "not task 4 complete",
+        "not task 5 complete",
+        "task 6 excluded",
+        "no write action attempted",
+        "WIKA-only thread for business work",
+        "XD untouched in business execution",
+        "not full business cockpit"
+      ]
+    },
+    {
+      "task_id": "OPS-P3-001",
+      "task_title": "复盘 WIKA 工作替代比例",
+      "owner_role": "运营负责人",
+      "priority": "P3",
+      "support_level": "mostly_supported_needs_human_confirm",
+      "current_status": "ready_to_execute",
+      "status_reason": "WIKA 已提供任务拆解、证据来源和执行步骤，但业务末端仍需人工确认。",
+      "required_inputs": [
+        "本周实际使用记录",
+        "人工接手耗时",
+        "WIKA 输出被采纳比例"
+      ],
+      "missing_inputs": [],
+      "execution_steps": [
+        "统计本周 WIKA 报告、工作台、预览、草稿使用次数。",
+        "记录人工确认和修改耗时。",
+        "下周调整任务包优先级。"
+      ],
+      "acceptance_criteria": [
+        "形成一份本周 WIKA 使用复盘。",
+        "明确可完全交给 WIKA 的工作和必须人工确认的工作。",
+        "未把 WIKA 写成完整业务闭环。"
+      ],
+      "actual_progress": [],
+      "evidence_required": [
+        "任务 OPS-P3-001 的执行记录",
+        "执行人、执行时间、证据位置",
+        "是否进入下一轮报告的判断",
+        "验收证据：形成一份本周 WIKA 使用复盘。",
+        "验收证据：明确可完全交给 WIKA 的工作和必须人工确认的工作。",
+        "验收证据：未把 WIKA 写成完整业务闭环。"
+      ],
+      "evidence_received": [],
+      "blocked_by": [],
+      "blocker_owner": "",
+      "next_action": "统计本周 WIKA 报告、工作台、预览、草稿使用次数。",
+      "due_window": "后续跟进",
+      "review_frequency": "每周",
+      "handoff_required": false,
+      "manual_confirmation_required": true,
+      "updated_at": "2026-04-21T05:26:17.405Z",
+      "source_report": "WIKA/docs/reports/deliverables/WIKA_正式运营报告包索引.md",
+      "source_evidence": "WIKA/docs/reports/deliverables/evidence/WIKA_正式运营报告包证据.json",
+      "business_task_scope": "通用运营",
+      "boundary_statement": [
+        "not task 1 complete",
+        "not task 2 complete",
+        "not task 3 complete",
+        "not task 4 complete",
+        "not task 5 complete",
+        "task 6 excluded",
+        "no write action attempted",
+        "WIKA-only thread for business work",
+        "XD untouched in business execution",
+        "not full business cockpit"
+      ]
+    },
+    {
+      "task_id": "PROD-P3-001",
+      "task_title": "基于现有订单贡献整理新品方向",
+      "owner_role": "产品运营",
+      "priority": "P3",
+      "support_level": "mostly_supported_needs_human_confirm",
+      "current_status": "ready_to_execute",
+      "status_reason": "WIKA 已提供任务拆解、证据来源和执行步骤，但业务末端仍需人工确认。",
+      "required_inputs": [
+        "现有订单贡献产品",
+        "产品利润判断",
+        "供应链可行性"
+      ],
+      "missing_inputs": [],
+      "execution_steps": [
+        "从订单贡献和重点产品中整理候选新品方向。",
+        "人工确认供应链和利润空间。",
+        "进入产品安全草稿准备层。"
+      ],
+      "acceptance_criteria": [
+        "新品方向均有来源产品或订单信号。",
+        "供应链可行性经过人工确认。",
+        "未把新品建议写成自动上架。"
+      ],
+      "actual_progress": [],
+      "evidence_required": [
+        "任务 PROD-P3-001 的执行记录",
+        "执行人、执行时间、证据位置",
+        "是否进入下一轮报告的判断",
+        "验收证据：新品方向均有来源产品或订单信号。",
+        "验收证据：供应链可行性经过人工确认。",
+        "验收证据：未把新品建议写成自动上架。"
+      ],
+      "evidence_received": [],
+      "blocked_by": [],
+      "blocker_owner": "",
+      "next_action": "从订单贡献和重点产品中整理候选新品方向。",
+      "due_window": "30 天以上",
+      "review_frequency": "每周",
+      "handoff_required": false,
+      "manual_confirmation_required": true,
+      "updated_at": "2026-04-21T05:26:17.405Z",
+      "source_report": "WIKA/docs/reports/deliverables/WIKA_产品优化建议报告.md",
+      "source_evidence": "WIKA/docs/reports/deliverables/evidence/WIKA_正式运营报告包证据.json",
+      "business_task_scope": "任务3",
+      "boundary_statement": [
+        "not task 1 complete",
+        "not task 2 complete",
+        "not task 3 complete",
+        "not task 4 complete",
+        "not task 5 complete",
+        "task 6 excluded",
+        "no write action attempted",
+        "WIKA-only thread for business work",
+        "XD untouched in business execution",
+        "not full business cockpit"
+      ]
+    },
+    {
+      "task_id": "BLOCK-P3-002",
+      "task_title": "保留 task3/task4/task5 写侧最后一跳为人工",
+      "owner_role": "人工接手人员",
+      "priority": "P3",
+      "support_level": "blocked",
+      "current_status": "blocked",
+      "status_reason": "存在 blocked_by 或 support_level=blocked，需要先清障。",
+      "required_inputs": [
+        "测试对象",
+        "rollback/cleanup 路径",
+        "readback 路径",
+        "官方文档与参数契约"
+      ],
+      "missing_inputs": [
+        "缺测试对象",
+        "缺 rollback/cleanup",
+        "缺 stable readback",
+        "测试对象",
+        "rollback/cleanup 路径",
+        "readback 路径",
+        "官方文档与参数契约"
+      ],
+      "execution_steps": [
+        "继续把 task3/task4/task5 保持在外部草稿和人工接手模式。",
+        "任何平台内执行都必须先补齐安全前置条件。",
+        "在任务包中明确最后一跳由人工完成。"
+      ],
+      "acceptance_criteria": [
+        "没有出现自动发布、自动回复、自动创单表述。",
+        "人工接手项清楚列出。",
+        "写侧阻塞条件清楚列出。"
+      ],
+      "actual_progress": [],
+      "evidence_required": [
+        "任务 BLOCK-P3-002 的执行记录",
+        "执行人、执行时间、证据位置",
+        "是否进入下一轮报告的判断",
+        "验收证据：没有出现自动发布、自动回复、自动创单表述。",
+        "验收证据：人工接手项清楚列出。",
+        "验收证据：写侧阻塞条件清楚列出。"
+      ],
+      "evidence_received": [],
+      "blocked_by": [
+        "缺测试对象",
+        "缺 rollback/cleanup",
+        "缺 stable readback"
+      ],
+      "blocker_owner": "人工接手人员",
+      "next_action": "先由 人工接手人员 补齐阻塞项：缺测试对象；缺 rollback/cleanup；缺 stable readback",
+      "due_window": "外部条件到位后",
+      "review_frequency": "每周",
+      "handoff_required": false,
+      "manual_confirmation_required": true,
+      "updated_at": "2026-04-21T05:26:17.405Z",
+      "source_report": "WIKA/docs/reports/deliverables/WIKA_人工接手清单.md",
+      "source_evidence": "WIKA/docs/reports/deliverables/evidence/WIKA_正式运营报告包证据.json",
+      "business_task_scope": "任务3/任务4/任务5",
+      "boundary_statement": [
+        "not task 1 complete",
+        "not task 2 complete",
+        "not task 3 complete",
+        "not task 4 complete",
+        "not task 5 complete",
+        "task 6 excluded",
+        "no write action attempted",
+        "WIKA-only thread for business work",
+        "XD untouched in business execution",
+        "not full business cockpit"
+      ]
+    }
+  ]
+}

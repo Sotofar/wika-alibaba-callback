@@ -1,0 +1,14 @@
+{
+  "description": "复制本文件为 manual-task-status-input.json 后，可按任务 ID 覆盖默认状态。不要把平台内写动作写成已自动完成。",
+  "task_overrides": {
+    "MGMT-P1-001": {
+      "current_status": "in_progress",
+      "status_reason": "示例：负责人已开始执行，等待证据回填。",
+      "actual_progress": [
+        "示例：已完成第一步"
+      ],
+      "evidence_received": [],
+      "next_action": "示例：继续执行并补充证据位置。"
+    }
+  }
+}
