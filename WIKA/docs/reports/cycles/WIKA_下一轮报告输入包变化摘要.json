@@ -1,0 +1,9 @@
+{
+  "generated_at": "2026-04-21T06:30:05.538Z",
+  "changed_from_baseline": false,
+  "baseline_path": "WIKA/docs/tasks/execution/WIKA_下一轮报告输入包.json",
+  "refreshed_path": "WIKA/docs/tasks/execution/WIKA_下一轮报告输入包_本轮刷新.json",
+  "input_status": "NO_INPUT_RECEIVED",
+  "next_report_readiness": "PARTIAL_UNTIL_BLOCKERS_CLEARED",
+  "manual_input_count": 19
+}

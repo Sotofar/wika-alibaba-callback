@@ -1,0 +1,138 @@
+{
+  "generated_at": "2026-04-21T06:30:05.461Z",
+  "input_status": "NO_INPUT_RECEIVED",
+  "count": 6,
+  "blockers": [
+    {
+      "task_id": "ADS-P1-001",
+      "task_title": "导出真实广告样本",
+      "owner_role": "运营负责人",
+      "priority": "P1",
+      "current_status": "blocked",
+      "blocked_by": [
+        "缺真实广告导出样本"
+      ],
+      "missing_inputs": [
+        "缺真实广告导出样本",
+        "date",
+        "campaign_name",
+        "ad_group_name",
+        "keyword",
+        "spend",
+        "impressions",
+        "clicks",
+        "inquiries"
+      ],
+      "blocker_owner": "运营负责人",
+      "next_action": "先由 运营负责人 补齐阻塞项：缺真实广告导出样本；date；campaign_name",
+      "clear_then": "按广告导入模板从平台或第三方报表导出一周样本。"
+    },
+    {
+      "task_id": "PAGE-P1-001",
+      "task_title": "完成首页与重点页面人工盘点",
+      "owner_role": "店铺运营",
+      "priority": "P1",
+      "current_status": "blocked",
+      "blocked_by": [
+        "缺页面人工盘点输入"
+      ],
+      "missing_inputs": [
+        "缺页面人工盘点输入",
+        "首页模块",
+        "主 banner",
+        "重点类目入口",
+        "询盘入口",
+        "B2B 信任信息",
+        "当前观察问题"
+      ],
+      "blocker_owner": "店铺运营",
+      "next_action": "先由 店铺运营 补齐阻塞项：缺页面人工盘点输入；首页模块；主 banner",
+      "clear_then": "按页面人工盘点模板检查首页和重点页面。"
+    },
+    {
+      "task_id": "ADS-P2-001",
+      "task_title": "固定广告样本导入节奏",
+      "owner_role": "运营负责人",
+      "priority": "P2",
+      "current_status": "blocked",
+      "blocked_by": [
+        "缺稳定广告导入承接节奏"
+      ],
+      "missing_inputs": [
+        "缺稳定广告导入承接节奏",
+        "每周广告导出",
+        "字段映射说明",
+        "导入责任人"
+      ],
+      "blocker_owner": "运营负责人",
+      "next_action": "先由 运营负责人 补齐阻塞项：缺稳定广告导入承接节奏；每周广告导出；字段映射说明",
+      "clear_then": "约定每周固定导出时间。"
+    },
+    {
+      "task_id": "MGMT-P3-001",
+      "task_title": "决定是否投入广告数据长期归集",
+      "owner_role": "老板/管理层",
+      "priority": "P3",
+      "current_status": "blocked",
+      "blocked_by": [
+        "需要管理层资源决策"
+      ],
+      "missing_inputs": [
+        "需要管理层资源决策",
+        "广告投入目标",
+        "导出责任人",
+        "周度复盘机制"
+      ],
+      "blocker_owner": "老板/管理层",
+      "next_action": "先由 老板/管理层 补齐阻塞项：需要管理层资源决策；广告投入目标；导出责任人",
+      "clear_then": "评估广告数据归集是否纳入固定运营流程。"
+    },
+    {
+      "task_id": "BLOCK-P3-001",
+      "task_title": "保留官方缺失维度为 blocked",
+      "owner_role": "运营负责人",
+      "priority": "P3",
+      "current_status": "blocked",
+      "blocked_by": [
+        "缺 official 字段",
+        "缺稳定参数契约",
+        "缺真实返回样本"
+      ],
+      "missing_inputs": [
+        "缺 official 字段",
+        "缺稳定参数契约",
+        "缺真实返回样本",
+        "官方字段能力",
+        "稳定参数契约",
+        "真实返回样本"
+      ],
+      "blocker_owner": "运营负责人",
+      "next_action": "先由 运营负责人 补齐阻塞项：缺 official 字段；缺稳定参数契约；缺真实返回样本",
+      "clear_then": "在任务看板中保留 blocked 维度。"
+    },
+    {
+      "task_id": "BLOCK-P3-002",
+      "task_title": "保留 task3/task4/task5 写侧最后一跳为人工",
+      "owner_role": "人工接手人员",
+      "priority": "P3",
+      "current_status": "blocked",
+      "blocked_by": [
+        "缺测试对象",
+        "缺 rollback/cleanup",
+        "缺 stable readback"
+      ],
+      "missing_inputs": [
+        "缺测试对象",
+        "缺 rollback/cleanup",
+        "缺 stable readback",
+        "测试对象",
+        "rollback/cleanup 路径",
+        "readback 路径",
+        "官方文档与参数契约"
+      ],
+      "blocker_owner": "人工接手人员",
+      "next_action": "先由 人工接手人员 补齐阻塞项：缺测试对象；缺 rollback/cleanup；缺 stable readback",
+      "clear_then": "继续把 task3/task4/task5 保持在外部草稿和人工接手模式。"
+    }
+  ]
+}

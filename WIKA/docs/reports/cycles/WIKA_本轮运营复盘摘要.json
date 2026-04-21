@@ -1,0 +1,22 @@
+{
+  "generated_at": "2026-04-21T06:30:05.607Z",
+  "input_status": "NO_INPUT_RECEIVED",
+  "received_count": 0,
+  "accepted_count": 0,
+  "rejected_count": 0,
+  "status_distribution": {
+    "ready_to_execute": 10,
+    "blocked": 6,
+    "waiting_for_input": 3
+  },
+  "blocked_count": 6,
+  "manual_input_count": 19,
+  "next_report_readiness": "PARTIAL_UNTIL_BLOCKERS_CLEARED",
+  "no_fake_data_generated": true,
+  "no_business_write_action": true,
+  "generated_files": {
+    "report": "WIKA/docs/reports/cycles/WIKA_本轮运营复盘.md",
+    "summary": "WIKA/docs/reports/cycles/WIKA_本轮运营复盘摘要.json",
+    "next_tasks": "WIKA/docs/reports/cycles/WIKA_下一轮任务建议.md"
+  }
+}

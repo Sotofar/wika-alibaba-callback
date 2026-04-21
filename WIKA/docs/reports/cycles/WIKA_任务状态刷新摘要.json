@@ -1,0 +1,19 @@
+{
+  "generated_at": "2026-04-21T06:30:05.461Z",
+  "input_status": "NO_INPUT_RECEIVED",
+  "status_distribution": {
+    "ready_to_execute": 10,
+    "blocked": 6,
+    "waiting_for_input": 3
+  },
+  "blocked_count": 6,
+  "manual_input_count": 19,
+  "refreshed_files": [
+    "WIKA/docs/tasks/execution/WIKA_任务执行状态_本轮刷新.json",
+    "WIKA/docs/tasks/execution/WIKA_任务阻塞清单_本轮刷新.json",
+    "WIKA/docs/tasks/execution/WIKA_人工输入需求_本轮刷新.json",
+    "WIKA/docs/tasks/execution/WIKA_任务执行总看板_本轮刷新.md",
+    "WIKA/docs/tasks/execution/WIKA_blocked任务清障看板_本轮刷新.md",
+    "WIKA/docs/tasks/execution/WIKA_本周执行计划_本轮刷新.md"
+  ]
+}

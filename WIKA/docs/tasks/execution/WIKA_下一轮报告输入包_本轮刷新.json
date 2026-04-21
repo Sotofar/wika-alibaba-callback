@@ -1,0 +1,65 @@
+{
+  "generated_at": "2026-04-21T06:30:05.538Z",
+  "input_status": "NO_INPUT_RECEIVED",
+  "purpose": "把 stage49 执行记录和人工输入回流到下一轮 WIKA 运营报告。",
+  "generated_from": "WIKA/docs/tasks/WIKA_运营任务包.json",
+  "input_groups": [
+    {
+      "group": "广告数据",
+      "source_tasks": [
+        "ADS-P1-001",
+        "ADS-P2-001"
+      ],
+      "improves_reports": [
+        "WIKA_广告分析报告",
+        "WIKA_运营周报",
+        "WIKA_经营诊断报告"
+      ],
+      "required_before_next_report": true
+    },
+    {
+      "group": "页面人工盘点",
+      "source_tasks": [
+        "PAGE-P1-001",
+        "STORE-P1-001",
+        "PAGE-P2-001",
+        "STORE-P2-001"
+      ],
+      "improves_reports": [
+        "WIKA_产品优化建议报告",
+        "WIKA_经营诊断报告",
+        "WIKA_店铺执行清单"
+      ],
+      "required_before_next_report": true
+    },
+    {
+      "group": "产品素材与关键词",
+      "source_tasks": [
+        "PROD-P1-001",
+        "PROD-P2-001",
+        "PROD-P3-001"
+      ],
+      "improves_reports": [
+        "WIKA_产品优化建议报告",
+        "WIKA_运营周报"
+      ],
+      "required_before_next_report": true
+    },
+    {
+      "group": "销售/订单人工字段",
+      "source_tasks": [
+        "SALES-P1-001",
+        "HANDOFF-P1-001",
+        "SALES-P2-001"
+      ],
+      "improves_reports": [
+        "WIKA_销售跟单使用清单",
+        "WIKA_人工接手清单",
+        "WIKA_运营周报"
+      ],
+      "required_before_next_report": true
+    }
+  ],
+  "manual_input_count": 19,
+  "next_report_readiness": "PARTIAL_UNTIL_BLOCKERS_CLEARED"
+}
