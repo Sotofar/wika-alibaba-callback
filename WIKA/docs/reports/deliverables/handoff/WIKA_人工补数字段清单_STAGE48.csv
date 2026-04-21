@@ -1,0 +1,12 @@
+﻿input_area,field_name,why_needed,source_owner,expected_format,where_to_store,downstream_report,codex_next_action_after_filled,priority,blocking_level
+ads,real_ads_export_sample,广告报告需要真实投放样本才能判断消耗和效果,ads_owner,CSV or XLSX export,WIKA/docs/reports/inputs/ads/,WIKA_广告分析报告.pdf,生成真实广告样本摘要和异常项,high,blocking_for_ads_analysis
+ads,ads_time_window,避免把不同时间窗口混写,ads_owner,YYYY-MM-DD to YYYY-MM-DD,WIKA/docs/reports/inputs/ads/,WIKA_广告分析报告.pdf,按窗口重算广告摘要,high,blocking_for_ads_analysis
+page_audit,page_manual_audit,页面优化需要人工确认页面内容和问题,store_operator,CSV checklist,WIKA/docs/reports/inputs/page-audit/,WIKA_产品优化建议报告.pdf,生成逐页优化清单,high,blocking_for_page_optimization
+product,product_media_assets,判断素材缺口和补图优先级,product_operator,folder path or asset list,WIKA/docs/reports/inputs/products/,WIKA_产品优化建议报告.pdf,标注素材缺口与补图顺序,high,blocking_for_product_detail
+product,specifications,补齐规格参数和适配场景,product_operator,CSV or markdown table,WIKA/docs/reports/inputs/products/,WIKA_产品优化建议报告.pdf,生成规格驱动的页面建议,high,blocking_for_product_detail
+product,materials,补齐材质和认证信息,product_operator,CSV or markdown table,WIKA/docs/reports/inputs/products/,WIKA_产品优化建议报告.pdf,生成材质卖点建议,medium,enhancement
+product,keyword_review,减少关键词建议中的无证据猜测,product_operator,CSV keyword list,WIKA/docs/reports/inputs/keywords/,WIKA_产品优化建议报告.pdf,修正关键词建议,high,blocking_for_keyword_quality
+sales,final_quote,跟单清单需要人工确认报价,sales_owner,CSV or markdown table,WIKA/docs/reports/inputs/sales/,WIKA_销售跟单使用清单.pdf,生成报价相关跟单建议,high,blocking_for_sales_followup
+sales,delivery_time,跟单需要明确标准交期和样品交期,sales_owner,CSV or markdown table,WIKA/docs/reports/inputs/sales/,WIKA_销售跟单使用清单.pdf,生成交期相关跟单建议,high,blocking_for_sales_followup
+sales,sample_and_buyer_info,判断样品和买家优先级,sales_owner,CSV or markdown table,WIKA/docs/reports/inputs/sales/,WIKA_人工接手清单.pdf,排列人工跟进优先级,high,blocking_for_handoff
+orders,order_terminal_confirmation_fields,订单末端风险需要人工确认,ops_lead,CSV checklist,WIKA/docs/reports/inputs/orders/,WIKA_人工接手清单.pdf,生成订单末端人工处理清单,high,blocking_for_order_handoff

@@ -1018,3 +1018,20 @@
 - 进入业务分发、人工补数和固定周期复跑。
 - 不再重复生成 PDF，不再反复确认报告是否存在。
 - 若后续仍需优化 degraded route，只能单独开 runtime 性能优化任务，不能混入报告包分发闭环。
+
+## 2026-04-21 Stage 48 正式运营报告包运营化
+
+### 当前阶段
+- 阶段 48：报告包分发闭环、人工补数闭环、线上 degraded 合理降级收口、正式复跑 Runbook。
+
+### 已完成
+- 已新增分发说明、角色分发矩阵和发送话术。
+- 已新增人工补数总表、字段清单和人工接手执行说明。
+- 已将 `operator-console.task_workbench`、`action-center.store_diagnostic`、`action-center.order_diagnostic` 收口为 `DEGRADED_ACCEPTED_WITH_REASON`。
+- 已新增正式运营报告包 Runbook 和复跑检查脚本。
+- 已新增 stage48 结构化证据。
+
+### 当前唯一下一步
+- 进入业务分发、人工补数和固定周期复跑。
+- 不再重复生成 PDF，不再反复确认报告是否存在。
+- 若后续仍需优化 degraded route，只能单独开 runtime 性能优化任务，不能混入报告包分发闭环。

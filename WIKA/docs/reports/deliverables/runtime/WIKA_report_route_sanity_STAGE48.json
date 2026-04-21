@@ -1,0 +1,51 @@
+﻿{
+  "stage": "stage48-wika-report-package-operationalization",
+  "generated_at": "2026-04-21T00:00:00.000Z",
+  "source": "stage48_precheck_live_sanity",
+  "runtime_code_changed": false,
+  "closure_status": "DEGRADED_ACCEPTED_WITH_REASON",
+  "routes": {
+    "business_cockpit": {
+      "route": "/integrations/alibaba/wika/reports/business-cockpit",
+      "http_status": 200,
+      "classification": "PASS",
+      "degraded_sections": [],
+      "evidence_summary": "HTTP 200 JSON response with no degraded sections observed in stage48 precheck."
+    },
+    "operator_console": {
+      "route": "/integrations/alibaba/wika/reports/operator-console",
+      "http_status": 200,
+      "classification": "PASS_WITH_ACCEPTED_DEGRADED",
+      "degraded_sections": [
+        {
+          "section": "task_workbench",
+          "reason": "time_budget_exceeded",
+          "budget_ms": 9000,
+          "accepted_reason": "The route returns HTTP 200 JSON with base sections and explicit degraded metadata; the slow section does not block report package distribution."
+        }
+      ],
+      "evidence_summary": "HTTP 200 JSON response observed with partial_status mode degraded and task_workbench over time budget."
+    },
+    "action_center": {
+      "route": "/integrations/alibaba/wika/reports/action-center",
+      "http_status": 200,
+      "classification": "PASS_WITH_ACCEPTED_DEGRADED",
+      "degraded_sections": [
+        {
+          "section": "store_diagnostic",
+          "reason": "time_budget_exceeded",
+          "budget_ms": 7000,
+          "accepted_reason": "The route returns HTTP 200 JSON with base sections and explicit degraded metadata; the slow section does not block report package distribution."
+        },
+        {
+          "section": "order_diagnostic",
+          "reason": "time_budget_exceeded",
+          "budget_ms": 7000,
+          "accepted_reason": "The route returns HTTP 200 JSON with base sections and explicit degraded metadata; the slow section does not block report package distribution."
+        }
+      ],
+      "evidence_summary": "HTTP 200 JSON response observed with partial_status mode degraded and store_diagnostic/order_diagnostic over time budget."
+    }
+  },
+  "next_action": "Do not block distribution. Open a separate runtime performance task only if business users require faster interactive online routes."
+}

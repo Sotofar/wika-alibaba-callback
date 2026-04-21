@@ -106,3 +106,40 @@
 - WIKA-only thread for business work
 - XD untouched in business execution
 - not full business cockpit
+
+## Stage48 正式运营报告包运营化闭环
+
+Stage48 不重新生成报告包，不重新导出 PDF。当前新增的是分发、人工补数、线上 degraded 合理降级、正式复跑 Runbook 与验证脚本，使 stage47 报告包从文件交付进入正式运营分发 / 执行状态。
+
+### 新增分发资产
+
+- `distribution/WIKA_报告包分发说明_STAGE48.md`
+- `distribution/WIKA_角色分发矩阵_STAGE48.csv`
+- `distribution/WIKA_报告包发送话术_STAGE48.md`
+
+### 新增人工补数资产
+
+- `handoff/WIKA_人工补数总表_STAGE48.md`
+- `handoff/WIKA_人工补数字段清单_STAGE48.csv`
+- `handoff/WIKA_人工接手执行说明_STAGE48.md`
+
+### 新增 runtime 收口资产
+
+- `runtime/WIKA_report_route_degraded_closure_STAGE48.md`
+- `runtime/WIKA_report_route_sanity_STAGE48.json`
+
+### 新增复跑资产
+
+- `WIKA_正式运营报告包_Runbook_STAGE48.md`
+- `WIKA/scripts/run-wika-operational-report-package-stage48.js`
+- `WIKA/scripts/validate-wika-operational-report-package-stage48.js`
+- `evidence/WIKA_正式运营报告包_STAGE48证据.json`
+
+### Stage48 收口结论
+
+- 8 份 Markdown 和 8 份仓库 PDF 继续作为 stage47 正式交付基线。
+- 当前桌面副本检查在本环境记录为 `MISSING_IN_CURRENT_DESKTOP_ENV_REPO_PDFS_PRESENT`，不阻塞仓库报告包分发。
+- `business-cockpit` 为 `PASS`。
+- `operator-console` 的 `task_workbench` 被收口为 `DEGRADED_ACCEPTED_WITH_REASON`。
+- `action-center` 的 `store_diagnostic` 和 `order_diagnostic` 被收口为 `DEGRADED_ACCEPTED_WITH_REASON`。
+- degraded 不阻塞报告包分发；后续只有需要进一步提升线上交互体验时，才单独开 runtime 性能优化任务。

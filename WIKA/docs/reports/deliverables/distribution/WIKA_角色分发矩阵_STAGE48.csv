@@ -1,0 +1,8 @@
+﻿role,primary_pdf,secondary_pdf,purpose,key_sections_to_read,action_expected,manual_inputs_needed,caveats,follow_up_owner
+boss_management,WIKA_管理层简报.pdf,WIKA_经营诊断报告.pdf,判断报告包是否进入正式业务分发节奏,执行摘要;当前边界;下一步建议,确认是否按周固定分发,关键人工补数优先级,不是完整 business cockpit;task1-5 not complete,ops_lead
+ops_lead,WIKA_运营周报.pdf,WIKA_经营诊断报告.pdf,组织运营复盘和下周执行,订单摘要;商品摘要;执行建议,拆解下周运营动作,页面盘点输入;广告导出样本,当前页和已读范围限制;不含全量 GMV,store_operator
+store_operator,WIKA_店铺执行清单.pdf,WIKA_运营周报.pdf,把报告建议转成店铺执行动作,执行清单;异常项;需人工确认项,逐项确认可执行事项,页面人工盘点;关键词校对,建议不是已执行优化;不得触发写侧动作,ops_lead
+product_operator,WIKA_产品优化建议报告.pdf,WIKA_人工接手清单.pdf,补齐产品页优化所需输入,素材缺口;规格材质;关键词,补充产品素材和页面信息,产品素材;规格;材质;关键词校对,无人工输入时只能作为优化方向,ops_lead
+sales_followup,WIKA_销售跟单使用清单.pdf,WIKA_人工接手清单.pdf,支持销售和跟单人工确认,买家/订单待确认项;跟单动作,补齐报价交期样品和买家信息,最终报价;交期;样品;买家信息,不得自动发送消息或修改订单,sales_owner
+human_handoff,WIKA_人工接手清单.pdf,WIKA_人工补数总表_STAGE48.md,承接所有必须人工补齐的字段,人工补数字段;阻塞级别;后续动作,按字段清单补数并回填,全部高优先级人工补数字段,人工补数前不要把报告写成完整闭环,handoff_owner
+ads_owner,WIKA_广告分析报告.pdf,WIKA_人工补数总表_STAGE48.md,补齐广告报告的真实投放输入,广告样本边界;需补字段,导出真实广告样本,广告消耗;展示;点击;转化等真实导出,未补样本前不能判断 ROI 或广告效果,ops_lead
