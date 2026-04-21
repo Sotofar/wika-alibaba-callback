@@ -1,0 +1,7 @@
+backlog_id,source,request,category,priority,can_do_now,requires_feedback,requires_manual_input,requires_new_data_source,unsafe_or_out_of_scope,target_report,proposed_stage,next_action
+BL-001,reception_audit,补齐6个角色真实联系人,waiting_item,P1,false,true,false,false,false,distribution,stage53,等待运营负责人补齐联系人
+BL-002,reception_audit,人工发送6个角色最终消息,waiting_item,P1,false,true,false,false,false,distribution,stage53,联系人补齐后由人工发送
+BL-003,feedback_triage,回收至少一条真实反馈,waiting_item,P1,false,true,false,false,false,all_reports,stage53,催收业务反馈
+BL-004,manual_intake,回收至少一类人工补数,waiting_item,P1,false,false,true,false,false,manual_input_reports,stage53,催收人工补数
+BL-005,guardrail,没有真实反馈/补数前不得修改报告正文,boundary,P1,false,true,true,false,false,all_reports,stage53,等待真实输入
+BL-006,guardrail,GMV/转化率/国家结构/完整经营诊断需要新数据源,boundary,P2,false,false,false,true,false,all_reports,future_external_evidence,仅在外部新证据出现后重开

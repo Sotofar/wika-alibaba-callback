@@ -1291,3 +1291,32 @@
 - WIKA-only thread for business work
 - XD untouched in business execution
 - not full business cockpit
+## 2026-04-21 Stage 52 反馈与人工补数 triage 基线
+
+### current status
+
+- stage51 已提供可人工发送、可登记收件人、可排期、可反馈 triage、可补数验收的执行系统。
+- stage52 读取 stage51 反馈模板和补数登记表后确认：当前没有真实反馈，也没有真实补数。
+- 本轮没有重新生成 PDF，没有修改报告正文，没有新增 API，没有新增 route，没有触碰 XD，没有做任何业务写侧动作。
+
+### fixed conclusion
+
+- 当前尚未满足报告改版条件。
+- 6 个角色仍缺真实联系人，发送状态为 `NOT_SENT`。
+- feedback triage 结果为 `NO_REAL_FEEDBACK_YET`。
+- manual intake validation 结果为 `NO_REAL_MANUAL_INPUT_YET`。
+- revision readiness 为 `NOT_READY`。
+
+### continuing boundaries
+
+- not task 1 complete
+- not task 2 complete
+- not task 3 complete
+- not task 4 complete
+- not task 5 complete
+- task 6 excluded
+- no write action attempted
+- no real message sent by Codex
+- WIKA-only thread for business work
+- XD untouched in business execution
+- not full business cockpit

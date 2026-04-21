@@ -1135,3 +1135,25 @@
 - 将真实反馈填入反馈录入模板。
 - 将真实补数文件登记到 intake registry。
 - 只有真实反馈或有效补数出现后，才进入 stage52 反馈 triage 与报告改版。
+## 2026-04-21 Stage 52 反馈与人工补数 triage 计划收口
+
+### 当前阶段
+
+- 阶段 52：接收状态审计、feedback triage、manual intake validation、催收材料、报告改版条件判断和等待项 backlog。
+
+### 已完成
+
+- 已生成分发接收状态审计和 6 个角色发送状态 CSV。
+- 已运行 feedback triage，确认真实反馈数量为 `0`。
+- 已运行 manual intake validation，确认 received 数量为 `0`，waiting owner 数量为 `5`。
+- 已生成联系人、反馈和人工补数催收话术。
+- 已生成报告改版条件判断，当前为 `NOT_READY`。
+- 已生成下一版改版 backlog，但仅包含等待项和准备项。
+- 已生成 stage52 untracked inventory 和 stage52 evidence。
+
+### 当前唯一下一步
+
+- 先补齐真实联系人并由人工发送 6 个角色消息。
+- 回收真实反馈和人工补数。
+- 只有出现真实反馈或有效补数后，才进入报告改版任务。
+- 当前不应继续扩展报告体系，不应修改报告正文，不应重复生成 PDF。

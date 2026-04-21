@@ -1,0 +1,22 @@
+{
+  "stage": "stage51-wika-distribution-dispatch-and-feedback-intake-automation",
+  "dry_run": true,
+  "registry_status": "REGISTRY_PARSED",
+  "missing_required_columns": [],
+  "intake_count": 5,
+  "received_count": 0,
+  "waiting_owner_count": 5,
+  "accepted_count": 0,
+  "needs_revision_count": 0,
+  "by_input_area": {
+    "ads": 1,
+    "page_audit": 1,
+    "product_assets": 1,
+    "sales_followup": 1,
+    "order_terminal": 1
+  },
+  "next_action": "WAIT_FOR_MANUAL_INPUT_FILES",
+  "no_external_api_called": true,
+  "no_message_sent": true,
+  "no_business_write_action": true
+}

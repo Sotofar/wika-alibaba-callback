@@ -1950,3 +1950,61 @@
   - 6 个角色仍缺真实联系人，状态保持 `WAITING_FOR_RECIPIENT`。
   - 下一步最短业务动作是补齐真实联系人并由人工发送消息；发送后回填反馈与补数，再进入 stage52。
   - 当前不应继续生成 PDF、反复确认 stage47-stage50，或在没有真实反馈和人工补数前扩展报告体系。
+### WIKA 阶段 52：反馈与人工补数 triage
+
+- 起始 commit：`29ddcba stage51 wika dispatch and intake automation`
+- 本轮没有重新生成 PDF，没有实际发送消息，没有调用外部通讯工具，没有新增 API，没有新增 route，没有触碰 XD。
+- 本轮新增：
+  - 分发接收状态审计
+  - 6 个角色发送状态 CSV
+  - feedback triage stage52 结果 JSON 与摘要
+  - manual intake validation stage52 结果 JSON 与摘要
+  - 联系人、反馈、人工补数催收话术
+  - 下一步人工动作清单
+  - 报告改版条件判断
+  - 下一版改版 backlog
+  - stage52 untracked inventory
+  - stage52 evidence
+  - stage52 验证脚本
+- 当前结果：
+  - 真实反馈数量：`0`
+  - 真实补数数量：`0`
+  - 角色联系人：6 个均 `WAITING_FOR_RECIPIENT`
+  - 报告改版条件：`NOT_READY`
+- 当前收口结论：
+  - 当前尚未满足报告改版条件。
+  - 下一步最短业务动作是补齐真实联系人、人工发送 6 个角色消息、回收反馈与补数。
+  - 当前不应修改报告正文，不应扩展报告体系，不应重新生成 PDF。
+### WIKA 阶段 51：运营周期运行与复盘
+
+- 实际起始 commit：`29ddcba328c914ff0270651340d5b79235e1bf29`
+- 本轮性质：运行现有运营闭环，不新增 API，不做平台写侧，不推进任务 6。
+- 人工输入检查结果：`NO_INPUT_RECEIVED`
+- 本轮新增/刷新：
+  - `WIKA/docs/tasks/input-inbox/WIKA_人工输入回填使用说明.md`
+  - `WIKA/docs/tasks/input-inbox/WIKA_人工输入验收结果.json`
+  - `WIKA/docs/tasks/input-inbox/WIKA_人工输入标准化结果.json`
+  - `WIKA/docs/tasks/execution/WIKA_任务执行状态_本轮刷新.json`
+  - `WIKA/docs/tasks/execution/WIKA_任务阻塞清单_本轮刷新.json`
+  - `WIKA/docs/tasks/execution/WIKA_人工输入需求_本轮刷新.json`
+  - `WIKA/docs/tasks/execution/WIKA_下一轮报告输入包_本轮刷新.json`
+  - `WIKA/docs/tasks/execution/WIKA_任务执行总看板_本轮刷新.md`
+  - `WIKA/docs/tasks/execution/WIKA_blocked任务清障看板_本轮刷新.md`
+  - `WIKA/docs/tasks/execution/WIKA_本周执行计划_本轮刷新.md`
+  - `WIKA/docs/reports/cycles/WIKA_本轮运营复盘.md`
+  - `WIKA/docs/reports/cycles/WIKA_本轮运营复盘摘要.json`
+  - `WIKA/docs/reports/cycles/WIKA_下一轮任务建议.md`
+- 当前任务状态保持：`ready_to_execute=10`、`blocked=6`、`waiting_for_input=3`。
+- 当前 blocked 未清障：广告真实样本、页面人工盘点、广告导入节奏、官方缺失维度、写侧测试/回滚/readback 条件。
+- 下一轮报告输入包语义无新增变化，仍为 `PARTIAL_UNTIL_BLOCKERS_CLEARED`。
+- 边界继续保持：
+  - not task 1 complete
+  - not task 2 complete
+  - not task 3 complete
+  - not task 4 complete
+  - not task 5 complete
+  - task 6 excluded
+  - no write action attempted
+  - WIKA-only thread for business work
+  - XD untouched in business execution
+  - not full business cockpit
