@@ -1,0 +1,2 @@
+﻿"campaign_name","ad_group_name","keyword","problem","suggested_action","reason","owner","acceptance_criteria","data_required"
+"待导入后判断","待导入后判断","待导入后判断","缺真实广告样本","先补数据，不做效果结论","未收到真实 spend/impressions/clicks/inquiries","广告投放负责人","真实样本通过导入校验","date/campaign/ad_group/keyword/spend/impressions/clicks/inquiries"

@@ -1,0 +1,105 @@
+{
+  "generated_at": "2026-04-22T02:06:04.963Z",
+  "total_score": 40,
+  "max_score": 40,
+  "delivery_threshold": 34,
+  "passed": true,
+  "vetoes": [],
+  "dimensions": [
+    {
+      "name": "业务可读性",
+      "score": 5,
+      "reason": "所有主文件按角色和运营问题组织，先讲结论与动作。"
+    },
+    {
+      "name": "可执行性",
+      "score": 5,
+      "reason": "任务均包含步骤、负责人、输入和验收标准。"
+    },
+    {
+      "name": "角色分工清晰度",
+      "score": 5,
+      "reason": "老板、运营、店铺、产品、销售、人工接手均有独立文件。"
+    },
+    {
+      "name": "输入要求清晰度",
+      "score": 5,
+      "reason": "广告、页面、产品、销售、订单补数均有模板和责任表。"
+    },
+    {
+      "name": "运营专业度",
+      "score": 5,
+      "reason": "围绕阿里国际站 B2B 运营、询盘、产品详情、直通车、首页承接组织。"
+    },
+    {
+      "name": "报告与任务一致性",
+      "score": 5,
+      "reason": "从 stage47 报告包、stage48/49 任务和执行状态派生。"
+    },
+    {
+      "name": "边界表达清晰度",
+      "score": 5,
+      "reason": "明确不写侧、不伪造广告和页面行为、不把 preview 当闭环。"
+    },
+    {
+      "name": "桌面交付完整性",
+      "score": 5,
+      "reason": "Markdown / CSV / JSON 均复制到桌面 WIKA 文件夹。"
+    }
+  ],
+  "repository_directory": "WIKA\\docs\\operations-package",
+  "desktop_directory": "C:\\Users\\Jone\\Desktop\\WIKA",
+  "pdf_generation": {
+    "ok": true,
+    "desktop_dir": "C:\\Users\\Jone\\Desktop\\WIKA",
+    "exported": [
+      {
+        "source": "WIKA\\docs\\operations-package\\WIKA_רҵ��Ӫ����.md",
+        "repo_pdf": "WIKA\\docs\\operations-package\\pdf\\WIKA_רҵ��Ӫ����.pdf",
+        "desktop_pdf": "C:\\Users\\Jone\\Desktop\\WIKA\\WIKA_רҵ��Ӫ����.pdf",
+        "repo_size": 7343,
+        "desktop_size": 7343
+      },
+      {
+        "source": "WIKA\\docs\\operations-package\\WIKA_�ϰ�������.md",
+        "repo_pdf": "WIKA\\docs\\operations-package\\pdf\\WIKA_�ϰ�������.pdf",
+        "desktop_pdf": "C:\\Users\\Jone\\Desktop\\WIKA\\WIKA_�ϰ�������.pdf",
+        "repo_size": 5654,
+        "desktop_size": 5654
+      },
+      {
+        "source": "WIKA\\docs\\operations-package\\WIKA_��Ӫ�������ܼƻ�.md",
+        "repo_pdf": "WIKA\\docs\\operations-package\\pdf\\WIKA_��Ӫ�������ܼƻ�.pdf",
+        "desktop_pdf": "C:\\Users\\Jone\\Desktop\\WIKA\\WIKA_��Ӫ�������ܼƻ�.pdf",
+        "repo_size": 12736,
+        "desktop_size": 12736
+      },
+      {
+        "source": "WIKA\\docs\\operations-package\\WIKA_��Ʒ�Ż�����.md",
+        "repo_pdf": "WIKA\\docs\\operations-package\\pdf\\WIKA_��Ʒ�Ż�����.pdf",
+        "desktop_pdf": "C:\\Users\\Jone\\Desktop\\WIKA\\WIKA_��Ʒ�Ż�����.pdf",
+        "repo_size": 6231,
+        "desktop_size": 6231
+      },
+      {
+        "source": "WIKA\\docs\\operations-package\\WIKA_ֱͨ�����ݵ�����Ͷ�ŵ�����.md",
+        "repo_pdf": "WIKA\\docs\\operations-package\\pdf\\WIKA_ֱͨ�����ݵ�����Ͷ�ŵ�����.pdf",
+        "desktop_pdf": "C:\\Users\\Jone\\Desktop\\WIKA\\WIKA_ֱͨ�����ݵ�����Ͷ�ŵ�����.pdf",
+        "repo_size": 5335,
+        "desktop_size": 5335
+      },
+      {
+        "source": "WIKA\\docs\\operations-package\\WIKA_��Ӫ�����ܿ���.md",
+        "repo_pdf": "WIKA\\docs\\operations-package\\pdf\\WIKA_��Ӫ�����ܿ���.pdf",
+        "desktop_pdf": "C:\\Users\\Jone\\Desktop\\WIKA\\WIKA_��Ӫ�����ܿ���.pdf",
+        "repo_size": 11119,
+        "desktop_size": 11119
+      }
+    ]
+  },
+  "validation": {
+    "missing_repository_files": [],
+    "missing_desktop_files": [],
+    "missing_or_empty_pdf_files": []
+  }
+}
